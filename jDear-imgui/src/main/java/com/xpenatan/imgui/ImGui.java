@@ -2,7 +2,10 @@ package com.xpenatan.imgui;
 
 import java.nio.ByteBuffer;
 
-public class ImGui<T extends DrawData> {
+import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
+
+
+public class ImGui {
 
 	public static boolean enableLogging = true;
 	private static boolean IMGUIINIT = false;
@@ -15,65 +18,62 @@ public class ImGui<T extends DrawData> {
 	public static void init (boolean logging) {
 		if(ImGui.IMGUIINIT)
 			return;
+		new JniGenSharedLibraryLoader().load("gdx-imgui");
 		ImGui.IMGUIINIT = true;
 		ImGui.enableLogging = logging;
+
+		ImGuiNative.CreateContext();
 	}
 
-	protected T drawData;
+	private static DrawData drawData = new DrawData(100000, 100000, 1000);
 
-	public ImGui() {
-		this((T) new DrawData(10000,10000,10000));
+	private  ImGui() {
 	}
 
-	public ImGui(T drawData) {
-		this.drawData = drawData;
-		ImGuiNative.createContext();
-		drawData.prepareFont();
+
+	public static void Begin(String title) {
+		ImGuiNative.Begin(title);
 	}
 
-	public void begin(String title) {
-		ImGuiNative.begin(title);
+	public static void End()  {
+		ImGuiNative.End();
 	}
 
-	public void end()  {
-		ImGuiNative.end();
+	public static void ShowDemoWindow(boolean open)  {
+		ImGuiNative.ShowDemoWindow(open);
 	}
 
-	public void showDemoWindow(boolean open)  {
-		ImGuiNative.showDemoWindow(open);
-	}
-
-	public void updateDisplayAndInputAndFrame(float deltaTime, float w, float h, float backBufferWidth, float backBufferHeight,
+	public static void UpdateDisplayAndInputAndFrame(float deltaTime, float w, float h, float backBufferWidth, float backBufferHeight,
 			int mouseX, int mouseY, boolean mouseDown0, boolean mouseDown1, boolean mouseDown2)  {
-		ImGuiNative.updateDisplayAndInputAndFrame(deltaTime, w, h, backBufferWidth, backBufferHeight,
+		ImGuiNative.UpdateDisplayAndInputAndFrame(deltaTime, w, h, backBufferWidth, backBufferHeight,
 				mouseX, mouseY, mouseDown0, mouseDown1, mouseDown2, false, false, false);
 	}
 
-	public void text(String text) {
-		ImGuiNative.text(text);
+	public static void Text(String text) {
+		ImGuiNative.Text(text);
 	}
 
-	public void render() {
-		ImGuiNative.render();
+	public static void Render() {
+		ImGuiNative.Render();
 	}
 
-	public T getDrawData() {
+	public static DrawData GetDrawData() {
 		ByteBuffer cmdByteBuffer = drawData.cmdByteBuffer;
 		ByteBuffer vByteBuffer = drawData.vByteBuffer;
 		ByteBuffer iByteBuffer = drawData.iByteBuffer;
 		vByteBuffer.position(0);
 		iByteBuffer.position(0);
 		cmdByteBuffer.position(0);
-		ImGuiNative.getDrawData(drawData, iByteBuffer, vByteBuffer, cmdByteBuffer);
+		ImGuiNative.GetDrawData(drawData, iByteBuffer, vByteBuffer, cmdByteBuffer);
 		return drawData;
 	}
 
-	public void setNextWindowSize(int width, int height) {
-		ImGuiNative.setNextWindowSize(width, height);
+	public static void SetNextWindowSize(int width, int height) {
+		ImGuiNative.SetNextWindowSize(width, height);
 	}
 
-	public void setNextWindowPos(int x, int y) {
-		ImGuiNative.setNextWindowPos(x, y);
+	public static void SetNextWindowPos(int x, int y) {
+		ImGuiNative.SetNextWindowPos(x, y);
 	}
 
 
@@ -81,60 +81,108 @@ public class ImGui<T extends DrawData> {
 	// - By "cursor" we mean the current output position.
 	// - The typical widget behavior is to output themselves at the current cursor position, then move the cursor one line down.
 
-	public void separator() {
-		ImGuiNative.separator();
+	public static void Separator() {
+		ImGuiNative.Separator();
 	}
 
-	public void sameLine() {
-		ImGuiNative.sameLine();
+	public static void SameLine() {
+		ImGuiNative.SameLine();
 	}
 
-	public void sameLine(float offsetFromStartX, float spacing) {
-		ImGuiNative.sameLine(offsetFromStartX, spacing);
+	public static void SameLine(float offsetFromStartX, float spacing) {
+		ImGuiNative.SameLine(offsetFromStartX, spacing);
 	}
 
-	public void newLine() {
-		ImGuiNative.newLine();
+	public static void NewLine() {
+		ImGuiNative.NewLine();
 	}
 
-	public void spacing() {
-		ImGuiNative.spacing();
+	public static void Spacing() {
+		ImGuiNative.Spacing();
 	}
 
-	public void dummy(float width, float height) {
-		ImGuiNative.dummy(width, height);
+	public static void Dummy(float width, float height) {
+		ImGuiNative.Dummy(width, height);
 	}
 
-	public void indent() {
-		ImGuiNative.indent();
+	public static void Indent() {
+		ImGuiNative.Indent();
 	}
 
-	public void indent(float indentW) {
-		ImGuiNative.indent(indentW);
+	public static void Indent(float indentW) {
+		ImGuiNative.Indent(indentW);
 	}
 
-	public void unindent() {
-		ImGuiNative.unindent();
+	public static void Unindent() {
+		ImGuiNative.Unindent();
 	}
 
-	public void unindent(float indentW) {
-		ImGuiNative.unindent(indentW);
+	public static void Unindent(float indentW) {
+		ImGuiNative.Unindent(indentW);
 	}
 
-	public void beginGroup() {
-		ImGuiNative.beginGroup();
+	public static void BeginGroup() {
+		ImGuiNative.BeginGroup();
 	}
 
-	public void endGroup() {
-		ImGuiNative.endGroup();
+	public static void EndGroup() {
+		ImGuiNative.EndGroup();
 	}
 
-	public float getCursorPosX() {
-		return ImGuiNative.getCursorPosX();
+	public static void GetCursorPos() {
+		//TODO impl
 	}
 
-	public float getCursorPosY() {
-		return ImGuiNative.getCursorPosY();
+	public static float GetCursorPosX() {
+		return ImGuiNative.GetCursorPosX();
+	}
+
+	public static float GetCursorPosY() {
+		return ImGuiNative.GetCursorPosY();
+	}
+
+	public static void SetCursorPos(float x, float y) {
+		ImGuiNative.SetCursorPos(x, y);
+	}
+
+	public static void SetCursorPosX(float x) {
+		ImGuiNative.SetCursorPosX(x);
+	}
+
+	public static void SetCursorPosY(float y) {
+		ImGuiNative.SetCursorPosY(y);
+	}
+
+	public static void GetCursorStartPos() {
+		//TODO impl
+	}
+
+	public static void GetCursorScreenPos() {
+		//TODO impl
+	}
+
+	public static void SetCursorScreenPos(float x, float y) {
+		ImGuiNative.SetCursorScreenPos(x, y);
+	}
+
+	public static void AlignTextToFramePadding() {
+		ImGuiNative.AlignTextToFramePadding();
+	}
+
+	public static float GetTextLineHeight() {
+		return ImGuiNative.GetTextLineHeight();
+	}
+
+	public static float GetTextLineHeightWithSpacing() {
+		return ImGuiNative.GetTextLineHeightWithSpacing();
+	}
+
+	public static float GetFrameHeight() {
+		return ImGuiNative.GetFrameHeight();
+	}
+
+	public static float GetFraGetFrameHeightWithSpacingmeHeight() {
+		return ImGuiNative.GetFrameHeightWithSpacing();
 	}
 
 	// Widgets: Main
@@ -143,58 +191,58 @@ public class ImGui<T extends DrawData> {
 	/**
 	 * button
 	 */
-	public boolean button(String label) {
-		return ImGuiNative.button(label);
+	public static boolean Button(String label) {
+		return ImGuiNative.Button(label);
 	}
 
 	/**
 	 * button
 	 */
-	public boolean button(String label, float width, float height) {
-		return ImGuiNative.button(label, width, height);
+	public static boolean Button(String label, float width, float height) {
+		return ImGuiNative.Button(label, width, height);
 	}
 
 	/**
 	 * button with FramePadding=(0,0) to easily embed within text
 	 */
-	public boolean smallButton(String label) {
-		return ImGuiNative.smallButton(label);
+	public static boolean SmallButton(String label) {
+		return ImGuiNative.SmallButton(label);
 	}
 
 	/**
 	 * button behavior without the visuals, frequently useful to build custom behaviors using the public api (along with IsItemActive, IsItemHovered, etc.)
 	 */
-	public boolean invisibleButton(String strId, float width, float height) {
-		return ImGuiNative.invisibleButton(strId, width, height);
+	public static boolean InvisibleButton(String strId, float width, float height) {
+		return ImGuiNative.InvisibleButton(strId, width, height);
 	}
 
 	/**
 	 * square button with an arrow shape
 	 */
-	public boolean arrowButton(String strId, ImGuiDir dir) {
-		return ImGuiNative.arrowButton(strId, dir.toInt());
+	public static boolean ArrowButton(String strId, ImGuiDir dir) {
+		return ImGuiNative.ArrowButton(strId, dir.toInt());
 	}
 
 	//TODO Image and ImageButton
 
-	public boolean checkbox(String label, ImGuiBoolean value) {
-		return ImGuiNative.checkbox(label, value.data);
+	public static boolean Checkbox(String label, ImGuiBoolean value) {
+		return ImGuiNative.Checkbox(label, value.data);
 	}
 
-	public boolean checkboxFlags(String label, ImGuiInputTextFlags flags, int flagsValue) {
-		return ImGuiNative.checkboxFlags(label, flags.data, flagsValue);
+	public static boolean CheckboxFlags(String label, ImGuiInputTextFlags flags, int flagsValue) {
+		return ImGuiNative.CheckboxFlags(label, flags.data, flagsValue);
 	}
 
-	public boolean radioButton(String label, boolean active) {
-		return ImGuiNative.radioButton(label, active);
+	public static boolean RadioButton(String label, boolean active) {
+		return ImGuiNative.RadioButton(label, active);
 	}
 
-	public boolean radioButton(String label, ImGuiInt value, int v_button) {
-		return ImGuiNative.radioButton(label, value.data, v_button);
+	public static boolean RadioButton(String label, ImGuiInt value, int v_button) {
+		return ImGuiNative.RadioButton(label, value.data, v_button);
 	}
 
-	public void bullet() {
-		ImGuiNative.bullet();
+	public static void Bullet() {
+		ImGuiNative.Bullet();
 	}
 
 }

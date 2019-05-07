@@ -1,7 +1,6 @@
 package com.xpenatan.imgui.gdx;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes;
@@ -12,8 +11,9 @@ import com.xpenatan.imgui.DrawData;
 import com.xpenatan.imgui.ImGuiNative;
 import com.xpenatan.imgui.TexDataRGBA32;
 
-public class GdxDrawData extends DrawData {
+public class GdxImGuiRenderer {
 
+	private boolean fontInit = false;
 	private VertexAttributes vertexAttributes;
 
 	int vbufferHandle;
@@ -33,16 +33,12 @@ public class GdxDrawData extends DrawData {
 			+ "uniform sampler2D Texture;\n" + "varying vec2 Frag_UV;\n" + "varying vec4 Frag_Color;\n"
 			+ "void main()\n" + "{\n" + "    gl_FragColor = Frag_Color * texture2D(Texture, Frag_UV.st);\n" + "}\n";
 
-	public GdxDrawData() {
-		super(100000, 100000, 1000);
+	public GdxImGuiRenderer() {
 
 		vertexAttributes = new VertexAttributes(new VertexAttribute[] {
 				new VertexAttribute(Usage.Position, 2, GL20.GL_FLOAT, false, "Position"),
 				new VertexAttribute(Usage.TextureCoordinates, 2, GL20.GL_FLOAT, false, "UV"),
 				new VertexAttribute(Usage.ColorPacked, 4, GL20.GL_UNSIGNED_BYTE, true, "Color") });
-
-		vbufferHandle = Gdx.gl20.glGenBuffer();
-		ibufferHandle = createBufferObject();
 
 		shader = new ShaderProgram(vertex_shader_glsl_130, fragment_shader_glsl_130);
 		if (shader.isCompiled() == false) {
@@ -50,12 +46,12 @@ public class GdxDrawData extends DrawData {
 			Gdx.app.exit();
 		}
 
+		prepareFont();
 	}
 
-	@Override
-	protected void prepareFont() {
+	private void prepareFont() {
 		TexDataRGBA32 texData = new TexDataRGBA32();
-		ImGuiNative.getTexDataAsRGBA32(texData, texData.pixelBuffer);
+		ImGuiNative.GetTexDataAsRGBA32(texData, texData.pixelBuffer);
 
 		g_FontTexture = Gdx.gl.glGenTexture();
 
@@ -67,74 +63,80 @@ public class GdxDrawData extends DrawData {
 		Gdx.gl.glTexImage2D(GL20.GL_TEXTURE_2D, 0, GL20.GL_RGBA, texData.width, texData.height, 0, GL20.GL_RGBA,
 				GL20.GL_UNSIGNED_BYTE, texData.pixelBuffer);
 
-		ImGuiNative.setFontTexID(g_FontTexture);
+		ImGuiNative.SetFontTexID(g_FontTexture);
 
 	}
 
-	private int createBufferObject() {
-		int result = Gdx.gl20.glGenBuffer();
-		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, result);
-		Gdx.gl20.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, iByteBuffer.capacity(), null, GL20.GL_STATIC_DRAW);
+	private void createBufferObject(DrawData drawData) {
+		vbufferHandle = Gdx.gl20.glGenBuffer();
+		ibufferHandle = Gdx.gl20.glGenBuffer();
+		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, ibufferHandle);
+		Gdx.gl20.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, drawData.iByteBuffer.capacity(), null, GL20.GL_STATIC_DRAW);
 		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
-		return result;
 	}
 
-	public void render() {
-		if (cmdListsCount > 0) {
+	public void render(DrawData drawData) {
+
+		if(!fontInit) {
+			fontInit = true;
+			createBufferObject(drawData);
+		}
+
+		if (drawData.cmdListsCount > 0) {
 			boolean last_enable_blend = Gdx.gl.glIsEnabled(GL20.GL_BLEND);
 			boolean last_enable_cull_face = Gdx.gl.glIsEnabled(GL20.GL_CULL_FACE);
 			boolean last_enable_depth_test = Gdx.gl.glIsEnabled(GL20.GL_DEPTH_TEST);
 			boolean last_enable_scissor_test = Gdx.gl.glIsEnabled(GL20.GL_SCISSOR_TEST);
 
-			int fb_width = (int) (displaySizeX * framebufferScaleX);
-			int fb_height = (int) (displaySizeY * framebufferScaleY);
+			int fb_width = (int) (drawData.displaySizeX * drawData.framebufferScaleX);
+			int fb_height = (int) (drawData.displaySizeY * drawData.framebufferScaleY);
 
-			bind();
+			bind(drawData);
 
 			int verticeOffset = 0;
 			int indexOffset = 0;
 
-			for(int i = 0; i < cmdListsCount; i++) {
-				vByteBuffer.limit(verticeOffset + 4);
-				int verticeSize = (int)vByteBuffer.getFloat(verticeOffset);
+			for(int i = 0; i < drawData.cmdListsCount; i++) {
+				drawData.vByteBuffer.limit(verticeOffset + 4);
+				int verticeSize = (int)drawData.vByteBuffer.getFloat(verticeOffset);
 
-				iByteBuffer.limit(indexOffset + 2);
-				short indexSize = (short)iByteBuffer.getShort(indexOffset);
-				int cmdSize = (int)cmdByteBuffer.getFloat();
+				drawData.iByteBuffer.limit(indexOffset + 2);
+				short indexSize = (short)drawData.iByteBuffer.getShort(indexOffset);
+				int cmdSize = (int)drawData.cmdByteBuffer.getFloat();
 
 				int verticeStartOffset = verticeOffset + 4;
 				int indexStartOffset = indexOffset + 2;
 
-				vByteBuffer.position(verticeStartOffset);
-				iByteBuffer.position(indexStartOffset);
+				drawData.vByteBuffer.position(verticeStartOffset);
+				drawData.iByteBuffer.position(indexStartOffset);
 
 				int newVlimit = verticeStartOffset + verticeSize * DrawData.vBufferSize;
 				int newIlimit = indexStartOffset + indexSize * DrawData.iBufferSize;
 
-				vByteBuffer.limit(newVlimit);
-				iByteBuffer.limit(newIlimit);
+				drawData.vByteBuffer.limit(newVlimit);
+				drawData.iByteBuffer.limit(newIlimit);
 
-				Gdx.gl.glBufferData(GL20.GL_ARRAY_BUFFER, vByteBuffer.limit(), vByteBuffer, GL20.GL_STATIC_DRAW);
-				Gdx.gl.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, iByteBuffer.limit(), iByteBuffer, GL20.GL_STATIC_DRAW);
+				Gdx.gl.glBufferData(GL20.GL_ARRAY_BUFFER, drawData.vByteBuffer.limit(), drawData.vByteBuffer, GL20.GL_STATIC_DRAW);
+				Gdx.gl.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, drawData.iByteBuffer.limit(), drawData.iByteBuffer, GL20.GL_STATIC_DRAW);
 
-				verticeOffset += ((verticeSize) * vBufferSize) + 4;
-				indexOffset += ((indexSize) * iBufferSize) + 2;
+				verticeOffset += ((verticeSize) * DrawData.vBufferSize) + 4;
+				indexOffset += ((indexSize) * DrawData.iBufferSize) + 2;
 
-				float clip_offX = displayPosX; // (0,0) unless using multi-viewports
-				float clip_offY = displayPosY;
-				float clip_scaleX = framebufferScaleX; // (1,1) unless using retina display which are often (2,2)
-				float clip_scaleY = framebufferScaleY;
+				float clip_offX = drawData.displayPosX; // (0,0) unless using multi-viewports
+				float clip_offY = drawData.displayPosY;
+				float clip_scaleX = drawData.framebufferScaleX; // (1,1) unless using retina display which are often (2,2)
+				float clip_scaleY = drawData.framebufferScaleY;
 
 				int idx_buffer_offset = 0;
 
 				for (int j = 0; j < cmdSize; j++) {
 
-					int elemCount = (int) cmdByteBuffer.getFloat();
-					float clipRectX = cmdByteBuffer.getFloat();
-					float clipRectY = cmdByteBuffer.getFloat();
-					float clipRectZ = cmdByteBuffer.getFloat();
-					float clipRectW = cmdByteBuffer.getFloat();
-					int textureID = (int) cmdByteBuffer.getFloat();
+					int elemCount = (int) drawData.cmdByteBuffer.getFloat();
+					float clipRectX = drawData.cmdByteBuffer.getFloat();
+					float clipRectY = drawData.cmdByteBuffer.getFloat();
+					float clipRectZ = drawData.cmdByteBuffer.getFloat();
+					float clipRectW = drawData.cmdByteBuffer.getFloat();
+					int textureID = (int) drawData.cmdByteBuffer.getFloat();
 
 					float clip_rectX = (clipRectX - clip_offX) * clip_scaleX;
 					float clip_rectY = (clipRectY - clip_offY) * clip_scaleY;
@@ -160,66 +162,8 @@ public class GdxDrawData extends DrawData {
 		}
 	}
 
-	@Deprecated
-	public void render(Camera camera) {
-		boolean last_enable_blend = Gdx.gl.glIsEnabled(GL20.GL_BLEND);
-		boolean last_enable_cull_face = Gdx.gl.glIsEnabled(GL20.GL_CULL_FACE);
-		boolean last_enable_depth_test = Gdx.gl.glIsEnabled(GL20.GL_DEPTH_TEST);
-		boolean last_enable_scissor_test = Gdx.gl.glIsEnabled(GL20.GL_SCISSOR_TEST);
 
-		bind();
-
-		int fb_width = (int) (displaySizeX * framebufferScaleX);
-		int fb_height = (int) (displaySizeY * framebufferScaleY);
-
-		if (cmdListsCount > 0) {
-
-			float clip_offX = displayPosX; // (0,0) unless using multi-viewports
-			float clip_offY = displayPosY;
-			float clip_scaleX = framebufferScaleX; // (1,1) unless using retina display which are often (2,2)
-			float clip_scaleY = framebufferScaleY;
-
-			int idx_buffer_offset = 0;
-
-			Gdx.gl.glBufferData(GL20.GL_ARRAY_BUFFER, vByteBuffer.limit(), vByteBuffer, GL20.GL_STATIC_DRAW);
-			Gdx.gl.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, iByteBuffer.limit(), iByteBuffer, GL20.GL_STATIC_DRAW);
-
-			for (int j = 0; j < cmdCount; j++) {
-
-				int elemCount = (int) cmdByteBuffer.getFloat();
-				float clipRectX = cmdByteBuffer.getFloat();
-				float clipRectY = cmdByteBuffer.getFloat();
-				float clipRectZ = cmdByteBuffer.getFloat();
-				float clipRectW = cmdByteBuffer.getFloat();
-				int textureID = (int) cmdByteBuffer.getFloat();
-
-				float clip_rectX = (clipRectX - clip_offX) * clip_scaleX;
-				float clip_rectY = (clipRectY - clip_offY) * clip_scaleY;
-				float clip_rectZ = (clipRectZ - clip_offX) * clip_scaleX;
-				float clip_rectW = (clipRectW - clip_offY) * clip_scaleY;
-
-				if (clip_rectX < fb_width && clip_rectY < fb_height && clip_rectZ >= 0.0f && clip_rectW >= 0.0f) {
-
-					Gdx.gl.glScissor((int) clip_rectX, (int) (fb_height - clip_rectW), (int) (clip_rectZ - clip_rectX),
-							(int) (clip_rectW - clip_rectY));
-					Gdx.gl.glBindTexture(GL20.GL_TEXTURE_2D, textureID);
-					Gdx.gl.glDrawElements(GL20.GL_TRIANGLES, elemCount, GL20.GL_UNSIGNED_SHORT, idx_buffer_offset);
-
-				}
-
-				idx_buffer_offset += elemCount * 2;
-			}
-		}
-
-		unbind();
-
-		if (last_enable_blend) Gdx.gl.glEnable(GL20.GL_BLEND); else Gdx.gl.glDisable(GL20.GL_BLEND);
-		if (last_enable_cull_face) Gdx.gl.glEnable(GL20.GL_CULL_FACE); else Gdx.gl.glDisable(GL20.GL_CULL_FACE);
-		if (last_enable_depth_test) Gdx.gl.glEnable(GL20.GL_DEPTH_TEST); else Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);
-		if (last_enable_scissor_test) Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST); else Gdx.gl.glDisable(GL20.GL_SCISSOR_TEST);
-	}
-
-	public void bind() {
+	public void bind(DrawData drawData) {
 		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
 
 		Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -231,10 +175,10 @@ public class GdxDrawData extends DrawData {
 
 		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
 
-		float L = displayPosX;
-		float R = displayPosX + displaySizeX;
-		float T = displayPosY;
-		float B = displayPosY + displaySizeY;
+		float L = drawData.displayPosX;
+		float R = drawData.displayPosX + drawData.displaySizeX;
+		float T = drawData.displayPosY;
+		float B = drawData.displayPosY + drawData.displaySizeY;
 
 		//TODO use gdx camera
 		matrix.val[0] = 2.0f / (R - L);

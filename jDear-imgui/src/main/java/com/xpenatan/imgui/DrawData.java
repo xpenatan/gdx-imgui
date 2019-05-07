@@ -3,18 +3,11 @@ package com.xpenatan.imgui;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-public class DrawData {
+public final class DrawData {
 	public int cmdListsCount; // Number of ImDrawList* to render
 	public int totalIdxCount; // For convenience, sum of all ImDrawList's IdxBuffer.Size
 	public int totalVtxCount;
 	public int totalCmdCount;
-
-	@Deprecated
-	public int idxCount; // current index count
-	@Deprecated
-	public int vtxCount;
-	@Deprecated
-	public int cmdCount;
 
 	public float displayPosX;
 	public float displayPosY;
@@ -46,8 +39,5 @@ public class DrawData {
 		vByteBuffer.order(ByteOrder.nativeOrder());
 		iByteBuffer.order(ByteOrder.nativeOrder());
 		cmdByteBuffer.order(ByteOrder.nativeOrder());
-	}
-
-	protected void prepareFont() {
 	}
 }

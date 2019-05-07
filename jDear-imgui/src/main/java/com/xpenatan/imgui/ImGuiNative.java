@@ -20,7 +20,7 @@ public class ImGuiNative {
 		jfieldID framebufferScaleYID;
 	*/
 
-	public static native void createContext() /*-{ }-*/; /*
+	public static native void CreateContext() /*-{ }-*/; /*
 		ImGui::CreateContext();
 		ImGui::GetIO().IniFilename = NULL;
 
@@ -42,15 +42,15 @@ public class ImGuiNative {
 		framebufferScaleYID = env->GetFieldID(jDrawDataClass, "framebufferScaleY", "F");
 	*/
 
-	public static native void begin(String title) /*-{ }-*/; /*
+	public static native void Begin(String title) /*-{ }-*/; /*
 		ImGui::Begin(title);
 	*/
 
-	public static native void end() /*-{ }-*/; /*
+	public static native void End() /*-{ }-*/; /*
 		ImGui::End();
 	*/
 
-	public static native void updateDisplayAndInputAndFrame(float deltaTime, float w, float h, float display_w, float display_h,
+	public static native void UpdateDisplayAndInputAndFrame(float deltaTime, float w, float h, float display_w, float display_h,
 			float mouseX, float mouseY, boolean mouseDown0, boolean mouseDown1, boolean mouseDown2, boolean mouseDown3, boolean mouseDown4, boolean mouseDown5) /*-{ }-*/; /*
 		ImGuiIO& io = ImGui::GetIO();
 
@@ -82,28 +82,28 @@ public class ImGuiNative {
 		ImGui::NewFrame();
 	*/
 
-	public static native void text(String text) /*-{ }-*/; /*
+	public static native void Text(String text) /*-{ }-*/; /*
 		ImGui::Text(text);
 	*/
 
-	public static native void render() /*-{ }-*/; /*
+	public static native void Render() /*-{ }-*/; /*
 		ImGui::Render();
 	*/
 
-	public static native void setNextWindowSize(int width, int height) /*-{ }-*/; /*
+	public static native void SetNextWindowSize(int width, int height) /*-{ }-*/; /*
 		ImGui::SetNextWindowSize(ImVec2(width, height));
 	*/
 
-	public static native void setNextWindowPos(int x, int y) /*-{ }-*/; /*
+	public static native void SetNextWindowPos(int x, int y) /*-{ }-*/; /*
 		ImGui::SetNextWindowPos(ImVec2(x, y));
 	 */
 
-	public static native void showDemoWindow(boolean open) /*-{ }-*/; /*
+	public static native void ShowDemoWindow(boolean open) /*-{ }-*/; /*
 		bool toOpen = open;
 		ImGui::ShowDemoWindow(&toOpen);
 	 */
 
-	public static native void getTexDataAsRGBA32(TexDataRGBA32 jTexData, Buffer pixelBuffer) /*-{ }-*/; /*
+	public static native void GetTexDataAsRGBA32(TexDataRGBA32 jTexData, Buffer pixelBuffer) /*-{ }-*/; /*
 		jclass jTexDataClass = env->GetObjectClass(jTexData);
 			if(jTexDataClass == NULL)
 				return;
@@ -123,12 +123,12 @@ public class ImGuiNative {
 		memcpy(pixelBuffer, pixels, width * height * 4);
 	*/
 
-	public static native void setFontTexID(int id) /*-{ }-*/; /*
+	public static native void SetFontTexID(int id) /*-{ }-*/; /*
 		ImGuiIO& io = ImGui::GetIO();
 		io.Fonts->TexID = (ImTextureID)id;
 	*/
 
-	public static native void getDrawData(DrawData jDrawData, Buffer indexBuffer, Buffer vertexBuffer, Buffer cmdBuffer) /*-{ }-*/; /*
+	public static native void GetDrawData(DrawData jDrawData, Buffer indexBuffer, Buffer vertexBuffer, Buffer cmdBuffer) /*-{ }-*/; /*
 		ImDrawData * drawData = ImGui::GetDrawData();
 
 		if(drawData != NULL) {
@@ -236,113 +236,161 @@ public class ImGuiNative {
 	// - By "cursor" we mean the current output position.
 	// - The typical widget behavior is to output themselves at the current cursor position, then move the cursor one line down.
 
-	public static native void separator() /*-{ }-*/; /*
+	public static native void Separator() /*-{ }-*/; /*
 		ImGui::Separator();
 	*/
 
-	public static native void sameLine() /*-{ }-*/; /*
+	public static native void SameLine() /*-{ }-*/; /*
 		ImGui::SameLine();
 	*/
 
-	public static native void sameLine(float offsetFromStartX, float spacing) /*-{ }-*/; /*
+	public static native void SameLine(float offsetFromStartX, float spacing) /*-{ }-*/; /*
 		ImGui::SameLine(offsetFromStartX, spacing);
 	*/
 
-	public static native void newLine() /*-{ }-*/; /*
+	public static native void NewLine() /*-{ }-*/; /*
 		ImGui::NewLine();
 	*/
 
-	public static native void spacing() /*-{ }-*/; /*
+	public static native void Spacing() /*-{ }-*/; /*
 		ImGui::Spacing();
 	*/
 
-	public static native void dummy(float width, float height) /*-{ }-*/; /*
+	public static native void Dummy(float width, float height) /*-{ }-*/; /*
 		ImGui::Dummy(ImVec2(width, height));
 	*/
 
-	public static native void indent() /*-{ }-*/; /*
+	public static native void Indent() /*-{ }-*/; /*
 		ImGui::Indent();
 	*/
 
-	public static native void indent(float indentW) /*-{ }-*/; /*
+	public static native void Indent(float indentW) /*-{ }-*/; /*
 		ImGui::Indent(indentW);
 	*/
 
-	public static native void unindent() /*-{ }-*/; /*
+	public static native void Unindent() /*-{ }-*/; /*
 		ImGui::Unindent();
 	*/
 
-	public static native void unindent(float indentW) /*-{ }-*/; /*
+	public static native void Unindent(float indentW) /*-{ }-*/; /*
 		ImGui::Unindent(indentW);
 	*/
 
-	public static native void beginGroup() /*-{ }-*/; /*
+	public static native void BeginGroup() /*-{ }-*/; /*
 		ImGui::BeginGroup();
 	*/
 
-	public static native void endGroup() /*-{ }-*/; /*
+	public static native void EndGroup() /*-{ }-*/; /*
 		ImGui::EndGroup();
 	*/
 
-	public static native void getCursorPos(float [] vec2) /*-{ }-*/; /*
+	public static native void GetCursorPos(float [] vec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetCursorPos();
 		vec2[0] = vec.x;
 		vec2[1] = vec.y;
 	*/
 
-	public static native float getCursorPosX() /*-{ }-*/; /*
+	public static native float GetCursorPosX() /*-{ }-*/; /*
 		return ImGui::GetCursorPosX();
 	*/
 
-	public static native float getCursorPosY() /*-{ }-*/; /*
+	public static native float GetCursorPosY() /*-{ }-*/; /*
 		return ImGui::GetCursorPosY();
+	*/
+
+	public static native void SetCursorPos(float x, float y) /*-{ }-*/; /*
+		ImGui::SetCursorPos(ImVec2(x, y));
+	*/
+
+	public static native void SetCursorPosX(float x) /*-{ }-*/; /*
+		ImGui::SetCursorPosX(x);
+	*/
+
+	public static native void SetCursorPosY(float y) /*-{ }-*/; /*
+		ImGui::SetCursorPosY(y);
+	*/
+
+	public static native void GetCursorStartPos(float [] vec2) /*-{ }-*/; /*
+		ImVec2 vec = ImGui::GetCursorStartPos();
+		vec2[0] = vec.x;
+		vec2[1] = vec.y;
+	*/
+
+	public static native void GetCursorScreenPos(float [] vec2) /*-{ }-*/; /*
+		ImVec2 vec = ImGui::GetCursorScreenPos();
+		vec2[0] = vec.x;
+		vec2[1] = vec.y;
+	*/
+
+	public static native void SetCursorScreenPos(float x, float y) /*-{ }-*/; /*
+		ImGui::SetCursorScreenPos(ImVec2(x, y));
+	*/
+
+	public static native void AlignTextToFramePadding() /*-{ }-*/; /*
+		ImGui::AlignTextToFramePadding();
+	*/
+
+	public static native float GetTextLineHeight() /*-{ }-*/; /*
+		return ImGui::GetTextLineHeight();
+	*/
+
+	public static native float GetTextLineHeightWithSpacing() /*-{ }-*/; /*
+		return ImGui::GetTextLineHeightWithSpacing();
+	*/
+
+	public static native float GetFrameHeight() /*-{ }-*/; /*
+		return ImGui::GetFrameHeight();
+	*/
+
+	public static native float GetFrameHeightWithSpacing() /*-{ }-*/; /*
+		return ImGui::GetFrameHeightWithSpacing();
 	*/
 
 	// Widgets: Main
 	// - Most widgets return true when the value has been changed or when pressed/selected
 
-	public static native boolean button(String label) /*-{ }-*/; /*
+	public static native boolean Button(String label) /*-{ }-*/; /*
 		return ImGui::Button(label);
 	*/
 
-	public static native boolean button(String label, float width, float height) /*-{ }-*/; /*
+	public static native boolean Button(String label, float width, float height) /*-{ }-*/; /*
 		return ImGui::Button(label, ImVec2(width, height));
 	*/
 
-	public static native boolean smallButton(String label) /*-{ }-*/; /*
+	public static native boolean SmallButton(String label) /*-{ }-*/; /*
 		return ImGui::SmallButton(label);
 	*/
 
-	public static native boolean invisibleButton(String strId, float width, float height) /*-{ }-*/; /*
+	public static native boolean InvisibleButton(String strId, float width, float height) /*-{ }-*/; /*
 		return ImGui::InvisibleButton(strId, ImVec2(width, height));
 	*/
 
-	public static native boolean arrowButton(String strId, int dir) /*-{ }-*/; /*
+	public static native boolean ArrowButton(String strId, int dir) /*-{ }-*/; /*
 		return ImGui::ArrowButton(strId, dir);
 	*/
 
-	public static native boolean checkbox(String label, boolean [] data) /*-{ }-*/; /*
+	public static native boolean Checkbox(String label, boolean [] data) /*-{ }-*/; /*
 		return ImGui::Checkbox(label, &data[0]);
 	*/
 
 	//TODO check if its working
-	public static native boolean checkboxFlags(String label, long [] data, int flagsValue) /*-{ }-*/; /*
+	public static native boolean CheckboxFlags(String label, long [] data, int flagsValue) /*-{ }-*/; /*
 		return ImGui::CheckboxFlags(label, (unsigned int*)&data[0], flagsValue);
 	*/
 
-	public static native boolean radioButton(String label, boolean active) /*-{ }-*/; /*
+	public static native boolean RadioButton(String label, boolean active) /*-{ }-*/; /*
 		return ImGui::RadioButton(label, active);
 	*/
 
-	public static native boolean radioButton(String label, int [] data, int v_button) /*-{ }-*/; /*
+	public static native boolean RadioButton(String label, int [] data, int v_button) /*-{ }-*/; /*
 		return ImGui::RadioButton(label, &data[0], v_button);
 	*/
 
 	//TODO impl
-	public static native void progressBar(float fraction) /*-{ }-*/; /*
+	public static native void ProgressBar(float fraction) /*-{ }-*/; /*
 	*/
 
-	public static native void bullet() /*-{ }-*/; /*
+	public static native void Bullet() /*-{ }-*/; /*
 		ImGui::Bullet();
 	*/
 
