@@ -7,11 +7,39 @@ public class ImGuiNative {
 	/*JNI
 		#include <src/imgui.h>
 		#include <iostream>
+
+		jfieldID totalVtxCountID;
+		jfieldID totalIdxCountID;
+		jfieldID totalCmdCountID;
+		jfieldID CmdListsCountID;
+		jfieldID displayPosXID;
+		jfieldID displayPosYID;
+		jfieldID displaySizeXID;
+		jfieldID displaySizeYID;
+		jfieldID framebufferScaleXID;
+		jfieldID framebufferScaleYID;
 	*/
 
 	public static native void createContext() /*-{ }-*/; /*
 		ImGui::CreateContext();
 		ImGui::GetIO().IniFilename = NULL;
+
+		jclass jDrawDataClass = env->FindClass("com/xpenatan/imgui/DrawData");
+
+		// Prepare IDs
+		totalVtxCountID = env->GetFieldID(jDrawDataClass, "totalVtxCount", "I");
+		totalIdxCountID = env->GetFieldID(jDrawDataClass, "totalIdxCount", "I");
+		totalCmdCountID = env->GetFieldID(jDrawDataClass, "totalCmdCount", "I");
+		CmdListsCountID = env->GetFieldID(jDrawDataClass, "cmdListsCount", "I");
+
+		displayPosXID = env->GetFieldID(jDrawDataClass, "displayPosX", "F");
+		displayPosYID = env->GetFieldID(jDrawDataClass, "displayPosY", "F");
+
+		displaySizeXID = env->GetFieldID(jDrawDataClass, "displaySizeX", "F");
+		displaySizeYID = env->GetFieldID(jDrawDataClass, "displaySizeY", "F");
+
+		framebufferScaleXID = env->GetFieldID(jDrawDataClass, "framebufferScaleX", "F");
+		framebufferScaleYID = env->GetFieldID(jDrawDataClass, "framebufferScaleY", "F");
 	*/
 
 	public static native void begin(String title) /*-{ }-*/; /*
@@ -104,27 +132,7 @@ public class ImGuiNative {
 		ImDrawData * drawData = ImGui::GetDrawData();
 
 		if(drawData != NULL) {
-			jclass jDrawDataClass = env->GetObjectClass(jDrawData);
-
-			if(jDrawDataClass == NULL)
-				return;
-
 			int cmdListsCount = drawData->CmdListsCount;
-
-			// Prepare IDs
-			jfieldID totalVtxCountID = env->GetFieldID(jDrawDataClass, "totalVtxCount", "I");
-			jfieldID totalIdxCountID = env->GetFieldID(jDrawDataClass, "totalIdxCount", "I");
-			jfieldID totalCmdCountID = env->GetFieldID(jDrawDataClass, "totalCmdCount", "I");
-			jfieldID CmdListsCountID = env->GetFieldID(jDrawDataClass, "cmdListsCount", "I");
-
-			jfieldID displayPosXID = env->GetFieldID(jDrawDataClass, "displayPosX", "F");
-			jfieldID displayPosYID = env->GetFieldID(jDrawDataClass, "displayPosY", "F");
-
-			jfieldID displaySizeXID = env->GetFieldID(jDrawDataClass, "displaySizeX", "F");
-			jfieldID displaySizeYID = env->GetFieldID(jDrawDataClass, "displaySizeY", "F");
-
-			jfieldID framebufferScaleXID = env->GetFieldID(jDrawDataClass, "framebufferScaleX", "F");
-			jfieldID framebufferScaleYID = env->GetFieldID(jDrawDataClass, "framebufferScaleY", "F");
 
 			// Set values
 			env->SetIntField (jDrawData, totalVtxCountID, drawData->TotalVtxCount);
@@ -222,6 +230,120 @@ public class ImGuiNative {
 
 			env->SetIntField (jDrawData, totalCmdCountID, cmdCount);
 		}
+	*/
+
+	// Cursor / Layout
+	// - By "cursor" we mean the current output position.
+	// - The typical widget behavior is to output themselves at the current cursor position, then move the cursor one line down.
+
+	public static native void separator() /*-{ }-*/; /*
+		ImGui::Separator();
+	*/
+
+	public static native void sameLine() /*-{ }-*/; /*
+		ImGui::SameLine();
+	*/
+
+	public static native void sameLine(float offsetFromStartX, float spacing) /*-{ }-*/; /*
+		ImGui::SameLine(offsetFromStartX, spacing);
+	*/
+
+	public static native void newLine() /*-{ }-*/; /*
+		ImGui::NewLine();
+	*/
+
+	public static native void spacing() /*-{ }-*/; /*
+		ImGui::Spacing();
+	*/
+
+	public static native void dummy(float width, float height) /*-{ }-*/; /*
+		ImGui::Dummy(ImVec2(width, height));
+	*/
+
+	public static native void indent() /*-{ }-*/; /*
+		ImGui::Indent();
+	*/
+
+	public static native void indent(float indentW) /*-{ }-*/; /*
+		ImGui::Indent(indentW);
+	*/
+
+	public static native void unindent() /*-{ }-*/; /*
+		ImGui::Unindent();
+	*/
+
+	public static native void unindent(float indentW) /*-{ }-*/; /*
+		ImGui::Unindent(indentW);
+	*/
+
+	public static native void beginGroup() /*-{ }-*/; /*
+		ImGui::BeginGroup();
+	*/
+
+	public static native void endGroup() /*-{ }-*/; /*
+		ImGui::EndGroup();
+	*/
+
+	public static native void getCursorPos(float [] vec2) /*-{ }-*/; /*
+		ImVec2 vec = ImGui::GetCursorPos();
+		vec2[0] = vec.x;
+		vec2[1] = vec.y;
+	*/
+
+	public static native float getCursorPosX() /*-{ }-*/; /*
+		return ImGui::GetCursorPosX();
+	*/
+
+	public static native float getCursorPosY() /*-{ }-*/; /*
+		return ImGui::GetCursorPosY();
+	*/
+
+	// Widgets: Main
+	// - Most widgets return true when the value has been changed or when pressed/selected
+
+	public static native boolean button(String label) /*-{ }-*/; /*
+		return ImGui::Button(label);
+	*/
+
+	public static native boolean button(String label, float width, float height) /*-{ }-*/; /*
+		return ImGui::Button(label, ImVec2(width, height));
+	*/
+
+	public static native boolean smallButton(String label) /*-{ }-*/; /*
+		return ImGui::SmallButton(label);
+	*/
+
+	public static native boolean invisibleButton(String strId, float width, float height) /*-{ }-*/; /*
+		return ImGui::InvisibleButton(strId, ImVec2(width, height));
+	*/
+
+	public static native boolean arrowButton(String strId, int dir) /*-{ }-*/; /*
+		return ImGui::ArrowButton(strId, dir);
+	*/
+
+	public static native boolean checkbox(String label, boolean [] data) /*-{ }-*/; /*
+		return ImGui::Checkbox(label, &data[0]);
+	*/
+
+	//TODO check if its working
+	public static native boolean checkboxFlags(String label, long [] data, int flagsValue) /*-{ }-*/; /*
+		return ImGui::CheckboxFlags(label, (unsigned int*)&data[0], flagsValue);
+	*/
+
+	public static native boolean radioButton(String label, boolean active) /*-{ }-*/; /*
+		return ImGui::RadioButton(label, active);
+	*/
+
+	public static native boolean radioButton(String label, int [] data, int v_button) /*-{ }-*/; /*
+		return ImGui::RadioButton(label, &data[0], v_button);
+	*/
+
+	//TODO impl
+	public static native void progressBar(float fraction) /*-{ }-*/; /*
+	*/
+
+	public static native void bullet() /*-{ }-*/; /*
+		ImGui::Bullet();
 	*/
 
 	private ImGuiNative() {}

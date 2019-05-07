@@ -7,6 +7,9 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.xpenatan.imgui.ImGuiBoolean;
+import com.xpenatan.imgui.ImGuiDir;
+import com.xpenatan.imgui.ImGuiInt;
 import com.xpenatan.imgui.gdx.GdxDrawData;
 import com.xpenatan.imgui.gdx.GdxImGui;
 
@@ -23,6 +26,9 @@ public class GdxImGuiDemo implements ApplicationListener
 	}
 
 	private GdxImGui imGui;
+
+	ImGuiBoolean guiBool = new ImGuiBoolean();
+	ImGuiInt guiInt = new ImGuiInt();
 
 	@Override
 	public void create ()
@@ -53,7 +59,31 @@ public class GdxImGuiDemo implements ApplicationListener
 //		imGui.setNextWindowPos(0,0);
 		imGui.setNextWindowSize(400, 400);
 		imGui.begin("Hello World");
+
+		imGui.checkbox("CheckBox", guiBool);
+		imGui.button("CheckBox");
+
+		imGui.arrowButton("##Left", ImGuiDir.ImGuiDir_Left);
+		imGui.sameLine();
+		imGui.arrowButton("##Right", ImGuiDir.ImGuiDir_Right);
+		imGui.sameLine();
+		imGui.arrowButton("##Up", ImGuiDir.ImGuiDir_Up);
+		imGui.sameLine();
+		imGui.arrowButton("##Down", ImGuiDir.ImGuiDir_Down);
+
+		imGui.radioButton("radio a", guiInt, 0);
+		imGui.sameLine();
+		imGui.radioButton("radio b", guiInt, 1);
+		imGui.sameLine();
+		imGui.radioButton("radio c", guiInt, 2);
+		imGui.sameLine();
+		imGui.radioButton("radio true", true);
+
+		imGui.bullet();
+		imGui.sameLine();
+		imGui.text("Bullet text");
 		imGui.end();
+
 
 		imGui.showDemoWindow(false);
 
