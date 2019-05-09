@@ -232,6 +232,53 @@ public class ImGuiNative {
 		}
 	*/
 
+
+	// Parameters stacks (current window)
+
+	public static native void PushItemWidth(float item_width) /*-{ }-*/; /*
+		ImGui::PushItemWidth(item_width);
+	*/
+
+	public static native void PopItemWidth() /*-{ }-*/; /*
+		ImGui::PopItemWidth();
+	*/
+
+	public static native void SetNextItemWidth(float item_width) /*-{ }-*/; /*
+		ImGui::SetNextItemWidth(item_width);
+	*/
+
+	public static native float CalcItemWidth() /*-{ }-*/; /*
+		return ImGui::CalcItemWidth();
+	*/
+
+	public static native void PushTextWrapPos(float wrap_local_pos_x) /*-{ }-*/; /*
+		ImGui::PushTextWrapPos(wrap_local_pos_x);
+	*/
+
+	public static native void PushTextWrapPos() /*-{ }-*/; /*
+		ImGui::PushTextWrapPos();
+	*/
+
+	public static native void PopTextWrapPos() /*-{ }-*/; /*
+		ImGui::PopTextWrapPos();
+	*/
+
+	public static native void PushAllowKeyboardFocus(boolean allow_keyboard_focus) /*-{ }-*/; /*
+		ImGui::PushAllowKeyboardFocus(allow_keyboard_focus);
+	*/
+
+	public static native void PopAllowKeyboardFocus() /*-{ }-*/; /*
+		ImGui::PopAllowKeyboardFocus();
+	*/
+
+	public static native void PushButtonRepeat(boolean repeat) /*-{ }-*/; /*
+		ImGui::PushButtonRepeat(repeat);
+	*/
+
+	public static native void PopButtonRepeat() /*-{ }-*/; /*
+		ImGui::PopButtonRepeat();
+	*/
+
 	// Cursor / Layout
 	// - By "cursor" we mean the current output position.
 	// - The typical widget behavior is to output themselves at the current cursor position, then move the cursor one line down.

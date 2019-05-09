@@ -10,8 +10,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.xpenatan.imgui.DrawData;
 import com.xpenatan.imgui.ImGui;
 import com.xpenatan.imgui.ImGuiBoolean;
-import com.xpenatan.imgui.ImGuiDir;
 import com.xpenatan.imgui.ImGuiInt;
+import com.xpenatan.imgui.enums.ImGuiDir;
 import com.xpenatan.imgui.gdx.GdxImGuiRenderer;
 
 public class GdxImGuiDemo implements ApplicationListener

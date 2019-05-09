@@ -1,7 +1,8 @@
-package com.xpenatan.imgui;
-
-public enum ImGuiInputTextFlags {
-
+package com.xpenatan.imgui.enums;
+/**
+ * Flags for ImGui::InputText()
+ */
+public enum ImGuiInputTextFlags_ {
 	ImGuiInputTextFlags_None(0),
 	/** Allow 0123456789.+-* */
 	ImGuiInputTextFlags_CharsDecimal(1 << 0),
@@ -42,14 +43,13 @@ public enum ImGuiInputTextFlags {
 	/** Callback on buffer capacity changes request (beyond 'buf_size' parameter value), allowing the string to grow. Notify when the string wants to be resized (for string types which hold a cache of their Size). You will be provided a new BufSize in the callback and NEED to honor it. (see misc/cpp/imgui_stdlib.h for an example of using this) */
 	ImGuiInputTextFlags_CallbackResize(1 << 18);
 
-	long [] data = new long[1];
+	public long [] data = new long[1];
 
-	private ImGuiInputTextFlags(int code) {
+	private ImGuiInputTextFlags_(int code) {
 		data[0] = code;
 	}
 
-	public long toLong() {
+	public long getValue() {
 		return data[0];
 	}
-
 }

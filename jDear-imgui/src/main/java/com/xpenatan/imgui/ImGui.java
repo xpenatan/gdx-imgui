@@ -3,6 +3,8 @@ package com.xpenatan.imgui;
 import java.nio.ByteBuffer;
 
 import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
+import com.xpenatan.imgui.enums.ImGuiDir;
+import com.xpenatan.imgui.enums.ImGuiInputTextFlags_;
 
 
 public class ImGui {
@@ -76,6 +78,51 @@ public class ImGui {
 		ImGuiNative.SetNextWindowPos(x, y);
 	}
 
+	// Parameters stacks (current window)
+
+	public static void PushItemWidth(float item_width) {
+		ImGuiNative.PushItemWidth(item_width);
+	}
+
+	public static void PopItemWidth() {
+		ImGuiNative.PopItemWidth();
+	}
+
+	public static void SetNextItemWidth(float item_width) {
+		ImGuiNative.SetNextItemWidth(item_width);
+	}
+
+	public static float CalcItemWidth() {
+		return ImGuiNative.CalcItemWidth();
+	}
+
+	public static void PushTextWrapPos() {
+		ImGuiNative.PushTextWrapPos();
+	}
+
+	public static void PushTextWrapPos(float wrap_local_pos_x) {
+		ImGuiNative.PushTextWrapPos(wrap_local_pos_x);
+	}
+
+	public static void PopTextWrapPos() {
+		ImGuiNative.PopTextWrapPos();
+	}
+
+	public static void PushAllowKeyboardFocus(boolean allow_keyboard_focus) {
+		ImGuiNative.PushAllowKeyboardFocus(allow_keyboard_focus);
+	}
+
+	public static void PushButtonRepeat() {
+		ImGuiNative.PopAllowKeyboardFocus();
+	}
+
+	public static void PushButtonRepeat(boolean repeat) {
+		ImGuiNative.PushButtonRepeat(repeat);
+	}
+
+	public static void PopButtonRepeat() {
+		ImGuiNative.PopButtonRepeat();
+	}
 
 	// Cursor / Layout
 	// - By "cursor" we mean the current output position.
@@ -229,7 +276,7 @@ public class ImGui {
 		return ImGuiNative.Checkbox(label, value.data);
 	}
 
-	public static boolean CheckboxFlags(String label, ImGuiInputTextFlags flags, int flagsValue) {
+	public static boolean CheckboxFlags(String label, ImGuiInputTextFlags_ flags, int flagsValue) {
 		return ImGuiNative.CheckboxFlags(label, flags.data, flagsValue);
 	}
 
