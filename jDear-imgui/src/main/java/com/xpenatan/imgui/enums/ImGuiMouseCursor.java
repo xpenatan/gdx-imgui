@@ -4,7 +4,7 @@ package com.xpenatan.imgui.enums;
  * Enumeration for GetMouseCursor()
  * User code may request binding to display given cursor by calling SetMouseCursor(), which is why we have some cursors that are marked unused here
  */
-public enum ImGuiMouseCursor_ {
+public enum ImGuiMouseCursor {
 	ImGuiMouseCursor_None(-1),
 	ImGuiMouseCursor_Arrow(0),
 	ImGuiMouseCursor_TextInput(1),
@@ -18,7 +18,7 @@ public enum ImGuiMouseCursor_ {
 
 	int value;
 
-	private ImGuiMouseCursor_(int code) {
+	private ImGuiMouseCursor(int code) {
 		value = code;
 	}
 

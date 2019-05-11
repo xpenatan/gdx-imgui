@@ -6,7 +6,7 @@ package com.xpenatan.imgui.enums;
  * Gamepad:  Set io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad to enable. Back-end: set ImGuiBackendFlags_HasGamepad and fill the io.NavInputs[] fields before calling NewFrame(). Note that io.NavInputs[] is cleared by EndFrame().
  * Read instructions in imgui.cpp for more details. Download PNG/PSD at http://goo.gl/9LgVZW.
  **/
-public enum ImGuiNavInput_ {
+public enum ImGuiNavInput {
 	ImGuiNavInput_Activate(0),
 	ImGuiNavInput_Cancel(1),
 	ImGuiNavInput_Input(2),
@@ -26,7 +26,7 @@ public enum ImGuiNavInput_ {
 
 	private final int code;
 
-	private ImGuiNavInput_(int code) {
+	private ImGuiNavInput(int code) {
 		this.code = code;
 	}
 

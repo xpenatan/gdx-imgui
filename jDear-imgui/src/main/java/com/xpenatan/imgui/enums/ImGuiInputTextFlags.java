@@ -2,7 +2,7 @@ package com.xpenatan.imgui.enums;
 /**
  * Flags for ImGui::InputText()
  */
-public enum ImGuiInputTextFlags_ {
+public enum ImGuiInputTextFlags {
 	ImGuiInputTextFlags_None(0),
 	/** Allow 0123456789.+-* */
 	ImGuiInputTextFlags_CharsDecimal(1 << 0),
@@ -45,7 +45,7 @@ public enum ImGuiInputTextFlags_ {
 
 	public long [] data = new long[1];
 
-	private ImGuiInputTextFlags_(int code) {
+	private ImGuiInputTextFlags(int code) {
 		data[0] = code;
 	}
 

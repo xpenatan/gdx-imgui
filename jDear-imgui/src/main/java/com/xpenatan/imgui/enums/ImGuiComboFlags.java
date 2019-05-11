@@ -3,7 +3,7 @@ package com.xpenatan.imgui.enums;
 /**
  * Flags for ImGui::BeginCombo()
  */
-public enum ImGuiComboFlags_ {
+public enum ImGuiComboFlags {
 	ImGuiComboFlags_None(0),
 	ImGuiComboFlags_PopupAlignLeft(1 << 0),
 	ImGuiComboFlags_HeightSmall(1 << 1),
@@ -16,7 +16,7 @@ public enum ImGuiComboFlags_ {
 
 	int value;
 
-	private ImGuiComboFlags_(int code) {
+	private ImGuiComboFlags(int code) {
 		value = code;
 	}
 

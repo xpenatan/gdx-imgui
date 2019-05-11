@@ -1,6 +1,6 @@
 package com.xpenatan.imgui.enums;
 
-public enum ImGuiStyleVar_ {
+public enum ImGuiStyleVar {
 	ImGuiStyleVar_Alpha(0),
 	ImGuiStyleVar_WindowPadding(1),
 	ImGuiStyleVar_WindowRounding(2),
@@ -28,7 +28,7 @@ public enum ImGuiStyleVar_ {
 
 	int value;
 
-	private ImGuiStyleVar_(int code) {
+	private ImGuiStyleVar(int code) {
 		value = code;
 	}
 

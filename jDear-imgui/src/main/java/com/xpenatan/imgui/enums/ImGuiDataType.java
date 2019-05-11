@@ -3,7 +3,7 @@ package com.xpenatan.imgui.enums;
 /**
  * A primary data type
  */
-public enum ImGuiDataType_ {
+public enum ImGuiDataType {
 	ImGuiDataType_S8(0),
 	ImGuiDataType_U8(1),
 	ImGuiDataType_S16(2),
@@ -18,7 +18,7 @@ public enum ImGuiDataType_ {
 
 	int value;
 
-	private ImGuiDataType_(int code) {
+	private ImGuiDataType(int code) {
 		value = code;
 	}
 

@@ -3,7 +3,7 @@ package com.xpenatan.imgui.enums;
 /**
  * Flags for ImGui::BeginTabBar()
  */
-public enum ImGuiTabBarFlags_ {
+public enum ImGuiTabBarFlags {
 	ImGuiTabBarFlags_None(0),
 	ImGuiTabBarFlags_Reorderable(1 << 0),
 	ImGuiTabBarFlags_AutoSelectNewTabs(1 << 1),
@@ -18,7 +18,7 @@ public enum ImGuiTabBarFlags_ {
 
 	int value;
 
-	private ImGuiTabBarFlags_(int code) {
+	private ImGuiTabBarFlags(int code) {
 		value = code;
 	}
 

@@ -3,7 +3,7 @@ package com.xpenatan.imgui.enums;
 /**
  * Flags for ImGui::Selectable()
  */
-public enum ImGuiSelectableFlags_ {
+public enum ImGuiSelectableFlags {
 	ImGuiSelectableFlags_None(0),
 	ImGuiSelectableFlags_DontClosePopups(1 << 0),
 	ImGuiSelectableFlags_SpanAllColumns(1 << 1),
@@ -12,7 +12,7 @@ public enum ImGuiSelectableFlags_ {
 
 	int value;
 
-	private ImGuiSelectableFlags_(int code) {
+	private ImGuiSelectableFlags(int code) {
 		value = code;
 	}
 

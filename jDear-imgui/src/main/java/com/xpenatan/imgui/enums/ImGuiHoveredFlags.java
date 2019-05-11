@@ -5,7 +5,7 @@ package com.xpenatan.imgui.enums;
  * Note: if you are trying to check whether your mouse should be dispatched to imgui or to your app, you should use the 'io.WantCaptureMouse' boolean for that. Please read the FAQ!
  * Note: windows with the ImGuiWindowFlags_NoInputs flag are ignored by IsWindowHovered() calls.
  */
-public enum ImGuiHoveredFlags_ {
+public enum ImGuiHoveredFlags {
 	ImGuiHoveredFlags_None(0),
 	ImGuiHoveredFlags_ChildWindows(1 << 0),
 	ImGuiHoveredFlags_RootWindow(1 << 1),
@@ -20,7 +20,7 @@ public enum ImGuiHoveredFlags_ {
 
 	int value;
 
-	private ImGuiHoveredFlags_(int code) {
+	private ImGuiHoveredFlags(int code) {
 		value = code;
 	}
 

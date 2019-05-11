@@ -30,6 +30,9 @@ public class GdxImGuiDemo implements ApplicationListener
 	GdxImGuiRenderer impl;
 	ImGuiBoolean guiBool = new ImGuiBoolean();
 	ImGuiInt guiInt = new ImGuiInt();
+	ImGuiInt listSelected = new ImGuiInt();
+
+	String [] myList = new String [] {"111", "222", "333", "444"};
 
 	@Override
 	public void create ()
@@ -83,6 +86,9 @@ public class GdxImGuiDemo implements ApplicationListener
 		ImGui.Bullet();
 		ImGui.SameLine();
 		ImGui.Text("Bullet text");
+
+		ImGui.ListBox("MyList", listSelected, myList, myList.length);
+
 		ImGui.End();
 
 		ImGui.ShowDemoWindow(false);

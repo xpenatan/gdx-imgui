@@ -3,7 +3,7 @@ package com.xpenatan.imgui.enums;
 /**
  * User fill ImGuiIO.KeyMap[] array with indices into the ImGuiIO.KeysDown[512] array
  */
-public enum ImGuiKey_ {
+public enum ImGuiKey {
 	ImGuiKey_Tab(0),
 	ImGuiKey_LeftArrow(1),
 	ImGuiKey_RightArrow(2),
@@ -29,7 +29,7 @@ public enum ImGuiKey_ {
 
 	private final int code;
 
-	private ImGuiKey_(int code) {
+	private ImGuiKey(int code) {
 		this.code = code;
 	}
 

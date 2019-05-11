@@ -1,6 +1,6 @@
 package com.xpenatan.imgui.enums;
 
-public enum ImDrawCornerFlags_ {
+public enum ImDrawCornerFlags {
 	ImDrawCornerFlags_TopLeft(1 << 0),
 	ImDrawCornerFlags_TopRight(1 << 1),
 	ImDrawCornerFlags_BotLeft(1 << 2),
@@ -13,7 +13,7 @@ public enum ImDrawCornerFlags_ {
 
 	int value;
 
-	private ImDrawCornerFlags_(int code) {
+	private ImDrawCornerFlags(int code) {
 		value = code;
 	}
 

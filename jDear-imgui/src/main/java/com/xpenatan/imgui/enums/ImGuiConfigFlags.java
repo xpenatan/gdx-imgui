@@ -3,7 +3,7 @@ package com.xpenatan.imgui.enums;
 /**
  * Configuration flags stored in io.ConfigFlags. Set by user/application.
  */
-public enum ImGuiConfigFlags_ {
+public enum ImGuiConfigFlags {
 	ImGuiConfigFlags_None(0),
 	ImGuiConfigFlags_NavEnableKeyboard(1 << 0),
 	ImGuiConfigFlags_NavEnableGamepad(1 << 1),
@@ -16,7 +16,7 @@ public enum ImGuiConfigFlags_ {
 
 	int value;
 
-	private ImGuiConfigFlags_(int code) {
+	private ImGuiConfigFlags(int code) {
 		value = code;
 	}
 

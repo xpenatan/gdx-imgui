@@ -3,7 +3,7 @@ package com.xpenatan.imgui.enums;
 /**
  * Flags for ImGui::BeginTabItem()
  */
-public enum ImGuiTabItemFlags_ {
+public enum ImGuiTabItemFlags {
 	ImGuiTabItemFlags_None(0),
 	ImGuiTabItemFlags_UnsavedDocument(1 << 0),
 	ImGuiTabItemFlags_SetSelected(1 << 1),
@@ -12,7 +12,7 @@ public enum ImGuiTabItemFlags_ {
 
 	int value;
 
-	private ImGuiTabItemFlags_(int code) {
+	private ImGuiTabItemFlags(int code) {
 		value = code;
 	}
 

@@ -3,7 +3,7 @@ package com.xpenatan.imgui.enums;
 /**
  * Flags for ImGui::TreeNodeEx(), ImGui::CollapsingHeader*()
  */
-public enum ImGuiTreeNodeFlags_ {
+public enum ImGuiTreeNodeFlags {
 	ImGuiTreeNodeFlags_None(0),
 	ImGuiTreeNodeFlags_Selected(1 << 0),
 	ImGuiTreeNodeFlags_Framed(1 << 1),
@@ -23,7 +23,7 @@ public enum ImGuiTreeNodeFlags_ {
 
 	int value;
 
-	private ImGuiTreeNodeFlags_(int code) {
+	private ImGuiTreeNodeFlags(int code) {
 		value = code;
 	}
 

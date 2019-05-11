@@ -3,7 +3,7 @@ package com.xpenatan.imgui.enums;
 /**
  * Flags for ImGui::IsWindowFocused()
  */
-public enum ImGuiFocusedFlags_ {
+public enum ImGuiFocusedFlags {
 	ImGuiFocusedFlags_None(0),
 	ImGuiFocusedFlags_ChildWindows(1 << 0),
 	ImGuiFocusedFlags_RootWindow(1 << 1),
@@ -12,7 +12,7 @@ public enum ImGuiFocusedFlags_ {
 
 	int value;
 
-	private ImGuiFocusedFlags_(int code) {
+	private ImGuiFocusedFlags(int code) {
 		value = code;
 	}
 

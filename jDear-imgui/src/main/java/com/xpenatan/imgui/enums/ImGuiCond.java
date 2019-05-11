@@ -5,7 +5,7 @@ package com.xpenatan.imgui.enums;
  * Represent a condition.
  * Important: Treat as a regular enum! Do NOT combine multiple values using binary operators! All the functions above treat 0 as a shortcut to ImGuiCond_Always.
  */
-public enum ImGuiCond_ {
+public enum ImGuiCond {
 	ImGuiCond_Always(1 << 0),
 	ImGuiCond_Once(1 << 1),
 	ImGuiCond_FirstUseEver(1 << 2),
@@ -13,7 +13,7 @@ public enum ImGuiCond_ {
 
 	int value;
 
-	private ImGuiCond_(int code) {
+	private ImGuiCond(int code) {
 		value = code;
 	}
 

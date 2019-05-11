@@ -3,7 +3,7 @@ package com.xpenatan.imgui.enums;
 /**
  * Flags for ImGui::Begin()
  */
-public enum ImGuiWindowFlags_ {
+public enum ImGuiWindowFlags {
 	ImGuiWindowFlags_None(0),
 	ImGuiWindowFlags_NoTitleBar(1 << 0),
 	ImGuiWindowFlags_NoResize(1 << 1),
@@ -31,7 +31,7 @@ public enum ImGuiWindowFlags_ {
 
 	int value;
 
-	private ImGuiWindowFlags_(int code) {
+	private ImGuiWindowFlags(int code) {
 		value = code;
 	}
 

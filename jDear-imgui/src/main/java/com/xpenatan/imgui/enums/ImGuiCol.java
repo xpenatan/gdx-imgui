@@ -1,6 +1,6 @@
 package com.xpenatan.imgui.enums;
 
-public enum ImGuiCol_ {
+public enum ImGuiCol {
 	ImGuiCol_Text(0),
 	ImGuiCol_TextDisabled(1),
 	/** Background of normal windows */
@@ -61,7 +61,7 @@ public enum ImGuiCol_ {
 
 	int value;
 
-	private ImGuiCol_(int code) {
+	private ImGuiCol(int code) {
 		value = code;
 	}
 
