@@ -1,20 +1,25 @@
 package com.xpenatan.imgui.enums;
 
 public enum ImDrawCornerFlags {
-	ImDrawCornerFlags_TopLeft(1 << 0),
-	ImDrawCornerFlags_TopRight(1 << 1),
-	ImDrawCornerFlags_BotLeft(1 << 2),
-	ImDrawCornerFlags_BotRight(1 << 3),
-	ImDrawCornerFlags_Top(ImDrawCornerFlags_TopLeft.getValue() | ImDrawCornerFlags_TopRight.getValue()),
-	ImDrawCornerFlags_Bot(ImDrawCornerFlags_BotLeft.getValue() | ImDrawCornerFlags_BotRight.getValue()),
-	ImDrawCornerFlags_Left(ImDrawCornerFlags_TopLeft.getValue() | ImDrawCornerFlags_BotLeft.getValue()),
-	ImDrawCornerFlags_Right(ImDrawCornerFlags_TopRight.getValue() | ImDrawCornerFlags_BotRight.getValue()),
-	ImDrawCornerFlags_All(0xF);
+	TopLeft(1 << 0),
+	TopRight(1 << 1),
+	BotLeft(1 << 2),
+	BotRight(1 << 3),
+	Top(TopLeft.getValue() | TopRight.getValue()),
+	Bot(BotLeft.getValue() | BotRight.getValue()),
+	Left(TopLeft.getValue() | BotLeft.getValue()),
+	Right(TopRight.getValue() | BotRight.getValue()),
+	All(0xF);
 
 	int value;
 
 	private ImDrawCornerFlags(int code) {
 		value = code;
+	}
+
+	public ImDrawCornerFlags and(ImDrawCornerFlags otherEnum) {
+		value = value | otherEnum.value;
+		return this;
 	}
 
 	public int getValue() {

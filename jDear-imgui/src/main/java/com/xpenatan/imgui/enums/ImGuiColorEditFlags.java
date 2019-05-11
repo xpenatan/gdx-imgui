@@ -5,37 +5,42 @@ package com.xpenatan.imgui.enums;
  * User code may request binding to display given cursor by calling SetMouseCursor(), which is why we have some cursors that are marked unused here
  */
 public enum ImGuiColorEditFlags {
-	ImGuiColorEditFlags_None(0),
-	ImGuiColorEditFlags_NoAlpha(1 << 1),
-	ImGuiColorEditFlags_NoPicker(1 << 2),
-	ImGuiColorEditFlags_NoOptions(1 << 3),
-	ImGuiColorEditFlags_NoSmallPreview(1 << 4),
-	ImGuiColorEditFlags_NoInputs(1 << 5),
-	ImGuiColorEditFlags_NoTooltip(1 << 6),
-	ImGuiColorEditFlags_NoLabel(1 << 7),
-	ImGuiColorEditFlags_NoSidePreview(1 << 8),
-	ImGuiColorEditFlags_NoDragDrop(1 << 9),
+	None(0),
+	NoAlpha(1 << 1),
+	NoPicker(1 << 2),
+	NoOptions(1 << 3),
+	NoSmallPreview(1 << 4),
+	NoInputs(1 << 5),
+	NoTooltip(1 << 6),
+	NoLabel(1 << 7),
+	NoSidePreview(1 << 8),
+	NoDragDrop(1 << 9),
 
-	ImGuiColorEditFlags_AlphaBar(1 << 16),
-	ImGuiColorEditFlags_AlphaPreview(1 << 17),
-	ImGuiColorEditFlags_AlphaPreviewHalf(1 << 18),
-	ImGuiColorEditFlags_HDR(1 << 19),
-	ImGuiColorEditFlags_DisplayRGB(1 << 20),
-	ImGuiColorEditFlags_DisplayHSV(1 << 21),
-	ImGuiColorEditFlags_DisplayHex(1 << 22),
-	ImGuiColorEditFlags_Uint8(1 << 23),
-	ImGuiColorEditFlags_Float(1 << 24),
-	ImGuiColorEditFlags_PickerHueBar(1 << 25),
-	ImGuiColorEditFlags_PickerHueWheel(1 << 26),
-	ImGuiColorEditFlags_InputRGB(1 << 27),
-	ImGuiColorEditFlags_InputHSV(1 << 28),
+	AlphaBar(1 << 16),
+	AlphaPreview(1 << 17),
+	AlphaPreviewHalf(1 << 18),
+	HDR(1 << 19),
+	DisplayRGB(1 << 20),
+	DisplayHSV(1 << 21),
+	DisplayHex(1 << 22),
+	Uint8(1 << 23),
+	Float(1 << 24),
+	PickerHueBar(1 << 25),
+	PickerHueWheel(1 << 26),
+	InputRGB(1 << 27),
+	InputHSV(1 << 28),
 
-	ImGuiColorEditFlags__OptionsDefault(ImGuiColorEditFlags_Uint8.getValue() | ImGuiColorEditFlags_DisplayRGB.getValue() | ImGuiColorEditFlags_InputRGB.getValue() | ImGuiColorEditFlags_PickerHueBar.getValue());
+	OptionsDefault(Uint8.getValue() | DisplayRGB.getValue() | InputRGB.getValue() | PickerHueBar.getValue());
 
 	int value;
 
 	private ImGuiColorEditFlags(int code) {
 		value = code;
+	}
+
+	public ImGuiColorEditFlags and(ImGuiColorEditFlags otherEnum) {
+		value = value | otherEnum.value;
+		return this;
 	}
 
 	public int getValue() {

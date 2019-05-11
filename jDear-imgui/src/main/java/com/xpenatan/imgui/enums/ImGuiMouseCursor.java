@@ -5,16 +5,16 @@ package com.xpenatan.imgui.enums;
  * User code may request binding to display given cursor by calling SetMouseCursor(), which is why we have some cursors that are marked unused here
  */
 public enum ImGuiMouseCursor {
-	ImGuiMouseCursor_None(-1),
-	ImGuiMouseCursor_Arrow(0),
-	ImGuiMouseCursor_TextInput(1),
-	ImGuiMouseCursor_ResizeAll(2),
-	ImGuiMouseCursor_ResizeNS(3),
-	ImGuiMouseCursor_ResizeEW(4),
-	ImGuiMouseCursor_ResizeNESW(5),
-	ImGuiMouseCursor_ResizeNWSE(6),
-	ImGuiMouseCursor_Hand(7),
-	ImGuiMouseCursor_COUNT(8);
+	None(-1),
+	Arrow(0),
+	TextInput(1),
+	ResizeAll(2),
+	ResizeNS(3),
+	ResizeEW(4),
+	ResizeNESW(5),
+	ResizeNWSE(6),
+	Hand(7),
+	COUNT(8);
 
 	int value;
 

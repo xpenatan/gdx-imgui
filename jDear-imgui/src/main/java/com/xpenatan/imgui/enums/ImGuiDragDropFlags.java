@@ -6,24 +6,29 @@ package com.xpenatan.imgui.enums;
  * Note: windows with the ImGuiWindowFlags_NoInputs flag are ignored by IsWindowHovered() calls.
  */
 public enum ImGuiDragDropFlags {
-	ImGuiDragDropFlags_None(0),
+	None(0),
 	// BeginDragDropSource() flags
-	ImGuiDragDropFlags_SourceNoPreviewTooltip(1 << 0),
-	ImGuiDragDropFlags_SourceNoDisableHover(1 << 1),
-	ImGuiDragDropFlags_SourceNoHoldToOpenOthers(1 << 2),
-	ImGuiDragDropFlags_SourceAllowNullID(1 << 3),
-	ImGuiDragDropFlags_SourceExtern(1 << 4),
-	ImGuiDragDropFlags_SourceAutoExpirePayload(1 << 5),
+	SourceNoPreviewTooltip(1 << 0),
+	SourceNoDisableHover(1 << 1),
+	SourceNoHoldToOpenOthers(1 << 2),
+	SourceAllowNullID(1 << 3),
+	SourceExtern(1 << 4),
+	SourceAutoExpirePayload(1 << 5),
 	// AcceptDragDropPayload() flags
-	ImGuiDragDropFlags_AcceptBeforeDelivery(1 << 10),
-	ImGuiDragDropFlags_AcceptNoDrawDefaultRect(1 << 11),
-	ImGuiDragDropFlags_AcceptNoPreviewTooltip(1 << 12),
-	ImGuiDragDropFlags_AcceptPeekOnly(ImGuiDragDropFlags_AcceptBeforeDelivery.getValue() | ImGuiDragDropFlags_AcceptNoDrawDefaultRect.getValue());
+	AcceptBeforeDelivery(1 << 10),
+	AcceptNoDrawDefaultRect(1 << 11),
+	AcceptNoPreviewTooltip(1 << 12),
+	AcceptPeekOnly(AcceptBeforeDelivery.getValue() | AcceptNoDrawDefaultRect.getValue());
 
 	int value;
 
 	private ImGuiDragDropFlags(int code) {
 		value = code;
+	}
+
+	public ImGuiDragDropFlags and(ImGuiDragDropFlags otherEnum) {
+		value = value | otherEnum.value;
+		return this;
 	}
 
 	public int getValue() {

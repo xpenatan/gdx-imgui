@@ -7,22 +7,22 @@ package com.xpenatan.imgui.enums;
  * Read instructions in imgui.cpp for more details. Download PNG/PSD at http://goo.gl/9LgVZW.
  **/
 public enum ImGuiNavInput {
-	ImGuiNavInput_Activate(0),
-	ImGuiNavInput_Cancel(1),
-	ImGuiNavInput_Input(2),
-	ImGuiNavInput_Menu(3),
-	ImGuiNavInput_DpadLeft(4),
-	ImGuiNavInput_DpadRight(5),
-	ImGuiNavInput_DpadUp(6),
-	ImGuiNavInput_DpadDown(7),
-	ImGuiNavInput_LStickLeft(8),
-	ImGuiNavInput_LStickRight(9),
-	ImGuiNavInput_LStickUp(10),
-	ImGuiNavInput_LStickDown(11),
-	ImGuiNavInput_FocusPrev(12),
-	ImGuiNavInput_FocusNext(13),
-	ImGuiNavInput_TweakSlow(14),
-	ImGuiNavInput_TweakFast(15);
+	Activate(0),
+	Cancel(1),
+	Input(2),
+	Menu(3),
+	DpadLeft(4),
+	DpadRight(5),
+	DpadUp(6),
+	DpadDown(7),
+	LStickLeft(8),
+	LStickRight(9),
+	LStickUp(10),
+	LStickDown(11),
+	FocusPrev(12),
+	FocusNext(13),
+	TweakSlow(14),
+	TweakFast(15);
 
 	private final int code;
 

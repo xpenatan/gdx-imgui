@@ -4,35 +4,40 @@ package com.xpenatan.imgui.enums;
  * Flags for ImGui::Begin()
  */
 public enum ImGuiWindowFlags {
-	ImGuiWindowFlags_None(0),
-	ImGuiWindowFlags_NoTitleBar(1 << 0),
-	ImGuiWindowFlags_NoResize(1 << 1),
-	ImGuiWindowFlags_NoMove(1 << 2),
-	ImGuiWindowFlags_NoScrollbar(1 << 3),
-	ImGuiWindowFlags_NoScrollWithMouse(1 << 4),
-	ImGuiWindowFlags_NoCollapse(1 << 5),
-	ImGuiWindowFlags_AlwaysAutoResize(1 << 6),
-	ImGuiWindowFlags_NoBackground(1 << 7),
-	ImGuiWindowFlags_NoSavedSettings(1 << 8),
-	ImGuiWindowFlags_NoMouseInputs(1 << 9),
-	ImGuiWindowFlags_MenuBar(1 << 10),
-	ImGuiWindowFlags_HorizontalScrollbar(1 << 11),
-	ImGuiWindowFlags_NoFocusOnAppearing(1 << 12),
-	ImGuiWindowFlags_NoBringToFrontOnFocus(1 << 13),
-	ImGuiWindowFlags_AlwaysVerticalScrollbar(1 << 14),
-	ImGuiWindowFlags_AlwaysHorizontalScrollbar(1 << 15),
-	ImGuiWindowFlags_AlwaysUseWindowPadding(1 << 16),
-	ImGuiWindowFlags_NoNavInputs(1 << 17),
-	ImGuiWindowFlags_NoNavFocus(1 << 18),
-	ImGuiWindowFlags_UnsavedDocument(1 << 19),
-	ImGuiWindowFlags_NoNav(ImGuiWindowFlags_NoNavInputs.getValue() | ImGuiWindowFlags_NoNavFocus.getValue()),
-	ImGuiWindowFlags_NoDecoration(ImGuiWindowFlags_NoTitleBar.getValue() | ImGuiWindowFlags_NoResize.getValue() | ImGuiWindowFlags_NoScrollbar.getValue() | ImGuiWindowFlags_NoCollapse.getValue()),
-	ImGuiWindowFlags_NoInputs(ImGuiWindowFlags_NoMouseInputs.getValue() | ImGuiWindowFlags_NoNavInputs.getValue() | ImGuiWindowFlags_NoNavFocus.getValue());
+	None(0),
+	NoTitleBar(1 << 0),
+	NoResize(1 << 1),
+	NoMove(1 << 2),
+	NoScrollbar(1 << 3),
+	NoScrollWithMouse(1 << 4),
+	NoCollapse(1 << 5),
+	AlwaysAutoResize(1 << 6),
+	NoBackground(1 << 7),
+	NoSavedSettings(1 << 8),
+	NoMouseInputs(1 << 9),
+	MenuBar(1 << 10),
+	HorizontalScrollbar(1 << 11),
+	NoFocusOnAppearing(1 << 12),
+	NoBringToFrontOnFocus(1 << 13),
+	AlwaysVerticalScrollbar(1 << 14),
+	AlwaysHorizontalScrollbar(1 << 15),
+	AlwaysUseWindowPadding(1 << 16),
+	NoNavInputs(1 << 17),
+	NoNavFocus(1 << 18),
+	UnsavedDocument(1 << 19),
+	NoNav(NoNavInputs.getValue() | NoNavFocus.getValue()),
+	NoDecoration(NoTitleBar.getValue() | NoResize.getValue() | NoScrollbar.getValue() | NoCollapse.getValue()),
+	NoInputs(NoMouseInputs.getValue() | NoNavInputs.getValue() | NoNavFocus.getValue());
 
 	int value;
 
 	private ImGuiWindowFlags(int code) {
 		value = code;
+	}
+
+	public ImGuiWindowFlags and(ImGuiWindowFlags otherEnum) {
+		value = value | otherEnum.value;
+		return this;
 	}
 
 	public int getValue() {

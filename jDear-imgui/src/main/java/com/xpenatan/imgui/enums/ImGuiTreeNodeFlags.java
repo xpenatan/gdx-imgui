@@ -4,27 +4,32 @@ package com.xpenatan.imgui.enums;
  * Flags for ImGui::TreeNodeEx(), ImGui::CollapsingHeader*()
  */
 public enum ImGuiTreeNodeFlags {
-	ImGuiTreeNodeFlags_None(0),
-	ImGuiTreeNodeFlags_Selected(1 << 0),
-	ImGuiTreeNodeFlags_Framed(1 << 1),
-	ImGuiTreeNodeFlags_AllowItemOverlap(1 << 2),
-	ImGuiTreeNodeFlags_NoTreePushOnOpen(1 << 3),
-	ImGuiTreeNodeFlags_NoAutoOpenOnLog(1 << 4),
-	ImGuiTreeNodeFlags_DefaultOpen(1 << 5),
-	ImGuiTreeNodeFlags_OpenOnDoubleClick(1 << 6),
-	ImGuiTreeNodeFlags_OpenOnArrow(1 << 7),
-	ImGuiTreeNodeFlags_Leaf(1 << 8),
-	ImGuiTreeNodeFlags_Bullet(1 << 9),
-	ImGuiTreeNodeFlags_FramePadding(1 << 10),
-//	ImGuITreeNodeFlags_SpanAllAvailWidth(1 << 11),
-//	ImGuiTreeNodeFlags_NoScrollOnOpen(1 << 12),
-	ImGuiTreeNodeFlags_NavLeftJumpsBackHere(1 << 13),
-	ImGuiTreeNodeFlags_CollapsingHeader(ImGuiTreeNodeFlags_Framed.getValue() | ImGuiTreeNodeFlags_NoTreePushOnOpen.getValue() | ImGuiTreeNodeFlags_NoAutoOpenOnLog.getValue());
+	None(0),
+	Selected(1 << 0),
+	Framed(1 << 1),
+	AllowItemOverlap(1 << 2),
+	NoTreePushOnOpen(1 << 3),
+	NoAutoOpenOnLog(1 << 4),
+	DefaultOpen(1 << 5),
+	OpenOnDoubleClick(1 << 6),
+	OpenOnArrow(1 << 7),
+	Leaf(1 << 8),
+	Bullet(1 << 9),
+	FramePadding(1 << 10),
+//	SpanAllAvailWidth(1 << 11),
+//	NoScrollOnOpen(1 << 12),
+	NavLeftJumpsBackHere(1 << 13),
+	CollapsingHeader(Framed.getValue() | NoTreePushOnOpen.getValue() | NoAutoOpenOnLog.getValue());
 
 	int value;
 
 	private ImGuiTreeNodeFlags(int code) {
 		value = code;
+	}
+
+	public ImGuiTreeNodeFlags and(ImGuiTreeNodeFlags otherEnum) {
+		value = value | otherEnum.value;
+		return this;
 	}
 
 	public int getValue() {

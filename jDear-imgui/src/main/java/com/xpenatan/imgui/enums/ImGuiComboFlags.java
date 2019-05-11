@@ -4,20 +4,25 @@ package com.xpenatan.imgui.enums;
  * Flags for ImGui::BeginCombo()
  */
 public enum ImGuiComboFlags {
-	ImGuiComboFlags_None(0),
-	ImGuiComboFlags_PopupAlignLeft(1 << 0),
-	ImGuiComboFlags_HeightSmall(1 << 1),
-	ImGuiComboFlags_HeightRegular(1 << 2),
-	ImGuiComboFlags_HeightLarge(1 << 3),
-	ImGuiComboFlags_HeightLargest(1 << 4),
-	ImGuiComboFlags_NoArrowButton(1 << 5),
-	ImGuiComboFlags_NoPreview(1 << 6),
-	ImGuiComboFlags_HeightMask_(ImGuiComboFlags_HeightSmall.getValue() | ImGuiComboFlags_HeightRegular.getValue() | ImGuiComboFlags_HeightLarge.getValue() | ImGuiComboFlags_HeightLargest.getValue());
+	None(0),
+	PopupAlignLeft(1 << 0),
+	HeightSmall(1 << 1),
+	HeightRegular(1 << 2),
+	HeightLarge(1 << 3),
+	HeightLargest(1 << 4),
+	NoArrowButton(1 << 5),
+	NoPreview(1 << 6),
+	HeightMask(HeightSmall.getValue() | HeightRegular.getValue() | HeightLarge.getValue() | HeightLargest.getValue());
 
 	int value;
 
 	private ImGuiComboFlags(int code) {
 		value = code;
+	}
+
+	public ImGuiComboFlags and(ImGuiComboFlags otherEnum) {
+		value = value | otherEnum.value;
+		return this;
 	}
 
 	public int getValue() {
