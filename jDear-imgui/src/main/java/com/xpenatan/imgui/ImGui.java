@@ -9,6 +9,7 @@ import com.xpenatan.imgui.enums.ImGuiDir;
 import com.xpenatan.imgui.enums.ImGuiFocusedFlags;
 import com.xpenatan.imgui.enums.ImGuiHoveredFlags;
 import com.xpenatan.imgui.enums.ImGuiInputTextFlags;
+import com.xpenatan.imgui.enums.ImGuiStyleVar;
 import com.xpenatan.imgui.enums.ImGuiTabBarFlags;
 import com.xpenatan.imgui.enums.ImGuiTabItemFlags;
 import com.xpenatan.imgui.enums.ImGuiWindowFlags;
@@ -167,6 +168,25 @@ public class ImGui {
 	}
 
 	// Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin).
+
+
+	// Parameters stacks (shared)
+
+	public static void PushStyleVar(ImGuiStyleVar idx, float val) {
+		ImGuiNative.PushStyleVar(idx.getValue(), val);
+	}
+
+	public static void PushStyleVar(ImGuiStyleVar idx, float valX, float valY) {
+		ImGuiNative.PushStyleVar(idx.getValue(), valX, valY);
+	}
+
+	public static void PopStyleVar() {
+		ImGuiNative.PopStyleVar();
+	}
+
+	public static void PopStyleVar(int count) {
+		ImGuiNative.PopStyleVar(count);
+	}
 
 	// Parameters stacks (current window)
 
@@ -704,6 +724,30 @@ public class ImGui {
 
 	public static boolean VSliderScalar(String label, float sizeX, float sizeY, ImGuiDataType data_type, ImGuiInt v, int v_min, int v_max, String format, float power) {
 		return ImGuiNative.VSliderScalar(label, sizeX, sizeY, data_type.getValue(), v.data, v_min, v_max, format, power);
+	}
+
+	// Widgets: Selectables
+	// - A selectable highlights when hovered, and can display another color when selected.
+	// - Neighbors selectable extend their highlight bounds in order to leave no gap between them.
+
+	public static boolean Selectable(String label) {
+		return ImGuiNative.Selectable(label);
+	}
+
+	public static boolean Selectable(String label, boolean selected) {
+		return ImGuiNative.Selectable(label, selected);
+	}
+
+	public static boolean Selectable(String label, boolean selected, int flags, float sizeX, float sizeY) {
+		return ImGuiNative.Selectable(label, selected, flags, sizeX, sizeY);
+	}
+
+	public static boolean Selectable(String label, ImGuiBoolean selected) {
+		return ImGuiNative.Selectable(label, selected.data);
+	}
+
+	public static boolean Selectable(String label, ImGuiBoolean selected, int flags, float sizeX, float sizeY) {
+		return ImGuiNative.Selectable(label, selected.data, flags, sizeX, sizeY);
 	}
 
 	// Widgets: List Boxes

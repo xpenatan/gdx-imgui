@@ -1092,6 +1092,30 @@ public class ImGuiNative {
 		return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), data_type, &v[0], &v_min, &v_max, format, power);
 	*/
 
+	// Widgets: Selectables
+	// - A selectable highlights when hovered, and can display another color when selected.
+	// - Neighbors selectable extend their highlight bounds in order to leave no gap between them.
+
+	public static native boolean Selectable(String label) /*-{ }-*/; /*
+		return ImGui::Selectable(label);
+	*/
+
+	public static native boolean Selectable(String label, boolean selected) /*-{ }-*/; /*
+		return ImGui::Selectable(label, selected);
+	*/
+
+	public static native boolean Selectable(String label, boolean selected, int flags, float sizeX, float sizeY) /*-{ }-*/; /*
+		return ImGui::Selectable(label, selected, flags, ImVec2(sizeX, sizeY));
+	*/
+
+	public static native boolean Selectable(String label, boolean [] selected) /*-{ }-*/; /*
+		return ImGui::Selectable(label, &selected[0]);
+	*/
+
+	public static native boolean Selectable(String label, boolean [] selected, int flags, float sizeX, float sizeY) /*-{ }-*/; /*
+		return ImGui::Selectable(label,  &selected[0], flags, ImVec2(sizeX, sizeY));
+	*/
+
 	// Widgets: List Boxes
 	// - FIXME: To be consistent with all the newer API, ListBoxHeader/ListBoxFooter should in reality be called BeginListBox/EndListBox. Will rename them.
 
