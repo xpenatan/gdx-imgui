@@ -32,12 +32,18 @@ public class ImGui {
 		ImGui.IMGUIINIT = true;
 		ImGui.enableLogging = logging;
 
+		ImGuiNative.init();
 		ImGuiNative.CreateContext();
 	}
 
 	private static DrawData drawData = new DrawData(100000, 100000, 1000);
+	private static ImGuiIO imguiIO = new ImGuiIO();
 
 	private  ImGui() {
+	}
+
+	public static ImGuiIO GetIO() {
+		return imguiIO;
 	}
 
 	public static void ShowDemoWindow(boolean open)  {
@@ -46,7 +52,7 @@ public class ImGui {
 
 	public static void UpdateDisplayAndInputAndFrame(float deltaTime, float w, float h, float backBufferWidth, float backBufferHeight,
 			int mouseX, int mouseY, boolean mouseDown0, boolean mouseDown1, boolean mouseDown2)  {
-		ImGuiNative.UpdateDisplayAndInputAndFrame(deltaTime, w, h, backBufferWidth, backBufferHeight,
+		ImGuiNative.UpdateDisplayAndInputAndFrame(imguiIO, deltaTime, w, h, backBufferWidth, backBufferHeight,
 				mouseX, mouseY, mouseDown0, mouseDown1, mouseDown2, false, false, false);
 	}
 

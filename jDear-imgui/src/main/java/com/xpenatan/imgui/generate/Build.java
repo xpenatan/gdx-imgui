@@ -16,7 +16,7 @@ public class Build {
 
 	public static void main(String[] args) throws Exception {
 
-		boolean debug = true;
+		boolean debug = false;
 
 		String path = Build.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 		path = URLDecoder.decode(path, "UTF-8" ).replace("bin/", "");

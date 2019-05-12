@@ -2,13 +2,10 @@ package com.xpenatan.imgui;
 
 import java.nio.Buffer;
 
-import com.xpenatan.imgui.enums.ImGuiFocusedFlags;
-
 public class ImGuiNative {
 
 	/*JNI
 		#include <src/imgui.h>
-		#include <iostream>
 
 		jfieldID totalVtxCountID;
 		jfieldID totalIdxCountID;
@@ -20,31 +17,64 @@ public class ImGuiNative {
 		jfieldID displaySizeYID;
 		jfieldID framebufferScaleXID;
 		jfieldID framebufferScaleYID;
+
+		jfieldID WantCaptureMouseID;
+		jfieldID WantCaptureKeyboardID;
+		jfieldID WantTextInputID;
+		jfieldID WantSetMousePosID;
+		jfieldID WantSaveIniSettingsID;
+		jfieldID NavActiveID;
+		jfieldID NavVisibleID;
+		jfieldID FramerateID;
+		jfieldID MetricsRenderVerticesID;
+		jfieldID MetricsRenderIndicesID;
+		jfieldID MetricsRenderWindowsID;
+		jfieldID MetricsActiveWindowsID;
+		jfieldID MetricsActiveAllocationsID;
+		jfieldID MouseDeltaXID;
+		jfieldID MouseDeltaYID;
+	*/
+
+	public static native void init() /*-{ }-*/; /*
+		jclass jDrawDataClass = env->FindClass("com/xpenatan/imgui/DrawData");
+		jclass jImGuiIOClass = env->FindClass("com/xpenatan/imgui/ImGuiIO");
+
+		// DrawData Prepare IDs
+		totalVtxCountID = env->GetFieldID(jDrawDataClass, "totalVtxCount", "I");
+		totalIdxCountID = env->GetFieldID(jDrawDataClass, "totalIdxCount", "I");
+		totalCmdCountID = env->GetFieldID(jDrawDataClass, "totalCmdCount", "I");
+		CmdListsCountID = env->GetFieldID(jDrawDataClass, "cmdListsCount", "I");
+		displayPosXID = env->GetFieldID(jDrawDataClass, "displayPosX", "F");
+		displayPosYID = env->GetFieldID(jDrawDataClass, "displayPosY", "F");
+		displaySizeXID = env->GetFieldID(jDrawDataClass, "displaySizeX", "F");
+		displaySizeYID = env->GetFieldID(jDrawDataClass, "displaySizeY", "F");
+		framebufferScaleXID = env->GetFieldID(jDrawDataClass, "framebufferScaleX", "F");
+		framebufferScaleYID = env->GetFieldID(jDrawDataClass, "framebufferScaleY", "F");
+
+		// ImGuiIO Prepare IDs
+		WantCaptureMouseID = env->GetFieldID(jImGuiIOClass, "WantCaptureMouse", "Z");
+		WantCaptureKeyboardID = env->GetFieldID(jImGuiIOClass, "WantCaptureKeyboard", "Z");
+		WantTextInputID = env->GetFieldID(jImGuiIOClass, "WantTextInput", "Z");
+		WantSetMousePosID = env->GetFieldID(jImGuiIOClass, "WantSetMousePos", "Z");
+		WantSaveIniSettingsID = env->GetFieldID(jImGuiIOClass, "WantSaveIniSettings", "Z");
+		NavActiveID = env->GetFieldID(jImGuiIOClass, "NavActive", "Z");
+		NavVisibleID = env->GetFieldID(jImGuiIOClass, "NavVisible", "Z");
+		FramerateID = env->GetFieldID(jImGuiIOClass, "Framerate", "F");
+		MetricsRenderVerticesID = env->GetFieldID(jImGuiIOClass, "MetricsRenderVertices", "I");
+		MetricsRenderIndicesID = env->GetFieldID(jImGuiIOClass, "MetricsRenderIndices", "I");
+		MetricsRenderWindowsID = env->GetFieldID(jImGuiIOClass, "MetricsRenderWindows", "I");
+		MetricsActiveWindowsID = env->GetFieldID(jImGuiIOClass, "MetricsActiveWindows", "I");
+		MetricsActiveAllocationsID = env->GetFieldID(jImGuiIOClass, "MetricsActiveAllocations", "I");
+		MouseDeltaXID = env->GetFieldID(jImGuiIOClass, "MouseDeltaX", "F");
+		MouseDeltaYID = env->GetFieldID(jImGuiIOClass, "MouseDeltaY", "F");
 	*/
 
 	public static native void CreateContext() /*-{ }-*/; /*
 		ImGui::CreateContext();
 		ImGui::GetIO().IniFilename = NULL;
-
-		jclass jDrawDataClass = env->FindClass("com/xpenatan/imgui/DrawData");
-
-		// Prepare IDs
-		totalVtxCountID = env->GetFieldID(jDrawDataClass, "totalVtxCount", "I");
-		totalIdxCountID = env->GetFieldID(jDrawDataClass, "totalIdxCount", "I");
-		totalCmdCountID = env->GetFieldID(jDrawDataClass, "totalCmdCount", "I");
-		CmdListsCountID = env->GetFieldID(jDrawDataClass, "cmdListsCount", "I");
-
-		displayPosXID = env->GetFieldID(jDrawDataClass, "displayPosX", "F");
-		displayPosYID = env->GetFieldID(jDrawDataClass, "displayPosY", "F");
-
-		displaySizeXID = env->GetFieldID(jDrawDataClass, "displaySizeX", "F");
-		displaySizeYID = env->GetFieldID(jDrawDataClass, "displaySizeY", "F");
-
-		framebufferScaleXID = env->GetFieldID(jDrawDataClass, "framebufferScaleX", "F");
-		framebufferScaleYID = env->GetFieldID(jDrawDataClass, "framebufferScaleY", "F");
 	*/
 
-	public static native void UpdateDisplayAndInputAndFrame(float deltaTime, float w, float h, float display_w, float display_h,
+	public static native void UpdateDisplayAndInputAndFrame(ImGuiIO jImguiIO, float deltaTime, float w, float h, float display_w, float display_h,
 			float mouseX, float mouseY, boolean mouseDown0, boolean mouseDown1, boolean mouseDown2, boolean mouseDown3, boolean mouseDown4, boolean mouseDown5) /*-{ }-*/; /*
 		ImGuiIO& io = ImGui::GetIO();
 
@@ -74,6 +104,23 @@ public class ImGuiNative {
 		}
 
 		ImGui::NewFrame();
+
+		// Update ImGuiIO
+		env->SetBooleanField (jImguiIO, WantCaptureMouseID, io.WantCaptureMouse);
+		env->SetBooleanField (jImguiIO, WantCaptureKeyboardID, io.WantCaptureKeyboard);
+		env->SetBooleanField (jImguiIO, WantTextInputID, io.WantTextInput);
+		env->SetBooleanField (jImguiIO, WantSetMousePosID, io.WantSetMousePos);
+		env->SetBooleanField (jImguiIO, WantSaveIniSettingsID, io.WantSaveIniSettings);
+		env->SetBooleanField (jImguiIO, NavActiveID, io.NavActive);
+		env->SetBooleanField (jImguiIO, NavVisibleID, io.NavVisible);
+		env->SetBooleanField (jImguiIO, FramerateID, io.Framerate);
+		env->SetBooleanField (jImguiIO, MetricsRenderVerticesID, io.MetricsRenderVertices);
+		env->SetBooleanField (jImguiIO, MetricsRenderIndicesID, io.MetricsRenderIndices);
+		env->SetBooleanField (jImguiIO, MetricsRenderWindowsID, io.MetricsRenderWindows);
+		env->SetBooleanField (jImguiIO, MetricsActiveWindowsID, io.MetricsActiveWindows);
+		env->SetBooleanField (jImguiIO, MetricsActiveAllocationsID, io.MetricsActiveAllocations);
+		env->SetBooleanField (jImguiIO, MouseDeltaXID, io.MouseDelta.x);
+		env->SetBooleanField (jImguiIO, MouseDeltaYID, io.MouseDelta.y);
 	*/
 
 	public static native void Render() /*-{ }-*/; /*

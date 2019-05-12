@@ -1,6 +1,8 @@
 package com.xpenatan.imgui.gdx;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes;
@@ -8,10 +10,12 @@ import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Matrix4;
 import com.xpenatan.imgui.DrawData;
+import com.xpenatan.imgui.ImGui;
+import com.xpenatan.imgui.ImGuiIO;
 import com.xpenatan.imgui.ImGuiNative;
 import com.xpenatan.imgui.TexDataRGBA32;
 
-public class GdxImGuiRenderer {
+public class ImGuiGdxImpl extends InputAdapter {
 
 	private boolean fontInit = false;
 	private VertexAttributes vertexAttributes;
@@ -24,6 +28,10 @@ public class GdxImGuiRenderer {
 
 	int g_FontTexture;
 
+	boolean mouseDown0;
+	boolean mouseDown1;
+	boolean mouseDown2;
+
 	String vertex_shader_glsl_130 = "uniform mat4 ProjMtx;\n" + "attribute vec2 Position;\n" + "attribute vec2 UV;\n"
 			+ "attribute vec4 Color;\n" + "varying vec2 Frag_UV;\n" + "varying vec4 Frag_Color;\n" + "void main()\n"
 			+ "{\n" + "    Frag_UV = UV;\n" + "    Frag_Color = Color;\n"
@@ -33,7 +41,7 @@ public class GdxImGuiRenderer {
 			+ "uniform sampler2D Texture;\n" + "varying vec2 Frag_UV;\n" + "varying vec4 Frag_Color;\n"
 			+ "void main()\n" + "{\n" + "    gl_FragColor = Frag_Color * texture2D(Texture, Frag_UV.st);\n" + "}\n";
 
-	public GdxImGuiRenderer() {
+	public ImGuiGdxImpl() {
 
 		vertexAttributes = new VertexAttributes(new VertexAttribute[] {
 				new VertexAttribute(Usage.Position, 2, GL20.GL_FLOAT, false, "Position"),
@@ -73,6 +81,16 @@ public class GdxImGuiRenderer {
 		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, ibufferHandle);
 		Gdx.gl20.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, drawData.iByteBuffer.capacity(), null, GL20.GL_STATIC_DRAW);
 		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
+
+	public void update() {
+		int width = Gdx.graphics.getWidth();
+		int height = Gdx.graphics.getHeight();
+		int backBufferWidth = Gdx.graphics.getBackBufferWidth();
+		int backBufferHeight = Gdx.graphics.getBackBufferHeight();
+
+		ImGui.UpdateDisplayAndInputAndFrame(Gdx.graphics.getDeltaTime(), width, height, backBufferWidth, backBufferHeight,
+				Gdx.input.getX(), Gdx.input.getY(), mouseDown0, mouseDown1, mouseDown2);
 	}
 
 	public void render(DrawData drawData) {
@@ -244,6 +262,41 @@ public class GdxImGuiRenderer {
 		Gdx.gl.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
 		Gdx.gl.glDeleteBuffer(ibufferHandle);
 		ibufferHandle = 0;
+	}
+
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		if(button == Buttons.LEFT)
+			mouseDown0 =  true;
+		if(button == Buttons.RIGHT)
+			mouseDown1 = true;
+		if(button == Buttons.MIDDLE)
+			mouseDown2 = true;
+
+		ImGuiIO getIO = ImGui.GetIO();
+		if(getIO.WantCaptureMouse)
+			return true;
+		return super.touchDown(screenX, screenY, pointer, button);
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		if(button == Buttons.LEFT)
+			mouseDown0 =  false;
+		if(button == Buttons.RIGHT)
+			mouseDown1 = false;
+		if(button == Buttons.MIDDLE)
+			mouseDown2 = false;
+		return super.touchDown(screenX, screenY, pointer, button);
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		ImGuiIO getIO = ImGui.GetIO();
+		if(getIO.WantCaptureKeyboard)
+			return true;
+		return super.keyDown(keycode);
 	}
 
 }

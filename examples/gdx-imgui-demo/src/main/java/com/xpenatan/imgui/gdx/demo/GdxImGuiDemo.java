@@ -12,7 +12,7 @@ import com.xpenatan.imgui.ImGui;
 import com.xpenatan.imgui.ImGuiBoolean;
 import com.xpenatan.imgui.ImGuiInt;
 import com.xpenatan.imgui.enums.ImGuiDir;
-import com.xpenatan.imgui.gdx.GdxImGuiRenderer;
+import com.xpenatan.imgui.gdx.ImGuiGdxImpl;
 
 public class GdxImGuiDemo implements ApplicationListener
 {
@@ -27,7 +27,7 @@ public class GdxImGuiDemo implements ApplicationListener
 	}
 
 
-	GdxImGuiRenderer impl;
+	ImGuiGdxImpl impl;
 	ImGuiBoolean guiBool = new ImGuiBoolean();
 	ImGuiInt guiInt = new ImGuiInt();
 	ImGuiInt listSelected = new ImGuiInt();
@@ -40,7 +40,7 @@ public class GdxImGuiDemo implements ApplicationListener
 		OrthographicCamera uiCam = new OrthographicCamera();
 		uiCam.setToOrtho(true);
 		ImGui.init();
-		impl = new GdxImGuiRenderer();
+		impl = new ImGuiGdxImpl();
 	}
 
 	@Override
@@ -61,7 +61,6 @@ public class GdxImGuiDemo implements ApplicationListener
 				Gdx.input.getX(), Gdx.input.getY(), mouseDown0, mouseDown1, mouseDown2);
 
 //		ImGui.setNextWindowPos(0,0);
-		ImGui.SetNextWindowSize(400, 400);
 		ImGui.Begin("Hello World");
 
 		ImGui.Checkbox("CheckBox", guiBool);
