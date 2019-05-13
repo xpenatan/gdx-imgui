@@ -40,6 +40,8 @@ public class ImGui {
 
 	private static DrawData drawData = new DrawData(100000, 100000, 1000);
 	private static ImGuiIO imguiIO = new ImGuiIO();
+	private static ImVec2 imVec2 = new ImVec2();
+	private static ImVec4 imVec4 = new ImVec4();
 
 	private  ImGui() {
 	}
@@ -1072,4 +1074,84 @@ public class ImGui {
 	public static void SetTabItemClosed(String tab_or_docked_window_label) {
 		ImGuiNative.SetTabItemClosed(tab_or_docked_window_label);
 	}
+
+	// Item/Widgets Utilities
+	// - Most of the functions are referring to the last/previous item we submitted.
+	// - See Demo Window under "Widgets->Querying Status" for an interactive visualization of most of those functions.
+
+	public static boolean IsItemHovered() {
+		return ImGuiNative.IsItemHovered();
+	}
+
+	public static boolean IsItemHovered(ImGuiHoveredFlags flags) {
+		return ImGuiNative.IsItemHovered(flags.getValue());
+	}
+
+	public static boolean IsItemActive() {
+		return ImGuiNative.IsItemActive();
+	}
+
+	public static boolean IsItemFocused() {
+		return ImGuiNative.IsItemFocused();
+	}
+
+	public static boolean IsItemClicked() {
+		return ImGuiNative.IsItemClicked();
+	}
+
+	public static boolean IsItemClicked(int mouse_button) {
+		return ImGuiNative.IsItemClicked(mouse_button);
+	}
+
+	public static boolean IsItemVisible() {
+		return ImGuiNative.IsItemVisible();
+	}
+
+	public static boolean IsItemEdited() {
+		return ImGuiNative.IsItemEdited();
+	}
+
+	public static boolean IsItemActivated() {
+		return ImGuiNative.IsItemActivated();
+	}
+
+	public static boolean IsItemDeactivated() {
+		return ImGuiNative.IsItemDeactivated();
+	}
+
+	public static boolean IsItemDeactivatedAfterEdit() {
+		return ImGuiNative.IsItemDeactivatedAfterEdit();
+	}
+
+	public static boolean IsAnyItemHovered() {
+		return ImGuiNative.IsAnyItemHovered();
+	}
+
+	public static boolean IsAnyItemActive() {
+		return ImGuiNative.IsAnyItemActive();
+	}
+
+	public static boolean IsAnyItemFocused() {
+		return ImGuiNative.IsAnyItemFocused();
+	}
+
+	public static ImVec2 GetItemRectMin() {
+		ImGuiNative.GetItemRectMin(imVec2);
+		return imVec2;
+	}
+
+	public static ImVec2 GetItemRectMax() {
+		ImGuiNative.GetItemRectMax(imVec2);
+		return imVec2;
+	}
+
+	public static ImVec2 GetItemRectSize() {
+		ImGuiNative.GetItemRectSize(imVec2);
+		return imVec2;
+	}
+
+	public static void SetItemAllowOverlap() {
+		ImGuiNative.SetItemAllowOverlap();
+	}
+
 }

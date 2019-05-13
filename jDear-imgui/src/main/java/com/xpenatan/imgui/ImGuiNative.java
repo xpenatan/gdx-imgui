@@ -33,11 +33,18 @@ public class ImGuiNative {
 		jfieldID MetricsActiveAllocationsID;
 		jfieldID MouseDeltaXID;
 		jfieldID MouseDeltaYID;
+
+		jfieldID imVec2XID;
+		jfieldID imVec2YID;
+		jfieldID imVec4ZID;
+		jfieldID imVec4WID;
 	*/
 
 	public static native void init() /*-{ }-*/; /*
 		jclass jDrawDataClass = env->FindClass("com/xpenatan/imgui/DrawData");
 		jclass jImGuiIOClass = env->FindClass("com/xpenatan/imgui/ImGuiIO");
+		jclass jImVec2Class = env->FindClass("com/xpenatan/imgui/ImVec2");
+		jclass jImVec4Class = env->FindClass("com/xpenatan/imgui/ImVec4");
 
 		// DrawData Prepare IDs
 		totalVtxCountID = env->GetFieldID(jDrawDataClass, "totalVtxCount", "I");
@@ -67,6 +74,14 @@ public class ImGuiNative {
 		MetricsActiveAllocationsID = env->GetFieldID(jImGuiIOClass, "MetricsActiveAllocations", "I");
 		MouseDeltaXID = env->GetFieldID(jImGuiIOClass, "MouseDeltaX", "F");
 		MouseDeltaYID = env->GetFieldID(jImGuiIOClass, "MouseDeltaY", "F");
+
+		//ImVec2 Prepare IDs
+		imVec2XID = env->GetFieldID(jImVec2Class, "x", "F");
+		imVec2YID = env->GetFieldID(jImVec2Class, "y", "F");
+
+		//ImVec4 Prepare IDs
+		imVec4ZID = env->GetFieldID(jImVec4Class, "z", "F");
+		imVec4WID = env->GetFieldID(jImVec4Class, "w", "F");
 	*/
 
 	public static native void CreateContext() /*-{ }-*/; /*
@@ -1485,6 +1500,88 @@ public class ImGuiNative {
 
 	public static native void SetTabItemClosed(String tab_or_docked_window_label) /*-{ }-*/; /*
 		ImGui::SetTabItemClosed(tab_or_docked_window_label);
+	*/
+
+	// Item/Widgets Utilities
+	// - Most of the functions are referring to the last/previous item we submitted.
+	// - See Demo Window under "Widgets->Querying Status" for an interactive visualization of most of those functions.
+
+	public static native boolean IsItemHovered() /*-{ }-*/; /*
+		return ImGui::IsItemHovered();
+	*/
+
+	public static native boolean IsItemHovered(int flags) /*-{ }-*/; /*
+		return ImGui::IsItemHovered(flags);
+	*/
+
+	public static native boolean IsItemActive() /*-{ }-*/; /*
+		return ImGui::IsItemActive();
+	*/
+
+	public static native boolean IsItemFocused() /*-{ }-*/; /*
+		return ImGui::IsItemFocused();
+	*/
+
+	public static native boolean IsItemClicked() /*-{ }-*/; /*
+		return ImGui::IsItemClicked();
+	*/
+
+	public static native boolean IsItemClicked(int mouse_button) /*-{ }-*/; /*
+		return ImGui::IsItemClicked(mouse_button);
+	*/
+
+	public static native boolean IsItemVisible() /*-{ }-*/; /*
+		return ImGui::IsItemVisible();
+	*/
+
+	public static native boolean IsItemEdited() /*-{ }-*/; /*
+		return ImGui::IsItemEdited();
+	*/
+
+	public static native boolean IsItemActivated() /*-{ }-*/; /*
+		return ImGui::IsItemActivated();
+	*/
+
+	public static native boolean IsItemDeactivated() /*-{ }-*/; /*
+		return ImGui::IsItemDeactivated();
+	*/
+
+	public static native boolean IsItemDeactivatedAfterEdit() /*-{ }-*/; /*
+		return ImGui::IsItemDeactivatedAfterEdit();
+	*/
+
+	public static native boolean IsAnyItemHovered() /*-{ }-*/; /*
+		return ImGui::IsAnyItemHovered();
+	*/
+
+	public static native boolean IsAnyItemActive() /*-{ }-*/; /*
+		return ImGui::IsAnyItemActive();
+	*/
+
+	public static native boolean IsAnyItemFocused() /*-{ }-*/; /*
+		return ImGui::IsAnyItemFocused();
+	*/
+
+	public static native void GetItemRectMin(ImVec2 jImVec2) /*-{ }-*/; /*
+		ImVec2 vec = ImGui::GetItemRectMin();
+		env->SetFloatField (jImVec2, imVec2XID, vec.x);
+		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+	*/
+
+	public static native void GetItemRectMax(ImVec2 jImVec2) /*-{ }-*/; /*
+		ImVec2 vec = ImGui::GetItemRectMax();
+		env->SetFloatField (jImVec2, imVec2XID, vec.x);
+		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+	*/
+
+	public static native void GetItemRectSize(ImVec2 jImVec2) /*-{ }-*/; /*
+		ImVec2 vec = ImGui::GetItemRectSize();
+		env->SetFloatField (jImVec2, imVec2XID, vec.x);
+		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+	*/
+
+	public static native void SetItemAllowOverlap() /*-{ }-*/; /*
+		ImGui::SetItemAllowOverlap();
 	*/
 
 
