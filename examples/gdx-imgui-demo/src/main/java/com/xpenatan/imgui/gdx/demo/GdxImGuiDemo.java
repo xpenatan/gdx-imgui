@@ -12,6 +12,8 @@ import com.xpenatan.imgui.ImGui;
 import com.xpenatan.imgui.ImGuiBoolean;
 import com.xpenatan.imgui.ImGuiInt;
 import com.xpenatan.imgui.enums.ImGuiDir;
+import com.xpenatan.imgui.enums.ImGuiTabBarFlags;
+import com.xpenatan.imgui.enums.ImGuiTreeNodeFlags;
 import com.xpenatan.imgui.gdx.ImGuiGdxImpl;
 
 public class GdxImGuiDemo implements ApplicationListener
@@ -33,6 +35,8 @@ public class GdxImGuiDemo implements ApplicationListener
 	ImGuiInt listSelected = new ImGuiInt();
 
 	String [] myList = new String [] {"111", "222", "333", "444"};
+
+	int treeSelected = -1;
 
 	@Override
 	public void create ()
@@ -63,6 +67,8 @@ public class GdxImGuiDemo implements ApplicationListener
 //		ImGui.setNextWindowPos(0,0);
 		ImGui.Begin("Hello World");
 
+		renderTabTree();
+
 		ImGui.Checkbox("CheckBox", guiBool);
 		ImGui.Button("CheckBox");
 
@@ -87,7 +93,6 @@ public class GdxImGuiDemo implements ApplicationListener
 		ImGui.Text("Bullet text");
 
 		ImGui.ListBox("MyList", listSelected, myList, myList.length);
-
 		ImGui.End();
 
 		ImGui.ShowDemoWindow(false);
@@ -95,6 +100,44 @@ public class GdxImGuiDemo implements ApplicationListener
 		ImGui.Render();
 		DrawData drawData = ImGui.GetDrawData();
 		impl.render(drawData);
+	}
+
+	private void renderTabTree() {
+		ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags.Reorderable;
+		if (ImGui.BeginTabBar("MyTabBar", tab_bar_flags)) {
+			if (ImGui.BeginTabItem("TAB 01")) {
+				ImGui.Text("MyText");
+				ImGui.EndTabItem();
+			}
+			if (ImGui.BeginTabItem("TAB 02")) {
+				if (ImGui.TreeNode("Parent 01")) {
+					for (int i = 0; i < 5; i++) {
+						ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags.Leaf;
+						if (i == treeSelected) {
+							flags = flags.and(ImGuiTreeNodeFlags.Selected);
+						}
+						if (ImGui.TreeNodeEx(i, flags, "Leaf " + i)) {
+							if (ImGui.IsItemClicked()) {
+								if (treeSelected == i)
+									treeSelected = -1;
+								else
+									treeSelected = i;
+							}
+							ImGui.TreePop();
+						}
+					}
+					ImGui.TreePop();
+				}
+				if (ImGui.TreeNode("Parent 02")) {
+					ImGui.TreePop();
+				}
+				if (ImGui.TreeNode("Parent 03")) {
+					ImGui.TreePop();
+				}
+				ImGui.EndTabItem();
+			}
+			ImGui.EndTabBar();
+		}
 	}
 
 	@Override
