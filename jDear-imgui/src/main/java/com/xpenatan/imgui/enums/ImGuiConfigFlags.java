@@ -3,16 +3,17 @@ package com.xpenatan.imgui.enums;
 /**
  * Configuration flags stored in io.ConfigFlags. Set by user/application.
  */
-public enum ImGuiConfigFlags {
-	None(0),
-	NavEnableKeyboard(1 << 0),
-	NavEnableGamepad(1 << 1),
-	NavEnableSetMousePos(1 << 2),
-	NavNoCaptureKeyboard(1 << 3),
-	NoMouse(1 << 4),
-	NoMouseCursorChange(1 << 5),
-	IsSRGB(1 << 20),
-	IsTouchScreen(1 << 21);
+public class ImGuiConfigFlags {
+	private static ImGuiConfigFlags Custom = new ImGuiConfigFlags(0);
+	public static ImGuiConfigFlags None = new ImGuiConfigFlags(0);
+	public static ImGuiConfigFlags NavEnableKeyboard = new ImGuiConfigFlags(1 << 0);
+	public static ImGuiConfigFlags NavEnableGamepad = new ImGuiConfigFlags(1 << 1);
+	public static ImGuiConfigFlags NavEnableSetMousePos = new ImGuiConfigFlags(1 << 2);
+	public static ImGuiConfigFlags NavNoCaptureKeyboard = new ImGuiConfigFlags(1 << 3);
+	public static ImGuiConfigFlags NoMouse = new ImGuiConfigFlags(1 << 4);
+	public static ImGuiConfigFlags NoMouseCursorChange = new ImGuiConfigFlags(1 << 5);
+	public static ImGuiConfigFlags IsSRGB = new ImGuiConfigFlags(1 << 20);
+	public static ImGuiConfigFlags IsTouchScreen = new ImGuiConfigFlags(1 << 21);
 
 	int value;
 
@@ -21,8 +22,8 @@ public enum ImGuiConfigFlags {
 	}
 
 	public ImGuiConfigFlags and(ImGuiConfigFlags otherEnum) {
-		value = value | otherEnum.value;
-		return this;
+		ImGuiConfigFlags.Custom.value = value | otherEnum.value;
+		return ImGuiConfigFlags.Custom;
 	}
 
 	public int getValue() {

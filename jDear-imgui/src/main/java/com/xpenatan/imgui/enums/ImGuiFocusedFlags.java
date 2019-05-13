@@ -3,12 +3,13 @@ package com.xpenatan.imgui.enums;
 /**
  * Flags for ImGui::IsWindowFocused()
  */
-public enum ImGuiFocusedFlags {
-	None(0),
-	ChildWindows(1 << 0),
-	RootWindow(1 << 1),
-	AnyWindow(1 << 2),
-	RootAndChildWindows(RootWindow.getValue() | ChildWindows.getValue());
+public class ImGuiFocusedFlags {
+	private static ImGuiFocusedFlags Custom = new ImGuiFocusedFlags(0);
+	public static ImGuiFocusedFlags None = new ImGuiFocusedFlags(0);
+	public static ImGuiFocusedFlags ChildWindows = new ImGuiFocusedFlags(1 << 0);
+	public static ImGuiFocusedFlags RootWindow = new ImGuiFocusedFlags(1 << 1);
+	public static ImGuiFocusedFlags AnyWindow = new ImGuiFocusedFlags(1 << 2);
+	public static ImGuiFocusedFlags RootAndChildWindows = new ImGuiFocusedFlags(RootWindow.getValue() | ChildWindows.getValue());
 
 	int value;
 
@@ -17,8 +18,8 @@ public enum ImGuiFocusedFlags {
 	}
 
 	public ImGuiFocusedFlags and(ImGuiFocusedFlags otherEnum) {
-		value = value | otherEnum.value;
-		return this;
+		ImGuiFocusedFlags.Custom.value = value | otherEnum.value;
+		return ImGuiFocusedFlags.Custom;
 	}
 
 	public int getValue() {

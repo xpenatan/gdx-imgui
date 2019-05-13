@@ -3,12 +3,13 @@ package com.xpenatan.imgui.enums;
 /**
  * Flags for ImGui::Selectable()
  */
-public enum ImGuiSelectableFlags {
-	None(0),
-	DontClosePopups(1 << 0),
-	SpanAllColumns(1 << 1),
-	AllowDoubleClick(1 << 2),
-	Disabled(1 << 3);
+public class ImGuiSelectableFlags {
+	private static ImGuiSelectableFlags Custom = new ImGuiSelectableFlags(0);
+	public static ImGuiSelectableFlags None = new ImGuiSelectableFlags(0);
+	public static ImGuiSelectableFlags DontClosePopups = new ImGuiSelectableFlags(1 << 0);
+	public static ImGuiSelectableFlags SpanAllColumns = new ImGuiSelectableFlags(1 << 1);
+	public static ImGuiSelectableFlags AllowDoubleClick = new ImGuiSelectableFlags(1 << 2);
+	public static ImGuiSelectableFlags Disabled = new ImGuiSelectableFlags(1 << 3);
 
 	int value;
 
@@ -17,8 +18,8 @@ public enum ImGuiSelectableFlags {
 	}
 
 	public ImGuiSelectableFlags and(ImGuiSelectableFlags otherEnum) {
-		value = value | otherEnum.value;
-		return this;
+		ImGuiSelectableFlags.Custom.value = value | otherEnum.value;
+		return ImGuiSelectableFlags.Custom;
 	}
 
 	public int getValue() {

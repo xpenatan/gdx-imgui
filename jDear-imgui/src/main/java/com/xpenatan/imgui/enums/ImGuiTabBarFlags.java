@@ -3,18 +3,19 @@ package com.xpenatan.imgui.enums;
 /**
  * Flags for ImGui::BeginTabBar()
  */
-public enum ImGuiTabBarFlags {
-	None(0),
-	Reorderable(1 << 0),
-	AutoSelectNewTabs(1 << 1),
-	TabListPopupButton(1 << 2),
-	NoCloseWithMiddleMouseButton(1 << 3),
-	NoTabListScrollingButtons(1 << 4),
-	NoTooltip(1 << 5),
-	FittingPolicyResizeDown(1 << 6),
-	FittingPolicyScroll(1 << 7),
-	FittingPolicyMask(FittingPolicyResizeDown.getValue() | FittingPolicyScroll.getValue()),
-	FittingPolicyDefault(FittingPolicyResizeDown.getValue());
+public class ImGuiTabBarFlags {
+	private static ImGuiTabBarFlags Custom = new ImGuiTabBarFlags(0);
+	public static ImGuiTabBarFlags None = new ImGuiTabBarFlags(0);
+	public static ImGuiTabBarFlags Reorderable = new ImGuiTabBarFlags(1 << 0);
+	public static ImGuiTabBarFlags AutoSelectNewTabs = new ImGuiTabBarFlags(1 << 1);
+	public static ImGuiTabBarFlags TabListPopupButton = new ImGuiTabBarFlags(1 << 2);
+	public static ImGuiTabBarFlags NoCloseWithMiddleMouseButton = new ImGuiTabBarFlags(1 << 3);
+	public static ImGuiTabBarFlags NoTabListScrollingButtons = new ImGuiTabBarFlags(1 << 4);
+	public static ImGuiTabBarFlags NoTooltip = new ImGuiTabBarFlags(1 << 5);
+	public static ImGuiTabBarFlags FittingPolicyResizeDown = new ImGuiTabBarFlags(1 << 6);
+	public static ImGuiTabBarFlags FittingPolicyScroll = new ImGuiTabBarFlags(1 << 7);
+	public static ImGuiTabBarFlags FittingPolicyMask = new ImGuiTabBarFlags(FittingPolicyResizeDown.getValue() | FittingPolicyScroll.getValue());
+	public static ImGuiTabBarFlags FittingPolicyDefault = new ImGuiTabBarFlags(FittingPolicyResizeDown.getValue());
 
 	int value;
 
@@ -23,8 +24,8 @@ public enum ImGuiTabBarFlags {
 	}
 
 	public ImGuiTabBarFlags and(ImGuiTabBarFlags otherEnum) {
-		value = value | otherEnum.value;
-		return this;
+		ImGuiTabBarFlags.Custom.value = value | otherEnum.value;
+		return ImGuiTabBarFlags.Custom;
 	}
 
 	public int getValue() {

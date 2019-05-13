@@ -5,20 +5,21 @@ package com.xpenatan.imgui.enums;
  * Note: if you are trying to check whether your mouse should be dispatched to imgui or to your app, you should use the 'io.WantCaptureMouse' boolean for that. Please read the FAQ!
  * Note: windows with the ImGuiWindowFlags_NoInputs flag are ignored by IsWindowHovered() calls.
  */
-public enum ImGuiDragDropFlags {
-	None(0),
+public class ImGuiDragDropFlags {
+	private static ImGuiDragDropFlags Custom = new ImGuiDragDropFlags(0);
+	public static ImGuiDragDropFlags None = new ImGuiDragDropFlags(0);
 	// BeginDragDropSource() flags
-	SourceNoPreviewTooltip(1 << 0),
-	SourceNoDisableHover(1 << 1),
-	SourceNoHoldToOpenOthers(1 << 2),
-	SourceAllowNullID(1 << 3),
-	SourceExtern(1 << 4),
-	SourceAutoExpirePayload(1 << 5),
+	public static ImGuiDragDropFlags SourceNoPreviewTooltip = new ImGuiDragDropFlags(1 << 0);
+	public static ImGuiDragDropFlags SourceNoDisableHover = new ImGuiDragDropFlags(1 << 1);
+	public static ImGuiDragDropFlags SourceNoHoldToOpenOthers = new ImGuiDragDropFlags(1 << 2);
+	public static ImGuiDragDropFlags SourceAllowNullID = new ImGuiDragDropFlags(1 << 3);
+	public static ImGuiDragDropFlags SourceExtern = new ImGuiDragDropFlags(1 << 4);
+	public static ImGuiDragDropFlags SourceAutoExpirePayload = new ImGuiDragDropFlags(1 << 5);
 	// AcceptDragDropPayload() flags
-	AcceptBeforeDelivery(1 << 10),
-	AcceptNoDrawDefaultRect(1 << 11),
-	AcceptNoPreviewTooltip(1 << 12),
-	AcceptPeekOnly(AcceptBeforeDelivery.getValue() | AcceptNoDrawDefaultRect.getValue());
+	public static ImGuiDragDropFlags AcceptBeforeDelivery = new ImGuiDragDropFlags(1 << 10);
+	public static ImGuiDragDropFlags AcceptNoDrawDefaultRect = new ImGuiDragDropFlags(1 << 11);
+	public static ImGuiDragDropFlags AcceptNoPreviewTooltip = new ImGuiDragDropFlags(1 << 12);
+	public static ImGuiDragDropFlags AcceptPeekOnly = new ImGuiDragDropFlags(AcceptBeforeDelivery.getValue() | AcceptNoDrawDefaultRect.getValue());
 
 	int value;
 
@@ -27,8 +28,8 @@ public enum ImGuiDragDropFlags {
 	}
 
 	public ImGuiDragDropFlags and(ImGuiDragDropFlags otherEnum) {
-		value = value | otherEnum.value;
-		return this;
+		ImGuiDragDropFlags.Custom.value = value | otherEnum.value;
+		return ImGuiDragDropFlags.Custom;
 	}
 
 	public int getValue() {

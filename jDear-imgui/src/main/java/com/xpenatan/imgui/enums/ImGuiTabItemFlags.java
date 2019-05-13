@@ -3,12 +3,13 @@ package com.xpenatan.imgui.enums;
 /**
  * Flags for ImGui::BeginTabItem()
  */
-public enum ImGuiTabItemFlags {
-	None(0),
-	UnsavedDocument(1 << 0),
-	SetSelected(1 << 1),
-	NoCloseWithMiddleMouseButton(1 << 2),
-	NoPushId(1 << 3);
+public class ImGuiTabItemFlags {
+	private static ImGuiTabItemFlags Custom = new ImGuiTabItemFlags(0);
+	public static ImGuiTabItemFlags None = new ImGuiTabItemFlags(0);
+	public static ImGuiTabItemFlags UnsavedDocument = new ImGuiTabItemFlags(1 << 0);
+	public static ImGuiTabItemFlags SetSelected = new ImGuiTabItemFlags(1 << 1);
+	public static ImGuiTabItemFlags NoCloseWithMiddleMouseButton = new ImGuiTabItemFlags(1 << 2);
+	public static ImGuiTabItemFlags NoPushId = new ImGuiTabItemFlags(1 << 3);
 
 	int value;
 
@@ -17,8 +18,8 @@ public enum ImGuiTabItemFlags {
 	}
 
 	public ImGuiTabItemFlags and(ImGuiTabItemFlags otherEnum) {
-		value = value | otherEnum.value;
-		return this;
+		ImGuiTabItemFlags.Custom.value = value | otherEnum.value;
+		return ImGuiTabItemFlags.Custom;
 	}
 
 	public int getValue() {

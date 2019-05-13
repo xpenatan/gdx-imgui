@@ -3,16 +3,17 @@ package com.xpenatan.imgui.enums;
 /**
  * Flags for ImGui::BeginCombo()
  */
-public enum ImGuiComboFlags {
-	None(0),
-	PopupAlignLeft(1 << 0),
-	HeightSmall(1 << 1),
-	HeightRegular(1 << 2),
-	HeightLarge(1 << 3),
-	HeightLargest(1 << 4),
-	NoArrowButton(1 << 5),
-	NoPreview(1 << 6),
-	HeightMask(HeightSmall.getValue() | HeightRegular.getValue() | HeightLarge.getValue() | HeightLargest.getValue());
+public class ImGuiComboFlags {
+	private static ImGuiComboFlags Custom = new ImGuiComboFlags(0);
+	public static ImGuiComboFlags None = new ImGuiComboFlags(0);
+	public static ImGuiComboFlags PopupAlignLeft = new ImGuiComboFlags(1 << 0);
+	public static ImGuiComboFlags HeightSmall = new ImGuiComboFlags(1 << 1);
+	public static ImGuiComboFlags HeightRegular = new ImGuiComboFlags(1 << 2);
+	public static ImGuiComboFlags HeightLarge = new ImGuiComboFlags(1 << 3);
+	public static ImGuiComboFlags HeightLargest = new ImGuiComboFlags(1 << 4);
+	public static ImGuiComboFlags NoArrowButton = new ImGuiComboFlags(1 << 5);
+	public static ImGuiComboFlags NoPreview = new ImGuiComboFlags(1 << 6);
+	public static ImGuiComboFlags HeightMask = new ImGuiComboFlags(HeightSmall.getValue() | HeightRegular.getValue() | HeightLarge.getValue() | HeightLargest.getValue());
 
 	int value;
 
@@ -21,8 +22,8 @@ public enum ImGuiComboFlags {
 	}
 
 	public ImGuiComboFlags and(ImGuiComboFlags otherEnum) {
-		value = value | otherEnum.value;
-		return this;
+		ImGuiComboFlags.Custom.value = value | otherEnum.value;
+		return ImGuiComboFlags.Custom;
 	}
 
 	public int getValue() {

@@ -3,11 +3,12 @@ package com.xpenatan.imgui.enums;
 /**
  * Back-end capabilities flags stored in io.BackendFlags. Set by imgui_impl_xxx or custom back-end.
  */
-public enum ImGuiBackendFlags {
-	None(0),
-	HasGamepad(1 << 0),
-	HasMouseCursors(1 << 1),
-	HasSetMousePos(1 << 2);
+public class ImGuiBackendFlags {
+	private static ImGuiBackendFlags Custom = new ImGuiBackendFlags(0);
+	public static ImGuiBackendFlags None = new ImGuiBackendFlags(0);
+	public static ImGuiBackendFlags HasGamepad = new ImGuiBackendFlags(1 << 0);
+	public static ImGuiBackendFlags HasMouseCursors = new ImGuiBackendFlags(1 << 1);
+	public static ImGuiBackendFlags HasSetMousePos = new ImGuiBackendFlags(1 << 2);
 
 	int value;
 
@@ -16,8 +17,8 @@ public enum ImGuiBackendFlags {
 	}
 
 	public ImGuiBackendFlags and(ImGuiBackendFlags otherEnum) {
-		value = value | otherEnum.value;
-		return this;
+		ImGuiBackendFlags.Custom.value = value | otherEnum.value;
+		return ImGuiBackendFlags.Custom;
 	}
 
 	public int getValue() {
