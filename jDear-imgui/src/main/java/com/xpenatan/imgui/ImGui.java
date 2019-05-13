@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 
 import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
 import com.xpenatan.imgui.enums.ImGuiComboFlags;
+import com.xpenatan.imgui.enums.ImGuiCond;
 import com.xpenatan.imgui.enums.ImGuiDataType;
 import com.xpenatan.imgui.enums.ImGuiDir;
 import com.xpenatan.imgui.enums.ImGuiFocusedFlags;
@@ -12,6 +13,7 @@ import com.xpenatan.imgui.enums.ImGuiInputTextFlags;
 import com.xpenatan.imgui.enums.ImGuiStyleVar;
 import com.xpenatan.imgui.enums.ImGuiTabBarFlags;
 import com.xpenatan.imgui.enums.ImGuiTabItemFlags;
+import com.xpenatan.imgui.enums.ImGuiTreeNodeFlags;
 import com.xpenatan.imgui.enums.ImGuiWindowFlags;
 
 
@@ -731,6 +733,86 @@ public class ImGui {
 	public static boolean VSliderScalar(String label, float sizeX, float sizeY, ImGuiDataType data_type, ImGuiInt v, int v_min, int v_max, String format, float power) {
 		return ImGuiNative.VSliderScalar(label, sizeX, sizeY, data_type.getValue(), v.data, v_min, v_max, format, power);
 	}
+
+	// Widgets: Trees
+	// - TreeNode functions return true when the node is open, in which case you need to also call TreePop() when you are finished displaying the tree node contents.
+
+	public static boolean TreeNode(String label) {
+		return ImGuiNative.TreeNode(label);
+	}
+
+	public static boolean TreeNode(String str_id, String label) {
+		return ImGuiNative.TreeNode(str_id, label);
+	}
+
+	public static boolean TreeNode(int ptr_id, String label) {
+		return ImGuiNative.TreeNode(ptr_id, label);
+	}
+
+	public static boolean TreeNodeEx(String label) {
+		return ImGuiNative.TreeNodeEx(label);
+	}
+
+	public static boolean TreeNodeEx(String label, ImGuiTreeNodeFlags flags) {
+		return ImGuiNative.TreeNodeEx(label, flags.getValue());
+	}
+
+	public static boolean TreeNodeEx(String str_id, ImGuiTreeNodeFlags flags, String label) {
+		return ImGuiNative.TreeNodeEx(str_id, flags.getValue(), label);
+	}
+
+	public static boolean TreeNodeEx(int ptr_id, ImGuiTreeNodeFlags flags, String label) {
+		return ImGuiNative.TreeNodeEx(ptr_id, flags.getValue(), label);
+	}
+
+	public static void TreePush() {
+		ImGuiNative.TreePush();
+	}
+
+	public static void TreePush(String str_id) {
+		ImGuiNative.TreePush(str_id);
+	}
+
+	public static void TreePush(int  ptr_id) {
+		ImGuiNative.TreePush(ptr_id);
+	}
+
+	public static void TreePop() {
+		ImGuiNative.TreePop();
+	}
+
+	public static void TreeAdvanceToLabelPos() {
+		ImGuiNative.TreeAdvanceToLabelPos();
+	}
+
+	public static float GetTreeNodeToLabelSpacing() {
+		return ImGuiNative.GetTreeNodeToLabelSpacing();
+	}
+
+	public static void SetNextTreeNodeOpen(boolean is_open) {
+		ImGuiNative.SetNextTreeNodeOpen(is_open);
+	}
+
+	public static void SetNextTreeNodeOpen(boolean is_open, ImGuiCond cond) {
+		ImGuiNative.SetNextTreeNodeOpen(is_open, cond.getValue());
+	}
+
+	public static boolean CollapsingHeader(String label) {
+		return ImGuiNative.CollapsingHeader(label);
+	}
+
+	public static boolean CollapsingHeader(String label, ImGuiTreeNodeFlags flags) {
+		return ImGuiNative.CollapsingHeader(label, flags.getValue());
+	}
+
+	public static boolean CollapsingHeader(String label, ImGuiBoolean p_open) {
+		return ImGuiNative.CollapsingHeader(label, p_open.data);
+	}
+
+	public static boolean CollapsingHeader(String label, ImGuiBoolean p_open, ImGuiTreeNodeFlags flags) {
+		return ImGuiNative.CollapsingHeader(label, p_open.data, flags.getValue());
+	}
+
 
 	// Widgets: Selectables
 	// - A selectable highlights when hovered, and can display another color when selected.

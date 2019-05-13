@@ -1139,6 +1139,85 @@ public class ImGuiNative {
 		return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), data_type, &v[0], &v_min, &v_max, format, power);
 	*/
 
+	// Widgets: Trees
+	// - TreeNode functions return true when the node is open, in which case you need to also call TreePop() when you are finished displaying the tree node contents.
+
+	public static native boolean TreeNode(String label) /*-{ }-*/; /*
+		return ImGui::TreeNode(label);
+	*/
+
+	public static native boolean TreeNode(String str_id, String label) /*-{ }-*/; /*
+		return ImGui::TreeNode(str_id, label);
+	*/
+
+	public static native boolean TreeNode(int ptr_id, String label) /*-{ }-*/; /*
+		return ImGui::TreeNode((void*)(intptr_t)ptr_id, label);
+	*/
+
+	public static native boolean TreeNodeEx(String label) /*-{ }-*/; /*
+		return ImGui::TreeNodeEx(label);
+	*/
+
+	public static native boolean TreeNodeEx(String label, int flags) /*-{ }-*/; /*
+		return ImGui::TreeNodeEx(label, flags);
+	*/
+
+	public static native boolean TreeNodeEx(String str_id, int flags, String label) /*-{ }-*/; /*
+		return ImGui::TreeNodeEx(str_id, flags, label);
+	*/
+
+	public static native boolean TreeNodeEx(int ptr_id, int flags, String label) /*-{ }-*/; /*
+		return ImGui::TreeNodeEx((void*)(intptr_t)ptr_id, flags, label);
+	*/
+
+	public static native void TreePush() /*-{ }-*/; /*
+		ImGui::TreePush();
+	*/
+
+	public static native void TreePush(String str_id) /*-{ }-*/; /*
+		ImGui::TreePush(str_id);
+	*/
+
+	public static native void TreePush(int ptr_id) /*-{ }-*/; /*
+		ImGui::TreePush((void*)(intptr_t)ptr_id);
+	*/
+
+	public static native void TreePop() /*-{ }-*/; /*
+		ImGui::TreePop();
+	*/
+
+	public static native void TreeAdvanceToLabelPos() /*-{ }-*/; /*
+		ImGui::TreeAdvanceToLabelPos();
+	*/
+
+	public static native float GetTreeNodeToLabelSpacing() /*-{ }-*/; /*
+		return ImGui::GetTreeNodeToLabelSpacing();
+	*/
+
+	public static native void SetNextTreeNodeOpen(boolean is_open) /*-{ }-*/; /*
+		ImGui::SetNextTreeNodeOpen(is_open);
+	*/
+
+	public static native void SetNextTreeNodeOpen(boolean is_open, int cond) /*-{ }-*/; /*
+		ImGui::SetNextTreeNodeOpen(is_open, cond);
+	*/
+
+	public static native boolean CollapsingHeader(String label) /*-{ }-*/; /*
+		return ImGui::CollapsingHeader(label);
+	*/
+
+	public static native boolean CollapsingHeader(String label, int flags) /*-{ }-*/; /*
+		return ImGui::CollapsingHeader(label, flags);
+	*/
+
+	public static native boolean CollapsingHeader(String label, boolean [] p_open) /*-{ }-*/; /*
+		return ImGui::CollapsingHeader(label, p_open);
+	*/
+
+	public static native boolean CollapsingHeader(String label, boolean [] p_open, int flags) /*-{ }-*/; /*
+		return ImGui::CollapsingHeader(label, p_open, flags);
+	*/
+
 	// Widgets: Selectables
 	// - A selectable highlights when hovered, and can display another color when selected.
 	// - Neighbors selectable extend their highlight bounds in order to leave no gap between them.
