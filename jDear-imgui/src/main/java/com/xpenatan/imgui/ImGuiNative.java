@@ -40,7 +40,7 @@ public class ImGuiNative {
 		jfieldID imVec4WID;
 	*/
 
-	public static native void init() /*-{ }-*/; /*
+	static native void init() /*-{ }-*/; /*
 		jclass jDrawDataClass = env->FindClass("com/xpenatan/imgui/DrawData");
 		jclass jImGuiIOClass = env->FindClass("com/xpenatan/imgui/ImGuiIO");
 		jclass jImVec2Class = env->FindClass("com/xpenatan/imgui/ImVec2");
@@ -84,12 +84,20 @@ public class ImGuiNative {
 		imVec4WID = env->GetFieldID(jImVec4Class, "w", "F");
 	*/
 
-	public static native void CreateContext() /*-{ }-*/; /*
+	static native void CreateContext() /*-{ }-*/; /*
 		ImGui::CreateContext();
 		ImGui::GetIO().IniFilename = NULL;
 	*/
 
-	public static native void UpdateDisplayAndInputAndFrame(ImGuiIO jImguiIO, float deltaTime, float w, float h, float display_w, float display_h,
+	static native void initKeyMap(int [] keys) /*-{ }-*/; /*
+		ImGuiIO& io = ImGui::GetIO();
+
+		for(int i = 0; i < ImGuiKey_COUNT; i++) {
+			io.KeyMap[i] = keys[i];
+		}
+	*/
+
+	static native void UpdateDisplayAndInputAndFrame(ImGuiIO jImguiIO, float deltaTime, float w, float h, float display_w, float display_h,
 			float mouseX, float mouseY, boolean mouseDown0, boolean mouseDown1, boolean mouseDown2, boolean mouseDown3, boolean mouseDown4, boolean mouseDown5) /*-{ }-*/; /*
 		ImGuiIO& io = ImGui::GetIO();
 
@@ -138,16 +146,40 @@ public class ImGuiNative {
 		env->SetBooleanField (jImguiIO, MouseDeltaYID, io.MouseDelta.y);
 	*/
 
-	public static native void Render() /*-{ }-*/; /*
+	static native void updateKey(int key, boolean pressed, boolean released, boolean ctrlKey, boolean shiftKey, boolean altKey, boolean superKey) /*-{ }-*/; /*
+		ImGuiIO& io = ImGui::GetIO();
+		if (pressed)
+			io.KeysDown[key] = true;
+		if (released)
+			io.KeysDown[key] = false;
+		io.KeyCtrl = ctrlKey;
+		io.KeyShift = shiftKey;
+		io.KeyAlt = altKey;
+		io.KeySuper = superKey;
+	*/
+
+	static native void updateScroll(float amountX, float amountY) /*-{ }-*/; /*
+		 ImGuiIO& io = ImGui::GetIO();
+		io.MouseWheelH -= amountX;
+		io.MouseWheel -= amountY;
+	 */
+
+	static native void updateKeyTyped(int c) /*-{ }-*/; /*
+		ImGuiIO& io = ImGui::GetIO();
+		if (c > 0 && c < 0x10000)
+			io.AddInputCharacter((unsigned short)c);
+	 */
+
+	static native void Render() /*-{ }-*/; /*
 		ImGui::Render();
 	*/
 
-	public static native void ShowDemoWindow(boolean open) /*-{ }-*/; /*
+	static native void ShowDemoWindow(boolean open) /*-{ }-*/; /*
 		bool toOpen = open;
 		ImGui::ShowDemoWindow(&toOpen);
 	*/
 
-	public static native void GetTexDataAsRGBA32(TexDataRGBA32 jTexData, Buffer pixelBuffer) /*-{ }-*/; /*
+	static native void GetTexDataAsRGBA32(TexDataRGBA32 jTexData, Buffer pixelBuffer) /*-{ }-*/; /*
 		jclass jTexDataClass = env->GetObjectClass(jTexData);
 			if(jTexDataClass == NULL)
 				return;
@@ -167,12 +199,12 @@ public class ImGuiNative {
 		memcpy(pixelBuffer, pixels, width * height * 4);
 	*/
 
-	public static native void SetFontTexID(int id) /*-{ }-*/; /*
+	static native void SetFontTexID(int id) /*-{ }-*/; /*
 		ImGuiIO& io = ImGui::GetIO();
 		io.Fonts->TexID = (ImTextureID)id;
 	*/
 
-	public static native void GetDrawData(DrawData jDrawData, Buffer indexBuffer, Buffer vertexBuffer, Buffer cmdBuffer) /*-{ }-*/; /*
+	static native void GetDrawData(DrawData jDrawData, Buffer indexBuffer, Buffer vertexBuffer, Buffer cmdBuffer) /*-{ }-*/; /*
 		ImDrawData * drawData = ImGui::GetDrawData();
 
 		if(drawData != NULL) {
@@ -276,83 +308,83 @@ public class ImGuiNative {
 		}
 	*/
 
-	public static native void StyleColorsDark() /*-{ }-*/; /*
+	static native void StyleColorsDark() /*-{ }-*/; /*
 		ImGui::StyleColorsDark();
 	*/
 
-	public static native void StyleColorsClassic() /*-{ }-*/; /*
+	static native void StyleColorsClassic() /*-{ }-*/; /*
 		ImGui::StyleColorsClassic();
 	*/
 
-	public static native void StyleColorsLight() /*-{ }-*/; /*
+	static native void StyleColorsLight() /*-{ }-*/; /*
 		ImGui::StyleColorsLight();
 	*/
 
-	public static native boolean Begin(String title) /*-{ }-*/; /*
+	static native boolean Begin(String title) /*-{ }-*/; /*
 		return ImGui::Begin(title);
 	*/
 
-	public static native boolean Begin(String title, boolean [] p_open, int imGuiWindowFlags) /*-{ }-*/; /*
+	static native boolean Begin(String title, boolean [] p_open, int imGuiWindowFlags) /*-{ }-*/; /*
 		return ImGui::Begin(title, &p_open[0], imGuiWindowFlags);
 	*/
 
-	public static native void End() /*-{ }-*/; /*
+	static native void End() /*-{ }-*/; /*
 		ImGui::End();
 	*/
 
-	public static native boolean BeginChild(String str_id) /*-{ }-*/; /*
+	static native boolean BeginChild(String str_id) /*-{ }-*/; /*
 		return ImGui::BeginChild(str_id);
 	*/
 
-	public static native boolean BeginChild(String str_id, float width, float height, boolean border, int flags) /*-{ }-*/; /*
+	static native boolean BeginChild(String str_id, float width, float height, boolean border, int flags) /*-{ }-*/; /*
 		return ImGui::BeginChild(str_id, ImVec2(width, height), border, flags);
 	*/
 
-	public static native boolean BeginChild(int imGuiID) /*-{ }-*/; /*
+	static native boolean BeginChild(int imGuiID) /*-{ }-*/; /*
 		return ImGui::BeginChild(imGuiID);
 	*/
 
-	public static native boolean BeginChild(int imGuiID, float width, float height, boolean border, int flags) /*-{ }-*/; /*
+	static native boolean BeginChild(int imGuiID, float width, float height, boolean border, int flags) /*-{ }-*/; /*
 		return ImGui::BeginChild(imGuiID, ImVec2(width, height), border, flags);
 	*/
 
-	public static native void EndChild() /*-{ }-*/; /*
+	static native void EndChild() /*-{ }-*/; /*
 		ImGui::EndChild();
 	*/
 
-	public static native boolean IsWindowAppearing() /*-{ }-*/; /*
+	static native boolean IsWindowAppearing() /*-{ }-*/; /*
 		return ImGui::IsWindowAppearing();
 	*/
 
-	public static native boolean IsWindowCollapsed() /*-{ }-*/; /*
+	static native boolean IsWindowCollapsed() /*-{ }-*/; /*
 		return ImGui::IsWindowCollapsed();
 	*/
 
-	public static native boolean IsWindowFocused() /*-{ }-*/; /*
+	static native boolean IsWindowFocused() /*-{ }-*/; /*
 		return ImGui::IsWindowFocused();
 	*/
 
-	public static native boolean IsWindowFocused(int flags) /*-{ }-*/; /*
+	static native boolean IsWindowFocused(int flags) /*-{ }-*/; /*
 		return ImGui::IsWindowFocused(flags);
 	*/
 
-	public static native boolean IsWindowHovered() /*-{ }-*/; /*
+	static native boolean IsWindowHovered() /*-{ }-*/; /*
 		return ImGui::IsWindowHovered();
 	*/
 
-	public static native boolean IsWindowHovered(int flags) /*-{ }-*/; /*
+	static native boolean IsWindowHovered(int flags) /*-{ }-*/; /*
 		return ImGui::IsWindowHovered(flags);
 	*/
 
-	public static native float GetWindowPosX() /*-{ }-*/; /*
+	static native float GetWindowPosX() /*-{ }-*/; /*
 		return ImGui::GetWindowPos().x;
 	*/
 
-	public static native float GetWindowPosY() /*-{ }-*/; /*
+	static native float GetWindowPosY() /*-{ }-*/; /*
 		return ImGui::GetWindowPos().y;
 	 */
 
-	public static native float GetWindowWidth() /*-{ }-*/; /*
+	static native float GetWindowWidth() /*-{ }-*/; /*
 		return ImGui::GetWindowWidth();
 	 */
 
@@ -362,220 +394,220 @@ public class ImGuiNative {
 
 	// Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin).
 
-	public static native void SetNextWindowPos(float x, float y) /*-{ }-*/; /*
+	static native void SetNextWindowPos(float x, float y) /*-{ }-*/; /*
 		ImGui::SetNextWindowPos(ImVec2(x, y));
 	 */
 
-	public static native void SetNextWindowPos(float x, float y, int cond, float pivot_x, float pivot_y) /*-{ }-*/; /*
+	static native void SetNextWindowPos(float x, float y, int cond, float pivot_x, float pivot_y) /*-{ }-*/; /*
 		ImGui::SetNextWindowPos(ImVec2(x, y), cond, ImVec2(pivot_x, pivot_y));
 	 */
 
-	public static native void SetNextWindowSize(float width, float height) /*-{ }-*/; /*
+	static native void SetNextWindowSize(float width, float height) /*-{ }-*/; /*
 		ImGui::SetNextWindowSize(ImVec2(width, height));
 	*/
 
-	public static native void SetNextWindowSize(float width, float height, int cond) /*-{ }-*/; /*
+	static native void SetNextWindowSize(float width, float height, int cond) /*-{ }-*/; /*
 		ImGui::SetNextWindowSize(ImVec2(width, height), cond);
 	*/
 
-	public static native void SetNextWindowSizeConstraints(float min_width, float min_height, float max_width, float max_height) /*-{ }-*/; /*
+	static native void SetNextWindowSizeConstraints(float min_width, float min_height, float max_width, float max_height) /*-{ }-*/; /*
 		ImGui::SetNextWindowSizeConstraints(ImVec2(min_width, min_height), ImVec2(max_width, max_height));
 	*/
 
-	public static native void SetNextWindowContentSize(float width, float height) /*-{ }-*/; /*
+	static native void SetNextWindowContentSize(float width, float height) /*-{ }-*/; /*
 		ImGui::SetNextWindowContentSize(ImVec2(width, height));
 	*/
 
-	public static native void SetNextWindowCollapsed(boolean collapsed) /*-{ }-*/; /*
+	static native void SetNextWindowCollapsed(boolean collapsed) /*-{ }-*/; /*
 		ImGui::SetNextWindowCollapsed(collapsed);
 	*/
 
-	public static native void SetNextWindowCollapsed(boolean collapsed, int cond) /*-{ }-*/; /*
+	static native void SetNextWindowCollapsed(boolean collapsed, int cond) /*-{ }-*/; /*
 		ImGui::SetNextWindowCollapsed(collapsed, cond);
 	*/
 
-	public static native void SetNextWindowFocus() /*-{ }-*/; /*
+	static native void SetNextWindowFocus() /*-{ }-*/; /*
 		ImGui::SetNextWindowFocus();
 	*/
 
-	public static native void SetNextWindowBgAlpha(float alpha) /*-{ }-*/; /*
+	static native void SetNextWindowBgAlpha(float alpha) /*-{ }-*/; /*
 		ImGui::SetNextWindowBgAlpha(alpha);
 	*/
 
-	public static native void SetWindowPos(float x, float y) /*-{ }-*/; /*
+	static native void SetWindowPos(float x, float y) /*-{ }-*/; /*
 		ImGui::SetWindowPos(ImVec2(x, y));
 	*/
 
-	public static native void SetWindowPos(float x, float y, int cond) /*-{ }-*/; /*
+	static native void SetWindowPos(float x, float y, int cond) /*-{ }-*/; /*
 		ImGui::SetWindowPos(ImVec2(x, y), cond);
 	*/
 
-	public static native void SetWindowSize(float width, float height) /*-{ }-*/; /*
+	static native void SetWindowSize(float width, float height) /*-{ }-*/; /*
 		ImGui::SetWindowSize(ImVec2(width, height));
 	*/
 
-	public static native void SetWindowSize(float width, float height, int cond) /*-{ }-*/; /*
+	static native void SetWindowSize(float width, float height, int cond) /*-{ }-*/; /*
 		ImGui::SetWindowSize(ImVec2(width, height), cond);
 	*/
 
-	public static native void SetWindowCollapsed(boolean collapsed, int cond) /*-{ }-*/; /*
+	static native void SetWindowCollapsed(boolean collapsed, int cond) /*-{ }-*/; /*
 		ImGui::SetWindowCollapsed(collapsed, cond);
 	*/
 
-	public static native void SetWindowFocus() /*-{ }-*/; /*
+	static native void SetWindowFocus() /*-{ }-*/; /*
 		ImGui::SetWindowFocus();
 	*/
 
-	public static native void SetWindowFocus(float scale) /*-{ }-*/; /*
+	static native void SetWindowFocus(float scale) /*-{ }-*/; /*
 		ImGui::SetWindowFontScale(scale);
 	*/
 
-	public static native void SetWindowPos(String name, float x, float y) /*-{ }-*/; /*
+	static native void SetWindowPos(String name, float x, float y) /*-{ }-*/; /*
 		ImGui::SetWindowPos(name, ImVec2(x, y));
 	*/
 
-	public static native void SetWindowPos(String name, float x, float y, int cond) /*-{ }-*/; /*
+	static native void SetWindowPos(String name, float x, float y, int cond) /*-{ }-*/; /*
 		ImGui::SetWindowPos(name, ImVec2(x, y), cond);
 	*/
 
-	public static native void SetWindowCollapsed(String name, boolean collapsed) /*-{ }-*/; /*
+	static native void SetWindowCollapsed(String name, boolean collapsed) /*-{ }-*/; /*
 		bool flag = collapsed;
 		ImGui::SetWindowCollapsed(name, flag);
 	*/
 
-	public static native void SetWindowCollapsed(String name, boolean collapsed, int cond) /*-{ }-*/; /*
+	static native void SetWindowCollapsed(String name, boolean collapsed, int cond) /*-{ }-*/; /*
 		ImGui::SetWindowCollapsed(name, collapsed, cond);
 	*/
 
-	public static native void SetWindowFocus(String name) /*-{ }-*/; /*
+	static native void SetWindowFocus(String name) /*-{ }-*/; /*
 		ImGui::SetWindowFocus(name);
 	*/
 
 	// Content region
 	// - Those functions are bound to be redesigned soon (they are confusing, incomplete and return values in local window coordinates which increases confusion)
 
-	public static native void GetContentRegionMax(float [] value) /*-{ }-*/; /*
+	static native void GetContentRegionMax(float [] value) /*-{ }-*/; /*
 		ImVec2 val = ImGui::GetContentRegionMax();
 		value[0] = val.x;
 		value[1] = val.y;
 	*/
 
-	public static native void GetContentRegionAvail(float [] value) /*-{ }-*/; /*
+	static native void GetContentRegionAvail(float [] value) /*-{ }-*/; /*
 		ImVec2 val = ImGui::GetContentRegionAvail();
 		value[0] = val.x;
 		value[1] = val.y;
 	*/
 
-	public static native float GetContentRegionAvailWidth() /*-{ }-*/; /*
+	static native float GetContentRegionAvailWidth() /*-{ }-*/; /*
 		return ImGui::GetContentRegionAvailWidth();
 	*/
 
-	public static native void GetWindowContentRegionMin(float [] value) /*-{ }-*/; /*
+	static native void GetWindowContentRegionMin(float [] value) /*-{ }-*/; /*
 		ImVec2 val = ImGui::GetWindowContentRegionMin();
 		value[0] = val.x;
 		value[1] = val.y;
 	*/
 
-	public static native void GetWindowContentRegionMax(float [] value) /*-{ }-*/; /*
+	static native void GetWindowContentRegionMax(float [] value) /*-{ }-*/; /*
 		ImVec2 val = ImGui::GetWindowContentRegionMax();
 		value[0] = val.x;
 		value[1] = val.y;
 	*/
 
 
-	public static native float GetWindowContentRegionWidth() /*-{ }-*/; /*
+	static native float GetWindowContentRegionWidth() /*-{ }-*/; /*
 		return ImGui::GetWindowContentRegionWidth();
 	*/
 
 	// Windows Scrolling
 
-	public static native float GetScrollX() /*-{ }-*/; /*
+	static native float GetScrollX() /*-{ }-*/; /*
 		return ImGui::GetScrollX();
 	*/
 
-	public static native float GetScrollY() /*-{ }-*/; /*
+	static native float GetScrollY() /*-{ }-*/; /*
 		return ImGui::GetScrollY();
 	*/
 
-	public static native float GetScrollMaxX() /*-{ }-*/; /*
+	static native float GetScrollMaxX() /*-{ }-*/; /*
 		return ImGui::GetScrollMaxX();
 	*/
 
-	public static native float GetScrollMaxY() /*-{ }-*/; /*
+	static native float GetScrollMaxY() /*-{ }-*/; /*
 		return ImGui::GetScrollMaxY();
 	*/
 
-	public static native void SetScrollX(float scroll_x) /*-{ }-*/; /*
+	static native void SetScrollX(float scroll_x) /*-{ }-*/; /*
 		ImGui::SetScrollX(scroll_x);
 	*/
 
-	public static native void SetScrollY(float scroll_y) /*-{ }-*/; /*
+	static native void SetScrollY(float scroll_y) /*-{ }-*/; /*
 		ImGui::SetScrollY(scroll_y);
 	*/
 
-	public static native void SetScrollHereY() /*-{ }-*/; /*
+	static native void SetScrollHereY() /*-{ }-*/; /*
 		ImGui::SetScrollHereY();
 	*/
 
-	public static native void SetScrollHereY(float center_y_ratio) /*-{ }-*/; /*
+	static native void SetScrollHereY(float center_y_ratio) /*-{ }-*/; /*
 		ImGui::SetScrollHereY(center_y_ratio);
 	*/
 
-	public static native void SetScrollFromPosY(float local_y) /*-{ }-*/; /*
+	static native void SetScrollFromPosY(float local_y) /*-{ }-*/; /*
 		ImGui::SetScrollFromPosY(local_y);
 	*/
 
-	public static native void SetScrollFromPosY(float local_y, float center_y_ratio) /*-{ }-*/; /*
+	static native void SetScrollFromPosY(float local_y, float center_y_ratio) /*-{ }-*/; /*
 		ImGui::SetScrollFromPosY(local_y, center_y_ratio);
 	*/
 
 	// Parameters stacks (shared)
 
 	//TODO impl
-	public static native void PushFont(int index) /*-{ }-*/; /*
+	static native void PushFont(int index) /*-{ }-*/; /*
 		ImGuiIO& io = ImGui::GetIO();
 		ImFontAtlas* atlas = io.Fonts;
 		ImFont* font = atlas->Fonts[index];
 		ImGui::PushFont(font);
 	*/
 
-	public static native void PopFont() /*-{ }-*/; /*
+	static native void PopFont() /*-{ }-*/; /*
 		ImGui::PopFont();
 	*/
 
-	public static native void PushStyleColor(int idx, int col) /*-{ }-*/; /*
+	static native void PushStyleColor(int idx, int col) /*-{ }-*/; /*
 		ImGui::PushStyleColor(idx, col);
 	*/
 
-	public static native void PushStyleColor(int idx, float r, float g, float b, float a) /*-{ }-*/; /*
+	static native void PushStyleColor(int idx, float r, float g, float b, float a) /*-{ }-*/; /*
 		ImGui::PushStyleColor(idx, ImVec4(r, g, b, a));
 	*/
 
-	public static native void PopStyleColor() /*-{ }-*/; /*
+	static native void PopStyleColor() /*-{ }-*/; /*
 		ImGui::PopStyleColor();
 	*/
 
-	public static native void PopStyleColor(int count) /*-{ }-*/; /*
+	static native void PopStyleColor(int count) /*-{ }-*/; /*
 		ImGui::PopStyleColor(count);
 	*/
 
-	public static native void PushStyleVar(int idx, float val) /*-{ }-*/; /*
+	static native void PushStyleVar(int idx, float val) /*-{ }-*/; /*
 		ImGui::PushStyleVar(idx, val);
 	*/
 
-	public static native void PushStyleVar(int idx, float val_x, float val_y) /*-{ }-*/; /*
+	static native void PushStyleVar(int idx, float val_x, float val_y) /*-{ }-*/; /*
 		ImGui::PushStyleVar(idx, ImVec2(val_x, val_y));
 	*/
 
-	public static native void PopStyleVar() /*-{ }-*/; /*
+	static native void PopStyleVar() /*-{ }-*/; /*
 		ImGui::PopStyleVar();
 	*/
 
-	public static native void PopStyleVar(int count) /*-{ }-*/; /*
+	static native void PopStyleVar(int count) /*-{ }-*/; /*
 		ImGui::PopStyleVar(count);
 	*/
 
-	public static native void GetStyleColorVec4(int idx, float [] value) /*-{ }-*/; /*
+	static native void GetStyleColorVec4(int idx, float [] value) /*-{ }-*/; /*
 		ImVec4 val = ImGui::GetStyleColorVec4(idx);
 		value[0] = val.x;
 		value[1] = val.y;
@@ -584,75 +616,75 @@ public class ImGuiNative {
 	*/
 
 	//TODO impl
-	public static native void GetFont() /*-{ }-*/; /*
+	static native void GetFont() /*-{ }-*/; /*
 		ImFont * font = ImGui::GetFont();
 	*/
 
-	public static native int GetFontSize() /*-{ }-*/; /*
+	static native int GetFontSize() /*-{ }-*/; /*
 		return ImGui::GetFontSize();
 	*/
 
-	public static native void GetFontTexUvWhitePixel(float [] value) /*-{ }-*/; /*
+	static native void GetFontTexUvWhitePixel(float [] value) /*-{ }-*/; /*
 		ImVec2 val = ImGui::GetFontTexUvWhitePixel();
 		value[0] = val.x;
 		value[1] = val.y;
 	*/
 
-	public static native int GetColorU32(int idx) /*-{ }-*/; /*
+	static native int GetColorU32(int idx) /*-{ }-*/; /*
 		return ImGui::GetColorU32((ImGuiCol)idx);
 	*/
 
-	public static native int GetColorU32(int idx, float alpha_mul) /*-{ }-*/; /*
+	static native int GetColorU32(int idx, float alpha_mul) /*-{ }-*/; /*
 		return ImGui::GetColorU32(idx, alpha_mul);
 	*/
 
-	public static native int GetColorU32(float col_x, float col_y, float col_z, float col_w) /*-{ }-*/; /*
+	static native int GetColorU32(float col_x, float col_y, float col_z, float col_w) /*-{ }-*/; /*
 		return ImGui::GetColorU32(ImVec4(col_x, col_y, col_z, col_w));
 	 */
 
 	// Parameters stacks (current window)
 
-	public static native void PushItemWidth(float item_width) /*-{ }-*/; /*
+	static native void PushItemWidth(float item_width) /*-{ }-*/; /*
 		ImGui::PushItemWidth(item_width);
 	*/
 
-	public static native void PopItemWidth() /*-{ }-*/; /*
+	static native void PopItemWidth() /*-{ }-*/; /*
 		ImGui::PopItemWidth();
 	*/
 
-	public static native void SetNextItemWidth(float item_width) /*-{ }-*/; /*
+	static native void SetNextItemWidth(float item_width) /*-{ }-*/; /*
 		ImGui::SetNextItemWidth(item_width);
 	*/
 
-	public static native float CalcItemWidth() /*-{ }-*/; /*
+	static native float CalcItemWidth() /*-{ }-*/; /*
 		return ImGui::CalcItemWidth();
 	*/
 
-	public static native void PushTextWrapPos(float wrap_local_pos_x) /*-{ }-*/; /*
+	static native void PushTextWrapPos(float wrap_local_pos_x) /*-{ }-*/; /*
 		ImGui::PushTextWrapPos(wrap_local_pos_x);
 	*/
 
-	public static native void PushTextWrapPos() /*-{ }-*/; /*
+	static native void PushTextWrapPos() /*-{ }-*/; /*
 		ImGui::PushTextWrapPos();
 	*/
 
-	public static native void PopTextWrapPos() /*-{ }-*/; /*
+	static native void PopTextWrapPos() /*-{ }-*/; /*
 		ImGui::PopTextWrapPos();
 	*/
 
-	public static native void PushAllowKeyboardFocus(boolean allow_keyboard_focus) /*-{ }-*/; /*
+	static native void PushAllowKeyboardFocus(boolean allow_keyboard_focus) /*-{ }-*/; /*
 		ImGui::PushAllowKeyboardFocus(allow_keyboard_focus);
 	*/
 
-	public static native void PopAllowKeyboardFocus() /*-{ }-*/; /*
+	static native void PopAllowKeyboardFocus() /*-{ }-*/; /*
 		ImGui::PopAllowKeyboardFocus();
 	*/
 
-	public static native void PushButtonRepeat(boolean repeat) /*-{ }-*/; /*
+	static native void PushButtonRepeat(boolean repeat) /*-{ }-*/; /*
 		ImGui::PushButtonRepeat(repeat);
 	*/
 
-	public static native void PopButtonRepeat() /*-{ }-*/; /*
+	static native void PopButtonRepeat() /*-{ }-*/; /*
 		ImGui::PopButtonRepeat();
 	*/
 
@@ -660,113 +692,113 @@ public class ImGuiNative {
 	// - By "cursor" we mean the current output position.
 	// - The typical widget behavior is to output themselves at the current cursor position, then move the cursor one line down.
 
-	public static native void Separator() /*-{ }-*/; /*
+	static native void Separator() /*-{ }-*/; /*
 		ImGui::Separator();
 	*/
 
-	public static native void SameLine() /*-{ }-*/; /*
+	static native void SameLine() /*-{ }-*/; /*
 		ImGui::SameLine();
 	*/
 
-	public static native void SameLine(float offsetFromStartX, float spacing) /*-{ }-*/; /*
+	static native void SameLine(float offsetFromStartX, float spacing) /*-{ }-*/; /*
 		ImGui::SameLine(offsetFromStartX, spacing);
 	*/
 
-	public static native void NewLine() /*-{ }-*/; /*
+	static native void NewLine() /*-{ }-*/; /*
 		ImGui::NewLine();
 	*/
 
-	public static native void Spacing() /*-{ }-*/; /*
+	static native void Spacing() /*-{ }-*/; /*
 		ImGui::Spacing();
 	*/
 
-	public static native void Dummy(float width, float height) /*-{ }-*/; /*
+	static native void Dummy(float width, float height) /*-{ }-*/; /*
 		ImGui::Dummy(ImVec2(width, height));
 	*/
 
-	public static native void Indent() /*-{ }-*/; /*
+	static native void Indent() /*-{ }-*/; /*
 		ImGui::Indent();
 	*/
 
-	public static native void Indent(float indentW) /*-{ }-*/; /*
+	static native void Indent(float indentW) /*-{ }-*/; /*
 		ImGui::Indent(indentW);
 	*/
 
-	public static native void Unindent() /*-{ }-*/; /*
+	static native void Unindent() /*-{ }-*/; /*
 		ImGui::Unindent();
 	*/
 
-	public static native void Unindent(float indentW) /*-{ }-*/; /*
+	static native void Unindent(float indentW) /*-{ }-*/; /*
 		ImGui::Unindent(indentW);
 	*/
 
-	public static native void BeginGroup() /*-{ }-*/; /*
+	static native void BeginGroup() /*-{ }-*/; /*
 		ImGui::BeginGroup();
 	*/
 
-	public static native void EndGroup() /*-{ }-*/; /*
+	static native void EndGroup() /*-{ }-*/; /*
 		ImGui::EndGroup();
 	*/
 
-	public static native void GetCursorPos(float [] vec2) /*-{ }-*/; /*
+	static native void GetCursorPos(float [] vec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetCursorPos();
 		vec2[0] = vec.x;
 		vec2[1] = vec.y;
 	*/
 
-	public static native float GetCursorPosX() /*-{ }-*/; /*
+	static native float GetCursorPosX() /*-{ }-*/; /*
 		return ImGui::GetCursorPosX();
 	*/
 
-	public static native float GetCursorPosY() /*-{ }-*/; /*
+	static native float GetCursorPosY() /*-{ }-*/; /*
 		return ImGui::GetCursorPosY();
 	*/
 
-	public static native void SetCursorPos(float x, float y) /*-{ }-*/; /*
+	static native void SetCursorPos(float x, float y) /*-{ }-*/; /*
 		ImGui::SetCursorPos(ImVec2(x, y));
 	*/
 
-	public static native void SetCursorPosX(float x) /*-{ }-*/; /*
+	static native void SetCursorPosX(float x) /*-{ }-*/; /*
 		ImGui::SetCursorPosX(x);
 	*/
 
-	public static native void SetCursorPosY(float y) /*-{ }-*/; /*
+	static native void SetCursorPosY(float y) /*-{ }-*/; /*
 		ImGui::SetCursorPosY(y);
 	*/
 
-	public static native void GetCursorStartPos(float [] vec2) /*-{ }-*/; /*
+	static native void GetCursorStartPos(float [] vec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetCursorStartPos();
 		vec2[0] = vec.x;
 		vec2[1] = vec.y;
 	*/
 
-	public static native void GetCursorScreenPos(float [] vec2) /*-{ }-*/; /*
+	static native void GetCursorScreenPos(float [] vec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetCursorScreenPos();
 		vec2[0] = vec.x;
 		vec2[1] = vec.y;
 	*/
 
-	public static native void SetCursorScreenPos(float x, float y) /*-{ }-*/; /*
+	static native void SetCursorScreenPos(float x, float y) /*-{ }-*/; /*
 		ImGui::SetCursorScreenPos(ImVec2(x, y));
 	*/
 
-	public static native void AlignTextToFramePadding() /*-{ }-*/; /*
+	static native void AlignTextToFramePadding() /*-{ }-*/; /*
 		ImGui::AlignTextToFramePadding();
 	*/
 
-	public static native float GetTextLineHeight() /*-{ }-*/; /*
+	static native float GetTextLineHeight() /*-{ }-*/; /*
 		return ImGui::GetTextLineHeight();
 	*/
 
-	public static native float GetTextLineHeightWithSpacing() /*-{ }-*/; /*
+	static native float GetTextLineHeightWithSpacing() /*-{ }-*/; /*
 		return ImGui::GetTextLineHeightWithSpacing();
 	*/
 
-	public static native float GetFrameHeight() /*-{ }-*/; /*
+	static native float GetFrameHeight() /*-{ }-*/; /*
 		return ImGui::GetFrameHeight();
 	*/
 
-	public static native float GetFrameHeightWithSpacing() /*-{ }-*/; /*
+	static native float GetFrameHeightWithSpacing() /*-{ }-*/; /*
 		return ImGui::GetFrameHeightWithSpacing();
 	*/
 
@@ -778,113 +810,113 @@ public class ImGuiNative {
 	// - In this header file we use the "label"/"name" terminology to denote a string that will be displayed and used as an ID,
 	//   whereas "str_id" denote a string that is only used as an ID and not normally displayed.
 
-	public static native void PushID(String str_id) /*-{ }-*/; /*
+	static native void PushID(String str_id) /*-{ }-*/; /*
 		ImGui::PushID(str_id);
 	*/
 
-	public static native void PushID(String str_id_begin, String str_id_end) /*-{ }-*/; /*
+	static native void PushID(String str_id_begin, String str_id_end) /*-{ }-*/; /*
 		ImGui::PushID(str_id_begin, str_id_end);
 	*/
 
-	public static native void PushID(int int_id) /*-{ }-*/; /*
+	static native void PushID(int int_id) /*-{ }-*/; /*
 		ImGui::PushID(int_id);
 	*/
 
-	public static native void PopID() /*-{ }-*/; /*
+	static native void PopID() /*-{ }-*/; /*
 		ImGui::PopID();
 	*/
 
-	public static native int GetID(String str_id) /*-{ }-*/; /*
+	static native int GetID(String str_id) /*-{ }-*/; /*
 		return ImGui::GetID(str_id);
 	*/
 
-	public static native int GetID(String str_id_begin, String str_id_end) /*-{ }-*/; /*
+	static native int GetID(String str_id_begin, String str_id_end) /*-{ }-*/; /*
 		return ImGui::GetID(str_id_begin, str_id_end);
 	*/
 
 	// Widgets: Text
 
-	public static native void TextUnformatted(String text) /*-{ }-*/; /*
+	static native void TextUnformatted(String text) /*-{ }-*/; /*
 		ImGui::TextUnformatted(text);
 	*/
 
-	public static native void TextUnformatted(String text, String text_end) /*-{ }-*/; /*
+	static native void TextUnformatted(String text, String text_end) /*-{ }-*/; /*
 		ImGui::TextUnformatted(text, text_end);
 	*/
 
-	public static native void Text(String text) /*-{ }-*/; /*
+	static native void Text(String text) /*-{ }-*/; /*
 		ImGui::Text(text);
 	*/
 
-	public static native void TextColored(float r, float g, float b, float a, String text) /*-{ }-*/; /*
+	static native void TextColored(float r, float g, float b, float a, String text) /*-{ }-*/; /*
 		ImGui::TextColored(ImVec4(r, g, b, a), text);
 	*/
 
-	public static native void TextDisabled(String text) /*-{ }-*/; /*
+	static native void TextDisabled(String text) /*-{ }-*/; /*
 		ImGui::TextDisabled(text);
 	*/
 
-	public static native void TextWrapped(String text) /*-{ }-*/; /*
+	static native void TextWrapped(String text) /*-{ }-*/; /*
 		ImGui::TextWrapped(text);
 	*/
 
-	public static native void LabelText(String label, String text) /*-{ }-*/; /*
+	static native void LabelText(String label, String text) /*-{ }-*/; /*
 		ImGui::LabelText(label, text);
 	*/
 
-	public static native void BulletText(String text) /*-{ }-*/; /*
+	static native void BulletText(String text) /*-{ }-*/; /*
 		ImGui::BulletText(text);
 	*/
 
 	// Widgets: Main
 	// - Most widgets return true when the value has been changed or when pressed/selected
 
-	public static native boolean Button(String label) /*-{ }-*/; /*
+	static native boolean Button(String label) /*-{ }-*/; /*
 		return ImGui::Button(label);
 	*/
 
-	public static native boolean Button(String label, float width, float height) /*-{ }-*/; /*
+	static native boolean Button(String label, float width, float height) /*-{ }-*/; /*
 		return ImGui::Button(label, ImVec2(width, height));
 	*/
 
-	public static native boolean SmallButton(String label) /*-{ }-*/; /*
+	static native boolean SmallButton(String label) /*-{ }-*/; /*
 		return ImGui::SmallButton(label);
 	*/
 
-	public static native boolean InvisibleButton(String strId, float width, float height) /*-{ }-*/; /*
+	static native boolean InvisibleButton(String strId, float width, float height) /*-{ }-*/; /*
 		return ImGui::InvisibleButton(strId, ImVec2(width, height));
 	*/
 
-	public static native boolean ArrowButton(String strId, int dir) /*-{ }-*/; /*
+	static native boolean ArrowButton(String strId, int dir) /*-{ }-*/; /*
 		return ImGui::ArrowButton(strId, dir);
 	*/
 
-	public static native boolean Checkbox(String label, boolean [] data) /*-{ }-*/; /*
+	static native boolean Checkbox(String label, boolean [] data) /*-{ }-*/; /*
 		return ImGui::Checkbox(label, &data[0]);
 	*/
 
 	//TODO check if its working
-	public static native boolean CheckboxFlags(String label, long [] data, int flagsValue) /*-{ }-*/; /*
+	static native boolean CheckboxFlags(String label, long [] data, int flagsValue) /*-{ }-*/; /*
 		return ImGui::CheckboxFlags(label, (unsigned int*)&data[0], flagsValue);
 	*/
 
-	public static native boolean RadioButton(String label, boolean active) /*-{ }-*/; /*
+	static native boolean RadioButton(String label, boolean active) /*-{ }-*/; /*
 		return ImGui::RadioButton(label, active);
 	*/
 
-	public static native boolean RadioButton(String label, int [] data, int v_button) /*-{ }-*/; /*
+	static native boolean RadioButton(String label, int [] data, int v_button) /*-{ }-*/; /*
 		return ImGui::RadioButton(label, &data[0], v_button);
 	*/
 
-	public static native void ProgressBar(float fraction) /*-{ }-*/; /*
+	static native void ProgressBar(float fraction) /*-{ }-*/; /*
 		ImGui::ProgressBar(fraction);
 	*/
 
-	public static native void ProgressBar(float fraction, float size_arg_x, float size_arg_y) /*-{ }-*/; /*
+	static native void ProgressBar(float fraction, float size_arg_x, float size_arg_y) /*-{ }-*/; /*
 		ImGui::ProgressBar(fraction, ImVec2(size_arg_x, size_arg_y));
 	*/
 
-	public static native void Bullet() /*-{ }-*/; /*
+	static native void Bullet() /*-{ }-*/; /*
 		ImGui::Bullet();
 	*/
 
@@ -892,19 +924,19 @@ public class ImGuiNative {
 	// - The new BeginCombo()/EndCombo() api allows you to manage your contents and selection state however you want it, by creating e.g. Selectable() items.
 	// - The old Combo() api are helpers over BeginCombo()/EndCombo() which are kept available for convenience purpose.
 
-	public static native boolean BeginCombo(String label, String preview_value) /*-{ }-*/; /*
+	static native boolean BeginCombo(String label, String preview_value) /*-{ }-*/; /*
 		return ImGui::BeginCombo(label, preview_value);
 	 */
 
-	public static native boolean BeginCombo(String label, String preview_value, int flags) /*-{ }-*/; /*
+	static native boolean BeginCombo(String label, String preview_value, int flags) /*-{ }-*/; /*
 		return ImGui::BeginCombo(label, preview_value, flags);
 	*/
 
-	public static native void EndCombo() /*-{ }-*/; /*
+	static native void EndCombo() /*-{ }-*/; /*
 		ImGui::EndCombo();
 	*/
 
-	public static native boolean Combo(String label, int [] current_item, String [] items, int items_count) /*-{ }-*/; /*
+	static native boolean Combo(String label, int [] current_item, String [] items, int items_count) /*-{ }-*/; /*
 		const char* listbox_items[items_count];
 		for(int i = 0; i < items_count; i++) {
 			jstring string = (jstring) (env->GetObjectArrayElement(items, i));
@@ -914,7 +946,7 @@ public class ImGuiNative {
 		return ImGui::Combo(label, &current_item[0], listbox_items, items_count);
 	*/
 
-	public static native boolean Combo(String label, int [] current_item, String [] items, int items_count, int popup_max_height_in_items) /*-{ }-*/; /*
+	static native boolean Combo(String label, int [] current_item, String [] items, int items_count, int popup_max_height_in_items) /*-{ }-*/; /*
 		const char* listbox_items[items_count];
 		for(int i = 0; i < items_count; i++) {
 			jstring string = (jstring) (env->GetObjectArrayElement(items, i));
@@ -924,11 +956,11 @@ public class ImGuiNative {
 		return ImGui::Combo(label, &current_item[0], listbox_items, items_count, popup_max_height_in_items);
 	*/
 
-	public static native boolean Combo(String label, int [] current_item, String items_separated_by_zeros) /*-{ }-*/; /*
+	static native boolean Combo(String label, int [] current_item, String items_separated_by_zeros) /*-{ }-*/; /*
 		return ImGui::Combo(label, &current_item[0], items_separated_by_zeros);
 	*/
 
-	public static native boolean Combo(String label, int [] current_item, String items_separated_by_zeros, int popup_max_height_in_items) /*-{ }-*/; /*
+	static native boolean Combo(String label, int [] current_item, String items_separated_by_zeros, int popup_max_height_in_items) /*-{ }-*/; /*
 		return ImGui::Combo(label, &current_item[0], items_separated_by_zeros, popup_max_height_in_items);
 	*/
 
@@ -938,93 +970,93 @@ public class ImGuiNative {
 	// - Adjust format string to decorate the value with a prefix, a suffix, or adapt the editing and display precision e.g. "%.3f" -> 1.234; "%5.2f secs" -> 01.23 secs; "Biscuit: %.0f" -> Biscuit: 1; etc.
 	// - Speed are per-pixel of mouse movement (v_speed=0.2f: mouse needs to move by 5 pixels to increase value by 1). For gamepad/keyboard navigation, minimum speed is Max(v_speed, minimum_step_at_given_precision).
 
-	public static native boolean DragFloat(String label, float [] v) /*-{ }-*/; /*
+	static native boolean DragFloat(String label, float [] v) /*-{ }-*/; /*
 		return ImGui::DragFloat(label, &v[0]);
 	*/
 
-	public static native boolean DragFloat(String label, float [] v, float v_speed, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
+	static native boolean DragFloat(String label, float [] v, float v_speed, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::DragFloat(label, &v[0], v_speed, v_min, v_max, format, power);
 	*/
 
-	public static native boolean DragFloat2(String label, float [] v) /*-{ }-*/; /*
+	static native boolean DragFloat2(String label, float [] v) /*-{ }-*/; /*
 		return ImGui::DragFloat2(label, v);
 	*/
 
-	public static native boolean DragFloat2(String label, float [] v, float v_speed, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
+	static native boolean DragFloat2(String label, float [] v, float v_speed, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::DragFloat2(label, v, v_speed, v_min, v_max, format, power);
 	*/
 
-	public static native boolean DragFloat3(String label, float [] v) /*-{ }-*/; /*
+	static native boolean DragFloat3(String label, float [] v) /*-{ }-*/; /*
 		return ImGui::DragFloat3(label, v);
 	*/
 
-	public static native boolean DragFloat3(String label, float [] v, float v_speed, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
+	static native boolean DragFloat3(String label, float [] v, float v_speed, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::DragFloat3(label, v, v_speed, v_min, v_max, format, power);
 	*/
 
-	public static native boolean DragFloat4(String label, float [] v) /*-{ }-*/; /*
+	static native boolean DragFloat4(String label, float [] v) /*-{ }-*/; /*
 		return ImGui::DragFloat4(label, v);
 	*/
 
-	public static native boolean DragFloat4(String label, float [] v, float v_speed, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
+	static native boolean DragFloat4(String label, float [] v, float v_speed, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::DragFloat4(label, v, v_speed, v_min, v_max, format, power);
 	*/
 
-	public static native boolean DragFloatRange2(String label, float [] v_current_min, float [] v_current_max) /*-{ }-*/; /*
+	static native boolean DragFloatRange2(String label, float [] v_current_min, float [] v_current_max) /*-{ }-*/; /*
 		return ImGui::DragFloatRange2(label, &v_current_min[0], &v_current_max[0]);
 	*/
 
-	public static native boolean DragFloatRange2(String label, float [] v_current_min, float [] v_current_max, float v_speed, float v_min, float v_max, String format, String format_max, float power) /*-{ }-*/; /*
+	static native boolean DragFloatRange2(String label, float [] v_current_min, float [] v_current_max, float v_speed, float v_min, float v_max, String format, String format_max, float power) /*-{ }-*/; /*
 		return ImGui::DragFloatRange2(label, &v_current_min[0], &v_current_max[0], v_speed, v_min, v_max, format, format_max, power);
 	*/
 
-	public static native boolean DragInt(String label, int [] v) /*-{ }-*/; /*
+	static native boolean DragInt(String label, int [] v) /*-{ }-*/; /*
 		return ImGui::DragInt(label, &v[0]);
 	*/
 
-	public static native boolean DragInt(String label, int [] v, float v_speed, float v_min, float v_max, String format) /*-{ }-*/; /*
+	static native boolean DragInt(String label, int [] v, float v_speed, float v_min, float v_max, String format) /*-{ }-*/; /*
 		return ImGui::DragInt(label, &v[0], v_speed, v_min, v_max, format);
 	*/
 
-	public static native boolean DragInt2(String label, int [] v) /*-{ }-*/; /*
+	static native boolean DragInt2(String label, int [] v) /*-{ }-*/; /*
 		return ImGui::DragInt2(label, v);
 	*/
 
-	public static native boolean DragInt2(String label, int [] v, float v_speed, float v_min, float v_max, String format) /*-{ }-*/; /*
+	static native boolean DragInt2(String label, int [] v, float v_speed, float v_min, float v_max, String format) /*-{ }-*/; /*
 		return ImGui::DragInt2(label, v, v_speed, v_min, v_max, format);
 	*/
 
-	public static native boolean DragInt3(String label, int [] v) /*-{ }-*/; /*
+	static native boolean DragInt3(String label, int [] v) /*-{ }-*/; /*
 		return ImGui::DragInt2(label, v);
 	*/
 
-	public static native boolean DragInt3(String label, int [] v, float v_speed, float v_min, float v_max, String format) /*-{ }-*/; /*
+	static native boolean DragInt3(String label, int [] v, float v_speed, float v_min, float v_max, String format) /*-{ }-*/; /*
 		return ImGui::DragInt2(label, v, v_speed, v_min, v_max, format);
 	*/
 
-	public static native boolean DragInt4(String label, int [] v) /*-{ }-*/; /*
+	static native boolean DragInt4(String label, int [] v) /*-{ }-*/; /*
 		return ImGui::DragInt4(label, v);
 	*/
 
-	public static native boolean DragInt4(String label, int [] v, float v_speed, float v_min, float v_max, String format) /*-{ }-*/; /*
+	static native boolean DragInt4(String label, int [] v, float v_speed, float v_min, float v_max, String format) /*-{ }-*/; /*
 		return ImGui::DragInt4(label, v, v_speed, v_min, v_max, format);
 	*/
 
-	public static native boolean DragIntRange2(String label, int [] v_current_min, int [] v_current_max) /*-{ }-*/; /*
+	static native boolean DragIntRange2(String label, int [] v_current_min, int [] v_current_max) /*-{ }-*/; /*
 		return ImGui::DragIntRange2(label, &v_current_min[0], &v_current_max[0]);
 	*/
 
-	public static native boolean DragIntRange2(String label, int [] v_current_min, int [] v_current_max, float v_speed, float v_min, float v_max, String format, String format_max) /*-{ }-*/; /*
+	static native boolean DragIntRange2(String label, int [] v_current_min, int [] v_current_max, float v_speed, float v_min, float v_max, String format, String format_max) /*-{ }-*/; /*
 		return ImGui::DragIntRange2(label, &v_current_min[0], &v_current_max[0], v_speed, v_min, v_max, format, format_max);
 	*/
 
 	//TODO impl other types
-	public static native boolean DragScalar(String label, int data_type, int[] v, float v_speed) /*-{ }-*/; /*
+	static native boolean DragScalar(String label, int data_type, int[] v, float v_speed) /*-{ }-*/; /*
 		return ImGui::DragScalar(label, data_type, &v[0], v_speed);
 	*/
 
 	//TODO impl other types
-	public static native boolean DragScalar(String label, int data_type, int[] v, float v_speed, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
+	static native boolean DragScalar(String label, int data_type, int[] v, float v_speed, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::DragScalar(label, data_type, &v[0], v_speed, &v_min, &v_max, format, power);
 	*/
 
@@ -1032,204 +1064,204 @@ public class ImGuiNative {
 	// - CTRL+Click on any slider to turn them into an input box. Manually input values aren't clamped and can go off-bounds.
 	// - Adjust format string to decorate the value with a prefix, a suffix, or adapt the editing and display precision e.g. "%.3f" -> 1.234; "%5.2f secs" -> 01.23 secs; "Biscuit: %.0f" -> Biscuit: 1; etc.
 
-	public static native boolean SliderFloat(String label, float [] v, float v_min, float v_max) /*-{ }-*/; /*
+	static native boolean SliderFloat(String label, float [] v, float v_min, float v_max) /*-{ }-*/; /*
 		return ImGui::SliderFloat(label, &v[0],v_min, v_max);
 	*/
 
-	public static native boolean SliderFloat(String label, float [] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
+	static native boolean SliderFloat(String label, float [] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::SliderFloat(label, &v[0], v_min, v_max, format, power);
 	*/
 
-	public static native boolean SliderFloat2(String label, float [] v, float v_min, float v_max) /*-{ }-*/; /*
+	static native boolean SliderFloat2(String label, float [] v, float v_min, float v_max) /*-{ }-*/; /*
 		return ImGui::SliderFloat2(label, v, v_min, v_max);
 	*/
 
-	public static native boolean SliderFloat2(String label, float [] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
+	static native boolean SliderFloat2(String label, float [] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::SliderFloat2(label, v, v_min, v_max, format, power);
 	*/
 
-	public static native boolean SliderFloat3(String label, float [] v, float v_min, float v_max) /*-{ }-*/; /*
+	static native boolean SliderFloat3(String label, float [] v, float v_min, float v_max) /*-{ }-*/; /*
 		return ImGui::SliderFloat3(label, v, v_min, v_max);
 	*/
 
-	public static native boolean SliderFloat3(String label, float [] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
+	static native boolean SliderFloat3(String label, float [] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::SliderFloat3(label, v, v_min, v_max, format, power);
 	*/
 
-	public static native boolean SliderFloat4(String label, float [] v, float v_min, float v_max) /*-{ }-*/; /*
+	static native boolean SliderFloat4(String label, float [] v, float v_min, float v_max) /*-{ }-*/; /*
 		return ImGui::SliderFloat4(label, v, v_min, v_max);
 	*/
 
-	public static native boolean SliderFloat4(String label, float [] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
+	static native boolean SliderFloat4(String label, float [] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::SliderFloat4(label, v, v_min, v_max, format, power);
 	*/
 
-	public static native boolean SliderAngle(String label, float [] v_rad) /*-{ }-*/; /*
+	static native boolean SliderAngle(String label, float [] v_rad) /*-{ }-*/; /*
 		return ImGui::SliderAngle(label, &v_rad[0]);
 	*/
 
-	public static native boolean SliderAngle(String label, float [] v_rad, float v_degrees_min, float v_degrees_max, String format) /*-{ }-*/; /*
+	static native boolean SliderAngle(String label, float [] v_rad, float v_degrees_min, float v_degrees_max, String format) /*-{ }-*/; /*
 		return ImGui::SliderAngle(label, &v_rad[0], v_degrees_min, v_degrees_max, format);
 	*/
 
-	public static native boolean SliderInt(String label, int [] v, int v_min, int v_max) /*-{ }-*/; /*
+	static native boolean SliderInt(String label, int [] v, int v_min, int v_max) /*-{ }-*/; /*
 		return ImGui::SliderInt(label, &v[0], v_min, v_max);
 	*/
 
-	public static native boolean SliderInt(String label, int [] v, int v_min, int v_max, String format) /*-{ }-*/; /*
+	static native boolean SliderInt(String label, int [] v, int v_min, int v_max, String format) /*-{ }-*/; /*
 		return ImGui::SliderInt(label, &v[0], v_min, v_max, format);
 	*/
 
-	public static native boolean SliderInt2(String label, int [] v, int v_min, int v_max) /*-{ }-*/; /*
+	static native boolean SliderInt2(String label, int [] v, int v_min, int v_max) /*-{ }-*/; /*
 		return ImGui::SliderInt2(label, v, v_min, v_max);
 	*/
 
-	public static native boolean SliderInt2(String label, int [] v, int v_min, int v_max, String format) /*-{ }-*/; /*
+	static native boolean SliderInt2(String label, int [] v, int v_min, int v_max, String format) /*-{ }-*/; /*
 		return ImGui::SliderInt2(label, v, v_min, v_max, format);
 	*/
 
-	public static native boolean SliderInt3(String label, int [] v, int v_min, int v_max) /*-{ }-*/; /*
+	static native boolean SliderInt3(String label, int [] v, int v_min, int v_max) /*-{ }-*/; /*
 		return ImGui::SliderInt3(label, v, v_min, v_max);
 	*/
 
-	public static native boolean SliderInt3(String label, int [] v, int v_min, int v_max, String format) /*-{ }-*/; /*
+	static native boolean SliderInt3(String label, int [] v, int v_min, int v_max, String format) /*-{ }-*/; /*
 		return ImGui::SliderInt3(label, v, v_min, v_max, format);
 	*/
 
-	public static native boolean SliderInt4(String label, int [] v, int v_min, int v_max) /*-{ }-*/; /*
+	static native boolean SliderInt4(String label, int [] v, int v_min, int v_max) /*-{ }-*/; /*
 		return ImGui::SliderInt4(label, v, v_min, v_max);
 	*/
 
-	public static native boolean SliderInt4(String label, int [] v, int v_min, int v_max, String format) /*-{ }-*/; /*
+	static native boolean SliderInt4(String label, int [] v, int v_min, int v_max, String format) /*-{ }-*/; /*
 		return ImGui::SliderInt4(label, v, v_min, v_max, format);
 	*/
 
 	//TODO impl other types
-	public static native boolean SliderScalar(String label, int data_type, int[] v, int v_min, int v_max) /*-{ }-*/; /*
+	static native boolean SliderScalar(String label, int data_type, int[] v, int v_min, int v_max) /*-{ }-*/; /*
 		return ImGui::SliderScalar(label, data_type, &v[0], &v_min, &v_max);
 	*/
 
-	public static native boolean SliderScalar(String label, int data_type, int[] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
+	static native boolean SliderScalar(String label, int data_type, int[] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::SliderScalar(label, data_type, &v[0], &v_min, &v_max, format, power);
 	*/
 
-	public static native boolean SliderScalar(String label, int data_type, float[] v, float v_min, float v_max) /*-{ }-*/; /*
+	static native boolean SliderScalar(String label, int data_type, float[] v, float v_min, float v_max) /*-{ }-*/; /*
 		return ImGui::SliderScalar(label, data_type, &v[0], &v_min, &v_max);
 	*/
 
-	public static native boolean SliderScalar(String label, int data_type, float[] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
+	static native boolean SliderScalar(String label, int data_type, float[] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::SliderScalar(label, data_type, &v[0], &v_min, &v_max, format, power);
 	*/
 
-	public static native boolean VSliderFloat(String label, float sizeX, float sizeY, float [] v, float v_min, float v_max) /*-{ }-*/; /*
+	static native boolean VSliderFloat(String label, float sizeX, float sizeY, float [] v, float v_min, float v_max) /*-{ }-*/; /*
 		return ImGui::VSliderFloat(label, ImVec2(sizeX, sizeY), &v[0], v_min, v_max);
 	*/
 
-	public static native boolean VSliderFloat(String label, float sizeX, float sizeY, float [] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
+	static native boolean VSliderFloat(String label, float sizeX, float sizeY, float [] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::VSliderFloat(label, ImVec2(sizeX, sizeY), &v[0], v_min, v_max, format, power);
 	*/
 
-	public static native boolean VSliderInt(String label, float sizeX, float sizeY, int [] v, int v_min, int v_max) /*-{ }-*/; /*
+	static native boolean VSliderInt(String label, float sizeX, float sizeY, int [] v, int v_min, int v_max) /*-{ }-*/; /*
 		return ImGui::VSliderInt(label, ImVec2(sizeX, sizeY), &v[0], v_min, v_max);
 	*/
 
-	public static native boolean VSliderInt(String label, float sizeX, float sizeY, int [] v, int v_min, int v_max, String format) /*-{ }-*/; /*
+	static native boolean VSliderInt(String label, float sizeX, float sizeY, int [] v, int v_min, int v_max, String format) /*-{ }-*/; /*
 		return ImGui::VSliderInt(label, ImVec2(sizeX, sizeY), &v[0], v_min, v_max, format);
 	*/
 
 	//TODO impl other types
-	public static native boolean VSliderScalar(String label, float sizeX, float sizeY, int data_type, int [] v, int v_min, int v_max) /*-{ }-*/; /*
+	static native boolean VSliderScalar(String label, float sizeX, float sizeY, int data_type, int [] v, int v_min, int v_max) /*-{ }-*/; /*
 		return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), data_type, &v[0], &v_min, &v_max);
 	*/
 
-	public static native boolean VSliderScalar(String label, float sizeX, float sizeY, int data_type, int [] v, int v_min, int v_max, String format, float power) /*-{ }-*/; /*
+	static native boolean VSliderScalar(String label, float sizeX, float sizeY, int data_type, int [] v, int v_min, int v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), data_type, &v[0], &v_min, &v_max, format, power);
 	*/
 
-	public static native boolean VSliderScalar(String label, float sizeX, float sizeY, int data_type, float [] v, float v_min, float v_max) /*-{ }-*/; /*
+	static native boolean VSliderScalar(String label, float sizeX, float sizeY, int data_type, float [] v, float v_min, float v_max) /*-{ }-*/; /*
 		return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), data_type, &v[0], &v_min, &v_max);
 	*/
 
-	public static native boolean VSliderScalar(String label, float sizeX, float sizeY, int data_type, float [] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
+	static native boolean VSliderScalar(String label, float sizeX, float sizeY, int data_type, float [] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), data_type, &v[0], &v_min, &v_max, format, power);
 	*/
 
 	// Widgets: Trees
 	// - TreeNode functions return true when the node is open, in which case you need to also call TreePop() when you are finished displaying the tree node contents.
 
-	public static native boolean TreeNode(String label) /*-{ }-*/; /*
+	static native boolean TreeNode(String label) /*-{ }-*/; /*
 		return ImGui::TreeNode(label);
 	*/
 
-	public static native boolean TreeNode(String str_id, String label) /*-{ }-*/; /*
+	static native boolean TreeNode(String str_id, String label) /*-{ }-*/; /*
 		return ImGui::TreeNode(str_id, label);
 	*/
 
-	public static native boolean TreeNode(int ptr_id, String label) /*-{ }-*/; /*
+	static native boolean TreeNode(int ptr_id, String label) /*-{ }-*/; /*
 		return ImGui::TreeNode((void*)(intptr_t)ptr_id, label);
 	*/
 
-	public static native boolean TreeNodeEx(String label) /*-{ }-*/; /*
+	static native boolean TreeNodeEx(String label) /*-{ }-*/; /*
 		return ImGui::TreeNodeEx(label);
 	*/
 
-	public static native boolean TreeNodeEx(String label, int flags) /*-{ }-*/; /*
+	static native boolean TreeNodeEx(String label, int flags) /*-{ }-*/; /*
 		return ImGui::TreeNodeEx(label, flags);
 	*/
 
-	public static native boolean TreeNodeEx(String str_id, int flags, String label) /*-{ }-*/; /*
+	static native boolean TreeNodeEx(String str_id, int flags, String label) /*-{ }-*/; /*
 		return ImGui::TreeNodeEx(str_id, flags, label);
 	*/
 
-	public static native boolean TreeNodeEx(int ptr_id, int flags, String label) /*-{ }-*/; /*
+	static native boolean TreeNodeEx(int ptr_id, int flags, String label) /*-{ }-*/; /*
 		return ImGui::TreeNodeEx((void*)(intptr_t)ptr_id, flags, label);
 	*/
 
-	public static native void TreePush() /*-{ }-*/; /*
+	static native void TreePush() /*-{ }-*/; /*
 		ImGui::TreePush();
 	*/
 
-	public static native void TreePush(String str_id) /*-{ }-*/; /*
+	static native void TreePush(String str_id) /*-{ }-*/; /*
 		ImGui::TreePush(str_id);
 	*/
 
-	public static native void TreePush(int ptr_id) /*-{ }-*/; /*
+	static native void TreePush(int ptr_id) /*-{ }-*/; /*
 		ImGui::TreePush((void*)(intptr_t)ptr_id);
 	*/
 
-	public static native void TreePop() /*-{ }-*/; /*
+	static native void TreePop() /*-{ }-*/; /*
 		ImGui::TreePop();
 	*/
 
-	public static native void TreeAdvanceToLabelPos() /*-{ }-*/; /*
+	static native void TreeAdvanceToLabelPos() /*-{ }-*/; /*
 		ImGui::TreeAdvanceToLabelPos();
 	*/
 
-	public static native float GetTreeNodeToLabelSpacing() /*-{ }-*/; /*
+	static native float GetTreeNodeToLabelSpacing() /*-{ }-*/; /*
 		return ImGui::GetTreeNodeToLabelSpacing();
 	*/
 
-	public static native void SetNextTreeNodeOpen(boolean is_open) /*-{ }-*/; /*
+	static native void SetNextTreeNodeOpen(boolean is_open) /*-{ }-*/; /*
 		ImGui::SetNextTreeNodeOpen(is_open);
 	*/
 
-	public static native void SetNextTreeNodeOpen(boolean is_open, int cond) /*-{ }-*/; /*
+	static native void SetNextTreeNodeOpen(boolean is_open, int cond) /*-{ }-*/; /*
 		ImGui::SetNextTreeNodeOpen(is_open, cond);
 	*/
 
-	public static native boolean CollapsingHeader(String label) /*-{ }-*/; /*
+	static native boolean CollapsingHeader(String label) /*-{ }-*/; /*
 		return ImGui::CollapsingHeader(label);
 	*/
 
-	public static native boolean CollapsingHeader(String label, int flags) /*-{ }-*/; /*
+	static native boolean CollapsingHeader(String label, int flags) /*-{ }-*/; /*
 		return ImGui::CollapsingHeader(label, flags);
 	*/
 
-	public static native boolean CollapsingHeader(String label, boolean [] p_open) /*-{ }-*/; /*
+	static native boolean CollapsingHeader(String label, boolean [] p_open) /*-{ }-*/; /*
 		return ImGui::CollapsingHeader(label, p_open);
 	*/
 
-	public static native boolean CollapsingHeader(String label, boolean [] p_open, int flags) /*-{ }-*/; /*
+	static native boolean CollapsingHeader(String label, boolean [] p_open, int flags) /*-{ }-*/; /*
 		return ImGui::CollapsingHeader(label, p_open, flags);
 	*/
 
@@ -1237,30 +1269,30 @@ public class ImGuiNative {
 	// - A selectable highlights when hovered, and can display another color when selected.
 	// - Neighbors selectable extend their highlight bounds in order to leave no gap between them.
 
-	public static native boolean Selectable(String label) /*-{ }-*/; /*
+	static native boolean Selectable(String label) /*-{ }-*/; /*
 		return ImGui::Selectable(label);
 	*/
 
-	public static native boolean Selectable(String label, boolean selected) /*-{ }-*/; /*
+	static native boolean Selectable(String label, boolean selected) /*-{ }-*/; /*
 		return ImGui::Selectable(label, selected);
 	*/
 
-	public static native boolean Selectable(String label, boolean selected, int flags, float sizeX, float sizeY) /*-{ }-*/; /*
+	static native boolean Selectable(String label, boolean selected, int flags, float sizeX, float sizeY) /*-{ }-*/; /*
 		return ImGui::Selectable(label, selected, flags, ImVec2(sizeX, sizeY));
 	*/
 
-	public static native boolean Selectable(String label, boolean [] selected) /*-{ }-*/; /*
+	static native boolean Selectable(String label, boolean [] selected) /*-{ }-*/; /*
 		return ImGui::Selectable(label, &selected[0]);
 	*/
 
-	public static native boolean Selectable(String label, boolean [] selected, int flags, float sizeX, float sizeY) /*-{ }-*/; /*
+	static native boolean Selectable(String label, boolean [] selected, int flags, float sizeX, float sizeY) /*-{ }-*/; /*
 		return ImGui::Selectable(label,  &selected[0], flags, ImVec2(sizeX, sizeY));
 	*/
 
 	// Widgets: List Boxes
 	// - FIXME: To be consistent with all the newer API, ListBoxHeader/ListBoxFooter should in reality be called BeginListBox/EndListBox. Will rename them.
 
-	public static native boolean ListBox(String label, int [] current_item, String [] items, int items_count) /*-{ }-*/; /*
+	static native boolean ListBox(String label, int [] current_item, String [] items, int items_count) /*-{ }-*/; /*
 		const char* listbox_items[items_count];
 		for(int i = 0; i < items_count; i++) {
 			jstring string = (jstring) (env->GetObjectArrayElement(items, i));
@@ -1270,83 +1302,83 @@ public class ImGuiNative {
 		return ImGui::ListBox(label, &current_item[0], listbox_items, items_count);
 	*/
 
-	public static native boolean ListBoxHeader(String label) /*-{ }-*/; /*
+	static native boolean ListBoxHeader(String label) /*-{ }-*/; /*
 		return ImGui::ListBoxHeader(label);
 	*/
 
-	public static native boolean ListBoxHeader(String label, float sizeX, float sizeY) /*-{ }-*/; /*
+	static native boolean ListBoxHeader(String label, float sizeX, float sizeY) /*-{ }-*/; /*
 		return ImGui::ListBoxHeader(label, ImVec2(sizeX, sizeY));
 	*/
 
-	public static native boolean ListBoxHeader(String label, int items_count) /*-{ }-*/; /*
+	static native boolean ListBoxHeader(String label, int items_count) /*-{ }-*/; /*
 		return ImGui::ListBoxHeader(label, items_count);
 	*/
 
-	public static native boolean ListBoxHeader(String label, int items_count, int height_in_items) /*-{ }-*/; /*
+	static native boolean ListBoxHeader(String label, int items_count, int height_in_items) /*-{ }-*/; /*
 		return ImGui::ListBoxHeader(label, items_count, height_in_items);
 	*/
 
-	public static native void ListBoxFooter() /*-{ }-*/; /*
+	static native void ListBoxFooter() /*-{ }-*/; /*
 		ImGui::ListBoxFooter();
 	*/
 
 	// Widgets: Menus
 
-	public static native boolean BeginMainMenuBar() /*-{ }-*/; /*
+	static native boolean BeginMainMenuBar() /*-{ }-*/; /*
 		return ImGui::BeginMainMenuBar();
 	*/
 
-	public static native void EndMainMenuBar() /*-{ }-*/; /*
+	static native void EndMainMenuBar() /*-{ }-*/; /*
 		ImGui::EndMainMenuBar();
 	*/
 
-	public static native boolean BeginMenuBar() /*-{ }-*/; /*
+	static native boolean BeginMenuBar() /*-{ }-*/; /*
 		return ImGui::BeginMenuBar();
 	*/
 
-	public static native void EndMenuBar() /*-{ }-*/; /*
+	static native void EndMenuBar() /*-{ }-*/; /*
 		ImGui::EndMenuBar();
 	*/
 
-	public static native boolean BeginMenu(String label) /*-{ }-*/; /*
+	static native boolean BeginMenu(String label) /*-{ }-*/; /*
 		return ImGui::BeginMenu(label);
 	*/
 
-	public static native boolean BeginMenu(String label, boolean enabled) /*-{ }-*/; /*
+	static native boolean BeginMenu(String label, boolean enabled) /*-{ }-*/; /*
 		return ImGui::BeginMenu(label, enabled);
 	*/
 
-	public static native void EndMenu() /*-{ }-*/; /*
+	static native void EndMenu() /*-{ }-*/; /*
 		ImGui::EndMenu();
 	*/
 
-	public static native boolean MenuItem(String label) /*-{ }-*/; /*
+	static native boolean MenuItem(String label) /*-{ }-*/; /*
 		return ImGui::MenuItem(label);
 	*/
 
-	public static native boolean MenuItem(String label, String shortcut, boolean selected, boolean enabled) /*-{ }-*/; /*
+	static native boolean MenuItem(String label, String shortcut, boolean selected, boolean enabled) /*-{ }-*/; /*
 		return ImGui::MenuItem(label, shortcut, selected, enabled);
 	*/
 
-	public static native boolean MenuItem(String label, String shortcut, boolean [] p_selected) /*-{ }-*/; /*
+	static native boolean MenuItem(String label, String shortcut, boolean [] p_selected) /*-{ }-*/; /*
 		return ImGui::MenuItem(label, shortcut, &p_selected[0]);
 	*/
 
-	public static native boolean MenuItem(String label, String shortcut, boolean [] p_selected, boolean enabled) /*-{ }-*/; /*
+	static native boolean MenuItem(String label, String shortcut, boolean [] p_selected, boolean enabled) /*-{ }-*/; /*
 		return ImGui::MenuItem(label, shortcut, &p_selected[0], enabled);
 	*/
 
 	// Tooltips
 
-	public static native void BeginTooltip() /*-{ }-*/; /*
+	static native void BeginTooltip() /*-{ }-*/; /*
 		ImGui::BeginTooltip();
 	*/
 
-	public static native void EndTooltip() /*-{ }-*/; /*
+	static native void EndTooltip() /*-{ }-*/; /*
 		ImGui::EndTooltip();
 	*/
 
-	public static native void SetTooltip(String text) /*-{ }-*/; /*
+	static native void SetTooltip(String text) /*-{ }-*/; /*
 		ImGui::SetTooltip(text);
 	*/
 
@@ -1359,67 +1391,67 @@ public class ImGuiNative {
 	// (*) One can use IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByPopup) to bypass it and detect hovering even when normally blocked by a popup.
 	// Those three properties are connected. The library needs to hold their visibility state because it can close popups at any time.
 
-	public static native void OpenPopup(String str_id) /*-{ }-*/; /*
+	static native void OpenPopup(String str_id) /*-{ }-*/; /*
 		ImGui::OpenPopup(str_id);
 	*/
 
-	public static native boolean BeginPopup(String str_id) /*-{ }-*/; /*
+	static native boolean BeginPopup(String str_id) /*-{ }-*/; /*
 		return ImGui::BeginPopup(str_id);
 	*/
 
-	public static native boolean BeginPopup(String str_id, int flags) /*-{ }-*/; /*
+	static native boolean BeginPopup(String str_id, int flags) /*-{ }-*/; /*
 		return ImGui::BeginPopup(str_id, flags);
 	*/
 
-	public static native boolean BeginPopupContextItem() /*-{ }-*/; /*
+	static native boolean BeginPopupContextItem() /*-{ }-*/; /*
 		return ImGui::BeginPopupContextItem();
 	*/
 
-	public static native boolean BeginPopupContextItem(String str_id, int mouse_button) /*-{ }-*/; /*
+	static native boolean BeginPopupContextItem(String str_id, int mouse_button) /*-{ }-*/; /*
 		return ImGui::BeginPopupContextItem(str_id, mouse_button);
 	*/
 
-	public static native boolean BeginPopupContextWindow() /*-{ }-*/; /*
+	static native boolean BeginPopupContextWindow() /*-{ }-*/; /*
 		return ImGui::BeginPopupContextWindow();
 	*/
 
-	public static native boolean BeginPopupContextWindow(String str_id, int mouse_button, boolean also_over_items) /*-{ }-*/; /*
+	static native boolean BeginPopupContextWindow(String str_id, int mouse_button, boolean also_over_items) /*-{ }-*/; /*
 		return ImGui::BeginPopupContextWindow(str_id, mouse_button, also_over_items);
 	*/
 
-	public static native boolean BeginPopupContextVoid() /*-{ }-*/; /*
+	static native boolean BeginPopupContextVoid() /*-{ }-*/; /*
 		return ImGui::BeginPopupContextVoid();
 	 */
 
-	public static native boolean BeginPopupContextVoid(String str_id, int mouse_button) /*-{ }-*/; /*
+	static native boolean BeginPopupContextVoid(String str_id, int mouse_button) /*-{ }-*/; /*
 		return ImGui::BeginPopupContextVoid(str_id, mouse_button);
 	*/
 
-	public static native boolean BeginPopupModal(String name) /*-{ }-*/; /*
+	static native boolean BeginPopupModal(String name) /*-{ }-*/; /*
 		return ImGui::BeginPopupModal(name);
 	*/
 
-	public static native boolean BeginPopupModal(String name, boolean [] p_open, int flags) /*-{ }-*/; /*
+	static native boolean BeginPopupModal(String name, boolean [] p_open, int flags) /*-{ }-*/; /*
 		return ImGui::BeginPopupModal(name, &p_open[0], flags);
 	*/
 
-	public static native void EndPopup() /*-{ }-*/; /*
+	static native void EndPopup() /*-{ }-*/; /*
 		ImGui::EndPopup();
 	*/
 
-	public static native boolean OpenPopupOnItemClick() /*-{ }-*/; /*
+	static native boolean OpenPopupOnItemClick() /*-{ }-*/; /*
 		return ImGui::OpenPopupOnItemClick();
 	*/
 
-	public static native boolean OpenPopupOnItemClick(String str_id, int mouse_button) /*-{ }-*/; /*
+	static native boolean OpenPopupOnItemClick(String str_id, int mouse_button) /*-{ }-*/; /*
 		return ImGui::OpenPopupOnItemClick(str_id, mouse_button);
 	*/
 
-	public static native boolean IsPopupOpen(String str_id) /*-{ }-*/; /*
+	static native boolean IsPopupOpen(String str_id) /*-{ }-*/; /*
 		return ImGui::IsPopupOpen(str_id);
 	*/
 
-	public static native void CloseCurrentPopup() /*-{ }-*/; /*
+	static native void CloseCurrentPopup() /*-{ }-*/; /*
 		ImGui::CloseCurrentPopup();
 	*/
 
@@ -1427,78 +1459,78 @@ public class ImGuiNative {
 	// - You can also use SameLine(pos_x) to mimic simplified columns.
 	// - The columns API is work-in-progress and rather lacking (columns are arguably the worst part of dear imgui at the moment!)
 
-	public static native void Columns() /*-{ }-*/; /*
+	static native void Columns() /*-{ }-*/; /*
 		ImGui::Columns();
 	*/
 
-	public static native void Columns(int count, String id, boolean border) /*-{ }-*/; /*
+	static native void Columns(int count, String id, boolean border) /*-{ }-*/; /*
 		ImGui::Columns(count, id, border);
 	*/
 
-	public static native void NextColumn() /*-{ }-*/; /*
+	static native void NextColumn() /*-{ }-*/; /*
 		ImGui::NextColumn();
 	*/
 
-	public static native int GetColumnIndex() /*-{ }-*/; /*
+	static native int GetColumnIndex() /*-{ }-*/; /*
 		return ImGui::GetColumnIndex();
 	 */
 
-	public static native float GetColumnWidth() /*-{ }-*/; /*
+	static native float GetColumnWidth() /*-{ }-*/; /*
 		return ImGui::GetColumnWidth();
 	*/
 
-	public static native float GetColumnWidth(int column_index) /*-{ }-*/; /*
+	static native float GetColumnWidth(int column_index) /*-{ }-*/; /*
 		return ImGui::GetColumnWidth(column_index);
 	*/
 
-	public static native void SetColumnWidth(int column_index, float width) /*-{ }-*/; /*
+	static native void SetColumnWidth(int column_index, float width) /*-{ }-*/; /*
 		ImGui::SetColumnWidth(column_index, width);
 	*/
 
-	public static native float GetColumnOffset() /*-{ }-*/; /*
+	static native float GetColumnOffset() /*-{ }-*/; /*
 		return ImGui::GetColumnOffset();
 	*/
 
-	public static native float GetColumnOffset(int column_index) /*-{ }-*/; /*
+	static native float GetColumnOffset(int column_index) /*-{ }-*/; /*
 		return ImGui::GetColumnOffset(column_index);
 	*/
 
-	public static native void SetColumnOffset(int column_index, float offset_x) /*-{ }-*/; /*
+	static native void SetColumnOffset(int column_index, float offset_x) /*-{ }-*/; /*
 		ImGui::SetColumnOffset(column_index, offset_x);
 	*/
 
-	public static native int GetColumnsCount() /*-{ }-*/; /*
+	static native int GetColumnsCount() /*-{ }-*/; /*
 		return ImGui::GetColumnsCount();
 	*/
 
 	// Tab Bars, Tabs
 	// [BETA API] API may evolve!
 
-	public static native boolean BeginTabBar(String str_id) /*-{ }-*/; /*
+	static native boolean BeginTabBar(String str_id) /*-{ }-*/; /*
 		return ImGui::BeginTabBar(str_id);
 	*/
 
-	public static native boolean BeginTabBar(String str_id, int flags) /*-{ }-*/; /*
+	static native boolean BeginTabBar(String str_id, int flags) /*-{ }-*/; /*
 		return ImGui::BeginTabBar(str_id, flags);
 	*/
 
-	public static native void EndTabBar() /*-{ }-*/; /*
+	static native void EndTabBar() /*-{ }-*/; /*
 		ImGui::EndTabBar();
 	*/
 
-	public static native boolean BeginTabItem(String label) /*-{ }-*/; /*
+	static native boolean BeginTabItem(String label) /*-{ }-*/; /*
 		return ImGui::BeginTabItem(label);
 	*/
 
-	public static native boolean BeginTabItem(String label, boolean [] p_open, int flags) /*-{ }-*/; /*
+	static native boolean BeginTabItem(String label, boolean [] p_open, int flags) /*-{ }-*/; /*
 		return ImGui::BeginTabItem(label, &p_open[0], flags);
 	*/
 
-	public static native void EndTabItem() /*-{ }-*/; /*
+	static native void EndTabItem() /*-{ }-*/; /*
 		ImGui::EndTabItem();
 	*/
 
-	public static native void SetTabItemClosed(String tab_or_docked_window_label) /*-{ }-*/; /*
+	static native void SetTabItemClosed(String tab_or_docked_window_label) /*-{ }-*/; /*
 		ImGui::SetTabItemClosed(tab_or_docked_window_label);
 	*/
 
@@ -1506,81 +1538,81 @@ public class ImGuiNative {
 	// - Most of the functions are referring to the last/previous item we submitted.
 	// - See Demo Window under "Widgets->Querying Status" for an interactive visualization of most of those functions.
 
-	public static native boolean IsItemHovered() /*-{ }-*/; /*
+	static native boolean IsItemHovered() /*-{ }-*/; /*
 		return ImGui::IsItemHovered();
 	*/
 
-	public static native boolean IsItemHovered(int flags) /*-{ }-*/; /*
+	static native boolean IsItemHovered(int flags) /*-{ }-*/; /*
 		return ImGui::IsItemHovered(flags);
 	*/
 
-	public static native boolean IsItemActive() /*-{ }-*/; /*
+	static native boolean IsItemActive() /*-{ }-*/; /*
 		return ImGui::IsItemActive();
 	*/
 
-	public static native boolean IsItemFocused() /*-{ }-*/; /*
+	static native boolean IsItemFocused() /*-{ }-*/; /*
 		return ImGui::IsItemFocused();
 	*/
 
-	public static native boolean IsItemClicked() /*-{ }-*/; /*
+	static native boolean IsItemClicked() /*-{ }-*/; /*
 		return ImGui::IsItemClicked();
 	*/
 
-	public static native boolean IsItemClicked(int mouse_button) /*-{ }-*/; /*
+	static native boolean IsItemClicked(int mouse_button) /*-{ }-*/; /*
 		return ImGui::IsItemClicked(mouse_button);
 	*/
 
-	public static native boolean IsItemVisible() /*-{ }-*/; /*
+	static native boolean IsItemVisible() /*-{ }-*/; /*
 		return ImGui::IsItemVisible();
 	*/
 
-	public static native boolean IsItemEdited() /*-{ }-*/; /*
+	static native boolean IsItemEdited() /*-{ }-*/; /*
 		return ImGui::IsItemEdited();
 	*/
 
-	public static native boolean IsItemActivated() /*-{ }-*/; /*
+	static native boolean IsItemActivated() /*-{ }-*/; /*
 		return ImGui::IsItemActivated();
 	*/
 
-	public static native boolean IsItemDeactivated() /*-{ }-*/; /*
+	static native boolean IsItemDeactivated() /*-{ }-*/; /*
 		return ImGui::IsItemDeactivated();
 	*/
 
-	public static native boolean IsItemDeactivatedAfterEdit() /*-{ }-*/; /*
+	static native boolean IsItemDeactivatedAfterEdit() /*-{ }-*/; /*
 		return ImGui::IsItemDeactivatedAfterEdit();
 	*/
 
-	public static native boolean IsAnyItemHovered() /*-{ }-*/; /*
+	static native boolean IsAnyItemHovered() /*-{ }-*/; /*
 		return ImGui::IsAnyItemHovered();
 	*/
 
-	public static native boolean IsAnyItemActive() /*-{ }-*/; /*
+	static native boolean IsAnyItemActive() /*-{ }-*/; /*
 		return ImGui::IsAnyItemActive();
 	*/
 
-	public static native boolean IsAnyItemFocused() /*-{ }-*/; /*
+	static native boolean IsAnyItemFocused() /*-{ }-*/; /*
 		return ImGui::IsAnyItemFocused();
 	*/
 
-	public static native void GetItemRectMin(ImVec2 jImVec2) /*-{ }-*/; /*
+	static native void GetItemRectMin(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetItemRectMin();
 		env->SetFloatField (jImVec2, imVec2XID, vec.x);
 		env->SetFloatField (jImVec2, imVec2YID, vec.y);
 	*/
 
-	public static native void GetItemRectMax(ImVec2 jImVec2) /*-{ }-*/; /*
+	static native void GetItemRectMax(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetItemRectMax();
 		env->SetFloatField (jImVec2, imVec2XID, vec.x);
 		env->SetFloatField (jImVec2, imVec2YID, vec.y);
 	*/
 
-	public static native void GetItemRectSize(ImVec2 jImVec2) /*-{ }-*/; /*
+	static native void GetItemRectSize(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetItemRectSize();
 		env->SetFloatField (jImVec2, imVec2XID, vec.x);
 		env->SetFloatField (jImVec2, imVec2YID, vec.y);
 	*/
 
-	public static native void SetItemAllowOverlap() /*-{ }-*/; /*
+	static native void SetItemAllowOverlap() /*-{ }-*/; /*
 		ImGui::SetItemAllowOverlap();
 	*/
 

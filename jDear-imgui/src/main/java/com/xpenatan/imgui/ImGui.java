@@ -1,5 +1,6 @@
 package com.xpenatan.imgui;
 
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
 import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
@@ -60,6 +61,22 @@ public class ImGui {
 				mouseX, mouseY, mouseDown0, mouseDown1, mouseDown2, false, false, false);
 	}
 
+	public static void initKeyMap(int [] keys) {
+		ImGuiNative.initKeyMap(keys);
+	}
+
+	public static void UpdateKey(int key, boolean pressed, boolean released, boolean ctrlKey, boolean shiftKey, boolean altKey, boolean superKey)  {
+		ImGuiNative.updateKey(key, pressed, released, ctrlKey, shiftKey, altKey, superKey);
+	}
+
+	public static void UpdateScroll(float amountX, float amountY) {
+		ImGuiNative.updateScroll(amountX, amountY);
+	}
+
+	public static void UpdateKeyTyped(int c)  {
+		ImGuiNative.updateKeyTyped(c);
+	}
+
 	public static void Render() {
 		ImGuiNative.Render();
 	}
@@ -73,6 +90,14 @@ public class ImGui {
 		cmdByteBuffer.position(0);
 		ImGuiNative.GetDrawData(drawData, iByteBuffer, vByteBuffer, cmdByteBuffer);
 		return drawData;
+	}
+
+	public static void GetTexDataAsRGBA32(TexDataRGBA32 jTexData, Buffer pixelBuffer) {
+		ImGuiNative.GetTexDataAsRGBA32(jTexData, pixelBuffer);
+	}
+
+	public static void SetFontTexID(int id) {
+		ImGuiNative.SetFontTexID(id);
 	}
 
 	public static void SetNextWindowSize(int width, int height) {

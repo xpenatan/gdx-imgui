@@ -45,6 +45,7 @@ public class GdxImGuiDemo implements ApplicationListener
 		uiCam.setToOrtho(true);
 		ImGui.init();
 		impl = new ImGuiGdxImpl();
+		Gdx.input.setInputProcessor(impl);
 	}
 
 	@Override

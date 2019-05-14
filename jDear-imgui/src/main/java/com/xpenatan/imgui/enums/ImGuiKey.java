@@ -33,7 +33,7 @@ public enum ImGuiKey {
 		this.code = code;
 	}
 
-	public int toInt() {
+	public int getValue() {
 		return code;
 	}
 }

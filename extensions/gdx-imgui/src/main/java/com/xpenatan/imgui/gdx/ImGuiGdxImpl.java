@@ -1,8 +1,10 @@
 package com.xpenatan.imgui.gdx;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes;
@@ -12,10 +14,12 @@ import com.badlogic.gdx.math.Matrix4;
 import com.xpenatan.imgui.DrawData;
 import com.xpenatan.imgui.ImGui;
 import com.xpenatan.imgui.ImGuiIO;
-import com.xpenatan.imgui.ImGuiNative;
 import com.xpenatan.imgui.TexDataRGBA32;
+import com.xpenatan.imgui.enums.ImGuiKey;
 
 public class ImGuiGdxImpl extends InputAdapter {
+
+	static private final char DELETE = 127;
 
 	private boolean fontInit = false;
 	private VertexAttributes vertexAttributes;
@@ -31,6 +35,11 @@ public class ImGuiGdxImpl extends InputAdapter {
 	boolean mouseDown0;
 	boolean mouseDown1;
 	boolean mouseDown2;
+
+	boolean ctrlKey = false;
+	boolean shiftKey = false;
+	boolean altKey = false;
+	boolean superKey = false;
 
 	String vertex_shader_glsl_130 = "uniform mat4 ProjMtx;\n" + "attribute vec2 Position;\n" + "attribute vec2 UV;\n"
 			+ "attribute vec4 Color;\n" + "varying vec2 Frag_UV;\n" + "varying vec4 Frag_Color;\n" + "void main()\n"
@@ -55,11 +64,38 @@ public class ImGuiGdxImpl extends InputAdapter {
 		}
 
 		prepareFont();
+		initKeyMap();
+	}
+
+	private void initKeyMap() {
+		int [] keys = new int[ImGuiKey.COUNT.getValue()];
+		keys[ImGuiKey.Tab.getValue()] = Input.Keys.TAB;
+		keys[ImGuiKey.LeftArrow.getValue()] = Input.Keys.LEFT;
+		keys[ImGuiKey.RightArrow.getValue()] = Input.Keys.RIGHT;
+		keys[ImGuiKey.UpArrow.getValue()] = Input.Keys.UP;
+		keys[ImGuiKey.DownArrow.getValue()] = Input.Keys.DOWN;
+		keys[ImGuiKey.PageUp.getValue()] = Input.Keys.PAGE_UP;
+		keys[ImGuiKey.PageDown.getValue()] = Input.Keys.PAGE_DOWN;
+		keys[ImGuiKey.Home.getValue()] = Input.Keys.HOME;
+		keys[ImGuiKey.End.getValue()] = Input.Keys.END;
+		keys[ImGuiKey.Insert.getValue()] = Input.Keys.INSERT;
+		keys[ImGuiKey.Delete.getValue()] =Input.Keys. FORWARD_DEL;
+		keys[ImGuiKey.Backspace.getValue()] = Input.Keys.BACKSPACE;
+		keys[ImGuiKey.Space.getValue()] = Input.Keys.SPACE;
+		keys[ImGuiKey.Enter.getValue()] = Input.Keys.ENTER;
+		keys[ImGuiKey.Escape.getValue()] = Input.Keys.ESCAPE;
+		keys[ImGuiKey.A.getValue()] = Input.Keys.A;
+		keys[ImGuiKey.C.getValue()] = Input.Keys.C;
+		keys[ImGuiKey.V.getValue()] = Input.Keys.V;
+		keys[ImGuiKey.X.getValue()] = Input.Keys.X;
+		keys[ImGuiKey.Y.getValue()] = Input.Keys.Y;
+		keys[ImGuiKey.Z.getValue()] = Input.Keys.Z;
+		ImGui.initKeyMap(keys);
 	}
 
 	private void prepareFont() {
 		TexDataRGBA32 texData = new TexDataRGBA32();
-		ImGuiNative.GetTexDataAsRGBA32(texData, texData.pixelBuffer);
+		ImGui.GetTexDataAsRGBA32(texData, texData.pixelBuffer);
 
 		g_FontTexture = Gdx.gl.glGenTexture();
 
@@ -71,7 +107,7 @@ public class ImGuiGdxImpl extends InputAdapter {
 		Gdx.gl.glTexImage2D(GL20.GL_TEXTURE_2D, 0, GL20.GL_RGBA, texData.width, texData.height, 0, GL20.GL_RGBA,
 				GL20.GL_UNSIGNED_BYTE, texData.pixelBuffer);
 
-		ImGuiNative.SetFontTexID(g_FontTexture);
+		ImGui.SetFontTexID(g_FontTexture);
 
 	}
 
@@ -292,11 +328,57 @@ public class ImGuiGdxImpl extends InputAdapter {
 	}
 
 	@Override
-	public boolean keyDown(int keycode) {
+	public boolean keyTyped(char character) {
+		int charr = character;
+		if(charr != DELETE) // Ignore if char is delete key
+			ImGui.UpdateKeyTyped(character);
 		ImGuiIO getIO = ImGui.GetIO();
 		if(getIO.WantCaptureKeyboard)
 			return true;
+		return super.keyTyped(character);
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		ImGuiIO getIO = ImGui.GetIO();
+		if(keycode == Keys.CONTROL_LEFT || keycode == Keys.CONTROL_RIGHT)
+			ctrlKey = true;
+		if(keycode == Keys.SHIFT_LEFT || keycode == Keys.SHIFT_RIGHT)
+			shiftKey = true;
+		if(keycode == Keys.ALT_LEFT || keycode == Keys.ALT_RIGHT)
+			altKey = true;
+		if(keycode == Keys.SYM)
+			superKey = true;
+		ImGui.UpdateKey(keycode, true, false, ctrlKey, shiftKey, altKey, superKey);
+		if(getIO.WantCaptureKeyboard)
+			return true;
 		return super.keyDown(keycode);
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		ImGuiIO getIO = ImGui.GetIO();
+		if(keycode == Keys.CONTROL_LEFT || keycode == Keys.CONTROL_RIGHT)
+			ctrlKey = false;
+		if(keycode == Keys.SHIFT_LEFT || keycode == Keys.SHIFT_RIGHT)
+			shiftKey = false;
+		if(keycode == Keys.ALT_LEFT || keycode == Keys.ALT_RIGHT)
+			altKey = false;
+		if(keycode == Keys.SYM)
+			superKey = false;
+		ImGui.UpdateKey(keycode, false, true, ctrlKey, shiftKey, altKey, superKey);
+		if(getIO.WantCaptureKeyboard)
+			return true;
+		return super.keyDown(keycode);
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		ImGui.UpdateScroll(0, amount);
+		ImGuiIO getIO = ImGui.GetIO();
+		if(getIO.WantCaptureMouse)
+			return true;
+		return super.scrolled(amount);
 	}
 
 }
