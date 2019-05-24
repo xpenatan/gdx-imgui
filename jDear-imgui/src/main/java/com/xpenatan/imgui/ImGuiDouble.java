@@ -1,6 +1,8 @@
 package com.xpenatan.imgui;
 
 public class ImGuiDouble {
+	public static ImGuiDouble TMP = new ImGuiDouble();
+
 	double [] data = new double[] { 0.0d };
 
 	public ImGuiDouble() {}

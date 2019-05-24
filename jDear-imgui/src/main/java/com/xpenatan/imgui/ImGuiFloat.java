@@ -1,6 +1,8 @@
 package com.xpenatan.imgui;
 
 public class ImGuiFloat {
+	public static ImGuiFloat TMP = new ImGuiFloat();
+
 	float [] data = new float[] { 0.0f };
 
 	public ImGuiFloat() {}

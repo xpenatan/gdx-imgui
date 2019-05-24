@@ -1,6 +1,8 @@
 package com.xpenatan.imgui;
 
 public class ImGuiInt {
+	public static ImGuiInt TMP = new ImGuiInt();
+
 	int [] data = new int[] { 0 };
 
 	public ImGuiInt() {}

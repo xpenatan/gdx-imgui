@@ -12,13 +12,30 @@ Try out gdx-imgui-demo and see it working.
 Use the following classes For methods that requires checking UI state: <br>
 **ImGuiBoolean**, **ImGuiInt**; **ImGuiDouble**; **ImGuiFloat**; 
 
-
-## Gradle
+## Build
+### Gradle
 
 ```groovy
 // TODO
 
 ```
+
+### Eclipse
+
+To build with eclipse you need:<br>
+1: import "jDear-imgui" project <br>
+2: download imgui sources C++ files and put them in "jDear-imgui/jni/src/" <br>
+3: run "Build.java" class in "com.xpenatan.imgui.generate" package <br>
+
+The compiled native jar will be at "Dear-imgui\libs" 
+
+Note: You will also need "gdx-jnigen" project from libgdx souce (or import as a jar lib). The project will give a error at first import because native lib dont exist (remove and readd after its generated).
+
+### Screenshot of how it will looks when you build it
+<p align="center"><img src="https://i.imgur.com/dSTEWl0.png"/></p>
+
+To run demo you need to have the source project sources: "gdx" and "gdx-backend-lwjgl" (or import as jar lib)
+
 
 
 ## Screenshot

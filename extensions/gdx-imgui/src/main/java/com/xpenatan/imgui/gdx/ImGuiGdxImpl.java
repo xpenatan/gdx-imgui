@@ -2,7 +2,7 @@ package com.xpenatan.imgui.gdx;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,9 +15,10 @@ import com.xpenatan.imgui.DrawData;
 import com.xpenatan.imgui.ImGui;
 import com.xpenatan.imgui.ImGuiIO;
 import com.xpenatan.imgui.TexDataRGBA32;
+import com.xpenatan.imgui.enums.ImGuiFocusedFlags;
 import com.xpenatan.imgui.enums.ImGuiKey;
 
-public class ImGuiGdxImpl extends InputAdapter {
+public class ImGuiGdxImpl extends InputMultiplexer {
 
 	static private final char DELETE = 127;
 
@@ -40,6 +41,8 @@ public class ImGuiGdxImpl extends InputAdapter {
 	boolean shiftKey = false;
 	boolean altKey = false;
 	boolean superKey = false;
+
+	private boolean wantCaptureMouse;
 
 	String vertex_shader_glsl_130 = "uniform mat4 ProjMtx;\n" + "attribute vec2 Position;\n" + "attribute vec2 UV;\n"
 			+ "attribute vec4 Color;\n" + "varying vec2 Frag_UV;\n" + "varying vec4 Frag_Color;\n" + "void main()\n"
@@ -311,9 +314,20 @@ public class ImGuiGdxImpl extends InputAdapter {
 			mouseDown2 = true;
 
 		ImGuiIO getIO = ImGui.GetIO();
-		if(getIO.WantCaptureMouse)
+		if(wantCaptureMouse = getIO.WantCaptureMouse) {
+			super.touchDown(screenX, screenY, pointer, button);
 			return true;
-		return super.touchDown(screenX, screenY, pointer, button);
+		}
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		if(wantCaptureMouse) {
+			super.touchDragged(screenX, screenY, pointer);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -324,7 +338,8 @@ public class ImGuiGdxImpl extends InputAdapter {
 			mouseDown1 = false;
 		if(button == Buttons.MIDDLE)
 			mouseDown2 = false;
-		return super.touchDown(screenX, screenY, pointer, button);
+		wantCaptureMouse = false;
+		return super.touchUp(screenX, screenY, pointer, button);
 	}
 
 	@Override
@@ -333,14 +348,15 @@ public class ImGuiGdxImpl extends InputAdapter {
 		if(charr != DELETE) // Ignore if char is delete key
 			ImGui.UpdateKeyTyped(character);
 		ImGuiIO getIO = ImGui.GetIO();
-		if(getIO.WantCaptureKeyboard)
+		if(getIO.WantCaptureKeyboard) {
+			super.keyTyped(character);
 			return true;
-		return super.keyTyped(character);
+		}
+		return false;
 	}
 
 	@Override
 	public boolean keyDown(int keycode) {
-		ImGuiIO getIO = ImGui.GetIO();
 		if(keycode == Keys.CONTROL_LEFT || keycode == Keys.CONTROL_RIGHT)
 			ctrlKey = true;
 		if(keycode == Keys.SHIFT_LEFT || keycode == Keys.SHIFT_RIGHT)
@@ -350,14 +366,15 @@ public class ImGuiGdxImpl extends InputAdapter {
 		if(keycode == Keys.SYM)
 			superKey = true;
 		ImGui.UpdateKey(keycode, true, false, ctrlKey, shiftKey, altKey, superKey);
-		if(getIO.WantCaptureKeyboard)
+		if(ImGui.IsWindowFocused(ImGuiFocusedFlags.AnyWindow)) {
+			super.keyDown(keycode);
 			return true;
-		return super.keyDown(keycode);
+		}
+		return false;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		ImGuiIO getIO = ImGui.GetIO();
 		if(keycode == Keys.CONTROL_LEFT || keycode == Keys.CONTROL_RIGHT)
 			ctrlKey = false;
 		if(keycode == Keys.SHIFT_LEFT || keycode == Keys.SHIFT_RIGHT)
@@ -367,18 +384,22 @@ public class ImGuiGdxImpl extends InputAdapter {
 		if(keycode == Keys.SYM)
 			superKey = false;
 		ImGui.UpdateKey(keycode, false, true, ctrlKey, shiftKey, altKey, superKey);
-		if(getIO.WantCaptureKeyboard)
+		if(ImGui.IsWindowFocused(ImGuiFocusedFlags.AnyWindow)) {
+			super.keyUp(keycode);
 			return true;
-		return super.keyDown(keycode);
+		}
+		return false;
 	}
 
 	@Override
 	public boolean scrolled(int amount) {
 		ImGui.UpdateScroll(0, amount);
 		ImGuiIO getIO = ImGui.GetIO();
-		if(getIO.WantCaptureMouse)
+		if(getIO.WantCaptureMouse) {
+			super.scrolled(amount);
 			return true;
-		return super.scrolled(amount);
+		}
+		return false;
 	}
 
 }

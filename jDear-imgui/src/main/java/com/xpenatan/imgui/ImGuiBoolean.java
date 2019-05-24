@@ -1,6 +1,8 @@
 package com.xpenatan.imgui;
 
 public class ImGuiBoolean {
+	public static ImGuiBoolean TMP = new ImGuiBoolean();
+
 	boolean [] data = new boolean[] { false };
 
 	public ImGuiBoolean() {}

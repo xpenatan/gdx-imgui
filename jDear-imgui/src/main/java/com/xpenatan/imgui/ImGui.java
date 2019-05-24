@@ -4,6 +4,7 @@ import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
 import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
+import com.xpenatan.imgui.enums.ImGuiCol;
 import com.xpenatan.imgui.enums.ImGuiComboFlags;
 import com.xpenatan.imgui.enums.ImGuiCond;
 import com.xpenatan.imgui.enums.ImGuiDataType;
@@ -43,6 +44,7 @@ public class ImGui {
 	private static ImGuiIO imguiIO = new ImGuiIO();
 	private static ImVec2 imVec2 = new ImVec2();
 	private static ImVec4 imVec4 = new ImVec4();
+	private static ImDrawList imDrawList = new ImDrawList();
 
 	private  ImGui() {
 	}
@@ -51,8 +53,20 @@ public class ImGui {
 		return imguiIO;
 	}
 
+	public static void ShowDemoWindow()  {
+		ImGuiNative.ShowDemoWindow();
+	}
+
 	public static void ShowDemoWindow(boolean open)  {
 		ImGuiNative.ShowDemoWindow(open);
+	}
+
+	public static void ShowMetricsWindow()  {
+		ImGuiNative.ShowMetricsWindow();
+	}
+
+	public static void ShowMetricsWindow(boolean open)  {
+		ImGuiNative.ShowMetricsWindow(open);
 	}
 
 	public static void UpdateDisplayAndInputAndFrame(float deltaTime, float w, float h, float backBufferWidth, float backBufferHeight,
@@ -182,8 +196,13 @@ public class ImGui {
 		return ImGuiNative.IsWindowHovered(flags.getValue());
 	}
 
-	public static void GetWindowDrawList() {
-		//TODO
+	public static ImDrawList GetWindowDrawList() {
+		return imDrawList;
+	}
+
+	public static ImVec2 GetWindowPos() {
+		ImGuiNative.GetWindowPos(imVec2);
+		return imVec2;
 	}
 
 	public static float GetWindowPosX() {
@@ -202,10 +221,96 @@ public class ImGui {
 		return ImGuiNative.GetWindowHeight();
 	}
 
-	// Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin).
+	// Content region
+	// - Those functions are bound to be redesigned soon (they are confusing, incomplete and return values in local window coordinates which increases confusion)
 
+	public static ImVec2 GetContentRegionMax() {
+		ImGuiNative.GetContentRegionMax(imVec2);
+		return imVec2;
+	}
+
+	public static ImVec2 GetContentRegionAvail() {
+		ImGuiNative.GetContentRegionAvail(imVec2);
+		return imVec2;
+	}
+
+	public static float GetContentRegionAvailWidth() {
+		return ImGuiNative.GetContentRegionAvailWidth();
+	}
+
+	public static ImVec2 GetWindowContentRegionMin() {
+		ImGuiNative.GetWindowContentRegionMin(imVec2);
+		return imVec2;
+	}
+
+	public static ImVec2 GetWindowContentRegionMax() {
+		ImGuiNative.GetWindowContentRegionMax(imVec2);
+		return imVec2;
+	}
+
+	public static float GetWindowContentRegionWidth() {
+		return ImGuiNative.GetWindowContentRegionWidth();
+	}
+
+	// Windows Scrolling
+
+	public static float GetScrollX() {
+		return ImGuiNative.GetScrollX();
+	}
+
+	public static float GetScrollY() {
+		return ImGuiNative.GetScrollY();
+	}
+
+	public static float GetScrollMaxX() {
+		return ImGuiNative.GetScrollMaxX();
+	}
+
+	public static float GetScrollMaxY() {
+		return ImGuiNative.GetScrollMaxY();
+	}
+
+	public static void SetScrollX(float scroll_x) {
+		ImGuiNative.SetScrollX(scroll_x);
+	}
+
+	public static void SetScrollY(float scroll_y) {
+		ImGuiNative.SetScrollY(scroll_y);
+	}
+
+	public static void SetScrollHereY() {
+		ImGuiNative.SetScrollHereY();
+	}
+
+	public static void SetScrollHereY(float center_y_ratio) {
+		ImGuiNative.SetScrollHereY(center_y_ratio);
+	}
+
+	public static void SetScrollFromPosY(float local_y) {
+		ImGuiNative.SetScrollFromPosY(local_y);
+	}
+
+	public static void SetScrollFromPosY(float local_y, float center_y_ratio) {
+		ImGuiNative.SetScrollFromPosY(local_y, center_y_ratio);
+	}
 
 	// Parameters stacks (shared)
+
+	public static void PushStyleColor(ImGuiCol idx, int col) {
+		ImGuiNative.PushStyleColor(idx.getValue(), col);
+	}
+
+	public static void PushStyleColor(ImGuiCol idx, float r, float g, float b, float a) {
+		ImGuiNative.PushStyleColor(idx.getValue(), r, g, b, a);
+	}
+
+	public static void PopStyleColor() {
+		ImGuiNative.PopStyleColor();
+	}
+
+	public static void PopStyleColor(int count) {
+		ImGuiNative.PopStyleColor(count);
+	}
 
 	public static void PushStyleVar(ImGuiStyleVar idx, float val) {
 		ImGuiNative.PushStyleVar(idx.getValue(), val);
@@ -345,12 +450,14 @@ public class ImGui {
 		ImGuiNative.SetCursorPosY(y);
 	}
 
-	public static void GetCursorStartPos() {
-		//TODO impl
+	public static ImVec2 GetCursorStartPos() {
+		ImGuiNative.GetCursorStartPos(imVec2);
+		return imVec2;
 	}
 
-	public static void GetCursorScreenPos() {
-		//TODO impl
+	public static ImVec2 GetCursorScreenPos() {
+		ImGuiNative.GetCursorScreenPos(imVec2);
+		return imVec2;
 	}
 
 	public static void SetCursorScreenPos(float x, float y) {
@@ -373,7 +480,7 @@ public class ImGui {
 		return ImGuiNative.GetFrameHeight();
 	}
 
-	public static float GetFraGetFrameHeightWithSpacingmeHeight() {
+	public static float GetFrameHeightWithSpacing() {
 		return ImGuiNative.GetFrameHeightWithSpacing();
 	}
 
@@ -481,6 +588,14 @@ public class ImGui {
 	 */
 	public static boolean ArrowButton(String strId, ImGuiDir dir) {
 		return ImGuiNative.ArrowButton(strId, dir.toInt());
+	}
+
+	public static void Image(int textureID, float sizeX, float sizeY) {
+		ImGuiNative.Image(textureID, sizeX, sizeY);
+	}
+
+	public static void Image(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y) {
+		ImGuiNative.Image(textureID, sizeX, sizeY, uv0_x, uv0_y, uv1_x, uv1_y);
 	}
 
 	//TODO Image and ImageButton
@@ -1098,6 +1213,21 @@ public class ImGui {
 
 	public static void SetTabItemClosed(String tab_or_docked_window_label) {
 		ImGuiNative.SetTabItemClosed(tab_or_docked_window_label);
+	}
+
+	// Focus, Activation
+	// - Prefer using "SetItemDefaultFocus()" over "if (IsWindowAppearing()) SetScrollHereY()" when applicable to signify "this is the default item"
+
+	public static void SetItemDefaultFocus() {
+		ImGuiNative.SetItemDefaultFocus();
+	}
+
+	public static void SetKeyboardFocusHere() {
+		ImGuiNative.SetKeyboardFocusHere();
+	}
+
+	public static void SetKeyboardFocusHere(int offset) {
+		ImGuiNative.SetKeyboardFocusHere(offset);
 	}
 
 	// Item/Widgets Utilities

@@ -174,9 +174,22 @@ public class ImGuiNative {
 		ImGui::Render();
 	*/
 
+	static native void ShowDemoWindow() /*-{ }-*/; /*
+		ImGui::ShowDemoWindow();
+	*/
+
 	static native void ShowDemoWindow(boolean open) /*-{ }-*/; /*
 		bool toOpen = open;
 		ImGui::ShowDemoWindow(&toOpen);
+	*/
+
+	static native void ShowMetricsWindow() /*-{ }-*/; /*
+		ImGui::ShowMetricsWindow();
+	*/
+
+	static native void ShowMetricsWindow(boolean open) /*-{ }-*/; /*
+		bool toOpen = open;
+		ImGui::ShowMetricsWindow(&toOpen);
 	*/
 
 	static native void GetTexDataAsRGBA32(TexDataRGBA32 jTexData, Buffer pixelBuffer) /*-{ }-*/; /*
@@ -376,6 +389,20 @@ public class ImGuiNative {
 		return ImGui::IsWindowHovered(flags);
 	*/
 
+	static native boolean AddImage(int textureID, float a_x, float a_y, float b_x, float b_y) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddImage((void *)textureID, ImVec2(a_x, a_y), ImVec2(b_x, b_y));
+	*/
+
+	static native boolean AddImage(int textureID, float a_x, float a_y, float b_x, float b_y, float uv_a_x, float uv_a_y, float uv_b_x, float uv_b_y) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddImage((void *)textureID, ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(uv_a_x, uv_a_y), ImVec2(uv_b_x, uv_b_y));
+	*/
+
+	static native void GetWindowPos(ImVec2 jImVec2) /*-{ }-*/; /*
+		ImVec2 vec = ImGui::GetWindowPos();
+		env->SetFloatField (jImVec2, imVec2XID, vec.x);
+		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+	*/
+
 	static native float GetWindowPosX() /*-{ }-*/; /*
 		return ImGui::GetWindowPos().x;
 	*/
@@ -486,34 +513,33 @@ public class ImGuiNative {
 	// Content region
 	// - Those functions are bound to be redesigned soon (they are confusing, incomplete and return values in local window coordinates which increases confusion)
 
-	static native void GetContentRegionMax(float [] value) /*-{ }-*/; /*
-		ImVec2 val = ImGui::GetContentRegionMax();
-		value[0] = val.x;
-		value[1] = val.y;
+	static native void GetContentRegionMax(ImVec2 jImVec2) /*-{ }-*/; /*
+		ImVec2 vec = ImGui::GetContentRegionMax();
+		env->SetFloatField (jImVec2, imVec2XID, vec.x);
+		env->SetFloatField (jImVec2, imVec2YID, vec.y);
 	*/
 
-	static native void GetContentRegionAvail(float [] value) /*-{ }-*/; /*
-		ImVec2 val = ImGui::GetContentRegionAvail();
-		value[0] = val.x;
-		value[1] = val.y;
+	static native void GetContentRegionAvail(ImVec2 jImVec2) /*-{ }-*/; /*
+		ImVec2 vec = ImGui::GetContentRegionAvail();
+		env->SetFloatField (jImVec2, imVec2XID, vec.x);
+		env->SetFloatField (jImVec2, imVec2YID, vec.y);
 	*/
 
 	static native float GetContentRegionAvailWidth() /*-{ }-*/; /*
 		return ImGui::GetContentRegionAvailWidth();
 	*/
 
-	static native void GetWindowContentRegionMin(float [] value) /*-{ }-*/; /*
-		ImVec2 val = ImGui::GetWindowContentRegionMin();
-		value[0] = val.x;
-		value[1] = val.y;
+	static native void GetWindowContentRegionMin(ImVec2 jImVec2) /*-{ }-*/; /*
+		ImVec2 vec = ImGui::GetWindowContentRegionMin();
+		env->SetFloatField (jImVec2, imVec2XID, vec.x);
+		env->SetFloatField (jImVec2, imVec2YID, vec.y);
 	*/
 
-	static native void GetWindowContentRegionMax(float [] value) /*-{ }-*/; /*
-		ImVec2 val = ImGui::GetWindowContentRegionMax();
-		value[0] = val.x;
-		value[1] = val.y;
+	static native void GetWindowContentRegionMax(ImVec2 jImVec2) /*-{ }-*/; /*
+		ImVec2 vec = ImGui::GetWindowContentRegionMax();
+		env->SetFloatField (jImVec2, imVec2XID, vec.x);
+		env->SetFloatField (jImVec2, imVec2YID, vec.y);
 	*/
-
 
 	static native float GetWindowContentRegionWidth() /*-{ }-*/; /*
 		return ImGui::GetWindowContentRegionWidth();
@@ -766,17 +792,17 @@ public class ImGuiNative {
 		ImGui::SetCursorPosY(y);
 	*/
 
-	static native void GetCursorStartPos(float [] vec2) /*-{ }-*/; /*
+	static native void GetCursorStartPos(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetCursorStartPos();
-		vec2[0] = vec.x;
-		vec2[1] = vec.y;
+		env->SetFloatField (jImVec2, imVec2XID, vec.x);
+		env->SetFloatField (jImVec2, imVec2YID, vec.y);
 	*/
 
-	static native void GetCursorScreenPos(float [] vec2) /*-{ }-*/; /*
+	static native void GetCursorScreenPos(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetCursorScreenPos();
-		vec2[0] = vec.x;
-		vec2[1] = vec.y;
-	*/
+		env->SetFloatField (jImVec2, imVec2XID, vec.x);
+		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+	 */
 
 	static native void SetCursorScreenPos(float x, float y) /*-{ }-*/; /*
 		ImGui::SetCursorScreenPos(ImVec2(x, y));
@@ -889,6 +915,18 @@ public class ImGuiNative {
 
 	static native boolean ArrowButton(String strId, int dir) /*-{ }-*/; /*
 		return ImGui::ArrowButton(strId, dir);
+	*/
+
+	static native void Image(int textureID, float sizeX, float sizeY) /*-{ }-*/; /*
+		ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY));
+	*/
+
+	static native void Image(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y) /*-{ }-*/; /*
+		ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0_x, uv0_y), ImVec2(uv1_x, uv1_y));
+	*/
+
+	static native void Image(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, float color_r, float color_g, float color_b, float color_a, float border_col_r, float border_col_g, float border_col_b, float border_col_a) /*-{ }-*/; /*
+		ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0_x, uv0_y), ImVec2(uv1_x, uv1_y), ImVec4(color_r, color_g, color_b, color_a), ImVec4(border_col_r, border_col_g, border_col_b, border_col_a));
 	*/
 
 	static native boolean Checkbox(String label, boolean [] data) /*-{ }-*/; /*
@@ -1532,6 +1570,21 @@ public class ImGuiNative {
 
 	static native void SetTabItemClosed(String tab_or_docked_window_label) /*-{ }-*/; /*
 		ImGui::SetTabItemClosed(tab_or_docked_window_label);
+	*/
+
+	// Focus, Activation
+	// - Prefer using "SetItemDefaultFocus()" over "if (IsWindowAppearing()) SetScrollHereY()" when applicable to signify "this is the default item"
+
+	static native void SetItemDefaultFocus() /*-{ }-*/; /*
+		ImGui::SetItemDefaultFocus();
+	*/
+
+	static native boolean SetKeyboardFocusHere() /*-{ }-*/; /*
+		ImGui::SetKeyboardFocusHere();
+	*/
+
+	static native boolean SetKeyboardFocusHere(int offset) /*-{ }-*/; /*
+		ImGui::SetKeyboardFocusHere(offset);
 	*/
 
 	// Item/Widgets Utilities
