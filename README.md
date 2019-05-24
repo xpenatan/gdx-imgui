@@ -23,9 +23,10 @@ Use the following classes For methods that requires checking UI state: <br>
 ### Eclipse
 
 To build with eclipse you need:<br>
-1: import "jDear-imgui" project <br>
-2: download imgui sources C++ files and put them in "jDear-imgui/jni/src/" <br>
-3: run "Build.java" class in "com.xpenatan.imgui.generate" package <br>
+1: Configure [MinGW](https://github.com/libgdx/libgdx/wiki/jnigen) <br>
+2: Import "jDear-imgui" project <br>
+3: Download imgui sources C++ files and put them in "jDear-imgui/jni/src/" <br>
+4: Run "Build.java" class in "com.xpenatan.imgui.generate" package <br>
 
 The compiled native jar will be at "Dear-imgui\libs" 
 
