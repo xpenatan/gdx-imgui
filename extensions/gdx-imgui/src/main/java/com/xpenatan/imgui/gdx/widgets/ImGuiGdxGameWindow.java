@@ -3,8 +3,10 @@ package com.xpenatan.imgui.gdx.widgets;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
 import com.xpenatan.imgui.ImGui;
 import com.xpenatan.imgui.ImVec2;
+import com.xpenatan.imgui.enums.ImGuiCol;
 import com.xpenatan.imgui.enums.ImGuiHoveredFlags;
 import com.xpenatan.imgui.enums.ImGuiWindowFlags;
 import com.xpenatan.imgui.gdx.utils.EmuApplicationWindow;
@@ -33,6 +35,11 @@ public class ImGuiGdxGameWindow {
 	private String mouseXLabel = " X: ";
 	private String mouseYLabel = " Y: ";
 
+	public int activeColor = Color.GREEN.toIntBits();
+
+	private boolean curFrameFocus;
+	private boolean isWindowHovered;
+
 	public ImGuiGdxGameWindow(int width, int height) {
 		this.startWidth = width;
 		this.startHeight = height;
@@ -58,10 +65,12 @@ public class ImGuiGdxGameWindow {
 		int windowY = 0;
 
 
+		if(curFrameFocus)
+			ImGui.PushStyleColor(ImGuiCol.Text, activeColor);
 		ImGui.Begin(name);
-
+		if(curFrameFocus)
+			ImGui.PopStyleColor();
 		boolean beginChild = ImGui.BeginChild(beginID, 0, -ImGui.GetFrameHeightWithSpacing(), false, ImGuiWindowFlags.NoMove);
-
 		if(beginChild) {
 			windowWidth = (int)ImGui.GetWindowContentRegionWidth();
 			windowHeight = (int)ImGui.GetWindowHeight();
@@ -70,8 +79,8 @@ public class ImGuiGdxGameWindow {
 			windowX = (int)winPos.x;
 			windowY = (int)winPos.y;
 
-			boolean curFrameFocus = ImGui.IsWindowFocused();
-			boolean isWindowHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.AllowWhenBlockedByActiveItem);
+			curFrameFocus = ImGui.IsWindowFocused();
+			isWindowHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.AllowWhenBlockedByActiveItem);
 
 			if(ImGui.InvisibleButton(btnId, windowWidth, windowHeight))
 				curFrameFocus = true;

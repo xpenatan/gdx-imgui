@@ -178,7 +178,6 @@ public class EmuInput extends InputEventQueue implements Input, Disposable {
 
 	@Override
 	public void drain() {
-
 		justTouched = false;
 		if (keyJustPressed) {
 			keyJustPressed = false;
@@ -229,7 +228,6 @@ public class EmuInput extends InputEventQueue implements Input, Disposable {
 	}
 
 	public void clear() {
-
 		for(int i = 0; i < 5; i++)
 			justPressedButtons[i] = false;
 		for(int i = 0; i < 256; i++)
@@ -297,7 +295,7 @@ public class EmuInput extends InputEventQueue implements Input, Disposable {
 
 	@Override
 	public boolean scrolled(int amount) {
-		if(isWindowHovered)
+		if(isWindowFocused && isWindowHovered)
 			return super.scrolled(amount);
 		return false;
 	}
