@@ -510,6 +510,10 @@ public class ImGuiNative {
 		ImGui::SetWindowFocus(name);
 	*/
 
+	static native void RemoveWindowFocus() /*-{ }-*/; /*
+		ImGui::SetWindowFocus(NULL);
+	 */
+
 	// Content region
 	// - Those functions are bound to be redesigned soon (they are confusing, incomplete and return values in local window coordinates which increases confusion)
 
@@ -1667,6 +1671,20 @@ public class ImGuiNative {
 
 	static native void SetItemAllowOverlap() /*-{ }-*/; /*
 		ImGui::SetItemAllowOverlap();
+	*/
+
+	// Miscellaneous Utilities
+
+	static native boolean BeginChildFrame(int id, float width, float height) /*-{ }-*/; /*
+		return ImGui::BeginChildFrame(id, ImVec2(width, height));
+	*/
+
+	static native boolean BeginChildFrame(int id, float width, float height, int flags) /*-{ }-*/; /*
+		return ImGui::BeginChildFrame(id, ImVec2(width, height), flags);
+	*/
+
+	static native void EndChildFrame() /*-{ }-*/; /*
+		ImGui::EndChildFrame();
 	*/
 
 

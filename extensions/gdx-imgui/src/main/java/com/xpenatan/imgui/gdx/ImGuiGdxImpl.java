@@ -2,9 +2,6 @@ package com.xpenatan.imgui.gdx;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes;
@@ -13,48 +10,39 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Matrix4;
 import com.xpenatan.imgui.DrawData;
 import com.xpenatan.imgui.ImGui;
-import com.xpenatan.imgui.ImGuiIO;
 import com.xpenatan.imgui.TexDataRGBA32;
-import com.xpenatan.imgui.enums.ImGuiFocusedFlags;
 import com.xpenatan.imgui.enums.ImGuiKey;
 
-public class ImGuiGdxImpl extends InputMultiplexer {
+/**
+ *
+ * @author xpenatan
+ */
+public class ImGuiGdxImpl {
 
-	static private final char DELETE = 127;
+	private ImGuiGdxInput inputProcessor;
 
 	private boolean fontInit = false;
 	private VertexAttributes vertexAttributes;
 
-	int vbufferHandle;
-	int ibufferHandle;
-	Matrix4 matrix = new Matrix4();
+	private int vbufferHandle;
+	private int ibufferHandle;
+	private Matrix4 matrix = new Matrix4();
 
-	ShaderProgram shader;
+	private ShaderProgram shader;
 
-	int g_FontTexture;
+	private int g_FontTexture;
 
-	boolean mouseDown0;
-	boolean mouseDown1;
-	boolean mouseDown2;
-
-	boolean ctrlKey = false;
-	boolean shiftKey = false;
-	boolean altKey = false;
-	boolean superKey = false;
-
-	private boolean wantCaptureMouse;
-
-	String vertex_shader_glsl_130 = "uniform mat4 ProjMtx;\n" + "attribute vec2 Position;\n" + "attribute vec2 UV;\n"
+	private String vertex_shader_glsl_130 = "uniform mat4 ProjMtx;\n" + "attribute vec2 Position;\n" + "attribute vec2 UV;\n"
 			+ "attribute vec4 Color;\n" + "varying vec2 Frag_UV;\n" + "varying vec4 Frag_Color;\n" + "void main()\n"
 			+ "{\n" + "    Frag_UV = UV;\n" + "    Frag_Color = Color;\n"
 			+ "    gl_Position = ProjMtx * vec4(Position.xy,0,1);\n" + "}\n";
 
-	String fragment_shader_glsl_130 = "#ifdef GL_ES\n" + "    precision mediump float;\n" + "#endif\n"
+	private String fragment_shader_glsl_130 = "#ifdef GL_ES\n" + "    precision mediump float;\n" + "#endif\n"
 			+ "uniform sampler2D Texture;\n" + "varying vec2 Frag_UV;\n" + "varying vec4 Frag_Color;\n"
 			+ "void main()\n" + "{\n" + "    gl_FragColor = Frag_Color * texture2D(Texture, Frag_UV.st);\n" + "}\n";
 
-	public ImGuiGdxImpl() {
-
+	public ImGuiGdxImpl(ImGuiGdxInput inputProcessor) {
+		this.inputProcessor = inputProcessor;
 		vertexAttributes = new VertexAttributes(new VertexAttribute[] {
 				new VertexAttribute(Usage.Position, 2, GL20.GL_FLOAT, false, "Position"),
 				new VertexAttribute(Usage.TextureCoordinates, 2, GL20.GL_FLOAT, false, "UV"),
@@ -129,7 +117,7 @@ public class ImGuiGdxImpl extends InputMultiplexer {
 		int backBufferHeight = Gdx.graphics.getBackBufferHeight();
 
 		ImGui.UpdateDisplayAndInputAndFrame(Gdx.graphics.getDeltaTime(), width, height, backBufferWidth, backBufferHeight,
-				Gdx.input.getX(), Gdx.input.getY(), mouseDown0, mouseDown1, mouseDown2);
+				Gdx.input.getX(), Gdx.input.getY(), inputProcessor.mouseDown0, inputProcessor.mouseDown1, inputProcessor.mouseDown2);
 	}
 
 	public void render(DrawData drawData) {
@@ -302,104 +290,4 @@ public class ImGuiGdxImpl extends InputMultiplexer {
 		Gdx.gl.glDeleteBuffer(ibufferHandle);
 		ibufferHandle = 0;
 	}
-
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if(button == Buttons.LEFT)
-			mouseDown0 =  true;
-		if(button == Buttons.RIGHT)
-			mouseDown1 = true;
-		if(button == Buttons.MIDDLE)
-			mouseDown2 = true;
-
-		ImGuiIO getIO = ImGui.GetIO();
-		if(wantCaptureMouse = getIO.WantCaptureMouse) {
-			super.touchDown(screenX, screenY, pointer, button);
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		if(wantCaptureMouse) {
-			super.touchDragged(screenX, screenY, pointer);
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		if(button == Buttons.LEFT)
-			mouseDown0 =  false;
-		if(button == Buttons.RIGHT)
-			mouseDown1 = false;
-		if(button == Buttons.MIDDLE)
-			mouseDown2 = false;
-		wantCaptureMouse = false;
-		return super.touchUp(screenX, screenY, pointer, button);
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		int charr = character;
-		if(charr != DELETE) // Ignore if char is delete key
-			ImGui.UpdateKeyTyped(character);
-		ImGuiIO getIO = ImGui.GetIO();
-		if(getIO.WantCaptureKeyboard) {
-			super.keyTyped(character);
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean keyDown(int keycode) {
-		if(keycode == Keys.CONTROL_LEFT || keycode == Keys.CONTROL_RIGHT)
-			ctrlKey = true;
-		if(keycode == Keys.SHIFT_LEFT || keycode == Keys.SHIFT_RIGHT)
-			shiftKey = true;
-		if(keycode == Keys.ALT_LEFT || keycode == Keys.ALT_RIGHT)
-			altKey = true;
-		if(keycode == Keys.SYM)
-			superKey = true;
-		ImGui.UpdateKey(keycode, true, false, ctrlKey, shiftKey, altKey, superKey);
-		if(ImGui.IsWindowFocused(ImGuiFocusedFlags.AnyWindow)) {
-			super.keyDown(keycode);
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode) {
-		if(keycode == Keys.CONTROL_LEFT || keycode == Keys.CONTROL_RIGHT)
-			ctrlKey = false;
-		if(keycode == Keys.SHIFT_LEFT || keycode == Keys.SHIFT_RIGHT)
-			shiftKey = false;
-		if(keycode == Keys.ALT_LEFT || keycode == Keys.ALT_RIGHT)
-			altKey = false;
-		if(keycode == Keys.SYM)
-			superKey = false;
-		ImGui.UpdateKey(keycode, false, true, ctrlKey, shiftKey, altKey, superKey);
-		if(ImGui.IsWindowFocused(ImGuiFocusedFlags.AnyWindow)) {
-			super.keyUp(keycode);
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		ImGui.UpdateScroll(0, amount);
-		ImGuiIO getIO = ImGui.GetIO();
-		if(getIO.WantCaptureMouse) {
-			super.scrolled(amount);
-			return true;
-		}
-		return false;
-	}
-
 }

@@ -15,17 +15,17 @@ import com.xpenatan.imgui.enums.ImGuiDir;
 import com.xpenatan.imgui.enums.ImGuiTabBarFlags;
 import com.xpenatan.imgui.enums.ImGuiTreeNodeFlags;
 import com.xpenatan.imgui.gdx.ImGuiGdxImpl;
+import com.xpenatan.imgui.gdx.ImGuiGdxInput;
 
-public class GdxImGuiDemo implements ApplicationListener
+public class ImGuiGdxDemo implements ApplicationListener
 {
-	public static void main (String[] args)
-	{
+	public static void main (String[] args) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width = 1444;
 		config.height = 800;
 		config.title = "Gdx-imgui";
 		config.vSyncEnabled = true;
-		new LwjglApplication(new GdxImGuiDemo(), config);
+		new LwjglApplication(new ImGuiGdxDemo(), config);
 	}
 
 
@@ -39,18 +39,18 @@ public class GdxImGuiDemo implements ApplicationListener
 	int treeSelected = -1;
 
 	@Override
-	public void create ()
-	{
+	public void create () {
 		OrthographicCamera uiCam = new OrthographicCamera();
 		uiCam.setToOrtho(true);
 		ImGui.init();
-		impl = new ImGuiGdxImpl();
-		Gdx.input.setInputProcessor(impl);
+
+		ImGuiGdxInput input = new ImGuiGdxInput();
+		impl = new ImGuiGdxImpl(input);
+		Gdx.input.setInputProcessor(input);
 	}
 
 	@Override
-	public void render ()
-	{
+	public void render () {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -142,22 +142,18 @@ public class GdxImGuiDemo implements ApplicationListener
 	}
 
 	@Override
-	public void resize (int width, int height)
-	{
+	public void resize (int width, int height) {
 	}
 
 	@Override
-	public void pause ()
-	{
+	public void pause () {
 	}
 
 	@Override
-	public void resume ()
-	{
+	public void resume () {
 	}
 
 	@Override
-	public void dispose ()
-	{
+	public void dispose () {
 	}
 }

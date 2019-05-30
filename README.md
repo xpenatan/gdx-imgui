@@ -39,5 +39,6 @@ To run demo you need to have the source project sources: "gdx" and "gdx-backend-
 
 
 
-## Screenshot
+## Examples
+<p align="center"><img src="https://i.imgur.com/rXk4Aq0.gif"/></p>
 <p align="center"><img src="https://i.imgur.com/ekZu3lS.png"/></p>

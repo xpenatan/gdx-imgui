@@ -221,6 +221,16 @@ public class ImGui {
 		return ImGuiNative.GetWindowHeight();
 	}
 
+	// Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin).
+	//TODO add more methods
+
+	public static void SetWindowFocus(String name) {
+		if(name == null)
+			ImGuiNative.RemoveWindowFocus();
+		else
+			ImGuiNative.SetWindowFocus(name);
+	}
+
 	// Content region
 	// - Those functions are bound to be redesigned soon (they are confusing, incomplete and return values in local window coordinates which increases confusion)
 
@@ -1308,5 +1318,20 @@ public class ImGui {
 	public static void SetItemAllowOverlap() {
 		ImGuiNative.SetItemAllowOverlap();
 	}
+
+	// Miscellaneous Utilities
+
+	public static boolean BeginChildFrame(int id, float width, float height) {
+		return ImGuiNative.BeginChildFrame(id, width, height);
+	}
+
+	public static boolean BeginChildFrame(int id, float width, float height, ImGuiWindowFlags flags) {
+		return ImGuiNative.BeginChildFrame(id, width, height, flags.getValue());
+	}
+
+	public static void EndChildFrame() {
+		ImGuiNative.EndChildFrame();
+	}
+
 
 }

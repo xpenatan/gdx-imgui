@@ -2,8 +2,11 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="assets"/>
+	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/gdx"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/gdx-backend-lwjgl"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/gdx-imgui"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/gdx-tests"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
