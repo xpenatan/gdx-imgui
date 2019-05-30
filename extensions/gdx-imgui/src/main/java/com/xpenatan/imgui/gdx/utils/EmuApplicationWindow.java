@@ -16,6 +16,11 @@ public class EmuApplicationWindow extends EmuWindow {
 	public EmuApplicationWindow() {
 	}
 
+
+	public EmuApplicationWindow(EmuInput input) {
+		super(input);
+	}
+
 	public EmuApplicationWindow(ApplicationListener applicationListener) {
 		oldListener = this.applicationListener;
 		this.applicationListener = applicationListener;

@@ -1,6 +1,5 @@
 package com.xpenatan.imgui.gdx.widgets;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
@@ -10,6 +9,7 @@ import com.xpenatan.imgui.enums.ImGuiCol;
 import com.xpenatan.imgui.enums.ImGuiHoveredFlags;
 import com.xpenatan.imgui.enums.ImGuiWindowFlags;
 import com.xpenatan.imgui.gdx.utils.EmuApplicationWindow;
+import com.xpenatan.imgui.gdx.utils.EmuWindow;
 
 /**
  *
@@ -19,7 +19,7 @@ import com.xpenatan.imgui.gdx.utils.EmuApplicationWindow;
  */
 public class ImGuiGdxGameWindow {
 
-	private EmuApplicationWindow emuWindow;
+	private EmuWindow emuWindow;
 
 	private boolean initWindowSize;
 
@@ -41,9 +41,15 @@ public class ImGuiGdxGameWindow {
 	private boolean isWindowHovered;
 
 	public ImGuiGdxGameWindow(int width, int height) {
+		this(new EmuApplicationWindow(), width, height);
 		this.startWidth = width;
 		this.startHeight = height;
-		emuWindow = new EmuApplicationWindow();
+	}
+
+	public ImGuiGdxGameWindow(EmuWindow emuWindow, int width, int height) {
+		this.startWidth = width;
+		this.startHeight = height;
+		this.emuWindow = emuWindow;
 	}
 
 	public void setName(String name) {
@@ -99,10 +105,7 @@ public class ImGuiGdxGameWindow {
 		ImGui.EndChild();
 		ImGui.Separator();
 		ImGui.Text(widthLabel + windowWidth + heightLabel + windowHeight + mouseXLabel + mouseX + mouseYLabel + mouseY);
-	}
-
-	public void setApplicationListener(ApplicationListener applicationListener) {
-		emuWindow.setApplicationListener(applicationListener);
+		ImGui.End();
 	}
 
 	public InputProcessor getInput() {

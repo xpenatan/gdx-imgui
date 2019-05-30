@@ -18,6 +18,7 @@ import com.xpenatan.imgui.ImGuiInt;
 import com.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.xpenatan.imgui.gdx.ImGuiGdxInput;
 import com.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
+import com.xpenatan.imgui.gdx.utils.EmuApplicationWindow;
 import com.xpenatan.imgui.gdx.utils.EmuFrameBuffer;
 import com.xpenatan.imgui.gdx.widgets.ImGuiGdxGameWindow;
 
@@ -41,6 +42,7 @@ public class ImGuiGdxTests implements ApplicationListener, InputProcessor {
 
 	ImGuiGdxImpl impl;
 
+	EmuApplicationWindow emuApplication;
 	ImGuiGdxGameWindow gameWindow;
 
 	int i = 0;
@@ -62,7 +64,8 @@ public class ImGuiGdxTests implements ApplicationListener, InputProcessor {
 
 		EmuFrameBuffer.setDefaultFramebufferHandleInitialized(false);
 
-		gameWindow = new ImGuiGdxGameWindow(400, 400);
+		emuApplication = new EmuApplicationWindow();
+		gameWindow = new ImGuiGdxGameWindow(emuApplication, 400, 400);
 
 		gameWindow.setName("Game");
 
@@ -93,7 +96,7 @@ public class ImGuiGdxTests implements ApplicationListener, InputProcessor {
 				if(selected != i) {
 					selected = i;
 					GdxTest newTest = GdxTests.newTest(testName);
-					gameWindow.setApplicationListener(newTest);
+					emuApplication.setApplicationListener(newTest);
 				}
 			}
 		}
@@ -122,8 +125,6 @@ public class ImGuiGdxTests implements ApplicationListener, InputProcessor {
 
 		drawTestListWindow();
 		gameWindow.render();
-
-		ImGui.End();
 
 		ImGui.Render();
 		DrawData drawData = ImGui.GetDrawData();
