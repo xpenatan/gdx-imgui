@@ -97,6 +97,19 @@ public class ImGuiNative {
 		}
 	*/
 
+	static native void SetConfigFlags(int flag) /*-{ }-*/; /*
+		ImGuiIO& io = ImGui::GetIO();
+		io.ConfigFlags = flag;
+	*/
+
+	static native void SetDockingFlags(boolean ConfigDockingNoSplit, boolean ConfigDockingWithShift, boolean ConfigDockingTabBarOnSingleWindows, boolean ConfigDockingTransparentPayload) /*-{ }-*/; /*
+		ImGuiIO& io = ImGui::GetIO();
+		io.ConfigDockingNoSplit = ConfigDockingNoSplit;
+		io.ConfigDockingWithShift = ConfigDockingWithShift;
+		io.ConfigDockingTabBarOnSingleWindows = ConfigDockingTabBarOnSingleWindows;
+		io.ConfigDockingTransparentPayload = ConfigDockingTransparentPayload;
+	 */
+
 	static native void UpdateDisplayAndInputAndFrame(ImGuiIO jImguiIO, float deltaTime, float w, float h, float display_w, float display_h,
 			float mouseX, float mouseY, boolean mouseDown0, boolean mouseDown1, boolean mouseDown2, boolean mouseDown3, boolean mouseDown4, boolean mouseDown5) /*-{ }-*/; /*
 		ImGuiIO& io = ImGui::GetIO();
@@ -127,6 +140,8 @@ public class ImGuiNative {
 		}
 
 		ImGui::NewFrame();
+
+
 
 		// Update ImGuiIO
 		env->SetBooleanField (jImguiIO, WantCaptureMouseID, io.WantCaptureMouse);
@@ -1574,6 +1589,26 @@ public class ImGuiNative {
 
 	static native void SetTabItemClosed(String tab_or_docked_window_label) /*-{ }-*/; /*
 		ImGui::SetTabItemClosed(tab_or_docked_window_label);
+	*/
+
+	// Docking
+	// [BETA API] Enable with io.ConfigFlags |= ImGuiConfigFlags_DockingEnable.
+	// Note: you DO NOT need to call DockSpace() to use most Docking facilities!
+	// To dock windows: if io.ConfigDockingWithShift == false: drag window from their title bar.
+	// To dock windows: if io.ConfigDockingWithShift == true: hold SHIFT anywhere while moving windows.
+	// Use DockSpace() to create an explicit dock node _within_ an existing window. See Docking demo for details.
+
+
+	static native void DockSpace(int id) /*-{ }-*/; /*
+		ImGui::DockSpace(id);
+	*/
+
+	static native void DockSpace(int id, float sizeX, float sizeY) /*-{ }-*/; /*
+		ImGui::DockSpace(id, ImVec2(sizeX, sizeY));
+	*/
+
+	static native void DockSpace(int id, float sizeX, float sizeY, int flags) /*-{ }-*/; /*
+		ImGui::DockSpace(id, ImVec2(sizeX, sizeY), flags);
 	*/
 
 	// Focus, Activation

@@ -11,9 +11,12 @@ import com.xpenatan.imgui.DrawData;
 import com.xpenatan.imgui.ImGui;
 import com.xpenatan.imgui.ImGuiBoolean;
 import com.xpenatan.imgui.ImGuiInt;
+import com.xpenatan.imgui.enums.ImGuiConfigFlags;
 import com.xpenatan.imgui.enums.ImGuiDir;
+import com.xpenatan.imgui.enums.ImGuiStyleVar;
 import com.xpenatan.imgui.enums.ImGuiTabBarFlags;
 import com.xpenatan.imgui.enums.ImGuiTreeNodeFlags;
+import com.xpenatan.imgui.enums.ImGuiWindowFlags;
 import com.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.xpenatan.imgui.gdx.ImGuiGdxInput;
 
@@ -31,6 +34,7 @@ public class ImGuiGdxDemo implements ApplicationListener
 
 	ImGuiGdxImpl impl;
 	ImGuiBoolean guiBool = new ImGuiBoolean();
+	ImGuiBoolean dockBool = new ImGuiBoolean();
 	ImGuiInt guiInt = new ImGuiInt();
 	ImGuiInt listSelected = new ImGuiInt();
 
@@ -43,6 +47,9 @@ public class ImGuiGdxDemo implements ApplicationListener
 		OrthographicCamera uiCam = new OrthographicCamera();
 		uiCam.setToOrtho(true);
 		ImGui.init();
+		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable);
+		ImGui.GetIO().SetDockingFlags(false, false, false, false);
+
 
 		ImGuiGdxInput input = new ImGuiGdxInput();
 		impl = new ImGuiGdxImpl(input);
@@ -64,6 +71,28 @@ public class ImGuiGdxDemo implements ApplicationListener
 		boolean mouseDown2 = Gdx.input.isButtonPressed(Buttons.MIDDLE);
 		ImGui.UpdateDisplayAndInputAndFrame(Gdx.graphics.getDeltaTime(), width, height, backBufferWidth, backBufferHeight,
 				Gdx.input.getX(), Gdx.input.getY(), mouseDown0, mouseDown1, mouseDown2);
+
+
+
+		ImGui.SetNextWindowSize(width, height);
+		ImGui.SetNextWindowPos(0, 0);
+//		ImGuiWindowFlags flags = ImGuiWindowFlags.NoBringToFrontOnFocus.and(ImGuiWindowFlags.NoNavFocus).and(ImGuiWindowFlags.NoCollapse).and(ImGuiWindowFlags.NoResize).and(ImGuiWindowFlags.NoMove);
+		ImGuiWindowFlags flags = ImGuiWindowFlags.NoDecoration;
+//				and(ImGuiWindowFlags.NoTitleBar);
+
+		ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
+		ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);
+
+		ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, 0.0f, 0.0f);
+		ImGui.Begin("DockSpace Demo", dockBool, flags);
+		ImGui.PopStyleVar();
+
+
+		ImGui.PopStyleVar(2);
+
+		ImGui.DockSpace(0313);
+
+
 
 //		ImGui.setNextWindowPos(0,0);
 		ImGui.Begin("Hello World");
@@ -96,7 +125,9 @@ public class ImGuiGdxDemo implements ApplicationListener
 		ImGui.ListBox("MyList", listSelected, myList, myList.length);
 		ImGui.End();
 
-		ImGui.ShowDemoWindow(false);
+//		ImGui.ShowDemoWindow(false);
+
+		ImGui.End();
 
 		ImGui.Render();
 		DrawData drawData = ImGui.GetDrawData();

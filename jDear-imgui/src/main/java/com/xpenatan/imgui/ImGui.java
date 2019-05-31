@@ -9,6 +9,7 @@ import com.xpenatan.imgui.enums.ImGuiComboFlags;
 import com.xpenatan.imgui.enums.ImGuiCond;
 import com.xpenatan.imgui.enums.ImGuiDataType;
 import com.xpenatan.imgui.enums.ImGuiDir;
+import com.xpenatan.imgui.enums.ImGuiDockNodeFlags;
 import com.xpenatan.imgui.enums.ImGuiFocusedFlags;
 import com.xpenatan.imgui.enums.ImGuiHoveredFlags;
 import com.xpenatan.imgui.enums.ImGuiInputTextFlags;
@@ -116,6 +117,10 @@ public class ImGui {
 
 	public static void SetNextWindowSize(int width, int height) {
 		ImGuiNative.SetNextWindowSize(width, height);
+	}
+
+	public static void SetNextWindowPos(float x, int y) {
+		ImGuiNative.SetNextWindowPos(x, y);
 	}
 
 	public static void StyleColorsDark() {
@@ -1223,6 +1228,26 @@ public class ImGui {
 
 	public static void SetTabItemClosed(String tab_or_docked_window_label) {
 		ImGuiNative.SetTabItemClosed(tab_or_docked_window_label);
+	}
+
+	// Docking
+	// [BETA API] Enable with io.ConfigFlags |= ImGuiConfigFlags_DockingEnable.
+	// Note: you DO NOT need to call DockSpace() to use most Docking facilities!
+	// To dock windows: if io.ConfigDockingWithShift == false: drag window from their title bar.
+	// To dock windows: if io.ConfigDockingWithShift == true: hold SHIFT anywhere while moving windows.
+	// Use DockSpace() to create an explicit dock node _within_ an existing window. See Docking demo for details.
+
+
+	public static void DockSpace(int id) {
+		ImGuiNative.DockSpace(id);
+	}
+
+	public static void DockSpace(int id, float sizeX, float sizeY) {
+		ImGuiNative.DockSpace(id, sizeX, sizeY);
+	}
+
+	public static void DockSpace(int id, float sizeX, float sizeY, ImGuiDockNodeFlags flags) {
+		ImGuiNative.DockSpace(id, sizeX, sizeY, flags.getValue());
 	}
 
 	// Focus, Activation

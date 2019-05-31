@@ -14,7 +14,11 @@ import com.badlogic.gdx.tests.utils.GdxTest;
 import com.badlogic.gdx.tests.utils.GdxTests;
 import com.xpenatan.imgui.DrawData;
 import com.xpenatan.imgui.ImGui;
+import com.xpenatan.imgui.ImGuiBoolean;
 import com.xpenatan.imgui.ImGuiInt;
+import com.xpenatan.imgui.enums.ImGuiConfigFlags;
+import com.xpenatan.imgui.enums.ImGuiStyleVar;
+import com.xpenatan.imgui.enums.ImGuiWindowFlags;
 import com.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.xpenatan.imgui.gdx.ImGuiGdxInput;
 import com.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
@@ -51,10 +55,14 @@ public class ImGuiGdxTests implements ApplicationListener, InputProcessor {
 
 	List<String> names;
 	ImGuiInt listSelected = new ImGuiInt();
+	ImGuiBoolean booleanFlag = new ImGuiBoolean();
 	int selected = -1;
 	@Override
 	public void create() {
 		ImGui.init();
+
+		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable);
+		ImGui.GetIO().SetDockingFlags(false, false, false, false);
 
 		ImGuiGdxInput input = new ImGuiGdxInput();
 		impl = new ImGuiGdxImpl(input);
@@ -123,8 +131,27 @@ public class ImGuiGdxTests implements ApplicationListener, InputProcessor {
 				Gdx.input.getX(), Gdx.input.getY(), mouseDown0, mouseDown1, mouseDown2);
 
 
+		ImGui.SetNextWindowSize(width, height);
+		ImGui.SetNextWindowPos(0, 0);
+
+		ImGuiWindowFlags flags = ImGuiWindowFlags.NoDecoration;
+		flags = flags.and(ImGuiWindowFlags.NoDocking).and(ImGuiWindowFlags.NoBringToFrontOnFocus);
+
+		ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
+		ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);
+
+		ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, 0.0f, 0.0f);
+		ImGui.Begin("DockSpace Demo", booleanFlag, flags);
+		ImGui.PopStyleVar();
+		ImGui.PopStyleVar(2);
+
+
+		ImGui.DockSpace(201, width, height);
+
 		drawTestListWindow();
 		gameWindow.render();
+
+		ImGui.End();
 
 		ImGui.Render();
 		DrawData drawData = ImGui.GetDrawData();

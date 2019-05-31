@@ -1,5 +1,7 @@
 package com.xpenatan.imgui;
 
+import com.xpenatan.imgui.enums.ImGuiConfigFlags;
+
 public class ImGuiIO {
 
 	//------------------------------------------------------------------
@@ -21,4 +23,12 @@ public class ImGuiIO {
 	public int MetricsActiveAllocations;	// Number of active allocations, updated by MemAlloc/MemFree based on current context. May be off if you have multiple imgui contexts.
 	public float MouseDeltaX; // Mouse delta. Note that this is zero if either current or previous position are invalid (-FLT_MAX,-FLT_MAX), so a disappearing/reappearing mouse won't have a huge delta.
 	public float MouseDeltaY;
+
+	public void SetConfigFlags(ImGuiConfigFlags flags) {
+		ImGuiNative.SetConfigFlags(flags.getValue());
+	}
+
+	public void SetDockingFlags(boolean ConfigDockingNoSplit, boolean ConfigDockingWithShift, boolean ConfigDockingTabBarOnSingleWindows, boolean ConfigDockingTransparentPayload) {
+		ImGuiNative.SetDockingFlags(ConfigDockingNoSplit, ConfigDockingWithShift, ConfigDockingTabBarOnSingleWindows, ConfigDockingTransparentPayload);
+	}
 }
