@@ -114,10 +114,6 @@ public class ImGui {
 		ImGuiNative.SetFontTexID(id);
 	}
 
-	public static void SetNextWindowSize(int width, int height) {
-		ImGuiNative.SetNextWindowSize(width, height);
-	}
-
 	public static void StyleColorsDark() {
 		ImGuiNative.StyleColorsDark();
 	}
@@ -222,6 +218,43 @@ public class ImGui {
 	}
 
 	// Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin).
+
+	public static void SetNextWindowPos(float x, float y) {
+		ImGuiNative.SetNextWindowPos(x, y);
+	}
+
+	public static void SetNextWindowPos(float x, float y, ImGuiCond cond, float pivotX, float pivotY) {
+		ImGuiNative.SetNextWindowPos(x, y, cond.getValue(), pivotX, pivotY);
+	}
+
+	public static void SetNextWindowSize(int width, int height) {
+		ImGuiNative.SetNextWindowSize(width, height);
+	}
+
+	public static void SetNextWindowSize(int width, int height, ImGuiCond cond) {
+		ImGuiNative.SetNextWindowSize(width, height, cond.getValue());
+	}
+
+	public static void SetNextWindowSizeConstraints(float minWidth, float minHeight, float maxWidth, float maxHeight) {
+		ImGuiNative.SetNextWindowSizeConstraints(minWidth, minHeight, maxWidth, maxHeight);
+	}
+
+	public static void SetNextWindowContentSize(float sizeX, float sizeY) {
+		ImGuiNative.SetNextWindowContentSize(sizeX, sizeY);
+	}
+
+	public static void SetNextWindowCollapsed(boolean flag) {
+		ImGuiNative.SetNextWindowCollapsed(flag);
+	}
+
+	public static void SetNextWindowFocus() {
+		ImGuiNative.SetNextWindowFocus();
+	}
+
+	public static void SetNextWindowBgAlpha(float alpha) {
+		ImGuiNative.SetNextWindowBgAlpha(alpha);
+	}
+
 	//TODO add more methods
 
 	public static void SetWindowFocus(String name) {
