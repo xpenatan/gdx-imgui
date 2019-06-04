@@ -96,6 +96,7 @@ public class ImGuiNative {
 	static native void CreateContext() /*-{ }-*/; /*
 		ImGui::CreateContext();
 		ImGui::GetIO().IniFilename = NULL;
+		ImGui::GetIO().BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
 	*/
 
 	static native void initKeyMap(int [] keys) /*-{ }-*/; /*
