@@ -647,8 +647,8 @@ public class ImGui {
 		return ImGuiNative.Checkbox(label, value.data);
 	}
 
-	public static boolean CheckboxFlags(String label, ImGuiInputTextFlags flags, int flagsValue) {
-		return ImGuiNative.CheckboxFlags(label, flags.data, flagsValue);
+	public static boolean CheckboxFlags(String label, ImGuiInt flags, ImGuiTabBarFlags flagsValues) {
+		return ImGuiNative.CheckboxFlags(label, flags.data, flagsValues.getValue());
 	}
 
 	public static boolean RadioButton(String label, boolean active) {
@@ -713,6 +713,14 @@ public class ImGui {
 		return ImGuiNative.DragFloat(label, v.data);
 	}
 
+	public static boolean DragFloat(String label, ImGuiFloat v, float v_speed) {
+		return ImGuiNative.DragFloat(label, v.data, v_speed);
+	}
+
+	public static boolean DragFloat(String label, ImGuiFloat v, float v_speed, float v_min, float v_max, String format) {
+		return ImGuiNative.DragFloat(label, v.data, v_speed, v_min, v_max, format);
+	}
+
 	public static boolean DragFloat(String label, ImGuiFloat v, float v_speed, float v_min, float v_max, String format, float power) {
 		return ImGuiNative.DragFloat(label, v.data, v_speed, v_min, v_max, format, power);
 	}
@@ -751,6 +759,10 @@ public class ImGui {
 
 	public static boolean DragInt(String label, ImGuiInt v) {
 		return ImGuiNative.DragInt(label, v.data);
+	}
+
+	public static boolean DragInt(String label, ImGuiInt v, float v_speed) {
+		return ImGuiNative.DragInt(label, v.data, v_speed);
 	}
 
 	public static boolean DragInt(String label, ImGuiInt v, float v_speed, float v_min, float v_max, String format) {
@@ -801,6 +813,10 @@ public class ImGui {
 
 	public static boolean SliderFloat(String label, ImGuiFloat v, float v_min, float v_max) {
 		return ImGuiNative.SliderFloat(label, v.data, v_min, v_max);
+	}
+
+	public static boolean SliderFloat(String label, ImGuiFloat v, float v_min, float v_max, String format) {
+		return ImGuiNative.SliderFloat(label, v.data, v_min, v_max, format);
 	}
 
 	public static boolean SliderFloat(String label, ImGuiFloat v, float v_min, float v_max, String format, float power) {
@@ -917,6 +933,54 @@ public class ImGui {
 
 	public static boolean VSliderScalar(String label, float sizeX, float sizeY, ImGuiDataType data_type, ImGuiInt v, int v_min, int v_max, String format, float power) {
 		return ImGuiNative.VSliderScalar(label, sizeX, sizeY, data_type.getValue(), v.data, v_min, v_max, format, power);
+	}
+
+	// Widgets: Input with Keyboard
+	// - If you want to use InputText() with a dynamic string type such as std::string or your own, see misc/cpp/imgui_stdlib.h
+	// - Most of the ImGuiInputTextFlags flags are only useful for InputText() and not for InputFloatX, InputIntX, InputDouble etc.
+
+	public static boolean InputText(String label, ImGuiString text) {
+		return ImGuiNative.InputText(label, text.data, text.data.length, 0, text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
+	}
+
+	public static boolean InputText(String label, ImGuiString text, ImGuiInputTextFlags flags) {
+		return ImGuiNative.InputText(label, text.data, text.data.length, flags.getValue(), text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
+	}
+
+	public static boolean InputFloat(String label, ImGuiFloat v) {
+		return ImGuiNative.InputFloat(label, v.data);
+	}
+
+	public static boolean InputFloat(String label, ImGuiFloat v, float step, float step_fast, String format) {
+		return ImGuiNative.InputFloat(label, v.data, step, step_fast, format);
+	}
+
+	public static boolean InputFloat(String label, ImGuiFloat v, float step, float step_fast, String format, ImGuiInputTextFlags flags) {
+		return ImGuiNative.InputFloat(label, v.data, step, step_fast, format, flags.getValue());
+	}
+
+	public static boolean InputInt(String label, ImGuiInt v) {
+		return ImGuiNative.InputInt(label, v.data);
+	}
+
+	public static boolean InputInt(String label, ImGuiInt v, float step, float step_fast) {
+		return ImGuiNative.InputInt(label, v.data, step, step_fast);
+	}
+
+	public static boolean InputInt(String label, ImGuiInt v, float step, float step_fast, ImGuiInputTextFlags flags) {
+		return ImGuiNative.InputInt(label, v.data, step, step_fast, flags.getValue());
+	}
+
+	public static boolean InputDouble(String label, ImGuiDouble v) {
+		return ImGuiNative.InputDouble(label, v.data);
+	}
+
+	public static boolean InputDouble(String label, ImGuiDouble v, float step, float step_fast, String format) {
+		return ImGuiNative.InputDouble(label, v.data, step, step_fast, format);
+	}
+
+	public static boolean InputDouble(String label, ImGuiDouble v, float step, float step_fast, String format, ImGuiInputTextFlags flags) {
+		return ImGuiNative.InputDouble(label, v.data, step, step_fast, format, flags.getValue());
 	}
 
 	// Widgets: Trees

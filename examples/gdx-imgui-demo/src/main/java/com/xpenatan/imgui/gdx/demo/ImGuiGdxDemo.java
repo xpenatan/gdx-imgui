@@ -10,8 +10,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.xpenatan.imgui.DrawData;
 import com.xpenatan.imgui.ImGui;
 import com.xpenatan.imgui.ImGuiBoolean;
+import com.xpenatan.imgui.ImGuiFloat;
 import com.xpenatan.imgui.ImGuiInt;
+import com.xpenatan.imgui.ImGuiString;
 import com.xpenatan.imgui.enums.ImGuiDir;
+import com.xpenatan.imgui.enums.ImGuiInputTextFlags;
 import com.xpenatan.imgui.enums.ImGuiTabBarFlags;
 import com.xpenatan.imgui.enums.ImGuiTreeNodeFlags;
 import com.xpenatan.imgui.gdx.ImGuiGdxImpl;
@@ -37,6 +40,11 @@ public class ImGuiGdxDemo implements ApplicationListener
 	String [] myList = new String [] {"111", "222", "333", "444"};
 
 	int treeSelected = -1;
+
+	ImGuiString myText =  new ImGuiString("Hello");
+	ImGuiFloat dragFloat =  new ImGuiFloat(0.0f);
+	ImGuiFloat dragFloat2 =  new ImGuiFloat(1.0f);
+	ImGuiFloat sliderFloat =  new ImGuiFloat(0.5f);
 
 	@Override
 	public void create () {
@@ -70,8 +78,26 @@ public class ImGuiGdxDemo implements ApplicationListener
 
 		renderTabTree();
 
+
+		// Edittext
+		if(ImGui.InputText("", myText, ImGuiInputTextFlags.EnterReturnsTrue)) {
+		}
+
+		// Show edittext text
+		ImGui.Text(myText.getValue());
+
+		ImGui.DragFloat("DragFloat", dragFloat);
+
+		ImGui.Text("DragFloat2");
+		ImGui.SameLine();
+		ImGui.SetNextItemWidth(-1);
+		ImGui.DragFloat("DragFloat22", dragFloat2, 0.01f, 0, 0, "%.2f");
+
+		ImGui.SliderFloat("SliderFloat", sliderFloat, 0.0f, 1.0f, "%.2f", 1.0f);
+
 		ImGui.Checkbox("CheckBox", guiBool);
-		ImGui.Button("CheckBox");
+
+		ImGui.Button("Button");
 
 		ImGui.ArrowButton("##Left", ImGuiDir.Left);
 		ImGui.SameLine();
