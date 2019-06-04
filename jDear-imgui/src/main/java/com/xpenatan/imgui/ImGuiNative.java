@@ -6,6 +6,8 @@ public class ImGuiNative {
 
 	/*JNI
 		#include <src/imgui.h>
+		#include <iostream>
+
 
 		jfieldID totalVtxCountID;
 		jfieldID totalIdxCountID;
@@ -38,6 +40,9 @@ public class ImGuiNative {
 		jfieldID imVec2YID;
 		jfieldID imVec4ZID;
 		jfieldID imVec4WID;
+
+		jfieldID imTextInputDataSizeID;
+		jfieldID imTextInputDataIsDirtyID;
 	*/
 
 	static native void init() /*-{ }-*/; /*
@@ -45,6 +50,7 @@ public class ImGuiNative {
 		jclass jImGuiIOClass = env->FindClass("com/xpenatan/imgui/ImGuiIO");
 		jclass jImVec2Class = env->FindClass("com/xpenatan/imgui/ImVec2");
 		jclass jImVec4Class = env->FindClass("com/xpenatan/imgui/ImVec4");
+		jclass jImInputTextDataClass = env->FindClass("com/xpenatan/imgui/ImGuiInputTextData");
 
 		// DrawData Prepare IDs
 		totalVtxCountID = env->GetFieldID(jDrawDataClass, "totalVtxCount", "I");
@@ -82,6 +88,9 @@ public class ImGuiNative {
 		//ImVec4 Prepare IDs
 		imVec4ZID = env->GetFieldID(jImVec4Class, "z", "F");
 		imVec4WID = env->GetFieldID(jImVec4Class, "w", "F");
+
+		imTextInputDataSizeID = env->GetFieldID(jImInputTextDataClass, "size", "I");
+		imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
 	*/
 
 	static native void CreateContext() /*-{ }-*/; /*
@@ -953,7 +962,7 @@ public class ImGuiNative {
 	*/
 
 	//TODO check if its working
-	static native boolean CheckboxFlags(String label, long [] data, int flagsValue) /*-{ }-*/; /*
+	static native boolean CheckboxFlags(String label, int [] data, int flagsValue) /*-{ }-*/; /*
 		return ImGui::CheckboxFlags(label, (unsigned int*)&data[0], flagsValue);
 	*/
 
@@ -1031,6 +1040,14 @@ public class ImGuiNative {
 		return ImGui::DragFloat(label, &v[0]);
 	*/
 
+	static native boolean DragFloat(String label, float [] v, float v_speed) /*-{ }-*/; /*
+		return ImGui::DragFloat(label, &v[0], v_speed);
+	*/
+
+	static native boolean DragFloat(String label, float [] v, float v_speed, float v_min, float v_max, String format) /*-{ }-*/; /*
+		return ImGui::DragFloat(label, &v[0], v_speed, v_min, v_max, format);
+	*/
+
 	static native boolean DragFloat(String label, float [] v, float v_speed, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::DragFloat(label, &v[0], v_speed, v_min, v_max, format, power);
 	*/
@@ -1069,6 +1086,10 @@ public class ImGuiNative {
 
 	static native boolean DragInt(String label, int [] v) /*-{ }-*/; /*
 		return ImGui::DragInt(label, &v[0]);
+	*/
+
+	static native boolean DragInt(String label, int [] v, float v_speed) /*-{ }-*/; /*
+		return ImGui::DragInt(label, &v[0], v_speed);
 	*/
 
 	static native boolean DragInt(String label, int [] v, float v_speed, float v_min, float v_max, String format) /*-{ }-*/; /*
@@ -1123,6 +1144,10 @@ public class ImGuiNative {
 
 	static native boolean SliderFloat(String label, float [] v, float v_min, float v_max) /*-{ }-*/; /*
 		return ImGui::SliderFloat(label, &v[0],v_min, v_max);
+	*/
+
+	static native boolean SliderFloat(String label, float [] v, float v_min, float v_max, String format) /*-{ }-*/; /*
+		return ImGui::SliderFloat(label, &v[0], v_min, v_max, format);
 	*/
 
 	static native boolean SliderFloat(String label, float [] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
@@ -1242,6 +1267,106 @@ public class ImGuiNative {
 	static native boolean VSliderScalar(String label, float sizeX, float sizeY, int data_type, float [] v, float v_min, float v_max, String format, float power) /*-{ }-*/; /*
 		return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), data_type, &v[0], &v_min, &v_max, format, power);
 	*/
+
+	// Widgets: Input with Keyboard
+	// - If you want to use InputText() with a dynamic string type such as std::string or your own, see misc/cpp/imgui_stdlib.h
+	// - Most of the ImGuiInputTextFlags flags are only useful for InputText() and not for InputFloatX, InputIntX, InputDouble etc.
+
+	/*JNI
+
+		struct InputTextCallback_UserData {
+			jobject* textInputData;
+			JNIEnv* env;
+			int maxChar;
+			char * allowedChar;
+			int allowedCharLength;
+			int maxSize;
+			int curSize;
+		};
+
+		static int TextEditCallbackStub(ImGuiInputTextCallbackData* data) {
+			InputTextCallback_UserData* userData = (InputTextCallback_UserData*)data->UserData;
+
+			if (data->EventFlag == ImGuiInputTextFlags_CallbackCharFilter) {
+				if(userData->allowedCharLength > 0) {
+					bool found = false;
+					for(int i = 0; i < userData->allowedCharLength; i++) {
+						if(userData->allowedChar[i] == data->EventChar) {
+							found = true;
+							break;
+						}
+					}
+					return found ? 0 : 1;
+				}
+			}
+			return 0;
+		}
+	*/
+
+	static native boolean InputText(String label, byte [] buff, int maxSize, int flags, ImGuiInputTextData textInputData, int maxChar, String allowedChar, int allowedCharLength) /*-{ }-*/; /*
+
+		int size = (int)strlen(buff);
+		InputTextCallback_UserData cb_user_data;
+		cb_user_data.textInputData = &textInputData;
+		cb_user_data.env = env;
+		cb_user_data.curSize = size;
+		cb_user_data.maxSize = maxSize;
+		cb_user_data.maxChar = maxChar;
+		cb_user_data.allowedChar = allowedChar;
+		cb_user_data.allowedCharLength = allowedCharLength;
+
+		char tempArray [maxSize];
+		memset(tempArray, 0, sizeof(tempArray));
+		memcpy(tempArray, buff, size);
+		if(maxChar >= 0 && maxChar < maxSize)
+			maxSize = maxChar;
+		bool flag = ImGui::InputText(label, tempArray, maxSize, flags  | ImGuiInputTextFlags_CallbackCharFilter, &TextEditCallbackStub, &cb_user_data);
+		if(flag) {
+			size = (int)strlen(tempArray);
+			env->SetIntField (textInputData, imTextInputDataSizeID, size);
+			env->SetBooleanField (textInputData, imTextInputDataIsDirtyID, true);
+			memset(buff, 0, maxSize);
+			memcpy(buff, tempArray, size);
+		}
+		return flag;
+	*/
+
+	static native boolean InputFloat(String label, float [] v) /*-{ }-*/; /*
+		ImGui::InputFloat(label,  &v[0]);
+	*/
+
+	static native boolean InputFloat(String label, float [] v, float step, float step_fast, String format) /*-{ }-*/; /*
+		ImGui::InputFloat(label,  &v[0], step, step_fast, format);
+	*/
+
+	static native boolean InputFloat(String label, float [] v, float step, float step_fast, String format, int flags) /*-{ }-*/; /*
+		ImGui::InputFloat(label,  &v[0], step, step_fast, format, flags);
+	*/
+
+	static native boolean InputInt(String label, int [] v) /*-{ }-*/; /*
+		ImGui::InputInt(label,  &v[0]);
+	*/
+
+	static native boolean InputInt(String label, int [] v, float step, float step_fast) /*-{ }-*/; /*
+		ImGui::InputInt(label,  &v[0], step, step_fast);
+	*/
+
+	static native boolean InputInt(String label, int [] v, float step, float step_fast, int flags) /*-{ }-*/; /*
+		ImGui::InputInt(label,  &v[0], step, step_fast, flags);
+	*/
+
+	static native boolean InputDouble(String label, double [] v) /*-{ }-*/; /*
+		ImGui::InputDouble(label,  &v[0]);
+	*/
+
+	static native boolean InputDouble(String label, double [] v, float step, float step_fast, String format) /*-{ }-*/; /*
+		ImGui::InputDouble(label,  &v[0], step, step_fast, format);
+	*/
+
+	static native boolean InputDouble(String label, double [] v, float step, float step_fast, String format, int flags) /*-{ }-*/; /*
+		ImGui::InputDouble(label,  &v[0], step, step_fast, format, flags);
+	*/
+
 
 	// Widgets: Trees
 	// - TreeNode functions return true when the node is open, in which case you need to also call TreePop() when you are finished displaying the tree node contents.

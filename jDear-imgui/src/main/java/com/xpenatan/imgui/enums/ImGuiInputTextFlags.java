@@ -44,18 +44,18 @@ public class ImGuiInputTextFlags {
 	/** Callback on buffer capacity changes request (beyond 'buf_size' parameter value), allowing the string to grow. Notify when the string wants to be resized (for string types which hold a cache of their Size). You will be provided a new BufSize in the callback and NEED to honor it. (see misc/cpp/imgui_stdlib.h for an example of using this) */
 	public static ImGuiInputTextFlags CallbackResize = new ImGuiInputTextFlags(1 << 18);
 
-	public long [] data = new long[1];
+	public int data;
 
 	private ImGuiInputTextFlags(int code) {
-		data[0] = code;
+		data = code;
 	}
 
 	public ImGuiInputTextFlags and(ImGuiInputTextFlags otherEnum) {
-		ImGuiInputTextFlags.Custom.data[0] = data[0] | otherEnum.data[0];
+		ImGuiInputTextFlags.Custom.data = data | otherEnum.data;
 		return ImGuiInputTextFlags.Custom;
 	}
 
-	public long getValue() {
-		return data[0];
+	public int getValue() {
+		return data;
 	}
 }
