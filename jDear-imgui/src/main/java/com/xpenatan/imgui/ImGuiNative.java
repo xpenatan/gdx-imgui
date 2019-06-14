@@ -184,6 +184,10 @@ public class ImGuiNative {
 		ImGui::Render();
 	*/
 
+	static native void ShowStyleEditor() /*-{ }-*/; /*
+		ImGui::ShowStyleEditor();
+	*/
+
 	static native void ShowDemoWindow() /*-{ }-*/; /*
 		ImGui::ShowDemoWindow();
 	*/
@@ -399,12 +403,114 @@ public class ImGuiNative {
 		return ImGui::IsWindowHovered(flags);
 	*/
 
+	// DrawList
+
+	static native boolean AddLine(float a_x, float a_y, float b_x, float b_y, int col) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddLine(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col);
+	*/
+
+	static native boolean AddLine(float a_x, float a_y, float b_x, float b_y, int col, float thinkness) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddLine(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, thinkness);
+	*/
+
+	static native boolean AddRect(float a_x, float a_y, float b_x, float b_y, int col) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddRect(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col);
+	 */
+
+	static native boolean AddRect(float a_x, float a_y, float b_x, float b_y, int col, float rounding) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddRect(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, rounding);
+	*/
+
+	static native boolean AddRect(float a_x, float a_y, float b_x, float b_y, int col, float rounding, int rounding_corners_flags) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddRect(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, rounding, rounding_corners_flags);
+	*/
+
+	static native boolean AddRect(float a_x, float a_y, float b_x, float b_y, int col, float rounding, int rounding_corners_flags, float thickness) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddRect(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, rounding, rounding_corners_flags, thickness);
+	*/
+
+	static native boolean AddRectFilled(float a_x, float a_y, float b_x, float b_y, int col) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col);
+	*/
+
+	static native boolean AddRectFilled(float a_x, float a_y, float b_x, float b_y, int col, float rounding) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, rounding);
+	*/
+
+	static native boolean AddRectFilled(float a_x, float a_y, float b_x, float b_y, int col, float rounding, int rounding_corners_flags) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddRectFilled(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, rounding, rounding_corners_flags);
+	*/
+
+	static native boolean AddRectFilledMultiColor(float a_x, float a_y, float b_x, float b_y, int col_upr_left, float col_upr_right, int col_bot_right, int col_bot_left) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddRectFilledMultiColor(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col_upr_left, col_upr_right, col_bot_right, col_bot_left);
+	*/
+
+	static native boolean AddQuad(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddQuad(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), ImVec2(d_x, d_y), col);
+	*/
+
+	static native boolean AddQuad(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col, float thickness) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddQuad(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), ImVec2(d_x, d_y), col, thickness);
+	*/
+
+	static native boolean AddQuadFilled(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddQuadFilled(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), ImVec2(d_x, d_y), col);
+	*/
+
+	static native boolean AddTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddTriangle(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), col);
+	*/
+
+	static native boolean AddTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col, float thickness) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddTriangle(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), col, thickness);
+	*/
+
+	static native boolean AddTriangleFilled(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddTriangleFilled(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), col);
+	*/
+
+	static native boolean AddCircle(float centre_x, float centre_y, float radius, float col) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddCircle(ImVec2(centre_x, centre_y), radius, col);
+	*/
+
+	static native boolean AddCircle(float centre_x, float centre_y, float radius, float col, int num_segments, float thickness) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddCircle(ImVec2(centre_x, centre_y), radius, col, num_segments, thickness);
+	*/
+
+	static native boolean AddCircleFilled(float centre_x, float centre_y, float radius, float col) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddCircleFilled(ImVec2(centre_x, centre_y), radius, col);
+	*/
+
+	static native boolean AddCircleFilled(float centre_x, float centre_y, float radius, float col, int num_segments) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddCircleFilled(ImVec2(centre_x, centre_y), radius, col, num_segments);
+	*/
+
+	static native boolean AddText(float pos_x, float pos_y, int col, String text_begin) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddText(ImVec2(pos_x, pos_y), col, text_begin);
+	*/
+
+	static native boolean AddText(float pos_x, float pos_y, int col, String text_begin, String text_end) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddText(ImVec2(pos_x, pos_y), col, text_begin, text_end);
+	 */
+
+	// TODO AddText
+
 	static native boolean AddImage(int textureID, float a_x, float a_y, float b_x, float b_y) /*-{ }-*/; /*
 		ImGui::GetWindowDrawList()->AddImage((void *)textureID, ImVec2(a_x, a_y), ImVec2(b_x, b_y));
 	*/
 
 	static native boolean AddImage(int textureID, float a_x, float a_y, float b_x, float b_y, float uv_a_x, float uv_a_y, float uv_b_x, float uv_b_y) /*-{ }-*/; /*
 		ImGui::GetWindowDrawList()->AddImage((void *)textureID, ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(uv_a_x, uv_a_y), ImVec2(uv_b_x, uv_b_y));
+	*/
+
+	//TODO AddImageQuad, AddImageRounded, AddPolyline, AddConvexPolyFilled
+
+	static native boolean AddBezierCurve(float pos0_x, float pos0_y, float cp0_x, float cp0_y, float cp1_x, float cp1_y, float pos1_x, float pos1_y, float col, float thickness) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddBezierCurve(ImVec2(pos0_x, pos0_y), ImVec2(cp0_x, cp0_y), ImVec2(cp1_x, cp1_y), ImVec2(pos1_x, pos1_y), col, thickness);
+	*/
+
+	static native boolean AddBezierCurve(float pos0_x, float pos0_y, float cp0_x, float cp0_y, float cp1_x, float cp1_y, float pos1_x, float pos1_y, float col, float thickness, int num_segments) /*-{ }-*/; /*
+		ImGui::GetWindowDrawList()->AddBezierCurve(ImVec2(pos0_x, pos0_y), ImVec2(cp0_x, cp0_y), ImVec2(cp1_x, cp1_y), ImVec2(pos1_x, pos1_y), col, thickness, num_segments);
 	*/
 
 	static native void GetWindowPos(ImVec2 jImVec2) /*-{ }-*/; /*
@@ -1629,6 +1735,14 @@ public class ImGuiNative {
 
 	static native void Columns() /*-{ }-*/; /*
 		ImGui::Columns();
+	*/
+
+	static native void Columns(int count) /*-{ }-*/; /*
+		ImGui::Columns(count);
+	*/
+
+	static native void Columns(int count, String id) /*-{ }-*/; /*
+		ImGui::Columns(count, id);
 	*/
 
 	static native void Columns(int count, String id, boolean border) /*-{ }-*/; /*

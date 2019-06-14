@@ -53,6 +53,10 @@ public class ImGui {
 		return imguiIO;
 	}
 
+	public static void ShowStyleEditor()  {
+		ImGuiNative.ShowStyleEditor();
+	}
+
 	public static void ShowDemoWindow()  {
 		ImGuiNative.ShowDemoWindow();
 	}
@@ -1249,6 +1253,14 @@ public class ImGui {
 
 	public static void Columns() {
 		ImGuiNative.Columns();
+	}
+
+	public static void Columns(int count) {
+		ImGuiNative.Columns(count);
+	}
+
+	public static void Columns(int count, String id) {
+		ImGuiNative.Columns(count, id);
 	}
 
 	public static void Columns(int count, String id, boolean border) {
