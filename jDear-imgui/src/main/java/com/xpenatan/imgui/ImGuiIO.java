@@ -28,7 +28,7 @@ public class ImGuiIO {
 		ImGuiNative.SetConfigFlags(flags.getValue());
 	}
 
-	public void SetDockingFlags(boolean ConfigDockingNoSplit, boolean ConfigDockingWithShift, boolean ConfigDockingTabBarOnSingleWindows, boolean ConfigDockingTransparentPayload) {
-		ImGuiNative.SetDockingFlags(ConfigDockingNoSplit, ConfigDockingWithShift, ConfigDockingTabBarOnSingleWindows, ConfigDockingTransparentPayload);
+	public void SetDockingFlags(boolean ConfigDockingNoSplit, boolean ConfigDockingWithShift, boolean ConfigDockingAlwaysTabBar, boolean ConfigDockingTransparentPayload) {
+		ImGuiNative.SetDockingFlags(ConfigDockingNoSplit, ConfigDockingWithShift, ConfigDockingAlwaysTabBar, ConfigDockingTransparentPayload);
 	}
 }

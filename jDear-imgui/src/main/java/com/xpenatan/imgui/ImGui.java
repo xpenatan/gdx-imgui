@@ -43,15 +43,22 @@ public class ImGui {
 
 	private static DrawData drawData = new DrawData(100000, 100000, 1000);
 	private static ImGuiIO imguiIO = new ImGuiIO();
+	private static ImGuiStyle imguiStyle = new ImGuiStyle();
 	private static ImVec2 imVec2 = new ImVec2();
 	private static ImVec4 imVec4 = new ImVec4();
-	private static ImDrawList imDrawList = new ImDrawList();
+	private static ImDrawList imDrawList = new ImDrawList(ImDrawList.TYPE_DEFAULT);
+	private static ImDrawList imDrawListBackground = new ImDrawList(ImDrawList.TYPE_BACKGROUND);
+	private static ImDrawList imDrawListForeground = new ImDrawList(ImDrawList.TYPE_FOREGROUND);
 
-	private  ImGui() {
+	private ImGui() {
 	}
 
 	public static ImGuiIO GetIO() {
 		return imguiIO;
+	}
+
+	public static ImGuiStyle GetStyle() {
+		return imguiStyle;
 	}
 
 	public static void ShowStyleEditor()  {
@@ -76,7 +83,7 @@ public class ImGui {
 
 	public static void UpdateDisplayAndInputAndFrame(float deltaTime, float w, float h, float backBufferWidth, float backBufferHeight,
 			int mouseX, int mouseY, boolean mouseDown0, boolean mouseDown1, boolean mouseDown2)  {
-		ImGuiNative.UpdateDisplayAndInputAndFrame(imguiIO, deltaTime, w, h, backBufferWidth, backBufferHeight,
+		ImGuiNative.UpdateDisplayAndInputAndFrame(imguiIO, imguiStyle, deltaTime, w, h, backBufferWidth, backBufferHeight,
 				mouseX, mouseY, mouseDown0, mouseDown1, mouseDown2, false, false, false);
 	}
 
@@ -199,6 +206,14 @@ public class ImGui {
 
 	public static ImDrawList GetWindowDrawList() {
 		return imDrawList;
+	}
+
+	public static ImDrawList GetBackgroundDrawList() {
+		return imDrawListBackground;
+	}
+
+	public static ImDrawList GetForegroundDrawList() {
+		return imDrawListForeground;
 	}
 
 	public static ImVec2 GetWindowPos() {
@@ -380,6 +395,10 @@ public class ImGui {
 
 	public static void PushItemWidth(float item_width) {
 		ImGuiNative.PushItemWidth(item_width);
+	}
+
+	public static void PushMultiItemsWidths(int components, float w_full) {
+		ImGuiInternalNative.PushMultiItemsWidths(components, w_full);
 	}
 
 	public static void PopItemWidth() {
