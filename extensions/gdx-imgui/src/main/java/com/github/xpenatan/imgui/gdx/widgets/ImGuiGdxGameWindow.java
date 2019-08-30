@@ -9,6 +9,7 @@ import com.github.xpenatan.imgui.enums.ImGuiCol;
 import com.github.xpenatan.imgui.enums.ImGuiHoveredFlags;
 import com.github.xpenatan.imgui.enums.ImGuiWindowFlags;
 import com.github.xpenatan.imgui.gdx.utils.EmuApplicationWindow;
+import com.github.xpenatan.imgui.gdx.utils.EmuInput;
 import com.github.xpenatan.imgui.gdx.utils.EmuWindow;
 
 /**
@@ -73,6 +74,9 @@ public class ImGuiGdxGameWindow {
 
 		if(curFrameFocus)
 			ImGui.PushStyleColor(ImGuiCol.Text, activeColor);
+
+		EmuInput input = emuWindow.getInput();
+
 		ImGui.Begin(name);
 		if(curFrameFocus)
 			ImGui.PopStyleColor();
@@ -84,6 +88,9 @@ public class ImGuiGdxGameWindow {
 			ImVec2 winPos = ImGui.GetWindowPos();
 			windowX = (int)winPos.x;
 			windowY = (int)winPos.y;
+
+			if(input.needsFocus())
+				ImGui.SetWindowFocus();
 
 			curFrameFocus = ImGui.IsWindowFocused();
 			isWindowHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.AllowWhenBlockedByActiveItem);

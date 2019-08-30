@@ -277,6 +277,10 @@ public class ImGui {
 
 	//TODO add more methods
 
+	public static void SetWindowFocus() {
+		ImGuiNative.SetWindowFocus();
+	}
+
 	public static void SetWindowFocus(String name) {
 		if(name == null)
 			ImGuiNative.RemoveWindowFocus();
