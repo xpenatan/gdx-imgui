@@ -6,10 +6,10 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.tests.InputTest;
 import com.badlogic.gdx.tests.utils.GdxTest;
 import com.badlogic.gdx.tests.utils.GdxTests;
 import com.xpenatan.imgui.DrawData;
@@ -21,7 +21,6 @@ import com.xpenatan.imgui.enums.ImGuiStyleVar;
 import com.xpenatan.imgui.enums.ImGuiWindowFlags;
 import com.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.xpenatan.imgui.gdx.ImGuiGdxInput;
-import com.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
 import com.xpenatan.imgui.gdx.utils.EmuApplicationWindow;
 import com.xpenatan.imgui.gdx.utils.EmuFrameBuffer;
 import com.xpenatan.imgui.gdx.widgets.ImGuiGdxGameWindow;
@@ -31,7 +30,7 @@ import com.xpenatan.imgui.gdx.widgets.ImGuiGdxGameWindow;
  * Requires Gdx-test
  *
  */
-public class ImGuiGdxTests implements ApplicationListener, InputProcessor {
+public class ImGuiGdxTests implements ApplicationListener {
 
 
 	public static void main(String[] args) {
@@ -64,11 +63,8 @@ public class ImGuiGdxTests implements ApplicationListener, InputProcessor {
 		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable);
 		ImGui.GetIO().SetDockingFlags(false, false, false, false);
 
-		ImGuiGdxInput input = new ImGuiGdxInput();
-		impl = new ImGuiGdxImpl(input);
-		ImGuiGdxInputMultiplexer inputMultiplexer = new ImGuiGdxInputMultiplexer(input);
-
-		Gdx.input.setInputProcessor(input);
+		ImGuiGdxInput imguiInput = new ImGuiGdxInput();
+		impl = new ImGuiGdxImpl(imguiInput);
 
 		EmuFrameBuffer.setDefaultFramebufferHandleInitialized(false);
 
@@ -77,16 +73,11 @@ public class ImGuiGdxTests implements ApplicationListener, InputProcessor {
 
 		gameWindow.setName("Game");
 
-		inputMultiplexer.addProcessor(gameWindow.getInput());
-
-		InputMultiplexer inputt = new InputMultiplexer();
-
-		inputt.addProcessor(inputMultiplexer);
-		inputt.addProcessor(this);
-
-		Gdx.input.setInputProcessor(inputt);
+		Gdx.input.setInputProcessor(gameWindow.getInput());
 
 		names = GdxTests.getNames();
+
+		emuApplication.setApplicationListener(new InputTest());
 	}
 
 
@@ -174,55 +165,4 @@ public class ImGuiGdxTests implements ApplicationListener, InputProcessor {
 	@Override
 	public void dispose() {
 	}
-
-
-	@Override
-	public boolean keyDown(int keycode) {
-
-
-		return false;
-	}
-
-
-	@Override
-	public boolean keyUp(int keycode) {
-		return false;
-	}
-
-
-	@Override
-	public boolean keyTyped(char character) {
-		return false;
-	}
-
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		return false;
-	}
-
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		return false;
-	}
-
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		return false;
-	}
-
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		return false;
-	}
-
-
-	@Override
-	public boolean scrolled(int amount) {
-		return false;
-	}
-
 }

@@ -2,13 +2,11 @@ package com.xpenatan.imgui.gdx.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputEventQueue;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.IntSet;
 import com.badlogic.gdx.utils.IntSet.IntSetIterator;
-import com.xpenatan.imgui.ImGui;
-import com.xpenatan.imgui.ImVec2;
 
 /**
  * This class was originally from XpeEngine and its now public. <br><br>
@@ -19,7 +17,7 @@ import com.xpenatan.imgui.ImVec2;
  *
  * @author xpenatan
  */
-public class EmuInput extends InputEventQueue implements Input, Disposable {
+public class EmuInput extends EmuEventQueue implements Input, Disposable {
 
 	private boolean enable = true;
 	private InputProcessor processor; // the viewport/game input
@@ -31,6 +29,7 @@ public class EmuInput extends InputEventQueue implements Input, Disposable {
 	private boolean justTouched;
 
 	private IntSet[] buttonPressed = new IntSet[10];
+	private IntSet keyDown = new IntSet();
 	private IntSet keyPressed = new IntSet();
 	private int deltaX, deltaY;
 	private int mouseX, mouseY;
@@ -169,7 +168,20 @@ public class EmuInput extends InputEventQueue implements Input, Disposable {
 
 	public void setWindow(boolean isWindowFocused, boolean isWindowHovered, int x, int y, int width, int height) {
 		this.isWindowHovered = isWindowHovered;
-		this.isWindowFocused = isWindowFocused;
+		if(this.isWindowFocused != isWindowFocused) {
+			this.isWindowFocused = isWindowFocused;
+			if(isWindowFocused) {
+				if(!keyDown.isEmpty()) {
+					IntSetIterator iterator = keyDown.iterator();
+					while(iterator.hasNext) {
+						int keyDownCode = iterator.next();
+						if(getKeyDownIndex(keyDownCode) != -1)
+							throw new GdxRuntimeException("Index should be -1");
+						super.keyDown(keyDownCode);
+					}
+				}
+			}
+		}
 		this.viewportX = x;
 		this.viewportY = y;
 		this.viewportWidth = width;
@@ -203,13 +215,16 @@ public class EmuInput extends InputEventQueue implements Input, Disposable {
 				justPressedKeys[i] = false;
 			}
 
+			for (int i = 0; i < justPressedButtons.length; i++)
+				justPressedButtons[i] = false;
+
 			for(int i = 0; i < 10; i++) {
 				IntSet pressed = buttonPressed[i];
 				IntSetIterator iterator = pressed.iterator();
 				while (iterator.hasNext) {
 					int buttonKey = iterator.next();
 					iterator.remove();
-					touchUp(getX(), getY(), 0, buttonKey);
+					super.touchUp(getX(), getY(), 0, buttonKey);
 				}
 			}
 
@@ -217,7 +232,7 @@ public class EmuInput extends InputEventQueue implements Input, Disposable {
 			while (iterator.hasNext) {
 				int keyboardKey = iterator.next();
 				iterator.remove();
-				keyUp(keyboardKey);
+				super.keyUp(keyboardKey);
 			}
 
 			if(drain)
@@ -281,6 +296,7 @@ public class EmuInput extends InputEventQueue implements Input, Disposable {
 
 	@Override
 	public boolean keyDown(int keycode) {
+		keyDown.add(keycode);
 		if(isWindowFocused)
 			return super.keyDown(keycode);
 		return false;
@@ -288,9 +304,64 @@ public class EmuInput extends InputEventQueue implements Input, Disposable {
 
 	@Override
 	public boolean keyUp(int keycode) {
+		keyDown.remove(keycode);
 		if(isWindowFocused)
 			return super.keyUp(keycode);
 		return false;
+	}
+
+	private int getKeyDownIndex(int keycode) {
+		int[] q = queue.items;
+		for (int i = 0; i < queue.size;) {
+			int type = q[i++];
+			int index = i-1;
+			float currentEwventTime = (long)q[i++] << 32 | q[i++] & 0xFFFFFFFFL;
+			switch (type) {
+			case SKIP:
+				i += q[i];
+				break;
+			case KEY_DOWN:
+				int key = q[i++];
+				if(key == keycode) {
+					return index;
+				}
+				break;
+			case KEY_UP:
+				i++;
+				break;
+			case KEY_TYPED:
+				i++;
+				break;
+			case TOUCH_DOWN:
+				i++;
+				i++;
+				i++;
+				i++;
+				break;
+			case TOUCH_UP:
+				i++;
+				i++;
+				i++;
+				i++;
+				break;
+			case TOUCH_DRAGGED:
+				i++;
+				i++;
+				i++;
+				break;
+			case MOUSE_MOVED:
+				i++;
+				i++;
+				break;
+			case SCROLLED:
+				i++;
+				break;
+			default:
+				throw new RuntimeException();
+			}
+
+		}
+		return -1;
 	}
 
 	@Override
@@ -302,7 +373,10 @@ public class EmuInput extends InputEventQueue implements Input, Disposable {
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		return super.mouseMoved(screenX, screenY);
+		if(isWindowFocused) {
+			return super.mouseMoved(screenX, screenY);
+		}
+		return false;
 	}
 
 	public boolean isEnable () {

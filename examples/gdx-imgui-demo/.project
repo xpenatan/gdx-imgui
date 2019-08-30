@@ -18,7 +18,7 @@
 		<link>
 			<name>assets</name>
 			<type>2</type>
-			<location>G:/Dev/Projects/Eclipse/Libgdx/tests/gdx-tests-android/assets</location>
+			<location>D:/Dev/Projects/Eclipse/Libgdx/tests/gdx-tests-android/assets</location>
 		</link>
 	</linkedResources>
 </projectDescription>
