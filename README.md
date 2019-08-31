@@ -26,7 +26,7 @@ To build with eclipse you need:<br>
 1: Configure [MinGW](https://github.com/libgdx/libgdx/wiki/jnigen) <br>
 2: Import "jDear-imgui" project <br>
 3: Download imgui sources C++ files and put them in "jDear-imgui/jni/src/" <br>
-4: Run "Build.java" class in "com.xpenatan.imgui.generate" package <br>
+4: Run "Build.java" class in "com.github.xpenatan.imgui.generate" package <br>
 
 The compiled native jar will be at "Dear-imgui\libs" 
 
