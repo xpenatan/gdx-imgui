@@ -35,7 +35,7 @@ Note: You will also need "gdx-jnigen" project from libgdx souce (or import as a 
 ### Screenshot of how it will looks when you build it
 <p align="center"><img src="https://i.imgur.com/dSTEWl0.png"/></p>
 
-To run demo you need to have the source project sources: "gdx" and "gdx-backend-lwjgl" (or import as jar lib)
+To run demo you need to have the source projects: "gdx" and "gdx-backend-lwjgl" (or import as jar lib)
 
 
 
