@@ -43,20 +43,22 @@ public enum ImGuiCol {
 	TabActive(35),
 	TabUnfocused(36),
 	TabUnfocusedActive(37),
-	PlotLines(38),
-	PlotLinesHovered(39),
-	PlotHistogram(40),
-	PlotHistogramHovered(41),
-	TextSelectedBg(42),
-	DragDropTarget(43),
+	DockingPrevie(38),
+	DockingEmptyBg(39),
+	PlotLines(40),
+	PlotLinesHovered(41),
+	PlotHistogram(42),
+	PlotHistogramHovered(43),
+	TextSelectedBg(44),
+	DragDropTarget(45),
 	/** Gamepad/keyboard: current highlighted item */
-	NavHighlight(44),
+	NavHighlight(46),
 	/** Highlight window when using CTRL+TAB */
-	NavWindowingHighlight(45),
+	NavWindowingHighlight(47),
 	/** Darken/colorize entire screen behind the CTRL+TAB window list, when active */
-	NavWindowingDimBg(46),
+	NavWindowingDimBg(48),
 	/** Darken/colorize entire screen behind a modal window, when one is active */
-	ModalWindowDimBg(47),
+	ModalWindowDimBg(49),
 	COUNT(48);
 
 	int value;
