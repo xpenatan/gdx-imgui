@@ -161,12 +161,20 @@ public class ImGui {
 		return ImGuiNative.BeginChild(str_id);
 	}
 
+	public static boolean BeginChild(String str_id, float width, float height, boolean border) {
+		return ImGuiNative.BeginChild(str_id, width, height, border);
+	}
+
 	public static boolean BeginChild(String str_id, float width, float height, boolean border, ImGuiWindowFlags flags) {
 		return ImGuiNative.BeginChild(str_id, width, height, border, flags.getValue());
 	}
 
 	public static boolean BeginChild(int imGuiID) {
 		return ImGuiNative.BeginChild(imGuiID);
+	}
+
+	public static boolean BeginChild(int imGuiID, float width, float height, boolean border) {
+		return ImGuiNative.BeginChild(imGuiID, width, height, border);
 	}
 
 	public static boolean BeginChild(int imGuiID, float width, float height, boolean border, ImGuiWindowFlags flags) {

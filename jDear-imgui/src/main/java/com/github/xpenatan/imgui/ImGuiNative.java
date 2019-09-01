@@ -402,12 +402,20 @@ public class ImGuiNative {
 		return ImGui::BeginChild(str_id);
 	*/
 
+	static native boolean BeginChild(String str_id, float width, float height, boolean border) /*-{ }-*/; /*
+		return ImGui::BeginChild(str_id, ImVec2(width, height), border);
+	*/
+
 	static native boolean BeginChild(String str_id, float width, float height, boolean border, int flags) /*-{ }-*/; /*
 		return ImGui::BeginChild(str_id, ImVec2(width, height), border, flags);
 	*/
 
 	static native boolean BeginChild(int imGuiID) /*-{ }-*/; /*
 		return ImGui::BeginChild(imGuiID);
+	*/
+
+	static native boolean BeginChild(int imGuiID, float width, float height, boolean border) /*-{ }-*/; /*
+		return ImGui::BeginChild(imGuiID, ImVec2(width, height), border);
 	*/
 
 	static native boolean BeginChild(int imGuiID, float width, float height, boolean border, int flags) /*-{ }-*/; /*
