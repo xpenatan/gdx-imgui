@@ -25,7 +25,7 @@ public class ImGuiHoveredFlags {
 		value = code;
 	}
 
-	public ImGuiHoveredFlags and(ImGuiHoveredFlags otherEnum) {
+	public ImGuiHoveredFlags or(ImGuiHoveredFlags otherEnum) {
 		ImGuiHoveredFlags.Custom.value = value | otherEnum.value;
 		return ImGuiHoveredFlags.Custom;
 	}

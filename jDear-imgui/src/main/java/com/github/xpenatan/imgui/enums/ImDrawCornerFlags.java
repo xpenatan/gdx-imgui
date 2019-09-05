@@ -18,7 +18,7 @@ public class ImDrawCornerFlags {
 		value = code;
 	}
 
-	public ImDrawCornerFlags and(ImDrawCornerFlags otherEnum) {
+	public ImDrawCornerFlags or(ImDrawCornerFlags otherEnum) {
 		ImDrawCornerFlags.Custom.value = value | otherEnum.value;
 		return ImDrawCornerFlags.Custom;
 	}

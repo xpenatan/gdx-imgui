@@ -27,7 +27,7 @@ public class ImGuiDragDropFlags {
 		value = code;
 	}
 
-	public ImGuiDragDropFlags and(ImGuiDragDropFlags otherEnum) {
+	public ImGuiDragDropFlags or(ImGuiDragDropFlags otherEnum) {
 		ImGuiDragDropFlags.Custom.value = value | otherEnum.value;
 		return ImGuiDragDropFlags.Custom;
 	}

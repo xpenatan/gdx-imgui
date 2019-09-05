@@ -16,7 +16,7 @@ public class ImGuiBackendFlags {
 		value = code;
 	}
 
-	public ImGuiBackendFlags and(ImGuiBackendFlags otherEnum) {
+	public ImGuiBackendFlags or(ImGuiBackendFlags otherEnum) {
 		ImGuiBackendFlags.Custom.value = value | otherEnum.value;
 		return ImGuiBackendFlags.Custom;
 	}

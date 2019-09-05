@@ -22,7 +22,7 @@ public class ImGuiConfigFlags {
 		value = code;
 	}
 
-	public ImGuiConfigFlags and(ImGuiConfigFlags otherEnum) {
+	public ImGuiConfigFlags or(ImGuiConfigFlags otherEnum) {
 		ImGuiConfigFlags.Custom.value = value | otherEnum.value;
 		return ImGuiConfigFlags.Custom;
 	}

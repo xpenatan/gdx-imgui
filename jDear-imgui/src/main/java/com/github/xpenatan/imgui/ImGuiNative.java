@@ -402,6 +402,10 @@ public class ImGuiNative {
 		return ImGui::BeginChild(str_id);
 	*/
 
+	static native boolean BeginChild(String str_id, float width, float height) /*-{ }-*/; /*
+		return ImGui::BeginChild(str_id, ImVec2(width, height));
+	*/
+
 	static native boolean BeginChild(String str_id, float width, float height, boolean border) /*-{ }-*/; /*
 		return ImGui::BeginChild(str_id, ImVec2(width, height), border);
 	*/
@@ -600,6 +604,21 @@ public class ImGuiNative {
 		drawList->AddBezierCurve(ImVec2(pos0_x, pos0_y), ImVec2(cp0_x, cp0_y), ImVec2(cp1_x, cp1_y), ImVec2(pos1_x, pos1_y), col, thickness, num_segments);
 	*/
 
+	static native void ChannelsSplit(int type, int count) /*-{ }-*/; /*
+		ImDrawList* drawList = getDrawList(type);
+		drawList->ChannelsSplit(count);
+	*/
+
+	static native void ChannelsMerge(int type) /*-{ }-*/; /*
+		ImDrawList* drawList = getDrawList(type);
+		drawList->ChannelsMerge();
+	*/
+
+	static native void ChannelsSetCurrent(int type, int n) /*-{ }-*/; /*
+		ImDrawList* drawList = getDrawList(type);
+		drawList->ChannelsSetCurrent(n);
+	*/
+
 	static native void GetWindowPos(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetWindowPos();
 		env->SetFloatField (jImVec2, imVec2XID, vec.x);
@@ -612,11 +631,17 @@ public class ImGuiNative {
 
 	static native float GetWindowPosY() /*-{ }-*/; /*
 		return ImGui::GetWindowPos().y;
-	 */
+	*/
+
+	static native void GetWindowSize(ImVec2 jImVec2) /*-{ }-*/; /*
+		ImVec2 vec = ImGui::GetWindowSize();
+		env->SetFloatField (jImVec2, imVec2XID, vec.x);
+		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+	*/
 
 	static native float GetWindowWidth() /*-{ }-*/; /*
 		return ImGui::GetWindowWidth();
-	 */
+	*/
 
 	public static native float GetWindowHeight() /*-{ }-*/; /*
 		return ImGui::GetWindowHeight();
@@ -931,6 +956,10 @@ public class ImGuiNative {
 
 	static native void SameLine() /*-{ }-*/; /*
 		ImGui::SameLine();
+	*/
+
+	static native void SameLine(float offsetFromStartX) /*-{ }-*/; /*
+		ImGui::SameLine(offsetFromStartX);
 	*/
 
 	static native void SameLine(float offsetFromStartX, float spacing) /*-{ }-*/; /*
@@ -2032,6 +2061,32 @@ public class ImGuiNative {
 
 	static native void EndChildFrame() /*-{ }-*/; /*
 		ImGui::EndChildFrame();
+	*/
+
+	// Inputs Utilities
+
+	static native boolean IsMouseDown(int button) /*-{ }-*/; /*
+		return ImGui::IsMouseDown(button);
+	*/
+
+	static native boolean IsMouseClicked(int button) /*-{ }-*/; /*
+		return ImGui::IsMouseClicked(button);
+	*/
+
+	static native boolean IsMouseClicked(int button, boolean repeat) /*-{ }-*/; /*
+		return ImGui::IsMouseClicked(button, repeat);
+	*/
+
+	static native boolean IsMouseReleased(int button) /*-{ }-*/; /*
+		return ImGui::IsMouseReleased(button);
+	*/
+
+	static native boolean IsMouseHoveringRect(float minX, float minY, float maxX, float maxY) /*-{ }-*/; /*
+		return ImGui::IsMouseHoveringRect(ImVec2(minX, minY), ImVec2(maxX, maxY));
+	*/
+
+	static native boolean IsMouseHoveringRect(float minX, float minY, float maxX, float maxY, boolean clip) /*-{ }-*/; /*
+		return ImGui::IsMouseHoveringRect(ImVec2(minX, minY), ImVec2(maxX, maxY), clip);
 	*/
 
 

@@ -126,7 +126,7 @@ public class ImGuiGdxTests implements ApplicationListener {
 		ImGui.SetNextWindowPos(0, 0);
 
 		ImGuiWindowFlags flags = ImGuiWindowFlags.NoDecoration;
-		flags = flags.and(ImGuiWindowFlags.NoDocking).and(ImGuiWindowFlags.NoBringToFrontOnFocus);
+		flags = flags.or(ImGuiWindowFlags.NoDocking).or(ImGuiWindowFlags.NoBringToFrontOnFocus);
 
 		ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
 		ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);

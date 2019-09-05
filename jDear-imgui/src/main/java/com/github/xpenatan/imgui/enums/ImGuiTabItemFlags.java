@@ -17,7 +17,7 @@ public class ImGuiTabItemFlags {
 		value = code;
 	}
 
-	public ImGuiTabItemFlags and(ImGuiTabItemFlags otherEnum) {
+	public ImGuiTabItemFlags or(ImGuiTabItemFlags otherEnum) {
 		ImGuiTabItemFlags.Custom.value = value | otherEnum.value;
 		return ImGuiTabItemFlags.Custom;
 	}

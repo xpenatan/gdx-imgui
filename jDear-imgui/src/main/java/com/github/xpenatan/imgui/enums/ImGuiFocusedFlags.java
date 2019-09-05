@@ -17,7 +17,7 @@ public class ImGuiFocusedFlags {
 		value = code;
 	}
 
-	public ImGuiFocusedFlags and(ImGuiFocusedFlags otherEnum) {
+	public ImGuiFocusedFlags or(ImGuiFocusedFlags otherEnum) {
 		ImGuiFocusedFlags.Custom.value = value | otherEnum.value;
 		return ImGuiFocusedFlags.Custom;
 	}

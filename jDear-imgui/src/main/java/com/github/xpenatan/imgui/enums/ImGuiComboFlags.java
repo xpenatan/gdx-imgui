@@ -21,7 +21,7 @@ public class ImGuiComboFlags {
 		value = code;
 	}
 
-	public ImGuiComboFlags and(ImGuiComboFlags otherEnum) {
+	public ImGuiComboFlags or(ImGuiComboFlags otherEnum) {
 		ImGuiComboFlags.Custom.value = value | otherEnum.value;
 		return ImGuiComboFlags.Custom;
 	}

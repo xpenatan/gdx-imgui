@@ -50,7 +50,7 @@ public class ImGuiInputTextFlags {
 		data = code;
 	}
 
-	public ImGuiInputTextFlags and(ImGuiInputTextFlags otherEnum) {
+	public ImGuiInputTextFlags or(ImGuiInputTextFlags otherEnum) {
 		ImGuiInputTextFlags.Custom.data = data | otherEnum.data;
 		return ImGuiInputTextFlags.Custom;
 	}

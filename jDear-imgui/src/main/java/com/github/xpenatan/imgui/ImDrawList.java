@@ -113,4 +113,16 @@ public class ImDrawList {
 	public void AddBezierCurve(float pos0_x, float pos0_y, float cp0_x, float cp0_y, float cp1_x, float cp1_y, float pos1_x, float pos1_y, float col, float thickness) {
 		ImGuiNative.AddBezierCurve(type, pos0_x, pos0_y, cp0_x, cp0_y, cp1_x, cp1_y, pos1_x, pos1_y, col, thickness);
 	}
+
+	public void ChannelsSplit(int count) {
+		ImGuiNative.ChannelsSplit(type, count);
+	}
+
+	public void ChannelsMerge() {
+		ImGuiNative.ChannelsMerge(type);
+	}
+
+	public void ChannelsSetCurrent(int n) {
+		ImGuiNative.ChannelsSetCurrent(type, n);
+	}
 }

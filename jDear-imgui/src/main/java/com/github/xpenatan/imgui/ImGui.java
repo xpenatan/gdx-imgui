@@ -161,6 +161,10 @@ public class ImGui {
 		return ImGuiNative.BeginChild(str_id);
 	}
 
+	public static boolean BeginChild(String str_id, float width, float height) {
+		return ImGuiNative.BeginChild(str_id, width, height);
+	}
+
 	public static boolean BeginChild(String str_id, float width, float height, boolean border) {
 		return ImGuiNative.BeginChild(str_id, width, height, border);
 	}
@@ -235,6 +239,11 @@ public class ImGui {
 
 	public static float GetWindowPosY() {
 		return ImGuiNative.GetWindowPosY();
+	}
+
+	public static ImVec2 GetWindowSize() {
+		ImGuiNative.GetWindowSize(imVec2);
+		return imVec2;
 	}
 
 	public static float GetWindowWidth() {
@@ -463,6 +472,10 @@ public class ImGui {
 
 	public static void SameLine() {
 		ImGuiNative.SameLine();
+	}
+
+	public static void SameLine(float offsetFromStartX) {
+		ImGuiNative.SameLine(offsetFromStartX);
 	}
 
 	public static void SameLine(float offsetFromStartX, float spacing) {
@@ -1494,5 +1507,29 @@ public class ImGui {
 		ImGuiNative.EndChildFrame();
 	}
 
+	// Inputs Utilities
 
+	public static boolean IsMouseDown(int button) {
+		return ImGuiNative.IsMouseDown(button);
+	}
+
+	public static boolean IsMouseClicked(int button) {
+		return ImGuiNative.IsMouseClicked(button);
+	}
+
+	public static boolean IsMouseClicked(int button, boolean repeat) {
+		return ImGuiNative.IsMouseClicked(button, repeat);
+	}
+
+	public static boolean IsMouseReleased(int button) {
+		return ImGuiNative.IsMouseReleased(button);
+	}
+
+	public static boolean IsMouseHoveringRect(float minX, float minY, float maxX, float maxY) {
+		return ImGuiNative.IsMouseHoveringRect(minX, minY, maxX, maxY);
+	}
+
+	public static boolean IsMouseHoveringRect(float minX, float minY, float maxX, float maxY, boolean clip) {
+		return ImGuiNative.IsMouseHoveringRect(minX, minY, maxX, maxY, clip);
+	}
 }

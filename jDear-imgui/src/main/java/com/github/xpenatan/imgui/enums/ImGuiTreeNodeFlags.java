@@ -32,7 +32,7 @@ public class ImGuiTreeNodeFlags {
 		return value;
 	}
 
-	public ImGuiTreeNodeFlags and(ImGuiTreeNodeFlags otherEnum) {
+	public ImGuiTreeNodeFlags or(ImGuiTreeNodeFlags otherEnum) {
 		ImGuiTreeNodeFlags.Custom.value = value | otherEnum.value;
 		return ImGuiTreeNodeFlags.Custom;
 	}

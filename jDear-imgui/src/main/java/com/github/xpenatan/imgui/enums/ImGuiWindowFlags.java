@@ -37,7 +37,7 @@ public class ImGuiWindowFlags {
 		value = code;
 	}
 
-	public ImGuiWindowFlags and(ImGuiWindowFlags otherEnum) {
+	public ImGuiWindowFlags or(ImGuiWindowFlags otherEnum) {
 		ImGuiWindowFlags.Custom.value = value | otherEnum.value;
 		return ImGuiWindowFlags.Custom;
 	}

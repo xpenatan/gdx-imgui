@@ -172,7 +172,7 @@ public class ImGuiGdxDemo implements ApplicationListener
 					for (int i = 0; i < 5; i++) {
 						ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags.Leaf;
 						if (i == treeSelected) {
-							flags = flags.and(ImGuiTreeNodeFlags.Selected);
+							flags = flags.or(ImGuiTreeNodeFlags.Selected);
 						}
 						if (ImGui.TreeNodeEx(i, flags, "Leaf " + i)) {
 							if (ImGui.IsItemClicked()) {

@@ -16,7 +16,7 @@ public class ImGuiDockNodeFlags {
 		value = code;
 	}
 
-	public ImGuiDockNodeFlags and(ImGuiDockNodeFlags otherEnum) {
+	public ImGuiDockNodeFlags or(ImGuiDockNodeFlags otherEnum) {
 		ImGuiDockNodeFlags.Custom.value = value | otherEnum.value;
 		return ImGuiDockNodeFlags.Custom;
 	}

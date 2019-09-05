@@ -39,7 +39,7 @@ public class ImGuiColorEditFlags {
 		value = code;
 	}
 
-	public ImGuiColorEditFlags and(ImGuiColorEditFlags otherEnum) {
+	public ImGuiColorEditFlags or(ImGuiColorEditFlags otherEnum) {
 		ImGuiColorEditFlags.Custom.value = value | otherEnum.value;
 		return ImGuiColorEditFlags.Custom;
 	}

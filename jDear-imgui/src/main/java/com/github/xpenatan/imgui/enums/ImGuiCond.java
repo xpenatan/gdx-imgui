@@ -18,7 +18,7 @@ public class ImGuiCond {
 		value = code;
 	}
 
-	public ImGuiCond and(ImGuiCond otherEnum) {
+	public ImGuiCond or(ImGuiCond otherEnum) {
 		ImGuiCond.Custom.value = value | otherEnum.value;
 		return ImGuiCond.Custom;
 	}

@@ -17,7 +17,7 @@ public class ImGuiSelectableFlags {
 		value = code;
 	}
 
-	public ImGuiSelectableFlags and(ImGuiSelectableFlags otherEnum) {
+	public ImGuiSelectableFlags or(ImGuiSelectableFlags otherEnum) {
 		ImGuiSelectableFlags.Custom.value = value | otherEnum.value;
 		return ImGuiSelectableFlags.Custom;
 	}

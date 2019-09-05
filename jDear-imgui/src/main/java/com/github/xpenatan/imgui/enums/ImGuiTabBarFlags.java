@@ -23,7 +23,7 @@ public class ImGuiTabBarFlags {
 		value = code;
 	}
 
-	public ImGuiTabBarFlags and(ImGuiTabBarFlags otherEnum) {
+	public ImGuiTabBarFlags or(ImGuiTabBarFlags otherEnum) {
 		ImGuiTabBarFlags.Custom.value = value | otherEnum.value;
 		return ImGuiTabBarFlags.Custom;
 	}
