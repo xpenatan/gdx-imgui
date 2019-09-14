@@ -27,6 +27,9 @@ public class ImGuiGdxGameWindow {
 	int startWidth;
 	int startHeight;
 
+	float startX;
+	float startY;
+
 	private String name = "";
 	private String beginID = "BeginID";
 	private String btnId = "btnId";
@@ -41,15 +44,17 @@ public class ImGuiGdxGameWindow {
 	private boolean curFrameFocus;
 	private boolean isWindowHovered;
 
-	public ImGuiGdxGameWindow(int width, int height) {
-		this(new EmuApplicationWindow(), width, height);
+	public ImGuiGdxGameWindow(int width, int height, float x, float y) {
+		this(new EmuApplicationWindow(), width, height, x, y);
 		this.startWidth = width;
 		this.startHeight = height;
 	}
 
-	public ImGuiGdxGameWindow(EmuWindow emuWindow, int width, int height) {
+	public ImGuiGdxGameWindow(EmuWindow emuWindow, int width, int height, float x, float y) {
 		this.startWidth = width;
 		this.startHeight = height;
+		this.startX = x;
+		this.startY = y;
 		this.emuWindow = emuWindow;
 	}
 
@@ -61,7 +66,8 @@ public class ImGuiGdxGameWindow {
 
 		if(!initWindowSize) {
 			initWindowSize = true;
-			ImGui.SetNextWindowSize(500, 400);
+			ImGui.SetNextWindowSize(startWidth, startHeight);
+			ImGui.SetNextWindowPos(startX, startY);
 		}
 
 		int mouseX = 0;

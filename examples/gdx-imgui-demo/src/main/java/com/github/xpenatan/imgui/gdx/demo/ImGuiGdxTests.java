@@ -69,7 +69,7 @@ public class ImGuiGdxTests implements ApplicationListener {
 		EmuFrameBuffer.setDefaultFramebufferHandleInitialized(false);
 
 		emuApplication = new EmuApplicationWindow();
-		gameWindow = new ImGuiGdxGameWindow(emuApplication, 400, 400);
+		gameWindow = new ImGuiGdxGameWindow(emuApplication, 400, 400, 300, 100);
 
 		gameWindow.setName("Game");
 

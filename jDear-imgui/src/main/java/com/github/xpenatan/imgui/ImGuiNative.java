@@ -1540,39 +1540,39 @@ public class ImGuiNative {
 	*/
 
 	static native boolean InputFloat(String label, float [] v) /*-{ }-*/; /*
-		ImGui::InputFloat(label,  &v[0]);
+		ImGui::InputFloat(label, &v[0]);
 	*/
 
 	static native boolean InputFloat(String label, float [] v, float step, float step_fast, String format) /*-{ }-*/; /*
-		ImGui::InputFloat(label,  &v[0], step, step_fast, format);
+		ImGui::InputFloat(label, &v[0], step, step_fast, format);
 	*/
 
 	static native boolean InputFloat(String label, float [] v, float step, float step_fast, String format, int flags) /*-{ }-*/; /*
-		ImGui::InputFloat(label,  &v[0], step, step_fast, format, flags);
+		ImGui::InputFloat(label, &v[0], step, step_fast, format, flags);
 	*/
 
 	static native boolean InputInt(String label, int [] v) /*-{ }-*/; /*
-		ImGui::InputInt(label,  &v[0]);
+		ImGui::InputInt(label, &v[0]);
 	*/
 
 	static native boolean InputInt(String label, int [] v, float step, float step_fast) /*-{ }-*/; /*
-		ImGui::InputInt(label,  &v[0], step, step_fast);
+		ImGui::InputInt(label, &v[0], step, step_fast);
 	*/
 
 	static native boolean InputInt(String label, int [] v, float step, float step_fast, int flags) /*-{ }-*/; /*
-		ImGui::InputInt(label,  &v[0], step, step_fast, flags);
+		ImGui::InputInt(label, &v[0], step, step_fast, flags);
 	*/
 
 	static native boolean InputDouble(String label, double [] v) /*-{ }-*/; /*
-		ImGui::InputDouble(label,  &v[0]);
+		ImGui::InputDouble(label, &v[0]);
 	*/
 
 	static native boolean InputDouble(String label, double [] v, float step, float step_fast, String format) /*-{ }-*/; /*
-		ImGui::InputDouble(label,  &v[0], step, step_fast, format);
+		ImGui::InputDouble(label, &v[0], step, step_fast, format);
 	*/
 
 	static native boolean InputDouble(String label, double [] v, float step, float step_fast, String format, int flags) /*-{ }-*/; /*
-		ImGui::InputDouble(label,  &v[0], step, step_fast, format, flags);
+		ImGui::InputDouble(label, &v[0], step, step_fast, format, flags);
 	*/
 
 
@@ -2079,6 +2079,18 @@ public class ImGuiNative {
 
 	static native boolean IsMouseReleased(int button) /*-{ }-*/; /*
 		return ImGui::IsMouseReleased(button);
+	*/
+
+	static native boolean IsMouseDragging() /*-{ }-*/; /*
+		return ImGui::IsMouseDragging();
+	*/
+
+	static native boolean IsMouseDragging(int button) /*-{ }-*/; /*
+		return ImGui::IsMouseDragging(button);
+	*/
+
+	static native boolean IsMouseDragging(int button, float lock_threshold) /*-{ }-*/; /*
+		return ImGui::IsMouseDragging(button, lock_threshold);
 	*/
 
 	static native boolean IsMouseHoveringRect(float minX, float minY, float maxX, float maxY) /*-{ }-*/; /*

@@ -4,6 +4,7 @@ import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
 import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
+import com.github.xpenatan.imgui.ImGuiCustomWidgetNative.CollpasingHeaderExOptions;
 import com.github.xpenatan.imgui.enums.ImGuiCol;
 import com.github.xpenatan.imgui.enums.ImGuiComboFlags;
 import com.github.xpenatan.imgui.enums.ImGuiCond;
@@ -416,10 +417,6 @@ public class ImGui {
 
 	public static void PushItemWidth(float item_width) {
 		ImGuiNative.PushItemWidth(item_width);
-	}
-
-	public static void PushMultiItemsWidths(int components, float w_full) {
-		ImGuiInternalNative.PushMultiItemsWidths(components, w_full);
 	}
 
 	public static void PopItemWidth() {
@@ -1525,6 +1522,18 @@ public class ImGui {
 		return ImGuiNative.IsMouseReleased(button);
 	}
 
+	public static boolean IsMouseDragging() {
+		return ImGuiNative.IsMouseDragging();
+	}
+
+	public static boolean IsMouseDragging(int button) {
+		return ImGuiNative.IsMouseDragging(button);
+	}
+
+	public static boolean IsMouseDragging(int button, float lock_threshold) {
+		return ImGuiNative.IsMouseDragging(button, lock_threshold);
+	}
+
 	public static boolean IsMouseHoveringRect(float minX, float minY, float maxX, float maxY) {
 		return ImGuiNative.IsMouseHoveringRect(minX, minY, maxX, maxY);
 	}
@@ -1532,4 +1541,60 @@ public class ImGui {
 	public static boolean IsMouseHoveringRect(float minX, float minY, float maxX, float maxY, boolean clip) {
 		return ImGuiNative.IsMouseHoveringRect(minX, minY, maxX, maxY, clip);
 	}
+
+	// Internal methods
+
+	public static void PushMultiItemsWidths(int components, float w_full) {
+		ImGuiInternalNative.PushMultiItemsWidths(components, w_full);
+	}
+
+	public static void ItemAdd(float x1, float y1, float x2, float y2, String id) {
+		ImGuiInternalNative.ItemAdd(x1, y1, x2, y2, id);
+	}
+
+	public static void ItemSize(float x1, float y1, float x2, float y2, float text_offset_y) {
+		ImGuiInternalNative.ItemSize(x1, y1, x2, y2, text_offset_y);
+	}
+
+	// Custom Widget
+
+	public static boolean BeginChildEx(String id, float sizeX, float paddingX, float paddingY) {
+		return ImGuiCustomWidgetNative.BeginChildEx(id, sizeX, paddingX, paddingY);
+	}
+
+	public static void EndChildEx(boolean debug) {
+		ImGuiCustomWidgetNative.EndChildEx(debug);
+	}
+
+	public static boolean BeginCollapsingHeaderEx(String id, String title, ImGuiBoolean v, float sizeX) {
+		CollpasingHeaderExOptions options = ImGuiCustomWidgetNative.DEFAULT_COLLAPSE_OPTIONS;
+
+		return ImGuiCustomWidgetNative.BeginCollapsingHeaderEx(id, title, v.data, sizeX, options.layoutPaddingX, options.layoutPaddingY,
+				options.arrowColor, options.arrowBackgroundHoveredColor, options.arrowBackgroundClickedColor, options.borderRadius, options.roundingCornerFlags,
+				options.frameColor, options.titleColor, options.layoutBackgroundColor);
+	}
+
+	public static void EndCollapsingHeaderEx(ImGuiBoolean isOpen) {
+		EndCollapsingHeaderEx(isOpen.getValue());
+	}
+
+	public static void EndCollapsingHeaderEx(boolean isOpen) {
+		CollpasingHeaderExOptions options = ImGuiCustomWidgetNative.DEFAULT_COLLAPSE_OPTIONS;
+		ImGuiCustomWidgetNative.EndCollapsingHeaderEx(isOpen, options.debug, options.borderColor, options.borderRadius, options.roundingCornerFlags, options.borderWidth);
+	}
+
+	// Helper methods
+
+	/** Packs the color components into a 32-bit integer with the format ABGR. Note that no range checking is performed for higher
+	 * performance.
+	 * @param r the red component, 0 - 255
+	 * @param g the green component, 0 - 255
+	 * @param b the blue component, 0 - 255
+	 * @param a the alpha component, 0 - 255
+	 * @return the packed color as a 32-bit int */
+	public static int colorToIntBits (int r, int g, int b, int a) {
+		return (a << 24) | (b << 16) | (g << 8) | r;
+	}
+
+
 }

@@ -50,6 +50,8 @@ public class ImGuiGdxDemo implements ApplicationListener
 	ImGuiFloat dragFloat2 =  new ImGuiFloat(1.0f);
 	ImGuiFloat sliderFloat =  new ImGuiFloat(0.5f);
 
+	ImGuiBoolean isCollapseOpen = new ImGuiBoolean();
+
 	@Override
 	public void create () {
 		OrthographicCamera uiCam = new OrthographicCamera();
@@ -128,25 +130,28 @@ public class ImGuiGdxDemo implements ApplicationListener
 
 		ImGui.Button("Button");
 
-		ImGui.ArrowButton("##Left", ImGuiDir.Left);
-		ImGui.SameLine();
-		ImGui.ArrowButton("##Right", ImGuiDir.Right);
-		ImGui.SameLine();
-		ImGui.ArrowButton("##Up", ImGuiDir.Up);
-		ImGui.SameLine();
-		ImGui.ArrowButton("##Down", ImGuiDir.Down);
+		if(ImGui.BeginCollapsingHeaderEx("id", "Stuff", isCollapseOpen, 0)) {
+			ImGui.ArrowButton("##Left", ImGuiDir.Left);
+			ImGui.SameLine();
+			ImGui.ArrowButton("##Right", ImGuiDir.Right);
+			ImGui.SameLine();
+			ImGui.ArrowButton("##Up", ImGuiDir.Up);
+			ImGui.SameLine();
+			ImGui.ArrowButton("##Down", ImGuiDir.Down);
 
-		ImGui.RadioButton("radio a", guiInt, 0);
-		ImGui.SameLine();
-		ImGui.RadioButton("radio b", guiInt, 1);
-		ImGui.SameLine();
-		ImGui.RadioButton("radio c", guiInt, 2);
-		ImGui.SameLine();
-		ImGui.RadioButton("radio true", true);
+			ImGui.RadioButton("radio a", guiInt, 0);
+			ImGui.SameLine();
+			ImGui.RadioButton("radio b", guiInt, 1);
+			ImGui.SameLine();
+			ImGui.RadioButton("radio c", guiInt, 2);
+			ImGui.SameLine();
+			ImGui.RadioButton("radio true", true);
 
-		ImGui.Bullet();
-		ImGui.SameLine();
-		ImGui.Text("Bullet text");
+			ImGui.Bullet();
+			ImGui.SameLine();
+			ImGui.Text("Bullet text");
+		}
+		ImGui.EndCollapsingHeaderEx(isCollapseOpen);
 
 		ImGui.ListBox("MyList", listSelected, myList, myList.length);
 		ImGui.End();
