@@ -7,6 +7,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.github.xpenatan.imgui.DrawData;
 import com.github.xpenatan.imgui.ImGui;
 import com.github.xpenatan.imgui.ImGuiBoolean;
@@ -52,6 +53,8 @@ public class ImGuiGdxDemo implements ApplicationListener
 
 	ImGuiBoolean isCollapseOpen = new ImGuiBoolean();
 
+	Texture buttonTexture;
+
 	@Override
 	public void create () {
 		OrthographicCamera uiCam = new OrthographicCamera();
@@ -60,6 +63,7 @@ public class ImGuiGdxDemo implements ApplicationListener
 		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable);
 		ImGui.GetIO().SetDockingFlags(false, false, false, false);
 
+		buttonTexture = new Texture(Gdx.files.internal("data/badlogicsmall.jpg"));
 
 		ImGuiGdxInput input = new ImGuiGdxInput();
 		impl = new ImGuiGdxImpl(input);
@@ -150,6 +154,9 @@ public class ImGuiGdxDemo implements ApplicationListener
 			ImGui.Bullet();
 			ImGui.SameLine();
 			ImGui.Text("Bullet text");
+
+			ImGui.Image(buttonTexture.getTextureObjectHandle(), 32, 32);
+			ImGui.ImageButton(buttonTexture.getTextureObjectHandle(), 32, 32);
 		}
 		ImGui.EndCollapsingHeaderEx(isCollapseOpen);
 

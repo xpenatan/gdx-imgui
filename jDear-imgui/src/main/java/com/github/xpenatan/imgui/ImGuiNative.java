@@ -1161,8 +1161,16 @@ public class ImGuiNative {
 		ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0_x, uv0_y), ImVec2(uv1_x, uv1_y));
 	*/
 
-	static native void Image(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, float color_r, float color_g, float color_b, float color_a, float border_col_r, float border_col_g, float border_col_b, float border_col_a) /*-{ }-*/; /*
-		ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0_x, uv0_y), ImVec2(uv1_x, uv1_y), ImVec4(color_r, color_g, color_b, color_a), ImVec4(border_col_r, border_col_g, border_col_b, border_col_a));
+	static native void Image(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, float tint_color_r, float tint_color_g, float tint_color_b, float tint_color_a, float border_col_r, float border_col_g, float border_col_b, float border_col_a) /*-{ }-*/; /*
+		ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0_x, uv0_y), ImVec2(uv1_x, uv1_y), ImVec4(tint_color_r, tint_color_g, tint_color_b, tint_color_a), ImVec4(border_col_r, border_col_g, border_col_b, border_col_a));
+	*/
+
+	static native boolean ImageButton(int textureID, float sizeX, float sizeY) /*-{ }-*/; /*
+		return ImGui::ImageButton((ImTextureID)textureID, ImVec2(sizeX, sizeY));
+	 */
+
+	static native boolean ImageButton(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, int frame_padding, float bg_color_r, float bg_color_g, float bg_color_b, float bg_color_a, float tint_col_r, float tint_col_g, float tint_col_b, float tint_col_a) /*-{ }-*/; /*
+		return ImGui::ImageButton((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0_x, uv0_y), ImVec2(uv1_x, uv1_y), frame_padding, ImVec4(bg_color_r, bg_color_g, bg_color_b, bg_color_a), ImVec4(tint_col_r, tint_col_g, tint_col_b, tint_col_a));
 	*/
 
 	static native boolean Checkbox(String label, boolean [] data) /*-{ }-*/; /*

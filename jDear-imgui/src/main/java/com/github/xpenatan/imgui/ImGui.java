@@ -51,7 +51,7 @@ public class ImGui {
 	private static ImDrawList imDrawListBackground = new ImDrawList(ImDrawList.TYPE_BACKGROUND);
 	private static ImDrawList imDrawListForeground = new ImDrawList(ImDrawList.TYPE_FOREGROUND);
 
-	private ImGui() {
+	protected ImGui() {
 	}
 
 	public static ImGuiIO GetIO() {
@@ -687,7 +687,9 @@ public class ImGui {
 		ImGuiNative.Image(textureID, sizeX, sizeY, uv0_x, uv0_y, uv1_x, uv1_y);
 	}
 
-	//TODO Image and ImageButton
+	public static boolean ImageButton(int textureID, float sizeX, float sizeY) {
+		return ImGuiNative.ImageButton(textureID, sizeX, sizeY);
+	}
 
 	public static boolean Checkbox(String label, ImGuiBoolean value) {
 		return ImGuiNative.Checkbox(label, value.data);
