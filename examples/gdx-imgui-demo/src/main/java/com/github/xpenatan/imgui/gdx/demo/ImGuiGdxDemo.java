@@ -53,6 +53,7 @@ public class ImGuiGdxDemo implements ApplicationListener
 	ImGuiFloat sliderFloat =  new ImGuiFloat(0.5f);
 
 	ImGuiBoolean isCollapseOpen = new ImGuiBoolean();
+	ImGuiBoolean isCollapseOpen2 = new ImGuiBoolean();
 
 	Texture buttonTexture;
 
@@ -142,13 +143,17 @@ public class ImGuiGdxDemo implements ApplicationListener
 		ImGui.EndCollapseFrameLayout();
 		if(isCollapseOpen.getValue())
 		{
-			ImGui.SliderFloat("AlignX", alignX, 0.0f, 1.0f, "%.2f");
-			ImGui.SliderFloat("ContentAlignX", contentAlignX, 0.0f, 1.0f, "%.2f");
-			ImGui.SliderFloat("PaddingX", paddingX, -10.0f, 10.0f, "%.2f");
-			ImGui.SliderFloat("AlignY", alignY, 0.0f, 1.0f, "%.2f");
-			ImGui.SliderFloat("ContentAlignY", contentAlignY, 0.0f, 1.0f, "%.2f");
-			ImGui.SliderFloat("paddingY", paddingY, -10.0f, 10.0f, "%.2f");
-			ImGui.ShowAlignDebug();
+			ImGui.BeginCollapseLayout(isCollapseOpen2, "Alignment options", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
+			if(isCollapseOpen2.getValue())
+			{
+				ImGui.SliderFloat("AlignX", alignX, 0.0f, 1.0f, "%.2f");
+				ImGui.SliderFloat("ContentAlignX", contentAlignX, 0.0f, 1.0f, "%.2f");
+				ImGui.SliderFloat("PaddingX", paddingX, -10.0f, 10.0f, "%.2f");
+				ImGui.SliderFloat("AlignY", alignY, 0.0f, 1.0f, "%.2f");
+				ImGui.SliderFloat("ContentAlignY", contentAlignY, 0.0f, 1.0f, "%.2f");
+				ImGui.SliderFloat("paddingY", paddingY, -10.0f, 10.0f, "%.2f");
+			}
+			ImGui.EndCollapseLayout();
 
 			ImGui.ArrowButton("##Left", ImGuiDir.Left);
 			ImGui.SameLine();
