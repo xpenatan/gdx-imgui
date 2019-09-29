@@ -1,7 +1,11 @@
 package com.github.xpenatan.imgui.generate;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URLDecoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 import com.badlogic.gdx.jnigen.AntScriptGenerator;
 import com.badlogic.gdx.jnigen.BuildConfig;
@@ -25,25 +29,54 @@ public class Build {
 		BuildTarget win64 = BuildTarget.newDefaultTarget(TargetOs.Windows, true);
 
 		String[] header = {"src"};
-		String[] includes = {"**/*.cpp"};
-
+		String[] includes = {"**/*.cpp"} ;
 		win64.cppIncludes = includes;
 		win64.headerDirs = header;
-		win64.cppFlags =  "-c -Wall -O0 -mfpmath=sse -msse2 -fmessage-length=0 -m64";
+		win64.cppFlags =  "-c -Wno-unused -O0 -mfpmath=sse -msse2 -fmessage-length=0 -m64";
 		if(debug)
 			win64.cppFlags +=  " -g";
+
+		BuildConfig buildConfig = new BuildConfig("gdx-imgui", "target", "libs", "jni");
 
 //		BuildTarget lin32 = BuildTarget.newDefaultTarget(TargetOs.Linux, false);
 //		BuildTarget lin64 = BuildTarget.newDefaultTarget(TargetOs.Linux, false);
 //		BuildTarget android = BuildTarget.newDefaultTarget(TargetOs.Android, false);
 //		BuildTarget mac64 = BuildTarget.newDefaultTarget(TargetOs.MacOsX, false);
 //		BuildTarget ios = BuildTarget.newDefaultTarget(TargetOs.IOS, false);
-		new NativeCodeGenerator().generate("src/main/java", "bin" + File.pathSeparator, "jni");
 //		new AntScriptGenerator().generate(new BuildConfig("gdx-imgui"), win32, win64, lin32, lin64, mac64, android, ios);
-		new AntScriptGenerator().generate(new BuildConfig("gdx-imgui", "target", "libs", "jni"), win64);
+
+		File from = new File("../extensions/imgui-layout-widget/");
+		File dest = new File("jni/src");
+
+		copyDir(from.toPath(), dest.toPath(), "imgui_layout_widget_tests");
+
+		new NativeCodeGenerator().generate("src/main/java", "bin" + File.pathSeparator, "jni");
+		new AntScriptGenerator().generate(buildConfig, win64);
 
 		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v -Dhas-compiler=true clean postcompile");
 
 		BuildExecutor.executeAnt("jni/build.xml", "-v pack-natives");
+	}
+
+	public static void copyDir(Path src, Path dest, String... excludes) throws IOException {
+		Files.walk(src).forEach(source -> {
+			try {
+				boolean skip = false;
+				if(excludes != null) {
+					String fileStr = source.getFileName().toString();
+					for(int i = 0; i < excludes.length; i++) {
+						String excludeFile = excludes[i];
+						if(fileStr.contains(excludeFile)) {
+							skip = true;
+							break;
+						}
+					}
+				}
+				if(!skip)
+					Files.copy(source, dest.resolve(src.relativize(source)), StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+			}
+		});
+
 	}
 }

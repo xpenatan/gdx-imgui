@@ -29,8 +29,7 @@ out/
 *.xml
 jni-headers/
 *.c
-*.cpp
-*.h
+*/jni/
 libs/
 *.log
 *.o

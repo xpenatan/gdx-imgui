@@ -21,6 +21,7 @@ import com.github.xpenatan.imgui.enums.ImGuiStyleVar;
 import com.github.xpenatan.imgui.enums.ImGuiTabBarFlags;
 import com.github.xpenatan.imgui.enums.ImGuiTreeNodeFlags;
 import com.github.xpenatan.imgui.enums.ImGuiWindowFlags;
+import com.github.xpenatan.imgui.enums.ImLayout;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxInput;
 
@@ -54,6 +55,13 @@ public class ImGuiGdxDemo implements ApplicationListener
 	ImGuiBoolean isCollapseOpen = new ImGuiBoolean();
 
 	Texture buttonTexture;
+
+	static ImGuiFloat alignX = new ImGuiFloat(0.5f);
+	static ImGuiFloat contentAlignX = new ImGuiFloat(0.5f);
+	static ImGuiFloat paddingX = new ImGuiFloat(0.0f);
+	static ImGuiFloat alignY = new ImGuiFloat(0.5f);
+	static ImGuiFloat contentAlignY = new ImGuiFloat(0.5f);
+	static ImGuiFloat paddingY = new ImGuiFloat(0.0f);
 
 	@Override
 	public void create () {
@@ -134,7 +142,34 @@ public class ImGuiGdxDemo implements ApplicationListener
 
 		ImGui.Button("Button");
 
-		if(ImGui.BeginCollapsingHeaderEx("id", "Stuff", isCollapseOpen, 0)) {
+		renderCollapseUI();
+
+		ImGui.ListBox("MyList", listSelected, myList, myList.length);
+		ImGui.End();
+
+		ImGui.ShowDemoWindow(false);
+
+		ImGui.End();
+
+		ImGui.Render();
+		DrawData drawData = ImGui.GetDrawData();
+		impl.render(drawData);
+	}
+
+	private void renderCollapseUI() {
+		ImGui.BeginCollapseLayout(isCollapseOpen, "Stuff", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
+		if(isCollapseOpen.getValue())
+		{
+
+			ImGui.SliderFloat("AlignX", alignX, 0.0f, 1.0f, "%.2f");
+			ImGui.SliderFloat("ContentAlignX", contentAlignX, 0.0f, 1.0f, "%.2f");
+			ImGui.SliderFloat("PaddingX", paddingX, -10.0f, 10.0f, "%.2f");
+			ImGui.SliderFloat("AlignY", alignY, 0.0f, 1.0f, "%.2f");
+			ImGui.SliderFloat("ContentAlignY", contentAlignY, 0.0f, 1.0f, "%.2f");
+			ImGui.SliderFloat("paddingY", paddingY, -10.0f, 10.0f, "%.2f");
+
+
+
 			ImGui.ArrowButton("##Left", ImGuiDir.Left);
 			ImGui.SameLine();
 			ImGui.ArrowButton("##Right", ImGuiDir.Right);
@@ -155,21 +190,14 @@ public class ImGuiGdxDemo implements ApplicationListener
 			ImGui.SameLine();
 			ImGui.Text("Bullet text");
 
+			ImGui.BeginAlign("iddd", ImLayout.MATCH_PARENT, 200, alignX.getValue(), alignY.getValue(), contentAlignX.getValue(), contentAlignY.getValue(), paddingX.getValue(), paddingY.getValue());
+			ImGui.ShowAlignDebug();
 			ImGui.Image(buttonTexture.getTextureObjectHandle(), 32, 32);
-			ImGui.ImageButton(buttonTexture.getTextureObjectHandle(), 32, 32);
+			ImGui.ImageButton(buttonTexture.getTextureObjectHandle(), 42, 42);
+
+			ImGui.EndAlign();
 		}
-		ImGui.EndCollapsingHeaderEx(isCollapseOpen);
-
-		ImGui.ListBox("MyList", listSelected, myList, myList.length);
-		ImGui.End();
-
-		ImGui.ShowDemoWindow(false);
-
-		ImGui.End();
-
-		ImGui.Render();
-		DrawData drawData = ImGui.GetDrawData();
-		impl.render(drawData);
+		ImGui.EndCollapseLayout();
 	}
 
 	private void renderTabTree() {
