@@ -670,6 +670,8 @@ namespace ImGui
 
             ImGui::BeginAlign("id011", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 1.0f, 0.5f, 1, 0.5f, -5);
             ImGui::ShowAlignDebug();
+			ImGui::Button("Ok");
+			ImGui::SameLine();
             ImGui::Text("Right Align Text");
             ImGui::EndAlign();
 

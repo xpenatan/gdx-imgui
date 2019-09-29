@@ -56,7 +56,7 @@ public class ImGuiCustomWidgetNative {
 	*/
 
 	static native void BeginCollapseLayoutEx(boolean [] isOpen, String title, float sizeX, float sizeY); /*-{ }-*/; /*
-		ImGui::BeginCollapseLayout(&isOpen[0], title, sizeX, sizeY);
+		ImGui::BeginCollapseLayoutEx(&isOpen[0], title, sizeX, sizeY);
 	*/
 
 	static native void BeginCollapseLayoutEx(boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
@@ -72,7 +72,7 @@ public class ImGuiCustomWidgetNative {
 		options.borderColor = env->GetIntField (jOptions, borderColorID);
 		options.borderRound = env->GetIntField (jOptions, borderRoundID);
 		options.roundingCorners = env->GetIntField (jOptions, roundingCornersID);
-		ImGui::BeginCollapseLayout(&isOpen[0], title, sizeX, sizeY, options);
+		ImGui::BeginCollapseLayoutEx(&isOpen[0], title, sizeX, sizeY, options);
 	*/
 
 	static native void BeginCollapseLayout(boolean [] isOpen, String title, float sizeX, float sizeY); /*-{ }-*/; /*

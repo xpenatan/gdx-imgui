@@ -509,7 +509,7 @@ void ImGui::EndAlign() {
     float y = window->DC.CursorPos.y;
 
     curAlign->sizeContents.x = window->DC.CursorMaxPos.x - curAlign->positionContents.x;
-    curAlign->sizeContents.y = y - curAlign->positionContents.y - g.Style.ItemSpacing.y / 2.0f ;
+    curAlign->sizeContents.y = y - curAlign->positionContents.y - g.Style.ItemSpacing.y;
 
     if (curAlign->sizeParam.x == ImLayout::WRAP_PARENT)
         curAlign->size.x = curAlign->sizeContents.x;

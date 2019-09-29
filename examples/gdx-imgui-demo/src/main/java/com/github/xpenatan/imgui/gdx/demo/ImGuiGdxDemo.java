@@ -80,7 +80,7 @@ public class ImGuiGdxDemo implements ApplicationListener
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		int width = Gdx.graphics.getWidth();
@@ -94,33 +94,9 @@ public class ImGuiGdxDemo implements ApplicationListener
 		ImGui.UpdateDisplayAndInputAndFrame(Gdx.graphics.getDeltaTime(), width, height, backBufferWidth, backBufferHeight,
 				Gdx.input.getX(), Gdx.input.getY(), mouseDown0, mouseDown1, mouseDown2);
 
-
-
-		ImGui.SetNextWindowSize(width, height);
-		ImGui.SetNextWindowPos(0, 0);
-//		ImGuiWindowFlags flags = ImGuiWindowFlags.NoBringToFrontOnFocus.and(ImGuiWindowFlags.NoNavFocus).and(ImGuiWindowFlags.NoCollapse).and(ImGuiWindowFlags.NoResize).and(ImGuiWindowFlags.NoMove);
-		ImGuiWindowFlags flags = ImGuiWindowFlags.NoDecoration;
-//				and(ImGuiWindowFlags.NoTitleBar);
-
-		ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
-		ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);
-
-		ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, 0.0f, 0.0f);
-		ImGui.Begin("DockSpace Demo", dockBool, flags);
-		ImGui.PopStyleVar();
-
-
-		ImGui.PopStyleVar(2);
-
-		ImGui.DockSpace(0313);
-
-
-
-//		ImGui.setNextWindowPos(0,0);
 		ImGui.Begin("Hello World");
 
 		renderTabTree();
-
 
 		// Edittext
 		if(ImGui.InputText("", myText, ImGuiInputTextFlags.EnterReturnsTrue)) {
@@ -149,26 +125,30 @@ public class ImGuiGdxDemo implements ApplicationListener
 
 		ImGui.ShowDemoWindow(false);
 
-		ImGui.End();
-
 		ImGui.Render();
 		DrawData drawData = ImGui.GetDrawData();
 		impl.render(drawData);
 	}
 
 	private void renderCollapseUI() {
-		ImGui.BeginCollapseLayout(isCollapseOpen, "Stuff", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
+		ImGui.BeginCollapseLayoutEx(isCollapseOpen, "Stuff", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
+
+		ImGui.BeginAlign("#ID", ImLayout.MATCH_PARENT, ImLayout.MATCH_PARENT, 1.0f, 0.5f, 1.0f, 0.5f, -5, 0);
+		ImGui.Button("Ok");
+		ImGui.SameLine();
+		ImGui.Text("Custom Align");
+		ImGui.EndAlign();
+
+		ImGui.EndCollapseFrameLayout();
 		if(isCollapseOpen.getValue())
 		{
-
 			ImGui.SliderFloat("AlignX", alignX, 0.0f, 1.0f, "%.2f");
 			ImGui.SliderFloat("ContentAlignX", contentAlignX, 0.0f, 1.0f, "%.2f");
 			ImGui.SliderFloat("PaddingX", paddingX, -10.0f, 10.0f, "%.2f");
 			ImGui.SliderFloat("AlignY", alignY, 0.0f, 1.0f, "%.2f");
 			ImGui.SliderFloat("ContentAlignY", contentAlignY, 0.0f, 1.0f, "%.2f");
 			ImGui.SliderFloat("paddingY", paddingY, -10.0f, 10.0f, "%.2f");
-
-
+			ImGui.ShowAlignDebug();
 
 			ImGui.ArrowButton("##Left", ImGuiDir.Left);
 			ImGui.SameLine();
@@ -190,7 +170,7 @@ public class ImGuiGdxDemo implements ApplicationListener
 			ImGui.SameLine();
 			ImGui.Text("Bullet text");
 
-			ImGui.BeginAlign("iddd", ImLayout.MATCH_PARENT, 200, alignX.getValue(), alignY.getValue(), contentAlignX.getValue(), contentAlignY.getValue(), paddingX.getValue(), paddingY.getValue());
+			ImGui.BeginAlign("##ID", ImLayout.MATCH_PARENT, 200, alignX.getValue(), alignY.getValue(), contentAlignX.getValue(), contentAlignY.getValue(), paddingX.getValue(), paddingY.getValue());
 			ImGui.ShowAlignDebug();
 			ImGui.Image(buttonTexture.getTextureObjectHandle(), 32, 32);
 			ImGui.ImageButton(buttonTexture.getTextureObjectHandle(), 42, 42);
