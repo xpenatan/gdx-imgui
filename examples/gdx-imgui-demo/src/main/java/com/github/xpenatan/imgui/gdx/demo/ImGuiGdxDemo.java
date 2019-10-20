@@ -17,10 +17,8 @@ import com.github.xpenatan.imgui.ImGuiString;
 import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.enums.ImGuiDir;
 import com.github.xpenatan.imgui.enums.ImGuiInputTextFlags;
-import com.github.xpenatan.imgui.enums.ImGuiStyleVar;
 import com.github.xpenatan.imgui.enums.ImGuiTabBarFlags;
 import com.github.xpenatan.imgui.enums.ImGuiTreeNodeFlags;
-import com.github.xpenatan.imgui.enums.ImGuiWindowFlags;
 import com.github.xpenatan.imgui.enums.ImLayout;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxInput;
@@ -58,11 +56,9 @@ public class ImGuiGdxDemo implements ApplicationListener
 	Texture buttonTexture;
 
 	static ImGuiFloat alignX = new ImGuiFloat(0.5f);
-	static ImGuiFloat contentAlignX = new ImGuiFloat(0.5f);
-	static ImGuiFloat paddingX = new ImGuiFloat(0.0f);
+	static ImGuiFloat offsetX = new ImGuiFloat(0.0f);
 	static ImGuiFloat alignY = new ImGuiFloat(0.5f);
-	static ImGuiFloat contentAlignY = new ImGuiFloat(0.5f);
-	static ImGuiFloat paddingY = new ImGuiFloat(0.0f);
+	static ImGuiFloat offsetY = new ImGuiFloat(0.0f);
 
 	@Override
 	public void create () {
@@ -134,7 +130,7 @@ public class ImGuiGdxDemo implements ApplicationListener
 	private void renderCollapseUI() {
 		ImGui.BeginCollapseLayoutEx(isCollapseOpen, "Stuff", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
 
-		ImGui.BeginAlign("#ID", ImLayout.MATCH_PARENT, ImLayout.MATCH_PARENT, 1.0f, 0.5f, 1.0f, 0.5f, -5, 0);
+		ImGui.BeginAlign("#ID", ImLayout.MATCH_PARENT, ImLayout.MATCH_PARENT, 1.0f, 0.5f, -5, 0);
 		ImGui.Button("Ok");
 		ImGui.SameLine();
 		ImGui.Text("Custom Align");
@@ -147,11 +143,9 @@ public class ImGuiGdxDemo implements ApplicationListener
 			if(isCollapseOpen2.getValue())
 			{
 				ImGui.SliderFloat("AlignX", alignX, 0.0f, 1.0f, "%.2f");
-				ImGui.SliderFloat("ContentAlignX", contentAlignX, 0.0f, 1.0f, "%.2f");
-				ImGui.SliderFloat("PaddingX", paddingX, -10.0f, 10.0f, "%.2f");
+				ImGui.SliderFloat("OffsetX", offsetX, -10.0f, 10.0f, "%.2f");
 				ImGui.SliderFloat("AlignY", alignY, 0.0f, 1.0f, "%.2f");
-				ImGui.SliderFloat("ContentAlignY", contentAlignY, 0.0f, 1.0f, "%.2f");
-				ImGui.SliderFloat("paddingY", paddingY, -10.0f, 10.0f, "%.2f");
+				ImGui.SliderFloat("OffsetY", offsetY, -10.0f, 10.0f, "%.2f");
 			}
 			ImGui.EndCollapseLayout();
 
@@ -175,8 +169,8 @@ public class ImGuiGdxDemo implements ApplicationListener
 			ImGui.SameLine();
 			ImGui.Text("Bullet text");
 
-			ImGui.BeginAlign("##ID", ImLayout.MATCH_PARENT, 200, alignX.getValue(), alignY.getValue(), contentAlignX.getValue(), contentAlignY.getValue(), paddingX.getValue(), paddingY.getValue());
-			ImGui.ShowAlignDebug();
+			ImGui.BeginAlign("##ID", ImLayout.MATCH_PARENT, 200, alignX.getValue(), alignY.getValue(), offsetX.getValue(), offsetY.getValue());
+			ImGui.ShowLayoutDebug();
 			ImGui.Image(buttonTexture.getTextureObjectHandle(), 32, 32);
 			ImGui.ImageButton(buttonTexture.getTextureObjectHandle(), 42, 42);
 

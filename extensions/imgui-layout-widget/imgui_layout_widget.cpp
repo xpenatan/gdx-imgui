@@ -3,7 +3,6 @@
 #include "imgui_layout_widget.h"
 
 static ImVector<ImGuiLayout*> layoutStack;
-static ImVector<ImGuiAlign *> alignStack;
 
 static ImGuiLayout* createOrFind(const char* id) {
     ImGuiContext& g = *GImGui;
@@ -37,50 +36,10 @@ static void popLayout() {
     layoutStack.pop_back();
 }
 
-static ImGuiAlign* createOrFindAlign(const char* id) {
-    ImGuiContext& g = *GImGui;
-    ImGuiAlign* childAlign = NULL;
-    ImGuiID hashID = ImHashStr(id);
-    childAlign = (ImGuiAlign*)g.WindowsById.GetVoidPtr(hashID);
-    if (childAlign == NULL) {
-        childAlign = IM_NEW(ImGuiAlign)(id);
-        g.WindowsById.SetVoidPtr(childAlign->id, childAlign);
-    }
-    return childAlign;
-}
-
-static ImGuiAlign* pushAlign(const char* id) {
-    ImGuiAlign* parentAlign = NULL;
-    if (!alignStack.empty())
-        parentAlign = alignStack.back();
-    ImGuiAlign* childAlign = createOrFindAlign(id);
-    childAlign->parentAlign = parentAlign;
-    alignStack.push_back(childAlign);
-    return childAlign;
-}
-
-ImGuiAlign* ImGui::GetCurrentAlign() {
-    if (alignStack.empty())
-        return NULL;
-    return alignStack.back();
-}
-
-static void popAlgin() {
-    alignStack.pop_back();
-}
-
-
 void ImGui::ShowLayoutDebug() {
     ImGuiLayout* curLayout = GetCurrentLayout();
     if (curLayout != NULL) {
         curLayout->debug = true;
-    }
-}
-
-void ImGui::ShowAlignDebug() {
-    ImGuiAlign* curAlign = GetCurrentAlign();
-    if (curAlign != NULL) {
-        curAlign->debug = true;
     }
 }
 
@@ -117,8 +76,11 @@ bool ImGui::BeginLayout(const char* strID, float sizeX, float sizeY, float paddi
     curLayout->paddingTop = paddingTop;
     curLayout->paddingBottom = paddingBottom;
 
-
     curLayout->position = window->DC.CursorPos;
+
+	ImVec2 contentPosition = curLayout->getPositionPadding();
+
+	curLayout->positionContents = curLayout->position;
 
     const ImVec2 content_avail = GetContentRegionAvail();
 
@@ -137,14 +99,16 @@ bool ImGui::BeginLayout(const char* strID, float sizeX, float sizeY, float paddi
 
     // Write to window object
 
-    ImVec2 contentPosition = curLayout->getPositionPadding();
+   
 
     window->Pos.x = contentPosition.x;
     window->Pos.y = contentPosition.y;
     window->DC.Indent.x = 0;
 
-    window->DC.CursorMaxPos.x = contentPosition.x + curLayout->size.x - curLayout->paddingLeft - curLayout->paddingRight;
-    window->DC.CursorMaxPos.y = contentPosition.y + curLayout->size.y - curLayout->paddingTop - curLayout->paddingBottom;
+    //window->DC.CursorMaxPos.x = contentPosition.x + curLayout->size.x - curLayout->paddingLeft - curLayout->paddingRight;
+    //window->DC.CursorMaxPos.y = contentPosition.y + curLayout->size.y - curLayout->paddingTop - curLayout->paddingBottom;
+    window->DC.CursorMaxPos.x = contentPosition.x;
+    window->DC.CursorMaxPos.y = contentPosition.y;
 
     window->DC.CursorStartPos.x = contentPosition.x;
     window->DC.CursorStartPos.y = contentPosition.y;
@@ -167,8 +131,12 @@ bool ImGui::BeginLayout(const char* strID, float sizeX, float sizeY, float paddi
 
     // ***** End Write to window object
 
-    if (curLayout->clipping)
-        ImGui::PushClipRect(curLayout->getPositionPadding(), curLayout->getAbsoluteSizePadding(), true);
+	if (curLayout->clipping) {
+		ImVec2 min = curLayout->getPositionPadding();
+		ImVec2 max = curLayout->getAbsoluteSizePadding();
+		//ImGui::drawBoundingBox(min, max, 255, 0, 0);
+        ImGui::PushClipRect(min, max, true);
+	}
 
     bool skip_items = false;
     if (window->Collapsed || !window->Active || window->Hidden)
@@ -177,14 +145,15 @@ bool ImGui::BeginLayout(const char* strID, float sizeX, float sizeY, float paddi
     window->SkipItems = skip_items;
     ret = !skip_items;
     return true;
-};
+}
 
 void ImGui::EndLayout()
 {
     ImGuiContext& g = *GImGui;
     ImGuiWindow* window = g.CurrentWindow;
-
     ImGuiLayout* curLayout = GetCurrentLayout();
+	if (curLayout == NULL)
+		return;
 
     if (curLayout->clipping)
         ImGui::PopClipRect();
@@ -193,7 +162,10 @@ void ImGui::EndLayout()
     float y = window->DC.CursorPos.y;
 
     curLayout->sizeContents.x = window->DC.CursorMaxPos.x - x;
-    curLayout->sizeContents.y = y - curLayout->position.y - g.Style.ItemSpacing.y;
+    //curLayout->sizeContents.y = y - curLayout->position.y - g.Style.ItemSpacing.y;
+
+	//curLayout->sizeContents.x = window->DC.CursorMaxPos.x - curLayout->positionContents.x;
+	curLayout->sizeContents.y = y - curLayout->positionContents.y - g.Style.ItemSpacing.y;
 
     // Restore windows data
     window->DC = curLayout->DC;
@@ -206,8 +178,6 @@ void ImGui::EndLayout()
 
     //const ImVec2 content_avail = GetContentRegionAvail();
     ImVec2 sizeItem = curLayout->sizeParam;
-
-    curLayout->error = false;
 
     if (sizeItem.x < 0.0f) {
         sizeItem.x = curLayout->size.x;
@@ -231,11 +201,6 @@ void ImGui::EndLayout()
     else if (sizeItem.y == 0.0f)
         sizeItem.y = curLayout->sizeContents.y + curLayout->paddingBottom;
 
-    if (curLayout->error) {
-        curLayout->size.x = ImMax(curLayout->size.x, 14.0f);
-        curLayout->size.y = ImMax(curLayout->size.y, 14.0f);
-    }
-
     curLayout->size = sizeItem;
 
     ImGui::ItemSize(sizeItem);
@@ -247,11 +212,13 @@ void ImGui::EndLayout()
         curLayout->debug = false;
     }
 
-    if(curLayout->error)
+	if (curLayout->error) {
+		curLayout->error = false;
         curLayout->drawError();
+	}
 
     popLayout();
-};
+}
 
 static bool renderFrameArrow(bool* value, int arrowColor, int arrowBackgroundHoveredColor, int arrowBackgroundClickedColor)
 {
@@ -325,7 +292,6 @@ static bool renderFrameArrow(bool* value, int arrowColor, int arrowBackgroundHov
     return *value;
 }
 
-
 void ImGui::BeginCollapseLayoutEx(bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
 {
       ImGuiContext& g = *GImGui;
@@ -355,7 +321,7 @@ void ImGui::BeginCollapseLayoutEx(bool* isOpen, const char* title, float sizeX, 
 
       ImGui::SameLine();
 
-      ImGui::BeginAlign("align", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, -1, 0.5f, -1, 0.5f, 0, 0);
+      ImGui::BeginAlign("align", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f, 0, 0);
 
       ImGui::Text(title);
 
@@ -409,128 +375,70 @@ void ImGui::EndCollapseLayout()
     ImVec2 borderSize = rootLayout->getAbsoluteSize();
 
     drawList->AddRect(borderPosition, borderSize, borderColor, borderRound, roundingCorners, 1.0f);
-};
+}
 
+void ImGui::BeginAlign(const char* strID, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY) {
+	ImGui::BeginLayout(strID, sizeX, sizeY);
+	AlignLayout(alignX, alignY, offsetX, offsetY);
+}
 
-void ImGui::BeginAlign(const char* strID, float sizeX, float sizeY, float alignX, float alignY, float contentAlignX, float contentAlignY, float paddingX, float paddingY) {
+void ImGui::AlignLayout(float alignX, float alignY, float offsetX, float offsetY) {
     ImGuiContext& g = *GImGui;
     ImGuiWindow* window = g.CurrentWindow;
-
     ImGuiLayout* curLayout = GetCurrentLayout();
+	if (curLayout == NULL)
+		return;
 
-    ImGuiAlign* parentAlign = GetCurrentAlign();
-    ImGuiID id = ImHashStr(strID);
-    char title[256];
-    if (parentAlign)
-        ImFormatString(title, IM_ARRAYSIZE(title), "%s/%s_%08X", parentAlign->idStr, strID, id);
-    else
-        ImFormatString(title, IM_ARRAYSIZE(title), "%s/%08X", strID, id);
-
-    ImGuiAlign* curAlign = pushAlign(title);
-
-    // Backup windows data
-    curAlign->DC = window->DC;
-    curAlign->WorkRect = window->WorkRect;
-    curAlign->Pos = window->Pos;
-    curAlign->ContentsRegionRect = window->ContentsRegionRect;
-    // ******** End Backup windows data
-
-    curAlign->sizeParam.x = sizeX;
-    curAlign->sizeParam.y = sizeY;
-    curAlign->position = window->DC.CursorPos;
-    curAlign->positionContents = window->DC.CursorPos;
+	//ImGui::ShowLayoutDebug();
 
     ImVec2 regionAvail = ImGui::GetContentRegionAvail();
-    ImVec2 contentPosition = curAlign->position;
     float totalX = regionAvail.x;
     float totalY = regionAvail.y;
-    if (sizeX > 0.0f)
-        totalX = sizeX;
-    if (sizeY > 0.0f)
-        totalY = sizeY;
 
-    curAlign->size.x = totalX;
-    curAlign->size.y = totalY;
+	ImVec2 posPad = curLayout->getPositionPadding();
+	ImVec2 absSizePad = curLayout->getAbsoluteSizePadding();
 
-    if (alignX >= 0.0f && curAlign->sizeParam.x != ImLayout::WRAP_PARENT) {
+    if (alignX >= 0.0f && curLayout->sizeParam.x != ImLayout::WRAP_PARENT) {
         
-        float addX = ImFloor(totalX * alignX);
-        float contentAddX = ImFloor(curAlign->sizeContents.x * contentAlignX);
-        float newX = curAlign->position.x + addX - contentAddX + paddingX;
-        contentPosition.x = newX;
-        curAlign->positionContents.x = newX;
+        float addX = ImFloor((totalX - curLayout->sizeContents.x) * alignX);
+        float newX = posPad.x + addX + offsetX;
+		if (newX < posPad.x) {
+			curLayout->error = true;
+			newX = posPad.x;
+		}
+		else if (newX + curLayout->sizeContents.x > absSizePad.x) {
+			curLayout->error = true;
+			newX = absSizePad.x - curLayout->sizeContents.x;
+		}
+		curLayout->positionContents.x = newX;
     }
 
-    if (alignY >= 0.0f && curAlign->sizeParam.y != ImLayout::WRAP_PARENT) {
-        float addY = ImFloor(totalY * alignY);
-        float contentAddY = ImFloor(curAlign->sizeContents.y * contentAlignY);
-        float newY = curAlign->position.y + addY - contentAddY + paddingY;
-        contentPosition.y = newY;
-        curAlign->positionContents.y = newY;
+    if (alignY >= 0.0f && curLayout->sizeParam.y != ImLayout::WRAP_PARENT) {
+        float addY = ImFloor((totalY - curLayout->sizeContents.y) * alignY);
+        float newY = posPad.y + addY + offsetY;
+		if (newY < posPad.y) {
+			curLayout->error = true;
+			newY = posPad.y;
+		}
+		else if (newY + curLayout->sizeContents.y > absSizePad.y) {
+			curLayout->error = true;
+			newY = absSizePad.y - curLayout->sizeContents.y;
+		}
+		curLayout->positionContents.y = newY;
     }
-    window->DC.CursorMaxPos.x = contentPosition.x;
-    window->DC.CursorMaxPos.y = contentPosition.y;
+    window->DC.CursorMaxPos.x = curLayout->positionContents.x;
+    window->DC.CursorMaxPos.y = curLayout->positionContents.y;
 
-    window->Pos.x = contentPosition.x;
-    window->Pos.y = contentPosition.y;
-    window->DC.Indent.x = 0;
+	window->DC.CursorStartPos.x = curLayout->positionContents.x;
+	window->DC.CursorStartPos.y = curLayout->positionContents.y;
 
-    window->DC.CursorStartPos.x = contentPosition.x;
-    window->DC.CursorStartPos.y = contentPosition.y;
+    window->Pos.x = curLayout->positionContents.x;
+    window->Pos.y = curLayout->positionContents.y;
 
-    window->DC.CurrLineSize.x = 0;
-    window->DC.CurrLineSize.y = 0;
-    window->DC.CurrLineTextBaseOffset = 0;
-
-    window->DC.CursorPos.x = contentPosition.x;
-    window->DC.CursorPos.y = contentPosition.y;
-
-    window->WorkRect.Min.x = contentPosition.x;
-    window->WorkRect.Min.y = contentPosition.y;
-
-    window->ContentsRegionRect.Min.x = contentPosition.x;
-    window->ContentsRegionRect.Min.y = contentPosition.y;
-
-	if (curAlign->clipping)
-		ImGui::PushClipRect(curAlign->position, ImVec2(curAlign->position.x + curAlign->size.x, curAlign->position.y + curAlign->size.y), true);
+	window->DC.CursorPos.x = curLayout->positionContents.x;
+	window->DC.CursorPos.y = curLayout->positionContents.y;
 }
 
 void ImGui::EndAlign() {
-    ImGuiContext& g = *GImGui;
-    ImGuiWindow* window = g.CurrentWindow;
-     
-    ImGuiAlign* curAlign = GetCurrentAlign();
-
-
-	if (curAlign->clipping)
-		ImGui::PopClipRect();
-
-    float x = window->DC.CursorPos.x;
-    float y = window->DC.CursorPos.y;
-
-    curAlign->sizeContents.x = window->DC.CursorMaxPos.x - curAlign->positionContents.x;
-    curAlign->sizeContents.y = y - curAlign->positionContents.y - g.Style.ItemSpacing.y;
-
-    if (curAlign->sizeParam.x == ImLayout::WRAP_PARENT)
-        curAlign->size.x = curAlign->sizeContents.x;
-    if (curAlign->sizeParam.y == ImLayout::WRAP_PARENT)
-        curAlign->size.y = curAlign->sizeContents.y;
-
-    if (curAlign->debug) {
-        curAlign->drawContentDebug();
-        curAlign->drawSizeDebug();
-        curAlign->debug = false;
-    }
-
-    // Restore windows data
-    window->DC = curAlign->DC;
-    window->WorkRect = curAlign->WorkRect;
-    window->Pos = curAlign->Pos;
-    window->ContentsRegionRect = curAlign->ContentsRegionRect;
-    // ********************
-
-    ImGui::ItemSize(curAlign->size);
-
-
-    popAlgin();
+	ImGui::EndLayout();
 }

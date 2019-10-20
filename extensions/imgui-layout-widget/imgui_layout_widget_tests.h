@@ -418,39 +418,66 @@ namespace ImGui
     inline void test12(const char* name, bool debug) {
         ImGuiContext& g = *GImGui;
         HelpMarker("Multi child layout test");
+
+
+		static float paddingLeft = 1.0f;
+		static float paddingTop = 1.0f;
+		static float paddingRight = 1.0f;
+		static float paddingBottom = 1.0f;
+		ImGui::SliderFloat("Layout Padding Left", &paddingLeft, 0.0f, 10.0f, "%.0f");
+		ImGui::SliderFloat("Layout Padding Right", &paddingRight, 0.0f, 10.0f, "%.0f");
+		ImGui::SliderFloat("Layout Padding Top", &paddingTop, 0.0f, 10.0f, "%.0f");
+		ImGui::SliderFloat("Layout Padding Bottom", &paddingBottom, 0.0f, 10.0f, "%.0f");
+
+
+
+		static float paddingLeft2 = 1.0f;
+		static float paddingTop2 = 1.0f;
+		static float paddingRight2 = 1.0f;
+		static float paddingBottom2 = 1.0f;
+		ImGui::SliderFloat("Layout Padding Left2", &paddingLeft2, 0.0f, 10.0f, "%.0f");
+		ImGui::SliderFloat("Layout Padding Right2", &paddingRight2, 0.0f, 10.0f, "%.0f");
+		ImGui::SliderFloat("Layout Padding Top2", &paddingTop2, 0.0f, 10.0f, "%.0f");
+		ImGui::SliderFloat("Layout Padding Bottom2", &paddingBottom2, 0.0f, 10.0f, "%.0f");
+
+
         char* idChild = catStr(name, "child");
         char* idChild2 = catStr(name, "child2");
         char* idChild3 = catStr(name, "child3");
         char* idChild4 = catStr(name, "child4");
         ImGui::Button("Outside Begin", ImVec2(150, 0));
         {
+			ImGui::BeginLayout(idChild4, 200, ImLayout::WRAP_PARENT, 0, 0, 0, 0);
+
+			ImU32 bgColor = ImGui::GetColorU32(ImVec4(0xFF / 255.0f, 0xFF / 255.0f, 0xFF / 255.0f, 255 / 255.0f));
+			paintLayout(bgColor);
+
+			//ImGui::ShowLayoutDebug();
+            if (ImGui::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, paddingLeft, paddingRight, paddingTop, paddingBottom)) {
 
 
-            if (ImGui::BeginLayout(idChild, 150, ImLayout::WRAP_PARENT, 1, 1, 1, 1)) {
-
+				ImU32 bgColor = ImGui::GetColorU32(ImVec4(0xFF / 255.0f, 0x00 / 255.0f, 0x00 / 255.0f, 255 / 255.0f));
+				paintLayout(bgColor);
                 //ImGui::Button("Button Layout 01", ImVec2(ImLayout::MATCH_PARENT, 0));
-                ImU32 bgColor = ImGui::GetColorU32(ImVec4(0xFF / 255.0f, 0x00 / 255.0f, 0x00 / 255.0f, 255 / 255.0f));
-                paintLayout(bgColor);
+          
                 //ImGui::ShowLayoutDebug();
 
-                if (ImGui::BeginLayout(idChild2, ImLayout::MATCH_PARENT, 20, 0, 0, 0, 0)) {
+                //if (ImGui::BeginLayout(idChild2, ImLayout::MATCH_PARENT, 20, 0, 0, 0, 0)) {
 
+                //    //ImGui::ShowLayoutDebug();
+                //    ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x00 / 255.0f, 0xAA / 255.0f, 0x00 / 255.0f, 255 / 255.0f));
+                //    paintLayout(bgColor);
+
+                //    //ImGui::Button("Button 22", ImVec2(ImLayout::MATCH_PARENT, 0));
+
+                //}
+                //float bk = g.Style.ItemSpacing.y;
+                //g.Style.ItemSpacing.y = 0;
+                //ImGui::EndLayout();
+                //g.Style.ItemSpacing.y = bk;
+
+                if (ImGui::BeginLayout(idChild3, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, paddingLeft2, paddingRight2, paddingTop2, paddingBottom2)) {
                     //ImGui::ShowLayoutDebug();
-                    ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x00 / 255.0f, 0xAA / 255.0f, 0x00 / 255.0f, 255 / 255.0f));
-                    paintLayout(bgColor);
-
-                    //ImGui::Button("Button 22", ImVec2(ImLayout::MATCH_PARENT, 0));
-
-                }
-                float bk = g.Style.ItemSpacing.y;
-                g.Style.ItemSpacing.y = 0;
-                ImGui::EndLayout();
-                g.Style.ItemSpacing.y = bk;
-
-                if (ImGui::BeginLayout(idChild3, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, 2, 2, 2, 2)) {
-
-                   
-                    ImGui::ShowLayoutDebug();
                     ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x00 / 255.0f, 0x00 / 255.0f, 0xFF / 255.0f, 255 / 255.0f));
                     paintLayout(bgColor);
 
@@ -461,7 +488,11 @@ namespace ImGui
                 ImGui::EndLayout();
             }
             ImGui::EndLayout();
+
+			ImGui::EndLayout();
         }
+
+		
         ImGui::Button("Outside End", ImVec2(ImLayout::MATCH_PARENT, 0));
 
         delete[] idChild;
@@ -477,7 +508,7 @@ namespace ImGui
                 if (ImGui::BeginLayout("child", 170, 170, 2, 2, 2, 2)) {
                     ImGui::ShowLayoutDebug();
                     ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x00 / 255.0f, 0x00 / 255.0f, 0xFF / 255.0f, 255 / 255.0f));
-                    paintLayout(bgColor);
+                    //paintLayout(bgColor);
 
                     renderContent(false);
                 }
@@ -488,7 +519,7 @@ namespace ImGui
             if (ImGui::BeginLayout("child", 150, 150, 2, 2, 2, 2)) {
                 ImGui::ShowLayoutDebug();
                 ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x00 / 255.0f, 0x00 / 255.0f, 0xFF / 255.0f, 255 / 255.0f));
-                paintLayout(bgColor);
+                //paintLayout(bgColor);
                 renderContent(false);
             }
             ImGui::EndLayout();
@@ -500,33 +531,43 @@ namespace ImGui
         ImGuiContext& g = *GImGui;
         HelpMarker("Test algin");
 
-        static float alignX = 0.5f;
-        static float contentAlignX = 0.5f;
         static float paddingX = 0.0f;
-        static float alignY = 0.5f;
-        static float contentAlignY = 0.5f;
         static float paddingY = 0.0f;
-        ImGui::SliderFloat("AlignX", &alignX, 0.0f, 1.0f, "%.2f");
-        ImGui::SliderFloat("ContentAlignX", &contentAlignX, 0.0f, 1.0f, "%.2f");
-        ImGui::SliderFloat("PaddingX", &paddingX, -10.0f, 10.0f, "%.2f");
+        static float alignX = 0.5f;
+        static float offsetX = 0.0f;
+        static float alignY = 0.5f;
+        static float offsetY = 0.0f;
+        ImGui::SliderFloat("Layout Padding X", &paddingX, 0.0f, 10.0f, "%.0f");
+        ImGui::SliderFloat("Layout Padding Y", &paddingY, 0.0f, 10.0f, "%.0f");
+		ImGui::SliderFloat("AlignX", &alignX, 0.0f, 1.0f, "%.2f");
         ImGui::SliderFloat("AlignY", &alignY, 0.0f, 1.0f, "%.2f");
-        ImGui::SliderFloat("ContentAlignY", &contentAlignY, 0.0f, 1.0f, "%.2f");
-        ImGui::SliderFloat("paddingY", &paddingY, -10.0f, 10.0f, "%.2f");
+        ImGui::SliderFloat("OffsetX", &offsetX, -10.0f, 10.0f, "%.2f");
+        ImGui::SliderFloat("OffsetY", &offsetY, -10.0f, 10.0f, "%.2f");
 
-        if (ImGui::BeginLayout(name, ImLayout::MATCH_PARENT, 200, 1, 1, 1, 1)) {
+        if (ImGui::BeginLayout(name, ImLayout::MATCH_PARENT, 200, paddingX, paddingX, paddingY, paddingY)) {
             //ImGui::ShowLayoutDebug();
             ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x44 / 255.0f, 0x44 / 255.0f, 0x44 / 255.0f, 100 / 255.0f));
             paintLayout(bgColor);
 
-            ImGui::BeginAlign("iddd", 200, ImLayout::MATCH_PARENT, alignX, alignY, contentAlignX, contentAlignY, paddingX, paddingY);
+			std::cout << "----------" << std::endl;
+			std::cout << "Size 01: " << ImGui::GetContentRegionAvail().y << std::endl;
 
-            ImGui::ShowAlignDebug();
-            ImGui::TextWrapped("Hello1111", ImVec2(0, 0));
-            ImGui::Button("Hello   1", ImVec2(0, 0));
+
+            //ImGui::BeginAlign("iddd", 300, 150, alignX, alignY, offsetX, offsetY);
+            ImGui::AlignLayout(alignX, alignY, offsetX, offsetY);
+
+			std::cout << "Size 02: " << ImGui::GetContentRegionAvail().y << std::endl;
+
+            ImGui::Button("Hello   1", ImVec2(0, 40));
             ImGui::SameLine();
-            ImGui::Button("Hello    2", ImVec2(0, 0));
-            ImGui::TextWrapped("Hello22222ggggyyyppp", ImVec2(0, 0));
-            ImGui::EndAlign();
+
+			std::cout << "Size 03: " << ImGui::GetContentRegionAvail().y << std::endl;
+            //ImGui::Text("Hello1111");
+            ImGui::Button("Hello ", ImVec2(0, 0));
+            ImGui::SameLine();
+            ImGui::Button("Hello ", ImVec2(0, 60));
+            //ImGui::TextWrapped("Hello22222ggggyyyppp", ImVec2(0, 0));
+            //ImGui::EndAlign();
 
             ImGui::SameLine();
             ImGui::Button("Hello3", ImVec2(0, 0));
@@ -616,11 +657,28 @@ namespace ImGui
     inline void example01(const char* name) {
         static bool isOpen = false;
 
+		static float paddingLeft = 0.0f;
+		static float paddingTop = 0.0f;
+		static float paddingRight = 0.0f;
+		static float paddingBottom = 0.0f;
+		ImGui::SliderFloat("Layout Padding Left", &paddingLeft, 0.0f, 10.0f, "%.0f");
+		ImGui::SliderFloat("Layout Padding Right", &paddingRight, 0.0f, 10.0f, "%.0f");
+		ImGui::SliderFloat("Layout Padding Top", &paddingTop, 0.0f, 10.0f, "%.0f");
+		ImGui::SliderFloat("Layout Padding Bottom", &paddingBottom, 0.0f, 10.0f, "%.0f");
+		ImGuiCollapseLayoutOptions options;
+		options.paddingLeft = paddingLeft;
+		options.paddingRight = paddingRight;
+		options.paddingTop = paddingTop;
+		options.paddingBottom = paddingBottom;
+
         ImGui::Button("Outside Begin", ImVec2(ImLayout::MATCH_PARENT, 0));
         {
-            ImGui::BeginCollapseLayout(&isOpen, "Title", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT);
-            if (isOpen)
+            ImGui::BeginCollapseLayout(&isOpen, "Title", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, options);
+			if (isOpen) {
+				ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x44 / 255.0f, 0x44 / 255.0f, 0x44 / 255.0f, 100 / 255.0f));
+				paintLayout(bgColor);
                 renderContent(false);
+			}
             ImGui::EndCollapseLayout();
         }
         ImGui::Button("Outside End", ImVec2(ImLayout::MATCH_PARENT, 0));
@@ -668,12 +726,57 @@ namespace ImGui
             ImGuiCollapseLayoutOptions options;
             ImGui::BeginCollapseLayoutEx(&isOpen, "Left", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, options);
 
-            ImGui::BeginAlign("id011", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 1.0f, 0.5f, 1, 0.5f, -5);
-            ImGui::ShowAlignDebug();
-			ImGui::Button("Ok");
-			ImGui::SameLine();
+			std::cout << "Size1: " << ImGui::GetContentRegionAvail().y << std::endl;
+
+            ImGui::BeginAlign("id011", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 1.0f, 0.5f, -5);
+
+			float size = ImGui::GetContentRegionAvail().y;
+
+			std::cout << "Size2: " << size << std::endl;
             ImGui::Text("Right Align Text");
             ImGui::EndAlign();
+
+            ImGui::EndCollapseFrameLayout();
+            if(isOpen) {
+                renderContent(false);
+            }
+            ImGui::EndCollapseLayout();
+        }
+        ImGui::Button("Outside End", ImVec2(ImLayout::MATCH_PARENT, 0));
+    }
+
+    inline void example04(const char* name) {
+        static bool isOpen = false;
+        static bool isOpen2 = false;
+        static bool isOpen3 = false;
+
+
+        ImGui::Button("Outside Begin", ImVec2(ImLayout::MATCH_PARENT, 0));
+        {
+            ImGuiCollapseLayoutOptions options;
+            ImGui::BeginCollapseLayoutEx(&isOpen, "Left", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, options);
+
+			std::cout << "Size1: " << ImGui::GetContentRegionAvail().y << std::endl;
+
+            ImGui::BeginAlign("id011", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0.0f, 0.5f);
+
+			float size = ImGui::GetContentRegionAvail().y;
+
+			std::cout << "Size2: " << ImGui::GetContentRegionAvail().y << std::endl;
+
+			int padding = 2;
+			ImGui::ImageButton(0, ImVec2(15, size - padding*2), ImVec2(0,0), ImVec2(1,1), padding);
+			
+            ImGui::EndAlign();
+     
+			ImGui::SameLine();
+
+			ImGui::BeginAlign("id012", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 1.0f, 0.5f, -5);
+			ImGui::ShowLayoutDebug();
+
+            ImGui::Text("Right Align Text");
+
+			ImGui::EndAlign();
 
             ImGui::EndCollapseFrameLayout();
             if(isOpen) {
@@ -707,6 +810,7 @@ namespace ImGui
         ImGui::RadioButton("example01", &e, i++);
         ImGui::RadioButton("example02", &e, i++);
         ImGui::RadioButton("example03", &e, i++);
+        ImGui::RadioButton("example04", &e, i++);
 
         i = 0;
         ImGui::Begin("Test", NULL, ImGuiWindowFlags_HorizontalScrollbar);
@@ -744,6 +848,8 @@ namespace ImGui
             example02("example02");
         if (e == i++)
             example03("example03");
+        if (e == i++)
+			example04("example04");
         ImGui::End();
 
         ImGui::End();

@@ -3,51 +3,18 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 
-struct ImGuiAlign
+namespace ImGui
 {
+	inline void drawBoundingBox(float x1, float y1, float x2, float y2, int r, int g, int b) {
+		ImDrawList* drawList = ImGui::GetForegroundDrawList();
+		float rounding = 0;
+		int color = ImGui::GetColorU32(ImVec4(r / 255.0f, g / 255.0f, b / 255.0f, 205.0f / 255.0f));
+		drawList->AddRect(ImVec2(x1, y1), ImVec2(x2, y2), color, rounding);
+	}
 
-public:
-    char* idStr;
-    ImGuiID id;
-    ImGuiAlign* parentAlign;
-    ImVec2 positionContents;
-    ImVec2 sizeContents;
-    ImVec2 position;
-    ImVec2 size;
-    ImVec2 sizeParam;
-
-	bool clipping;
-    bool debug;
-
-    ImGuiWindowTempData DC;
-    ImRect WorkRect;
-    ImVec2 Pos;
-    ImRect ContentsRegionRect;
-
-    ImGuiAlign(const char* idStr) {
-        this->idStr = ImStrdup(idStr);
-        this->id = ImHashStr(idStr);
-		debug = false;
-		clipping = true;
-    }
-
-    void drawSizeDebug() {
-        ImDrawList* drawList = ImGui::GetForegroundDrawList();
-        float rounding = 0;
-        // Render layout space
-        //Green
-        int color = ImGui::GetColorU32(ImVec4(0.0f / 255.0f, 255.0f / 255.0f, 0.0f / 255.0f, 205.0f / 255.0f));
-        drawList->AddRect(position, ImVec2(position.x + size.x, position.y + size.y), color, rounding);
-    }
-
-    void drawContentDebug() {
-        ImDrawList* drawList = ImGui::GetForegroundDrawList();
-        float rounding = 0;
-        // Render content space
-        //Blue
-        int color = ImGui::GetColorU32(ImVec4(0.0f / 255.0f, 0.0f / 255.0f, 255.0f / 255.0f, 205.0f / 255.0f));
-        drawList->AddRect(positionContents, ImVec2(positionContents.x + sizeContents.x, positionContents.y + sizeContents.y), color, rounding);
-    }
+	inline void drawBoundingBox(ImVec2 min, ImVec2 max, int r, int g, int b) {
+		ImGui::drawBoundingBox(min.x, min.y, max.x, max.y, r, g, b);
+	}
 };
 
 struct ImGuiLayout
@@ -70,6 +37,7 @@ public:
     float paddingRight;
     float paddingTop;
     float paddingBottom;
+    ImVec2 positionContents;            // Position of contents.
     ImVec2 sizeContents;                // Size of contents. calculated after the first frame
 
     bool error;
@@ -119,36 +87,25 @@ public:
 
 
     void drawSizeDebug() {
-        ImDrawList* drawList = ImGui::GetForegroundDrawList();
-        float rounding = 0;
         // Render layout space
         //Green
-        int color = ImGui::GetColorU32(ImVec4(0.0f / 255.0f, 255.0f / 255.0f, 0.0f / 255.0f, 205.0f / 255.0f));
-        drawList->AddRect(position, getAbsoluteSize(), color, rounding);
+		ImGui::drawBoundingBox(position, getAbsoluteSize(), 0, 255, 0);
     }
 
     inline void drawContentDebug() {
-        ImDrawList* drawList = ImGui::GetForegroundDrawList();
-        //float rounding = 0;
         // Render content space
         // Blue
-        //int color = ImGui::GetColorU32(ImVec4(0.0f / 255.0f, 0.0f / 255.0f, 255.0f / 255.0f, 205.0f / 255.0f));
-        //drawList->AddRect(getPositionPadding(), getContentSizePadding(), color, rounding, ImDrawCornerFlags_None, 1.0f);
+		ImVec2 max = ImVec2(positionContents.x + sizeContents.x, positionContents.y + sizeContents.y);
+		ImGui::drawBoundingBox(positionContents, max, 0, 0, 255);
     }
 
     void drawPaddingAreaDebug() {
-        ImDrawList* drawList = ImGui::GetForegroundDrawList();
-        float rounding = 0;
         // Render size with padding
-        int color = ImGui::GetColorU32(ImVec4(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 205.0f / 255.0f));
-        drawList->AddRect(getPositionPadding(), getAbsoluteSizePadding(), color, rounding);
+		ImGui::drawBoundingBox(getPositionPadding(), getAbsoluteSizePadding(), 255, 255, 255);
     }
 
     void drawError() {
-        ImDrawList* drawList = ImGui::GetForegroundDrawList();
-        float rounding = 0;
-        int color = ImGui::GetColorU32(ImVec4(255.0f / 255.0f, 0.0f / 255.0f, 0.0f / 255.0f, 205.0f / 255.0f));
-        drawList->AddRect(position, getAbsoluteSize(), color, rounding);
+		ImGui::drawBoundingBox(position, getAbsoluteSize(), 255, 0, 0);
     }
 };
 
@@ -195,10 +152,9 @@ namespace ImGui
     void EndCollapseFrameLayout();
     void EndCollapseLayout();
 
-    void ShowAlignDebug();
-    void BeginAlign(const char* id, float sizeX, float sizeY, float alignX = 0.5f, float alignY = 0.5f, float contentAlignX = 0.0f, float contentAlignY = 0.0f, float paddingX = 0, float paddingY = 0);
+    void BeginAlign(const char* id, float sizeX, float sizeY, float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0);
+    void AlignLayout(float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0);
     void EndAlign();
-    ImGuiAlign* GetCurrentAlign();
 };
 
 namespace ImLayout

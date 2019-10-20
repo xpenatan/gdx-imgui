@@ -690,6 +690,10 @@ public class ImGui {
 		return ImGuiNative.ImageButton(textureID, sizeX, sizeY);
 	}
 
+	public static boolean ImageButton(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, int frame_padding) {
+		return ImGuiNative.ImageButton(textureID, sizeX, sizeY, uv0_x, uv0_y, uv1_x, uv1_y, frame_padding);
+	}
+
 	public static boolean Checkbox(String label, ImGuiBoolean value) {
 		return ImGuiNative.Checkbox(label, value.data);
 	}
@@ -1562,7 +1566,6 @@ public class ImGui {
 	public static void ShowLayoutDebug() {
 		ImGuiCustomWidgetNative.ShowLayoutDebug();
 	}
-//
 
 	public static void BeginLayout(String id, float sizeX, float sizeY) {
 		ImGuiCustomWidgetNative.BeginLayout(id, sizeX, sizeY);
@@ -1577,7 +1580,7 @@ public class ImGui {
 	}
 
 	public static void BeginCollapseLayoutEx(ImGuiBoolean isOpen, String title, float sizeX, float sizeY) {
-		ImGuiCustomWidgetNative.BeginCollapseLayoutEx(isOpen.data, title, sizeX, sizeY);
+		ImGuiCustomWidgetNative.BeginCollapseLayoutEx(isOpen.data, title, sizeX, sizeY, ImGuiCustomWidgetNative.defaultOptions);
 	}
 
 	public static void BeginCollapseLayoutEx(ImGuiBoolean isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options) {
@@ -1585,7 +1588,7 @@ public class ImGui {
 	}
 
 	public static void BeginCollapseLayout(ImGuiBoolean isOpen, String title, float sizeX, float sizeY) {
-		ImGuiCustomWidgetNative.BeginCollapseLayout(isOpen.data, title, sizeX, sizeY);
+		ImGuiCustomWidgetNative.BeginCollapseLayout(isOpen.data, title, sizeX, sizeY, ImGuiCustomWidgetNative.defaultOptions);
 	}
 
 	public static void BeginCollapseLayout(ImGuiBoolean isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options) {
@@ -1600,28 +1603,24 @@ public class ImGui {
 		ImGuiCustomWidgetNative.EndCollapseLayout();
 	}
 
-	public static void ShowAlignDebug() {
-		ImGuiCustomWidgetNative.ShowAlignDebug();
-	}
-
-	public static void BeginAlign(String id, float sizeX, float sizeY) {
-		ImGuiCustomWidgetNative.BeginAlign(id, sizeX, sizeY);
-	}
-
 	public static void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY) {
 		ImGuiCustomWidgetNative.BeginAlign(id, sizeX, sizeY, alignX, alignY);
 	}
 
-	public static void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY, float contentAlignX, float contentAlignY) {
-		ImGuiCustomWidgetNative.BeginAlign(id, sizeX, sizeY, alignX, alignY, contentAlignX, contentAlignY);
-	}
-
-	public static void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY, float contentAlignX, float contentAlignY, float paddingX, float paddingY) {
-		ImGuiCustomWidgetNative.BeginAlign(id, sizeX, sizeY, alignX, alignY, contentAlignX, contentAlignY, paddingX, paddingY);
+	public static void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY) {
+		ImGuiCustomWidgetNative.BeginAlign(id, sizeX, sizeY, alignX, alignY, offsetX, offsetY);
 	}
 
 	public static void EndAlign() {
 		ImGuiCustomWidgetNative.EndAlign();
+	}
+
+	public static void AlignLayout(float alignX, float alignY) {
+		ImGuiCustomWidgetNative.AlignLayout(alignX, alignY);
+	}
+
+	public static void AlignLayout(float alignX, float alignY, float offsetX, float offsetY) {
+		ImGuiCustomWidgetNative.AlignLayout(alignX, alignY, offsetX, offsetY);
 	}
 
 	// Helper methods

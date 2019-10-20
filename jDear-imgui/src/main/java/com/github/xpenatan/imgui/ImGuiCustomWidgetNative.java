@@ -4,6 +4,8 @@ import com.github.xpenatan.imgui.enums.ImDrawCornerFlags;
 
 public class ImGuiCustomWidgetNative {
 
+	public static ImGuiCollapseLayoutOptions defaultOptions = new ImGuiCollapseLayoutOptions();
+
 	/*JNI
 		#include <src/imgui_layout_widget.h>
 
@@ -55,10 +57,6 @@ public class ImGuiCustomWidgetNative {
 		ImGui::EndLayout();
 	*/
 
-	static native void BeginCollapseLayoutEx(boolean [] isOpen, String title, float sizeX, float sizeY); /*-{ }-*/; /*
-		ImGui::BeginCollapseLayoutEx(&isOpen[0], title, sizeX, sizeY);
-	*/
-
 	static native void BeginCollapseLayoutEx(boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
 		ImGuiCollapseLayoutOptions options;
 		options.paddingLeft = env->GetFloatField (jOptions, paddingLeftID);
@@ -73,10 +71,6 @@ public class ImGuiCustomWidgetNative {
 		options.borderRound = env->GetIntField (jOptions, borderRoundID);
 		options.roundingCorners = env->GetIntField (jOptions, roundingCornersID);
 		ImGui::BeginCollapseLayoutEx(&isOpen[0], title, sizeX, sizeY, options);
-	*/
-
-	static native void BeginCollapseLayout(boolean [] isOpen, String title, float sizeX, float sizeY); /*-{ }-*/; /*
-		ImGui::BeginCollapseLayout(&isOpen[0], title, sizeX, sizeY);
 	*/
 
 	static native void BeginCollapseLayout(boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
@@ -103,28 +97,24 @@ public class ImGuiCustomWidgetNative {
 		ImGui::EndCollapseLayout();
 	*/
 
-	static native void ShowAlignDebug() /*-{ }-*/; /*
-		ImGui::ShowAlignDebug();
-	*/
-
-	static native void BeginAlign(String id, float sizeX, float sizeY) /*-{ }-*/; /*
-		ImGui::BeginAlign(id, sizeX, sizeY);
-	*/
-
 	static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY) /*-{ }-*/; /*
 		ImGui::BeginAlign(id, sizeX, sizeY, alignX, alignY);
 	*/
 
-	static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY, float contentAlignX, float contentAlignY) /*-{ }-*/; /*
-		ImGui::BeginAlign(id, sizeX, sizeY, alignX, alignY, contentAlignX, contentAlignY);
-	*/
-
-	static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY, float contentAlignX, float contentAlignY, float paddingX, float paddingY) /*-{ }-*/; /*
-		ImGui::BeginAlign(id, sizeX, sizeY, alignX, alignY, contentAlignX, contentAlignY, paddingX, paddingY);
+	static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
+		ImGui::BeginAlign(id, sizeX, sizeY, alignX, alignY, offsetX, offsetY);
 	*/
 
 	static native void EndAlign() /*-{ }-*/; /*
 		ImGui::EndAlign();
+	*/
+
+	static native void AlignLayout(float alignX, float alignY) /*-{ }-*/; /*
+		ImGui::AlignLayout(alignX, alignY);
+	*/
+
+	static native void AlignLayout(float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
+		ImGui::AlignLayout(alignX, alignY, offsetX, offsetY);
 	*/
 
 	public static class ImGuiCollapseLayoutOptions {
