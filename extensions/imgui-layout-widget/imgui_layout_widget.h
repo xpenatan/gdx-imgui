@@ -5,15 +5,16 @@
 
 namespace ImGui
 {
-	inline void drawBoundingBox(float x1, float y1, float x2, float y2, int r, int g, int b) {
-		ImDrawList* drawList = ImGui::GetForegroundDrawList();
+	inline void drawBoundingBox(float x1, float y1, float x2, float y2, int r, int g, int b, bool clipping = false) {
+		ImDrawList* drawList = clipping ? ImGui::GetWindowDrawList() : ImGui::GetForegroundDrawList();
+		
 		float rounding = 0;
 		int color = ImGui::GetColorU32(ImVec4(r / 255.0f, g / 255.0f, b / 255.0f, 205.0f / 255.0f));
 		drawList->AddRect(ImVec2(x1, y1), ImVec2(x2, y2), color, rounding);
 	}
 
-	inline void drawBoundingBox(ImVec2 min, ImVec2 max, int r, int g, int b) {
-		ImGui::drawBoundingBox(min.x, min.y, max.x, max.y, r, g, b);
+	inline void drawBoundingBox(ImVec2 min, ImVec2 max, int r, int g, int b, bool clipping = false) {
+		ImGui::drawBoundingBox(min.x, min.y, max.x, max.y, r, g, b, clipping);
 	}
 };
 
@@ -105,7 +106,7 @@ public:
     }
 
     void drawError() {
-		ImGui::drawBoundingBox(position, getAbsoluteSize(), 255, 0, 0);
+		ImGui::drawBoundingBox(position, getAbsoluteSize(), 255, 0, 0, true);
     }
 };
 
