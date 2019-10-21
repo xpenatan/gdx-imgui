@@ -655,8 +655,6 @@ namespace ImGui
     }
 
     inline void example01(const char* name) {
-        static bool isOpen = false;
-
 		static float paddingLeft = 0.0f;
 		static float paddingTop = 0.0f;
 		static float paddingRight = 0.0f;
@@ -673,7 +671,7 @@ namespace ImGui
 
         ImGui::Button("Outside Begin", ImVec2(ImLayout::MATCH_PARENT, 0));
         {
-            ImGui::BeginCollapseLayout(&isOpen, "Title", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, options);
+            bool isOpen = ImGui::BeginCollapseLayout("Title", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, options);
 			if (isOpen) {
 				ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x44 / 255.0f, 0x44 / 255.0f, 0x44 / 255.0f, 100 / 255.0f));
 				paintLayout(bgColor);
@@ -746,15 +744,11 @@ namespace ImGui
     }
 
     inline void example04(const char* name) {
-        static bool isOpen = false;
-        static bool isOpen2 = false;
-        static bool isOpen3 = false;
-
 
         ImGui::Button("Outside Begin", ImVec2(ImLayout::MATCH_PARENT, 0));
         {
             ImGuiCollapseLayoutOptions options;
-            ImGui::BeginCollapseLayoutEx(&isOpen, "Left", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, options);
+            bool isOpen = ImGui::BeginCollapseLayoutEx("Left", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, options);
 
 			std::cout << "Size1: " << ImGui::GetContentRegionAvail().y << std::endl;
 

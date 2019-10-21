@@ -43,108 +43,120 @@ void ImGui::ShowLayoutDebug() {
     }
 }
 
-bool ImGui::BeginLayout(const char* strID, float sizeX, float sizeY, float paddingLeft, float paddingRight, float paddingTop, float paddingBottom)
+void ImGui::BeginLayoutEx(const char* strID)
 {
-    ImGuiContext& g = *GImGui;
-    ImGuiWindow* window = g.CurrentWindow;
-    ImGuiLayout* parentLayout = GetCurrentLayout();
-    ImGuiID id = ImHashStr(strID);
-    char title[256];
-    if (parentLayout)
-        ImFormatString(title, IM_ARRAYSIZE(title), "%s/%s_%08X", parentLayout->idStr, strID, id);
-    else
-        ImFormatString(title, IM_ARRAYSIZE(title), "%s/%08X", strID, id);
+	ImGuiLayout* parentLayout = GetCurrentLayout();
+	ImGuiID id = ImHashStr(strID);
+	char title[256];
+	if (parentLayout)
+		ImFormatString(title, IM_ARRAYSIZE(title), "%s/%s_%08X", parentLayout->idStr, strID, id);
+	else
+		ImFormatString(title, IM_ARRAYSIZE(title), "%s/%08X", strID, id);
 
-    ImGuiLayout* curLayout = pushLayout(title);
-    bool ret = true;
-    // Update layout
+	pushLayout(title);
+}
 
-    // Backup windows data
-    curLayout->DC = window->DC;
-    curLayout->WorkRect = window->WorkRect;
-    curLayout->skipping = window->SkipItems;
-    curLayout->AutoFitChildAxises = window->AutoFitChildAxises;
-    curLayout->Pos = window->Pos;
-    curLayout->ContentsRegionRect = window->ContentsRegionRect;
-    // ******** End Backup windows data
+bool ImGui::PrepareLayout(float sizeX, float sizeY, float paddingLeft, float paddingRight, float paddingTop, float paddingBottom)
+{
+	ImGuiContext& g = *GImGui;
+	ImGuiWindow* window = g.CurrentWindow;
 
-    curLayout->sizeParam.x = sizeX;
-    curLayout->sizeParam.y = sizeY;
+	ImGuiLayout* curLayout = GetCurrentLayout();
+	bool ret = true;
+	// Update layout
 
-    curLayout->paddingLeft = paddingLeft;
-    curLayout->paddingRight = paddingRight;
-    curLayout->paddingTop = paddingTop;
-    curLayout->paddingBottom = paddingBottom;
+	// Backup windows data
+	curLayout->DC = window->DC;
+	curLayout->WorkRect = window->WorkRect;
+	curLayout->skipping = window->SkipItems;
+	curLayout->AutoFitChildAxises = window->AutoFitChildAxises;
+	curLayout->Pos = window->Pos;
+	curLayout->ContentsRegionRect = window->ContentsRegionRect;
+	// ******** End Backup windows data
 
-    curLayout->position = window->DC.CursorPos;
+	curLayout->sizeParam.x = sizeX;
+	curLayout->sizeParam.y = sizeY;
+
+	curLayout->paddingLeft = paddingLeft;
+	curLayout->paddingRight = paddingRight;
+	curLayout->paddingTop = paddingTop;
+	curLayout->paddingBottom = paddingBottom;
+
+	curLayout->position = window->DC.CursorPos;
 
 	ImVec2 contentPosition = curLayout->getPositionPadding();
 
 	curLayout->positionContents = curLayout->position;
 
-    const ImVec2 content_avail = GetContentRegionAvail();
+	const ImVec2 content_avail = GetContentRegionAvail();
 
-    ImVec2 sizeItem = ImFloor(curLayout->sizeParam);
+	ImVec2 sizeItem = ImFloor(curLayout->sizeParam);
 
-    if (curLayout->sizeParam.x < 0.0f) {
-        float sizeX = ImMax(content_avail.x + sizeItem.x, 4.0f);
-        curLayout->size.x = sizeX;
-    }
-    if (curLayout->sizeParam.y < 0.0f) {
-        float sizeY = ImMax(content_avail.y + sizeItem.y, 4.0f);
-        curLayout->size.y = sizeY;
-    }
+	if (curLayout->sizeParam.x < 0.0f) {
+		float sizeX = ImMax(content_avail.x + sizeItem.x, 4.0f);
+		curLayout->size.x = sizeX;
+	}
+	if (curLayout->sizeParam.y < 0.0f) {
+		float sizeY = ImMax(content_avail.y + sizeItem.y, 4.0f);
+		curLayout->size.y = sizeY;
+	}
 
-    // ***** End Update Layout
+	// ***** End Update Layout
 
-    // Write to window object
+	// Write to window object
 
-   
 
-    window->Pos.x = contentPosition.x;
-    window->Pos.y = contentPosition.y;
-    window->DC.Indent.x = 0;
 
-    //window->DC.CursorMaxPos.x = contentPosition.x + curLayout->size.x - curLayout->paddingLeft - curLayout->paddingRight;
-    //window->DC.CursorMaxPos.y = contentPosition.y + curLayout->size.y - curLayout->paddingTop - curLayout->paddingBottom;
-    window->DC.CursorMaxPos.x = contentPosition.x;
-    window->DC.CursorMaxPos.y = contentPosition.y;
+	window->Pos.x = contentPosition.x;
+	window->Pos.y = contentPosition.y;
+	window->DC.Indent.x = 0;
 
-    window->DC.CursorStartPos.x = contentPosition.x;
-    window->DC.CursorStartPos.y = contentPosition.y;
+	//window->DC.CursorMaxPos.x = contentPosition.x + curLayout->size.x - curLayout->paddingLeft - curLayout->paddingRight;
+	//window->DC.CursorMaxPos.y = contentPosition.y + curLayout->size.y - curLayout->paddingTop - curLayout->paddingBottom;
+	window->DC.CursorMaxPos.x = contentPosition.x;
+	window->DC.CursorMaxPos.y = contentPosition.y;
 
-    window->DC.CurrLineSize.y = 0; // necessary to keep position inside layout
-    window->DC.CurrLineTextBaseOffset = 0;
-  
-    window->DC.CursorPos.x = contentPosition.x;
-    window->DC.CursorPos.y = contentPosition.y;
+	window->DC.CursorStartPos.x = contentPosition.x;
+	window->DC.CursorStartPos.y = contentPosition.y;
 
-    window->WorkRect.Min.x = contentPosition.x;
-    window->WorkRect.Min.y = contentPosition.y;
-    window->WorkRect.Max.x = contentPosition.x + curLayout->size.x - curLayout->paddingLeft - curLayout->paddingRight;
-    window->WorkRect.Max.y = contentPosition.y + curLayout->size.y - curLayout->paddingTop - curLayout->paddingBottom;
+	window->DC.CurrLineSize.y = 0; // necessary to keep position inside layout
+	window->DC.CurrLineTextBaseOffset = 0;
 
-    window->ContentsRegionRect.Min.x = contentPosition.x;
-    window->ContentsRegionRect.Min.y = contentPosition.y;
-    window->ContentsRegionRect.Max.x = contentPosition.x + curLayout->size.x - curLayout->paddingLeft - curLayout->paddingRight;
-    window->ContentsRegionRect.Max.y = contentPosition.y + curLayout->size.y - curLayout->paddingTop - curLayout->paddingBottom;
+	window->DC.CursorPos.x = contentPosition.x;
+	window->DC.CursorPos.y = contentPosition.y;
 
-    // ***** End Write to window object
+	window->WorkRect.Min.x = contentPosition.x;
+	window->WorkRect.Min.y = contentPosition.y;
+	window->WorkRect.Max.x = contentPosition.x + curLayout->size.x - curLayout->paddingLeft - curLayout->paddingRight;
+	window->WorkRect.Max.y = contentPosition.y + curLayout->size.y - curLayout->paddingTop - curLayout->paddingBottom;
+
+	window->ContentsRegionRect.Min.x = contentPosition.x;
+	window->ContentsRegionRect.Min.y = contentPosition.y;
+	window->ContentsRegionRect.Max.x = contentPosition.x + curLayout->size.x - curLayout->paddingLeft - curLayout->paddingRight;
+	window->ContentsRegionRect.Max.y = contentPosition.y + curLayout->size.y - curLayout->paddingTop - curLayout->paddingBottom;
+
+	// ***** End Write to window object
 
 	if (curLayout->clipping) {
 		ImVec2 min = curLayout->getPositionPadding();
 		ImVec2 max = curLayout->getAbsoluteSizePadding();
 		//ImGui::drawBoundingBox(min, max, 255, 0, 0);
-        ImGui::PushClipRect(min, max, true);
+		ImGui::PushClipRect(min, max, true);
 	}
 
-    bool skip_items = false;
-    if (window->Collapsed || !window->Active || window->Hidden)
-       /* if (window->AutoFitFramesX <= 0 && window->AutoFitFramesY <= 0 && window->HiddenFramesCannotSkipItems <= 0)*/
-            skip_items = true;
-    window->SkipItems = skip_items;
-    ret = !skip_items;
-    return true;
+	bool skip_items = false;
+	if (window->Collapsed || !window->Active || window->Hidden)
+		/* if (window->AutoFitFramesX <= 0 && window->AutoFitFramesY <= 0 && window->HiddenFramesCannotSkipItems <= 0)*/
+		skip_items = true;
+	window->SkipItems = skip_items;
+	ret = !skip_items;
+	return true;
+}
+
+bool ImGui::BeginLayout(const char* strID, float sizeX, float sizeY, float paddingLeft, float paddingRight, float paddingTop, float paddingBottom)
+{
+	BeginLayoutEx(strID);
+	return PrepareLayout(sizeX, sizeY, paddingLeft, paddingRight, paddingTop, paddingBottom);
 }
 
 void ImGui::EndLayout()
@@ -292,42 +304,73 @@ static bool renderFrameArrow(bool* value, int arrowColor, int arrowBackgroundHov
     return *value;
 }
 
+static int OPEN_KEY = 13213;
+
+bool ImGui::PrepareCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
+{
+	ImGuiContext& g = *GImGui;
+	ImGuiWindow* window = g.CurrentWindow;
+	ImDrawList* drawList = window->DrawList;
+	ImGuiLayout* rootLayout = GetCurrentLayout();
+
+	float frameHeight = ImGui::GetFrameHeight();
+
+	bool flag = rootLayout->map.GetBool(OPEN_KEY, false);
+	bool* isOpen = &flag;
+
+	sizeY = *isOpen ? sizeY : ImLayout::WRAP_PARENT;
+
+	ImGui::PrepareLayout(sizeX, sizeY, 1, 1, 1, 1);
+
+	rootLayout->map.SetFloat(120, options.paddingLeft);
+	rootLayout->map.SetFloat(121, options.paddingRight);
+	rootLayout->map.SetFloat(122, options.paddingTop);
+	rootLayout->map.SetFloat(123, options.paddingBottom);
+
+	ImGui::BeginLayout("frame", ImLayout::MATCH_PARENT, frameHeight, 0, 0, 0, 0);
+	ImGuiLayout* frameLayout = GetCurrentLayout();
+
+	ImVec2 mousePos = ImGui::GetMousePos();
+
+	drawList->AddRectFilled(rootLayout->position, ImVec2(rootLayout->getAbsoluteSize().x, frameLayout->getAbsoluteSize().y), options.frameColor, options.borderRound, options.roundingCorners);
+
+	renderFrameArrow(isOpen, options.arrowColor, options.arrowBackgroundHoveredColor, options.arrowBackgroundClickedColor);
+
+	rootLayout->map.SetBool(OPEN_KEY, *isOpen);
+
+	ImGui::SameLine();
+
+	ImGui::BeginAlign("align", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f, 0, 0);
+
+	ImGui::Text(title);
+
+	ImGui::EndAlign();
+
+	ImGui::SameLine();
+
+	return *isOpen;
+}
+
 void ImGui::BeginCollapseLayoutEx(bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
 {
-      ImGuiContext& g = *GImGui;
-      ImGuiWindow* window = g.CurrentWindow;
-      ImDrawList* drawList = window->DrawList;
+	ImGui::BeginLayoutEx(title);
+	ImGuiLayout* rootLayout = GetCurrentLayout();
+	rootLayout->map.SetBool(OPEN_KEY, *isOpen);
+	bool flag = PrepareCollapseLayout(title, sizeX, sizeY, options);
+	*isOpen = flag;
+}
 
-      float frameHeight = ImGui::GetFrameHeight();
+bool ImGui::BeginCollapseLayoutEx(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
+{
+	ImGui::BeginLayoutEx(title);
+	return PrepareCollapseLayout(title, sizeX, sizeY, options);
+}
 
-      sizeY = *isOpen ? sizeY : ImLayout::WRAP_PARENT;
-
-      ImGui::BeginLayout(title, sizeX, sizeY, 1, 1, 1, 1);
-      ImGuiLayout* rootLayout = GetCurrentLayout();
-
-	  rootLayout->map.SetFloat(120, options.paddingLeft);
-	  rootLayout->map.SetFloat(121, options.paddingRight);
-	  rootLayout->map.SetFloat(122, options.paddingTop);
-	  rootLayout->map.SetFloat(123, options.paddingBottom);
-
-      ImGui::BeginLayout("frame", ImLayout::MATCH_PARENT, frameHeight, 0, 0, 0, 0);
-      ImGuiLayout* frameLayout = GetCurrentLayout();
-
-      ImVec2 mousePos = ImGui::GetMousePos();
-
-      drawList->AddRectFilled(rootLayout->position, ImVec2(rootLayout->getAbsoluteSize().x, frameLayout->getAbsoluteSize().y), options.frameColor, options.borderRound, options.roundingCorners);
-
-      renderFrameArrow(isOpen, options.arrowColor, options.arrowBackgroundHoveredColor, options.arrowBackgroundClickedColor);
-
-      ImGui::SameLine();
-
-      ImGui::BeginAlign("align", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f, 0, 0);
-
-      ImGui::Text(title);
-
-      ImGui::EndAlign();
-	  
-	  ImGui::SameLine();
+bool ImGui::BeginCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
+{
+	bool flag = ImGui::BeginCollapseLayoutEx(title, sizeX, sizeY, options);
+	ImGui::EndCollapseFrameLayout();
+	return flag;
 }
 
 void ImGui::BeginCollapseLayout(bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
@@ -388,8 +431,6 @@ void ImGui::AlignLayout(float alignX, float alignY, float offsetX, float offsetY
     ImGuiLayout* curLayout = GetCurrentLayout();
 	if (curLayout == NULL)
 		return;
-
-	//ImGui::ShowLayoutDebug();
 
     ImVec2 regionAvail = ImGui::GetContentRegionAvail();
     float totalX = regionAvail.x;

@@ -144,11 +144,16 @@ namespace ImGui
 {
     void ShowLayoutDebug();
 
+    void BeginLayoutEx(const char* id);
+    bool PrepareLayout(float sizeX, float sizeY, float paddingLeft = 0, float paddingRight = 0, float paddingTop = 0, float paddingBottom = 0);
     bool BeginLayout(const char* id, float sizeX, float sizeY, float paddingLeft = 0, float paddingRight = 0, float paddingTop = 0, float paddingBottom = 0);
     void EndLayout();
     ImGuiLayout* GetCurrentLayout();
 
+    bool BeginCollapseLayoutEx(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
     void BeginCollapseLayoutEx(bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
+    bool PrepareCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
+    bool BeginCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
     void BeginCollapseLayout(bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
     void EndCollapseFrameLayout();
     void EndCollapseLayout();
