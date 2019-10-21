@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.github.xpenatan.imgui.DrawData;
 import com.github.xpenatan.imgui.ImGui;
 import com.github.xpenatan.imgui.ImGuiBoolean;
+import com.github.xpenatan.imgui.ImGuiEx;
 import com.github.xpenatan.imgui.ImGuiFloat;
 import com.github.xpenatan.imgui.ImGuiInt;
 import com.github.xpenatan.imgui.ImGuiString;
@@ -128,18 +129,18 @@ public class ImGuiGdxDemo implements ApplicationListener
 	}
 
 	private void renderCollapseUI() {
-		ImGui.BeginCollapseLayoutEx(isCollapseOpen, "Stuff", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
+		ImGuiEx.BeginCollapseLayoutEx(isCollapseOpen, "Stuff", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
 
-		ImGui.BeginAlign("#ID", ImLayout.MATCH_PARENT, ImLayout.MATCH_PARENT, 1.0f, 0.5f, -5, 0);
+		ImGuiEx.BeginAlign("#ID", ImLayout.MATCH_PARENT, ImLayout.MATCH_PARENT, 1.0f, 0.5f, -5, 0);
 		ImGui.Button("Ok");
 		ImGui.SameLine();
 		ImGui.Text("Custom Align");
-		ImGui.EndAlign();
+		ImGuiEx.EndAlign();
 
-		ImGui.EndCollapseFrameLayout();
+		ImGuiEx.EndCollapseFrameLayout();
 		if(isCollapseOpen.getValue())
 		{
-			ImGui.BeginCollapseLayout(isCollapseOpen2, "Alignment options", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
+			ImGuiEx.BeginCollapseLayout(isCollapseOpen2, "Alignment options", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
 			if(isCollapseOpen2.getValue())
 			{
 				ImGui.SliderFloat("AlignX", alignX, 0.0f, 1.0f, "%.2f");
@@ -147,7 +148,7 @@ public class ImGuiGdxDemo implements ApplicationListener
 				ImGui.SliderFloat("AlignY", alignY, 0.0f, 1.0f, "%.2f");
 				ImGui.SliderFloat("OffsetY", offsetY, -10.0f, 10.0f, "%.2f");
 			}
-			ImGui.EndCollapseLayout();
+			ImGuiEx.EndCollapseLayout();
 
 			ImGui.ArrowButton("##Left", ImGuiDir.Left);
 			ImGui.SameLine();
@@ -169,14 +170,14 @@ public class ImGuiGdxDemo implements ApplicationListener
 			ImGui.SameLine();
 			ImGui.Text("Bullet text");
 
-			ImGui.BeginAlign("##ID", ImLayout.MATCH_PARENT, 200, alignX.getValue(), alignY.getValue(), offsetX.getValue(), offsetY.getValue());
-			ImGui.ShowLayoutDebug();
+			ImGuiEx.BeginAlign("##ID", ImLayout.MATCH_PARENT, 200, alignX.getValue(), alignY.getValue(), offsetX.getValue(), offsetY.getValue());
+			ImGuiEx.ShowLayoutDebug();
 			ImGui.Image(buttonTexture.getTextureObjectHandle(), 32, 32);
 			ImGui.ImageButton(buttonTexture.getTextureObjectHandle(), 42, 42);
 
-			ImGui.EndAlign();
+			ImGuiEx.EndAlign();
 		}
-		ImGui.EndCollapseLayout();
+		ImGuiEx.EndCollapseLayout();
 	}
 
 	private void renderTabTree() {

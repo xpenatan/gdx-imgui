@@ -3,7 +3,7 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 
-namespace ImGui
+namespace ImGuiEx
 {
 	inline void drawBoundingBox(float x1, float y1, float x2, float y2, int r, int g, int b, bool clipping = false) {
 		ImDrawList* drawList = clipping ? ImGui::GetWindowDrawList() : ImGui::GetForegroundDrawList();
@@ -14,7 +14,7 @@ namespace ImGui
 	}
 
 	inline void drawBoundingBox(ImVec2 min, ImVec2 max, int r, int g, int b, bool clipping = false) {
-		ImGui::drawBoundingBox(min.x, min.y, max.x, max.y, r, g, b, clipping);
+		ImGuiEx::drawBoundingBox(min.x, min.y, max.x, max.y, r, g, b, clipping);
 	}
 };
 
@@ -90,23 +90,23 @@ public:
     void drawSizeDebug() {
         // Render layout space
         //Green
-		ImGui::drawBoundingBox(position, getAbsoluteSize(), 0, 255, 0);
+		ImGuiEx::drawBoundingBox(position, getAbsoluteSize(), 0, 255, 0);
     }
 
     inline void drawContentDebug() {
         // Render content space
         // Blue
 		ImVec2 max = ImVec2(positionContents.x + sizeContents.x, positionContents.y + sizeContents.y);
-		ImGui::drawBoundingBox(positionContents, max, 0, 0, 255);
+		ImGuiEx::drawBoundingBox(positionContents, max, 0, 0, 255);
     }
 
     void drawPaddingAreaDebug() {
         // Render size with padding
-		ImGui::drawBoundingBox(getPositionPadding(), getAbsoluteSizePadding(), 255, 255, 255);
+		ImGuiEx::drawBoundingBox(getPositionPadding(), getAbsoluteSizePadding(), 255, 255, 255);
     }
 
     void drawError() {
-		ImGui::drawBoundingBox(position, getAbsoluteSize(), 255, 0, 0, true);
+		ImGuiEx::drawBoundingBox(position, getAbsoluteSize(), 255, 0, 0, true);
     }
 };
 
@@ -140,7 +140,7 @@ public:
 	}
 };
 
-namespace ImGui
+namespace ImGuiEx
 {
     void ShowLayoutDebug();
 

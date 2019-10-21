@@ -42,19 +42,35 @@ public class ImGuiCustomWidgetNative {
 	}
 
 	static native void ShowLayoutDebug() /*-{ }-*/; /*
-		ImGui::ShowLayoutDebug();
+		ImGuiEx::ShowLayoutDebug();
 	*/
 
 	static native void BeginLayout(String id, float sizeX, float sizeY); /*-{ }-*/; /*
-		ImGui::BeginLayout(id, sizeX, sizeY);
+		ImGuiEx::BeginLayout(id, sizeX, sizeY);
 	*/
 
 	static native void BeginLayout(String id, float sizeX, float sizeY, float paddingLeft, float paddingRight, float paddingTop, float paddingBottom); /*-{ }-*/; /*
-		ImGui::BeginLayout(id, sizeX, sizeY, paddingLeft, paddingRight, paddingTop, paddingBottom);
+		ImGuiEx::BeginLayout(id, sizeX, sizeY, paddingLeft, paddingRight, paddingTop, paddingBottom);
 	*/
 
 	static native void EndLayout(); /*-{ }-*/; /*
-		ImGui::EndLayout();
+		ImGuiEx::EndLayout();
+	*/
+
+	static native boolean BeginCollapseLayoutEx2(String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+		ImGuiCollapseLayoutOptions options;
+		options.paddingLeft = env->GetFloatField (jOptions, paddingLeftID);
+		options.paddingRight = env->GetFloatField (jOptions, paddingRightID);
+		options.paddingTop = env->GetFloatField (jOptions, paddingTopID);
+		options.paddingBottom = env->GetFloatField (jOptions, paddingBottomID);
+		options.arrowColor = env->GetIntField (jOptions, arrowColorID);
+		options.arrowBackgroundHoveredColor = env->GetIntField (jOptions, arrowBackgroundHoveredColorID);
+		options.arrowBackgroundClickedColor = env->GetIntField (jOptions, arrowBackgroundClickedColorID);
+		options.frameColor = env->GetIntField (jOptions, frameColorID);
+		options.borderColor = env->GetIntField (jOptions, borderColorID);
+		options.borderRound = env->GetIntField (jOptions, borderRoundID);
+		options.roundingCorners = env->GetIntField (jOptions, roundingCornersID);
+		return ImGuiEx::BeginCollapseLayoutEx(title, sizeX, sizeY, options);
 	*/
 
 	static native void BeginCollapseLayoutEx(boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
@@ -70,7 +86,23 @@ public class ImGuiCustomWidgetNative {
 		options.borderColor = env->GetIntField (jOptions, borderColorID);
 		options.borderRound = env->GetIntField (jOptions, borderRoundID);
 		options.roundingCorners = env->GetIntField (jOptions, roundingCornersID);
-		ImGui::BeginCollapseLayoutEx(&isOpen[0], title, sizeX, sizeY, options);
+		ImGuiEx::BeginCollapseLayoutEx(&isOpen[0], title, sizeX, sizeY, options);
+	*/
+
+	static native boolean BeginCollapseLayout2(String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+		ImGuiCollapseLayoutOptions options;
+		options.paddingLeft = env->GetFloatField (jOptions, paddingLeftID);
+		options.paddingRight = env->GetFloatField (jOptions, paddingRightID);
+		options.paddingTop = env->GetFloatField (jOptions, paddingTopID);
+		options.paddingBottom = env->GetFloatField (jOptions, paddingBottomID);
+		options.arrowColor = env->GetIntField (jOptions, arrowColorID);
+		options.arrowBackgroundHoveredColor = env->GetIntField (jOptions, arrowBackgroundHoveredColorID);
+		options.arrowBackgroundClickedColor = env->GetIntField (jOptions, arrowBackgroundClickedColorID);
+		options.frameColor = env->GetIntField (jOptions, frameColorID);
+		options.borderColor = env->GetIntField (jOptions, borderColorID);
+		options.borderRound = env->GetIntField (jOptions, borderRoundID);
+		options.roundingCorners = env->GetIntField (jOptions, roundingCornersID);
+		return ImGuiEx::BeginCollapseLayout(title, sizeX, sizeY, options);
 	*/
 
 	static native void BeginCollapseLayout(boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
@@ -86,35 +118,35 @@ public class ImGuiCustomWidgetNative {
 		options.borderColor = env->GetIntField (jOptions, borderColorID);
 		options.borderRound = env->GetIntField (jOptions, borderRoundID);
 		options.roundingCorners = env->GetIntField (jOptions, roundingCornersID);
-		ImGui::BeginCollapseLayout(&isOpen[0], title, sizeX, sizeY, options);
-	 */
+		ImGuiEx::BeginCollapseLayout(&isOpen[0], title, sizeX, sizeY, options);
+	*/
 
 	static native void EndCollapseFrameLayout(); /*-{ }-*/; /*
-		ImGui::EndCollapseFrameLayout();
+		ImGuiEx::EndCollapseFrameLayout();
 	*/
 
 	static native void EndCollapseLayout(); /*-{ }-*/; /*
-		ImGui::EndCollapseLayout();
+		ImGuiEx::EndCollapseLayout();
 	*/
 
 	static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY) /*-{ }-*/; /*
-		ImGui::BeginAlign(id, sizeX, sizeY, alignX, alignY);
+		ImGuiEx::BeginAlign(id, sizeX, sizeY, alignX, alignY);
 	*/
 
 	static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
-		ImGui::BeginAlign(id, sizeX, sizeY, alignX, alignY, offsetX, offsetY);
+		ImGuiEx::BeginAlign(id, sizeX, sizeY, alignX, alignY, offsetX, offsetY);
 	*/
 
 	static native void EndAlign() /*-{ }-*/; /*
-		ImGui::EndAlign();
+		ImGuiEx::EndAlign();
 	*/
 
 	static native void AlignLayout(float alignX, float alignY) /*-{ }-*/; /*
-		ImGui::AlignLayout(alignX, alignY);
+		ImGuiEx::AlignLayout(alignX, alignY);
 	*/
 
 	static native void AlignLayout(float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
-		ImGui::AlignLayout(alignX, alignY, offsetX, offsetY);
+		ImGuiEx::AlignLayout(alignX, alignY, offsetX, offsetY);
 	*/
 
 	public static class ImGuiCollapseLayoutOptions {
@@ -122,11 +154,11 @@ public class ImGuiCustomWidgetNative {
 		public float paddingRight = 2;
 		public float paddingTop = 2;
 		public float paddingBottom = 2;
-		public int arrowColor = ImGui.colorToIntBits(0xFF, 0xFF, 0xFF, 0xFF);
-		public int arrowBackgroundHoveredColor = ImGui.colorToIntBits(0x77, 0x77, 0x77, 0xFF);
-		public int arrowBackgroundClickedColor = ImGui.colorToIntBits(0x55, 0x55, 0x55, 0xFF);
-		public int frameColor = ImGui.colorToIntBits(0x24, 0x24, 0x24, 0xFF);
-		public int borderColor = ImGui.colorToIntBits(0x40, 0x40, 0x49, 0xFF);
+		public int arrowColor = ImGuiEx.colorToIntBits(0xFF, 0xFF, 0xFF, 0xFF);
+		public int arrowBackgroundHoveredColor = ImGuiEx.colorToIntBits(0x77, 0x77, 0x77, 0xFF);
+		public int arrowBackgroundClickedColor = ImGuiEx.colorToIntBits(0x55, 0x55, 0x55, 0xFF);
+		public int frameColor = ImGuiEx.colorToIntBits(0x24, 0x24, 0x24, 0xFF);
+		public int borderColor = ImGuiEx.colorToIntBits(0x40, 0x40, 0x49, 0xFF);
 		public int borderRound = 4;
 		public int roundingCorners = ImDrawCornerFlags.TopLeft.or(ImDrawCornerFlags.TopRight).getValue();
 	}
