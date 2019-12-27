@@ -64,7 +64,10 @@ public class Build {
 		String exclude = "imgui_layout_widget_tests";
 		copyDir(from.toPath(), dest.toPath(), exclude);
 
-		new NativeCodeGenerator().generate("src/main/java", "bin" + File.pathSeparator, path + "/jni");
+		String classpathStr = System.getProperty("java.class.path");
+		System.out.println("classpath: " + classpathStr);
+
+		new NativeCodeGenerator().generate("src/main/java",classpathStr + File.pathSeparator, path + "/jni");
 		new AntScriptGenerator().generate(buildConfig, win64);
 
 		BuildExecutor.executeAnt("jni/build.xml", "-v", "-Dhas-compiler=true");
