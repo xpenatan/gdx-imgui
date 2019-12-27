@@ -25,10 +25,9 @@ public class Build {
 
 		boolean debug = false;
 
-		String path = Build.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-		path = URLDecoder.decode(path, "UTF-8" ).replace("bin/", "").replace("build" +  File.pathSeparator + "classes "+  File.pathSeparator + "java" + File.pathSeparator + "main", "");
+		String path = new File(Build.class.getProtectionDomain().getCodeSource().getLocation().getFile()).getAbsolutePath();
+		path = path.replace(File.separator + "bin", "").replace("build" +  File.separator + "classes "+  File.separator + "java" + File.separator + "main", "");
 
-		System.out.println("imgui - path: " + path);
 
 //		BuildTarget win32 = BuildTarget.newDefaultTarget(TargetOs.Windows, false);
 		BuildTarget win64 = BuildTarget.newDefaultTarget(TargetOs.Windows, true);
@@ -53,6 +52,7 @@ public class Build {
 		File from = new File(path + "/../extensions/imgui-layout-widget/");
 		File dest = new File(path + "/jni/src");
 
+		System.out.println("imgui - path: " + path);
 		System.out.println("imgui - from: " + from);
 		System.out.println("imgui - dest: " + dest);
 
