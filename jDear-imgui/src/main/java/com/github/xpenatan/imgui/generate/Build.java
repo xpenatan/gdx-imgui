@@ -27,7 +27,7 @@ public class Build {
 
 		String path = new File(Build.class.getProtectionDomain().getCodeSource().getLocation().getFile()).getAbsolutePath();
 
-		String toReplace = "build" +  File.separator + "classes "+  File.separator + "java" + File.separator + "main";
+		String toReplace = "build" +  File.separator + "classes"+  File.separator + "java" + File.separator + "main";
 		System.out.println("path: " + path);
 		System.out.println("path toReplace: " + toReplace);
 		path = path.replace(File.separator + "bin", "").replace(toReplace, "");
