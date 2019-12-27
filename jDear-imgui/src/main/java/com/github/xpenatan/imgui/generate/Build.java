@@ -26,7 +26,7 @@ public class Build {
 		boolean debug = false;
 
 		String path = Build.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-		path = URLDecoder.decode(path, "UTF-8" ).replace("bin/", "");
+		path = URLDecoder.decode(path, "UTF-8" ).replace("bin/", "").replace("build" +  File.pathSeparator + "classes "+  File.pathSeparator + "java" + File.pathSeparator + "main", "");
 
 		System.out.println("imgui - path: " + path);
 
