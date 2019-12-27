@@ -299,4 +299,24 @@ public class EmuGraphics implements Graphics, Disposable{
 		gdxGraphics.setSystemCursor(systemCursor);
 	}
 
+//	@Override
+//	public int getSafeInsetLeft() {
+//		return gdxGraphics.getSafeInsetLeft();
+//	}
+//
+//	@Override
+//	public int getSafeInsetTop() {
+//		return gdxGraphics.getSafeInsetTop();
+//	}
+//
+//	@Override
+//	public int getSafeInsetBottom() {
+//		return gdxGraphics.getSafeInsetBottom();
+//	}
+//
+//	@Override
+//	public int getSafeInsetRight() {
+//		return gdxGraphics.getSafeInsetRight();
+//	}
+
 }

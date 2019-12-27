@@ -1,6 +1,7 @@
 package com.github.xpenatan.imgui;
 
 import com.github.xpenatan.imgui.ImGuiCustomWidgetNative.ImGuiCollapseLayoutOptions;
+import com.github.xpenatan.imgui.ImGuiCustomWidgetNative.ImGuiLayout;
 
 public class ImGuiEx {
 
@@ -81,6 +82,11 @@ public class ImGuiEx {
 
 	public static void AlignLayout(float alignX, float alignY, float offsetX, float offsetY) {
 		ImGuiCustomWidgetNative.AlignLayout(alignX, alignY, offsetX, offsetY);
+	}
+
+	public static ImGuiLayout GetCurrentLayout() {
+		ImGuiCustomWidgetNative.GetCurrentLayout(ImGuiCustomWidgetNative.tempLayout);
+		return ImGuiCustomWidgetNative.tempLayout;
 	}
 
 

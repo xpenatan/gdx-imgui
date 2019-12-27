@@ -1,0 +1,38 @@
+apply from: 'dependencies.gradle'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.12.0"
+    }
+}
+
+
+
+allprojects {
+    apply plugin: "eclipse"
+    apply plugin: "idea"
+    apply plugin: "maven"
+    apply plugin: 'maven-publish'
+
+    group = "com.github.xpenatan.jDear-Imgui"
+
+    ext {
+        appName = "jDear-imgui"
+    }
+    
+    repositories {
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    }
+}
+
+
+
+

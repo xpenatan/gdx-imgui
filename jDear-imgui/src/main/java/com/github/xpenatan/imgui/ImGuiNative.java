@@ -2093,10 +2093,6 @@ public class ImGuiNative {
 		return ImGui::IsMouseReleased(button);
 	*/
 
-	static native boolean IsMouseDragging() /*-{ }-*/; /*
-		return ImGui::IsMouseDragging();
-	*/
-
 	static native boolean IsMouseDragging(int button) /*-{ }-*/; /*
 		return ImGui::IsMouseDragging(button);
 	*/

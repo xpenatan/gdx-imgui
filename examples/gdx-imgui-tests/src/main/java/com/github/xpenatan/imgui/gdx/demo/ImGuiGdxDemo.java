@@ -8,9 +8,13 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.github.xpenatan.imgui.DrawData;
 import com.github.xpenatan.imgui.ImGui;
 import com.github.xpenatan.imgui.ImGuiBoolean;
+import com.github.xpenatan.imgui.ImGuiCustomWidgetNative.ImGuiLayout;
 import com.github.xpenatan.imgui.ImGuiEx;
 import com.github.xpenatan.imgui.ImGuiFloat;
 import com.github.xpenatan.imgui.ImGuiInt;
@@ -35,6 +39,11 @@ public class ImGuiGdxDemo implements ApplicationListener
 		new LwjglApplication(new ImGuiGdxDemo(), config);
 	}
 
+	ShapeRenderer shapeRenderer;
+	ShapeRenderer pointRenderer;
+	OrthographicCamera uiCam;
+
+	SpriteBatch batch;
 
 	ImGuiGdxImpl impl;
 	ImGuiBoolean guiBool = new ImGuiBoolean();
@@ -61,10 +70,14 @@ public class ImGuiGdxDemo implements ApplicationListener
 	static ImGuiFloat alignY = new ImGuiFloat(0.5f);
 	static ImGuiFloat offsetY = new ImGuiFloat(0.0f);
 
+	boolean init = false;
 	@Override
 	public void create () {
-		OrthographicCamera uiCam = new OrthographicCamera();
+		uiCam = new OrthographicCamera();
+		shapeRenderer = new ShapeRenderer();
+		pointRenderer = new ShapeRenderer();
 		uiCam.setToOrtho(true);
+		batch = new SpriteBatch();
 		ImGui.init();
 		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable);
 		ImGui.GetIO().SetDockingFlags(false, false, false, false);
@@ -91,6 +104,18 @@ public class ImGuiGdxDemo implements ApplicationListener
 		boolean mouseDown2 = Gdx.input.isButtonPressed(Buttons.MIDDLE);
 		ImGui.UpdateDisplayAndInputAndFrame(Gdx.graphics.getDeltaTime(), width, height, backBufferWidth, backBufferHeight,
 				Gdx.input.getX(), Gdx.input.getY(), mouseDown0, mouseDown1, mouseDown2);
+
+		uiCam.update();
+		batch.setProjectionMatrix(uiCam.combined);
+		shapeRenderer.setProjectionMatrix(uiCam.combined);
+		shapeRenderer.begin(ShapeType.Line);
+		pointRenderer.setProjectionMatrix(uiCam.combined);
+		pointRenderer.begin(ShapeType.Point);
+
+		if(init == false) {
+			init = true;
+			ImGui.SetNextWindowSize(400, 400);
+		}
 
 		ImGui.Begin("Hello World");
 
@@ -126,10 +151,15 @@ public class ImGuiGdxDemo implements ApplicationListener
 		ImGui.Render();
 		DrawData drawData = ImGui.GetDrawData();
 		impl.render(drawData);
+
+		shapeRenderer.end();
+		pointRenderer.end();
 	}
 
 	private void renderCollapseUI() {
 		ImGuiEx.BeginCollapseLayoutEx(isCollapseOpen, "Stuff", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
+
+		ImGuiEx.ShowLayoutDebug();
 
 		ImGuiEx.BeginAlign("#ID", ImLayout.MATCH_PARENT, ImLayout.MATCH_PARENT, 1.0f, 0.5f, -5, 0);
 		ImGui.Button("Ok");
@@ -180,6 +210,60 @@ public class ImGuiGdxDemo implements ApplicationListener
 		ImGuiEx.EndCollapseLayout();
 	}
 
+	private void renderLayout() {
+		float mouseX = Gdx.input.getX();
+		float mouseY = Gdx.input.getY();
+
+
+
+		batch.begin();
+		batch.draw(buttonTexture, 1, 4);
+		batch.end();
+
+//		pointRenderer.point(1, 1, 0);
+//		shapeRenderer.line(1, 1, 1 + 5, 1 + 0);
+//		shapeRenderer.line(1 + 1, 1, 1 + 1 + 0, 1 + 5);
+
+		System.out.println("buttonTexture.getHeight(): " + buttonTexture.getHeight());
+//		shapeRenderer.rect(1 + 1, 1 + 1, buttonTexture.getWidth()-1, buttonTexture.getHeight());
+
+//		pointRenderer.point(mouseX, mouseY, 0);
+//		pointRenderer.point(mouseX+1, mouseY, 0);
+//		shapeRenderer.line(mouseX, mouseY, mouseX + 5, mouseY + 0);
+//		shapeRenderer.line(mouseX, mouseY, mouseX + 0, mouseY + 5);
+
+		ImGuiEx.BeginLayout("Stuff", 4, 32);
+		ImGuiLayout curLayout = ImGuiEx.GetCurrentLayout();
+		float posX = curLayout.positionX;
+		float posY = curLayout.positionY;
+		float sizeX = curLayout.sizeX;
+		float sizeY = curLayout.sizeY;
+
+		float posSizeX = posX + sizeX;
+		float posSizeY = posY + sizeY;
+
+//		shapeRenderer.rect(posX, posY, sizeX, sizeY);
+//		shapeRenderer.line(posX, posY, posSizeX, posY);
+//		shapeRenderer.line(posSizeX, posY, posSizeX, posSizeY);
+//		shapeRenderer.line(posSizeX, posSizeY, posX, posSizeY);
+//		shapeRenderer.line(posX, posSizeY, posX, posY);
+//		shapeRenderer.line(posX, posY, posX, posSizeY);
+
+		ImGuiEx.ShowLayoutDebug();
+
+
+		ImGuiEx.EndLayout();
+
+		ImGui.Text("MouseX: " + mouseX);
+		ImGui.SameLine();
+		ImGui.Text("MouseY: " + mouseY);
+		ImGui.Text("posX: " + posX);
+		ImGui.Text("posY: " + posY);
+		ImGui.Text("posSizeX: " + posSizeX);
+		ImGui.Text("posSizeY: " + posSizeY);
+
+	}
+
 	private void renderTabTree() {
 		ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags.Reorderable;
 		if (ImGui.BeginTabBar("MyTabBar", tab_bar_flags)) {
@@ -212,6 +296,10 @@ public class ImGuiGdxDemo implements ApplicationListener
 				if (ImGui.TreeNode("Parent 03")) {
 					ImGui.TreePop();
 				}
+				ImGui.EndTabItem();
+			}
+			if (ImGui.BeginTabItem("Layout Test")) {
+				renderLayout();
 				ImGui.EndTabItem();
 			}
 			ImGui.EndTabBar();

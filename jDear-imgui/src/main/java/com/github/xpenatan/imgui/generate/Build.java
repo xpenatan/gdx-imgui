@@ -19,6 +19,9 @@ public class Build {
 
 
 	public static void main(String[] args) throws Exception {
+//		System.out.println(System.getenv("HOME"));
+//		if(true)
+//			return;
 
 		boolean debug = false;
 
@@ -48,14 +51,14 @@ public class Build {
 		File from = new File("../extensions/imgui-layout-widget/");
 		File dest = new File("jni/src");
 
-		copyDir(from.toPath(), dest.toPath(), "imgui_layout_widget_tests");
+
+		String exclude = "imgui_layout_widget_tests";
+		copyDir(from.toPath(), dest.toPath(), exclude);
 
 		new NativeCodeGenerator().generate("src/main/java", "bin" + File.pathSeparator, "jni");
 		new AntScriptGenerator().generate(buildConfig, win64);
 
-		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v -Dhas-compiler=true clean postcompile");
-
-		BuildExecutor.executeAnt("jni/build.xml", "-v pack-natives");
+		BuildExecutor.executeAnt("jni/build.xml", "-v", "-Dhas-compiler=true");
 	}
 
 	public static void copyDir(Path src, Path dest, String... excludes) throws IOException {

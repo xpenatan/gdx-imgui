@@ -1527,10 +1527,6 @@ public class ImGui {
 		return ImGuiNative.IsMouseReleased(button);
 	}
 
-	public static boolean IsMouseDragging() {
-		return ImGuiNative.IsMouseDragging();
-	}
-
 	public static boolean IsMouseDragging(int button) {
 		return ImGuiNative.IsMouseDragging(button);
 	}

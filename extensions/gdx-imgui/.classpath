@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/jDear-imgui"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/gdx"/>
+	<classpathentry kind="lib" path="F:/BK/Projects/Eclipse/jDear-imgui/jDear-imgui/libs/gdx-imgui-natives.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
