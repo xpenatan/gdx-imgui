@@ -28,6 +28,8 @@ public class Build {
 		String path = Build.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 		path = URLDecoder.decode(path, "UTF-8" ).replace("bin/", "");
 
+		System.out.println("imgui - path: " + path);
+
 //		BuildTarget win32 = BuildTarget.newDefaultTarget(TargetOs.Windows, false);
 		BuildTarget win64 = BuildTarget.newDefaultTarget(TargetOs.Windows, true);
 
@@ -48,8 +50,11 @@ public class Build {
 //		BuildTarget ios = BuildTarget.newDefaultTarget(TargetOs.IOS, false);
 //		new AntScriptGenerator().generate(new BuildConfig("gdx-imgui"), win32, win64, lin32, lin64, mac64, android, ios);
 
-		File from = new File("../extensions/imgui-layout-widget/");
-		File dest = new File("jni/src");
+		File from = new File(path + "/../extensions/imgui-layout-widget/");
+		File dest = new File(path + "/jni/src");
+
+		System.out.println("imgui - from: " + from);
+		System.out.println("imgui - dest: " + dest);
 
 
 		String exclude = "imgui_layout_widget_tests";
