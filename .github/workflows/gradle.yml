@@ -16,8 +16,7 @@ jobs:
   #  - name: Install Mingw
   #    run: sudo apt-get install g++-mingw-w64-i686 g++-mingw-w64-x86-64
     - name: Install Ant
-      run: brew update
-      run: brew install ant
+      run: brew update brew install ant
     - name: check g++ version
       run: gcc --version
     - name: Change wrapper permissions
