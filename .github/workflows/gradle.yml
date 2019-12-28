@@ -13,5 +13,9 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Mingw
+    - name: Install Mingw
       run: sudo apt-get install g++-mingw-w64-i686 g++-mingw-w64-x86-64
+    - name: Change wrapper permissions
+      run: chmod +x ./gradlew
+    - name: Build with Gradle
+      run: ./gradlew install
