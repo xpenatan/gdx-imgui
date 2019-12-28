@@ -15,5 +15,5 @@ jobs:
         java-version: 1.8
         mingw: # optional, default is 
     - name: Ant Test
-      run: ant.bat -version
+      run: ant -version
 
