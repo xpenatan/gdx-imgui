@@ -47,7 +47,7 @@ public class Build {
 		BuildConfig buildConfig = new BuildConfig("gdx-imgui", "target", "libs", "jni");
 
 //		BuildTarget lin32 = BuildTarget.newDefaultTarget(TargetOs.Linux, false);
-//		BuildTarget lin64 = BuildTarget.newDefaultTarget(TargetOs.Linux, false);
+		BuildTarget lin64 = BuildTarget.newDefaultTarget(TargetOs.Linux, false);
 //		BuildTarget android = BuildTarget.newDefaultTarget(TargetOs.Android, false);
 //		BuildTarget mac64 = BuildTarget.newDefaultTarget(TargetOs.MacOsX, false);
 //		BuildTarget ios = BuildTarget.newDefaultTarget(TargetOs.IOS, false);
@@ -68,7 +68,7 @@ public class Build {
 		System.out.println("classpath: " + classpathStr);
 
 		new NativeCodeGenerator().generate("src/main/java",classpathStr + File.pathSeparator, path + "/jni");
-		new AntScriptGenerator().generate(buildConfig, win64);
+		new AntScriptGenerator().generate(buildConfig, win64, lin64);
 
 		BuildExecutor.executeAnt("jni/build.xml", "-v", "-Dhas-compiler=true");
 	}
