@@ -47,7 +47,7 @@ public class Build {
 		BuildConfig buildConfig = new BuildConfig("gdx-imgui", "target", "libs", "jni");
 
 //		BuildTarget lin32 = BuildTarget.newDefaultTarget(TargetOs.Linux, false);
-		BuildTarget lin64 = BuildTarget.newDefaultTarget(TargetOs.Linux, false);
+		BuildTarget lin64 = BuildTarget.newDefaultTarget(TargetOs.Linux, true);
 //		BuildTarget android = BuildTarget.newDefaultTarget(TargetOs.Android, false);
 //		BuildTarget mac64 = BuildTarget.newDefaultTarget(TargetOs.MacOsX, false);
 //		BuildTarget ios = BuildTarget.newDefaultTarget(TargetOs.IOS, false);
