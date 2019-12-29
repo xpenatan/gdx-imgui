@@ -48,7 +48,7 @@ public class Build {
 
 //		BuildTarget lin32 = BuildTarget.newDefaultTarget(TargetOs.Linux, false);
 		BuildTarget lin64 = BuildTarget.newDefaultTarget(TargetOs.Linux, true);
-		lin64.linkerFlags = "-shared -m64 -Wl,memcpy";
+		lin64.linkerFlags = "-shared -m64 -Wl";
 
 //		BuildTarget android = BuildTarget.newDefaultTarget(TargetOs.Android, false);
 //		BuildTarget mac64 = BuildTarget.newDefaultTarget(TargetOs.MacOsX, false);
