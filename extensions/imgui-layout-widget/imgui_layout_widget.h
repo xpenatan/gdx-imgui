@@ -171,9 +171,17 @@ public:
 	float paddingTop;
 	float paddingBottom;
 
-	ImGuiLayoutOptions(): ImGuiLayoutOptions(0, 0, 0, 0, true) {}
+	ImGuiLayoutOptions() {
+		init(0, 0, 0, 0, true);
+	}
 
 	ImGuiLayoutOptions(float paddingLeft, float paddingRight, float paddingTop, float paddingBottom, bool clipping = true) {
+		init(paddingLeft, paddingRight, paddingTop, paddingBottom, clipping);
+	}
+
+private:
+	void init(float paddingLeft, float paddingRight, float paddingTop, float paddingBottom, bool clipping = true) {
+		//fix delegating constructors are permitted only in C++11
 		this->paddingLeft = paddingLeft;
 		this->paddingRight = paddingRight;
 		this->paddingTop = paddingTop;
