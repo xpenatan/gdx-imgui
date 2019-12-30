@@ -47,9 +47,7 @@ public class Build {
 		BuildTarget lin64 = BuildTarget.newDefaultTarget(TargetOs.Linux, true);
 		lin64.linkerFlags = "-shared -m64 -Wl";
 
-		BuildTarget android = BuildTarget.newDefaultTarget(TargetOs.Android, false);
 		BuildTarget mac64 = BuildTarget.newDefaultTarget(TargetOs.MacOsX, true);
-		BuildTarget ios = BuildTarget.newDefaultTarget(TargetOs.IOS, false);
 
 		File from = new File(path + "/../extensions/imgui-layout-widget/");
 		File dest = new File(path + "/jni/src");
