@@ -68,7 +68,8 @@ task fromClasses (type: Jar) {
 
 task platformAll (type: Jar) {
 	dependsOn BuildImGui
-	archiveClassifier = "ALL"
+	baseName 'TEST'
+	archiveClassifier = "desktop"
 	from zipTree("/libs/gdx-imgui-natives.jar")
 }
 
@@ -76,11 +77,13 @@ publishing {
 	publications {
 		publisha1(MavenPublication) {
 			version imgui_version
+			project.version = imgui_version
 			artifactId imgui_name
 			artifact fromClasses
 		}
 		publishb1(MavenPublication) {
 			version imgui_version
+			project.version = imgui_version
 			artifactId imgui_name + "-platform"
 			artifact platformAll
 		}

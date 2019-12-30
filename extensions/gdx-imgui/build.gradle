@@ -27,7 +27,8 @@ task fromClasses (type: Jar) {
 publishing {
 	publications {
 		publisha2(MavenPublication) {
-			version imgui_version
+			version jDearImguiGDXVersion
+			project.version = jDearImguiGDXVersion
 			artifactId imgui_name
 			artifact fromClasses
 		}

@@ -32,28 +32,24 @@ public class Build {
 		System.out.println("path toReplace: " + toReplace);
 		path = path.replace(File.separator + "bin", "").replace(toReplace, "");
 
-
-//		BuildTarget win32 = BuildTarget.newDefaultTarget(TargetOs.Windows, false);
 		BuildTarget win64 = BuildTarget.newDefaultTarget(TargetOs.Windows, true);
 
 		String[] header = {"src"};
 		String[] includes = {"**/*.cpp"} ;
 		win64.cppIncludes = includes;
 		win64.headerDirs = header;
-		win64.cppFlags =  "-c -Wno-unused -O0 -mfpmath=sse -msse2 -fmessage-length=0 -m64";
+//		win64.cppFlags =  "-c -Wno-unused -O0 -mfpmath=sse -msse2 -fmessage-length=0 -m64";
 		if(debug)
 			win64.cppFlags +=  " -g";
 
 		BuildConfig buildConfig = new BuildConfig("gdx-imgui", "target", "libs", "jni");
 
-//		BuildTarget lin32 = BuildTarget.newDefaultTarget(TargetOs.Linux, false);
 		BuildTarget lin64 = BuildTarget.newDefaultTarget(TargetOs.Linux, true);
 		lin64.linkerFlags = "-shared -m64 -Wl";
 
-//		BuildTarget android = BuildTarget.newDefaultTarget(TargetOs.Android, false);
-//		BuildTarget mac64 = BuildTarget.newDefaultTarget(TargetOs.MacOsX, false);
-//		BuildTarget ios = BuildTarget.newDefaultTarget(TargetOs.IOS, false);
-//		new AntScriptGenerator().generate(new BuildConfig("gdx-imgui"), win32, win64, lin32, lin64, mac64, android, ios);
+		BuildTarget android = BuildTarget.newDefaultTarget(TargetOs.Android, false);
+		BuildTarget mac64 = BuildTarget.newDefaultTarget(TargetOs.MacOsX, true);
+		BuildTarget ios = BuildTarget.newDefaultTarget(TargetOs.IOS, false);
 
 		File from = new File(path + "/../extensions/imgui-layout-widget/");
 		File dest = new File(path + "/jni/src");
@@ -70,7 +66,7 @@ public class Build {
 		System.out.println("classpath: " + classpathStr);
 
 		new NativeCodeGenerator().generate("src/main/java",classpathStr + File.pathSeparator, path + "/jni");
-		new AntScriptGenerator().generate(buildConfig, lin64);
+		new AntScriptGenerator().generate(buildConfig, lin64, win64, mac64);
 
 		BuildExecutor.executeAnt("jni/build.xml", "-v", "-Dhas-compiler=true");
 	}
