@@ -6,8 +6,6 @@ public class ImGuiNative {
 
 	/*JNI
 		#include <src/imgui.h>
-		#include <iostream>
-
 
 		jfieldID totalVtxCountID;
 		jfieldID totalIdxCountID;
