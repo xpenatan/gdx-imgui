@@ -67,11 +67,13 @@ public class Build {
 		new NativeCodeGenerator().generate("src/main/java",classpathStr + File.pathSeparator, path + "/jni");
 		new AntScriptGenerator().generate(buildConfig, lin64, win64, mac64);
 
-		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v -Dhas-compiler=true clean postcompile");
-		BuildExecutor.executeAnt("jni/build-linux64.xml", "-v -Dhas-compiler=true clean postcompile");
-		BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v -Dhas-compiler=true clean postcompile");
+		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
+		BuildExecutor.executeAnt("jni/build-linux64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
+		BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
 
-		BuildExecutor.executeAnt("jni/build.xml", "-v pack-natives");
+		BuildExecutor.executeAnt("jni/build.xml", "-v", "-Dpack-natives");
+
+//		BuildExecutor.executeAnt("jni/build.xml", "-v", "-Dhas-compiler=true");
 	}
 
 	public static void copyDir(Path src, Path dest, String... excludes) throws IOException {
