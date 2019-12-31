@@ -3,7 +3,6 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "imgui_layout_widget.h"
-#include <iostream>
 
 
 static void renderContent(bool verticalButtonFill) {
@@ -506,13 +505,13 @@ namespace ImGuiEx
 
 		float mouseX = g.IO.MousePos.x;
 		float mouseY = g.IO.MousePos.y;
-		std::cout << "" << std::endl;
-		std::cout << "" << std::endl;
-		std::cout << "" << std::endl;
-		std::cout << "" << std::endl;
-		std::cout << "" << std::endl;
-		std::cout << "MouseX: " << mouseX << std::endl;
-		std::cout << "mouseY: " << mouseY << std::endl;
+		//std::cout << "" << std::endl;
+		//std::cout << "" << std::endl;
+		//std::cout << "" << std::endl;
+		//std::cout << "" << std::endl;
+		//std::cout << "" << std::endl;
+		//std::cout << "MouseX: " << mouseX << std::endl;
+		//std::cout << "mouseY: " << mouseY << std::endl;
 
 		ImGui::Button("Outside Begin", ImVec2(150, 0));
 		{
@@ -565,17 +564,17 @@ namespace ImGuiEx
 			ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x44 / 255.0f, 0x44 / 255.0f, 0x44 / 255.0f, 100 / 255.0f));
 			paintLayout(bgColor);
 
-			std::cout << "----------" << std::endl;
-			std::cout << "Size 01: " << ImGui::GetContentRegionAvail().y << std::endl;
+			//std::cout << "----------" << std::endl;
+			//std::cout << "Size 01: " << ImGui::GetContentRegionAvail().y << std::endl;
 
 			ImGuiEx::AlignLayout(alignX, alignY, offsetX, offsetY);
 
-			std::cout << "Size 02: " << ImGui::GetContentRegionAvail().y << std::endl;
+			//std::cout << "Size 02: " << ImGui::GetContentRegionAvail().y << std::endl;
 
 			ImGui::Button("Hello   1", ImVec2(0, 40));
 			ImGui::SameLine();
 
-			std::cout << "Size 03: " << ImGui::GetContentRegionAvail().y << std::endl;
+			//std::cout << "Size 03: " << ImGui::GetContentRegionAvail().y << std::endl;
 
 			ImGui::Button("Hello ", ImVec2(0, 0));
 			ImGui::SameLine();
@@ -809,13 +808,13 @@ namespace ImGuiEx
 			ImGuiCollapseLayoutOptions options;
 			ImGuiEx::BeginCollapseLayoutEx(&isOpen, "Left", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, options);
 
-			std::cout << "Size1: " << ImGui::GetContentRegionAvail().y << std::endl;
+			//std::cout << "Size1: " << ImGui::GetContentRegionAvail().y << std::endl;
 
 			ImGuiEx::BeginAlign("id011", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 1.0f, 0.5f, -5);
 
 			float size = ImGui::GetContentRegionAvail().y;
 
-			std::cout << "Size2: " << size << std::endl;
+			//std::cout << "Size2: " << size << std::endl;
 			ImGui::Text("Right Align Text");
 			ImGuiEx::EndAlign();
 
@@ -835,13 +834,13 @@ namespace ImGuiEx
 			ImGuiCollapseLayoutOptions options;
 			bool isOpen = ImGuiEx::BeginCollapseLayoutEx("Left", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, options);
 
-			std::cout << "Size1: " << ImGui::GetContentRegionAvail().y << std::endl;
+			//std::cout << "Size1: " << ImGui::GetContentRegionAvail().y << std::endl;
 
 			ImGuiEx::BeginAlign("id011", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0.0f, 0.5f);
 
 			float size = ImGui::GetContentRegionAvail().y;
 
-			std::cout << "Size2: " << ImGui::GetContentRegionAvail().y << std::endl;
+			//std::cout << "Size2: " << ImGui::GetContentRegionAvail().y << std::endl;
 
 			int padding = 2;
 			ImGui::ImageButton(0, ImVec2(15, size - padding * 2), ImVec2(0, 0), ImVec2(1, 1), padding);

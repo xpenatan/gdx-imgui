@@ -1,8 +1,8 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "imgui_layout_widget.h"
-#include <iostream>
-using namespace std;
+//#include <iostream>
+//using namespace std;
 
 static ImVector<ImGuiLayout*> layoutStack;
 
@@ -914,10 +914,10 @@ float getColumnWidth(ImGuiLayout* firstLineLayout, int columnIndex) {
 
 	int pos = pos2 - pos1 - splitterWidth;
 
-	cout << "-------" << endl;
-	cout << "norm: " << norm << endl;
-	cout << "norm2: " << norm2 << endl;
-	cout << "pos: " << pos << endl;
+	//cout << "-------" << endl;
+	//cout << "norm: " << norm << endl;
+	//cout << "norm2: " << norm2 << endl;
+	//cout << "pos: " << pos << endl;
 	
 	//int testStartX = calculateColumnStartPositionX(firstLineLayout, columnIndex, columnLayoutSizeX, totalColumns, splitterWidth, true);
 	//int testEndX = calculateColumnEndPositionX(firstLineLayout, columnIndex, columnLayoutSizeX, totalColumns, splitterWidth, true);
