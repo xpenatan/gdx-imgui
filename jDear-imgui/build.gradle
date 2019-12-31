@@ -69,7 +69,7 @@ task fromClasses (type: Jar) {
 task platformAll (type: Jar) {
 	dependsOn BuildImGui
 	archiveClassifier = "desktop"
-	from zipTree("./libs/gdx-imgui-natives.jar")
+	from zipTree(projectDir.toString() + "/libs/gdx-imgui-natives.jar")
 }
 
 publishing {
