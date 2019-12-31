@@ -64,7 +64,8 @@ public class Build {
 		System.out.println("classpath: " + classpathStr);
 
 		new NativeCodeGenerator().generate("src/main/java",classpathStr + File.pathSeparator, path + "/jni");
-		new AntScriptGenerator().generate(buildConfig, lin64, win64, mac64);
+//		new AntScriptGenerator().generate(buildConfig, lin64, win64, mac64);
+		new AntScriptGenerator().generate(buildConfig, win64);
 
 		BuildExecutor.executeAnt("jni/build.xml", "-v", "-Dhas-compiler=true");
 	}
