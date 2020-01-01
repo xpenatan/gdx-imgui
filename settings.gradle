@@ -1,1 +1,1 @@
-include ":jDear-imgui", ":extensions:gdx-imgui"//, ":examples:gdx-imgui-demo"
+include ":jDear-imgui", ":extensions:gdx-imgui", ":examples:gdx-imgui-demo"
