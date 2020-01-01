@@ -33,5 +33,5 @@ jobs:
         IMGUI_USER: ${{ secrets.IMGUI_USER }}
         IMGUI_PASSWORD: ${{ secrets.IMGUI_PASSWORD }}
     - name: Build mac
-      run: ant -f ./jDear-imgui/jni/build-macosx64.xml
+      run: ant -v -f ./jDear-imgui/jni/build-macosx64.xml
       
