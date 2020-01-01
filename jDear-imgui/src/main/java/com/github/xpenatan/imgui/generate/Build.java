@@ -48,7 +48,7 @@ public class Build {
 		lin64.linkerFlags = "-shared -m64 -Wl";
 
 		BuildTarget mac64 = BuildTarget.newDefaultTarget(TargetOs.MacOsX, true);
-		mac64.linkerFlags = "-v -shared -arch x86_64 -mmacosx-version-min=10.7 -stdlib=libc++";
+//		mac64.linkerFlags = "-v -shared -arch x86_64 -mmacosx-version-min=10.7 -stdlib=libc++";
 
 		File from = new File(path + "/../extensions/imgui-layout-widget/");
 		File dest = new File(path + "/jni/src");
