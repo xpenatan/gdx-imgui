@@ -28,8 +28,10 @@ jobs:
     - name: Change wrapper permissions
       run: chmod +x ./gradlew
     - name: Build with Gradle
-      run: ./gradlew publish
+      run: ./gradlew install
       env:
         IMGUI_USER: ${{ secrets.IMGUI_USER }}
         IMGUI_PASSWORD: ${{ secrets.IMGUI_PASSWORD }}
+    - name: Build mac
+      run: ant -f build-mac-ios.xml
       

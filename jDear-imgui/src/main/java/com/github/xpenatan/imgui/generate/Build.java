@@ -69,9 +69,9 @@ public class Build {
 
 //		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
 //		BuildExecutor.executeAnt("jni/build-linux64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
-		BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
+//		BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
 
-		BuildExecutor.executeAnt("jni/build.xml", "-v", "pack-natives");
+//		BuildExecutor.executeAnt("jni/build.xml", "-v", "pack-natives");
 
 //		BuildExecutor.executeAnt("jni/build.xml", "-v", "-Dhas-compiler=true");
 	}
