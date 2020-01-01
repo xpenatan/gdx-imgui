@@ -19,19 +19,17 @@ jobs:
         java-version: 1.8
     - name: Install Ant
       run: brew install ant
-  #  - name: Config ruby
-  #    run:  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
-  #  - name: Install Mingw
-  #    run: brew install mingw-w64
+    - name: Config ruby
+      run:  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
+    - name: Install Mingw
+      run: brew install mingw-w64
     - name: check g++ version
       run: gcc --version
     - name: Change wrapper permissions
       run: chmod +x ./gradlew
     - name: Build with Gradle
-      run: ./gradlew install
+      run: ./gradlew publish
       env:
         IMGUI_USER: ${{ secrets.IMGUI_USER }}
         IMGUI_PASSWORD: ${{ secrets.IMGUI_PASSWORD }}
-    - name: Build mac
-      run: ant -v -f ./jDear-imgui/jni/build-macosx64.xml
       

@@ -48,7 +48,8 @@ public class Build {
 		lin64.linkerFlags = "-shared -m64 -Wl";
 
 		BuildTarget mac64 = BuildTarget.newDefaultTarget(TargetOs.MacOsX, true);
-//		mac64.linkerFlags = "-v -shared -arch x86_64 -mmacosx-version-min=10.7 -stdlib=libc++";
+		// for some weird reason adding -v stop getting errors with github actions
+		mac64.linkerFlags = "-v -shared -arch x86_64 -mmacosx-version-min=10.7 -stdlib=libc++";
 
 		File from = new File(path + "/../extensions/imgui-layout-widget/");
 		File dest = new File(path + "/jni/src");
@@ -68,11 +69,11 @@ public class Build {
 		new NativeCodeGenerator().generate("src/main/java",classpathStr + File.pathSeparator, path + "/jni");
 		new AntScriptGenerator().generate(buildConfig, lin64, win64, mac64);
 
-//		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
-//		BuildExecutor.executeAnt("jni/build-linux64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
-//		BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
+		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
+		BuildExecutor.executeAnt("jni/build-linux64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
+		BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
 
-//		BuildExecutor.executeAnt("jni/build.xml", "-v", "pack-natives");
+		BuildExecutor.executeAnt("jni/build.xml", "-v", "pack-natives");
 
 //		BuildExecutor.executeAnt("jni/build.xml", "-v", "-Dhas-compiler=true");
 	}
