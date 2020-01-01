@@ -27,18 +27,21 @@ jobs:
       run: gcc --version
     - name: Change wrapper permissions
       run: chmod +x ./gradlew
-    - name: Build 
-      run: ./gradlew install
+    - name: Build classes
+      run: ./gradlew build
+    - name: Fetch Imgui and generate native files
+      run: ./gradlew BuildImGui
     - name: Build Windows natives 
       run: ant -f ./jDear-imgui/jni/build-windows64.xml -Dhas-compiler=true -v
     - name: Build Linux natives 
       run: ant -f ./jDear-imgui/jni/build-linux64.xml -Dhas-compiler=true -v
     - name: Build Mac OS X natives 
       run: ant -f ./jDear-imgui/jni/build-macosx64.xml -Dhas-compiler=true -v
-      
-    #- name: Build with Gradle
-    #  run: ./gradlew publish
-    #  env:
-    #    IMGUI_USER: ${{ secrets.IMGUI_USER }}
-    #    IMGUI_PASSWORD: ${{ secrets.IMGUI_PASSWORD }}
+    - name: Pack natives to jar
+      run: ant -f ./jDear-imgui/jni/build.xml pack-natives -v
+    - name: Upload to repository
+      run: ./gradlew publish
+      env:
+        IMGUI_USER: ${{ secrets.IMGUI_USER }}
+        IMGUI_PASSWORD: ${{ secrets.IMGUI_PASSWORD }}
       
