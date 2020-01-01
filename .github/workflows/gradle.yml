@@ -33,5 +33,5 @@ jobs:
         IMGUI_USER: ${{ secrets.IMGUI_USER }}
         IMGUI_PASSWORD: ${{ secrets.IMGUI_PASSWORD }}
     - name: Build mac
-      run: ant -f build-mac-ios.xml
+      run: ls
       
