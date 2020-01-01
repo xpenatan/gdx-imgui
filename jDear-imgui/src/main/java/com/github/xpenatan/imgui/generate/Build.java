@@ -19,10 +19,6 @@ public class Build {
 
 
 	public static void main(String[] args) throws Exception {
-//		System.out.println(System.getenv("HOME"));
-//		if(true)
-//			return;
-
 		boolean debug = false;
 
 		String path = new File(Build.class.getProtectionDomain().getCodeSource().getLocation().getFile()).getAbsolutePath();
@@ -58,13 +54,11 @@ public class Build {
 		System.out.println("imgui - from: " + from);
 		System.out.println("imgui - dest: " + dest);
 
-
 		String exclude = "imgui_layout_widget_tests";
 		copyDir(from.toPath(), dest.toPath(), exclude);
 
 		String classpathStr = System.getProperty("java.class.path");
 		System.out.println("classpath: " + classpathStr);
-
 
 		new NativeCodeGenerator().generate("src/main/java",classpathStr + File.pathSeparator, path + "/jni");
 		new AntScriptGenerator().generate(buildConfig, lin64, win64, mac64);
@@ -72,10 +66,7 @@ public class Build {
 //		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
 //		BuildExecutor.executeAnt("jni/build-linux64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
 //		BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v", "-Dhas-compiler=true");
-//
 //		BuildExecutor.executeAnt("jni/build.xml", "-v", "pack-natives");
-
-//		BuildExecutor.executeAnt("jni/build.xml", "-v", "-Dhas-compiler=true");
 	}
 
 	public static void copyDir(Path src, Path dest, String... excludes) throws IOException {

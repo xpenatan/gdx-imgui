@@ -4,7 +4,6 @@ plugins {
 
 apply from: '../../dependencies.gradle'
 
-def imgui_version = project.jDearImguiGDXVersion
 def imgui_name = "jDear-Imgui-gdx"
 
 dependencies {
@@ -26,9 +25,9 @@ task fromClasses (type: Jar) {
 
 publishing {
 	publications {
-		publisha2(MavenPublication) {
-			version jDearImguiGDXVersion
-			project.version = jDearImguiGDXVersion
+		imguiGdxClasses(MavenPublication) {
+			version project.jDearImguiGDXVersion
+			project.version = project.jDearImguiGDXVersion
 			artifactId imgui_name
 			artifact fromClasses
 		}

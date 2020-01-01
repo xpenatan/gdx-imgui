@@ -5,7 +5,6 @@ plugins {
 
 apply from: '../dependencies.gradle'
 
-def imgui_version = project.jDearImguiVersion
 def imgui_name = "jDear-Imgui"
 
 dependencies {
@@ -52,7 +51,7 @@ task downloadAndUnzipFile(dependsOn: downloadZipFile, type: Copy) {
 	}
 }
 
-task BuildImGui(dependsOn: [downloadAndUnzipFile, classes], type: JavaExec) {
+task generateNatives(dependsOn: [downloadAndUnzipFile, classes], type: JavaExec) {
 	group = 'build'
 	description = 'Build jDear ImGui'
 
@@ -73,15 +72,15 @@ task platformAll (type: Jar) {
 
 publishing {
 	publications {
-		publisha1(MavenPublication) {
-			version imgui_version
-			project.version = imgui_version
+		imguiClasses(MavenPublication) {
+			version project.jDearImguiVersion
+			project.version = project.jDearImguiVersion
 			artifactId imgui_name
 			artifact fromClasses
 		}
-		publishb1(MavenPublication) {
-			version imgui_version
-			project.version = imgui_version
+		imguiNatives(MavenPublication) {
+			version project.jDearImguiVersion
+			project.version = project.jDearImguiVersion
 			artifactId imgui_name + "-platform"
 			artifact platformAll
 		}
@@ -89,5 +88,5 @@ publishing {
 }
 
 install {
-	dependsOn BuildImGui
+	dependsOn generateNatives
 }

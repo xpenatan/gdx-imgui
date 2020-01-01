@@ -29,8 +29,8 @@ jobs:
       run: chmod +x ./gradlew
     - name: Build classes
       run: ./gradlew build
-    - name: Fetch Imgui and generate native files
-      run: ./gradlew BuildImGui
+    - name: Fetch imgui and generate native files
+      run: ./gradlew generateNatives
     - name: Build Windows natives 
       run: ant -f ./jDear-imgui/jni/build-windows64.xml -Dhas-compiler=true -v
     - name: Build Linux natives 
