@@ -9,9 +9,9 @@ dependencies {
 	implementation "com.badlogicgames.gdx:gdx-jnigen:$project.gdxVersion"
     implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$project.gdxVersion"
-    implementation "com.github.xpenatan.jDear-Imgui:jDear-Imgui-platform:0.0.1-SNAPSHOT:desktop"
-    implementation "com.github.xpenatan.jDear-Imgui:jDear-Imgui-gdx:0.0.1-SNAPSHOT"
-    implementation "com.github.xpenatan.jDear-Imgui:jDear-Imgui:0.0.1-SNAPSHOT"
+    implementation "com.github.xpenatan.jDear-Imgui:jDear-Imgui:$project.jDearImguiVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:jDear-Imgui-platform:$project.jDearImguiVersion:desktop"
+    implementation "com.github.xpenatan.jDear-Imgui:jDear-Imgui-gdx:$project.jDearImguiGDXVersion"
 
     // Use JUnit test framework
     testImplementation "junit:junit:$project.jUnitVersion"

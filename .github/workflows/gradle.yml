@@ -19,11 +19,11 @@ jobs:
         java-version: 1.8
     - name: Install Ant
       run: brew install ant
-    - name: Config ruby
+    - name: Config Ruby
       run:  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
     - name: Install Mingw
       run: brew install mingw-w64
-    - name: check g++ version
+    - name: Check g++ version
       run: gcc --version
     - name: Change wrapper permissions
       run: chmod +x ./gradlew
