@@ -64,9 +64,6 @@ public class Build {
 
 		new NativeCodeGenerator().generate("src/main/java",classpathStr + File.pathSeparator, path + "/jni");
 
-		win64.libName = libName;
-		lin64.libName = libName;
-		mac64.libName = libName;
 		new AntScriptGenerator().generate(buildConfig, win64, lin64, mac64);
 
 //		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
