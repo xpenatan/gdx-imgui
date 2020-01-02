@@ -67,7 +67,7 @@ task fromClasses (type: Jar) {
 
 task platformAll (type: Jar) {
 	archiveClassifier = "desktop"
-	from zipTree(projectDir.toString() + "/libs/gdx-imgui-natives.jar")
+	from zipTree(projectDir.toString() + "/libs/imgui-natives.jar")
 }
 
 publishing {
