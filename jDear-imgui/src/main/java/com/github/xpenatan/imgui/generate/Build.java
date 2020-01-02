@@ -38,7 +38,9 @@ public class Build {
 		if(debug)
 			win64.cppFlags +=  " -g";
 
-		BuildConfig buildConfig = new BuildConfig("gdx-imgui", "target", "libs", "jni");
+		String libName = "imgui";
+
+		BuildConfig buildConfig = new BuildConfig(libName, "target", "libs", "jni");
 
 		BuildTarget lin64 = BuildTarget.newDefaultTarget(TargetOs.Linux, true);
 		lin64.linkerFlags = "-shared -m64 -Wl";
@@ -61,7 +63,11 @@ public class Build {
 		System.out.println("classpath: " + classpathStr);
 
 		new NativeCodeGenerator().generate("src/main/java",classpathStr + File.pathSeparator, path + "/jni");
-		new AntScriptGenerator().generate(buildConfig, lin64, win64, mac64);
+
+		win64.libName = libName;
+		lin64.libName = libName;
+		mac64.libName = libName;
+		new AntScriptGenerator().generate(buildConfig, win64, lin64, mac64);
 
 //		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
 //		BuildExecutor.executeAnt("jni/build-linux64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");

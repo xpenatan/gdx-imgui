@@ -33,7 +33,7 @@ public class ImGui {
 	public static void init (boolean logging) {
 		if(ImGui.IMGUIINIT)
 			return;
-		new JniGenSharedLibraryLoader().load("gdx-imgui");
+		new JniGenSharedLibraryLoader().load("imgui");
 		ImGui.IMGUIINIT = true;
 		ImGui.enableLogging = logging;
 
