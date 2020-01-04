@@ -19,11 +19,11 @@ jobs:
         java-version: 1.8
     - name: Install Ant
       run: brew install ant
-   # - name: Config Ruby
-    #  run:  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
+    - name: Config Ruby
+      run:  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
     - name: Install Mingw
-      run: brew install FiloSottile/musl-cross/musl-cross
-    - name: Check g++ version
+      run: brew install mingw-w64
+    - name: Check g++ version 
       run: gcc --version
     - name: Change wrapper permissions
       run: chmod +x ./gradlew
@@ -31,17 +31,17 @@ jobs:
       run: ./gradlew build
     - name: Fetch imgui and generate native files
       run: ./gradlew generateNatives
-    - name: Build Windows natives 
-      run: ant -f ./jDear-imgui/jni/build-windows64.xml -Dhas-compiler=true -v
+  #  - name: Build Windows natives 
+  #    run: ant -f ./jDear-imgui/jni/build-windows64.xml -Dhas-compiler=true -v
     - name: Build Linux natives 
       run: ant -f ./jDear-imgui/jni/build-linux64.xml -Dhas-compiler=true -v
-    - name: Build Mac OS X natives 
-      run: ant -f ./jDear-imgui/jni/build-macosx64.xml -Dhas-compiler=true -v
-    - name: Pack natives to jar
-      run: ant -f ./jDear-imgui/jni/build.xml pack-natives -v
-    - name: Upload to repository
-      run: ./gradlew publish
-      env:
-        IMGUI_USER: ${{ secrets.IMGUI_USER }}
-        IMGUI_PASSWORD: ${{ secrets.IMGUI_PASSWORD }}
+  #  - name: Build Mac OS X natives 
+  #    run: ant -f ./jDear-imgui/jni/build-macosx64.xml -Dhas-compiler=true -v
+  #  - name: Pack natives to jar
+  #    run: ant -f ./jDear-imgui/jni/build.xml pack-natives -v
+  #  - name: Upload to repository
+  #    run: ./gradlew publish
+  #    env:
+  #      IMGUI_USER: ${{ secrets.IMGUI_USER }}
+  #      IMGUI_PASSWORD: ${{ secrets.IMGUI_PASSWORD }}
       
