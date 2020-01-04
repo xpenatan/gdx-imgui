@@ -43,7 +43,7 @@ public class Build {
 		BuildConfig buildConfig = new BuildConfig(libName, "target", "libs", "jni");
 
 		BuildTarget lin64 = BuildTarget.newDefaultTarget(TargetOs.Linux, true);
-		lin64.linkerFlags = "-v -shared -m64 -Wl,-wrap,memcpy";
+		lin64.linkerFlags = "-v -shared -m64 -Wl,--wrap,memcpy";
 
 		BuildTarget mac64 = BuildTarget.newDefaultTarget(TargetOs.MacOsX, true);
 		// for some weird reason adding -v stop getting errors with github actions
