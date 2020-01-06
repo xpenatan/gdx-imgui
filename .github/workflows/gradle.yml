@@ -40,6 +40,7 @@ jobs:
   build_Mac:
     name: Build Mac OS
     runs-on: macos-latest
+    needs: build_Linux
 
     steps:
     - uses: actions/checkout@v1
