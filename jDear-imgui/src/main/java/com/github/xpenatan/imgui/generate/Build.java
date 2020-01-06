@@ -44,7 +44,7 @@ public class Build {
 
 		BuildTarget lin64 = BuildTarget.newDefaultTarget(TargetOs.Linux, true);
 		lin64.compilerPrefix = "x86_64-w64-mingw32-";
-		lin64.linkerFlags = "-v -shared -m64 -stdlib=libc++";
+		lin64.linkerFlags = "-v -shared -m64";
 
 		BuildTarget mac64 = BuildTarget.newDefaultTarget(TargetOs.MacOsX, true);
 		// for some weird reason adding -v stop getting errors with github actions
@@ -64,7 +64,6 @@ public class Build {
 		System.out.println("classpath: " + classpathStr);
 
 		new NativeCodeGenerator().generate("src/main/java",classpathStr + File.pathSeparator, path + "/jni");
-
 		new AntScriptGenerator().generate(buildConfig, win64, lin64, mac64);
 
 //		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
