@@ -8,7 +8,7 @@ on:
 
 jobs:
   build_Linux:
-    name: Build Linux
+    name: Build Windows/Linux
     runs-on: ubuntu-latest
     
     steps:
@@ -36,4 +36,44 @@ jobs:
       with:
         name: nativeFiles
         path: jDear-imgui/libs/
+
+  build_Mac:
+    name: Build Mac OS
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+  #  - name: Install Ant
+  #    run: brew install ant
+  #  - name: Config Ruby
+  #    run:  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
+  #  - name: Install Mingw
+  #    run: brew install mingw-w64
+  
+    - name: Download compiled natives
+      uses: actions/download-artifact@v1
+      with:
+        name: nativeFiles
+        path: jDear-imgui/libs/
+    - name: Check g++ version 
+      run: gcc --version
+    - name: Change wrapper permissions
+      run: chmod +x ./gradlew
+    - name: Build classes
+      run: ./gradlew build
+    - name: Fetch imgui and generate native files
+      run: ./gradlew generateNatives
+    - name: Build Mac OS X natives 
+      run: ant -f ./jDear-imgui/jni/build-macosx64.xml -Dhas-compiler=true -v
+    - name: Pack natives to jar
+      run: ant -f ./jDear-imgui/jni/build.xml pack-natives -v
+    - name: Upload to repository
+      run: ./gradlew publish
+      env:
+        IMGUI_USER: ${{ secrets.IMGUI_USER }}
+        IMGUI_PASSWORD: ${{ secrets.IMGUI_PASSWORD }}
     
