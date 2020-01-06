@@ -28,9 +28,9 @@ jobs:
     - name: Fetch imgui and generate native files
       run: ./gradlew generateNatives
     - name: Build Windows natives 
-      run: ant -f ./jDear-imgui/jni/build-windows64.xml -Dhas-compiler=true -v
+      run: ant -f ./imgui/jni/build-windows64.xml -Dhas-compiler=true -v
     - name: Build Linux natives 
-      run: ant -f ./jDear-imgui/jni/build-linux64.xml -Dhas-compiler=true -v
+      run: ant -f ./imgui/jni/build-linux64.xml -Dhas-compiler=true -v
     - name: Upload compiled natives
       uses: actions/upload-artifact@v1
       with:
@@ -49,12 +49,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Install Ant
-      run: brew install ant
-  #  - name: Config Ruby
-  #    run:  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
-  #  - name: Install Mingw
-  #    run: brew install mingw-w64
-  
+      run: brew install ant 
     - name: Download compiled natives
       uses: actions/download-artifact@v1
       with:
@@ -69,9 +64,9 @@ jobs:
     - name: Fetch imgui and generate native files
       run: ./gradlew generateNatives
     - name: Build Mac OS X natives 
-      run: ant -f ./jDear-imgui/jni/build-macosx64.xml -Dhas-compiler=true -v
+      run: ant -f ./imgui/jni/build-macosx64.xml -Dhas-compiler=true -v
     - name: Pack natives to jar
-      run: ant -f ./jDear-imgui/jni/build.xml pack-natives -v
+      run: ant -f ./imgui/jni/build.xml pack-natives -v
     - name: Upload to repository
       run: ./gradlew publish
       env:

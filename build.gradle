@@ -19,7 +19,6 @@ allprojects {
     group = "com.github.xpenatan.jDear-Imgui"
 
     ext {
-        appName = "jDear-imgui"
         repoUser = System.getenv('IMGUI_USER')
         repoPass = System.getenv('IMGUI_PASSWORD')
         repoUrl = ''
@@ -70,7 +69,7 @@ def containsTask( graph, toFind) {
 
 // Disable building example from root parent
 gradle.taskGraph.whenReady { graph ->
-    def hasRootRunTask = containsTask(graph, ":jDear-imgui:") && containsTask(graph, ":examples:") && containsTask(graph, ":extensions:")
+    def hasRootRunTask = containsTask(graph, ":imgui:") && containsTask(graph, ":examples:") && containsTask(graph, ":extensions:")
     if (hasRootRunTask) {
         graph.getAllTasks().each { task ->
             // disable all task from examples if the parent is executing
