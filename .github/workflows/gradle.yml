@@ -19,9 +19,16 @@ jobs:
         java-version: 1.8
     - name: Check Ant
       run: ant -version
+    - name: Install mingw w64
+      run: sudo apt-get install mingw-w64
     - name: Change wrapper permissions
       run: chmod +x ./gradlew
     - name: Build classes
       run: ./gradlew build
-
+    - name: Fetch imgui and generate native files
+      run: ./gradlew generateNatives
+    - name: Build Windows natives 
+      run: ant -f ./jDear-imgui/jni/build-windows64.xml -Dhas-compiler=true -v
+    - name: Build Linux natives 
+      run: ant -f ./jDear-imgui/jni/build-linux64.xml -Dhas-compiler=true -v
     
