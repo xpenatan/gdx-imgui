@@ -31,4 +31,9 @@ jobs:
       run: ant -f ./jDear-imgui/jni/build-windows64.xml -Dhas-compiler=true -v
     - name: Build Linux natives 
       run: ant -f ./jDear-imgui/jni/build-linux64.xml -Dhas-compiler=true -v
+    - name: Upload compiled natives
+      uses: actions/upload-artifact@v1
+      with:
+      name: nativeFiles
+      path: jDear-imgui/libs/
     
