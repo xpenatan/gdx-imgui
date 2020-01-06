@@ -35,7 +35,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: nativeFiles
-        path: jDear-imgui/libs/
+        path: ./imgui/libs/
 
   build_Mac:
     name: Build Mac OS
@@ -54,7 +54,7 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: nativeFiles
-        path: jDear-imgui/libs/
+        path: ./imgui/libs/
     - name: Check g++ version 
       run: gcc --version
     - name: Change wrapper permissions
