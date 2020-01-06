@@ -19,8 +19,6 @@ jobs:
         java-version: 1.8
     - name: Check Ant
       run: ant -version
-    - name: Install Ant
-      run: apt-get install ant
     - name: Change wrapper permissions
       run: chmod +x ./gradlew
     - name: Build classes
