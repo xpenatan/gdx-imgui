@@ -73,6 +73,11 @@ jobs:
       with:
         name: coreNativeFiles
         path: ./imgui-core/libs/
+    - name: Download compiled natives
+      uses: actions/download-artifact@v1
+      with:
+        name: imlayoutNativeFiles
+        path: ./extensions/imgui-layout/libs/
     - name: Check g++ version 
       run: gcc --version
     - name: Change wrapper permissions
