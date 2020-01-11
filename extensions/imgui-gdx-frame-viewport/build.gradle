@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+}
+
+apply from: '../../dependencies.gradle'
+
+def imgui_name = "imgui-gdx-frame-viewport"
+
+dependencies {
+	implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
+	implementation "com.github.xpenatan:gdx-frame-viewport:$project.gdxFrameViewportVersion"
+
+	implementation project(':imgui-core')
+
+    // Use JUnit test framework
+    testImplementation "junit:junit:$project.jUnitVersion"
+}
+
+sourceSets.main.java.srcDirs = [ "src/main/java/" ]
+sourceSets.main.resources.srcDirs = ["src/main/java/"]
+
+task fromClasses (type: Jar) {
+	from (sourceSets.main.output){
+	}
+}
+
+publishing {
+	publications {
+		imguiGdxClasses(MavenPublication) {
+			version project.jDearImguiGdxFrameViewportVersion
+			project.version = project.jDearImguiGdxFrameViewportVersion
+			artifactId imgui_name
+			artifact fromClasses
+		}
+	}
+}
