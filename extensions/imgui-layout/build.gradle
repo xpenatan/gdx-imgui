@@ -28,11 +28,10 @@ clean.doFirst {
 	project.delete(files(libPath))
 }
 
-
 task copyNatives(dependsOn: [':imgui-cpp:generateNatives']) {
 	doLast {
 		copy {
-			from "../imgui-cpp/libs"
+			from "../../imgui-cpp/libs"
 			into "./libs/"
 		}
 	}

@@ -28,7 +28,7 @@ jobs:
       run: ./gradlew :imgui-cpp:generateNatives
     - name: Build CPP Windows natives 
       run: ant -f ./imgui-cpp/jni/build-windows64.xml -Dhas-compiler=true -v
-    - name: Build Core Linux natives 
+    - name: Build CPP Linux natives 
       run: ant -f ./imgui-cpp/jni/build-linux64.xml -Dhas-compiler=true -v
       
     - name: Generate imgui-core native files
@@ -80,7 +80,7 @@ jobs:
 
     - name: Fetch imgui and generate cpp native files
       run: ./gradlew :imgui-cpp:generateNatives
-    - name: Build Core Mac OS X natives 
+    - name: Build CPP Mac OS X natives 
       run: ant -f ./imgui-cpp/jni/build-macosx64.xml -Dhas-compiler=true -v
 
     - name: Generate imgui-core native files
