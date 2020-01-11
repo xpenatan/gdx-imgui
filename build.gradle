@@ -10,11 +10,16 @@ buildscript {
     }
 }
 
+
 allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
     apply plugin: "maven"
     apply plugin: 'maven-publish'
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
     group = "com.github.xpenatan.jDear-Imgui"
 

@@ -1,1 +1,1 @@
-include ":imgui", ":extensions:imgui-gdx", ":examples:imgui-example-gdx", ":examples:imgui-example-gdx-xwindow"
+include ":imgui-core", ":imgui-cpp", ":extensions:imgui-gdx", ":extensions:imgui-layout", ":extensions:imgui-gdx-frame-viewport", ":examples:example-gdx", ":examples:example-gdx-frame-viewport"

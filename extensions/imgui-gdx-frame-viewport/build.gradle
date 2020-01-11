@@ -4,10 +4,11 @@ plugins {
 
 apply from: '../../dependencies.gradle'
 
-def imgui_name = "imgui-gdx"
+def imgui_name = "imgui-gdx-frame-viewport"
 
 dependencies {
 	implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
+	implementation "com.github.xpenatan:gdx-frame-viewport:$project.gdxFrameViewportVersion"
 
 	implementation project(':imgui-core')
 
@@ -26,8 +27,8 @@ task fromClasses (type: Jar) {
 publishing {
 	publications {
 		imguiGdxClasses(MavenPublication) {
-			version project.jDearImguiGDXVersion
-			project.version = project.jDearImguiGDXVersion
+			version project.jDearImguiGdxFrameViewportVersion
+			project.version = project.jDearImguiGdxFrameViewportVersion
 			artifactId imgui_name
 			artifact fromClasses
 		}

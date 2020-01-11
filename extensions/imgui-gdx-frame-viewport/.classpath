@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/imgui"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/gdx"/>
+	<classpathentry kind="lib" path="D:/Dev/Projects/Eclipse/jDear-imgui/imgui/libs/imgui-natives.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

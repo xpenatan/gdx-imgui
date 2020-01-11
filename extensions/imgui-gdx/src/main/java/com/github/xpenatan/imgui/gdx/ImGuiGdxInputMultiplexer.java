@@ -5,8 +5,8 @@ import com.badlogic.gdx.utils.IntArray;
 
 /**
  * This class will process ImGui inputs and other inputs added to the list			<br>
- * If inputs are triggered inside a imgui window it will pass to its childs.		<br>
- * It will also block input that is not used for imgui.								<br>
+ * If inputs are triggered inside a imgui window it will pass to its children.		<br>
+ * It will also block input that is not for imgui.								<br>
  *
  * @author xpenatan
  */
