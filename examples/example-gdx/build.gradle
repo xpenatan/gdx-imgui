@@ -11,7 +11,7 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$project.gdxVersion"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-core:$project.jDearImguiVersion"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-core-platform:$project.jDearImguiVersion:desktop"
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx:$project.jDearImguiGDXVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx:$project.jDearImguiGdxVersion"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-layout:$project.jDearImguiLayoutVersion"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-layout-platform:$project.jDearImguiLayoutVersion:desktop"
 
