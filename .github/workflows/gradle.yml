@@ -4,7 +4,6 @@ on:
     push:
       branches:
         - master
-        - xpenatan-patch-1
         - patch
 
 jobs:
