@@ -2,7 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/imgui"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/imgui-core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/gdx-jnigen"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/imgui-cpp"/>
+	<classpathentry kind="lib" path="libs/imgui-layout-natives.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -3,8 +3,7 @@ name: Deploy Libs
 on:
     push:
       branches:
-        - master
-        - patch
+        - upload
 
 jobs:
   build_Linux:
