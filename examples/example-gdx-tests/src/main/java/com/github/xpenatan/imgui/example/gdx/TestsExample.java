@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.tests.InputTest;
 import com.badlogic.gdx.tests.utils.GdxTest;
 import com.badlogic.gdx.tests.utils.GdxTests;
+import com.github.xpenatan.gdx.frame.viewport.EmuApplicationWindow;
+import com.github.xpenatan.gdx.frame.viewport.EmuFrameBuffer;
 import com.github.xpenatan.imgui.DrawData;
 import com.github.xpenatan.imgui.ImGui;
 import com.github.xpenatan.imgui.ImGuiBoolean;
@@ -19,10 +21,7 @@ import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.enums.ImGuiStyleVar;
 import com.github.xpenatan.imgui.enums.ImGuiWindowFlags;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
-import com.github.xpenatan.imgui.gdx.ImGuiGdxInput;
-import com.github.xpenatan.imgui.gdx.widgets.ImGuiGdxGameWindow;
-import com.github.xpenatan.xwindow.EmuApplicationWindow;
-import com.github.xpenatan.xwindow.EmuFrameBuffer;
+import com.github.xpenatan.imgui.gdx.frame.viewport.ImGuiGdxFrameWindow;
 
 /**
  *
@@ -45,7 +44,7 @@ public class TestsExample implements ApplicationListener {
 	ImGuiGdxImpl impl;
 
 	EmuApplicationWindow emuApplication;
-	ImGuiGdxGameWindow gameWindow;
+	ImGuiGdxFrameWindow gameWindow;
 
 	int i = 0;
 
@@ -62,13 +61,12 @@ public class TestsExample implements ApplicationListener {
 		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable);
 		ImGui.GetIO().SetDockingFlags(false, false, false, false);
 
-		ImGuiGdxInput imguiInput = new ImGuiGdxInput();
 		impl = new ImGuiGdxImpl();
 
 		EmuFrameBuffer.setDefaultFramebufferHandleInitialized(false);
 
 		emuApplication = new EmuApplicationWindow();
-		gameWindow = new ImGuiGdxGameWindow(emuApplication, 400, 400, 300, 100);
+		gameWindow = new ImGuiGdxFrameWindow(emuApplication, 400, 400, 300, 100);
 
 		gameWindow.setName("Game");
 
