@@ -698,7 +698,7 @@ namespace ImGuiEx
 
 			ImGui::TableNextCell();
 
-			float maxHeight1 = ImGuiEx::getTableRowHeight();
+			float maxHeight1 = ImGuiEx::GetTableRowHeight();
 
 			ImGui::Text("Row Height: %.1f", maxHeight1);
 
@@ -760,7 +760,7 @@ namespace ImGuiEx
 
 			ImGui::TableNextCell();
 
-			float maxHeight1 = ImGuiEx::getTableRowHeight();
+			float maxHeight1 = ImGuiEx::GetTableRowHeight();
 
 			ImGui::Text("Row Height: %.1f", maxHeight1);
 

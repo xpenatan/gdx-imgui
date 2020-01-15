@@ -621,7 +621,7 @@ void ImGuiEx::CalculateTableRowHeight() {
 	}
 }
 
-float ImGuiEx::getTableRowHeight() {
+float ImGuiEx::GetTableRowHeight() {
 	ImGuiContext& g = *GImGui;
 	ImGuiTable* table = g.CurrentTable;
 	if (table != NULL) {
