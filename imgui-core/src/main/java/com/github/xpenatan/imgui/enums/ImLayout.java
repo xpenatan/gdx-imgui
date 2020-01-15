@@ -1,6 +1,6 @@
 package com.github.xpenatan.imgui.enums;
 
 public class ImLayout {
-	public static float MATCH_PARENT = -0.1f;
-	public static float WRAP_PARENT = 0.0f;
+	public static int MATCH_PARENT = 9999990;
+	public static int WRAP_PARENT = 9999991;
 }

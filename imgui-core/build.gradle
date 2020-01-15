@@ -26,7 +26,7 @@ clean.doFirst {
 	project.delete(files(libPath))
 }
 
-task copyNatives(dependsOn: [':imgui-cpp:generateNatives']) {
+task copyNatives() {
 	doLast {
 		copy {
 			from "../imgui-cpp/libs"

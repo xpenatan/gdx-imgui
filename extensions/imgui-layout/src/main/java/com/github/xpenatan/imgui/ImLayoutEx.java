@@ -5,7 +5,7 @@ import com.github.xpenatan.imgui.ImGuiBoolean;
 import com.github.xpenatan.imgui.ImGuiLayoutNative.ImGuiCollapseLayoutOptions;
 import com.github.xpenatan.imgui.ImGuiLayoutNative.ImGuiLayout;
 
-public class ImGuiEx {
+public class ImLayoutEx {
 
 	private static boolean IMGUIINIT = false;
 
@@ -14,16 +14,16 @@ public class ImGuiEx {
 	}
 
 	public static void init (boolean logging) {
-		if(ImGuiEx.IMGUIINIT)
+		if(ImLayoutEx.IMGUIINIT)
 			return;
 		JniGenSharedLibraryLoader loader = new JniGenSharedLibraryLoader();
 		loader.load("imgui-layout");
-		ImGuiEx.IMGUIINIT = true;
+		ImLayoutEx.IMGUIINIT = true;
 
 		ImGuiLayoutNative.init();
 	}
 
-	protected ImGuiEx() {
+	protected ImLayoutEx() {
 	}
 
 	public static void ShowLayoutDebug() {

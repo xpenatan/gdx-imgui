@@ -33,10 +33,10 @@ public class Build {
 				genLinux(buildConfig, projectPath, headerDir, includes),
 				genMac(buildConfig, projectPath, headerDir, includes));
 
-//		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "postcompile");
+		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "postcompile");
 //		BuildExecutor.executeAnt("jni/build-linux64.xml", "-v", "-Dhas-compiler=true", "postcompile");
 //		BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v", "-Dhas-compiler=true");
-//		BuildExecutor.executeAnt("jni/build.xml", "-v", "pack-natives");
+		BuildExecutor.executeAnt("jni/build.xml", "-v", "pack-natives");
 	}
 
 	private static BuildTarget genWindows(BuildConfig buildConfig, String projectPath, String[] headerDir, String[] includes) {
@@ -46,14 +46,12 @@ public class Build {
 
 		win64.cppIncludes = includes;
 		win64.headerDirs = headerDir;
-//		win64.cppFlags =  "-c -Wno-unused -O0 -mfpmath=sse -msse2 -fmessage-length=0 -m64";
-//		win64.cppFlags =  "-c -Wall -fPIC -m64";
-//		if(debug)
-//			win64.cppFlags +=  " -g";
 		win64.linkerFlags =  "-Wl,--kill-at -shared -static-libgcc -static-libstdc++ -m64";
 		win64.libraries = "-L" + libFolder + " -limgui-cpp64";
 		win64.excludeFromMasterBuildFile = true;
 		buildConfig.sharedLibs[0] = libFolder;
+		if(BuildCPP.DEBUG_BUILD)
+			win64.cppFlags = "-c -Wall -O0 -mfpmath=sse -msse2 -fmessage-length=0 -m64 -g";
 		return win64;
 	}
 

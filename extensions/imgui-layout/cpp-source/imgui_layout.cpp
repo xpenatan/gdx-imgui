@@ -44,6 +44,21 @@ static void popLayout() {
 	layoutStack.pop_back();
 }
 
+ImGuiStorage* ImGuiEx::GetImGuiStorage(ImGuiID id) {
+	ImGuiContext& g = *GImGui;
+	ImGuiStorage* childLayout = NULL;
+	childLayout = (ImGuiStorage*)g.WindowsById.GetVoidPtr(id);
+	if (childLayout == NULL) {
+		childLayout = IM_NEW(ImGuiStorage)();
+		g.WindowsById.SetVoidPtr(id, childLayout);
+	}
+	return childLayout;
+}
+
+ImGuiStorage* ImGuiEx::GetImGuiStorage(const char* id_str) {
+	return ImGuiEx::GetImGuiStorage(ImHashStr(id_str));
+}
+
 void ImGuiEx::FillWidth(int r, int g, int b, int a, ImVec2 size) {
 	ImU32 bgColor = ImGui::GetColorU32(ImVec4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f));
 	ImDrawList* drawList = ImGui::GetWindowDrawList();
@@ -248,10 +263,11 @@ void ImGuiEx::EndLayout()
 	float x = window->DC.CursorPos.x;
 	float y = window->DC.CursorPos.y;
 
-	curLayout->contentSize.x = window->DC.CursorMaxPos.x - x;
+	//curLayout->contentSize.x = window->DC.CursorMaxPos.x - x; // dont work with table api but there is no test bug
 	//curLayout->contentSize.y = y - curLayout->position.y - g.Style.ItemSpacing.y;
 
-	//curLayout->contentSize.x = window->DC.CursorMaxPos.x - curLayout->positionContents.x;
+	curLayout->contentSize.x = window->DC.CursorMaxPos.x - curLayout->positionContents.x - curLayout->paddingLeft; // werid bug in test but works with table api
+	//curLayout->contentSize.x = x - curLayout->positionContents.x; // werid bug in test but works with table api
 	curLayout->contentSize.y = y - curLayout->positionContents.y - g.Style.ItemSpacing.y;
 
 	// Restore windows data
@@ -563,6 +579,77 @@ void ImGuiEx::AlignLayout(float alignX, float alignY, float offsetX, float offse
 void ImGuiEx::EndAlign() {
 	ImGuiEx::EndLayout();
 }
+
+static int TABLE_HEIGHT_KEY = 15000;
+static int TABLE_HEIGHT_KEY_AUX = 150;
+
+float ImGuiEx::GetTableContentHeight() {
+	ImGuiContext& g = *GImGui;
+	ImGuiTable* table = g.CurrentTable;
+	if (table != NULL) {
+		ImGuiWindow* window = table->InnerWindow;
+		float y = window->DC.CursorPos.y;
+		float itemSpacingY = g.Style.ItemSpacing.y;
+
+		float height = y - table->RowPosY1 - table->CellPaddingY - itemSpacingY;
+
+		return height;
+	}
+
+	return 0;
+}
+
+void ImGuiEx::CalculateTableRowHeight() {
+	ImGuiContext& g = *GImGui;
+	ImGuiTable* table = g.CurrentTable;
+	if (table != NULL) {
+		float height = ImGuiEx::GetTableContentHeight();
+		ImGuiStorage* storage = ImGuiEx::GetImGuiStorage(table->ID);
+		int column = table->CurrentColumn;
+		bool lastColumn = (column == table->ColumnsCount -1);
+		int row = table->CurrentRow;
+		float tempHeight = storage->GetFloat(TABLE_HEIGHT_KEY_AUX + row, 0.0F);
+		if (column == 0)
+			tempHeight = 0;
+		if (height > tempHeight) {
+			tempHeight = height;
+			storage->SetFloat(TABLE_HEIGHT_KEY_AUX + row, tempHeight);
+		}
+		float curHeight = storage->GetFloat(TABLE_HEIGHT_KEY + row, 0.0F);
+		float updateHeight = -1;
+		if (height > curHeight)
+			updateHeight = height;
+		if (lastColumn && curHeight != tempHeight)
+			updateHeight = tempHeight;  // if a view update its height it will update the new row height
+		if(updateHeight >= 0 )
+			storage->SetFloat(TABLE_HEIGHT_KEY + row, updateHeight);
+	}
+}
+
+//float ImGuiEx::getTableCellHeight() {
+//	ImGuiContext& g = *GImGui;
+//	ImGuiTable* table = g.CurrentTable;
+//	if (table != NULL) {
+//		ImGuiWindow* window = table->InnerWindow;
+//		float RowPosY1 = table->RowPosY1;
+//		float RowPosY2 = 0;
+//		RowPosY2 = ImMax(table->RowPosY2 - table->CellPaddingY * 2, window->DC.CursorMaxPos.y - table->CellPaddingY);
+//		return RowPosY2 - RowPosY1;
+//	}
+//	return 0;
+//}
+
+float ImGuiEx::getTableRowHeight() {
+	ImGuiContext& g = *GImGui;
+	ImGuiTable* table = g.CurrentTable;
+	if (table != NULL) {
+		ImGuiStorage* storage = ImGuiEx::GetImGuiStorage(table->ID);
+		float curHeight = storage->GetFloat(TABLE_HEIGHT_KEY + table->CurrentRow, 0.0F);
+		return curHeight;
+	}
+	return 0;
+}
+
 
 int calculateColumnWidth(int columnIndex, int columnLayoutSizeX, int totalColumns) {
 

@@ -5,10 +5,6 @@ import com.badlogic.gdx.jnigen.BuildTarget.TargetOs;
 import com.github.xpenatan.imgui.generate.BuildCPP;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 
 public class Build {
 	public static void main(String[] args) throws Exception {
@@ -46,10 +42,10 @@ public class Build {
 				genLinux(projectPath, headerDir, includes),
 				genMac(projectPath, headerDir, includes));
 
-//		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "postcompile");
+		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "postcompile");
 //		BuildExecutor.executeAnt("jni/build-linux64.xml", "-v", "-Dhas-compiler=true", "postcompile");
 //		BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v", "-Dhas-compiler=true");
-//		BuildExecutor.executeAnt("jni/build.xml", "-v", "pack-natives");
+		BuildExecutor.executeAnt("jni/build.xml", "-v", "pack-natives");
 	}
 
 
@@ -62,6 +58,9 @@ public class Build {
 		win64.headerDirs = headerDir;
 		win64.linkerFlags =  "-Wl,--kill-at -shared -static-libgcc -static-libstdc++ -m64";
 		win64.libraries = "-L" + libFolder + " -limgui-cpp64";
+
+		if(BuildCPP.DEBUG_BUILD)
+			win64.cppFlags = "-c -Wall -O0 -mfpmath=sse -msse2 -fmessage-length=0 -m64 -g";
 		return win64;
 	}
 

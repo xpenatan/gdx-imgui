@@ -138,10 +138,10 @@ public class ImGuiNative {
 
 	static native void SetDockingFlags(boolean ConfigDockingNoSplit, boolean ConfigDockingWithShift, boolean ConfigDockingAlwaysTabBar, boolean ConfigDockingTransparentPayload) /*-{ }-*/; /*
 		ImGuiIO& io = ImGui::GetIO();
-		io.ConfigDockingNoSplit = ConfigDockingNoSplit;
-		io.ConfigDockingWithShift = ConfigDockingWithShift;
-		io.ConfigDockingAlwaysTabBar = ConfigDockingAlwaysTabBar;
-		io.ConfigDockingTransparentPayload = ConfigDockingTransparentPayload;
+//		io.ConfigDockingNoSplit = ConfigDockingNoSplit;
+//		io.ConfigDockingWithShift = ConfigDockingWithShift;
+//		io.ConfigDockingAlwaysTabBar = ConfigDockingAlwaysTabBar;
+//		io.ConfigDockingTransparentPayload = ConfigDockingTransparentPayload;
 	 */
 
 	static native void UpdateDisplayAndInputAndFrame(ImGuiIO jImguiIO, ImGuiStyle jImguiStyle, float deltaTime, float w, float h, float display_w, float display_h,
@@ -1865,56 +1865,162 @@ public class ImGuiNative {
 	// - You can also use SameLine(pos_x) to mimic simplified columns.
 	// - The columns API is work-in-progress and rather lacking (columns are arguably the worst part of dear imgui at the moment!)
 
+	@Deprecated
 	static native void Columns() /*-{ }-*/; /*
 		ImGui::Columns();
 	*/
 
+	@Deprecated
 	static native void Columns(int count) /*-{ }-*/; /*
 		ImGui::Columns(count);
 	*/
 
+	@Deprecated
 	static native void Columns(int count, String id) /*-{ }-*/; /*
 		ImGui::Columns(count, id);
 	*/
 
+	@Deprecated
 	static native void Columns(int count, String id, boolean border) /*-{ }-*/; /*
 		ImGui::Columns(count, id, border);
 	*/
 
+	@Deprecated
 	static native void NextColumn() /*-{ }-*/; /*
 		ImGui::NextColumn();
 	*/
 
+	@Deprecated
 	static native int GetColumnIndex() /*-{ }-*/; /*
 		return ImGui::GetColumnIndex();
 	 */
 
+	@Deprecated
 	static native float GetColumnWidth() /*-{ }-*/; /*
 		return ImGui::GetColumnWidth();
 	*/
 
+	@Deprecated
 	static native float GetColumnWidth(int column_index) /*-{ }-*/; /*
 		return ImGui::GetColumnWidth(column_index);
 	*/
 
+	@Deprecated
 	static native void SetColumnWidth(int column_index, float width) /*-{ }-*/; /*
 		ImGui::SetColumnWidth(column_index, width);
 	*/
 
+	@Deprecated
 	static native float GetColumnOffset() /*-{ }-*/; /*
 		return ImGui::GetColumnOffset();
 	*/
 
+	@Deprecated
 	static native float GetColumnOffset(int column_index) /*-{ }-*/; /*
 		return ImGui::GetColumnOffset(column_index);
 	*/
 
+	@Deprecated
 	static native void SetColumnOffset(int column_index, float offset_x) /*-{ }-*/; /*
 		ImGui::SetColumnOffset(column_index, offset_x);
 	*/
 
+	@Deprecated
 	static native int GetColumnsCount() /*-{ }-*/; /*
 		return ImGui::GetColumnsCount();
+	*/
+
+	// Tables
+
+	static native boolean BeginTable(String id, int columns_count) /*-{ }-*/; /*
+		return ImGui::BeginTable(id, columns_count);
+	*/
+
+	static native boolean BeginTable(String id, int columns_count, int flags) /*-{ }-*/; /*
+		return ImGui::BeginTable(id, columns_count, flags);
+	*/
+
+	static native boolean BeginTable(String id, int columns_count, int flags, float outer_sizeX, float outer_sizeY) /*-{ }-*/; /*
+		return ImGui::BeginTable(id, columns_count, flags, ImVec2(outer_sizeX, outer_sizeY));
+	*/
+
+	static native boolean BeginTable(String id, int columns_count, int flags, float outer_sizeX, float outer_sizeY, float inner_width) /*-{ }-*/; /*
+		return ImGui::BeginTable(id, columns_count, flags, ImVec2(outer_sizeX, outer_sizeY), inner_width);
+	*/
+
+	static native void  EndTable() /*-{ }-*/; /*
+		ImGui::EndTable();
+	*/
+
+	static native void  TableNextRow() /*-{ }-*/; /*
+		ImGui::TableNextRow();
+	*/
+
+	static native void  TableNextRow(int row_flags) /*-{ }-*/; /*
+		ImGui::TableNextRow(row_flags);
+	*/
+
+	static native void  TableNextRow(int row_flags, float min_row_height) /*-{ }-*/; /*
+		ImGui::TableNextRow(row_flags, min_row_height);
+	*/
+
+	static native boolean TableNextCell() /*-{ }-*/; /*
+		return ImGui::TableNextCell();
+	*/
+
+	static native boolean TableSetColumnIndex(int column_n) /*-{ }-*/; /*
+		return ImGui::TableSetColumnIndex(column_n);
+	*/
+
+	static native int TableGetColumnIndex() /*-{ }-*/; /*
+		return ImGui::TableGetColumnIndex();
+	*/
+
+//TODO Fix return string
+//	static native char[] TableGetColumnName() /*-{ }-*/; /*
+//		return ImGui::TableGetColumnName();
+//	*/
+
+	static native boolean TableGetColumnIsVisible() /*-{ }-*/; /*
+		return ImGui::TableGetColumnIsVisible();
+	*/
+
+	static native boolean TableGetColumnIsVisible(int column_n) /*-{ }-*/; /*
+		return ImGui::TableGetColumnIsVisible(column_n);
+	*/
+
+	static native boolean TableGetColumnIsSorted() /*-{ }-*/; /*
+		return ImGui::TableGetColumnIsSorted();
+	*/
+
+	static native boolean TableGetColumnIsSorted(int column_n) /*-{ }-*/; /*
+		return ImGui::TableGetColumnIsSorted(column_n);
+	*/
+
+	// Tables: Headers & Columns declaration
+
+	static native void TableSetupColumn(String label) /*-{ }-*/; /*
+		ImGui::TableSetupColumn(label);
+	*/
+
+	static native void TableSetupColumn(String label, int flags) /*-{ }-*/; /*
+		ImGui::TableSetupColumn(label, flags);
+	*/
+
+	static native void TableSetupColumn(String label, int flags, float init_width_or_weight) /*-{ }-*/; /*
+		ImGui::TableSetupColumn(label, flags, init_width_or_weight);
+	*/
+
+	static native void TableSetupColumn(String label, int flags, float init_width_or_weight, int user_id) /*-{ }-*/; /*
+		ImGui::TableSetupColumn(label, flags, init_width_or_weight, user_id);
+	*/
+
+	static native void TableAutoHeaders() /*-{ }-*/; /*
+		ImGui::TableAutoHeaders();
+	*/
+
+	static native void TableHeader(String label) /*-{ }-*/; /*
+		ImGui::TableHeader(String label);
 	*/
 
 	// Tab Bars, Tabs
@@ -1957,15 +2063,15 @@ public class ImGuiNative {
 
 
 	static native void DockSpace(int id) /*-{ }-*/; /*
-		ImGui::DockSpace(id);
+//		ImGui::DockSpace(id);
 	*/
 
 	static native void DockSpace(int id, float sizeX, float sizeY) /*-{ }-*/; /*
-		ImGui::DockSpace(id, ImVec2(sizeX, sizeY));
+//		ImGui::DockSpace(id, ImVec2(sizeX, sizeY));
 	*/
 
 	static native void DockSpace(int id, float sizeX, float sizeY, int flags) /*-{ }-*/; /*
-		ImGui::DockSpace(id, ImVec2(sizeX, sizeY), flags);
+//		ImGui::DockSpace(id, ImVec2(sizeX, sizeY), flags);
 	*/
 
 	// Focus, Activation

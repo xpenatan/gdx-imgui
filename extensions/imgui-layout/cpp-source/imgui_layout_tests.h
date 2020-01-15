@@ -611,12 +611,13 @@ namespace ImGuiEx
 
 		ImGuiEx::FillWidth(255, 255, 255, 255, ImVec2(ImLayout::MATCH_PARENT, 20));
 
-		ImGui::Columns(2);
-		for (int i = 0; i < 2; i++)
+		ImGui::Columns(3);
+		for (int i = 0; i < 3; i++)
 		{
-			ImGuiEx::FillWidth(0, 0, 155);
+			ImGuiEx::FillWidth(0, 0, 115);
 
-			//ImGui::Button("tt", ImVec2(-1, 20));
+			//ImGui::Text("Test");
+			ImGui::Button("tt", ImVec2(-1, 20));
 			ImGui::NextColumn();
 		}
 		ImGui::Columns(1);
@@ -658,6 +659,152 @@ namespace ImGuiEx
 		ImGui::Text("lineSizeX: \n%.02i", lineSizeX);
 		ImGui::Text("%.02i", (lineSizeX - (columns_count-1) * splitterWidth));
 		ImGui::Text("Total: \n%.02i", sizeTotal);
+	}
+
+	inline void test18(const char* name, bool debug) {
+		ImGuiStyle& style = ImGui::GetStyle();
+
+		// Set up sliders
+
+		static float alignX = 0.5f;
+		static float alignY = 0.5f;
+
+		ImGui::SliderFloat("AlignX", &alignX, 0.0f, 1.0f, "%.2f");
+		ImGui::SliderFloat("AlignY", &alignY, 0.0f, 1.0f, "%.2f");
+
+		static float btnHeight01 = 90;
+		ImGui::SliderFloat("Height01", &btnHeight01, 0.0f, 250.0f, "%.1f");
+
+		static float btnHeight02 = 60;
+		ImGui::SliderFloat("Height02", &btnHeight02, 0.0f, 250.0f, "%.1f");
+
+		static float btnHeight03 = 70;
+		ImGui::SliderFloat("Height03", &btnHeight03, 0.0f, 250.0f, "%.1f");
+
+		static float btnHeight04 = 40;
+		ImGui::SliderFloat("Height04", &btnHeight04, 0.0f, 250.0f, "%.1f");
+
+		ImGui::SliderFloat2("CellPadding", (float*)&style.CellPadding, 0.0f, 20.0f, "%.0f");
+
+		// FIRST TABLE
+
+		if (ImGui::BeginTable("01", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_BordersVFullHeight | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable))
+		{
+			ImGui::TableSetupColumn("A0");
+			ImGui::TableSetupColumn("A1");
+			ImGui::TableSetupColumn("A2");
+			ImGui::TableSetupColumn("A3");
+			ImGui::TableAutoHeaders();
+
+			ImGui::TableNextCell();
+
+			float maxHeight1 = ImGuiEx::getTableRowHeight();
+
+			ImGui::Text("Row Height: %.1f", maxHeight1);
+
+			ImGui::Button("01", ImVec2(0, btnHeight01));
+
+			float contentHeight01 = ImGuiEx::GetTableContentHeight();
+
+			ImGuiEx::CalculateTableRowHeight();
+
+			ImGui::TableNextCell();
+
+			ImGuiEx::BeginLayout("###idd", ImLayout::MATCH_PARENT, maxHeight1 == 0 ? ImLayout::WRAP_PARENT : maxHeight1);
+			ImGuiEx::ShowLayoutDebug();
+			ImGuiEx::AlignLayout(alignX, alignY);
+			ImGui::Text("A0 Cell 1");
+			ImGuiEx::EndLayout();
+
+			float contentHeight02 = ImGuiEx::GetTableContentHeight();
+			//ImGuiEx::CalculateTableRowHeight(); // since this view depends of row height there is no need to calculate
+
+			ImGui::TableNextCell();
+
+			ImGui::Button("03", ImVec2(0, btnHeight03));
+
+			float contentHeight03 = ImGuiEx::GetTableContentHeight();
+
+			ImGuiEx::CalculateTableRowHeight();
+
+			ImGui::TableNextCell();
+
+			ImGui::Button("04", ImVec2(0, btnHeight04));
+
+			float contentHeight04 = ImGuiEx::GetTableContentHeight();
+
+			ImGuiEx::CalculateTableRowHeight();
+
+			ImGui::TableNextCell();
+
+			// Next row
+			ImGui::Text("contentHeight01: %.1f", contentHeight01);
+			ImGui::TableNextCell();
+			ImGui::Text("contentHeight02: %.1f", contentHeight02);
+			ImGui::TableNextCell();
+			ImGui::Text("contentHeight03: %.1f", contentHeight03);
+			ImGui::TableNextCell();
+			ImGui::Text("contentHeight04: %.1f", contentHeight04);
+
+			ImGui::EndTable();
+		}
+
+		// SECOND TABLE
+
+		if (ImGui::BeginTable("02", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_BordersVFullHeight | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable))
+		{
+			ImGui::TableSetupColumn("B0");
+			ImGui::TableSetupColumn("B1");
+			ImGui::TableSetupColumn("B2");
+			ImGui::TableSetupColumn("B3");
+			ImGui::TableAutoHeaders();
+
+			ImGui::TableNextCell();
+
+			float maxHeight1 = ImGuiEx::getTableRowHeight();
+
+			ImGui::Text("Row Height: %.1f", maxHeight1);
+
+			ImGui::Button("01", ImVec2(0, btnHeight01));
+
+			float contentHeight01 = ImGuiEx::GetTableContentHeight();
+
+			ImGuiEx::CalculateTableRowHeight();
+
+			ImGui::TableNextCell();
+
+			ImGui::Button("02", ImVec2(0, btnHeight02));
+
+			float contentHeight02 = ImGuiEx::GetTableContentHeight();
+			ImGuiEx::CalculateTableRowHeight();
+
+			ImGui::TableNextCell();
+
+			ImGui::Button("03", ImVec2(0, btnHeight03));
+
+			float contentHeight03 = ImGuiEx::GetTableContentHeight();
+
+			ImGuiEx::CalculateTableRowHeight();
+
+			ImGui::TableNextCell();
+
+			ImGui::Button("04", ImVec2(0, btnHeight04));
+
+			float contentHeight04 = ImGuiEx::GetTableContentHeight();
+
+			ImGuiEx::CalculateTableRowHeight();
+
+			// Next row
+			ImGui::Text("contentHeight01: %.1f", contentHeight01);
+			ImGui::TableNextCell();
+			ImGui::Text("contentHeight02: %.1f", contentHeight02);
+			ImGui::TableNextCell();
+			ImGui::Text("contentHeight03: %.1f", contentHeight03);
+			ImGui::TableNextCell();
+			ImGui::Text("contentHeight04: %.1f", contentHeight04);
+
+			ImGui::EndTable();
+		}
 	}
 
 	inline void testFail01(const char* name, bool debug) {
@@ -888,6 +1035,7 @@ namespace ImGuiEx
 		ImGui::RadioButton("test15", &e, i++);
 		ImGui::RadioButton("test16", &e, i++);
 		ImGui::RadioButton("test17", &e, i++);
+		ImGui::RadioButton("test18", &e, i++);
 		ImGui::RadioButton("example01", &e, i++);
 		ImGui::RadioButton("example02", &e, i++);
 		ImGui::RadioButton("example03", &e, i++);
@@ -929,6 +1077,8 @@ namespace ImGuiEx
 			test16("test16", false);
 		if (e == i++)
 			test17("test17", false);
+		if (e == i++)
+			test18("test18", false);
 		if (e == i++)
 			example01("example01");
 		if (e == i++)

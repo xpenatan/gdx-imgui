@@ -2,8 +2,7 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 
-//#pragma once
-
+#pragma once
 
 namespace ImLayout
 {
@@ -61,7 +60,6 @@ namespace ImGuiEx
 
 struct ImGuiLayout
 {
-
 public:
 	ImGuiID id;
 	ImGuiLayout* parentLayout;
@@ -89,7 +87,6 @@ public:
 	ImVec2 contentSize;                // Size of contents. calculated after the first frame
 	ImVec2 clippingMin;
 	ImVec2 clippingMax;
-
 
 	bool error;
 
@@ -139,7 +136,6 @@ public:
 	ImVec2 getPositionPadding() {
 		return ImVec2(position.x + paddingLeft, position.y + paddingTop);
 	}
-
 
 	void drawSizeDebug() {
 		// Render layout space
@@ -224,9 +220,14 @@ public:
 
 namespace ImGuiEx
 {
+	void FillWidth(int r = 255, int g = 255, int b = 255, int a = 255, ImVec2 size = ImVec2(ImLayout::MATCH_PARENT, 20));
 	void ShowLayoutDebug();
 	void ShowLayoutClipping();
 
+	ImGuiStorage* GetImGuiStorage(ImGuiID id);
+	ImGuiStorage* GetImGuiStorage(const char* id_str);
+
+	// Layout
 	ImVec2 GetLayoutSize();
 	void BeginLayoutEx(ImGuiID id);
 	void BeginLayoutEx(const char* id);
@@ -237,6 +238,7 @@ namespace ImGuiEx
 	void EndLayout();
 	ImGuiLayout* GetCurrentLayout();
 
+	// Custom Collapse Layout
 	bool BeginCollapseLayoutEx(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
 	void BeginCollapseLayoutEx(bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
 	bool PrepareCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
@@ -245,17 +247,23 @@ namespace ImGuiEx
 	void EndCollapseFrameLayout();
 	void EndCollapseLayout();
 
+	// Align view
 	void BeginAlign(const char* id, float sizeX, float sizeY, float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0);
 	void AlignLayout(float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0);
 	void EndAlign();
 
-	float GetColumnPercentage(int columnIdx = -1);
+	// Table
+	float GetTableContentHeight(); // call before moving to the next cell/row
+	//float getTableCellHeight(); // call before moving to the next cell/row
+	void CalculateTableRowHeight(); // call before moving to the next cell/row
+	float getTableRowHeight(); // call at the begining of new cell row
 
+	// Experimental Column. Deprecated.
+	float GetColumnPercentage(int columnIdx = -1);
 	void BeginColumns(const char* id, int columns);
 	void SetColumnWidthOffset(int columnIndex, int offset);
 	void SetColumnWidth(int columnIndex, int width);
 	void NextColumn();
 	void EndColumns();
 
-	void FillWidth(int r = 255, int g = 255, int b = 255, int a = 255, ImVec2 size = ImVec2(ImLayout::MATCH_PARENT, 20));
 };

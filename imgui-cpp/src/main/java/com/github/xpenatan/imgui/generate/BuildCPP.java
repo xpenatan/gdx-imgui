@@ -13,6 +13,9 @@ import com.badlogic.gdx.jnigen.BuildTarget;
 import com.badlogic.gdx.jnigen.BuildTarget.TargetOs;
 
 public class BuildCPP {
+
+	public static boolean DEBUG_BUILD = true;
+
 	public static void main(String[] args) throws Exception {
 		String libName = "imgui-cpp";
 
@@ -33,7 +36,7 @@ public class BuildCPP {
 				genLinux(projectPath, headerDir, includes),
 				genMac(projectPath, headerDir, includes));
 
-//		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
+		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
 //		BuildExecutor.executeAnt("jni/build-linux64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
 //		BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v", "-Dhas-compiler=true");
 	}
@@ -42,6 +45,9 @@ public class BuildCPP {
 		BuildTarget win64 = BuildTarget.newDefaultTarget(TargetOs.Windows, true);
 		win64.cppIncludes = includes;
 		win64.headerDirs = headerDir;
+
+		if(BuildCPP.DEBUG_BUILD)
+			win64.cppFlags = "-c -Wall -O0 -mfpmath=sse -msse2 -fmessage-length=0 -m64 -g";
 		return win64;
 	}
 

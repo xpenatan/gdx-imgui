@@ -16,6 +16,8 @@ import com.github.xpenatan.imgui.enums.ImGuiInputTextFlags;
 import com.github.xpenatan.imgui.enums.ImGuiStyleVar;
 import com.github.xpenatan.imgui.enums.ImGuiTabBarFlags;
 import com.github.xpenatan.imgui.enums.ImGuiTabItemFlags;
+import com.github.xpenatan.imgui.enums.ImGuiTableColumnFlags;
+import com.github.xpenatan.imgui.enums.ImGuiTableFlags;
 import com.github.xpenatan.imgui.enums.ImGuiTreeNodeFlags;
 import com.github.xpenatan.imgui.enums.ImGuiWindowFlags;
 
@@ -1299,56 +1301,162 @@ public class ImGui {
 	// - You can also use SameLine(pos_x) to mimic simplified columns.
 	// - The columns API is work-in-progress and rather lacking (columns are arguably the worst part of dear imgui at the moment!)
 
+	@Deprecated
 	public static void Columns() {
 		ImGuiNative.Columns();
 	}
 
+	@Deprecated
 	public static void Columns(int count) {
 		ImGuiNative.Columns(count);
 	}
 
+	@Deprecated
 	public static void Columns(int count, String id) {
 		ImGuiNative.Columns(count, id);
 	}
 
+	@Deprecated
 	public static void Columns(int count, String id, boolean border) {
 		ImGuiNative.Columns(count, id, border);
 	}
 
+	@Deprecated
 	public static void NextColumn() {
 		ImGuiNative.NextColumn();
 	}
 
+	@Deprecated
 	public static int GetColumnIndex() {
 		return ImGuiNative.GetColumnIndex();
 	}
 
+	@Deprecated
 	public static float GetColumnWidth() {
 		return ImGuiNative.GetColumnWidth();
 	}
 
+	@Deprecated
 	public static float GetColumnWidth(int column_index) {
 		return ImGuiNative.GetColumnWidth(column_index);
 	}
 
+	@Deprecated
 	public static void SetColumnWidth(int column_index, float width) {
 		ImGuiNative.SetColumnWidth(column_index, width);
 	}
 
+	@Deprecated
 	public static float GetColumnOffset() {
 		return ImGuiNative.GetColumnOffset();
 	}
 
+	@Deprecated
 	public static float GetColumnOffset(int column_index) {
 		return ImGuiNative.GetColumnOffset(column_index);
 	}
 
+	@Deprecated
 	public static void SetColumnOffset(int column_index, float offset_x) {
 		ImGuiNative.SetColumnOffset(column_index, offset_x);
 	}
 
+	@Deprecated
 	public static int GetColumnsCount() {
 		return ImGuiNative.GetColumnsCount();
+	}
+
+	// Tables
+
+	public static boolean BeginTable(String id, int columns_count) {
+		return ImGuiNative.BeginTable(id, columns_count);
+	}
+
+	public static boolean BeginTable(String id, int columns_count, ImGuiTableFlags flags) {
+		return ImGuiNative.BeginTable(id, columns_count, flags.getValue());
+	}
+
+	public static boolean BeginTable(String id, int columns_count, ImGuiTableFlags flags, float outer_sizeX, float outer_sizeY) {
+		return ImGuiNative.BeginTable(id, columns_count, flags.getValue(), outer_sizeX, outer_sizeY);
+	}
+
+	public static boolean BeginTable(String id, int columns_count, ImGuiTableFlags flags, float outer_sizeX, float outer_sizeY, float inner_width) {
+		return ImGuiNative.BeginTable(id, columns_count, flags.getValue(), outer_sizeX, outer_sizeY, inner_width);
+	}
+
+	public static void EndTable() {
+		ImGuiNative.EndTable();
+	}
+
+	public static void TableNextRow() {
+		ImGuiNative.TableNextRow();
+	}
+
+	public static void TableNextRow(int row_flags) {
+		ImGuiNative.TableNextRow(row_flags);
+	}
+
+	public static void TableNextRow(int row_flags, float min_row_height) {
+		ImGuiNative.TableNextRow(row_flags, min_row_height);
+	}
+
+	public static boolean TableNextCell() {
+		return ImGuiNative.TableNextCell();
+	}
+
+	public static boolean TableSetColumnIndex(int column_n) {
+		return ImGuiNative.TableSetColumnIndex(column_n);
+	}
+
+	public static int TableGetColumnIndex() {
+		return ImGuiNative.TableGetColumnIndex();
+	}
+
+	//TODO Fix return string
+	public static String TableGetColumnName() {
+		return null;
+	}
+
+	public static boolean TableGetColumnIsVisible() {
+		return ImGuiNative.TableGetColumnIsVisible();
+	}
+
+	public static boolean TableGetColumnIsVisible(int column_n) {
+		return ImGuiNative.TableGetColumnIsVisible(column_n);
+	}
+
+	public static boolean TableGetColumnIsSorted() {
+		return ImGuiNative.TableGetColumnIsSorted();
+	}
+
+	public static boolean TableGetColumnIsSorted(int column_n) {
+		return ImGuiNative.TableGetColumnIsSorted(column_n);
+	}
+
+	// Tables: Headers & Columns declaration
+
+	public static void TableSetupColumn(String label) {
+		ImGuiNative.TableSetupColumn(label);
+	}
+
+	public static void TableSetupColumn(String label, ImGuiTableColumnFlags flags) {
+		ImGuiNative.TableSetupColumn(label, flags.getValue());
+	}
+
+	public static void TableSetupColumn(String label, ImGuiTableColumnFlags flags, float init_width_or_weight) {
+		ImGuiNative.TableSetupColumn(label, flags.getValue(), init_width_or_weight);
+	}
+
+	public static void TableSetupColumn(String label, ImGuiTableColumnFlags flags, float init_width_or_weight, int user_id) {
+		ImGuiNative.TableSetupColumn(label, flags.getValue(), init_width_or_weight, user_id);
+	}
+
+	public static void TableAutoHeaders() {
+		ImGuiNative.TableAutoHeaders();
+	}
+
+	public static void TableHeader(String label) {
+		ImGuiNative.TableHeader(label);
 	}
 
 	// Tab Bars, Tabs

@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/gdx-jnigen"/>
 	<classpathentry kind="lib" path="libs/imgui-natives.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/imgui-cpp"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
