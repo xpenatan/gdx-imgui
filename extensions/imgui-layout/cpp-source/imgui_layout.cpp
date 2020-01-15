@@ -626,19 +626,6 @@ void ImGuiEx::CalculateTableRowHeight() {
 	}
 }
 
-//float ImGuiEx::getTableCellHeight() {
-//	ImGuiContext& g = *GImGui;
-//	ImGuiTable* table = g.CurrentTable;
-//	if (table != NULL) {
-//		ImGuiWindow* window = table->InnerWindow;
-//		float RowPosY1 = table->RowPosY1;
-//		float RowPosY2 = 0;
-//		RowPosY2 = ImMax(table->RowPosY2 - table->CellPaddingY * 2, window->DC.CursorMaxPos.y - table->CellPaddingY);
-//		return RowPosY2 - RowPosY1;
-//	}
-//	return 0;
-//}
-
 float ImGuiEx::getTableRowHeight() {
 	ImGuiContext& g = *GImGui;
 	ImGuiTable* table = g.CurrentTable;
@@ -649,7 +636,6 @@ float ImGuiEx::getTableRowHeight() {
 	}
 	return 0;
 }
-
 
 int calculateColumnWidth(int columnIndex, int columnLayoutSizeX, int totalColumns) {
 

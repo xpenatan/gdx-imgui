@@ -254,7 +254,6 @@ namespace ImGuiEx
 
 	// Table
 	float GetTableContentHeight(); // call before moving to the next cell/row
-	//float getTableCellHeight(); // call before moving to the next cell/row
 	void CalculateTableRowHeight(); // call before moving to the next cell/row
 	float getTableRowHeight(); // call at the begining of new cell row
 
