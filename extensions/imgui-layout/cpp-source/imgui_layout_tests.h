@@ -713,7 +713,7 @@ namespace ImGuiEx
 			ImGuiEx::BeginLayout("###idd", ImLayout::MATCH_PARENT, maxHeight1 == 0 ? ImLayout::WRAP_PARENT : maxHeight1);
 			ImGuiEx::ShowLayoutDebug();
 			ImGuiEx::AlignLayout(alignX, alignY);
-			ImGui::Text("A0 Cell 1");
+			ImGui::Text("MyText");
 			ImGuiEx::EndLayout();
 
 			float contentHeight02 = ImGuiEx::GetTableContentHeight();
