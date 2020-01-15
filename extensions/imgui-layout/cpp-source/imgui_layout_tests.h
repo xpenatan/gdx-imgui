@@ -673,16 +673,16 @@ namespace ImGuiEx
 		ImGui::SliderFloat("AlignY", &alignY, 0.0f, 1.0f, "%.2f");
 
 		static float btnHeight01 = 90;
-		ImGui::SliderFloat("Height01", &btnHeight01, 0.0f, 250.0f, "%.1f");
+		ImGui::SliderFloat("Height01", &btnHeight01, 0.0f, 250.0f, "%.0f");
 
 		static float btnHeight02 = 60;
-		ImGui::SliderFloat("Height02", &btnHeight02, 0.0f, 250.0f, "%.1f");
+		ImGui::SliderFloat("Height02", &btnHeight02, 0.0f, 250.0f, "%.0f");
 
 		static float btnHeight03 = 70;
-		ImGui::SliderFloat("Height03", &btnHeight03, 0.0f, 250.0f, "%.1f");
+		ImGui::SliderFloat("Height03", &btnHeight03, 0.0f, 250.0f, "%.0f");
 
 		static float btnHeight04 = 40;
-		ImGui::SliderFloat("Height04", &btnHeight04, 0.0f, 250.0f, "%.1f");
+		ImGui::SliderFloat("Height04", &btnHeight04, 0.0f, 250.0f, "%.0f");
 
 		ImGui::SliderFloat2("CellPadding", (float*)&style.CellPadding, 0.0f, 20.0f, "%.0f");
 
