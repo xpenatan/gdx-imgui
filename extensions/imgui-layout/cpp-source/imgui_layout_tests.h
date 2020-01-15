@@ -735,9 +735,8 @@ namespace ImGuiEx
 
 			ImGuiEx::CalculateTableRowHeight();
 
-			ImGui::TableNextCell();
-
 			// Next row
+			ImGui::TableNextCell();
 			ImGui::Text("contentHeight01: %.1f", contentHeight01);
 			ImGui::TableNextCell();
 			ImGui::Text("contentHeight02: %.1f", contentHeight02);
@@ -795,6 +794,7 @@ namespace ImGuiEx
 			ImGuiEx::CalculateTableRowHeight();
 
 			// Next row
+			ImGui::TableNextCell();
 			ImGui::Text("contentHeight01: %.1f", contentHeight01);
 			ImGui::TableNextCell();
 			ImGui::Text("contentHeight02: %.1f", contentHeight02);
