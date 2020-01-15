@@ -265,9 +265,9 @@ void ImGuiEx::EndLayout()
 
 	//curLayout->contentSize.x = window->DC.CursorMaxPos.x - x; // dont work with table api but there is no test bug
 	//curLayout->contentSize.y = y - curLayout->position.y - g.Style.ItemSpacing.y;
-
-	curLayout->contentSize.x = window->DC.CursorMaxPos.x - curLayout->positionContents.x - curLayout->paddingLeft; // werid bug in test but works with table api
 	//curLayout->contentSize.x = x - curLayout->positionContents.x; // werid bug in test but works with table api
+
+	curLayout->contentSize.x = window->DC.CursorMaxPos.x - curLayout->positionContents.x - curLayout->paddingLeft; 
 	curLayout->contentSize.y = y - curLayout->positionContents.y - g.Style.ItemSpacing.y;
 
 	// Restore windows data
@@ -278,9 +278,6 @@ void ImGuiEx::EndLayout()
 	window->Pos = curLayout->Pos;
 	window->ContentRegionRect = curLayout->ContentsRegionRect;
 	// ********************
-
-	//const ImVec2 content_avail = GetContentRegionAvail();
-	//ImVec2 sizeItem = curLayout->sizeParam;
 
 	if (curLayout->isMatchParentX) {
 		//sizeItem.x = curLayout->size.x;
@@ -303,8 +300,6 @@ void ImGuiEx::EndLayout()
 	}
 	else if (curLayout->isWrapParentY)
 		curLayout->size.y = curLayout->contentSize.y + curLayout->paddingBottom;
-
-	//curLayout->size = sizeItem;
 
 	ImGui::ItemSize(curLayout->size);
 
