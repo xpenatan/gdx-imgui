@@ -20,6 +20,8 @@ import com.github.xpenatan.imgui.enums.ImGuiTableColumnFlags;
 import com.github.xpenatan.imgui.enums.ImGuiTableFlags;
 import com.github.xpenatan.imgui.enums.ImGuiTreeNodeFlags;
 import com.github.xpenatan.imgui.enums.ImGuiWindowFlags;
+import com.github.xpenatan.imgui.jni.ImGuiInternalNative;
+import com.github.xpenatan.imgui.jni.ImGuiNative;
 
 public class ImGui {
 

@@ -1,6 +1,7 @@
 package com.github.xpenatan.imgui;
 
 import com.github.xpenatan.imgui.enums.ImDrawCornerFlags;
+import com.github.xpenatan.imgui.jni.ImGuiNative;
 
 public class ImDrawList {
 

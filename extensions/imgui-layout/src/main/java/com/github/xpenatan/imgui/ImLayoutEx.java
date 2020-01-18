@@ -2,8 +2,7 @@ package com.github.xpenatan.imgui;
 
 import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
 import com.github.xpenatan.imgui.ImGuiBoolean;
-import com.github.xpenatan.imgui.ImGuiLayoutNative.ImGuiCollapseLayoutOptions;
-import com.github.xpenatan.imgui.ImGuiLayoutNative.ImGuiLayout;
+import com.github.xpenatan.imgui.jni.ImGuiLayoutNative;
 
 public class ImLayoutEx {
 
@@ -103,8 +102,8 @@ public class ImLayoutEx {
 	}
 
 	public static ImGuiLayout GetCurrentLayout() {
-		ImGuiLayoutNative.GetCurrentLayout(ImGuiLayoutNative.tempLayout);
-		return ImGuiLayoutNative.tempLayout;
+		ImGuiLayoutNative.GetCurrentLayout(ImGuiLayout.tempLayout);
+		return ImGuiLayout.tempLayout;
 	}
 
 	public static float GetTableContentHeight() {

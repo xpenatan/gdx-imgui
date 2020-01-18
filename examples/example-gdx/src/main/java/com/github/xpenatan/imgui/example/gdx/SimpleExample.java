@@ -17,7 +17,7 @@ import com.github.xpenatan.imgui.ImGuiBoolean;
 import com.github.xpenatan.imgui.ImLayoutEx;
 import com.github.xpenatan.imgui.ImGuiFloat;
 import com.github.xpenatan.imgui.ImGuiInt;
-import com.github.xpenatan.imgui.ImGuiLayoutNative.ImGuiLayout;
+import com.github.xpenatan.imgui.ImGuiLayout;
 import com.github.xpenatan.imgui.ImGuiString;
 import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.enums.ImGuiDir;

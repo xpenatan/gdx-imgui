@@ -1,6 +1,7 @@
 package com.github.xpenatan.imgui;
 
 import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
+import com.github.xpenatan.imgui.jni.ImGuiNative;
 
 public class ImGuiIO {
 

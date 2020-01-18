@@ -1,11 +1,13 @@
-package com.github.xpenatan.imgui;
+package com.github.xpenatan.imgui.jni;
 
+import com.github.xpenatan.imgui.ImGuiCollapseLayoutOptions;
+import com.github.xpenatan.imgui.ImGuiLayout;
+import com.github.xpenatan.imgui.ImLayoutEx;
 import com.github.xpenatan.imgui.enums.ImDrawCornerFlags;
 
 public class ImGuiLayoutNative {
 
 	public static ImGuiCollapseLayoutOptions defaultOptions = new ImGuiCollapseLayoutOptions();
-	static ImGuiLayout tempLayout = new ImGuiLayout();
 
 	/*JNI
 		#include <src/imgui_layout.h>
@@ -34,9 +36,9 @@ public class ImGuiLayoutNative {
 		jfieldID layoutPaddingBottomID;
 	*/
 
-	static native void init() /*-{ }-*/; /*
-		jclass jLayoutOptionsClass = env->FindClass("com/github/xpenatan/imgui/ImGuiLayoutNative$ImGuiCollapseLayoutOptions");
-		jclass jLayoutClass = env->FindClass("com/github/xpenatan/imgui/ImGuiLayoutNative$ImGuiLayout");
+	public static native void init() /*-{ }-*/; /*
+		jclass jLayoutOptionsClass = env->FindClass("com/github/xpenatan/imgui/ImGuiCollapseLayoutOptions");
+		jclass jLayoutClass = env->FindClass("com/github/xpenatan/imgui/ImGuiLayout");
 		paddingLeftID = env->GetFieldID(jLayoutOptionsClass, "paddingLeft", "F");
 		paddingRightID = env->GetFieldID(jLayoutOptionsClass, "paddingRight", "F");
 		paddingTopID = env->GetFieldID(jLayoutOptionsClass, "paddingTop", "F");
@@ -61,15 +63,15 @@ public class ImGuiLayoutNative {
 		layoutPaddingBottomID = env->GetFieldID(jLayoutClass, "paddingBottom", "F");
 	*/
 
-	static native void ShowLayoutDebug() /*-{ }-*/; /*
+	public static native void ShowLayoutDebug() /*-{ }-*/; /*
 		ImGuiEx::ShowLayoutDebug();
 	*/
 
-	static native void BeginLayout(String id, float sizeX, float sizeY); /*-{ }-*/; /*
+	public static native void BeginLayout(String id, float sizeX, float sizeY); /*-{ }-*/; /*
 		ImGuiEx::BeginLayout(id, sizeX, sizeY);
 	*/
 
-	static native void BeginLayout(String id, float sizeX, float sizeY, float paddingLeft, float paddingRight, float paddingTop, float paddingBottom); /*-{ }-*/; /*
+	public static native void BeginLayout(String id, float sizeX, float sizeY, float paddingLeft, float paddingRight, float paddingTop, float paddingBottom); /*-{ }-*/; /*
 		ImGuiLayoutOptions options;
 		options.paddingLeft = paddingLeft;
 		options.paddingRight = paddingRight;
@@ -78,11 +80,11 @@ public class ImGuiLayoutNative {
 		ImGuiEx::BeginLayout(id, sizeX, sizeY);
 	*/
 
-	static native void EndLayout(); /*-{ }-*/; /*
+	public static native void EndLayout(); /*-{ }-*/; /*
 		ImGuiEx::EndLayout();
 	*/
 
-	static native boolean BeginCollapseLayoutEx2(String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+	public static native boolean BeginCollapseLayoutEx2(String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
 		ImGuiCollapseLayoutOptions options;
 		options.paddingLeft = env->GetFloatField (jOptions, paddingLeftID);
 		options.paddingRight = env->GetFloatField (jOptions, paddingRightID);
@@ -98,7 +100,7 @@ public class ImGuiLayoutNative {
 		return ImGuiEx::BeginCollapseLayoutEx(title, sizeX, sizeY);
 	*/
 
-	static native void BeginCollapseLayoutEx(boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+	public static native void BeginCollapseLayoutEx(boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
 		ImGuiCollapseLayoutOptions options;
 		options.paddingLeft = env->GetFloatField (jOptions, paddingLeftID);
 		options.paddingRight = env->GetFloatField (jOptions, paddingRightID);
@@ -114,7 +116,7 @@ public class ImGuiLayoutNative {
 		ImGuiEx::BeginCollapseLayoutEx(&isOpen[0], title, sizeX, sizeY, options);
 	*/
 
-	static native boolean BeginCollapseLayout2(String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+	public static native boolean BeginCollapseLayout2(String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
 		ImGuiCollapseLayoutOptions options;
 		options.paddingLeft = env->GetFloatField (jOptions, paddingLeftID);
 		options.paddingRight = env->GetFloatField (jOptions, paddingRightID);
@@ -130,7 +132,7 @@ public class ImGuiLayoutNative {
 		return ImGuiEx::BeginCollapseLayout(title, sizeX, sizeY, options);
 	*/
 
-	static native void BeginCollapseLayout(boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+	public static native void BeginCollapseLayout(boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
 		ImGuiCollapseLayoutOptions options;
 		options.paddingLeft = env->GetFloatField (jOptions, paddingLeftID);
 		options.paddingRight = env->GetFloatField (jOptions, paddingRightID);
@@ -146,35 +148,35 @@ public class ImGuiLayoutNative {
 		ImGuiEx::BeginCollapseLayout(&isOpen[0], title, sizeX, sizeY, options);
 	*/
 
-	static native void EndCollapseFrameLayout(); /*-{ }-*/; /*
+	public static native void EndCollapseFrameLayout(); /*-{ }-*/; /*
 		ImGuiEx::EndCollapseFrameLayout();
 	*/
 
-	static native void EndCollapseLayout(); /*-{ }-*/; /*
+	public static native void EndCollapseLayout(); /*-{ }-*/; /*
 		ImGuiEx::EndCollapseLayout();
 	*/
 
-	static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY) /*-{ }-*/; /*
+	public static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY) /*-{ }-*/; /*
 		ImGuiEx::BeginAlign(id, sizeX, sizeY, alignX, alignY);
 	*/
 
-	static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
+	public static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
 		ImGuiEx::BeginAlign(id, sizeX, sizeY, alignX, alignY, offsetX, offsetY);
 	*/
 
-	static native void EndAlign() /*-{ }-*/; /*
+	public static native void EndAlign() /*-{ }-*/; /*
 		ImGuiEx::EndAlign();
 	*/
 
-	static native void AlignLayout(float alignX, float alignY) /*-{ }-*/; /*
+	public static native void AlignLayout(float alignX, float alignY) /*-{ }-*/; /*
 		ImGuiEx::AlignLayout(alignX, alignY);
 	*/
 
-	static native void AlignLayout(float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
+	public static native void AlignLayout(float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
 		ImGuiEx::AlignLayout(alignX, alignY, offsetX, offsetY);
 	*/
 
-	static native void GetCurrentLayout(ImGuiLayout jLayout); /*-{ }-*/; /*
+	public static native void GetCurrentLayout(ImGuiLayout jLayout); /*-{ }-*/; /*
 		ImGuiLayout* curLayout = ImGuiEx::GetCurrentLayout();
 		env->SetFloatField (jLayout, positionXID, curLayout->position.x);
 		env->SetFloatField (jLayout, positionYID, curLayout->position.y);
@@ -188,45 +190,15 @@ public class ImGuiLayoutNative {
 		env->SetFloatField (jLayout, layoutPaddingBottomID, curLayout->paddingBottom);
 	*/
 
-	static native float GetTableContentHeight() /*-{ }-*/; /*
+	public static native float GetTableContentHeight() /*-{ }-*/; /*
 		return ImGuiEx::GetTableContentHeight();
 	*/
 
-	static native void CalculateTableRowHeight() /*-{ }-*/; /*
+	public static native void CalculateTableRowHeight() /*-{ }-*/; /*
 		ImGuiEx::CalculateTableRowHeight();
 	*/
 
-	static native float GetTableRowHeight() /*-{ }-*/; /*
+	public static native float GetTableRowHeight() /*-{ }-*/; /*
 		return ImGuiEx::GetTableRowHeight();
 	*/
-
-	public static class ImGuiCollapseLayoutOptions {
-		public float paddingLeft = 2;
-		public float paddingRight = 2;
-		public float paddingTop = 2;
-		public float paddingBottom = 2;
-		public int arrowColor = ImLayoutEx.colorToIntBits(0xFF, 0xFF, 0xFF, 0xFF);
-		public int arrowBackgroundHoveredColor = ImLayoutEx.colorToIntBits(0x77, 0x77, 0x77, 0xFF);
-		public int arrowBackgroundClickedColor = ImLayoutEx.colorToIntBits(0x55, 0x55, 0x55, 0xFF);
-		public int frameColor = ImLayoutEx.colorToIntBits(0x24, 0x24, 0x24, 0xFF);
-		public int borderColor = ImLayoutEx.colorToIntBits(0x40, 0x40, 0x49, 0xFF);
-		public int borderRound = 4;
-		public int roundingCorners = ImDrawCornerFlags.TopLeft.or(ImDrawCornerFlags.TopRight).getValue();
-	}
-
-	/**
-	 * Read only
-	 */
-	public static class ImGuiLayout {
-		public float positionX;
-		public float positionY;
-		public float sizeX;
-		public float sizeY;
-		public float contentSizeX;
-		public float contentSizeY;
-		public float paddingLeft;
-		public float paddingRight;
-		public float paddingTop;
-		public float paddingBottom;
-	}
 }
