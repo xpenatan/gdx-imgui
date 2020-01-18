@@ -248,7 +248,7 @@ namespace ImGuiEx
 	void EndCollapseLayout();
 
 	// Align view
-	void BeginAlign(const char* id, float sizeX, float sizeY, float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0);
+	void BeginAlign(const char* id, float sizeX, float sizeY, float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
 	void AlignLayout(float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0);
 	void EndAlign();
 
@@ -256,13 +256,5 @@ namespace ImGuiEx
 	float GetTableContentHeight(); // call before moving to the next cell/row
 	void CalculateTableRowHeight(); // call before moving to the next cell/row
 	float GetTableRowHeight(); // call at the begining of new cell row
-
-	// Experimental Column. Deprecated.
-	float GetColumnPercentage(int columnIdx = -1);
-	void BeginColumns(const char* id, int columns);
-	void SetColumnWidthOffset(int columnIndex, int offset);
-	void SetColumnWidth(int columnIndex, int width);
-	void NextColumn();
-	void EndColumns();
 
 };

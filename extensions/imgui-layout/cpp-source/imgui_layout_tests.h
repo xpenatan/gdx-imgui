@@ -587,78 +587,6 @@ namespace ImGuiEx
 	}
 
 	inline void test17(const char* name, bool debug) {
-		ImGuiContext& g = *GImGui;
-		ImGuiWindow* window = g.CurrentWindow;
-
-		ImGui::Text("CursorX: %.2f", ImGui::GetIO().MousePos.x);
-		ImGui::Text("CursorY: %.2f", ImGui::GetIO().MousePos.y);
-
-		HelpMarker("Test Layout with Columns");
-
-		static int width = 9;
-		static float alignX = 0.5f;
-		static float alignY = 0.5f;
-
-
-		ImGui::DragInt("Width", &width, 0.1f, 0, 400);
-		ImGui::SliderFloat("AlignX", &alignX, 0.0f, 1.0f, "%.2f");
-		ImGui::SliderFloat("AlignY", &alignY, 0.0f, 1.0f, "%.2f");
-		static int columns_count = 3;
-		ImGui::DragInt("##columns_count", &columns_count, 0.1f, 2, 10, "%d columns");
-
-		int lines_count = 1;
-		int size = columns_count * lines_count;
-
-		ImGuiEx::FillWidth(255, 255, 255, 255, ImVec2(ImLayout::MATCH_PARENT, 20));
-
-		ImGui::Columns(3);
-		for (int i = 0; i < 3; i++)
-		{
-			ImGuiEx::FillWidth(0, 0, 115);
-
-			//ImGui::Text("Test");
-			ImGui::Button("tt", ImVec2(-1, 20));
-			ImGui::NextColumn();
-		}
-		ImGui::Columns(1);
-
-
-
-		ImGuiEx::BeginColumns("first", columns_count);
-
-		ImGuiLayout* rootLayout = ImGuiEx::GetCurrentLayout()->parentLayout->parentLayout;
-		ImGuiLayout* firstLineLayout = rootLayout->childsLayout[0];
-		int splitterWidth = rootLayout->map.GetInt(ImGuiEx::COLUMN_SPLITTER_WIDTH, 0);
-		int sizeTotal = 0;
-
-		ImVector<float> percents = ImVector<float>();
-		ImVector<int> sizes = ImVector<int>();
-		for (int i = 0; i < size; i++)
-		{
-			ImGuiEx::FillWidth(0, 0 , 155);
-
-			float percentage = ImGuiEx::GetColumnPercentage();
-			float layoutSize = ImGuiEx::GetLayoutSize().x;
-			percents.push_back(percentage);
-			sizes.push_back(layoutSize);
-
-			sizeTotal += layoutSize;
-			if(i < size-1)
-				ImGuiEx::NextColumn();
-		}
-		
-		int lineSizeX = firstLineLayout->size.x;
-
-		ImGuiEx::EndColumns();
-
-		for (int i = 0; i < percents.Size; i++) {
-			float value = percents[i];
-			ImGui::Text("P[%.01i]:\n%.02f\nW: %.01i", i, value, sizes[i]);
-		}
-
-		ImGui::Text("lineSizeX: \n%.02i", lineSizeX);
-		ImGui::Text("%.02i", (lineSizeX - (columns_count-1) * splitterWidth));
-		ImGui::Text("Total: \n%.02i", sizeTotal);
 	}
 
 	inline void test18(const char* name, bool debug) {
@@ -690,7 +618,7 @@ namespace ImGuiEx
 
 		if (ImGui::BeginTable("01", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_BordersVFullHeight | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable))
 		{
-			ImGui::TableSetupColumn("A0");
+			ImGui::TableSetupColumn("A0", ImGuiTableColumnFlags_WidthFixed);
 			ImGui::TableSetupColumn("A1");
 			ImGui::TableSetupColumn("A2");
 			ImGui::TableSetupColumn("A3");
@@ -765,6 +693,10 @@ namespace ImGuiEx
 			ImGui::Text("Row Height: %.1f", maxHeight1);
 
 			ImGui::Button("01", ImVec2(0, btnHeight01));
+
+
+			static bool check = false;
+			ImGui::Checkbox("check", &check);
 
 			float contentHeight01 = ImGuiEx::GetTableContentHeight();
 
@@ -1092,4 +1024,3 @@ namespace ImGuiEx
 		ImGui::End();
 	};
 }
-
