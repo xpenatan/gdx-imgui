@@ -2020,7 +2020,7 @@ public class ImGuiNative {
 	*/
 
 	static native void TableHeader(String label) /*-{ }-*/; /*
-		ImGui::TableHeader(String label);
+		ImGui::TableHeader(label);
 	*/
 
 	// Tab Bars, Tabs

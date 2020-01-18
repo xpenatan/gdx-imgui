@@ -107,6 +107,17 @@ public class ImLayoutEx {
 		return ImGuiLayoutNative.tempLayout;
 	}
 
+	public static float GetTableContentHeight() {
+		return ImGuiLayoutNative.GetTableContentHeight();
+	}
+
+	public static void CalculateTableRowHeight() {
+		ImGuiLayoutNative.CalculateTableRowHeight();
+	}
+
+	public static float GetTableRowHeight() {
+		return ImGuiLayoutNative.GetTableRowHeight();
+	}
 
 	// Helper methods
 

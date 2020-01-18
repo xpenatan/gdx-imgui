@@ -188,6 +188,18 @@ public class ImGuiLayoutNative {
 		env->SetFloatField (jLayout, layoutPaddingBottomID, curLayout->paddingBottom);
 	*/
 
+	static native float GetTableContentHeight() /*-{ }-*/; /*
+		return ImGuiEx::GetTableContentHeight();
+	*/
+
+	static native void CalculateTableRowHeight() /*-{ }-*/; /*
+		ImGuiEx::CalculateTableRowHeight();
+	*/
+
+	static native float GetTableRowHeight() /*-{ }-*/; /*
+		return ImGuiEx::GetTableRowHeight();
+	*/
+
 	public static class ImGuiCollapseLayoutOptions {
 		public float paddingLeft = 2;
 		public float paddingRight = 2;
