@@ -669,11 +669,15 @@ public class ImGuiNative {
 
 	public static native void SetNextWindowPos(float x, float y) /*-{ }-*/; /*
 		ImGui::SetNextWindowPos(ImVec2(x, y));
-	 */
+	*/
+
+	public static native void SetNextWindowPos(float x, float y, int cond) /*-{ }-*/; /*
+		ImGui::SetNextWindowPos(ImVec2(x, y), cond);
+	*/
 
 	public static native void SetNextWindowPos(float x, float y, int cond, float pivot_x, float pivot_y) /*-{ }-*/; /*
 		ImGui::SetNextWindowPos(ImVec2(x, y), cond, ImVec2(pivot_x, pivot_y));
-	 */
+	*/
 
 	public static native void SetNextWindowSize(float width, float height) /*-{ }-*/; /*
 		ImGui::SetNextWindowSize(ImVec2(width, height));

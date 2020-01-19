@@ -269,6 +269,10 @@ public class ImGui {
 		ImGuiNative.SetNextWindowPos(x, y);
 	}
 
+	public static void SetNextWindowPos(float x, float y, ImGuiCond cond) {
+		ImGuiNative.SetNextWindowPos(x, y, cond.getValue());
+	}
+
 	public static void SetNextWindowPos(float x, float y, ImGuiCond cond, float pivotX, float pivotY) {
 		ImGuiNative.SetNextWindowPos(x, y, cond.getValue(), pivotX, pivotY);
 	}
