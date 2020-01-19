@@ -91,5 +91,6 @@ public class GameViewportExample implements ApplicationListener
 
 	@Override
 	public void dispose () {
+		ImGui.dispose();
 	}
 }

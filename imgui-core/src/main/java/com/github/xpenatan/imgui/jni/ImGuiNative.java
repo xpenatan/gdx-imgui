@@ -124,10 +124,16 @@ public class ImGuiNative {
 		imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
 	*/
 
-	public static native void CreateContext() /*-{ }-*/; /*
+	public static native void CreateContext(boolean saveIni) /*-{ }-*/; /*
 		ImGui::CreateContext();
-		ImGui::GetIO().IniFilename = NULL;
+		if(saveIni == false) {
+			ImGui::GetIO().IniFilename = NULL;
+		}
 		ImGui::GetIO().BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
+	*/
+
+	public static native void DestroyContext() /*-{ }-*/; /*
+		ImGui::DestroyContext();
 	*/
 
 	public static native void initKeyMap(int [] keys) /*-{ }-*/; /*
@@ -663,11 +669,15 @@ public class ImGuiNative {
 
 	public static native void SetNextWindowPos(float x, float y) /*-{ }-*/; /*
 		ImGui::SetNextWindowPos(ImVec2(x, y));
-	 */
+	*/
+
+	public static native void SetNextWindowPos(float x, float y, int cond) /*-{ }-*/; /*
+		ImGui::SetNextWindowPos(ImVec2(x, y), cond);
+	*/
 
 	public static native void SetNextWindowPos(float x, float y, int cond, float pivot_x, float pivot_y) /*-{ }-*/; /*
 		ImGui::SetNextWindowPos(ImVec2(x, y), cond, ImVec2(pivot_x, pivot_y));
-	 */
+	*/
 
 	public static native void SetNextWindowSize(float width, float height) /*-{ }-*/; /*
 		ImGui::SetNextWindowSize(ImVec2(width, height));

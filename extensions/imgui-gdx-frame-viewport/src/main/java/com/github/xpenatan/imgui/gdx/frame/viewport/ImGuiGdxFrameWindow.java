@@ -9,6 +9,7 @@ import com.github.xpenatan.gdx.frame.viewport.EmuWindow;
 import com.github.xpenatan.imgui.ImGui;
 import com.github.xpenatan.imgui.ImVec2;
 import com.github.xpenatan.imgui.enums.ImGuiCol;
+import com.github.xpenatan.imgui.enums.ImGuiCond;
 import com.github.xpenatan.imgui.enums.ImGuiHoveredFlags;
 import com.github.xpenatan.imgui.enums.ImGuiWindowFlags;
 
@@ -21,8 +22,6 @@ import com.github.xpenatan.imgui.enums.ImGuiWindowFlags;
 public class ImGuiGdxFrameWindow {
 
 	private EmuWindow emuWindow;
-
-	private boolean initWindowSize;
 
 	int startWidth;
 	int startHeight;
@@ -63,11 +62,8 @@ public class ImGuiGdxFrameWindow {
 	}
 
 	public void render() {
-		if(!initWindowSize) {
-			initWindowSize = true;
-			ImGui.SetNextWindowSize(startWidth, startHeight);
-			ImGui.SetNextWindowPos(startX, startY);
-		}
+		ImGui.SetNextWindowSize(startWidth, startHeight, ImGuiCond.FirstUseEver);
+		ImGui.SetNextWindowPos(startX, startY, ImGuiCond.FirstUseEver);
 
 		int mouseX = 0;
 		int mouseY = 0;
