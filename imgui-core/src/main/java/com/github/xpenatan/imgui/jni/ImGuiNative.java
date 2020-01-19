@@ -124,10 +124,16 @@ public class ImGuiNative {
 		imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
 	*/
 
-	public static native void CreateContext() /*-{ }-*/; /*
+	public static native void CreateContext(boolean saveIni) /*-{ }-*/; /*
 		ImGui::CreateContext();
-		ImGui::GetIO().IniFilename = NULL;
+		if(saveIni == false) {
+			ImGui::GetIO().IniFilename = NULL;
+		}
 		ImGui::GetIO().BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
+	*/
+
+	public static native void DestroyContext() /*-{ }-*/; /*
+		ImGui::DestroyContext();
 	*/
 
 	public static native void initKeyMap(int [] keys) /*-{ }-*/; /*

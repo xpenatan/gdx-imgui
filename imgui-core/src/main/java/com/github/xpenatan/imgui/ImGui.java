@@ -30,10 +30,10 @@ public class ImGui {
 	public static String TAG = "ImGui";
 
 	public static void init () {
-		init(true);
+		init(true, true);
 	}
 
-	public static void init (boolean logging) {
+	public static void init (boolean saveIni, boolean logging) {
 		if(ImGui.IMGUIINIT)
 			return;
 		JniGenSharedLibraryLoader loader = new JniGenSharedLibraryLoader();
@@ -43,7 +43,11 @@ public class ImGui {
 		ImGui.enableLogging = logging;
 
 		ImGuiNative.init();
-		ImGuiNative.CreateContext();
+		ImGuiNative.CreateContext(saveIni);
+	}
+
+	public static void dispose() {
+		ImGuiNative.DestroyContext();
 	}
 
 	private static DrawData drawData = new DrawData(100000, 100000, 1000);

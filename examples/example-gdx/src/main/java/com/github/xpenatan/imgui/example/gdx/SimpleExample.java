@@ -321,5 +321,6 @@ public class SimpleExample implements ApplicationListener
 
 	@Override
 	public void dispose () {
+		ImGui.dispose();
 	}
 }

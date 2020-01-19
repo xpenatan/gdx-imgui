@@ -33,3 +33,4 @@ jni-headers/
 libs/
 *.log
 *.o
+*.ini

@@ -161,5 +161,6 @@ public class TestsExample implements ApplicationListener {
 
 	@Override
 	public void dispose() {
+		ImGui.dispose();
 	}
 }
