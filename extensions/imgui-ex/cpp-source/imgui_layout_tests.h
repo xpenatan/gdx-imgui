@@ -3,7 +3,8 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "imgui_layout.h"
-
+#include <iostream>
+using namespace std;
 
 static void renderContent(bool verticalButtonFill) {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
@@ -541,6 +542,98 @@ namespace ImGuiEx
 	}
 
 	inline void test15(const char* name, bool debug) {
+		ImGuiContext& g = *GImGui;
+		static float vec4f[4] = { 0.10f, 0.20f, 0.30f, 0.44f };
+
+
+
+		static float value = 0;
+
+		ImGui::SetNextItemWidth(-1);
+		float calcWidth = ImGui::CalcItemWidth();
+
+		float width = calcWidth / 3;
+
+		ImGui::Text("calcWidth: %.3f", calcWidth);
+		ImGui::Text("width: %.3f", width);
+		ImGui::Text("g.Style.ItemInnerSpacing.x: %.3f", g.Style.ItemInnerSpacing.x);
+
+		ImGuiEx::FillWidth(255, 0, 0, 255, ImVec2(calcWidth, 20));
+
+		ImGuiEx::FillWidth(255, 0, 0, 255, ImVec2(width, 20));
+		ImGui::SameLine(0, 0);
+		ImGuiEx::FillWidth(0, 255, 0, 255, ImVec2(width, 20));
+		ImGui::SameLine(0, 0);
+		ImGuiEx::FillWidth(0, 0, 255, 255, ImVec2(width, 20));
+
+		ImGui::SetNextItemWidth(-1);
+		ImGui::DragFloat3("", vec4f, 0.01f, 0.0f, 1.0f);
+
+		ImGui::SetNextItemWidth(-1);
+		ImGui::DragFloat("", &value, 0.01f, 0, 0, "%.3f");
+
+		ImGui::BeginGroup();
+
+		ImGui::PushStyleVar(ImGuiStyleVar_CellPadding, ImVec2(0, 0));
+
+		int flags = ImGuiTableFlags_BordersVFullHeight | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable;
+		flags = 0;
+			if(ImGui::BeginTable("recurse1", 3, flags)) {
+				
+
+				ImGui::TableNextCell();
+			
+			//ImGui::PushMultiItemsWidths(3, calcWidth);
+
+
+				
+
+				//ImGui::PushID(0);
+				ImGui::AlignTextToFramePadding();
+				ImGui::Text("X:");
+				ImGui::SameLine(0, 0);
+				ImGui::SetNextItemWidth(-1);
+				ImGui::DragFloat("##1", &value, 0.01f, 0, 0, "%.3f");
+				//ImGui::PopID();
+				//ImGui::PopItemWidth();
+
+
+				//ImGui::SameLine(0, 0);
+
+				ImGui::TableNextCell();
+
+
+
+				//ImGui::PushID(1);
+				ImGui::AlignTextToFramePadding();
+				ImGui::Text("Y:");
+				ImGui::SameLine(0, 0);
+				ImGui::SetNextItemWidth(-1);
+				ImGui::DragFloat("##2", &value, 0.01f, 0, 0, "%.3f");
+				//ImGui::PopID();
+				//ImGui::PopItemWidth();
+
+
+				//ImGui::SameLine(0, 0);
+
+				ImGui::TableNextCell();
+
+
+				//ImGui::PushID(2);
+				ImGui::AlignTextToFramePadding();
+				ImGui::Text("Z:");
+				ImGui::SameLine(0, 0);
+				ImGui::SetNextItemWidth(-1);
+				ImGui::DragFloat("##3", &value, 0.01f, 0, 0, "%.3f");
+				//ImGui::PopID();
+				//ImGui::PopItemWidth();
+
+				ImGui::EndTable();
+			}
+
+			ImGui::PopStyleVar();
+
+		ImGui::EndGroup();
 		
 	}
 
