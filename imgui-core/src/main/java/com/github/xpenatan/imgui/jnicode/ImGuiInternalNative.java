@@ -1,4 +1,4 @@
-package com.github.xpenatan.imgui.jni;
+package com.github.xpenatan.imgui.jnicode;
 
 public class ImGuiInternalNative {
 

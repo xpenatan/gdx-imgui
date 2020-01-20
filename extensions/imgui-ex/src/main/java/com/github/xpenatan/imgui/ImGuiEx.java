@@ -1,8 +1,8 @@
 package com.github.xpenatan.imgui;
 
 import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
-import com.github.xpenatan.imgui.jni.ImGuiExNative;
-import com.github.xpenatan.imgui.jni.ImGuiLayoutNative;
+import com.github.xpenatan.imgui.jnicode.ImGuiExNative;
+import com.github.xpenatan.imgui.jnicode.ImGuiLayoutNative;
 
 public class ImGuiEx {
 
