@@ -5,7 +5,7 @@ plugins {
 
 apply from: '../../dependencies.gradle'
 
-def imgui_name = "imgui-layout"
+def imgui_name = "imgui-ex"
 
 dependencies {
 	implementation "com.badlogicgames.gdx:gdx-jnigen:$project.gdxVersion"
@@ -17,7 +17,7 @@ dependencies {
     testImplementation "junit:junit:$project.jUnitVersion"
 }
 
-project.ext.mainClassName = "com.github.xpenatan.imgui.generate.imlayout.Build"
+project.ext.mainClassName = "com.github.xpenatan.imgui.generate.BuildEx"
 sourceSets.main.java.srcDirs = [ "src/main/java/" ]
 sourceSets.main.resources.srcDirs = ["src/main/java/"]
 
@@ -28,7 +28,7 @@ clean.doFirst {
 	project.delete(files(libPath))
 }
 
-task copyNatives(dependsOn: [':imgui-cpp:generateNatives']) {
+task copyNatives() {
 	doLast {
 		copy {
 			from "../../imgui-cpp/libs"
@@ -52,8 +52,8 @@ task fromClasses (type: Jar) {
 }
 
 task platformAll (type: Jar) {
-	archiveClassifier = "desktop"
-	from zipTree(projectDir.toString() + "/libs/imgui-layout-natives.jar")
+	archiveClassifier = "natives-desktop"
+	from zipTree(projectDir.toString() + "/libs/imgui-ex-natives.jar")
 }
 
 publishing {
