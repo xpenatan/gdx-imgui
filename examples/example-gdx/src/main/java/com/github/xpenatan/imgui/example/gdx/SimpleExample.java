@@ -72,7 +72,7 @@ public class SimpleExample implements ApplicationListener
 		uiCam.setToOrtho(true);
 		batch = new SpriteBatch();
 		ImGui.init();
-		ImGuiEx.init();
+		ImGuiExt.init();
 		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable);
 		ImGui.GetIO().SetDockingFlags(false, false, false, false);
 
@@ -151,20 +151,20 @@ public class SimpleExample implements ApplicationListener
 	}
 
 	private void renderCollapseUI() {
-		ImGuiEx.BeginCollapseLayoutEx(isCollapseOpen, "Stuff", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
+		ImGuiExt.BeginCollapseLayoutEx(isCollapseOpen, "Stuff", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
 
-		ImGuiEx.ShowLayoutDebug();
+		ImGuiExt.ShowLayoutDebug();
 
-		ImGuiEx.BeginAlign("#ID", ImLayout.MATCH_PARENT, ImLayout.MATCH_PARENT, 1.0f, 0.5f, -5, 0);
+		ImGuiExt.BeginAlign("#ID", ImLayout.MATCH_PARENT, ImLayout.MATCH_PARENT, 1.0f, 0.5f, -5, 0);
 		ImGui.Button("Ok");
 		ImGui.SameLine();
 		ImGui.Text("Custom Align");
-		ImGuiEx.EndAlign();
+		ImGuiExt.EndAlign();
 
-		ImGuiEx.EndCollapseFrameLayout();
+		ImGuiExt.EndCollapseFrameLayout();
 		if(isCollapseOpen.getValue())
 		{
-			ImGuiEx.BeginCollapseLayout(isCollapseOpen2, "Alignment options", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
+			ImGuiExt.BeginCollapseLayout(isCollapseOpen2, "Alignment options", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
 			if(isCollapseOpen2.getValue())
 			{
 				ImGui.SliderFloat("AlignX", alignX, 0.0f, 1.0f, "%.2f");
@@ -172,7 +172,7 @@ public class SimpleExample implements ApplicationListener
 				ImGui.SliderFloat("AlignY", alignY, 0.0f, 1.0f, "%.2f");
 				ImGui.SliderFloat("OffsetY", offsetY, -10.0f, 10.0f, "%.2f");
 			}
-			ImGuiEx.EndCollapseLayout();
+			ImGuiExt.EndCollapseLayout();
 
 			ImGui.ArrowButton("##Left", ImGuiDir.Left);
 			ImGui.SameLine();
@@ -194,14 +194,14 @@ public class SimpleExample implements ApplicationListener
 			ImGui.SameLine();
 			ImGui.Text("Bullet text");
 
-			ImGuiEx.BeginAlign("##ID", ImLayout.MATCH_PARENT, 200, alignX.getValue(), alignY.getValue(), offsetX.getValue(), offsetY.getValue());
-			ImGuiEx.ShowLayoutDebug();
+			ImGuiExt.BeginAlign("##ID", ImLayout.MATCH_PARENT, 200, alignX.getValue(), alignY.getValue(), offsetX.getValue(), offsetY.getValue());
+			ImGuiExt.ShowLayoutDebug();
 			ImGui.Image(buttonTexture.getTextureObjectHandle(), 32, 32);
 			ImGui.ImageButton(buttonTexture.getTextureObjectHandle(), 42, 42);
 
-			ImGuiEx.EndAlign();
+			ImGuiExt.EndAlign();
 		}
-		ImGuiEx.EndCollapseLayout();
+		ImGuiExt.EndCollapseLayout();
 	}
 
 	private void renderLayout() {
@@ -226,8 +226,8 @@ public class SimpleExample implements ApplicationListener
 //		shapeRenderer.line(mouseX, mouseY, mouseX + 5, mouseY + 0);
 //		shapeRenderer.line(mouseX, mouseY, mouseX + 0, mouseY + 5);
 
-		ImGuiEx.BeginLayout("Stuff", 4, 32);
-		ImGuiLayout curLayout = ImGuiEx.GetCurrentLayout();
+		ImGuiExt.BeginLayout("Stuff", 4, 32);
+		ImGuiLayout curLayout = ImGuiExt.GetCurrentLayout();
 		float posX = curLayout.positionX;
 		float posY = curLayout.positionY;
 		float sizeX = curLayout.sizeX;
@@ -243,10 +243,10 @@ public class SimpleExample implements ApplicationListener
 //		shapeRenderer.line(posX, posSizeY, posX, posY);
 //		shapeRenderer.line(posX, posY, posX, posSizeY);
 
-		ImGuiEx.ShowLayoutDebug();
+		ImGuiExt.ShowLayoutDebug();
 
 
-		ImGuiEx.EndLayout();
+		ImGuiExt.EndLayout();
 
 		ImGui.Text("MouseX: " + mouseX);
 		ImGui.SameLine();

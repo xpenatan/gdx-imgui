@@ -12,8 +12,8 @@ dependencies {
     implementation "com.github.xpenatan.jDear-Imgui:imgui-core:$project.jDearImguiVersion"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-core-platform:$project.jDearImguiVersion:natives-desktop"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx:$project.jDearImguiGdxVersion"
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-ex:$project.jDearImguiLayoutVersion"
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-ex-platform:$project.jDearImguiLayoutVersion:natives-desktop"
+    implementation "com.github.xpenatan.jDear-Imgui:imgui-ext:$project.jDearImguiLayoutVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:imgui-ext-platform:$project.jDearImguiLayoutVersion:natives-desktop"
 
     // Use JUnit test framework
     testImplementation "junit:junit:$project.jUnitVersion"

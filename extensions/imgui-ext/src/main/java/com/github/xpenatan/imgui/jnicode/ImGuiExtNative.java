@@ -1,20 +1,20 @@
 package com.github.xpenatan.imgui.jnicode;
 
-public class ImGuiExNative {
+public class ImGuiExtNative {
 
 	/*JNI
-		#include <src/imgui_ex.h>
+		#include <src/imgui_ext.h>
 	*/
 
 	public static native float GetTableContentHeight() /*-{ }-*/; /*
-		return ImGuiEx::GetTableContentHeight();
+		return ImGuiExt::GetTableContentHeight();
 	*/
 
 	public static native void CalculateTableRowHeight() /*-{ }-*/; /*
-		ImGuiEx::CalculateTableRowHeight();
+		ImGuiExt::CalculateTableRowHeight();
 	*/
 
 	public static native float GetTableRowHeight() /*-{ }-*/; /*
-		return ImGuiEx::GetTableRowHeight();
+		return ImGuiExt::GetTableRowHeight();
 	*/
 }

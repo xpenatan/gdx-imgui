@@ -22,7 +22,7 @@ public:
 	}
 };
 
-namespace ImGuiEx
+namespace ImGuiExt
 {
 	ImGuiStorage* GetImGuiStorage(ImGuiID id);
 	ImGuiStorage* GetImGuiStorage(const char* id_str);

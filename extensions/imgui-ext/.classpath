@@ -5,6 +5,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/imgui-core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/gdx-jnigen"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/imgui-cpp"/>
-	<classpathentry kind="lib" path="libs/imgui-ex-natives.jar"/>
+	<classpathentry kind="lib" path="libs/imgui-ext-natives.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

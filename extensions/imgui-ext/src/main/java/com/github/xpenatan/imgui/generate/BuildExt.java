@@ -5,11 +5,11 @@ import com.badlogic.gdx.jnigen.BuildTarget.TargetOs;
 
 import java.io.File;
 
-public class BuildEx {
+public class BuildExt {
 	public static void main(String[] args) throws Exception {
-		String libName = "imgui-ex";
+		String libName = "imgui-ext";
 
-		String projectPath = new File(BuildEx.class.getProtectionDomain().getCodeSource().getLocation().getFile()).getAbsolutePath();
+		String projectPath = new File(BuildExt.class.getProtectionDomain().getCodeSource().getLocation().getFile()).getAbsolutePath();
 		String toReplace = "build" +  File.separator + "classes"+  File.separator + "java" + File.separator + "main";
 		projectPath = projectPath.replace(File.separator + "bin", "").replace(toReplace, "");
 

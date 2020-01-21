@@ -1,10 +1,10 @@
 package com.github.xpenatan.imgui;
 
 import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
-import com.github.xpenatan.imgui.jnicode.ImGuiExNative;
+import com.github.xpenatan.imgui.jnicode.ImGuiExtNative;
 import com.github.xpenatan.imgui.jnicode.ImGuiLayoutNative;
 
-public class ImGuiEx {
+public class ImGuiExt {
 
 	private static boolean IMGUIINIT = false;
 
@@ -13,16 +13,16 @@ public class ImGuiEx {
 	}
 
 	public static void init (boolean logging) {
-		if(ImGuiEx.IMGUIINIT)
+		if(ImGuiExt.IMGUIINIT)
 			return;
 		JniGenSharedLibraryLoader loader = new JniGenSharedLibraryLoader();
-		loader.load("imgui-ex");
-		ImGuiEx.IMGUIINIT = true;
+		loader.load("imgui-ext");
+		ImGuiExt.IMGUIINIT = true;
 
 		ImGuiLayoutNative.init();
 	}
 
-	protected ImGuiEx() {
+	protected ImGuiExt() {
 	}
 
 	public static void ShowLayoutDebug() {
@@ -107,15 +107,15 @@ public class ImGuiEx {
 	}
 
 	public static float GetTableContentHeight() {
-		return ImGuiExNative.GetTableContentHeight();
+		return ImGuiExtNative.GetTableContentHeight();
 	}
 
 	public static void CalculateTableRowHeight() {
-		ImGuiExNative.CalculateTableRowHeight();
+		ImGuiExtNative.CalculateTableRowHeight();
 	}
 
 	public static float GetTableRowHeight() {
-		return ImGuiExNative.GetTableRowHeight();
+		return ImGuiExtNative.GetTableRowHeight();
 	}
 
 	// Helper methods

@@ -1,6 +1,6 @@
 #include "imgui.h"
 #include "imgui_internal.h"
-#include "imgui_ex.h"
+#include "imgui_ext.h"
 
 #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
 #include <stddef.h>     // intptr_t
@@ -8,7 +8,7 @@
 #include <stdint.h>     // intptr_t
 #endif
 
-ImGuiStorage* ImGuiEx::GetImGuiStorage(ImGuiID id) {
+ImGuiStorage* ImGuiExt::GetImGuiStorage(ImGuiID id) {
 	ImGuiContext& g = *GImGui;
 	ImGuiStorage* childLayout = NULL;
 	childLayout = (ImGuiStorage*)g.WindowsById.GetVoidPtr(id);
@@ -19,14 +19,14 @@ ImGuiStorage* ImGuiEx::GetImGuiStorage(ImGuiID id) {
 	return childLayout;
 }
 
-ImGuiStorage* ImGuiEx::GetImGuiStorage(const char* id_str) {
-	return ImGuiEx::GetImGuiStorage(ImHashStr(id_str));
+ImGuiStorage* ImGuiExt::GetImGuiStorage(const char* id_str) {
+	return ImGuiExt::GetImGuiStorage(ImHashStr(id_str));
 }
 
 static int TABLE_HEIGHT_KEY = 15000;
 static int TABLE_HEIGHT_KEY_AUX = 150;
 
-float ImGuiEx::GetTableContentHeight() {
+float ImGuiExt::GetTableContentHeight() {
 	ImGuiContext& g = *GImGui;
 	ImGuiTable* table = g.CurrentTable;
 	if (table != NULL) {
@@ -41,12 +41,12 @@ float ImGuiEx::GetTableContentHeight() {
 	return 0;
 }
 
-void ImGuiEx::CalculateTableRowHeight() {
+void ImGuiExt::CalculateTableRowHeight() {
 	ImGuiContext& g = *GImGui;
 	ImGuiTable* table = g.CurrentTable;
 	if (table != NULL) {
-		float height = ImGuiEx::GetTableContentHeight();
-		ImGuiStorage* storage = ImGuiEx::GetImGuiStorage(table->ID);
+		float height = ImGuiExt::GetTableContentHeight();
+		ImGuiStorage* storage = ImGuiExt::GetImGuiStorage(table->ID);
 		int column = table->CurrentColumn;
 		bool lastColumn = (column == table->ColumnsCount -1);
 		int row = table->CurrentRow;
@@ -68,11 +68,11 @@ void ImGuiEx::CalculateTableRowHeight() {
 	}
 }
 
-float ImGuiEx::GetTableRowHeight() {
+float ImGuiExt::GetTableRowHeight() {
 	ImGuiContext& g = *GImGui;
 	ImGuiTable* table = g.CurrentTable;
 	if (table != NULL) {
-		ImGuiStorage* storage = ImGuiEx::GetImGuiStorage(table->ID);
+		ImGuiStorage* storage = ImGuiExt::GetImGuiStorage(table->ID);
 		float curHeight = storage->GetFloat(TABLE_HEIGHT_KEY + table->CurrentRow, 0.0F);
 		return curHeight;
 	}
@@ -107,7 +107,7 @@ static void singleEdittext(const int id, float* valueF, int * valueI, EditTextDa
 	ImGui::PopID();
 }
 
-void ImGuiEx::EditTextF(const char* id, int size, void * valueArray, EditTextData* dataArray) {
+void ImGuiExt::EditTextF(const char* id, int size, void * valueArray, EditTextData* dataArray) {
 	int flags = ImGuiTableFlags_BordersVFullHeight | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable;
 	if (ImGui::BeginTable(id, size, flags)) {
 		for (int i = 0; i < size; i++) {
@@ -120,7 +120,7 @@ void ImGuiEx::EditTextF(const char* id, int size, void * valueArray, EditTextDat
 	}
 }
 
-void ImGuiEx::EditTextF3(const char* id, float* value01, float* value02, float* value03, EditTextData data01, EditTextData data02, EditTextData data03) {
+void ImGuiExt::EditTextF3(const char* id, float* value01, float* value02, float* value03, EditTextData data01, EditTextData data02, EditTextData data03) {
 	intptr_t values[3];
 	EditTextData datas[3];
 	values[0] = (intptr_t)value01;
@@ -129,10 +129,10 @@ void ImGuiEx::EditTextF3(const char* id, float* value01, float* value02, float* 
 	datas[0] = data01;
 	datas[1] = data02;
 	datas[2] = data03;
-	ImGuiEx::EditTextF(id, 3, values, datas);
+	ImGuiExt::EditTextF(id, 3, values, datas);
 }
 
-void ImGuiEx::EditTextF4(const char* id, float* value01, float* value02, float* value03, float* value04, EditTextData data01, EditTextData data02, EditTextData data03, EditTextData data04) {
+void ImGuiExt::EditTextF4(const char* id, float* value01, float* value02, float* value03, float* value04, EditTextData data01, EditTextData data02, EditTextData data03, EditTextData data04) {
 	//ImGui::PushStyleVar(ImGuiStyleVar_CellPadding, ImVec2(0, 0));
 	intptr_t values[4];
 	EditTextData datas[4];
@@ -144,6 +144,6 @@ void ImGuiEx::EditTextF4(const char* id, float* value01, float* value02, float* 
 	datas[1] = data02;
 	datas[2] = data03;
 	datas[3] = data04;
-	ImGuiEx::EditTextF(id, 4, values, datas);
+	ImGuiExt::EditTextF(id, 4, values, datas);
 	//ImGui::PopStyleVar();
 }
