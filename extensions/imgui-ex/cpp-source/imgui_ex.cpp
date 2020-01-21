@@ -2,6 +2,12 @@
 #include "imgui_internal.h"
 #include "imgui_ex.h"
 
+#if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
+#include <stddef.h>     // intptr_t
+#else
+#include <stdint.h>     // intptr_t
+#endif
+
 ImGuiStorage* ImGuiEx::GetImGuiStorage(ImGuiID id) {
 	ImGuiContext& g = *GImGui;
 	ImGuiStorage* childLayout = NULL;
@@ -71,4 +77,73 @@ float ImGuiEx::GetTableRowHeight() {
 		return curHeight;
 	}
 	return 0;
+}
+
+static void singleEdittext(const int id, float* valueF, int * valueI, EditTextData data) {
+	ImGuiContext& g = *GImGui;
+	ImGui::PushID(id);
+	ImGui::BeginGroup();
+
+	if (data.leftLabel != NULL) {
+		ImGui::AlignTextToFramePadding();
+		if (data.leftLabelColor != 0)
+			ImGui::PushStyleColor(ImGuiCol_Text, data.leftLabelColor);
+		ImGui::Text(data.leftLabel);
+		if (data.leftLabelColor != 0)
+			ImGui::PopStyleColor();
+		ImGui::SameLine(0, 0);
+	}
+	ImGui::SetNextItemWidth(-1);
+
+	ImGui::DragFloat("", valueF, 0.01f, 0, 0, "%.3f");
+
+	ImGui::EndGroup();
+
+	if (ImGui::IsItemHovered() && data.tooltip != NULL && g.HoveredIdTimer > data.tooltipDelay) {
+		ImGui::BeginTooltip();
+		ImGui::SetTooltip(data.tooltip);
+		ImGui::EndTooltip();
+	}
+	ImGui::PopID();
+}
+
+void ImGuiEx::EditTextF(const char* id, int size, void * valueArray, EditTextData* dataArray) {
+	int flags = ImGuiTableFlags_BordersVFullHeight | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable;
+	if (ImGui::BeginTable(id, size, flags)) {
+		for (int i = 0; i < size; i++) {
+			ImGui::TableNextCell();
+			intptr_t* arr = (intptr_t*)valueArray;
+			float * realPointer = (float*)arr[i];
+			singleEdittext(i, realPointer, NULL, dataArray[i]);
+		}
+		ImGui::EndTable();
+	}
+}
+
+void ImGuiEx::EditTextF3(const char* id, float* value01, float* value02, float* value03, EditTextData data01, EditTextData data02, EditTextData data03) {
+	intptr_t values[3];
+	EditTextData datas[3];
+	values[0] = (intptr_t)value01;
+	values[1] = (intptr_t)value02;
+	values[2] = (intptr_t)value03;
+	datas[0] = data01;
+	datas[1] = data02;
+	datas[2] = data03;
+	ImGuiEx::EditTextF(id, 3, values, datas);
+}
+
+void ImGuiEx::EditTextF4(const char* id, float* value01, float* value02, float* value03, float* value04, EditTextData data01, EditTextData data02, EditTextData data03, EditTextData data04) {
+	//ImGui::PushStyleVar(ImGuiStyleVar_CellPadding, ImVec2(0, 0));
+	intptr_t values[4];
+	EditTextData datas[4];
+	values[0] = (intptr_t)value01;
+	values[1] = (intptr_t)value02;
+	values[2] = (intptr_t)value03;
+	values[3] = (intptr_t)value04;
+	datas[0] = data01;
+	datas[1] = data02;
+	datas[2] = data03;
+	datas[3] = data04;
+	ImGuiEx::EditTextF(id, 4, values, datas);
+	//ImGui::PopStyleVar();
 }

@@ -573,69 +573,22 @@ namespace ImGuiEx
 		ImGui::SetNextItemWidth(-1);
 		ImGui::DragFloat("", &value, 0.01f, 0, 0, "%.3f");
 
-		ImGui::BeginGroup();
+		static float value01 = 1;
+		static float value02 = 2;
+		static float value03 = 3;
+		static float value04 = 4;
 
-		ImGui::PushStyleVar(ImGuiStyleVar_CellPadding, ImVec2(0, 0));
+		EditTextData d1 = EditTextData("X:", "Tooltip 01");
+		EditTextData d2 = EditTextData("Y:", "Tooltip 02");
+		EditTextData d3 = EditTextData("Z:", "Tooltip 03");
+		EditTextData d4 = EditTextData("W:", "Tooltip 04");
 
-		int flags = ImGuiTableFlags_BordersVFullHeight | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable;
-		flags = 0;
-			if(ImGui::BeginTable("recurse1", 3, flags)) {
-				
+		d1.leftLabelColor = IM_COL32(255, 0, 0, 255);
+		d2.leftLabelColor = IM_COL32(0, 255, 0, 255);
+		d3.leftLabelColor = IM_COL32(0, 0, 255, 255);
 
-				ImGui::TableNextCell();
-			
-			//ImGui::PushMultiItemsWidths(3, calcWidth);
-
-
-				
-
-				//ImGui::PushID(0);
-				ImGui::AlignTextToFramePadding();
-				ImGui::Text("X:");
-				ImGui::SameLine(0, 0);
-				ImGui::SetNextItemWidth(-1);
-				ImGui::DragFloat("##1", &value, 0.01f, 0, 0, "%.3f");
-				//ImGui::PopID();
-				//ImGui::PopItemWidth();
-
-
-				//ImGui::SameLine(0, 0);
-
-				ImGui::TableNextCell();
-
-
-
-				//ImGui::PushID(1);
-				ImGui::AlignTextToFramePadding();
-				ImGui::Text("Y:");
-				ImGui::SameLine(0, 0);
-				ImGui::SetNextItemWidth(-1);
-				ImGui::DragFloat("##2", &value, 0.01f, 0, 0, "%.3f");
-				//ImGui::PopID();
-				//ImGui::PopItemWidth();
-
-
-				//ImGui::SameLine(0, 0);
-
-				ImGui::TableNextCell();
-
-
-				//ImGui::PushID(2);
-				ImGui::AlignTextToFramePadding();
-				ImGui::Text("Z:");
-				ImGui::SameLine(0, 0);
-				ImGui::SetNextItemWidth(-1);
-				ImGui::DragFloat("##3", &value, 0.01f, 0, 0, "%.3f");
-				//ImGui::PopID();
-				//ImGui::PopItemWidth();
-
-				ImGui::EndTable();
-			}
-
-			ImGui::PopStyleVar();
-
-		ImGui::EndGroup();
-		
+		ImGuiEx::EditTextF3("##id1", &value01, &value02, &value03, d1, d2, d3);
+		ImGuiEx::EditTextF4("##id2", &value01, &value02, &value03, &value04, d1, d2, d3, d4);
 	}
 
 	inline void test16(const char* name, bool debug) {
