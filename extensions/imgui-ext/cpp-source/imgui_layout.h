@@ -222,7 +222,7 @@ namespace ImGuiExt
 {
 	void FillWidth(int r = 255, int g = 255, int b = 255, int a = 255, ImVec2 size = ImVec2(ImLayout::MATCH_PARENT, 20));
 	void ShowLayoutDebug();
-	void ShowLayoutClipping();
+	void ShowLayoutDebugClipping();
 
 	// Layout
 	ImVec2 GetLayoutSize();
@@ -235,17 +235,17 @@ namespace ImGuiExt
 	void EndLayout();
 	ImGuiLayout* GetCurrentLayout();
 
-	// Custom Collapse Layout
-	bool BeginCollapseLayoutEx(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
-	void BeginCollapseLayoutEx(bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
-	bool PrepareCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
-	bool BeginCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
-	void BeginCollapseLayout(bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
-	void EndCollapseFrameLayout();
-	void EndCollapseLayout();
-
 	// Align view
 	void BeginAlign(const char* id, float sizeX, float sizeY, float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
 	void AlignLayout(float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0);
 	void EndAlign();
+
+	// Custom Collapse Layout
+	bool BeginCollapseLayoutEx(const char* id, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
+	void BeginCollapseLayoutEx(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
+	bool PrepareCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
+	bool BeginCollapseLayout(const char* id, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
+	void BeginCollapseLayout(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
+	void EndCollapseFrameLayout();
+	void EndCollapseLayout();
 };

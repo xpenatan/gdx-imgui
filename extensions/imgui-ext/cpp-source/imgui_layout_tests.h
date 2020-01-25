@@ -883,7 +883,7 @@ namespace ImGuiExt
 
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			bool isOpen = ImGuiExt::BeginCollapseLayout("Title", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, options);
+			bool isOpen = ImGuiExt::BeginCollapseLayout("##id01", "Title", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, options);
 			if (isOpen) {
 				ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x44 / 255.0f, 0x44 / 255.0f, 0x44 / 255.0f, 100 / 255.0f));
 				paintLayout(bgColor);
@@ -902,7 +902,7 @@ namespace ImGuiExt
 
 		ImGui::Button("Outside Begin", ImVec2(150, 0));
 		{
-			ImGuiExt::BeginCollapseLayout(&isOpen, "Left", 150, ImLayout::WRAP_PARENT);
+			ImGuiExt::BeginCollapseLayout("##id01", &isOpen, "Left", 150, ImLayout::WRAP_PARENT);
 			if (isOpen) {
 				renderContent(false);
 			}
@@ -910,12 +910,12 @@ namespace ImGuiExt
 
 			ImGui::SameLine();
 
-			ImGuiExt::BeginCollapseLayout(&isOpen2, "Right", 150, ImLayout::WRAP_PARENT);
+			ImGuiExt::BeginCollapseLayout("##id02", &isOpen2, "Right", 150, ImLayout::WRAP_PARENT);
 			if (isOpen2) {
 
 				renderContent(false);
 
-				ImGuiExt::BeginCollapseLayout(&isOpen3, "Child", ImLayout::MATCH_PARENT, 120);
+				ImGuiExt::BeginCollapseLayout("##id03", &isOpen3, "Child", ImLayout::MATCH_PARENT, 120);
 
 				ImGuiExt::EndCollapseLayout();
 			}
@@ -933,7 +933,7 @@ namespace ImGuiExt
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
 			ImGuiCollapseLayoutOptions options;
-			ImGuiExt::BeginCollapseLayoutEx(&isOpen, "Left", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, options);
+			ImGuiExt::BeginCollapseLayoutEx("##id01", &isOpen, "Left", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, options);
 
 			//std::cout << "Size1: " << ImGui::GetContentRegionAvail().y << std::endl;
 
@@ -959,11 +959,11 @@ namespace ImGuiExt
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
 			ImGuiCollapseLayoutOptions options;
-			bool isOpen = ImGuiExt::BeginCollapseLayoutEx("Left", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, options);
+			bool isOpen = ImGuiExt::BeginCollapseLayoutEx("##id01", "Left", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, options);
 
 			//std::cout << "Size1: " << ImGui::GetContentRegionAvail().y << std::endl;
 
-			ImGuiExt::BeginAlign("id011", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0.0f, 0.5f);
+			ImGuiExt::BeginAlign("##id02", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0.0f, 0.5f);
 
 			float size = ImGui::GetContentRegionAvail().y;
 
@@ -976,7 +976,7 @@ namespace ImGuiExt
 
 			ImGui::SameLine();
 
-			ImGuiExt::BeginAlign("id012", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 1.0f, 0.5f, -5);
+			ImGuiExt::BeginAlign("##id03", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 1.0f, 0.5f, -5);
 			ImGuiExt::ShowLayoutDebug();
 
 			ImGui::Text("Right Align Text");

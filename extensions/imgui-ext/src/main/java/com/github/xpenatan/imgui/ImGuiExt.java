@@ -27,8 +27,14 @@ public class ImGuiExt {
 	protected ImGuiExt() {
 	}
 
+	// Layout
+
 	public static void ShowLayoutDebug() {
 		ImGuiLayoutNative.ShowLayoutDebug();
+	}
+
+	public static void ShowLayoutDebug() {
+		ImGuiLayoutNative.ShowLayoutDebugClipping();
 	}
 
 	public static void BeginLayout(String id, float sizeX, float sizeY) {
@@ -43,45 +49,12 @@ public class ImGuiExt {
 		ImGuiLayoutNative.EndLayout();
 	}
 
-	public static boolean BeginCollapseLayoutEx(String title, float sizeX, float sizeY) {
-		return ImGuiLayoutNative.BeginCollapseLayoutEx2(title, sizeX, sizeY, ImGuiLayoutNative.defaultOptions);
+	public static ImGuiLayout GetCurrentLayout() {
+		ImGuiLayoutNative.GetCurrentLayout(ImGuiLayout.tempLayout);
+		return ImGuiLayout.tempLayout;
 	}
 
-	public static boolean BeginCollapseLayoutEx(String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options) {
-		return ImGuiLayoutNative.BeginCollapseLayoutEx2(title, sizeX, sizeY, options);
-	}
-
-	public static void BeginCollapseLayoutEx(ImGuiBoolean isOpen, String title, float sizeX, float sizeY) {
-		ImGuiLayoutNative.BeginCollapseLayoutEx(isOpen.data, title, sizeX, sizeY, ImGuiLayoutNative.defaultOptions);
-	}
-
-	public static void BeginCollapseLayoutEx(ImGuiBoolean isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options) {
-		ImGuiLayoutNative.BeginCollapseLayoutEx(isOpen.data, title, sizeX, sizeY, options);
-	}
-
-	public static boolean BeginCollapseLayout(String title, float sizeX, float sizeY) {
-		return ImGuiLayoutNative.BeginCollapseLayout2(title, sizeX, sizeY, ImGuiLayoutNative.defaultOptions);
-	}
-
-	public static boolean BeginCollapseLayout(String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options) {
-		return ImGuiLayoutNative.BeginCollapseLayout2(title, sizeX, sizeY, options);
-	}
-
-	public static void BeginCollapseLayout(ImGuiBoolean isOpen, String title, float sizeX, float sizeY) {
-		ImGuiLayoutNative.BeginCollapseLayout(isOpen.data, title, sizeX, sizeY, ImGuiLayoutNative.defaultOptions);
-	}
-
-	public static void BeginCollapseLayout(ImGuiBoolean isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options) {
-		ImGuiLayoutNative.BeginCollapseLayout(isOpen.data, title, sizeX, sizeY, options);
-	}
-
-	public static void EndCollapseFrameLayout() {
-		ImGuiLayoutNative.EndCollapseFrameLayout();
-	}
-
-	public static void EndCollapseLayout() {
-		ImGuiLayoutNative.EndCollapseLayout();
-	}
+	// Align view
 
 	public static void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY) {
 		ImGuiLayoutNative.BeginAlign(id, sizeX, sizeY, alignX, alignY);
@@ -103,10 +76,49 @@ public class ImGuiExt {
 		ImGuiLayoutNative.AlignLayout(alignX, alignY, offsetX, offsetY);
 	}
 
-	public static ImGuiLayout GetCurrentLayout() {
-		ImGuiLayoutNative.GetCurrentLayout(ImGuiLayout.tempLayout);
-		return ImGuiLayout.tempLayout;
+	// Custom Collapse Layout
+
+	public static boolean BeginCollapseLayoutEx(String id, String title, float sizeX, float sizeY) {
+		return ImGuiLayoutNative.BeginCollapseLayoutEx(id, title, sizeX, sizeY, ImGuiLayoutNative.defaultOptions);
 	}
+
+	public static boolean BeginCollapseLayoutEx(String id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options) {
+		return ImGuiLayoutNative.BeginCollapseLayoutEx(id, title, sizeX, sizeY, options);
+	}
+
+	public static void BeginCollapseLayoutEx(String id, ImGuiBoolean isOpen, String title, float sizeX, float sizeY) {
+		ImGuiLayoutNative.BeginCollapseLayoutEx(id, isOpen.data, title, sizeX, sizeY, ImGuiLayoutNative.defaultOptions);
+	}
+
+	public static void BeginCollapseLayoutEx(String id, ImGuiBoolean isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options) {
+		ImGuiLayoutNative.BeginCollapseLayoutEx(id, isOpen.data, title, sizeX, sizeY, options);
+	}
+
+	public static boolean BeginCollapseLayout(String id, String title, float sizeX, float sizeY) {
+		return ImGuiLayoutNative.BeginCollapseLayout(id, title, sizeX, sizeY, ImGuiLayoutNative.defaultOptions);
+	}
+
+	public static boolean BeginCollapseLayout(String id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options) {
+		return ImGuiLayoutNative.BeginCollapseLayout(id, title, sizeX, sizeY, options);
+	}
+
+	public static void BeginCollapseLayout(String id, ImGuiBoolean isOpen, String title, float sizeX, float sizeY) {
+		ImGuiLayoutNative.BeginCollapseLayout(id, isOpen.data, title, sizeX, sizeY, ImGuiLayoutNative.defaultOptions);
+	}
+
+	public static void BeginCollapseLayout(String id, ImGuiBoolean isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options) {
+		ImGuiLayoutNative.BeginCollapseLayout(id, isOpen.data, title, sizeX, sizeY, options);
+	}
+
+	public static void EndCollapseFrameLayout() {
+		ImGuiLayoutNative.EndCollapseFrameLayout();
+	}
+
+	public static void EndCollapseLayout() {
+		ImGuiLayoutNative.EndCollapseLayout();
+	}
+
+	// Table Ext
 
 	public static float GetTableContentHeight() {
 		return ImGuiExtNative.GetTableContentHeight();
@@ -119,6 +131,8 @@ public class ImGuiExt {
 	public static float GetTableRowHeight() {
 		return ImGuiExtNative.GetTableRowHeight();
 	}
+
+	//Custom Widget
 
 	public static void EditTextF3(String id, ImGuiFloat v1, ImGuiFloat v2, ImGuiFloat v3, EditTextData d1, EditTextData d2, EditTextData d3) {
 		ImGuiExtNative.EditTextF3(id, v1.data, v2.data, v3.data, d1, d2, d3);
@@ -136,5 +150,4 @@ public class ImGuiExt {
 	public static int colorToIntBits (int r, int g, int b, int a) {
 		return (a << 24) | (b << 16) | (g << 8) | r;
 	}
-
 }

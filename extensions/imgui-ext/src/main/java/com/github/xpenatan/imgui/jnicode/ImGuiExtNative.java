@@ -59,7 +59,6 @@ public class ImGuiExtNative {
 		}
 	*/
 
-
 	public static native void EditTextF3(String id, float [] value01, float [] value02, float [] value03, EditTextData jData01, EditTextData jData02, EditTextData jData03) /*-{ }-*/; /*
 		EditTextData data01;
 		EditTextData data02;

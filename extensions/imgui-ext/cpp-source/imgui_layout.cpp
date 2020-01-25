@@ -66,7 +66,7 @@ void ImGuiExt::ShowLayoutDebug() {
 		curLayout->debug = true;
 	}
 }
-void ImGuiExt::ShowLayoutClipping() {
+void ImGuiExt::ShowLayoutDebugClipping() {
 	ImGuiLayout* curLayout = ImGuiExt::GetCurrentLayout();
 	if (curLayout != NULL) {
 		curLayout->debugClipping = true;
@@ -421,31 +421,31 @@ bool ImGuiExt::PrepareCollapseLayout(const char* title, float sizeX, float sizeY
 	return *isOpen;
 }
 
-void ImGuiExt::BeginCollapseLayoutEx(bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
+void ImGuiExt::BeginCollapseLayoutEx(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
 {
-	ImGuiExt::BeginLayoutEx(title);
+	ImGuiExt::BeginLayoutEx(id);
 	ImGuiLayout* rootLayout = ImGuiExt::GetCurrentLayout();
 	rootLayout->map.SetBool(OPEN_KEY, *isOpen);
 	bool flag = ImGuiExt::PrepareCollapseLayout(title, sizeX, sizeY, options);
 	*isOpen = flag;
 }
 
-bool ImGuiExt::BeginCollapseLayoutEx(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
+bool ImGuiExt::BeginCollapseLayoutEx(const char* id, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
 {
-	ImGuiExt::BeginLayoutEx(title);
+	ImGuiExt::BeginLayoutEx(id);
 	return ImGuiExt::PrepareCollapseLayout(title, sizeX, sizeY, options);
 }
 
-bool ImGuiExt::BeginCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
+bool ImGuiExt::BeginCollapseLayout(const char* id, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
 {
-	bool flag = ImGuiExt::BeginCollapseLayoutEx(title, sizeX, sizeY, options);
+	bool flag = ImGuiExt::BeginCollapseLayoutEx(id, title, sizeX, sizeY, options);
 	ImGuiExt::EndCollapseFrameLayout();
 	return flag;
 }
 
-void ImGuiExt::BeginCollapseLayout(bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
+void ImGuiExt::BeginCollapseLayout(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
 {
-	ImGuiExt::BeginCollapseLayoutEx(isOpen, title, sizeX, sizeY, options);
+	ImGuiExt::BeginCollapseLayoutEx(id, isOpen, title, sizeX, sizeY, options);
 	ImGuiExt::EndCollapseFrameLayout();
 }
 
