@@ -7,6 +7,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/imgui-gdx"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/gdx"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/gdx-backend-lwjgl"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/imgui-ex"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/imgui-ext"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

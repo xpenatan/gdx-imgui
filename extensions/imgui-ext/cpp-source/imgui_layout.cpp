@@ -28,7 +28,7 @@ static ImGuiLayout* pushLayout(ImGuiID id) {
 	return childLayout;
 }
 
-ImGuiLayout* ImGuiEx::GetCurrentLayout() {
+ImGuiLayout* ImGuiExt::GetCurrentLayout() {
 	if (layoutStack.empty())
 		return NULL;
 	return layoutStack.back();
@@ -38,7 +38,7 @@ static void popLayout() {
 	layoutStack.pop_back();
 }
 
-void ImGuiEx::FillWidth(int r, int g, int b, int a, ImVec2 size) {
+void ImGuiExt::FillWidth(int r, int g, int b, int a, ImVec2 size) {
 	ImU32 bgColor = ImGui::GetColorU32(ImVec4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f));
 	ImDrawList* drawList = ImGui::GetWindowDrawList();
 	ImVec2 regionMax = ImGui::GetContentRegionAvail();
@@ -60,27 +60,27 @@ void ImGuiEx::FillWidth(int r, int g, int b, int a, ImVec2 size) {
 	ImGui::ItemSize(ImVec2(width, height));
 }
 
-void ImGuiEx::ShowLayoutDebug() {
-	ImGuiLayout* curLayout = ImGuiEx::GetCurrentLayout();
+void ImGuiExt::ShowLayoutDebug() {
+	ImGuiLayout* curLayout = ImGuiExt::GetCurrentLayout();
 	if (curLayout != NULL) {
 		curLayout->debug = true;
 	}
 }
-void ImGuiEx::ShowLayoutClipping() {
-	ImGuiLayout* curLayout = ImGuiEx::GetCurrentLayout();
+void ImGuiExt::ShowLayoutDebugClipping() {
+	ImGuiLayout* curLayout = ImGuiExt::GetCurrentLayout();
 	if (curLayout != NULL) {
 		curLayout->debugClipping = true;
 	}
 }
 
-ImVec2 ImGuiEx::GetLayoutSize() {
-	ImGuiLayout* curLayout = ImGuiEx::GetCurrentLayout();
+ImVec2 ImGuiExt::GetLayoutSize() {
+	ImGuiLayout* curLayout = ImGuiExt::GetCurrentLayout();
 	return curLayout->size;
 }
 
-void ImGuiEx::BeginLayoutEx(ImGuiID id)
+void ImGuiExt::BeginLayoutEx(ImGuiID id)
 {
-	ImGuiLayout* parentLayout = ImGuiEx::GetCurrentLayout();
+	ImGuiLayout* parentLayout = ImGuiExt::GetCurrentLayout();
 	char title[256];
 	if (parentLayout)
 		ImFormatString(title, IM_ARRAYSIZE(title), "%08X/%08X", parentLayout->id, id);
@@ -90,28 +90,28 @@ void ImGuiEx::BeginLayoutEx(ImGuiID id)
 	pushLayout(ImHashStr(title));
 }
 
-void ImGuiEx::BeginLayoutEx(const char* strID)
+void ImGuiExt::BeginLayoutEx(const char* strID)
 {
 	BeginLayoutEx(ImHashStr(strID));
 }
 
-void ImGuiEx::PrepareLayoutType(float sizeX, float sizeY)
+void ImGuiExt::PrepareLayoutType(float sizeX, float sizeY)
 {
-	ImGuiLayout* curLayout = ImGuiEx::GetCurrentLayout();
+	ImGuiLayout* curLayout = ImGuiExt::GetCurrentLayout();
 	curLayout->isMatchParentX = sizeX == ImLayout::MATCH_PARENT;
 	curLayout->isWrapParentX = sizeX == ImLayout::WRAP_PARENT;
 	curLayout->isMatchParentY = sizeY == ImLayout::MATCH_PARENT;
 	curLayout->isWrapParentY = sizeY == ImLayout::WRAP_PARENT;
 }
 
-bool ImGuiEx::PrepareLayout(float sizeX, float sizeY, ImGuiLayoutOptions options)
+bool ImGuiExt::PrepareLayout(float sizeX, float sizeY, ImGuiLayoutOptions options)
 {
 	ImGuiContext& g = *GImGui;
 	ImGuiWindow* window = g.CurrentWindow;
 
 	ImVec2 position = window->DC.CursorPos;
 
-	ImGuiEx::PrepareLayoutType(sizeX, sizeY);
+	ImGuiExt::PrepareLayoutType(sizeX, sizeY);
 
 	float x2 = position.x + sizeX;
 	float y2 = position.y + sizeY;
@@ -119,12 +119,12 @@ bool ImGuiEx::PrepareLayout(float sizeX, float sizeY, ImGuiLayoutOptions options
 	return PrepareLayout(position.x, position.y, x2, y2, options);
 }
 
-bool ImGuiEx::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayoutOptions options)
+bool ImGuiExt::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayoutOptions options)
 {
 	ImGuiContext& g = *GImGui;
 	ImGuiWindow* window = g.CurrentWindow;
 
-	ImGuiLayout* curLayout = ImGuiEx::GetCurrentLayout();
+	ImGuiLayout* curLayout = ImGuiExt::GetCurrentLayout();
 	curLayout->clipping = options.clipping;
 	bool ret = true;
 	// Update layout
@@ -222,17 +222,17 @@ bool ImGuiEx::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayoutO
 	return true;
 }
 
-bool ImGuiEx::BeginLayout(const char* strID, float sizeX, float sizeY, ImGuiLayoutOptions options)
+bool ImGuiExt::BeginLayout(const char* strID, float sizeX, float sizeY, ImGuiLayoutOptions options)
 {
 	BeginLayoutEx(strID);
 	return PrepareLayout(sizeX, sizeY, options);
 }
 
-void ImGuiEx::EndLayout()
+void ImGuiExt::EndLayout()
 {
 	ImGuiContext& g = *GImGui;
 	ImGuiWindow* window = g.CurrentWindow;
-	ImGuiLayout* curLayout = ImGuiEx::GetCurrentLayout();
+	ImGuiLayout* curLayout = ImGuiExt::GetCurrentLayout();
 	if (curLayout == NULL)
 		return;
 
@@ -290,7 +290,7 @@ void ImGuiEx::EndLayout()
 	}
 
 	if (curLayout->debugClipping) {
-		ImGuiEx::drawBoundingBox(curLayout->clippingMin, curLayout->clippingMax, 255, 0, 0);
+		ImGuiExt::drawBoundingBox(curLayout->clippingMin, curLayout->clippingMax, 255, 0, 0);
 		curLayout->debugClipping = false;
 	}
 
@@ -376,12 +376,12 @@ static bool renderFrameArrow(bool* value, int arrowColor, int arrowBackgroundHov
 
 static int OPEN_KEY = 13213;
 
-bool ImGuiEx::PrepareCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
+bool ImGuiExt::PrepareCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
 {
 	ImGuiContext& g = *GImGui;
 	ImGuiWindow* window = g.CurrentWindow;
 	ImDrawList* drawList = window->DrawList;
-	ImGuiLayout* rootLayout = ImGuiEx::GetCurrentLayout();
+	ImGuiLayout* rootLayout = ImGuiExt::GetCurrentLayout();
 
 	float frameHeight = ImGui::GetFrameHeight();
 
@@ -390,15 +390,15 @@ bool ImGuiEx::PrepareCollapseLayout(const char* title, float sizeX, float sizeY,
 
 	sizeY = *isOpen ? sizeY : ImLayout::WRAP_PARENT;
 
-	ImGuiEx::PrepareLayout(sizeX, sizeY, ImGuiLayoutOptions(1, 1, 1, 1));
+	ImGuiExt::PrepareLayout(sizeX, sizeY, ImGuiLayoutOptions(1, 1, 1, 1));
 
 	rootLayout->map.SetFloat(120, options.paddingLeft);
 	rootLayout->map.SetFloat(121, options.paddingRight);
 	rootLayout->map.SetFloat(122, options.paddingTop);
 	rootLayout->map.SetFloat(123, options.paddingBottom);
 
-	ImGuiEx::BeginLayout("frame", ImLayout::MATCH_PARENT, frameHeight, ImGuiLayoutOptions(0, 0, 0, 0));
-	ImGuiLayout* frameLayout = ImGuiEx::GetCurrentLayout();
+	ImGuiExt::BeginLayout("frame", ImLayout::MATCH_PARENT, frameHeight, ImGuiLayoutOptions(0, 0, 0, 0));
+	ImGuiLayout* frameLayout = ImGuiExt::GetCurrentLayout();
 
 	ImVec2 mousePos = ImGui::GetMousePos();
 
@@ -410,65 +410,65 @@ bool ImGuiEx::PrepareCollapseLayout(const char* title, float sizeX, float sizeY,
 
 	ImGui::SameLine();
 
-	ImGuiEx::BeginAlign("align", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f, 0, 0);
+	ImGuiExt::BeginAlign("align", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f, 0, 0);
 
 	ImGui::Text(title);
 
-	ImGuiEx::EndAlign();
+	ImGuiExt::EndAlign();
 
 	ImGui::SameLine();
 
 	return *isOpen;
 }
 
-void ImGuiEx::BeginCollapseLayoutEx(bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
+void ImGuiExt::BeginCollapseLayoutEx(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
 {
-	ImGuiEx::BeginLayoutEx(title);
-	ImGuiLayout* rootLayout = ImGuiEx::GetCurrentLayout();
+	ImGuiExt::BeginLayoutEx(id);
+	ImGuiLayout* rootLayout = ImGuiExt::GetCurrentLayout();
 	rootLayout->map.SetBool(OPEN_KEY, *isOpen);
-	bool flag = ImGuiEx::PrepareCollapseLayout(title, sizeX, sizeY, options);
+	bool flag = ImGuiExt::PrepareCollapseLayout(title, sizeX, sizeY, options);
 	*isOpen = flag;
 }
 
-bool ImGuiEx::BeginCollapseLayoutEx(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
+bool ImGuiExt::BeginCollapseLayoutEx(const char* id, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
 {
-	ImGuiEx::BeginLayoutEx(title);
-	return ImGuiEx::PrepareCollapseLayout(title, sizeX, sizeY, options);
+	ImGuiExt::BeginLayoutEx(id);
+	return ImGuiExt::PrepareCollapseLayout(title, sizeX, sizeY, options);
 }
 
-bool ImGuiEx::BeginCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
+bool ImGuiExt::BeginCollapseLayout(const char* id, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
 {
-	bool flag = ImGuiEx::BeginCollapseLayoutEx(title, sizeX, sizeY, options);
-	ImGuiEx::EndCollapseFrameLayout();
+	bool flag = ImGuiExt::BeginCollapseLayoutEx(id, title, sizeX, sizeY, options);
+	ImGuiExt::EndCollapseFrameLayout();
 	return flag;
 }
 
-void ImGuiEx::BeginCollapseLayout(bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
+void ImGuiExt::BeginCollapseLayout(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
 {
-	ImGuiEx::BeginCollapseLayoutEx(isOpen, title, sizeX, sizeY, options);
-	ImGuiEx::EndCollapseFrameLayout();
+	ImGuiExt::BeginCollapseLayoutEx(id, isOpen, title, sizeX, sizeY, options);
+	ImGuiExt::EndCollapseFrameLayout();
 }
 
-void ImGuiEx::EndCollapseFrameLayout()
+void ImGuiExt::EndCollapseFrameLayout()
 {
 	ImGuiContext& g = *GImGui;
 	float bk = g.Style.ItemSpacing.y;
 
 	g.Style.ItemSpacing.y = 0;
-	ImGuiEx::EndLayout(); // end frame
+	ImGuiExt::EndLayout(); // end frame
 	g.Style.ItemSpacing.y = bk;
-	ImGuiLayout* rootLayout = ImGuiEx::GetCurrentLayout();
+	ImGuiLayout* rootLayout = ImGuiExt::GetCurrentLayout();
 
 	float paddingLeft = rootLayout->map.GetFloat(120, 0.0f);
 	float paddingRight = rootLayout->map.GetFloat(121, 0.0f);
 	float paddingTop = rootLayout->map.GetFloat(122, 0.0f);
 	float paddingBottom = rootLayout->map.GetFloat(123, 0.0f);
 
-	ImGuiEx::BeginLayout("content", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(paddingLeft, paddingRight, paddingTop, paddingBottom));
-	ImGuiLayout* collapseLayout = ImGuiEx::GetCurrentLayout();
+	ImGuiExt::BeginLayout("content", ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(paddingLeft, paddingRight, paddingTop, paddingBottom));
+	ImGuiLayout* collapseLayout = ImGuiExt::GetCurrentLayout();
 }
 
-void ImGuiEx::EndCollapseLayout()
+void ImGuiExt::EndCollapseLayout()
 {
 	ImGuiContext& g = *GImGui;
 	ImGuiWindow* window = g.CurrentWindow;
@@ -478,11 +478,11 @@ void ImGuiEx::EndCollapseLayout()
 	int borderRound = 4;
 	int roundingCorners = ImDrawCornerFlags_TopLeft | ImDrawCornerFlags_TopRight;
 
-	ImGuiEx::EndLayout(); // end content
+	ImGuiExt::EndLayout(); // end content
 
-	ImGuiLayout* rootLayout = ImGuiEx::GetCurrentLayout();
+	ImGuiLayout* rootLayout = ImGuiExt::GetCurrentLayout();
 
-	ImGuiEx::EndLayout(); // end root
+	ImGuiExt::EndLayout(); // end root
 
 	ImVec2 borderPosition = rootLayout->position;
 	ImVec2 borderSize = rootLayout->getAbsoluteSize();
@@ -490,15 +490,15 @@ void ImGuiEx::EndCollapseLayout()
 	drawList->AddRect(borderPosition, borderSize, borderColor, borderRound, roundingCorners, 1.0f);
 }
 
-void ImGuiEx::BeginAlign(const char* strID, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, ImGuiCollapseLayoutOptions options) {
-	ImGuiEx::BeginLayout(strID, sizeX, sizeY, options);
-	ImGuiEx::AlignLayout(alignX, alignY, offsetX, offsetY);
+void ImGuiExt::BeginAlign(const char* strID, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, ImGuiCollapseLayoutOptions options) {
+	ImGuiExt::BeginLayout(strID, sizeX, sizeY, options);
+	ImGuiExt::AlignLayout(alignX, alignY, offsetX, offsetY);
 }
 
-void ImGuiEx::AlignLayout(float alignX, float alignY, float offsetX, float offsetY) {
+void ImGuiExt::AlignLayout(float alignX, float alignY, float offsetX, float offsetY) {
 	ImGuiContext& g = *GImGui;
 	ImGuiWindow* window = g.CurrentWindow;
-	ImGuiLayout* curLayout = ImGuiEx::GetCurrentLayout();
+	ImGuiLayout* curLayout = ImGuiExt::GetCurrentLayout();
 	if (curLayout == NULL)
 		return;
 
@@ -550,6 +550,6 @@ void ImGuiEx::AlignLayout(float alignX, float alignY, float offsetX, float offse
 	window->DC.CursorPos.y = curLayout->positionContents.y;
 }
 
-void ImGuiEx::EndAlign() {
-	ImGuiEx::EndLayout();
+void ImGuiExt::EndAlign() {
+	ImGuiExt::EndLayout();
 }

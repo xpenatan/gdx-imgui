@@ -62,11 +62,15 @@ public class ImGuiLayoutNative {
 	*/
 
 	public static native void ShowLayoutDebug() /*-{ }-*/; /*
-		ImGuiEx::ShowLayoutDebug();
+		ImGuiExt::ShowLayoutDebug();
+	*/
+
+	public static native void ShowLayoutDebugClipping() /*-{ }-*/; /*
+		ImGuiExt::ShowLayoutDebugClipping();
 	*/
 
 	public static native void BeginLayout(String id, float sizeX, float sizeY); /*-{ }-*/; /*
-		ImGuiEx::BeginLayout(id, sizeX, sizeY);
+		ImGuiExt::BeginLayout(id, sizeX, sizeY);
 	*/
 
 	public static native void BeginLayout(String id, float sizeX, float sizeY, float paddingLeft, float paddingRight, float paddingTop, float paddingBottom); /*-{ }-*/; /*
@@ -75,107 +79,84 @@ public class ImGuiLayoutNative {
 		options.paddingRight = paddingRight;
 		options.paddingTop = paddingTop;
 		options.paddingBottom = paddingBottom;
-		ImGuiEx::BeginLayout(id, sizeX, sizeY);
+		ImGuiExt::BeginLayout(id, sizeX, sizeY);
 	*/
 
 	public static native void EndLayout(); /*-{ }-*/; /*
-		ImGuiEx::EndLayout();
+		ImGuiExt::EndLayout();
 	*/
 
-	public static native boolean BeginCollapseLayoutEx2(String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
-		ImGuiCollapseLayoutOptions options;
-		options.paddingLeft = env->GetFloatField (jOptions, paddingLeftID);
-		options.paddingRight = env->GetFloatField (jOptions, paddingRightID);
-		options.paddingTop = env->GetFloatField (jOptions, paddingTopID);
-		options.paddingBottom = env->GetFloatField (jOptions, paddingBottomID);
-		options.arrowColor = env->GetIntField (jOptions, arrowColorID);
-		options.arrowBackgroundHoveredColor = env->GetIntField (jOptions, arrowBackgroundHoveredColorID);
-		options.arrowBackgroundClickedColor = env->GetIntField (jOptions, arrowBackgroundClickedColorID);
-		options.frameColor = env->GetIntField (jOptions, frameColorID);
-		options.borderColor = env->GetIntField (jOptions, borderColorID);
-		options.borderRound = env->GetIntField (jOptions, borderRoundID);
-		options.roundingCorners = env->GetIntField (jOptions, roundingCornersID);
-		return ImGuiEx::BeginCollapseLayoutEx(title, sizeX, sizeY);
+
+	/*JNI
+		void configOptions(JNIEnv* env, ImGuiCollapseLayoutOptions & options, jobject jOptions) {
+			options.paddingLeft = env->GetFloatField (jOptions, paddingLeftID);
+			options.paddingRight = env->GetFloatField (jOptions, paddingRightID);
+			options.paddingTop = env->GetFloatField (jOptions, paddingTopID);
+			options.paddingBottom = env->GetFloatField (jOptions, paddingBottomID);
+			options.arrowColor = env->GetIntField (jOptions, arrowColorID);
+			options.arrowBackgroundHoveredColor = env->GetIntField (jOptions, arrowBackgroundHoveredColorID);
+			options.arrowBackgroundClickedColor = env->GetIntField (jOptions, arrowBackgroundClickedColorID);
+			options.frameColor = env->GetIntField (jOptions, frameColorID);
+			options.borderColor = env->GetIntField (jOptions, borderColorID);
+			options.borderRound = env->GetIntField (jOptions, borderRoundID);
+			options.roundingCorners = env->GetIntField (jOptions, roundingCornersID);
+		}
 	*/
 
-	public static native void BeginCollapseLayoutEx(boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+	public static native boolean BeginCollapseLayoutEx(String id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
 		ImGuiCollapseLayoutOptions options;
-		options.paddingLeft = env->GetFloatField (jOptions, paddingLeftID);
-		options.paddingRight = env->GetFloatField (jOptions, paddingRightID);
-		options.paddingTop = env->GetFloatField (jOptions, paddingTopID);
-		options.paddingBottom = env->GetFloatField (jOptions, paddingBottomID);
-		options.arrowColor = env->GetIntField (jOptions, arrowColorID);
-		options.arrowBackgroundHoveredColor = env->GetIntField (jOptions, arrowBackgroundHoveredColorID);
-		options.arrowBackgroundClickedColor = env->GetIntField (jOptions, arrowBackgroundClickedColorID);
-		options.frameColor = env->GetIntField (jOptions, frameColorID);
-		options.borderColor = env->GetIntField (jOptions, borderColorID);
-		options.borderRound = env->GetIntField (jOptions, borderRoundID);
-		options.roundingCorners = env->GetIntField (jOptions, roundingCornersID);
-		ImGuiEx::BeginCollapseLayoutEx(&isOpen[0], title, sizeX, sizeY, options);
+		configOptions(env, options, jOptions);
+		return ImGuiExt::BeginCollapseLayoutEx(id, title, sizeX, sizeY, options);
 	*/
 
-	public static native boolean BeginCollapseLayout2(String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+	public static native void BeginCollapseLayoutEx(String id, boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
 		ImGuiCollapseLayoutOptions options;
-		options.paddingLeft = env->GetFloatField (jOptions, paddingLeftID);
-		options.paddingRight = env->GetFloatField (jOptions, paddingRightID);
-		options.paddingTop = env->GetFloatField (jOptions, paddingTopID);
-		options.paddingBottom = env->GetFloatField (jOptions, paddingBottomID);
-		options.arrowColor = env->GetIntField (jOptions, arrowColorID);
-		options.arrowBackgroundHoveredColor = env->GetIntField (jOptions, arrowBackgroundHoveredColorID);
-		options.arrowBackgroundClickedColor = env->GetIntField (jOptions, arrowBackgroundClickedColorID);
-		options.frameColor = env->GetIntField (jOptions, frameColorID);
-		options.borderColor = env->GetIntField (jOptions, borderColorID);
-		options.borderRound = env->GetIntField (jOptions, borderRoundID);
-		options.roundingCorners = env->GetIntField (jOptions, roundingCornersID);
-		return ImGuiEx::BeginCollapseLayout(title, sizeX, sizeY, options);
+		configOptions(env, options, jOptions);
+		ImGuiExt::BeginCollapseLayoutEx(id, &isOpen[0], title, sizeX, sizeY, options);
 	*/
 
-	public static native void BeginCollapseLayout(boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+	public static native boolean BeginCollapseLayout(String id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
 		ImGuiCollapseLayoutOptions options;
-		options.paddingLeft = env->GetFloatField (jOptions, paddingLeftID);
-		options.paddingRight = env->GetFloatField (jOptions, paddingRightID);
-		options.paddingTop = env->GetFloatField (jOptions, paddingTopID);
-		options.paddingBottom = env->GetFloatField (jOptions, paddingBottomID);
-		options.arrowColor = env->GetIntField (jOptions, arrowColorID);
-		options.arrowBackgroundHoveredColor = env->GetIntField (jOptions, arrowBackgroundHoveredColorID);
-		options.arrowBackgroundClickedColor = env->GetIntField (jOptions, arrowBackgroundClickedColorID);
-		options.frameColor = env->GetIntField (jOptions, frameColorID);
-		options.borderColor = env->GetIntField (jOptions, borderColorID);
-		options.borderRound = env->GetIntField (jOptions, borderRoundID);
-		options.roundingCorners = env->GetIntField (jOptions, roundingCornersID);
-		ImGuiEx::BeginCollapseLayout(&isOpen[0], title, sizeX, sizeY, options);
+		configOptions(env, options, jOptions);
+		return ImGuiExt::BeginCollapseLayout(id, title, sizeX, sizeY, options);
+	*/
+
+	public static native void BeginCollapseLayout(String id, boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+		ImGuiCollapseLayoutOptions options;
+		configOptions(env, options, jOptions);
+		ImGuiExt::BeginCollapseLayout(id, &isOpen[0], title, sizeX, sizeY, options);
 	*/
 
 	public static native void EndCollapseFrameLayout(); /*-{ }-*/; /*
-		ImGuiEx::EndCollapseFrameLayout();
+		ImGuiExt::EndCollapseFrameLayout();
 	*/
 
 	public static native void EndCollapseLayout(); /*-{ }-*/; /*
-		ImGuiEx::EndCollapseLayout();
+		ImGuiExt::EndCollapseLayout();
 	*/
 
 	public static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY) /*-{ }-*/; /*
-		ImGuiEx::BeginAlign(id, sizeX, sizeY, alignX, alignY);
+		ImGuiExt::BeginAlign(id, sizeX, sizeY, alignX, alignY);
 	*/
 
 	public static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
-		ImGuiEx::BeginAlign(id, sizeX, sizeY, alignX, alignY, offsetX, offsetY);
+		ImGuiExt::BeginAlign(id, sizeX, sizeY, alignX, alignY, offsetX, offsetY);
 	*/
 
 	public static native void EndAlign() /*-{ }-*/; /*
-		ImGuiEx::EndAlign();
+		ImGuiExt::EndAlign();
 	*/
 
 	public static native void AlignLayout(float alignX, float alignY) /*-{ }-*/; /*
-		ImGuiEx::AlignLayout(alignX, alignY);
+		ImGuiExt::AlignLayout(alignX, alignY);
 	*/
 
 	public static native void AlignLayout(float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
-		ImGuiEx::AlignLayout(alignX, alignY, offsetX, offsetY);
+		ImGuiExt::AlignLayout(alignX, alignY, offsetX, offsetY);
 	*/
 
 	public static native void GetCurrentLayout(ImGuiLayout jLayout); /*-{ }-*/; /*
-		ImGuiLayout* curLayout = ImGuiEx::GetCurrentLayout();
+		ImGuiLayout* curLayout = ImGuiExt::GetCurrentLayout();
 		env->SetFloatField (jLayout, positionXID, curLayout->position.x);
 		env->SetFloatField (jLayout, positionYID, curLayout->position.y);
 		env->SetFloatField (jLayout, sizeXID, curLayout->size.x);

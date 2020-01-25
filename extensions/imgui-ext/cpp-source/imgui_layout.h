@@ -10,7 +10,7 @@ namespace ImLayout
 	static int MATCH_PARENT = 9999990;
 }
 
-namespace ImGuiEx
+namespace ImGuiExt
 {
 
 	static int TOTAL_COLUMNS_KEY = 771;
@@ -54,7 +54,7 @@ namespace ImGuiEx
 	}
 
 	inline void drawBoundingBox(ImVec2 min, ImVec2 max, int r, int g, int b, bool clipping = false) {
-		ImGuiEx::drawBoundingBox(min.x, min.y, max.x, max.y, r, g, b, clipping);
+		ImGuiExt::drawBoundingBox(min.x, min.y, max.x, max.y, r, g, b, clipping);
 	}
 };
 
@@ -140,23 +140,23 @@ public:
 	void drawSizeDebug() {
 		// Render layout space
 		//Green
-		ImGuiEx::drawBoundingBox(position, getAbsoluteSize(), 0, 255, 0);
+		ImGuiExt::drawBoundingBox(position, getAbsoluteSize(), 0, 255, 0);
 	}
 
 	inline void drawContentDebug() {
 		// Render content space
 		// Blue
 		ImVec2 max = ImVec2(positionContents.x + contentSize.x, positionContents.y + contentSize.y);
-		//ImGuiEx::drawBoundingBox(positionContents, max, 0, 0, 255);
+		//ImGuiExt::drawBoundingBox(positionContents, max, 0, 0, 255);
 	}
 
 	void drawPaddingAreaDebug() {
 		// Render size with padding
-		//ImGuiEx::drawBoundingBox(getPositionPadding(), getAbsoluteSizePadding(), 255, 255, 255);
+		//ImGuiExt::drawBoundingBox(getPositionPadding(), getAbsoluteSizePadding(), 255, 255, 255);
 	}
 
 	void drawError() {
-		ImGuiEx::drawBoundingBox(position, getAbsoluteSize(), 255, 0, 0, true);
+		ImGuiExt::drawBoundingBox(position, getAbsoluteSize(), 255, 0, 0, true);
 	}
 };
 
@@ -218,11 +218,11 @@ public:
 	}
 };
 
-namespace ImGuiEx
+namespace ImGuiExt
 {
 	void FillWidth(int r = 255, int g = 255, int b = 255, int a = 255, ImVec2 size = ImVec2(ImLayout::MATCH_PARENT, 20));
 	void ShowLayoutDebug();
-	void ShowLayoutClipping();
+	void ShowLayoutDebugClipping();
 
 	// Layout
 	ImVec2 GetLayoutSize();
@@ -235,17 +235,17 @@ namespace ImGuiEx
 	void EndLayout();
 	ImGuiLayout* GetCurrentLayout();
 
-	// Custom Collapse Layout
-	bool BeginCollapseLayoutEx(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
-	void BeginCollapseLayoutEx(bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
-	bool PrepareCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
-	bool BeginCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
-	void BeginCollapseLayout(bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
-	void EndCollapseFrameLayout();
-	void EndCollapseLayout();
-
 	// Align view
 	void BeginAlign(const char* id, float sizeX, float sizeY, float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
 	void AlignLayout(float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0);
 	void EndAlign();
+
+	// Custom Collapse Layout
+	bool BeginCollapseLayoutEx(const char* id, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
+	void BeginCollapseLayoutEx(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
+	bool PrepareCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
+	bool BeginCollapseLayout(const char* id, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
+	void BeginCollapseLayout(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
+	void EndCollapseFrameLayout();
+	void EndCollapseLayout();
 };

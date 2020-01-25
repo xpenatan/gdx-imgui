@@ -5,7 +5,7 @@ plugins {
 
 apply from: '../../dependencies.gradle'
 
-def imgui_name = "imgui-ex"
+def imgui_name = "imgui-ext"
 
 dependencies {
 	implementation "com.badlogicgames.gdx:gdx-jnigen:$project.gdxVersion"
@@ -17,7 +17,7 @@ dependencies {
     testImplementation "junit:junit:$project.jUnitVersion"
 }
 
-project.ext.mainClassName = "com.github.xpenatan.imgui.generate.BuildEx"
+project.ext.mainClassName = "com.github.xpenatan.imgui.generate.BuildExt"
 sourceSets.main.java.srcDirs = [ "src/main/java/" ]
 sourceSets.main.resources.srcDirs = ["src/main/java/"]
 
@@ -53,7 +53,7 @@ task fromClasses (type: Jar) {
 
 task platformAll (type: Jar) {
 	archiveClassifier = "natives-desktop"
-	from zipTree(projectDir.toString() + "/libs/imgui-ex-natives.jar")
+	from zipTree(projectDir.toString() + "/libs/imgui-ext-natives.jar")
 }
 
 publishing {

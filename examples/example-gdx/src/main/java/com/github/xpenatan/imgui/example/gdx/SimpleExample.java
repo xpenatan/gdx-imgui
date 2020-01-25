@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.github.xpenatan.imgui.*;
+import com.github.xpenatan.imgui.custom.EditTextData;
 import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.enums.ImGuiDir;
 import com.github.xpenatan.imgui.enums.ImGuiInputTextFlags;
@@ -32,8 +33,6 @@ public class SimpleExample implements ApplicationListener
 		new LwjglApplication(new SimpleExample(), config);
 	}
 
-	ShapeRenderer shapeRenderer;
-	ShapeRenderer pointRenderer;
 	OrthographicCamera uiCam;
 
 	SpriteBatch batch;
@@ -58,21 +57,29 @@ public class SimpleExample implements ApplicationListener
 
 	Texture buttonTexture;
 
-	static ImGuiFloat alignX = new ImGuiFloat(0.5f);
-	static ImGuiFloat offsetX = new ImGuiFloat(0.0f);
-	static ImGuiFloat alignY = new ImGuiFloat(0.5f);
-	static ImGuiFloat offsetY = new ImGuiFloat(0.0f);
+	ImGuiFloat alignX = new ImGuiFloat(0.5f);
+	ImGuiFloat offsetX = new ImGuiFloat(0.0f);
+	ImGuiFloat alignY = new ImGuiFloat(0.5f);
+	ImGuiFloat offsetY = new ImGuiFloat(0.0f);
+
+
+
+	ImGuiFloat v1 = new ImGuiFloat(0.0f);
+	ImGuiFloat v2 = new ImGuiFloat(0.0f);
+	ImGuiFloat v3 = new ImGuiFloat(0.0f);
+
+	EditTextData d1 = new EditTextData("X:", "Tooltip 01", ImGuiExt.colorToIntBits(255, 0, 0, 255), 0);
+	EditTextData d2 = new EditTextData("Y:", "Tooltip 02");
+	EditTextData d3 = new EditTextData("Z:", "Tooltip 03");
 
 	boolean init = false;
 	@Override
 	public void create () {
 		uiCam = new OrthographicCamera();
-		shapeRenderer = new ShapeRenderer();
-		pointRenderer = new ShapeRenderer();
 		uiCam.setToOrtho(true);
 		batch = new SpriteBatch();
 		ImGui.init();
-		ImGuiEx.init();
+		ImGuiExt.init();
 		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable);
 		ImGui.GetIO().SetDockingFlags(false, false, false, false);
 
@@ -88,23 +95,27 @@ public class SimpleExample implements ApplicationListener
 		Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		int width = Gdx.graphics.getWidth();
-		int height = Gdx.graphics.getHeight();
-		int backBufferWidth = Gdx.graphics.getBackBufferWidth();
-		int backBufferHeight = Gdx.graphics.getBackBufferHeight();
 
-		boolean mouseDown0 = Gdx.input.isButtonPressed(Buttons.LEFT);
-		boolean mouseDown1 = Gdx.input.isButtonPressed(Buttons.RIGHT);
-		boolean mouseDown2 = Gdx.input.isButtonPressed(Buttons.MIDDLE);
-		ImGui.UpdateDisplayAndInputAndFrame(Gdx.graphics.getDeltaTime(), width, height, backBufferWidth, backBufferHeight,
-				Gdx.input.getX(), Gdx.input.getY(), mouseDown0, mouseDown1, mouseDown2);
+		boolean mode01 = false;
+		if(mode01) {
+			// use ImGui method which requires some input from gdx
+			int width = Gdx.graphics.getWidth();
+			int height = Gdx.graphics.getHeight();
+			int backBufferWidth = Gdx.graphics.getBackBufferWidth();
+			int backBufferHeight = Gdx.graphics.getBackBufferHeight();
+			boolean mouseDown0 = Gdx.input.isButtonPressed(Buttons.LEFT);
+			boolean mouseDown1 = Gdx.input.isButtonPressed(Buttons.RIGHT);
+			boolean mouseDown2 = Gdx.input.isButtonPressed(Buttons.MIDDLE);
+			ImGui.UpdateDisplayAndInputAndFrame(Gdx.graphics.getDeltaTime(), width, height, backBufferWidth, backBufferHeight,
+					Gdx.input.getX(), Gdx.input.getY(), mouseDown0, mouseDown1, mouseDown2);
+		}
+		else {
+			// Or use from Impl object which does it for you
+			impl.update();
+		}
 
 		uiCam.update();
 		batch.setProjectionMatrix(uiCam.combined);
-		shapeRenderer.setProjectionMatrix(uiCam.combined);
-		shapeRenderer.begin(ShapeType.Line);
-		pointRenderer.setProjectionMatrix(uiCam.combined);
-		pointRenderer.begin(ShapeType.Point);
 
 		if(init == false) {
 			init = true;
@@ -114,6 +125,61 @@ public class SimpleExample implements ApplicationListener
 		ImGui.Begin("Hello World");
 
 		renderTabTree();
+
+		ImGui.End();
+
+		ImGui.ShowDemoWindow(false);
+
+		ImGui.Render();
+		DrawData drawData = ImGui.GetDrawData();
+		impl.render(drawData);
+
+	}
+
+	private void renderTabTree() {
+		ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags.Reorderable;
+		if (ImGui.BeginTabBar("MyTabBar", tab_bar_flags)) {
+			if (ImGui.BeginTabItem("ImGui Views")) {
+				renderTabImGuiViews();
+				ImGui.EndTabItem();
+			}
+			if (ImGui.BeginTabItem("ImGuiExt Views")) {
+				renderTabImGuiExtViews();
+				ImGui.EndTabItem();
+			}
+			ImGui.EndTabBar();
+		}
+	}
+
+	private void renderTabImGuiViews() {
+		ImGui.Text("MyText");
+
+		if (ImGui.TreeNode("Parent 01")) {
+			for (int i = 0; i < 5; i++) {
+				ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags.Leaf;
+				if (i == treeSelected) {
+					flags = flags.or(ImGuiTreeNodeFlags.Selected);
+				}
+				if (ImGui.TreeNodeEx(i, flags, "Leaf " + i)) {
+					if (ImGui.IsItemClicked()) {
+						if (treeSelected == i)
+							treeSelected = -1;
+						else
+							treeSelected = i;
+					}
+					ImGui.TreePop();
+				}
+			}
+			ImGui.TreePop();
+		}
+		if (ImGui.TreeNode("Parent 02")) {
+			ImGui.TreePop();
+		}
+		if (ImGui.TreeNode("Parent 03")) {
+			ImGui.TreePop();
+		}
+
+		ImGui.ListBox("MyList", listSelected, myList, myList.length);
 
 		// Edittext
 		if(ImGui.InputText("", myText, ImGuiInputTextFlags.EnterReturnsTrue)) {
@@ -135,36 +201,54 @@ public class SimpleExample implements ApplicationListener
 
 		ImGui.Button("Button");
 
-		renderCollapseUI();
-
-		ImGui.ListBox("MyList", listSelected, myList, myList.length);
-		ImGui.End();
-
-		ImGui.ShowDemoWindow(false);
-
-		ImGui.Render();
-		DrawData drawData = ImGui.GetDrawData();
-		impl.render(drawData);
-
-		shapeRenderer.end();
-		pointRenderer.end();
 	}
 
-	private void renderCollapseUI() {
-		ImGuiEx.BeginCollapseLayoutEx(isCollapseOpen, "Stuff", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
+	private void renderTabImGuiExtViews() {
+		ImGuiExt.EditTextF3("##1", v1, v2, v3, d1, d2, d3);
 
-		ImGuiEx.ShowLayoutDebug();
+		float mouseX = Gdx.input.getX();
+		float mouseY = Gdx.input.getY();
 
-		ImGuiEx.BeginAlign("#ID", ImLayout.MATCH_PARENT, ImLayout.MATCH_PARENT, 1.0f, 0.5f, -5, 0);
+		ImGuiExt.BeginLayout("Stuff", ImLayout.WRAP_PARENT, ImLayout.WRAP_PARENT);
+		ImGuiExt.ShowLayoutDebug();
+		ImGuiLayout curLayout = ImGuiExt.GetCurrentLayout();
+		float posX = curLayout.positionX;
+		float posY = curLayout.positionY;
+		float sizeX = curLayout.sizeX;
+		float sizeY = curLayout.sizeY;
+		float posSizeX = posX + sizeX;
+		float posSizeY = posY + sizeY;
+
+
+		ImGui.Text("MouseX: " + mouseX);
+		ImGui.SameLine();
+		ImGui.Text("MouseY: " + mouseY);
+		ImGui.Text("posX: " + posX);
+		ImGui.Text("posY: " + posY);
+		ImGui.Text("posSizeX: " + posSizeX);
+		ImGui.Text("posSizeY: " + posSizeY);
+
+		ImGuiExt.EndLayout();
+
+		renderExtCollapseUI();
+
+	}
+
+	private void renderExtCollapseUI() {
+		ImGuiExt.BeginCollapseLayoutEx("##ID1", isCollapseOpen, "Stuff", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
+
+		ImGuiExt.ShowLayoutDebug();
+
+		ImGuiExt.BeginAlign("##ID2", ImLayout.MATCH_PARENT, ImLayout.MATCH_PARENT, 1.0f, 0.5f, -5, 0);
 		ImGui.Button("Ok");
 		ImGui.SameLine();
 		ImGui.Text("Custom Align");
-		ImGuiEx.EndAlign();
+		ImGuiExt.EndAlign();
 
-		ImGuiEx.EndCollapseFrameLayout();
+		ImGuiExt.EndCollapseFrameLayout();
 		if(isCollapseOpen.getValue())
 		{
-			ImGuiEx.BeginCollapseLayout(isCollapseOpen2, "Alignment options", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
+			ImGuiExt.BeginCollapseLayout("##ID3", isCollapseOpen2, "Alignment options", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
 			if(isCollapseOpen2.getValue())
 			{
 				ImGui.SliderFloat("AlignX", alignX, 0.0f, 1.0f, "%.2f");
@@ -172,7 +256,7 @@ public class SimpleExample implements ApplicationListener
 				ImGui.SliderFloat("AlignY", alignY, 0.0f, 1.0f, "%.2f");
 				ImGui.SliderFloat("OffsetY", offsetY, -10.0f, 10.0f, "%.2f");
 			}
-			ImGuiEx.EndCollapseLayout();
+			ImGuiExt.EndCollapseLayout();
 
 			ImGui.ArrowButton("##Left", ImGuiDir.Left);
 			ImGui.SameLine();
@@ -194,110 +278,14 @@ public class SimpleExample implements ApplicationListener
 			ImGui.SameLine();
 			ImGui.Text("Bullet text");
 
-			ImGuiEx.BeginAlign("##ID", ImLayout.MATCH_PARENT, 200, alignX.getValue(), alignY.getValue(), offsetX.getValue(), offsetY.getValue());
-			ImGuiEx.ShowLayoutDebug();
+			ImGuiExt.BeginAlign("##ID4", ImLayout.MATCH_PARENT, 200, alignX.getValue(), alignY.getValue(), offsetX.getValue(), offsetY.getValue());
+			ImGuiExt.ShowLayoutDebug();
 			ImGui.Image(buttonTexture.getTextureObjectHandle(), 32, 32);
 			ImGui.ImageButton(buttonTexture.getTextureObjectHandle(), 42, 42);
 
-			ImGuiEx.EndAlign();
+			ImGuiExt.EndAlign();
 		}
-		ImGuiEx.EndCollapseLayout();
-	}
-
-	private void renderLayout() {
-		float mouseX = Gdx.input.getX();
-		float mouseY = Gdx.input.getY();
-
-
-
-		batch.begin();
-		batch.draw(buttonTexture, 1, 4);
-		batch.end();
-
-//		pointRenderer.point(1, 1, 0);
-//		shapeRenderer.line(1, 1, 1 + 5, 1 + 0);
-//		shapeRenderer.line(1 + 1, 1, 1 + 1 + 0, 1 + 5);
-
-		System.out.println("buttonTexture.getHeight(): " + buttonTexture.getHeight());
-//		shapeRenderer.rect(1 + 1, 1 + 1, buttonTexture.getWidth()-1, buttonTexture.getHeight());
-
-//		pointRenderer.point(mouseX, mouseY, 0);
-//		pointRenderer.point(mouseX+1, mouseY, 0);
-//		shapeRenderer.line(mouseX, mouseY, mouseX + 5, mouseY + 0);
-//		shapeRenderer.line(mouseX, mouseY, mouseX + 0, mouseY + 5);
-
-		ImGuiEx.BeginLayout("Stuff", 4, 32);
-		ImGuiLayout curLayout = ImGuiEx.GetCurrentLayout();
-		float posX = curLayout.positionX;
-		float posY = curLayout.positionY;
-		float sizeX = curLayout.sizeX;
-		float sizeY = curLayout.sizeY;
-
-		float posSizeX = posX + sizeX;
-		float posSizeY = posY + sizeY;
-
-//		shapeRenderer.rect(posX, posY, sizeX, sizeY);
-//		shapeRenderer.line(posX, posY, posSizeX, posY);
-//		shapeRenderer.line(posSizeX, posY, posSizeX, posSizeY);
-//		shapeRenderer.line(posSizeX, posSizeY, posX, posSizeY);
-//		shapeRenderer.line(posX, posSizeY, posX, posY);
-//		shapeRenderer.line(posX, posY, posX, posSizeY);
-
-		ImGuiEx.ShowLayoutDebug();
-
-
-		ImGuiEx.EndLayout();
-
-		ImGui.Text("MouseX: " + mouseX);
-		ImGui.SameLine();
-		ImGui.Text("MouseY: " + mouseY);
-		ImGui.Text("posX: " + posX);
-		ImGui.Text("posY: " + posY);
-		ImGui.Text("posSizeX: " + posSizeX);
-		ImGui.Text("posSizeY: " + posSizeY);
-
-	}
-
-	private void renderTabTree() {
-		ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags.Reorderable;
-		if (ImGui.BeginTabBar("MyTabBar", tab_bar_flags)) {
-			if (ImGui.BeginTabItem("TAB 01")) {
-				ImGui.Text("MyText");
-				ImGui.EndTabItem();
-			}
-			if (ImGui.BeginTabItem("TAB 02")) {
-				if (ImGui.TreeNode("Parent 01")) {
-					for (int i = 0; i < 5; i++) {
-						ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags.Leaf;
-						if (i == treeSelected) {
-							flags = flags.or(ImGuiTreeNodeFlags.Selected);
-						}
-						if (ImGui.TreeNodeEx(i, flags, "Leaf " + i)) {
-							if (ImGui.IsItemClicked()) {
-								if (treeSelected == i)
-									treeSelected = -1;
-								else
-									treeSelected = i;
-							}
-							ImGui.TreePop();
-						}
-					}
-					ImGui.TreePop();
-				}
-				if (ImGui.TreeNode("Parent 02")) {
-					ImGui.TreePop();
-				}
-				if (ImGui.TreeNode("Parent 03")) {
-					ImGui.TreePop();
-				}
-				ImGui.EndTabItem();
-			}
-			if (ImGui.BeginTabItem("Layout Test")) {
-				renderLayout();
-				ImGui.EndTabItem();
-			}
-			ImGui.EndTabBar();
-		}
+		ImGuiExt.EndCollapseLayout();
 	}
 
 	@Override

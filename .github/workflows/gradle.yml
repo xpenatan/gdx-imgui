@@ -41,17 +41,17 @@ jobs:
         name: coreNativeFiles
         path: ./imgui-core/libs/
         
-    - name: Generate imgui-ex native files
-      run: ./gradlew :extensions:imgui-ex:generateNatives
-    - name: Build imgui-ex Windows natives 
-      run: ant -f ./extensions/imgui-ex/jni/build-windows64.xml -Dhas-compiler=true -v
-    - name: Build imgui-ex Linux natives 
-      run: ant -f ./extensions/imgui-ex/jni/build-linux64.xml -Dhas-compiler=true -v
-    - name: Upload compiled imgui-ex natives
+    - name: Generate imgui-ext native files
+      run: ./gradlew :extensions:imgui-ext:generateNatives
+    - name: Build imgui-ext Windows natives
+      run: ant -f ./extensions/imgui-ext/jni/build-windows64.xml -Dhas-compiler=true -v
+    - name: Build imgui-ext Linux natives
+      run: ant -f ./extensions/imgui-ext/jni/build-linux64.xml -Dhas-compiler=true -v
+    - name: Upload compiled imgui-ext natives
       uses: actions/upload-artifact@v1
       with:
         name: imlayoutNativeFiles
-        path: ./extensions/imgui-ex/libs/
+        path: ./extensions/imgui-ext/libs/
 
   build_Mac:
     name: Build Mac OS
@@ -75,7 +75,7 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: imlayoutNativeFiles
-        path: ./extensions/imgui-ex/libs/
+        path: ./extensions/imgui-ext/libs/
     - name: Check g++ version 
       run: gcc --version
     - name: Change wrapper permissions
@@ -93,12 +93,12 @@ jobs:
     - name: Pack natives to jar
       run: ant -f ./imgui-core/jni/build.xml pack-natives -v
     
-    - name: Generate imgui-ex native files
-      run: ./gradlew :extensions:imgui-ex:generateNatives
-    - name: Build imgui-ex Mac OS X natives 
-      run: ant -f ./extensions/imgui-ex/jni/build-macosx64.xml -Dhas-compiler=true -v
+    - name: Generate imgui-ext native files
+      run: ./gradlew :extensions:imgui-ext:generateNatives
+    - name: Build imgui-ext Mac OS X natives
+      run: ant -f ./extensions/imgui-ext/jni/build-macosx64.xml -Dhas-compiler=true -v
     - name: Pack natives to jar
-      run: ant -f ./extensions/imgui-ex/jni/build.xml pack-natives -v
+      run: ant -f ./extensions/imgui-ext/jni/build.xml pack-natives -v
     - name: Upload to repository
       run: ./gradlew publish
       env:
