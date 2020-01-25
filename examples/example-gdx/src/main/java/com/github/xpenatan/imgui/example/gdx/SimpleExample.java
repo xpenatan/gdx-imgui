@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.github.xpenatan.imgui.*;
+import com.github.xpenatan.imgui.custom.EditTextData;
 import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.enums.ImGuiDir;
 import com.github.xpenatan.imgui.enums.ImGuiInputTextFlags;
@@ -58,10 +59,20 @@ public class SimpleExample implements ApplicationListener
 
 	Texture buttonTexture;
 
-	static ImGuiFloat alignX = new ImGuiFloat(0.5f);
-	static ImGuiFloat offsetX = new ImGuiFloat(0.0f);
-	static ImGuiFloat alignY = new ImGuiFloat(0.5f);
-	static ImGuiFloat offsetY = new ImGuiFloat(0.0f);
+	ImGuiFloat alignX = new ImGuiFloat(0.5f);
+	ImGuiFloat offsetX = new ImGuiFloat(0.0f);
+	ImGuiFloat alignY = new ImGuiFloat(0.5f);
+	ImGuiFloat offsetY = new ImGuiFloat(0.0f);
+
+
+
+	ImGuiFloat v1 = new ImGuiFloat(0.0f);
+	ImGuiFloat v2 = new ImGuiFloat(0.0f);
+	ImGuiFloat v3 = new ImGuiFloat(0.0f);
+
+	EditTextData d1 = new EditTextData("X:", "Tooltip 01", ImGuiExt.colorToIntBits(255, 0, 0, 255), 0);
+	EditTextData d2 = new EditTextData("Y:", "Tooltip 02");
+	EditTextData d3 = new EditTextData("Z:", "Tooltip 03");
 
 	boolean init = false;
 	@Override
@@ -112,6 +123,8 @@ public class SimpleExample implements ApplicationListener
 		}
 
 		ImGui.Begin("Hello World");
+
+		ImGuiExt.EditTextF3("##1", v1, v2, v3, d1, d2, d3);
 
 		renderTabTree();
 

@@ -1,6 +1,7 @@
 package com.github.xpenatan.imgui;
 
 import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
+import com.github.xpenatan.imgui.custom.EditTextData;
 import com.github.xpenatan.imgui.jnicode.ImGuiExtNative;
 import com.github.xpenatan.imgui.jnicode.ImGuiLayoutNative;
 
@@ -20,6 +21,7 @@ public class ImGuiExt {
 		ImGuiExt.IMGUIINIT = true;
 
 		ImGuiLayoutNative.init();
+		ImGuiExtNative.init();
 	}
 
 	protected ImGuiExt() {
@@ -116,6 +118,10 @@ public class ImGuiExt {
 
 	public static float GetTableRowHeight() {
 		return ImGuiExtNative.GetTableRowHeight();
+	}
+
+	public static void EditTextF3(String id, ImGuiFloat v1, ImGuiFloat v2, ImGuiFloat v3, EditTextData d1, EditTextData d2, EditTextData d3) {
+		ImGuiExtNative.EditTextF3(id, v1.data, v2.data, v3.data, d1, d2, d3);
 	}
 
 	// Helper methods

@@ -577,6 +577,7 @@ namespace ImGuiExt
 		static float value02 = 2;
 		static float value03 = 3;
 		static float value04 = 4;
+		EditTextData d0;
 
 		EditTextData d1 = EditTextData("X:", "Tooltip 01");
 		EditTextData d2 = EditTextData("Y:", "Tooltip 02");
