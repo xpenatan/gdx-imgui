@@ -33,7 +33,7 @@ public class ImGuiExt {
 		ImGuiLayoutNative.ShowLayoutDebug();
 	}
 
-	public static void ShowLayoutDebug() {
+	public static void ShowLayoutDebugClipping() {
 		ImGuiLayoutNative.ShowLayoutDebugClipping();
 	}
 
