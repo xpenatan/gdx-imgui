@@ -290,7 +290,7 @@ void ImGuiExt::EndLayout()
 	}
 
 	if (curLayout->debugClipping) {
-		ImGuiExt::drawBoundingBox(curLayout->clippingMin, curLayout->clippingMax, 255, 0, 0);
+		ImGuiExt::DrawBoundingBox(curLayout->clippingMin, curLayout->clippingMax, 255, 0, 0);
 		curLayout->debugClipping = false;
 	}
 
@@ -490,7 +490,7 @@ void ImGuiExt::EndCollapseLayout()
 	drawList->AddRect(borderPosition, borderSize, borderColor, borderRound, roundingCorners, 1.0f);
 }
 
-void ImGuiExt::BeginAlign(const char* strID, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, ImGuiCollapseLayoutOptions options) {
+void ImGuiExt::BeginAlign(const char* strID, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, ImGuiLayoutOptions options) {
 	ImGuiExt::BeginLayout(strID, sizeX, sizeY, options);
 	ImGuiExt::AlignLayout(alignX, alignY, offsetX, offsetY);
 }
@@ -552,4 +552,23 @@ void ImGuiExt::AlignLayout(float alignX, float alignY, float offsetX, float offs
 
 void ImGuiExt::EndAlign() {
 	ImGuiExt::EndLayout();
+}
+
+ImGuiContentSize ImGuiExt::BeginContentSize() {
+	ImGuiContext& g = *GImGui;
+	ImGuiWindow* window = g.CurrentWindow;
+	ImVec2 position = window->DC.CursorPos;
+	ImGuiContentSize data;
+	data.beginPosition = position;
+	return data;
+}
+
+void ImGuiExt::EndContentSize(ImGuiContentSize& data, bool removeItemSpacing) {
+	ImGuiContext& g = *GImGui;
+	ImGuiWindow* window = g.CurrentWindow;
+	ImVec2 position = window->DC.CursorPos;
+	data.endPosition.x = window->DC.CursorMaxPos.x;
+	data.endPosition.y = position.y;
+	if(removeItemSpacing)
+		data.endPosition.y = data.endPosition.y - g.Style.ItemSpacing.y;
 }

@@ -577,18 +577,24 @@ namespace ImGuiExt
 		static float value02 = 2;
 		static float value03 = 3;
 		static float value04 = 4;
-		EditTextData d0;
 
-		EditTextData d1 = EditTextData("X:", "Tooltip 01");
-		EditTextData d2 = EditTextData("Y:", "Tooltip 02");
-		EditTextData d3 = EditTextData("Z:", "Tooltip 03");
-		EditTextData d4 = EditTextData("W:", "Tooltip 04");
+		EditTextFloatData d1 = EditTextFloatData("X:", "Tooltip 01");
+		EditTextFloatData d2 = EditTextFloatData("Y:", "Tooltip 02");
+		EditTextFloatData d3 = EditTextFloatData("Z:", "Tooltip 03");
+		EditTextFloatData d4 = EditTextFloatData("W:", "Tooltip 04");
 
 		d1.leftLabelColor = IM_COL32(255, 0, 0, 255);
+		d1.leftLabelDragColor = IM_COL32(255, 0, 255, 255);
 		d2.leftLabelColor = IM_COL32(0, 255, 0, 255);
+		d2.v_speed = 0.01f;
 		d3.leftLabelColor = IM_COL32(0, 0, 255, 255);
 
-		ImGuiExt::EditTextF3("##id1", &value01, &value02, &value03, d1, d2, d3);
+
+		int index = ImGuiExt::EditTextF3("##id1", &value01, &value02, &value03, d1, d2, d3);
+
+		if (index != -1)
+			cout << "Edittext index: " << index << endl;
+
 		ImGuiExt::EditTextF4("##id2", &value01, &value02, &value03, &value04, d1, d2, d3, d4);
 	}
 
@@ -635,6 +641,33 @@ namespace ImGuiExt
 	}
 
 	inline void test17(const char* name, bool debug) {
+
+		ImGuiContentSize data = ImGuiExt::BeginContentSize();
+		ImGui::Button("TEST", ImVec2(50, 0));
+		ImGuiExt::EndContentSize(data);
+		ImGuiExt::DrawBoundingBox(data.beginPosition, data.endPosition, 255, 0, 0, 90);
+
+		data = ImGuiExt::BeginContentSize();
+		ImGui::Button("TEST", ImVec2(50, 0));
+		ImGui::Button("TEST", ImVec2(30, 0));
+		ImGuiExt::EndContentSize(data);
+		ImGuiExt::DrawBoundingBox(data.beginPosition, data.endPosition, 255, 0, 0, 90);
+
+		data = ImGuiExt::BeginContentSize();
+		ImGui::Button("TEST", ImVec2(50, 0));
+		ImGui::SameLine();
+		ImGui::Button("TEST", ImVec2(30, 0));
+		ImGuiExt::EndContentSize(data);
+		ImGuiExt::DrawBoundingBox(data.beginPosition, data.endPosition, 255, 0, 0, 90);
+		
+		data = ImGuiExt::BeginContentSize();
+		ImGui::Button("TEST", ImVec2(50, 0));
+		ImGui::SameLine();
+		ImGui::Button("TEST", ImVec2(30, 0));
+		ImGuiExt::EndContentSize(data);
+
+		ImVec2 size = data.getSize();
+		ImGuiExt::DrawBoundingBox(data.beginPosition, ImVec2(size.x + data.beginPosition.x, size.y + data.beginPosition.y), 0, 255, 0, 90);
 	}
 
 	inline void test18(const char* name, bool debug) {

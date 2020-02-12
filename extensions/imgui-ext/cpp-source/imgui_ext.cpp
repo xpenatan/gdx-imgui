@@ -1,6 +1,10 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "imgui_ext.h"
+#include "imgui_layout.h"
+
+#include <iostream>
+using namespace std;
 
 #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
 #include <stddef.h>     // intptr_t
@@ -79,24 +83,155 @@ float ImGuiExt::GetTableRowHeight() {
 	return 0;
 }
 
-static void singleEdittext(const int id, float* valueF, int * valueI, EditTextData data) {
+template<typename TYPE, typename SIGNEDTYPE, typename FLOATTYPE>
+bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, EditTextData<TYPE> data) {
+	ImGuiContext& g = *GImGui;
+	ImGuiWindow* window = ImGui::GetCurrentWindow();
+	static int SINGLE_EDITTEXT_DRAG = 0;
+
+	ImGuiContentSize contentData = ImGuiExt::BeginContentSize();
+	ImU32 leftLabelColor = SINGLE_EDITTEXT_DRAG == uniqueId && data.leftLabelDragColor != 0 ? data.leftLabelDragColor : data.leftLabelColor;
+	ImGui::AlignTextToFramePadding();
+	if (leftLabelColor != 0)
+		ImGui::PushStyleColor(ImGuiCol_Text, leftLabelColor);
+	ImGui::Text(data.leftLabel);
+	if (leftLabelColor != 0)
+		ImGui::PopStyleColor();
+	ImGuiExt::EndContentSize(contentData);
+
+	bool hovered = ImGui::IsMouseHoveringRect(contentData.beginPosition, contentData.endPosition);
+	bool mouseDown = ImGui::IsMouseDown(ImGuiMouseButton_Left);
+	const bool clicked = (hovered && g.IO.MouseClicked[0]);
+
+	if (clicked && hovered && SINGLE_EDITTEXT_DRAG == 0) {
+		ImGui::SetActiveID(uniqueId, window);
+		SINGLE_EDITTEXT_DRAG = uniqueId;
+	}
+
+	if (SINGLE_EDITTEXT_DRAG == uniqueId && mouseDown == false) {
+		SINGLE_EDITTEXT_DRAG = 0;
+	}
+
+	if (SINGLE_EDITTEXT_DRAG == uniqueId) {
+		float  adjust_delta = ImGui::GetMouseDragDelta(ImGuiMouseButton_Left, 0.0f).x;
+		ImGui::ResetMouseDragDelta(ImGuiMouseButton_Left);
+
+		if (adjust_delta != 0) {
+			//NOTE: code in this block is using ImGui::DragBehaviorT implementation 
+
+			TYPE v_min = data.v_min;
+			TYPE v_max = data.v_max;
+			float power = data.power;
+			float v_speed = data.v_speed;
+			const char* format = data.format;
+
+			const bool is_decimal = (data_type == ImGuiDataType_Float) || (data_type == ImGuiDataType_Double);
+			const bool is_clamped = (v_min < v_max);
+			const bool is_power = (power != 1.0f && is_decimal && is_clamped && (v_max - v_min < FLT_MAX));
+			const bool is_locked = (v_min > v_max);
+			if (is_locked)
+				return false;
+			// Default tweak speed
+			if (v_speed == 0.0f && is_clamped && (v_max - v_min < FLT_MAX))
+				v_speed = (float)((v_max - v_min) * g.DragSpeedDefaultRatio);
+
+			adjust_delta *= v_speed;
+
+			// Clear current value on activation
+			// Avoid altering values and clamping when we are _already_ past the limits and heading in the same direction, so e.g. if range is 0..255, current value is 300 and we are pushing to the right side, keep the 300.
+			bool is_just_activated = g.ActiveIdIsJustActivated;
+			bool is_already_past_limits_and_pushing_outward = is_clamped && ((*v >= v_max && adjust_delta > 0.0f) || (*v <= v_min && adjust_delta < 0.0f));
+			bool is_drag_direction_change_with_power = is_power && ((adjust_delta < 0 && g.DragCurrentAccum > 0) || (adjust_delta > 0 && g.DragCurrentAccum < 0));
+			if (is_just_activated || is_already_past_limits_and_pushing_outward || is_drag_direction_change_with_power)
+			{
+				g.DragCurrentAccum = 0.0f;
+				g.DragCurrentAccumDirty = false;
+			}
+			else if (adjust_delta != 0.0f)
+			{
+				g.DragCurrentAccum += adjust_delta;
+				g.DragCurrentAccumDirty = true;
+			}
+
+			if (!g.DragCurrentAccumDirty)
+				return false;
+
+			TYPE v_cur = *v;
+			FLOATTYPE v_old_ref_for_accum_remainder = (FLOATTYPE)0.0f;
+			if (is_power)
+			{
+				// Offset + round to user desired precision, with a curve on the v_min..v_max range to get more precision on one side of the range
+				FLOATTYPE v_old_norm_curved = ImPow((FLOATTYPE)(v_cur - v_min) / (FLOATTYPE)(v_max - v_min), (FLOATTYPE)1.0f / power);
+				FLOATTYPE v_new_norm_curved = v_old_norm_curved + (g.DragCurrentAccum / (v_max - v_min));
+				v_cur = v_min + (SIGNEDTYPE)ImPow(ImSaturate((float)v_new_norm_curved), power) * (v_max - v_min);
+				v_old_ref_for_accum_remainder = v_old_norm_curved;
+			}
+			else
+			{
+				v_cur += (SIGNEDTYPE)g.DragCurrentAccum;
+			}
+
+			// Round to user desired precision based on format string
+			v_cur = ImGui::RoundScalarWithFormatT<TYPE, SIGNEDTYPE>(format, data_type, v_cur);
+
+			// Preserve remainder after rounding has been applied. This also allow slow tweaking of values.
+			g.DragCurrentAccumDirty = false;
+			if (is_power)
+			{
+				FLOATTYPE v_cur_norm_curved = ImPow((FLOATTYPE)(v_cur - v_min) / (FLOATTYPE)(v_max - v_min), (FLOATTYPE)1.0f / power);
+				g.DragCurrentAccum -= (float)(v_cur_norm_curved - v_old_ref_for_accum_remainder);
+			}
+			else
+			{
+				g.DragCurrentAccum -= (float)((SIGNEDTYPE)v_cur - (SIGNEDTYPE)*v);
+			}
+
+			// Lose zero sign for float/double
+			if (v_cur == (TYPE)-0)
+				v_cur = (TYPE)0;
+
+			// Clamp values (+ handle overflow/wrap-around for integer types)
+			if (*v != v_cur && is_clamped)
+			{
+				if (v_cur < v_min || (v_cur > * v&& adjust_delta < 0.0f && !is_decimal))
+					v_cur = v_min;
+				if (v_cur > v_max || (v_cur < *v && adjust_delta > 0.0f && !is_decimal))
+					v_cur = v_max;
+			}
+			// Apply result
+			if (*v == v_cur)
+				return false;
+			else {
+				*v = v_cur;
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+static bool singleEdittext(const int id, float* valueF, int * valueI, EditTextFloatData data) {
+	ImGuiWindow* window = ImGui::GetCurrentWindow();
+	if (window->SkipItems)
+		return false;
+
 	ImGuiContext& g = *GImGui;
 	ImGui::PushID(id);
 	ImGui::BeginGroup();
-
+	bool ret = false;
+	
 	if (data.leftLabel != NULL) {
-		ImGui::AlignTextToFramePadding();
-		if (data.leftLabelColor != 0)
-			ImGui::PushStyleColor(ImGuiCol_Text, data.leftLabelColor);
-		ImGui::Text(data.leftLabel);
-		if (data.leftLabelColor != 0)
-			ImGui::PopStyleColor();
+		unsigned int uniqueId = window->GetIDNoKeepAlive(id);
+		float power = 1.0f;
+		ret = renderEdittextLabel<float, float, float >(uniqueId, ImGuiDataType_Float, valueF, data);
 		ImGui::SameLine(0, 0);
 	}
+
+	float curValue = *valueF;
 	ImGui::SetNextItemWidth(-1);
-
-	ImGui::DragFloat("", valueF, 0.01f, 0, 0, "%.3f");
-
+	if (ImGui::InputFloat("", valueF, 0.0f, 0.0f, data.format, ImGuiInputTextFlags_EnterReturnsTrue)) {
+		ret = true;
+	}
 	ImGui::EndGroup();
 
 	if (ImGui::IsItemHovered() && data.tooltip != NULL && g.HoveredIdTimer > data.tooltipDelay) {
@@ -105,37 +240,41 @@ static void singleEdittext(const int id, float* valueF, int * valueI, EditTextDa
 		ImGui::EndTooltip();
 	}
 	ImGui::PopID();
+	return ret;
 }
 
-void ImGuiExt::EditTextF(const char* id, int size, void * valueArray, EditTextData* dataArray) {
+int ImGuiExt::EditTextF(const char* id, int size, void * valueArray, EditTextFloatData* dataArray) {
+	int retFlags = -1;
 	int flags = ImGuiTableFlags_BordersVFullHeight | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable;
 	if (ImGui::BeginTable(id, size, flags)) {
 		for (int i = 0; i < size; i++) {
 			ImGui::TableNextCell();
 			intptr_t* arr = (intptr_t*)valueArray;
 			float * realPointer = (float*)arr[i];
-			singleEdittext(i, realPointer, NULL, dataArray[i]);
+			if (singleEdittext(i + 1, realPointer, NULL, dataArray[i]))
+				retFlags = i;
 		}
 		ImGui::EndTable();
 	}
+	return retFlags;
 }
 
-void ImGuiExt::EditTextF3(const char* id, float* value01, float* value02, float* value03, EditTextData data01, EditTextData data02, EditTextData data03) {
+int ImGuiExt::EditTextF3(const char* id, float* value01, float* value02, float* value03, EditTextFloatData data01, EditTextFloatData data02, EditTextFloatData data03) {
 	intptr_t values[3];
-	EditTextData datas[3];
+	EditTextFloatData datas[3];
 	values[0] = (intptr_t)value01;
 	values[1] = (intptr_t)value02;
 	values[2] = (intptr_t)value03;
 	datas[0] = data01;
 	datas[1] = data02;
 	datas[2] = data03;
-	ImGuiExt::EditTextF(id, 3, values, datas);
+	return ImGuiExt::EditTextF(id, 3, values, datas);
 }
 
-void ImGuiExt::EditTextF4(const char* id, float* value01, float* value02, float* value03, float* value04, EditTextData data01, EditTextData data02, EditTextData data03, EditTextData data04) {
+int ImGuiExt::EditTextF4(const char* id, float* value01, float* value02, float* value03, float* value04, EditTextFloatData data01, EditTextFloatData data02, EditTextFloatData data03, EditTextFloatData data04) {
 	//ImGui::PushStyleVar(ImGuiStyleVar_CellPadding, ImVec2(0, 0));
 	intptr_t values[4];
-	EditTextData datas[4];
+	EditTextFloatData datas[4];
 	values[0] = (intptr_t)value01;
 	values[1] = (intptr_t)value02;
 	values[2] = (intptr_t)value03;
@@ -144,6 +283,7 @@ void ImGuiExt::EditTextF4(const char* id, float* value01, float* value02, float*
 	datas[1] = data02;
 	datas[2] = data03;
 	datas[3] = data04;
-	ImGuiExt::EditTextF(id, 4, values, datas);
+	return ImGuiExt::EditTextF(id, 4, values, datas);
 	//ImGui::PopStyleVar();
 }
+

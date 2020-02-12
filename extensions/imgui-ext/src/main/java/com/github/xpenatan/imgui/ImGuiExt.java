@@ -1,7 +1,7 @@
 package com.github.xpenatan.imgui;
 
 import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
-import com.github.xpenatan.imgui.custom.EditTextData;
+import com.github.xpenatan.imgui.custom.EditTextFloatData;
 import com.github.xpenatan.imgui.jnicode.ImGuiExtNative;
 import com.github.xpenatan.imgui.jnicode.ImGuiLayoutNative;
 
@@ -134,7 +134,7 @@ public class ImGuiExt {
 
 	//Custom Widget
 
-	public static void EditTextF3(String id, ImGuiFloat v1, ImGuiFloat v2, ImGuiFloat v3, EditTextData d1, EditTextData d2, EditTextData d3) {
+	public static void EditTextF3(String id, ImGuiFloat v1, ImGuiFloat v2, ImGuiFloat v3, EditTextFloatData d1, EditTextFloatData d2, EditTextFloatData d3) {
 		ImGuiExtNative.EditTextF3(id, v1.data, v2.data, v3.data, d1, d2, d3);
 	}
 

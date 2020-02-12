@@ -42,19 +42,14 @@ namespace ImGuiExt
 		drawList->Flags = flags;
 	}
 
-	inline void drawBoundingBox(float x1, float y1, float x2, float y2, int r, int g, int b, bool clipping = false) {
+	inline void DrawBoundingBox(float x1, float y1, float x2, float y2, int r, int g, int b, int a = 50, bool clipping = false) {
 		ImDrawList* drawList = clipping ? ImGui::GetWindowDrawList() : ImGui::GetForegroundDrawList();
-		int color = ImGui::GetColorU32(ImVec4(r / 255.0f, g / 255.0f, b / 255.0f, 50.0f / 255.0f));
-		//DrawLine(drawList, ImVec2(x1-1, y1), ImVec2(x2, y1), color, 1);
-		//DrawLine(drawList, ImVec2(x2, y1), ImVec2(x2, y2+1), color, 1);
-		//DrawLine(drawList, ImVec2(x2, y2), ImVec2(x1-1, y2), color, 1);
-		//DrawLine(drawList, ImVec2(x1, y2+1), ImVec2(x1, y1), color, 1);
-
+		int color = ImGui::GetColorU32(ImVec4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f));
 		drawList->AddRect(ImVec2(x1, y1), ImVec2(x2, y2), color);
 	}
 
-	inline void drawBoundingBox(ImVec2 min, ImVec2 max, int r, int g, int b, bool clipping = false) {
-		ImGuiExt::drawBoundingBox(min.x, min.y, max.x, max.y, r, g, b, clipping);
+	inline void DrawBoundingBox(ImVec2 min, ImVec2 max, int r, int g, int b, int a = 50, bool clipping = false) {
+		ImGuiExt::DrawBoundingBox(min.x, min.y, max.x, max.y, r, g, b, a, clipping);
 	}
 };
 
@@ -140,23 +135,23 @@ public:
 	void drawSizeDebug() {
 		// Render layout space
 		//Green
-		ImGuiExt::drawBoundingBox(position, getAbsoluteSize(), 0, 255, 0);
+		ImGuiExt::DrawBoundingBox(position, getAbsoluteSize(), 0, 255, 0);
 	}
 
 	inline void drawContentDebug() {
 		// Render content space
 		// Blue
 		ImVec2 max = ImVec2(positionContents.x + contentSize.x, positionContents.y + contentSize.y);
-		//ImGuiExt::drawBoundingBox(positionContents, max, 0, 0, 255);
+		//ImGuiExt::DrawBoundingBox(positionContents, max, 0, 0, 255);
 	}
 
 	void drawPaddingAreaDebug() {
 		// Render size with padding
-		//ImGuiExt::drawBoundingBox(getPositionPadding(), getAbsoluteSizePadding(), 255, 255, 255);
+		//ImGuiExt::DrawBoundingBox(getPositionPadding(), getAbsoluteSizePadding(), 255, 255, 255);
 	}
 
 	void drawError() {
-		ImGuiExt::drawBoundingBox(position, getAbsoluteSize(), 255, 0, 0, true);
+		ImGuiExt::DrawBoundingBox(position, getAbsoluteSize(), 255, 0, 0, true);
 	}
 };
 
@@ -177,7 +172,6 @@ public:
 		init(paddingLeft, paddingRight, paddingTop, paddingBottom, clipping);
 	}
 
-private:
 	void init(float paddingLeft, float paddingRight, float paddingTop, float paddingBottom, bool clipping = true) {
 		//fix delegating constructors are permitted only in C++11
 		this->paddingLeft = paddingLeft;
@@ -191,10 +185,6 @@ private:
 struct ImGuiCollapseLayoutOptions: public ImGuiLayoutOptions
 {
 public:
-	float paddingLeft;
-	float paddingRight;
-	float paddingTop;
-	float paddingBottom;
 	ImU32 arrowColor;
 	ImU32 arrowBackgroundHoveredColor;
 	ImU32 arrowBackgroundClickedColor;
@@ -204,10 +194,16 @@ public:
 	int roundingCorners;
 
 	ImGuiCollapseLayoutOptions() {
-		paddingLeft = 2;
-		paddingRight = 2;
-		paddingTop = 2;
-		paddingBottom = 2;
+		ImGuiLayoutOptions::init(2, 2, 2, 2);
+		init();
+	}
+
+	ImGuiCollapseLayoutOptions(float paddingLeft, float paddingRight, float paddingTop, float paddingBottom) {
+		ImGuiLayoutOptions::init(paddingLeft, paddingRight, paddingTop, paddingBottom);
+		init();
+	}
+
+	void init() {
 		arrowColor = ImGui::GetColorU32(ImVec4(0xFF / 255.0f, 0xFF / 255.0f, 0xFF / 255.0f, 0xFF / 255.0f));
 		arrowBackgroundHoveredColor = ImGui::GetColorU32(ImVec4(0x77 / 255.0f, 0x77 / 255.0f, 0x77 / 255.0f, 0xFF / 255.0f));
 		arrowBackgroundClickedColor = ImGui::GetColorU32(ImVec4(0x55 / 255.0f, 0x55 / 255.0f, 0x55 / 255.0f, 0xFF / 255.0f));
@@ -215,6 +211,20 @@ public:
 		borderColor = ImGui::GetColorU32(ImVec4(0x40 / 255.0f, 0x40 / 255.0f, 0x49 / 255.0f, 255 / 255.0f));
 		borderRound = 4;
 		roundingCorners = ImDrawCornerFlags_TopLeft | ImDrawCornerFlags_TopRight;
+	}
+};
+
+struct ImGuiContentSize
+{
+public:
+	ImVec2 beginPosition;
+	ImVec2 endPosition;
+
+	ImVec2 getSize() {
+		ImVec2 size;
+		size.x = endPosition.x - beginPosition.x;
+		size.y = endPosition.y - beginPosition.y;
+		return size;
 	}
 };
 
@@ -236,7 +246,7 @@ namespace ImGuiExt
 	ImGuiLayout* GetCurrentLayout();
 
 	// Align view
-	void BeginAlign(const char* id, float sizeX, float sizeY, float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
+	void BeginAlign(const char* id, float sizeX, float sizeY, float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0, ImGuiLayoutOptions options = ImGuiLayoutOptions());
 	void AlignLayout(float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0);
 	void EndAlign();
 
@@ -248,4 +258,8 @@ namespace ImGuiExt
 	void BeginCollapseLayout(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
 	void EndCollapseFrameLayout();
 	void EndCollapseLayout();
+
+	// Calculate content size
+	ImGuiContentSize BeginContentSize();
+	void EndContentSize(ImGuiContentSize& data, bool removeItemSpacing = true);
 };

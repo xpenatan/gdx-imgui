@@ -9,10 +9,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.github.xpenatan.imgui.*;
-import com.github.xpenatan.imgui.custom.EditTextData;
+import com.github.xpenatan.imgui.custom.EditTextFloatData;
 import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.enums.ImGuiDir;
 import com.github.xpenatan.imgui.enums.ImGuiInputTextFlags;
@@ -68,9 +66,9 @@ public class SimpleExample implements ApplicationListener
 	ImGuiFloat v2 = new ImGuiFloat(0.0f);
 	ImGuiFloat v3 = new ImGuiFloat(0.0f);
 
-	EditTextData d1 = new EditTextData("X:", "Tooltip 01", ImGuiExt.colorToIntBits(255, 0, 0, 255), 0);
-	EditTextData d2 = new EditTextData("Y:", "Tooltip 02");
-	EditTextData d3 = new EditTextData("Z:", "Tooltip 03");
+	EditTextFloatData d1 = new EditTextFloatData("X:", "Tooltip 01", ImGuiExt.colorToIntBits(255, 0, 0, 255), 0);
+	EditTextFloatData d2 = new EditTextFloatData("Y:", "Tooltip 02");
+	EditTextFloatData d3 = new EditTextFloatData("Z:", "Tooltip 03");
 
 	boolean init = false;
 	@Override
@@ -204,6 +202,11 @@ public class SimpleExample implements ApplicationListener
 	}
 
 	private void renderTabImGuiExtViews() {
+		d1.leftLabelDragColor = ImGuiExt.colorToIntBits(255, 255, 0, 255);
+		d2.format = "%.2f";
+		d3.v_min = -10.5f;
+		d3.v_max = 10.5f;
+		d3.v_speed = 0.01f;
 		ImGuiExt.EditTextF3("##1", v1, v2, v3, d1, d2, d3);
 
 		float mouseX = Gdx.input.getX();

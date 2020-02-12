@@ -4,21 +4,48 @@
 
 #pragma once
 
-
+template<typename TYPE>
 struct EditTextData
 {
 public:
-	const char* leftLabel;
+	char* leftLabel;
 	ImU32 leftLabelColor = 0;
-	const char* tooltip;
+	ImU32 leftLabelDragColor = 0;
+	char* tooltip;
 	float tooltipDelay = 1.00f;
+
+	float v_speed = 1.0f;
+	TYPE v_min;
+	TYPE v_max;
+	float power = 1.0f;
+	char* format = "%.3f";
+
 	EditTextData() {
-		this->leftLabel = NULL;
-		this->tooltip = NULL;
+		init(NULL, NULL);
 	}
-	EditTextData(const char* leftLabel, const char* tooltip = NULL) {
+	EditTextData(char* leftLabel, char* tooltip = NULL) {
+		init(leftLabel, tooltip);
+	}
+
+	void init(char* leftLabel, char* tooltip = NULL) {
 		this->leftLabel = leftLabel;
 		this->tooltip = tooltip;
+	}
+};
+
+struct EditTextFloatData : EditTextData<float> {
+public:
+	EditTextFloatData() {
+		init(NULL, NULL);
+	}
+	EditTextFloatData(char* leftLabel, char* tooltip = NULL) {
+		init(leftLabel, tooltip);
+	}
+
+	void init(char* leftLabel, char* tooltip = NULL) {
+		EditTextData::init(leftLabel, tooltip);
+		v_min = 0.0f;
+		v_max = 0.0f;
 	}
 };
 
@@ -33,8 +60,7 @@ namespace ImGuiExt
 	float GetTableRowHeight(); // call at the begining of new cell row
 
 	// Custom Widgets
-	void EditTextF(const char* id, int size, void* valueArray, EditTextData * dataArray);
-	void EditTextF3(const char* id, float* value01, float* value02, float* value03, EditTextData data01, EditTextData data02, EditTextData data03);
-	void EditTextF4(const char* id, float* value01, float* value02, float* value03, float* value04, EditTextData data01, EditTextData data02, EditTextData data03, EditTextData data04);
-
+	int EditTextF(const char* id, int size, void* valueArray, EditTextFloatData* dataArray);
+	int EditTextF3(const char* id, float* value01, float* value02, float* value03, EditTextFloatData data01, EditTextFloatData data02, EditTextFloatData data03);
+	int EditTextF4(const char* id, float* value01, float* value02, float* value03, float* value04, EditTextFloatData data01, EditTextFloatData data02, EditTextFloatData data03, EditTextFloatData data04);
 };
