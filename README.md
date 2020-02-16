@@ -16,8 +16,36 @@ Use the following classes For methods that requires checking UI state: <br>
 ## Build
 ### Gradle
 
+Only SNAPSHOTS are currently available. Release will be ready when ImGui table and docking api goes to master.
+
+    gdxVersion = "1.9.11-SNAPSHOT"
+    jDearImguiVersion = "1.0.0-SNAPSHOT"
+    jDearImguiLayoutVersion = "1.0.0-SNAPSHOT"
+    jDearImguiGdxVersion = "1.0.0-SNAPSHOT"
+
 ```groovy
-// TODO
+
+dependencies {
+    // Add repository to Root gradle
+    repositories {
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    }
+    
+    // Add implementation to your app project
+    implementation "com.badlogicgames.gdx:gdx-jnigen:$project.gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$project.gdxVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:imgui-core:$project.jDearImguiVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:imgui-core-platform:$project.jDearImguiVersion:natives-desktop"
+    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx:$project.jDearImguiGdxVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:imgui-ext:$project.jDearImguiLayoutVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:imgui-ext-platform:$project.jDearImguiLayoutVersion:natives-desktop"
+}
+
 
 ```
 
