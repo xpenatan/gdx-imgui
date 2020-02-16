@@ -1,5 +1,6 @@
-package com.github.xpenatan.imgui;
+package com.github.xpenatan.imgui.custom;
 
+import com.github.xpenatan.imgui.ImGuiExt;
 import com.github.xpenatan.imgui.enums.ImDrawCornerFlags;
 
 public class ImGuiCollapseLayoutOptions {

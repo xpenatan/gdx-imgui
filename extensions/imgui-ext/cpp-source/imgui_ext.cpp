@@ -12,6 +12,10 @@ using namespace std;
 #include <stdint.h>     // intptr_t
 #endif
 
+
+
+// ##################################  ImGuiExt  ###############################################
+
 ImGuiStorage* ImGuiExt::GetImGuiStorage(ImGuiID id) {
 	ImGuiContext& g = *GImGui;
 	ImGuiStorage* childLayout = NULL;
@@ -84,7 +88,8 @@ float ImGuiExt::GetTableRowHeight() {
 }
 
 template<typename TYPE, typename SIGNEDTYPE, typename FLOATTYPE>
-bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, EditTextData<TYPE> data) {
+bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, const EditTextData<TYPE> data) {
+
 	ImGuiContext& g = *GImGui;
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 	static int SINGLE_EDITTEXT_DRAG = 0;
@@ -210,80 +215,111 @@ bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, E
 	return false;
 }
 
-static bool singleEdittext(const int id, float* valueF, int * valueI, EditTextFloatData data) {
+template<typename TYPE>
+static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<TYPE> * data, int flags) {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 	if (window->SkipItems)
 		return false;
+
+	IM_ASSERT(data->format);
 
 	ImGuiContext& g = *GImGui;
 	ImGui::PushID(id);
 	ImGui::BeginGroup();
 	bool ret = false;
 	
-	if (data.leftLabel != NULL) {
+	if (data->leftLabel != NULL) {
 		unsigned int uniqueId = window->GetIDNoKeepAlive(id);
 		float power = 1.0f;
-		ret = renderEdittextLabel<float, float, float >(uniqueId, ImGuiDataType_Float, valueF, data);
-		ImGui::SameLine(0, 0);
+
+		switch (data_type)
+		{
+		case ImGuiDataType_Float: { 
+			float* val = (float*)&data->value;
+			ret = renderEdittextLabel<float, float, float >(uniqueId, ImGuiDataType_Float, val, *(EditTextData<float>*)data);
+			ImGui::SameLine(0, 0);
+			break;
+		}
+		case ImGuiDataType_S32: { 
+			ret = renderEdittextLabel<ImS32, ImS32, float >(uniqueId, ImGuiDataType_S32, (ImS32*)&data->value, *(EditTextData<ImS32>*)data);
+			ImGui::SameLine(0, 0);
+			break;
+		}
+		case ImGuiDataType_COUNT: break;
+		}
 	}
 
-	float curValue = *valueF;
+	flags |= ImGuiInputTextFlags_EnterReturnsTrue;
+
 	ImGui::SetNextItemWidth(-1);
-	if (ImGui::InputFloat("", valueF, 0.0f, 0.0f, data.format, ImGuiInputTextFlags_EnterReturnsTrue)) {
-		ret = true;
+
+	TYPE value = data->value;
+
+	if (ImGui::InputScalar("", data_type, (void*)&value, NULL, NULL, data->format, flags)) {
+		if ((data->v_min == 0 && data->v_max == 0) || value >= data->v_min && value <= data->v_max) {
+			data->value = value;
+			ret = true;
+		}
 	}
 	ImGui::EndGroup();
 
-	if (ImGui::IsItemHovered() && data.tooltip != NULL && g.HoveredIdTimer > data.tooltipDelay) {
+	if (ImGui::IsItemHovered() && data->tooltip != NULL && g.HoveredIdTimer > data->tooltipDelay) {
 		ImGui::BeginTooltip();
-		ImGui::SetTooltip(data.tooltip);
+		ImGui::SetTooltip(data->tooltip);
 		ImGui::EndTooltip();
 	}
 	ImGui::PopID();
 	return ret;
 }
 
-int ImGuiExt::EditTextF(const char* id, int size, void * valueArray, EditTextFloatData* dataArray) {
+template<typename TYPE>
+int ImGuiExt::EditText(const char* id, int size, ImGuiDataType data_type, intptr_t* dataArray) {
+	IM_ASSERT(id);
+	IM_ASSERT(size > 0);
+	IM_ASSERT(dataArray);
+
 	int retFlags = -1;
 	int flags = ImGuiTableFlags_BordersVFullHeight | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable;
+	int inputScalarFlags = 0;
+
+	if (size == 1 && data_type == ImGuiDataType_Float) 
+		inputScalarFlags |= ImGuiInputTextFlags_CharsScientific;
+
 	if (ImGui::BeginTable(id, size, flags)) {
 		for (int i = 0; i < size; i++) {
 			ImGui::TableNextCell();
-			intptr_t* arr = (intptr_t*)valueArray;
-			float * realPointer = (float*)arr[i];
-			if (singleEdittext(i + 1, realPointer, NULL, dataArray[i]))
-				retFlags = i;
+			EditTextData<TYPE>* data = (EditTextData<TYPE> *)dataArray[i];
+			if (singleEdittext(i + 1, data_type, data, inputScalarFlags))
+				retFlags = i;	
 		}
 		ImGui::EndTable();
 	}
 	return retFlags;
 }
 
-int ImGuiExt::EditTextF3(const char* id, float* value01, float* value02, float* value03, EditTextFloatData data01, EditTextFloatData data02, EditTextFloatData data03) {
-	intptr_t values[3];
-	EditTextFloatData datas[3];
-	values[0] = (intptr_t)value01;
-	values[1] = (intptr_t)value02;
-	values[2] = (intptr_t)value03;
-	datas[0] = data01;
-	datas[1] = data02;
-	datas[2] = data03;
-	return ImGuiExt::EditTextF(id, 3, values, datas);
+template<typename TYPE>
+int prepareEditText(const char* id, ImGuiDataType data_type, void* data01, void* data02, void* data03, void* data04) {
+	IM_ASSERT(data01);
+	const int maxSize = 4;
+	int size = 1;
+	if (data02 != NULL)
+		size++;
+	if (data03 != NULL)
+		size++;
+	if (data04 != NULL)
+		size++;
+	intptr_t datas[maxSize];
+	datas[0] = (intptr_t)data01;
+	datas[1] = (intptr_t)data02;
+	datas[2] = (intptr_t)data03;
+	datas[3] = (intptr_t)data04;
+	return ImGuiExt::EditText<TYPE>(id, size, data_type, datas);
 }
 
-int ImGuiExt::EditTextF4(const char* id, float* value01, float* value02, float* value03, float* value04, EditTextFloatData data01, EditTextFloatData data02, EditTextFloatData data03, EditTextFloatData data04) {
-	//ImGui::PushStyleVar(ImGuiStyleVar_CellPadding, ImVec2(0, 0));
-	intptr_t values[4];
-	EditTextFloatData datas[4];
-	values[0] = (intptr_t)value01;
-	values[1] = (intptr_t)value02;
-	values[2] = (intptr_t)value03;
-	values[3] = (intptr_t)value04;
-	datas[0] = data01;
-	datas[1] = data02;
-	datas[2] = data03;
-	datas[3] = data04;
-	return ImGuiExt::EditTextF(id, 4, values, datas);
-	//ImGui::PopStyleVar();
+int ImGuiExt::EditTextI(const char* id, EditTextData<int>* data01, EditTextData<int>* data02, EditTextData<int>* data03, EditTextData<int>* data04) {
+	return prepareEditText<ImS32>(id, ImGuiDataType_S32, data01, data02, data03, data04);
 }
 
+int ImGuiExt::EditTextF(const char* id, EditTextData<float>* data01, EditTextData<float>* data02, EditTextData<float>* data03, EditTextData<float>* data04) {
+	return prepareEditText<float>(id, ImGuiDataType_Float, data01, data02, data03, data04);
+}

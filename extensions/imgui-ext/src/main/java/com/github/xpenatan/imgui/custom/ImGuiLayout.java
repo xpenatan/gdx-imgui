@@ -1,4 +1,4 @@
-package com.github.xpenatan.imgui;
+package com.github.xpenatan.imgui.custom;
 
 /**
  * Read only

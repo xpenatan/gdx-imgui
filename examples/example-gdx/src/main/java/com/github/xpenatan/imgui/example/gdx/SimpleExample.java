@@ -9,8 +9,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.github.xpenatan.imgui.*;
 import com.github.xpenatan.imgui.custom.EditTextFloatData;
+import com.github.xpenatan.imgui.custom.EditTextIntData;
+import com.github.xpenatan.imgui.custom.ImGuiContentSize;
+import com.github.xpenatan.imgui.custom.ImGuiLayout;
 import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.enums.ImGuiDir;
 import com.github.xpenatan.imgui.enums.ImGuiInputTextFlags;
@@ -60,15 +65,13 @@ public class SimpleExample implements ApplicationListener
 	ImGuiFloat alignY = new ImGuiFloat(0.5f);
 	ImGuiFloat offsetY = new ImGuiFloat(0.0f);
 
+	EditTextFloatData dF1 = new EditTextFloatData("X:", "Tooltip 01", ImGuiExt.colorToIntBits(255, 0, 0, 255), 0);
+	EditTextFloatData dF2 = new EditTextFloatData("Y:", "Tooltip 02");
+	EditTextFloatData dF3 = new EditTextFloatData("Z:", "Tooltip 03");
 
-
-	ImGuiFloat v1 = new ImGuiFloat(0.0f);
-	ImGuiFloat v2 = new ImGuiFloat(0.0f);
-	ImGuiFloat v3 = new ImGuiFloat(0.0f);
-
-	EditTextFloatData d1 = new EditTextFloatData("X:", "Tooltip 01", ImGuiExt.colorToIntBits(255, 0, 0, 255), 0);
-	EditTextFloatData d2 = new EditTextFloatData("Y:", "Tooltip 02");
-	EditTextFloatData d3 = new EditTextFloatData("Z:", "Tooltip 03");
+	EditTextIntData dI1 = new EditTextIntData("X:", "Tooltip 01", ImGuiExt.colorToIntBits(255, 0, 0, 255), 0);
+	EditTextIntData dI2 = new EditTextIntData("Y:", "Tooltip 02");
+	EditTextIntData dI3 = new EditTextIntData("Z:", "Tooltip 03");
 
 	boolean init = false;
 	@Override
@@ -202,12 +205,25 @@ public class SimpleExample implements ApplicationListener
 	}
 
 	private void renderTabImGuiExtViews() {
-		d1.leftLabelDragColor = ImGuiExt.colorToIntBits(255, 255, 0, 255);
-		d2.format = "%.2f";
-		d3.v_min = -10.5f;
-		d3.v_max = 10.5f;
-		d3.v_speed = 0.01f;
-		ImGuiExt.EditTextF3("##1", v1, v2, v3, d1, d2, d3);
+
+		testContentSize();
+
+		dF1.leftLabelDragColor = ImGuiExt.colorToIntBits(255, 255, 0, 255);
+		dF2.format = "%.2f";
+		dF3.v_min = -5f;
+		dF3.v_max = 5f;
+		dF3.v_speed = 0.01f;
+		int index = ImGuiExt.EditTextF("##1", dF1, dF2, dF3);
+
+		if(index != -1)
+			System.out.println("index: " + index);
+
+		dI3.v_min = -25;
+		dI3.v_max = 25;
+
+		ImGuiExt.EditTextI("##1", dI1, dI2, dI3);
+
+		testContentSize();
 
 		float mouseX = Gdx.input.getX();
 		float mouseY = Gdx.input.getY();
@@ -234,7 +250,14 @@ public class SimpleExample implements ApplicationListener
 		ImGuiExt.EndLayout();
 
 		renderExtCollapseUI();
+	}
 
+	private void testContentSize() {
+		ImGuiContentSize data = ImGuiExt.BeginContentSize();
+		ImGui.Button("Label");
+		ImGui.Button("Label Test");
+		ImGuiExt.EndContentSize(data);
+		ImGuiExt.DrawBoundingBox(data.beginPositionX, data.beginPositionY, data.endPositionX, data.endPositionY, 255, 0, 0, 255);
 	}
 
 	private void renderExtCollapseUI() {

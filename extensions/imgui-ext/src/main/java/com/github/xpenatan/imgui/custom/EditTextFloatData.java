@@ -7,6 +7,7 @@ public class EditTextFloatData extends EditTextData {
 	public static EditTextFloatData tmp03 = new EditTextFloatData();
 	public static EditTextFloatData tmp04 = new EditTextFloatData();
 
+	public float value;
 	public float v_min;
 	public float v_max;
 
@@ -27,6 +28,6 @@ public class EditTextFloatData extends EditTextData {
 	}
 
 	public EditTextFloatData(String leftLabel, String tooltip, int leftLabelColor, float tooltipDelay) {
-		super(leftLabel, tooltip, leftLabelColor, tooltipDelay);
+		super(EditTextData.DEFAULT_FORMAT_FLOAT, leftLabel, tooltip, leftLabelColor, tooltipDelay);
 	}
 }
