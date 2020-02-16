@@ -1,4 +1,5 @@
 # jDear-imgui
+![Deploy Libs](https://github.com/xpenatan/jDear-imgui/workflows/Deploy%20Libs/badge.svg)
 
 jDear-imgui is small pure java binding for C++ [dear-imgui](https://github.com/ocornut/imgui). No Kotlin ! <br>
 It's meant to be small and close 1-1 to C++. 
