@@ -108,15 +108,6 @@ public:
 	void init();
 };
 
-struct ImGuiContentSize
-{
-public:
-	ImVec2 beginPosition;
-	ImVec2 endPosition;
-
-	ImVec2 getSize();
-};
-
 namespace ImGuiExt
 {
 	void DrawBoundingBox(float x1, float y1, float x2, float y2, int r, int g, int b, int a = 50, bool clipping = false);
@@ -152,6 +143,6 @@ namespace ImGuiExt
 	void EndCollapseLayout();
 
 	// Calculate content size
-	ImGuiContentSize BeginContentSize();
-	void EndContentSize(ImGuiContentSize& data);
+	void BeginBoundingBox();            // Its the same as using Begin/End group and getting the LastItemRect values
+	ImRect EndBoundingBox();  // Its the same as using Begin/End group and getting the LastItemRect values
 };

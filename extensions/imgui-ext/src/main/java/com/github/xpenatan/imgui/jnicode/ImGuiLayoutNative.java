@@ -1,7 +1,7 @@
 package com.github.xpenatan.imgui.jnicode;
 
+import com.github.xpenatan.imgui.ImRect;
 import com.github.xpenatan.imgui.custom.ImGuiCollapseLayoutOptions;
-import com.github.xpenatan.imgui.custom.ImGuiContentSize;
 import com.github.xpenatan.imgui.custom.ImGuiLayout;
 
 public class ImGuiLayoutNative {
@@ -34,16 +34,16 @@ public class ImGuiLayoutNative {
 		jfieldID layoutPaddingTopID;
 		jfieldID layoutPaddingBottomID;
 
-		jfieldID beginPositionXID;
-		jfieldID beginPositionYID;
-		jfieldID endPositionXID;
-		jfieldID endPositionYID;
+		jfieldID minXID;
+		jfieldID minYID;
+		jfieldID maxXID;
+		jfieldID maxYID;
 	*/
 
 	public static native void init() /*-{ }-*/; /*
 		jclass jLayoutOptionsClass = env->FindClass("com/github/xpenatan/imgui/custom/ImGuiCollapseLayoutOptions");
 		jclass jLayoutClass = env->FindClass("com/github/xpenatan/imgui/custom/ImGuiLayout");
-		jclass jContentSizeClass = env->FindClass("com/github/xpenatan/imgui/custom/ImGuiContentSize");
+		jclass jImRectClass = env->FindClass("com/github/xpenatan/imgui/ImRect");
 		paddingLeftID = env->GetFieldID(jLayoutOptionsClass, "paddingLeft", "F");
 		paddingRightID = env->GetFieldID(jLayoutOptionsClass, "paddingRight", "F");
 		paddingTopID = env->GetFieldID(jLayoutOptionsClass, "paddingTop", "F");
@@ -67,11 +67,11 @@ public class ImGuiLayoutNative {
 		layoutPaddingTopID = env->GetFieldID(jLayoutClass, "paddingTop", "F");
 		layoutPaddingBottomID = env->GetFieldID(jLayoutClass, "paddingBottom", "F");
 
-		beginPositionXID = env->GetFieldID(jContentSizeClass, "beginPositionX", "F");
-		beginPositionYID = env->GetFieldID(jContentSizeClass, "beginPositionY", "F");
+		minXID = env->GetFieldID(jImRectClass, "minX", "F");
+		minYID = env->GetFieldID(jImRectClass, "minY", "F");
 
-		endPositionXID = env->GetFieldID(jContentSizeClass, "endPositionX", "F");
-		endPositionYID = env->GetFieldID(jContentSizeClass, "endPositionY", "F");
+		maxXID = env->GetFieldID(jImRectClass, "maxX", "F");
+		maxYID = env->GetFieldID(jImRectClass, "maxY", "F");
 	*/
 
 	public static native void DrawBoundingBox(float x1, float y1, float x2, float y2, int r, int g, int b, int a) /*-{ }-*/; /*
@@ -186,19 +186,16 @@ public class ImGuiLayoutNative {
 		ImGuiExt::AlignLayout(alignX, alignY, offsetX, offsetY);
 	*/
 
-	public static native void BeginContentSize(ImGuiContentSize jData) /*-{ }-*/; /*
-		ImGuiContentSize data = ImGuiExt::BeginContentSize();
-		env->SetFloatField (jData, beginPositionXID, data.beginPosition.x);
-		env->SetFloatField (jData, beginPositionYID, data.beginPosition.y);
+	public static native void BeginBoundingBox() /*-{ }-*/; /*
+		ImGuiExt::BeginBoundingBox();
 	*/
 
-	public static native void EndContentSize(ImGuiContentSize jData) /*-{ }-*/; /*
-		ImGuiContentSize data;
-		data.beginPosition.x = env->GetFloatField(jData, beginPositionXID);
-		data.beginPosition.y = env->GetFloatField(jData, beginPositionYID);
-		ImGuiExt::EndContentSize(data);
-		env->SetFloatField (jData, endPositionXID, data.endPosition.x);
-		env->SetFloatField (jData, endPositionYID, data.endPosition.y);
+	public static native void EndBoundingBox(ImRect jData) /*-{ }-*/; /*
+		ImRect boundingBox = ImGuiExt::EndBoundingBox();
+		env->SetFloatField (jData, minXID, boundingBox.Min.x);
+		env->SetFloatField (jData, minYID, boundingBox.Min.y);
+		env->SetFloatField (jData, maxXID, boundingBox.Max.x);
+		env->SetFloatField (jData, maxYID, boundingBox.Max.y);
 	*/
 
 }

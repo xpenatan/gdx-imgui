@@ -94,7 +94,7 @@ bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, c
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 	static int SINGLE_EDITTEXT_DRAG = 0;
 
-	ImGuiContentSize contentData = ImGuiExt::BeginContentSize();
+	ImGuiExt::BeginBoundingBox();
 	ImU32 leftLabelColor = SINGLE_EDITTEXT_DRAG == uniqueId && data.leftLabelDragColor != 0 ? data.leftLabelDragColor : data.leftLabelColor;
 	ImGui::AlignTextToFramePadding();
 	if (leftLabelColor != 0)
@@ -102,9 +102,9 @@ bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, c
 	ImGui::Text(data.leftLabel);
 	if (leftLabelColor != 0)
 		ImGui::PopStyleColor();
-	ImGuiExt::EndContentSize(contentData);
+	ImRect boundingBox = ImGuiExt::EndBoundingBox();
 
-	bool hovered = ImGui::IsMouseHoveringRect(contentData.beginPosition, contentData.endPosition);
+	bool hovered = ImGui::IsMouseHoveringRect(boundingBox.Min, boundingBox.Max);
 	bool mouseDown = ImGui::IsMouseDown(ImGuiMouseButton_Left);
 	const bool clicked = (hovered && g.IO.MouseClicked[0]);
 

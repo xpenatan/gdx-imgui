@@ -119,17 +119,6 @@ void ImGuiCollapseLayoutOptions::init() {
 
 
 
-// ##################################  ImGuiContentSize  ##########################################
-
-ImVec2 ImGuiContentSize::getSize() {
-	ImVec2 size;
-	size.x = endPosition.x - beginPosition.x;
-	size.y = endPosition.y - beginPosition.y;
-	return size;
-}
-
-
-
 // ##################################  ImGuiLayout  ###############################################
 
 static ImVector<ImGuiLayout*> layoutStack;
@@ -694,22 +683,15 @@ void ImGuiExt::EndAlign() {
 	ImGuiExt::EndLayout();
 }
 
-ImGuiContentSize ImGuiExt::BeginContentSize() {
-
+void ImGuiExt::BeginBoundingBox() {
 	ImGui::BeginGroup();
 	ImGuiContext& g = *GImGui;
 	ImGuiWindow* window = g.CurrentWindow;
-	ImVec2 position = window->DC.CursorPos;
-	ImGuiContentSize data;
-	data.beginPosition = position;
-	return data;
 }
 
-void ImGuiExt::EndContentSize(ImGuiContentSize& data) {
+ImRect ImGuiExt::EndBoundingBox() {
 	ImGuiContext& g = *GImGui;
 	ImGuiWindow* window = g.CurrentWindow;
-	ImVec2 position = window->DC.CursorPos;
-	data.endPosition.x = window->DC.CursorMaxPos.x;
-	data.endPosition.y = window->DC.CursorMaxPos.y;
 	ImGui::EndGroup();
+	return window->DC.LastItemRect;
 }

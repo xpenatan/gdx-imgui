@@ -653,32 +653,23 @@ namespace ImGuiExt
 	}
 
 	inline void test17(const char* name, bool debug) {
-		ImGuiContentSize data = ImGuiExt::BeginContentSize();
+		ImGuiExt::BeginBoundingBox();
 		ImGui::Button("TEST", ImVec2(50, 0));
-		ImGuiExt::EndContentSize(data);
-		ImGuiExt::DrawBoundingBox(data.beginPosition, data.endPosition, 255, 0, 0, 90);
+		ImRect boundingBox = ImGuiExt::EndBoundingBox();
+		ImGuiExt::DrawBoundingBox(boundingBox.Min, boundingBox.Max, 255, 0, 0, 90);
 
-		data = ImGuiExt::BeginContentSize();
+		ImGuiExt::BeginBoundingBox();
 		ImGui::Button("TEST", ImVec2(50, 0));
 		ImGui::Button("TEST", ImVec2(30, 0));
-		ImGuiExt::EndContentSize(data);
-		ImGuiExt::DrawBoundingBox(data.beginPosition, data.endPosition, 255, 0, 0, 90);
+		boundingBox = ImGuiExt::EndBoundingBox();
+		ImGuiExt::DrawBoundingBox(boundingBox.Min, boundingBox.Max, 255, 0, 0, 90);
 
-		data = ImGuiExt::BeginContentSize();
+		ImGuiExt::BeginBoundingBox();
 		ImGui::Button("TEST", ImVec2(50, 0));
 		ImGui::SameLine();
 		ImGui::Button("TEST", ImVec2(30, 0));
-		ImGuiExt::EndContentSize(data);
-		ImGuiExt::DrawBoundingBox(data.beginPosition, data.endPosition, 255, 0, 0, 90);
-		
-		data = ImGuiExt::BeginContentSize();
-		ImGui::Button("TEST", ImVec2(50, 0));
-		ImGui::SameLine();
-		ImGui::Button("TEST", ImVec2(30, 0));
-		ImGuiExt::EndContentSize(data);
-
-		ImVec2 size = data.getSize();
-		ImGuiExt::DrawBoundingBox(data.beginPosition, ImVec2(size.x + data.beginPosition.x, size.y + data.beginPosition.y), 0, 255, 0, 90);
+		boundingBox = ImGuiExt::EndBoundingBox();
+		ImGuiExt::DrawBoundingBox(boundingBox.Min, boundingBox.Max, 255, 0, 0, 90);
 	}
 
 	inline void test18(const char* name, bool debug) {

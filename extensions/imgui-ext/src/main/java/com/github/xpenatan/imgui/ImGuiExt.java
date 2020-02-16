@@ -4,7 +4,6 @@ import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
 import com.github.xpenatan.imgui.custom.EditTextFloatData;
 import com.github.xpenatan.imgui.custom.EditTextIntData;
 import com.github.xpenatan.imgui.custom.ImGuiCollapseLayoutOptions;
-import com.github.xpenatan.imgui.custom.ImGuiContentSize;
 import com.github.xpenatan.imgui.custom.ImGuiLayout;
 import com.github.xpenatan.imgui.jnicode.ImGuiExtNative;
 import com.github.xpenatan.imgui.jnicode.ImGuiLayoutNative;
@@ -84,14 +83,14 @@ public class ImGuiExt {
 		ImGuiLayoutNative.AlignLayout(alignX, alignY, offsetX, offsetY);
 	}
 
-	public static ImGuiContentSize BeginContentSize() {
-		ImGuiContentSize.tmp.reset();
-		ImGuiLayoutNative.BeginContentSize(ImGuiContentSize.tmp);
-		return ImGuiContentSize.tmp;
+	public static void BeginBoundingBox() {
+		ImGuiLayoutNative.BeginBoundingBox();
 	}
 
-	public static void EndContentSize(ImGuiContentSize data) {
-		ImGuiLayoutNative.EndContentSize(data);
+	public static ImRect EndBoundingBox() {
+		ImRect.tmp.reset();
+		ImGuiLayoutNative.EndBoundingBox(ImRect.tmp);
+		return ImRect.tmp;
 	}
 
 	// Custom Collapse Layout

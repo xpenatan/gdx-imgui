@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.github.xpenatan.imgui.*;
 import com.github.xpenatan.imgui.custom.EditTextFloatData;
 import com.github.xpenatan.imgui.custom.EditTextIntData;
-import com.github.xpenatan.imgui.custom.ImGuiContentSize;
 import com.github.xpenatan.imgui.custom.ImGuiLayout;
 import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.enums.ImGuiDir;
@@ -253,11 +252,11 @@ public class SimpleExample implements ApplicationListener
 	}
 
 	private void testContentSize() {
-		ImGuiContentSize data = ImGuiExt.BeginContentSize();
+		ImGuiExt.BeginBoundingBox();
 		ImGui.Button("Label");
 		ImGui.Button("Label Test");
-		ImGuiExt.EndContentSize(data);
-		ImGuiExt.DrawBoundingBox(data.beginPositionX, data.beginPositionY, data.endPositionX, data.endPositionY, 255, 0, 0, 255);
+		ImRect boundingBox = ImGuiExt.EndBoundingBox();
+		ImGuiExt.DrawBoundingBox(boundingBox.minX, boundingBox.minY, boundingBox.maxX, boundingBox.maxY, 255, 0, 0, 255);
 	}
 
 	private void renderExtCollapseUI() {
