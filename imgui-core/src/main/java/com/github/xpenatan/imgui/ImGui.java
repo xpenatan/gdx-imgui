@@ -1675,4 +1675,18 @@ public class ImGui {
 	public static void ItemSize(float x1, float y1, float x2, float y2, float text_offset_y) {
 		ImGuiInternalNative.ItemSize(x1, y1, x2, y2, text_offset_y);
 	}
+
+
+	// Helper methods
+
+	/** Packs the color components into a 32-bit integer with the format ABGR. Note that no range checking is performed for higher
+	 * performance.
+	 * @param r the red component, 0 - 255
+	 * @param g the green component, 0 - 255
+	 * @param b the blue component, 0 - 255
+	 * @param a the alpha component, 0 - 255
+	 * @return the packed color as a 32-bit int */
+	public static int ColorToIntBits (int r, int g, int b, int a) {
+		return (a << 24) | (b << 16) | (g << 8) | r;
+	}
 }

@@ -64,11 +64,11 @@ public class SimpleExample implements ApplicationListener
 	ImGuiFloat alignY = new ImGuiFloat(0.5f);
 	ImGuiFloat offsetY = new ImGuiFloat(0.0f);
 
-	EditTextFloatData dF1 = new EditTextFloatData("X:", "Tooltip 01", ImGuiExt.colorToIntBits(255, 0, 0, 255), 0);
+	EditTextFloatData dF1 = new EditTextFloatData("X:", "Tooltip 01", ImGui.ColorToIntBits(255, 0, 0, 255), 0);
 	EditTextFloatData dF2 = new EditTextFloatData("Y:", "Tooltip 02");
 	EditTextFloatData dF3 = new EditTextFloatData("Z:", "Tooltip 03");
 
-	EditTextIntData dI1 = new EditTextIntData("X:", "Tooltip 01", ImGuiExt.colorToIntBits(255, 0, 0, 255), 0);
+	EditTextIntData dI1 = new EditTextIntData("X:", "Tooltip 01", ImGui.ColorToIntBits(255, 0, 0, 255), 0);
 	EditTextIntData dI2 = new EditTextIntData("Y:", "Tooltip 02");
 	EditTextIntData dI3 = new EditTextIntData("Z:", "Tooltip 03");
 
@@ -207,7 +207,7 @@ public class SimpleExample implements ApplicationListener
 
 		testContentSize();
 
-		dF1.leftLabelDragColor = ImGuiExt.colorToIntBits(255, 255, 0, 255);
+		dF1.leftLabelDragColor = ImGui.ColorToIntBits(255, 255, 0, 255);
 		dF2.format = "%.2f";
 		dF3.v_min = -5f;
 		dF3.v_max = 5f;
