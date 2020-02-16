@@ -1,7 +1,10 @@
 package com.github.xpenatan.imgui;
 
 import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
-import com.github.xpenatan.imgui.custom.EditTextData;
+import com.github.xpenatan.imgui.custom.EditTextFloatData;
+import com.github.xpenatan.imgui.custom.EditTextIntData;
+import com.github.xpenatan.imgui.custom.ImGuiCollapseLayoutOptions;
+import com.github.xpenatan.imgui.custom.ImGuiLayout;
 import com.github.xpenatan.imgui.jnicode.ImGuiExtNative;
 import com.github.xpenatan.imgui.jnicode.ImGuiLayoutNative;
 
@@ -28,6 +31,10 @@ public class ImGuiExt {
 	}
 
 	// Layout
+
+	public static void DrawBoundingBox(float x1, float y1, float x2, float y2, int r, int g, int b, int a) {
+		ImGuiLayoutNative.DrawBoundingBox(x1, y1, x2, y2, r, g, b, a);
+	}
 
 	public static void ShowLayoutDebug() {
 		ImGuiLayoutNative.ShowLayoutDebug();
@@ -74,6 +81,16 @@ public class ImGuiExt {
 
 	public static void AlignLayout(float alignX, float alignY, float offsetX, float offsetY) {
 		ImGuiLayoutNative.AlignLayout(alignX, alignY, offsetX, offsetY);
+	}
+
+	public static void BeginBoundingBox() {
+		ImGuiLayoutNative.BeginBoundingBox();
+	}
+
+	public static ImRect EndBoundingBox() {
+		ImRect.tmp.reset();
+		ImGuiLayoutNative.EndBoundingBox(ImRect.tmp);
+		return ImRect.tmp;
 	}
 
 	// Custom Collapse Layout
@@ -134,8 +151,36 @@ public class ImGuiExt {
 
 	//Custom Widget
 
-	public static void EditTextF3(String id, ImGuiFloat v1, ImGuiFloat v2, ImGuiFloat v3, EditTextData d1, EditTextData d2, EditTextData d3) {
-		ImGuiExtNative.EditTextF3(id, v1.data, v2.data, v3.data, d1, d2, d3);
+	public static int EditTextF(String id, EditTextFloatData d1) {
+		return ImGuiExtNative.EditTextF(id, d1, null, null, null);
+	}
+
+	public static int EditTextF(String id, EditTextFloatData d1, EditTextFloatData d2) {
+		return ImGuiExtNative.EditTextF(id, d1, d2, null, null);
+	}
+
+	public static int EditTextF(String id, EditTextFloatData d1, EditTextFloatData d2, EditTextFloatData d3) {
+		return ImGuiExtNative.EditTextF(id, d1, d2, d3, null);
+	}
+
+	public static int EditTextF(String id, EditTextFloatData d1, EditTextFloatData d2, EditTextFloatData d3, EditTextFloatData d4) {
+		return ImGuiExtNative.EditTextF(id, d1, d2, d3, d4);
+	}
+
+	public static int EditTextI(String id, EditTextIntData d1) {
+		return ImGuiExtNative.EditTextI(id, d1, null, null, null);
+	}
+
+	public static int EditTextI(String id, EditTextIntData d1, EditTextIntData d2) {
+		return ImGuiExtNative.EditTextI(id, d1, d2, null, null);
+	}
+
+	public static int EditTextI(String id, EditTextIntData d1, EditTextIntData d2, EditTextIntData d3) {
+		return ImGuiExtNative.EditTextI(id, d1, d2, d3, null);
+	}
+
+	public static int EditTextI(String id, EditTextIntData d1, EditTextIntData d2, EditTextIntData d3, EditTextIntData d4) {
+		return ImGuiExtNative.EditTextI(id, d1, d2, d3, d4);
 	}
 
 	// Helper methods

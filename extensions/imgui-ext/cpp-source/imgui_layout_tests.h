@@ -546,8 +546,6 @@ namespace ImGuiExt
 		ImGuiContext& g = *GImGui;
 		static float vec4f[4] = { 0.10f, 0.20f, 0.30f, 0.44f };
 
-
-
 		static float value = 0;
 
 		ImGui::SetNextItemWidth(-1);
@@ -573,23 +571,43 @@ namespace ImGuiExt
 		ImGui::SetNextItemWidth(-1);
 		ImGui::DragFloat("", &value, 0.01f, 0, 0, "%.3f");
 
-		static float value01 = 1;
-		static float value02 = 2;
-		static float value03 = 3;
-		static float value04 = 4;
-		EditTextData d0;
+		//static float value01 = 1;
+		//static float value02 = 2;
+		//static float value03 = 3;
+		//static float value04 = 4;
 
-		EditTextData d1 = EditTextData("X:", "Tooltip 01");
-		EditTextData d2 = EditTextData("Y:", "Tooltip 02");
-		EditTextData d3 = EditTextData("Z:", "Tooltip 03");
-		EditTextData d4 = EditTextData("W:", "Tooltip 04");
 
-		d1.leftLabelColor = IM_COL32(255, 0, 0, 255);
-		d2.leftLabelColor = IM_COL32(0, 255, 0, 255);
-		d3.leftLabelColor = IM_COL32(0, 0, 255, 255);
+		static EditTextData<float> df1("%.3f", "X:", "Tooltip 01");
+		static EditTextData<float> df2("%.2f", "Y:", "Tooltip 02");
+		static EditTextData<float> df3("%.3f", "Z:", "Tooltip 03");
+		static EditTextData<float> df4("%.3f", "W:", "Tooltip 04");
 
-		ImGuiExt::EditTextF3("##id1", &value01, &value02, &value03, d1, d2, d3);
-		ImGuiExt::EditTextF4("##id2", &value01, &value02, &value03, &value04, d1, d2, d3, d4);
+		static EditTextData<int> di1("%d", "X:", "Tooltip 01");
+		static EditTextData<int> di2("%d", "Y:", "Tooltip 02");
+
+		df1.leftLabelColor = IM_COL32(255, 0, 0, 255);
+		df1.leftLabelDragColor = IM_COL32(255, 0, 255, 255);
+		df2.leftLabelColor = IM_COL32(0, 255, 0, 255);
+		df2.v_speed = 0.01f;
+		df2.v_max = 4.3f;
+		df2.v_min = -4.3f;
+		df3.leftLabelColor = IM_COL32(0, 0, 255, 255);
+
+		di2.v_min = -10;
+		di2.v_max = 10;
+
+		ImGuiExt::EditTextF("##id1", &df1);
+
+		ImGuiExt::EditTextF("##id2", &df1, &df2);
+
+		int index = ImGuiExt::EditTextF("##id3", &df1, &df2, &df3);
+
+		if (index != -1)
+			cout << "Value changed index: " << index << endl;
+
+		ImGuiExt::EditTextF("##id4", &df1, &df2, &df3, &df4);
+
+		ImGuiExt::EditTextI("##id5", &di1, &di2);
 	}
 
 	inline void test16(const char* name, bool debug) {
@@ -635,6 +653,23 @@ namespace ImGuiExt
 	}
 
 	inline void test17(const char* name, bool debug) {
+		ImGuiExt::BeginBoundingBox();
+		ImGui::Button("TEST", ImVec2(50, 0));
+		ImRect boundingBox = ImGuiExt::EndBoundingBox();
+		ImGuiExt::DrawBoundingBox(boundingBox.Min, boundingBox.Max, 255, 0, 0, 90);
+
+		ImGuiExt::BeginBoundingBox();
+		ImGui::Button("TEST", ImVec2(50, 0));
+		ImGui::Button("TEST", ImVec2(30, 0));
+		boundingBox = ImGuiExt::EndBoundingBox();
+		ImGuiExt::DrawBoundingBox(boundingBox.Min, boundingBox.Max, 255, 0, 0, 90);
+
+		ImGuiExt::BeginBoundingBox();
+		ImGui::Button("TEST", ImVec2(50, 0));
+		ImGui::SameLine();
+		ImGui::Button("TEST", ImVec2(30, 0));
+		boundingBox = ImGuiExt::EndBoundingBox();
+		ImGuiExt::DrawBoundingBox(boundingBox.Min, boundingBox.Max, 255, 0, 0, 90);
 	}
 
 	inline void test18(const char* name, bool debug) {

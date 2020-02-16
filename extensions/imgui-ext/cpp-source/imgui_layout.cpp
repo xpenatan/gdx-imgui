@@ -2,6 +2,125 @@
 #include "imgui_internal.h"
 #include "imgui_layout.h"
 
+
+
+// ##################################  ImGuiLayout  ###############################################
+
+ImGuiLayout::ImGuiLayout(ImGuiID id) {
+	parentLayout = NULL;
+	this->id = id;
+	paddingLeft = 0;
+	paddingRight = 0;
+	paddingTop = 0;
+	paddingBottom = 0;
+	clipping = false;
+	debugClipping = false;
+	debug = false;
+	error = false;
+	AutoFitChildAxises = 0;
+	skipping = false;
+	isWrapParentX = false;
+	isMatchParentX = false;
+	isWrapParentY = false;
+	isMatchParentY = false;
+}
+
+bool ImGuiLayout::haveParent() {
+	return parentLayout != NULL;
+}
+
+ImVec2 ImGuiLayout::getAbsoluteSize() {
+	return ImVec2(position.x + size.x, position.y + size.y);
+}
+
+ImVec2 ImGuiLayout::getContentSize() {
+	return ImVec2(position.x + contentSize.x, position.y + contentSize.y);
+}
+
+ImVec2 ImGuiLayout::getAbsoluteSizePadding() {
+	return ImVec2(position.x + size.x - paddingRight, position.y + size.y - paddingBottom);
+}
+
+ImVec2 ImGuiLayout::getContentSizePadding() {
+	return ImVec2(position.x + contentSize.x + paddingLeft, position.y + contentSize.y);
+}
+
+ImVec2 ImGuiLayout::getPositionPadding() {
+	return ImVec2(position.x + paddingLeft, position.y + paddingTop);
+}
+
+
+void ImGuiLayout::drawSizeDebug() {
+	// Render layout space
+	//Green
+	ImGuiExt::DrawBoundingBox(position, getAbsoluteSize(), 0, 255, 0);
+}
+
+void ImGuiLayout::drawContentDebug() {
+	// Render content space
+	// Blue
+	ImVec2 max = ImVec2(positionContents.x + contentSize.x, positionContents.y + contentSize.y);
+	//ImGuiExt::DrawBoundingBox(positionContents, max, 0, 0, 255);
+}
+
+void ImGuiLayout::drawPaddingAreaDebug() {
+	// Render size with padding
+	//ImGuiExt::DrawBoundingBox(getPositionPadding(), getAbsoluteSizePadding(), 255, 255, 255);
+}
+
+void ImGuiLayout::drawError() {
+	ImGuiExt::DrawBoundingBox(position, getAbsoluteSize(), 255, 0, 0, true);
+}
+
+
+
+// ##################################  ImGuiLayoutOptions  ########################################
+
+ImGuiLayoutOptions::ImGuiLayoutOptions() {
+	init(0, 0, 0, 0, true);
+}
+
+ImGuiLayoutOptions::ImGuiLayoutOptions(float paddingLeft, float paddingRight, float paddingTop, float paddingBottom, bool clipping) {
+	init(paddingLeft, paddingRight, paddingTop, paddingBottom, clipping);
+}
+
+void ImGuiLayoutOptions::init(float paddingLeft, float paddingRight, float paddingTop, float paddingBottom, bool clipping) {
+	//fix delegating constructors are permitted only in C++11
+	this->paddingLeft = paddingLeft;
+	this->paddingRight = paddingRight;
+	this->paddingTop = paddingTop;
+	this->paddingBottom = paddingBottom;
+	this->clipping = clipping;
+}
+
+
+
+// ##################################  ImGuiCollapseLayoutOptions  ################################
+
+ImGuiCollapseLayoutOptions::ImGuiCollapseLayoutOptions() {
+	ImGuiLayoutOptions::init(2, 2, 2, 2);
+	init();
+}
+
+ImGuiCollapseLayoutOptions::ImGuiCollapseLayoutOptions(float paddingLeft, float paddingRight, float paddingTop, float paddingBottom) {
+	ImGuiLayoutOptions::init(paddingLeft, paddingRight, paddingTop, paddingBottom);
+	init();
+}
+
+void ImGuiCollapseLayoutOptions::init() {
+	arrowColor = ImGui::GetColorU32(ImVec4(0xFF / 255.0f, 0xFF / 255.0f, 0xFF / 255.0f, 0xFF / 255.0f));
+	arrowBackgroundHoveredColor = ImGui::GetColorU32(ImVec4(0x77 / 255.0f, 0x77 / 255.0f, 0x77 / 255.0f, 0xFF / 255.0f));
+	arrowBackgroundClickedColor = ImGui::GetColorU32(ImVec4(0x55 / 255.0f, 0x55 / 255.0f, 0x55 / 255.0f, 0xFF / 255.0f));
+	frameColor = ImGui::GetColorU32(ImVec4(0x24 / 255.0f, 0x24 / 255.0f, 0x24 / 255.0f, 255 / 255.0f));
+	borderColor = ImGui::GetColorU32(ImVec4(0x40 / 255.0f, 0x40 / 255.0f, 0x49 / 255.0f, 255 / 255.0f));
+	borderRound = 4;
+	roundingCorners = ImDrawCornerFlags_TopLeft | ImDrawCornerFlags_TopRight;
+}
+
+
+
+// ##################################  ImGuiLayout  ###############################################
+
 static ImVector<ImGuiLayout*> layoutStack;
 
 static ImGuiLayout* createOrFind(ImGuiID id) {
@@ -36,6 +155,16 @@ ImGuiLayout* ImGuiExt::GetCurrentLayout() {
 
 static void popLayout() {
 	layoutStack.pop_back();
+}
+
+void ImGuiExt::DrawBoundingBox(float x1, float y1, float x2, float y2, int r, int g, int b, int a, bool clipping) {
+	ImDrawList* drawList = clipping ? ImGui::GetWindowDrawList() : ImGui::GetForegroundDrawList();
+	int color = ImGui::GetColorU32(ImVec4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f));
+	drawList->AddRect(ImVec2(x1, y1), ImVec2(x2, y2), color);
+}
+
+void ImGuiExt::DrawBoundingBox(ImVec2 min, ImVec2 max, int r, int g, int b, int a, bool clipping) {
+	ImGuiExt::DrawBoundingBox(min.x, min.y, max.x, max.y, r, g, b, a, clipping);
 }
 
 void ImGuiExt::FillWidth(int r, int g, int b, int a, ImVec2 size) {
@@ -246,7 +375,7 @@ void ImGuiExt::EndLayout()
 	//curLayout->contentSize.y = y - curLayout->position.y - g.Style.ItemSpacing.y;
 	//curLayout->contentSize.x = x - curLayout->positionContents.x; // werid bug in test but works with table api
 
-	curLayout->contentSize.x = window->DC.CursorMaxPos.x - curLayout->positionContents.x - curLayout->paddingLeft; 
+	curLayout->contentSize.x = window->DC.CursorMaxPos.x - curLayout->positionContents.x - curLayout->paddingLeft;
 	curLayout->contentSize.y = y - curLayout->positionContents.y - g.Style.ItemSpacing.y;
 
 	// Restore windows data
@@ -290,7 +419,7 @@ void ImGuiExt::EndLayout()
 	}
 
 	if (curLayout->debugClipping) {
-		ImGuiExt::drawBoundingBox(curLayout->clippingMin, curLayout->clippingMax, 255, 0, 0);
+		ImGuiExt::DrawBoundingBox(curLayout->clippingMin, curLayout->clippingMax, 255, 0, 0);
 		curLayout->debugClipping = false;
 	}
 
@@ -490,7 +619,7 @@ void ImGuiExt::EndCollapseLayout()
 	drawList->AddRect(borderPosition, borderSize, borderColor, borderRound, roundingCorners, 1.0f);
 }
 
-void ImGuiExt::BeginAlign(const char* strID, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, ImGuiCollapseLayoutOptions options) {
+void ImGuiExt::BeginAlign(const char* strID, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, ImGuiLayoutOptions options) {
 	ImGuiExt::BeginLayout(strID, sizeX, sizeY, options);
 	ImGuiExt::AlignLayout(alignX, alignY, offsetX, offsetY);
 }
@@ -552,4 +681,17 @@ void ImGuiExt::AlignLayout(float alignX, float alignY, float offsetX, float offs
 
 void ImGuiExt::EndAlign() {
 	ImGuiExt::EndLayout();
+}
+
+void ImGuiExt::BeginBoundingBox() {
+	ImGui::BeginGroup();
+	ImGuiContext& g = *GImGui;
+	ImGuiWindow* window = g.CurrentWindow;
+}
+
+ImRect ImGuiExt::EndBoundingBox() {
+	ImGuiContext& g = *GImGui;
+	ImGuiWindow* window = g.CurrentWindow;
+	ImGui::EndGroup();
+	return window->DC.LastItemRect;
 }
