@@ -375,7 +375,7 @@ void ImGuiExt::EndLayout()
 	//curLayout->contentSize.y = y - curLayout->position.y - g.Style.ItemSpacing.y;
 	//curLayout->contentSize.x = x - curLayout->positionContents.x; // werid bug in test but works with table api
 
-	curLayout->contentSize.x = window->DC.CursorMaxPos.x - curLayout->positionContents.x - curLayout->paddingLeft; 
+	curLayout->contentSize.x = window->DC.CursorMaxPos.x - curLayout->positionContents.x - curLayout->paddingLeft;
 	curLayout->contentSize.y = y - curLayout->positionContents.y - g.Style.ItemSpacing.y;
 
 	// Restore windows data
