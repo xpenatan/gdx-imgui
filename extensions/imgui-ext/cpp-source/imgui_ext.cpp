@@ -78,6 +78,45 @@ float ImGuiExt::GetTableRowHeight() {
 	return 0;
 }
 
+
+template<typename TYPE>
+static const char* ImAtoi(const char* src, TYPE* output)
+{
+	// TODO FIX EXTERN
+	// Couldn't get extern to work so this code is duplicated from imgui.widgets.cpp
+
+	int negative = 0;
+	if (*src == '-') { negative = 1; src++; }
+	if (*src == '+') { src++; }
+	TYPE v = 0;
+	while (*src >= '0' && *src <= '9')
+		v = (v * 10) + (*src++ - '0');
+	*output = negative ? -v : v;
+	return src;
+}
+
+template<typename TYPE, typename SIGNEDTYPE>
+TYPE RoundScalarWithFormatT(const char* format, ImGuiDataType data_type, TYPE v)
+{
+	// TODO FIX EXTERN
+	// Couldn't get extern to work so this code is duplicated from imgui.widgets.cpp
+
+	const char* fmt_start = ImParseFormatFindStart(format);
+	if (fmt_start[0] != '%' || fmt_start[1] == '%') // Don't apply if the value is not visible in the format string
+		return v;
+	char v_str[64];
+	ImFormatString(v_str, IM_ARRAYSIZE(v_str), fmt_start, v);
+	const char* p = v_str;
+	while (*p == ' ')
+		p++;
+	if (data_type == ImGuiDataType_Float || data_type == ImGuiDataType_Double)
+		v = (TYPE)ImAtof(p);
+	else
+		ImAtoi(p, (SIGNEDTYPE*)&v);
+	return v;
+}
+
+
 template<typename TYPE, typename SIGNEDTYPE, typename FLOATTYPE>
 bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, const EditTextData<TYPE> data) {
 
@@ -168,7 +207,7 @@ bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, c
 			}
 
 			// Round to user desired precision based on format string
-			v_cur = ImGui::RoundScalarWithFormatT<TYPE, SIGNEDTYPE>(format, data_type, v_cur);
+			v_cur = RoundScalarWithFormatT<TYPE, SIGNEDTYPE>(format, data_type, v_cur);
 
 			// Preserve remainder after rounding has been applied. This also allow slow tweaking of values.
 			g.DragCurrentAccumDirty = false;
