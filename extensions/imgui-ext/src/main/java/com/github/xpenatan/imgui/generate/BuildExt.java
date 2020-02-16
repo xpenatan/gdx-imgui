@@ -80,7 +80,7 @@ public class BuildExt {
 		mac64.cppIncludes = includes;
 		mac64.headerDirs = headerDir;
 		// for some weird reason adding -v stop getting errors with github actions
-		mac64.linkerFlags = "-v -shared -arch x86_64 -mmacosx-version-min=10.7 -stdlib=libc++";
+		mac64.linkerFlags = "-v -shared -arch x86_64 -mmacosx-version-min=10.7 -stdlib=libc++ -lstdc++";
 		mac64.libraries = "-L" + libFolder + " -limgui-cpp64";
 		return mac64;
 	}
