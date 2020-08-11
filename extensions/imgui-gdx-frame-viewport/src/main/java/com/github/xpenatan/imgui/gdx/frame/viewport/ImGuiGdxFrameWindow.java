@@ -62,6 +62,8 @@ public class ImGuiGdxFrameWindow {
 	}
 
 	public void render() {
+		if(name == null)
+			name = "";
 		ImGui.SetNextWindowSize(startWidth, startHeight, ImGuiCond.FirstUseEver);
 		ImGui.SetNextWindowPos(startX, startY, ImGuiCond.FirstUseEver);
 
