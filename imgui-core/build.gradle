@@ -36,7 +36,6 @@ task copyNatives() {
 }
 
 task generateNatives(dependsOn: [copyNatives, classes], type: JavaExec) {
-	group = 'build'
 	description = 'Build jDear ImGui'
 
 	main = project.mainClassName

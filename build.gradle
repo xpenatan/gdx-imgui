@@ -83,3 +83,11 @@ gradle.taskGraph.whenReady { graph ->
         }
     }
 }
+
+task buildImGuiNatives () {
+    group = 'build'
+    dependsOn 'clean'
+    dependsOn ':imgui-cpp:generateNatives'
+    dependsOn ':imgui-core:generateNatives'
+    dependsOn ':extensions:imgui-ext:generateNatives'
+}

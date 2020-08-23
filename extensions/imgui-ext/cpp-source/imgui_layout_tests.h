@@ -699,7 +699,7 @@ namespace ImGuiExt
 
 		// FIRST TABLE
 
-		if (ImGui::BeginTable("01", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_BordersVFullHeight | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable))
+		if (ImGui::BeginTable("01", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_BordersFullHeightV | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable))
 		{
 			ImGui::TableSetupColumn("A0", ImGuiTableColumnFlags_WidthFixed);
 			ImGui::TableSetupColumn("A1");
@@ -761,7 +761,7 @@ namespace ImGuiExt
 
 		// SECOND TABLE
 
-		if (ImGui::BeginTable("02", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_BordersVFullHeight | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable))
+		if (ImGui::BeginTable("02", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_BordersFullHeightV | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable))
 		{
 			ImGui::TableSetupColumn("B0");
 			ImGui::TableSetupColumn("B1");

@@ -41,15 +41,18 @@ public class BuildExt {
 				genLinux(projectPath, headerDir, includes),
 				genMac(projectPath, headerDir, includes));
 
-//		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "postcompile");
-//		BuildExecutor.executeAnt("jni/build-linux64.xml", "-v", "-Dhas-compiler=true", "postcompile");
-//		BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v", "-Dhas-compiler=true");
-//		BuildExecutor.executeAnt("jni/build.xml", "-v", "pack-natives");
+		if(isWindows() || isUnix())
+			BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "postcompile");
+		if(isUnix())
+			BuildExecutor.executeAnt("jni/build-linux64.xml", "-v", "-Dhas-compiler=true", "postcompile");
+		if(isMac())
+			BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v", "-Dhas-compiler=true");
+		BuildExecutor.executeAnt("jni/build.xml", "-v", "pack-natives");
 	}
 
 
 	private static BuildTarget genWindows(String projectPath, String[] headerDir, String[] includes) {
-		String libFolder = projectPath + "libs/windows64";
+		String libFolder = projectPath + "/libs/windows64";
 
 		BuildTarget win64 = BuildTarget.newDefaultTarget(TargetOs.Windows, true);
 
@@ -64,7 +67,7 @@ public class BuildExt {
 	}
 
 	private static BuildTarget genLinux(String projectPath, String[] headerDir, String[] includes) {
-		String libFolder = projectPath + "libs/linux64";
+		String libFolder = projectPath + "/libs/linux64";
 
 		BuildTarget lin64 = BuildTarget.newDefaultTarget(TargetOs.Linux, true);
 		lin64.cppIncludes = includes;
@@ -74,7 +77,7 @@ public class BuildExt {
 	}
 
 	private static BuildTarget genMac(String projectPath, String[] headerDir, String[] includes) {
-		String libFolder = projectPath + "libs/macosx64";
+		String libFolder = projectPath + "/libs/macosx64";
 
 		BuildTarget mac64 = BuildTarget.newDefaultTarget(TargetOs.MacOsX, true);
 		mac64.cppIncludes = includes;
@@ -83,5 +86,19 @@ public class BuildExt {
 		mac64.linkerFlags = "-v -shared -arch x86_64 -mmacosx-version-min=10.7 -stdlib=libc++";
 		mac64.libraries = "-L" + libFolder + " -limgui-cpp64";
 		return mac64;
+	}
+
+	private static String OS = System.getProperty("os.name").toLowerCase();
+
+	public static boolean isWindows() {
+		return OS.contains("win");
+	}
+
+	public static boolean isMac() {
+		return OS.contains("mac");
+	}
+
+	public static boolean isUnix() {
+		return (OS.contains("nix") || OS.contains("nux") || OS.contains("aix"));
 	}
 }

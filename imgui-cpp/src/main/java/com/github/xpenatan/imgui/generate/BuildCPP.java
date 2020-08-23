@@ -2,10 +2,13 @@ package com.github.xpenatan.imgui.generate;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
-
+import java.nio.file.attribute.BasicFileAttributes;
 import com.badlogic.gdx.jnigen.AntScriptGenerator;
 import com.badlogic.gdx.jnigen.BuildConfig;
 import com.badlogic.gdx.jnigen.BuildExecutor;
@@ -36,9 +39,13 @@ public class BuildCPP {
 				genLinux(projectPath, headerDir, includes),
 				genMac(projectPath, headerDir, includes));
 
-//		BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
-//		BuildExecutor.executeAnt("jni/build-linux64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
-//		BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v", "-Dhas-compiler=true");
+		if(isWindows() || isUnix())
+			BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
+		if(isUnix())
+			BuildExecutor.executeAnt("jni/build-linux64.xml", "-v", "-Dhas-compiler=true", "clean", "postcompile");
+		if(isMac())
+			BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v", "-Dhas-compiler=true");
+		BuildExecutor.executeAnt("jni/build.xml", "pack-natives");
 	}
 
 	private static BuildTarget genWindows(String projectPath, String[] headerDir, String[] includes) {
@@ -72,6 +79,9 @@ public class BuildCPP {
 		if (!directory.exists())
 			directory.mkdirs();
 		Files.walk(src).forEach(source -> {
+			Path destPath = dest.resolve(src.relativize(source));
+
+
 			try {
 				boolean skip = false;
 				if(excludes != null) {
@@ -84,12 +94,48 @@ public class BuildCPP {
 						}
 					}
 				}
-				if(!skip)
-					Files.copy(source, dest.resolve(src.relativize(source)), StandardCopyOption.REPLACE_EXISTING);
+				if(!skip) {
+					deleteDirectory(destPath.toFile().getAbsolutePath());
+					Files.copy(source, destPath, StandardCopyOption.REPLACE_EXISTING);
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		});
 
+	}
+
+	public static void deleteDirectory (String directoryFilePath) throws IOException {
+		Path directory = Paths.get(directoryFilePath);
+
+		if(Files.exists(directory)) {
+			Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
+				@Override
+				public FileVisitResult visitFile (Path path, BasicFileAttributes basicFileAttributes) throws IOException {
+					Files.delete(path);
+					return FileVisitResult.CONTINUE;
+				}
+
+				@Override
+				public FileVisitResult postVisitDirectory (Path directory, IOException ioException) throws IOException {
+					Files.delete(directory);
+					return FileVisitResult.CONTINUE;
+				}
+			});
+		}
+	}
+
+	private static String OS = System.getProperty("os.name").toLowerCase();
+
+	public static boolean isWindows() {
+		return OS.contains("win");
+	}
+
+	public static boolean isMac() {
+		return OS.contains("mac");
+	}
+
+	public static boolean isUnix() {
+		return (OS.contains("nix") || OS.contains("nux") || OS.contains("aix"));
 	}
 }

@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="lib" path="build/libs/imgui-cpp.jar"/>
+	<classpathentry exported="true" kind="lib" path="build/libs/imgui-cpp.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/gdx-jnigen"/>
 	<classpathentry kind="output" path="build/classes/java/main"/>
 </classpath>
