@@ -286,15 +286,24 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 
 	TYPE value = data->value;
 
+	ImGuiExt::BeginBoundingBox();
 	if (ImGui::InputScalar("", data_type, (void*)&value, NULL, NULL, data->format, flags)) {
 		if ((data->v_min == 0 && data->v_max == 0) || value >= data->v_min && value <= data->v_max) {
 			data->value = value;
 			ret = true;
 		}
 	}
+	ImRect rect = ImGuiExt::EndBoundingBox();
 	ImGui::EndGroup();
 
-	if (ImGui::IsItemHovered() && data->tooltip != NULL && g.HoveredIdTimer > data->tooltipDelay) {
+	int backupFlags = window->DC.ItemFlags;
+	window->DC.ItemFlags = window->DC.ItemFlags & ~ImGuiItemFlags_Disabled;
+	bool isHoverable = ImGui::ItemHoverable(rect, id);
+	window->DC.ItemFlags = backupFlags;
+
+	//ImGuiExt::DrawBoundingBox(rect.Min, rect.Max, 255, 0, 0, 255); // Debug houverable bounding box
+
+	if (isHoverable && data->tooltip != NULL && g.HoveredIdTimer > data->tooltipDelay) {
 		ImGui::BeginTooltip();
 		ImGui::SetTooltip(data->tooltip);
 		ImGui::EndTooltip();

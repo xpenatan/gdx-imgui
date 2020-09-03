@@ -143,6 +143,6 @@ namespace ImGuiExt
 	void EndCollapseLayout();
 
 	// Calculate content size
-	void BeginBoundingBox();            // Its the same as using Begin/End group and getting the LastItemRect values
+	void BeginBoundingBox();  // Its the same as using Begin/End group and getting the LastItemRect values
 	ImRect EndBoundingBox();  // Its the same as using Begin/End group and getting the LastItemRect values
 };
