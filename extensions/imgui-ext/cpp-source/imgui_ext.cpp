@@ -134,11 +134,12 @@ bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, c
 		ImGui::PopStyleColor();
 	ImRect boundingBox = ImGuiExt::EndBoundingBox();
 
+	bool isDisabled = (window->DC.ItemFlags & ImGuiItemFlags_Disabled) == ImGuiItemFlags_Disabled;
 	bool hovered = ImGui::IsMouseHoveringRect(boundingBox.Min, boundingBox.Max);
 	bool mouseDown = ImGui::IsMouseDown(ImGuiMouseButton_Left);
 	const bool clicked = (hovered && g.IO.MouseClicked[0]);
 
-	if (clicked && hovered && SINGLE_EDITTEXT_DRAG == 0) {
+	if (!isDisabled && clicked && hovered && SINGLE_EDITTEXT_DRAG == 0) {
 		ImGui::SetActiveID(uniqueId, window);
 		SINGLE_EDITTEXT_DRAG = uniqueId;
 	}
@@ -303,14 +304,14 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 }
 
 template<typename TYPE>
-int ImGuiExt::EditText(const char* id, int size, ImGuiDataType data_type, intptr_t* dataArray) {
+int ImGuiExt::EditText(const char* id, int size, ImGuiDataType data_type, intptr_t* dataArray, int flags) {
 	IM_ASSERT(id);
 	IM_ASSERT(size > 0);
 	IM_ASSERT(dataArray);
 
 	int retFlags = -1;
-	int flags = ImGuiTableFlags_BordersFullHeightV | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable;
-	int inputScalarFlags = 0;
+	flags = flags | ImGuiTableFlags_BordersFullHeightV | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable;
+	int inputScalarFlags = flags;
 
 	if (size == 1 && data_type == ImGuiDataType_Float) 
 		inputScalarFlags |= ImGuiInputTextFlags_CharsScientific;
@@ -328,7 +329,7 @@ int ImGuiExt::EditText(const char* id, int size, ImGuiDataType data_type, intptr
 }
 
 template<typename TYPE>
-int prepareEditText(const char* id, ImGuiDataType data_type, void* data01, void* data02, void* data03, void* data04) {
+int prepareEditText(const char* id, ImGuiDataType data_type, void* data01, void* data02, void* data03, void* data04, int flags) {
 	IM_ASSERT(data01);
 	const int maxSize = 4;
 	int size = 1;
@@ -343,13 +344,13 @@ int prepareEditText(const char* id, ImGuiDataType data_type, void* data01, void*
 	datas[1] = (intptr_t)data02;
 	datas[2] = (intptr_t)data03;
 	datas[3] = (intptr_t)data04;
-	return ImGuiExt::EditText<TYPE>(id, size, data_type, datas);
+	return ImGuiExt::EditText<TYPE>(id, size, data_type, datas, flags);
 }
 
-int ImGuiExt::EditTextI(const char* id, EditTextData<int>* data01, EditTextData<int>* data02, EditTextData<int>* data03, EditTextData<int>* data04) {
-	return prepareEditText<ImS32>(id, ImGuiDataType_S32, data01, data02, data03, data04);
+int ImGuiExt::EditTextI(const char* id, EditTextData<int>* data01, EditTextData<int>* data02, EditTextData<int>* data03, EditTextData<int>* data04, int flags) {
+	return prepareEditText<ImS32>(id, ImGuiDataType_S32, data01, data02, data03, data04, flags);
 }
 
-int ImGuiExt::EditTextF(const char* id, EditTextData<float>* data01, EditTextData<float>* data02, EditTextData<float>* data03, EditTextData<float>* data04) {
-	return prepareEditText<float>(id, ImGuiDataType_Float, data01, data02, data03, data04);
+int ImGuiExt::EditTextF(const char* id, EditTextData<float>* data01, EditTextData<float>* data02, EditTextData<float>* data03, EditTextData<float>* data04, int flags) {
+	return prepareEditText<float>(id, ImGuiDataType_Float, data01, data02, data03, data04, flags);
 }

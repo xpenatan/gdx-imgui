@@ -54,7 +54,7 @@ namespace ImGuiExt
 
 	// Custom Widgets
 	template<typename TYPE>
-	int EditText(const char* id, int size, ImGuiDataType data_type, intptr_t* dataArray);
-	int EditTextI(const char* id, EditTextData<int>* data01, EditTextData<int>* data02 = NULL, EditTextData<int>* data03 = NULL, EditTextData<int>* data04 = NULL);
-	int EditTextF(const char* id, EditTextData<float>* data01, EditTextData<float>* data02 = NULL, EditTextData<float>* data03 = NULL, EditTextData<float>* data04 = NULL);
+	int EditText(const char* id, int size, ImGuiDataType data_type, intptr_t* dataArray, int flags = 0);
+	int EditTextI(const char* id, EditTextData<int>* data01, EditTextData<int>* data02 = NULL, EditTextData<int>* data03 = NULL, EditTextData<int>* data04 = NULL, int flags = 0);
+	int EditTextF(const char* id, EditTextData<float>* data01, EditTextData<float>* data02 = NULL, EditTextData<float>* data03 = NULL, EditTextData<float>* data04 = NULL, int flags = 0);
 };

@@ -595,8 +595,9 @@ namespace ImGuiExt
 
 		di2.v_min = -10;
 		di2.v_max = 10;
-
-		ImGuiExt::EditTextF("##id1", &df1);
+		ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+		ImGuiExt::EditTextF("##id1", &df1, NULL, NULL, NULL, 0);
+		ImGui::PopItemFlag();
 
 		ImGuiExt::EditTextF("##id2", &df1, &df2);
 
