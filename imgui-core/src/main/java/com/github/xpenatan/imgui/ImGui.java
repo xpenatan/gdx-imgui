@@ -13,6 +13,7 @@ import com.github.xpenatan.imgui.enums.ImGuiDockNodeFlags;
 import com.github.xpenatan.imgui.enums.ImGuiFocusedFlags;
 import com.github.xpenatan.imgui.enums.ImGuiHoveredFlags;
 import com.github.xpenatan.imgui.enums.ImGuiInputTextFlags;
+import com.github.xpenatan.imgui.enums.ImGuiItemFlags;
 import com.github.xpenatan.imgui.enums.ImGuiStyleVar;
 import com.github.xpenatan.imgui.enums.ImGuiTabBarFlags;
 import com.github.xpenatan.imgui.enums.ImGuiTabItemFlags;
@@ -1676,6 +1677,13 @@ public class ImGui {
 		ImGuiInternalNative.ItemSize(x1, y1, x2, y2, text_offset_y);
 	}
 
+	public static void PushItemFlag(ImGuiItemFlags option, boolean enabled) {
+		ImGuiInternalNative.PushItemFlag(option.getValue(), enabled);
+	}
+
+	public static void PopItemFlag() {
+		ImGuiInternalNative.PopItemFlag();
+	}
 
 	// Helper methods
 

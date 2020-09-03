@@ -20,4 +20,12 @@ public class ImGuiInternalNative {
 	public static native void ItemSize(float x1, float y1, float x2, float y2, float text_offset_y) /*-{ }-*/; /*
 		ImGui::ItemSize(ImRect(x1, y1, x2, y2), text_offset_y);
 	*/
+
+	public static native void PushItemFlag(int option, boolean enabled) /*-{ }-*/; /*
+		ImGui::PushItemFlag(option, enabled);
+	*/
+
+	public static native void PopItemFlag() /*-{ }-*/; /*
+		ImGui::PopItemFlag();
+	*/
 }
