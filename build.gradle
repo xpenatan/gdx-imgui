@@ -86,8 +86,18 @@ gradle.taskGraph.whenReady { graph ->
 
 task buildImGuiNatives () {
     group = 'build'
-    dependsOn 'clean'
-    dependsOn ':imgui-cpp:generateNatives'
-    dependsOn ':imgui-core:generateNatives'
-    dependsOn ':extensions:imgui-ext:generateNatives'
+    dependsOn ordered(
+            ":clean",
+            ":imgui-cpp:generateNatives",
+            ":imgui-core:generateNatives",
+            ":extensions:imgui-ext:generateNatives"
+    )
+}
+
+def ordered(String... dependencyPaths) {
+    def dependencies = dependencyPaths.collect { tasks.getByPath(it) }
+    for (int i = 0; i < dependencies.size() - 1; i++) {
+        dependencies[i + 1].mustRunAfter(dependencies[i])
+    }
+    return dependencies
 }
