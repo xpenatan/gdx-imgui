@@ -23,6 +23,7 @@ import com.github.xpenatan.imgui.enums.ImGuiTreeNodeFlags;
 import com.github.xpenatan.imgui.enums.ImGuiWindowFlags;
 import com.github.xpenatan.imgui.jnicode.ImGuiInternalNative;
 import com.github.xpenatan.imgui.jnicode.ImGuiNative;
+import com.github.xpenatan.imgui.util.CharSequenceHelper;
 
 public class ImGui {
 
@@ -632,6 +633,11 @@ public class ImGui {
 
 	public static void Text(String text) {
 		ImGuiNative.Text(text);
+	}
+
+	public static void Text(CharSequence text) {
+		byte[] tempChar = CharSequenceHelper.getTempChar(text, 0);
+		ImGuiNative.Text(tempChar);
 	}
 
 	public static void TextColored(float r, float g, float b, float a, String text) {

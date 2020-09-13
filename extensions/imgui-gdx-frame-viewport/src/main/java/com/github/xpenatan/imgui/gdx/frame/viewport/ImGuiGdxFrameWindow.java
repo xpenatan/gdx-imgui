@@ -43,6 +43,8 @@ public class ImGuiGdxFrameWindow {
 	private boolean curFrameFocus;
 	private boolean isWindowHovered;
 
+	private StringBuilder stringBuilder = new StringBuilder();
+
 	public ImGuiGdxFrameWindow(int width, int height, float x, float y) {
 		this(new EmuApplicationWindow(), width, height, x, y);
 		this.startWidth = width;
@@ -113,7 +115,22 @@ public class ImGuiGdxFrameWindow {
 
 		ImGui.EndChild();
 		ImGui.Separator();
-		ImGui.Text(widthLabel + windowWidth + heightLabel + windowHeight + mouseXLabel + mouseX + mouseYLabel + mouseY);
+
+		stringBuilder.setLength(0);
+
+		stringBuilder.append(widthLabel);
+		stringBuilder.append(windowWidth);
+
+		stringBuilder.append(heightLabel);
+		stringBuilder.append(windowHeight);
+
+		stringBuilder.append(mouseXLabel);
+		stringBuilder.append(mouseX);
+
+		stringBuilder.append(mouseYLabel);
+		stringBuilder.append(mouseY);
+
+		ImGui.Text(stringBuilder);
 		ImGui.End();
 	}
 

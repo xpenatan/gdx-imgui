@@ -488,136 +488,136 @@ public class ImGuiNative {
 
 	 */
 
-	public static native boolean AddLine(int type, float a_x, float a_y, float b_x, float b_y, int col) /*-{ }-*/; /*
+	public static native void AddLine(int type, float a_x, float a_y, float b_x, float b_y, int col) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddLine(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col);
 	*/
 
-	public static native boolean AddLine(int type, float a_x, float a_y, float b_x, float b_y, int col, float thinkness) /*-{ }-*/; /*
+	public static native void AddLine(int type, float a_x, float a_y, float b_x, float b_y, int col, float thinkness) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddLine(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, thinkness);
 	*/
 
-	public static native boolean AddRect(int type, float a_x, float a_y, float b_x, float b_y, int col) /*-{ }-*/; /*
+	public static native void AddRect(int type, float a_x, float a_y, float b_x, float b_y, int col) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddRect(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col);
 	 */
 
-	public static native boolean AddRect(int type, float a_x, float a_y, float b_x, float b_y, int col, float rounding) /*-{ }-*/; /*
+	public static native void AddRect(int type, float a_x, float a_y, float b_x, float b_y, int col, float rounding) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddRect(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, rounding);
 	*/
 
-	public static native boolean AddRect(int type, float a_x, float a_y, float b_x, float b_y, int col, float rounding, int rounding_corners_flags) /*-{ }-*/; /*
+	public static native void AddRect(int type, float a_x, float a_y, float b_x, float b_y, int col, float rounding, int rounding_corners_flags) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddRect(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, rounding, rounding_corners_flags);
 	*/
 
-	public static native boolean AddRect(int type, float a_x, float a_y, float b_x, float b_y, int col, float rounding, int rounding_corners_flags, float thickness) /*-{ }-*/; /*
+	public static native void AddRect(int type, float a_x, float a_y, float b_x, float b_y, int col, float rounding, int rounding_corners_flags, float thickness) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddRect(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, rounding, rounding_corners_flags, thickness);
 	*/
 
-	public static native boolean AddRectFilled(int type, float a_x, float a_y, float b_x, float b_y, int col) /*-{ }-*/; /*
+	public static native void AddRectFilled(int type, float a_x, float a_y, float b_x, float b_y, int col) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddRectFilled(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col);
 	*/
 
-	public static native boolean AddRectFilled(int type, float a_x, float a_y, float b_x, float b_y, int col, float rounding) /*-{ }-*/; /*
+	public static native void AddRectFilled(int type, float a_x, float a_y, float b_x, float b_y, int col, float rounding) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddRectFilled(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, rounding);
 	*/
 
-	public static native boolean AddRectFilled(int type, float a_x, float a_y, float b_x, float b_y, int col, float rounding, int rounding_corners_flags) /*-{ }-*/; /*
+	public static native void AddRectFilled(int type, float a_x, float a_y, float b_x, float b_y, int col, float rounding, int rounding_corners_flags) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddRectFilled(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, rounding, rounding_corners_flags);
 	*/
 
-	public static native boolean AddRectFilledMultiColor(int type, float a_x, float a_y, float b_x, float b_y, int col_upr_left, float col_upr_right, int col_bot_right, int col_bot_left) /*-{ }-*/; /*
+	public static native void AddRectFilledMultiColor(int type, float a_x, float a_y, float b_x, float b_y, int col_upr_left, float col_upr_right, int col_bot_right, int col_bot_left) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddRectFilledMultiColor(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col_upr_left, col_upr_right, col_bot_right, col_bot_left);
 	*/
 
-	public static native boolean AddQuad(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col) /*-{ }-*/; /*
+	public static native void AddQuad(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddQuad(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), ImVec2(d_x, d_y), col);
 	*/
 
-	public static native boolean AddQuad(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col, float thickness) /*-{ }-*/; /*
+	public static native void AddQuad(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col, float thickness) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddQuad(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), ImVec2(d_x, d_y), col, thickness);
 	*/
 
-	public static native boolean AddQuadFilled(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col) /*-{ }-*/; /*
+	public static native void AddQuadFilled(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddQuadFilled(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), ImVec2(d_x, d_y), col);
 	*/
 
-	public static native boolean AddTriangle(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col) /*-{ }-*/; /*
+	public static native void AddTriangle(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddTriangle(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), col);
 	*/
 
-	public static native boolean AddTriangle(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col, float thickness) /*-{ }-*/; /*
+	public static native void AddTriangle(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col, float thickness) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddTriangle(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), col, thickness);
 	*/
 
-	public static native boolean AddTriangleFilled(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col) /*-{ }-*/; /*
+	public static native void AddTriangleFilled(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddTriangleFilled(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), col);
 	*/
 
-	public static native boolean AddCircle(int type, float centre_x, float centre_y, float radius, float col) /*-{ }-*/; /*
+	public static native void AddCircle(int type, float centre_x, float centre_y, float radius, float col) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddCircle(ImVec2(centre_x, centre_y), radius, col);
 	*/
 
-	public static native boolean AddCircle(int type, float centre_x, float centre_y, float radius, float col, int num_segments, float thickness) /*-{ }-*/; /*
+	public static native void AddCircle(int type, float centre_x, float centre_y, float radius, float col, int num_segments, float thickness) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddCircle(ImVec2(centre_x, centre_y), radius, col, num_segments, thickness);
 	*/
 
-	public static native boolean AddCircleFilled(int type, float centre_x, float centre_y, float radius, float col) /*-{ }-*/; /*
+	public static native void AddCircleFilled(int type, float centre_x, float centre_y, float radius, float col) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddCircleFilled(ImVec2(centre_x, centre_y), radius, col);
 	*/
 
-	public static native boolean AddCircleFilled(int type, float centre_x, float centre_y, float radius, float col, int num_segments) /*-{ }-*/; /*
+	public static native void AddCircleFilled(int type, float centre_x, float centre_y, float radius, float col, int num_segments) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddCircleFilled(ImVec2(centre_x, centre_y), radius, col, num_segments);
 	*/
 
-	public static native boolean AddText(int type, float pos_x, float pos_y, int col, String text_begin) /*-{ }-*/; /*
+	public static native void AddText(int type, float pos_x, float pos_y, int col, String text_begin) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddText(ImVec2(pos_x, pos_y), col, text_begin);
 	*/
 
-	public static native boolean AddText(int type, float pos_x, float pos_y, int col, String text_begin, String text_end) /*-{ }-*/; /*
+	public static native void AddText(int type, float pos_x, float pos_y, int col, String text_begin, String text_end) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddText(ImVec2(pos_x, pos_y), col, text_begin, text_end);
 	 */
 
 	// TODO AddText
 
-	public static native boolean AddImage(int type, int textureID, float a_x, float a_y, float b_x, float b_y) /*-{ }-*/; /*
+	public static native void AddImage(int type, int textureID, float a_x, float a_y, float b_x, float b_y) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddImage((void *)textureID, ImVec2(a_x, a_y), ImVec2(b_x, b_y));
 	*/
 
-	public static native boolean AddImage(int type, int textureID, float a_x, float a_y, float b_x, float b_y, float uv_a_x, float uv_a_y, float uv_b_x, float uv_b_y) /*-{ }-*/; /*
+	public static native void AddImage(int type, int textureID, float a_x, float a_y, float b_x, float b_y, float uv_a_x, float uv_a_y, float uv_b_x, float uv_b_y) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddImage((void *)textureID, ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(uv_a_x, uv_a_y), ImVec2(uv_b_x, uv_b_y));
 	*/
 
 	//TODO AddImageQuad, AddImageRounded, AddPolyline, AddConvexPolyFilled
 
-	public static native boolean AddBezierCurve(int type, float pos0_x, float pos0_y, float cp0_x, float cp0_y, float cp1_x, float cp1_y, float pos1_x, float pos1_y, float col, float thickness) /*-{ }-*/; /*
+	public static native void AddBezierCurve(int type, float pos0_x, float pos0_y, float cp0_x, float cp0_y, float cp1_x, float cp1_y, float pos1_x, float pos1_y, float col, float thickness) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddBezierCurve(ImVec2(pos0_x, pos0_y), ImVec2(cp0_x, cp0_y), ImVec2(cp1_x, cp1_y), ImVec2(pos1_x, pos1_y), col, thickness);
 	*/
 
-	public static native boolean AddBezierCurve(int type, float pos0_x, float pos0_y, float cp0_x, float cp0_y, float cp1_x, float cp1_y, float pos1_x, float pos1_y, float col, float thickness, int num_segments) /*-{ }-*/; /*
+	public static native void AddBezierCurve(int type, float pos0_x, float pos0_y, float cp0_x, float cp0_y, float cp1_x, float cp1_y, float pos1_x, float pos1_y, float col, float thickness, int num_segments) /*-{ }-*/; /*
 		ImDrawList* drawList = getDrawList(type);
 		drawList->AddBezierCurve(ImVec2(pos0_x, pos0_y), ImVec2(cp0_x, cp0_y), ImVec2(cp1_x, cp1_y), ImVec2(pos1_x, pos1_y), col, thickness, num_segments);
 	*/
@@ -1132,6 +1132,10 @@ public class ImGuiNative {
 		ImGui::Text(text);
 	*/
 
+	public static native void Text(byte[] text) /*-{ }-*/; /*
+		ImGui::Text(text);
+	*/
+
 	public static native void TextColored(float r, float g, float b, float a, String text) /*-{ }-*/; /*
 		ImGui::TextColored(ImVec4(r, g, b, a), text);
 	*/
@@ -1574,39 +1578,39 @@ public class ImGuiNative {
 	*/
 
 	public static native boolean InputFloat(String label, float [] v) /*-{ }-*/; /*
-		ImGui::InputFloat(label, &v[0]);
+		return ImGui::InputFloat(label, &v[0]);
 	*/
 
 	public static native boolean InputFloat(String label, float [] v, float step, float step_fast, String format) /*-{ }-*/; /*
-		ImGui::InputFloat(label, &v[0], step, step_fast, format);
+		return ImGui::InputFloat(label, &v[0], step, step_fast, format);
 	*/
 
 	public static native boolean InputFloat(String label, float [] v, float step, float step_fast, String format, int flags) /*-{ }-*/; /*
-		ImGui::InputFloat(label, &v[0], step, step_fast, format, flags);
+		return ImGui::InputFloat(label, &v[0], step, step_fast, format, flags);
 	*/
 
 	public static native boolean InputInt(String label, int [] v) /*-{ }-*/; /*
-		ImGui::InputInt(label, &v[0]);
+		return ImGui::InputInt(label, &v[0]);
 	*/
 
 	public static native boolean InputInt(String label, int [] v, float step, float step_fast) /*-{ }-*/; /*
-		ImGui::InputInt(label, &v[0], step, step_fast);
+		return ImGui::InputInt(label, &v[0], step, step_fast);
 	*/
 
 	public static native boolean InputInt(String label, int [] v, float step, float step_fast, int flags) /*-{ }-*/; /*
-		ImGui::InputInt(label, &v[0], step, step_fast, flags);
+		return ImGui::InputInt(label, &v[0], step, step_fast, flags);
 	*/
 
 	public static native boolean InputDouble(String label, double [] v) /*-{ }-*/; /*
-		ImGui::InputDouble(label, &v[0]);
+		return ImGui::InputDouble(label, &v[0]);
 	*/
 
 	public static native boolean InputDouble(String label, double [] v, float step, float step_fast, String format) /*-{ }-*/; /*
-		ImGui::InputDouble(label, &v[0], step, step_fast, format);
+		return ImGui::InputDouble(label, &v[0], step, step_fast, format);
 	*/
 
 	public static native boolean InputDouble(String label, double [] v, float step, float step_fast, String format, int flags) /*-{ }-*/; /*
-		ImGui::InputDouble(label, &v[0], step, step_fast, format, flags);
+		return ImGui::InputDouble(label, &v[0], step, step_fast, format, flags);
 	*/
 
 
@@ -2099,11 +2103,11 @@ public class ImGuiNative {
 		ImGui::SetItemDefaultFocus();
 	*/
 
-	public static native boolean SetKeyboardFocusHere() /*-{ }-*/; /*
+	public static native void SetKeyboardFocusHere() /*-{ }-*/; /*
 		ImGui::SetKeyboardFocusHere();
 	*/
 
-	public static native boolean SetKeyboardFocusHere(int offset) /*-{ }-*/; /*
+	public static native void SetKeyboardFocusHere(int offset) /*-{ }-*/; /*
 		ImGui::SetKeyboardFocusHere(offset);
 	*/
 
