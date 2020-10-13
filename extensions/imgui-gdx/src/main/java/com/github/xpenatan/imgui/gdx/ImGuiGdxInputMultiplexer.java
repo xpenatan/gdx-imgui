@@ -82,9 +82,9 @@ public class ImGuiGdxInputMultiplexer extends InputMultiplexer {
 	}
 
 	@Override
-	public boolean scrolled(int amount) {
-		if(inputProcessor.scrolled(amount)) {
-			super.scrolled(amount);
+	public boolean scrolled(float amountX, float amountY) {
+		if(inputProcessor.scrolled(amountX, amountY)) {
+			super.scrolled(amountX, amountY);
 			return true;
 		}
 		return false;
@@ -102,5 +102,4 @@ public class ImGuiGdxInputMultiplexer extends InputMultiplexer {
 			super.keyUp(keyDown.get(i));
 		keyDown.clear();
 	}
-
 }
