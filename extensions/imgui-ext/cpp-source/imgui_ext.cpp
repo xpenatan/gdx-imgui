@@ -319,7 +319,7 @@ int ImGuiExt::EditText(const char* id, int size, ImGuiDataType data_type, intptr
 	IM_ASSERT(dataArray);
 
 	int retFlags = -1;
-	flags = flags | ImGuiTableFlags_BordersFullHeightV | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable;
+	flags = flags | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable;
 	int inputScalarFlags = flags;
 
 	if (size == 1 && data_type == ImGuiDataType_Float) 
@@ -327,7 +327,7 @@ int ImGuiExt::EditText(const char* id, int size, ImGuiDataType data_type, intptr
 
 	if (ImGui::BeginTable(id, size, flags)) {
 		for (int i = 0; i < size; i++) {
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 			EditTextData<TYPE>* data = (EditTextData<TYPE> *)dataArray[i];
 			if (singleEdittext(i + 1, data_type, data, inputScalarFlags))
 				retFlags = i;	

@@ -700,15 +700,15 @@ namespace ImGuiExt
 
 		// FIRST TABLE
 
-		if (ImGui::BeginTable("01", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_BordersFullHeightV | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable))
+		if (ImGui::BeginTable("01", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable))
 		{
 			ImGui::TableSetupColumn("A0", ImGuiTableColumnFlags_WidthFixed);
 			ImGui::TableSetupColumn("A1");
 			ImGui::TableSetupColumn("A2");
 			ImGui::TableSetupColumn("A3");
-			ImGui::TableAutoHeaders();
+			ImGui::TableHeadersRow();
 
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 
 			float maxHeight1 = ImGuiExt::GetTableRowHeight();
 
@@ -720,7 +720,7 @@ namespace ImGuiExt
 
 			ImGuiExt::CalculateTableRowHeight();
 
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 
 			ImGuiExt::BeginLayout("###idd", ImLayout::MATCH_PARENT, maxHeight1 == 0 ? ImLayout::WRAP_PARENT : maxHeight1);
 			ImGuiExt::ShowLayoutDebug();
@@ -731,7 +731,7 @@ namespace ImGuiExt
 			float contentHeight02 = ImGuiExt::GetTableContentHeight();
 			//ImGuiExt::CalculateTableRowHeight(); // since this view depends of row height there is no need to calculate
 
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 
 			ImGui::Button("03", ImVec2(0, btnHeight03));
 
@@ -739,7 +739,7 @@ namespace ImGuiExt
 
 			ImGuiExt::CalculateTableRowHeight();
 
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 
 			ImGui::Button("04", ImVec2(0, btnHeight04));
 
@@ -748,13 +748,13 @@ namespace ImGuiExt
 			ImGuiExt::CalculateTableRowHeight();
 
 			// Next row
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 			ImGui::Text("contentHeight01: %.1f", contentHeight01);
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 			ImGui::Text("contentHeight02: %.1f", contentHeight02);
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 			ImGui::Text("contentHeight03: %.1f", contentHeight03);
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 			ImGui::Text("contentHeight04: %.1f", contentHeight04);
 
 			ImGui::EndTable();
@@ -762,15 +762,15 @@ namespace ImGuiExt
 
 		// SECOND TABLE
 
-		if (ImGui::BeginTable("02", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_BordersFullHeightV | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable))
+		if (ImGui::BeginTable("02", 4, ImGuiTableFlags_Borders | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable))
 		{
 			ImGui::TableSetupColumn("B0");
 			ImGui::TableSetupColumn("B1");
 			ImGui::TableSetupColumn("B2");
 			ImGui::TableSetupColumn("B3");
-			ImGui::TableAutoHeaders();
+			ImGui::TableHeadersRow();
 
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 
 			float maxHeight1 = ImGuiExt::GetTableRowHeight();
 
@@ -786,14 +786,14 @@ namespace ImGuiExt
 
 			ImGuiExt::CalculateTableRowHeight();
 
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 
 			ImGui::Button("02", ImVec2(0, btnHeight02));
 
 			float contentHeight02 = ImGuiExt::GetTableContentHeight();
 			ImGuiExt::CalculateTableRowHeight();
 
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 
 			ImGui::Button("03", ImVec2(0, btnHeight03));
 
@@ -801,7 +801,7 @@ namespace ImGuiExt
 
 			ImGuiExt::CalculateTableRowHeight();
 
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 
 			ImGui::Button("04", ImVec2(0, btnHeight04));
 
@@ -810,13 +810,13 @@ namespace ImGuiExt
 			ImGuiExt::CalculateTableRowHeight();
 
 			// Next row
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 			ImGui::Text("contentHeight01: %.1f", contentHeight01);
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 			ImGui::Text("contentHeight02: %.1f", contentHeight02);
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 			ImGui::Text("contentHeight03: %.1f", contentHeight03);
-			ImGui::TableNextCell();
+			ImGui::TableNextColumn();
 			ImGui::Text("contentHeight04: %.1f", contentHeight04);
 
 			ImGui::EndTable();

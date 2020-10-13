@@ -1867,12 +1867,12 @@ public class ImGuiNative {
 		ImGui::EndPopup();
 	*/
 
-	public static native boolean OpenPopupOnItemClick() /*-{ }-*/; /*
-		return ImGui::OpenPopupOnItemClick();
+	public static native void OpenPopupOnItemClick() /*-{ }-*/; /*
+		ImGui::OpenPopupOnItemClick();
 	*/
 
-	public static native boolean OpenPopupOnItemClick(String str_id, int mouse_button) /*-{ }-*/; /*
-		return ImGui::OpenPopupOnItemClick(str_id, mouse_button);
+	public static native void OpenPopupOnItemClick(String str_id, int mouse_button) /*-{ }-*/; /*
+		ImGui::OpenPopupOnItemClick(str_id, mouse_button);
 	*/
 
 	public static native boolean IsPopupOpen(String str_id) /*-{ }-*/; /*
@@ -1986,8 +1986,8 @@ public class ImGuiNative {
 		ImGui::TableNextRow(row_flags, min_row_height);
 	*/
 
-	public static native boolean TableNextCell() /*-{ }-*/; /*
-		return ImGui::TableNextCell();
+	public static native boolean TableNextColumn() /*-{ }-*/; /*
+		return ImGui::TableNextColumn();
 	*/
 
 	public static native boolean TableSetColumnIndex(int column_n) /*-{ }-*/; /*
@@ -2037,8 +2037,8 @@ public class ImGuiNative {
 		ImGui::TableSetupColumn(label, flags, init_width_or_weight, user_id);
 	*/
 
-	public static native void TableAutoHeaders() /*-{ }-*/; /*
-		ImGui::TableAutoHeaders();
+	public static native void TableHeadersRow() /*-{ }-*/; /*
+		ImGui::TableHeadersRow();
 	*/
 
 	public static native void TableHeader(String label) /*-{ }-*/; /*

@@ -170,6 +170,10 @@ public class ImGuiLayoutNative {
 		ImGuiExt::BeginAlign(id, sizeX, sizeY, alignX, alignY);
 	*/
 
+	public static native void BeginAlign(byte[] id, float sizeX, float sizeY, float alignX, float alignY) /*-{ }-*/; /*
+		ImGuiExt::BeginAlign(id, sizeX, sizeY, alignX, alignY);
+	*/
+
 	public static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
 		ImGuiExt::BeginAlign(id, sizeX, sizeY, alignX, alignY, offsetX, offsetY);
 	*/

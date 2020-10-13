@@ -1298,12 +1298,12 @@ public class ImGui {
 		ImGuiNative.EndPopup();
 	}
 
-	public static boolean OpenPopupOnItemClick() {
-		return ImGuiNative.OpenPopupOnItemClick();
+	public static void OpenPopupOnItemClick() {
+		ImGuiNative.OpenPopupOnItemClick();
 	}
 
-	public static boolean OpenPopupOnItemClick(String str_id, int mouse_button) {
-		return ImGuiNative.OpenPopupOnItemClick(str_id, mouse_button);
+	public static void OpenPopupOnItemClick(String str_id, int mouse_button) {
+		ImGuiNative.OpenPopupOnItemClick(str_id, mouse_button);
 	}
 
 	public static boolean IsPopupOpen(String str_id) {
@@ -1417,8 +1417,8 @@ public class ImGui {
 		ImGuiNative.TableNextRow(row_flags, min_row_height);
 	}
 
-	public static boolean TableNextCell() {
-		return ImGuiNative.TableNextCell();
+	public static boolean TableNextColumn() {
+		return ImGuiNative.TableNextColumn();
 	}
 
 	public static boolean TableSetColumnIndex(int column_n) {
@@ -1468,8 +1468,8 @@ public class ImGui {
 		ImGuiNative.TableSetupColumn(label, flags.getValue(), init_width_or_weight, user_id);
 	}
 
-	public static void TableAutoHeaders() {
-		ImGuiNative.TableAutoHeaders();
+	public static void TableHeadersRow() {
+		ImGuiNative.TableHeadersRow();
 	}
 
 	public static void TableHeader(String label) {
