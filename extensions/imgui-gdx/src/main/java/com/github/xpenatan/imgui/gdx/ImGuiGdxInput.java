@@ -109,19 +109,19 @@ public class ImGuiGdxInput implements InputProcessor {
 	}
 
 	@Override
-	public boolean scrolled(int amount) {
-		ImGui.UpdateScroll(0, amount);
-		ImGuiIO getIO = ImGui.GetIO();
-		if(getIO.WantCaptureMouse)
-			return true;
-		return false;
-	}
-
-	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
 		//Experimental. There is a issue with deltaX/Y having high numbers if input is block
 //		if(ImGui.IsWindowFocused(ImGuiFocusedFlags.AnyWindow))
 //			return true;
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(float amountX, float amountY) {
+		ImGui.UpdateScroll(0, amountY);
+		ImGuiIO getIO = ImGui.GetIO();
+		if(getIO.WantCaptureMouse)
+			return true;
 		return false;
 	}
 }
