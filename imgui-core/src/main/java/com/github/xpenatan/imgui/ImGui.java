@@ -1460,6 +1460,11 @@ public class ImGui {
 		ImGuiNative.TableSetupColumn(label, flags.getValue());
 	}
 
+	public static void TableSetupColumn(CharSequence label, ImGuiTableColumnFlags flags) {
+		byte[] tempChar = CharSequenceHelper.getTempChar(label, 0);
+		ImGuiNative.TableSetupColumn(tempChar, flags.getValue());
+	}
+
 	public static void TableSetupColumn(String label, ImGuiTableColumnFlags flags, float init_width_or_weight) {
 		ImGuiNative.TableSetupColumn(label, flags.getValue(), init_width_or_weight);
 	}

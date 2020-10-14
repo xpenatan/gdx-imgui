@@ -2029,6 +2029,10 @@ public class ImGuiNative {
 		ImGui::TableSetupColumn(label, flags);
 	*/
 
+	public static native void TableSetupColumn(byte[] label, int flags) /*-{ }-*/; /*
+		ImGui::TableSetupColumn(label, flags);
+	*/
+
 	public static native void TableSetupColumn(String label, int flags, float init_width_or_weight) /*-{ }-*/; /*
 		ImGui::TableSetupColumn(label, flags, init_width_or_weight);
 	*/
