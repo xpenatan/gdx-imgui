@@ -1970,6 +1970,22 @@ public class ImGuiNative {
 		return ImGui::BeginTable(id, columns_count, flags, ImVec2(outer_sizeX, outer_sizeY), inner_width);
 	*/
 
+	public static native boolean BeginTable(byte[] id, int columns_count) /*-{ }-*/; /*
+		return ImGui::BeginTable(id, columns_count);
+	*/
+
+	public static native boolean BeginTable(byte[] id, int columns_count, int flags) /*-{ }-*/; /*
+		return ImGui::BeginTable(id, columns_count, flags);
+	*/
+
+	public static native boolean BeginTable(byte[] id, int columns_count, int flags, float outer_sizeX, float outer_sizeY) /*-{ }-*/; /*
+		return ImGui::BeginTable(id, columns_count, flags, ImVec2(outer_sizeX, outer_sizeY));
+	*/
+
+	public static native boolean BeginTable(byte[] id, int columns_count, int flags, float outer_sizeX, float outer_sizeY, float inner_width) /*-{ }-*/; /*
+		return ImGui::BeginTable(id, columns_count, flags, ImVec2(outer_sizeX, outer_sizeY), inner_width);
+	*/
+
 	public static native void  EndTable() /*-{ }-*/; /*
 		ImGui::EndTable();
 	*/

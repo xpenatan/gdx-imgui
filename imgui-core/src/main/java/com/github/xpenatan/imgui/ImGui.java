@@ -1401,6 +1401,26 @@ public class ImGui {
 		return ImGuiNative.BeginTable(id, columns_count, flags.getValue(), outer_sizeX, outer_sizeY, inner_width);
 	}
 
+	public static boolean BeginTable(CharSequence id, int columns_count) {
+		byte[] tempChar = CharSequenceHelper.getTempChar(id, 0);
+		return ImGuiNative.BeginTable(tempChar, columns_count);
+	}
+
+	public static boolean BeginTable(CharSequence id, int columns_count, ImGuiTableFlags flags) {
+		byte[] tempChar = CharSequenceHelper.getTempChar(id, 0);
+		return ImGuiNative.BeginTable(tempChar, columns_count, flags.getValue());
+	}
+
+	public static boolean BeginTable(CharSequence id, int columns_count, ImGuiTableFlags flags, float outer_sizeX, float outer_sizeY) {
+		byte[] tempChar = CharSequenceHelper.getTempChar(id, 0);
+		return ImGuiNative.BeginTable(tempChar, columns_count, flags.getValue(), outer_sizeX, outer_sizeY);
+	}
+
+	public static boolean BeginTable(CharSequence id, int columns_count, ImGuiTableFlags flags, float outer_sizeX, float outer_sizeY, float inner_width) {
+		byte[] tempChar = CharSequenceHelper.getTempChar(id, 0);
+		return ImGuiNative.BeginTable(tempChar, columns_count, flags.getValue(), outer_sizeX, outer_sizeY, inner_width);
+	}
+
 	public static void EndTable() {
 		ImGuiNative.EndTable();
 	}
