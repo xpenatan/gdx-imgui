@@ -7,6 +7,7 @@ import com.github.xpenatan.imgui.custom.ImGuiCollapseLayoutOptions;
 import com.github.xpenatan.imgui.custom.ImGuiLayout;
 import com.github.xpenatan.imgui.jnicode.ImGuiExtNative;
 import com.github.xpenatan.imgui.jnicode.ImGuiLayoutNative;
+import com.github.xpenatan.imgui.util.CharSequenceHelper;
 
 public class ImGuiExt {
 
@@ -69,6 +70,16 @@ public class ImGuiExt {
 
 	public static void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY) {
 		ImGuiLayoutNative.BeginAlign(id, sizeX, sizeY, alignX, alignY, offsetX, offsetY);
+	}
+
+	public static void BeginAlign(CharSequence id, float sizeX, float sizeY, float alignX, float alignY) {
+		byte[] tempChar = CharSequenceHelper.getTempChar(id, 0);
+		ImGuiLayoutNative.BeginAlign(tempChar, sizeX, sizeY, alignX, alignY);
+	}
+
+	public static void BeginAlign(CharSequence id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY) {
+		byte[] tempChar = CharSequenceHelper.getTempChar(id, 0);
+		ImGuiLayoutNative.BeginAlign(tempChar, sizeX, sizeY, alignX, alignY, offsetX, offsetY);
 	}
 
 	public static void EndAlign() {
