@@ -11,39 +11,40 @@ public class ImGuiTableFlags {
 	public static ImGuiTableFlags Sortable = new ImGuiTableFlags(1 << 3);
 	public static ImGuiTableFlags MultiSortable = new ImGuiTableFlags(1 << 4);
 	public static ImGuiTableFlags NoSavedSettings = new ImGuiTableFlags(1 << 5);
+	public static ImGuiTableFlags ContextMenuInBody = new ImGuiTableFlags(1 << 6);
 
 	// Decoration
-	public static ImGuiTableFlags RowBg = new ImGuiTableFlags(1 << 6);
-	public static ImGuiTableFlags BordersHInner = new ImGuiTableFlags(1 << 7);
-	public static ImGuiTableFlags BordersHOuter = new ImGuiTableFlags(1 << 8);
-	public static ImGuiTableFlags BordersVInner = new ImGuiTableFlags(1 << 9);
-	public static ImGuiTableFlags BordersVOuter = new ImGuiTableFlags(1 << 10);
-	public static ImGuiTableFlags BordersH = new ImGuiTableFlags(BordersHInner.getValue() | BordersHOuter.getValue());
-	public static ImGuiTableFlags BordersV = new ImGuiTableFlags(BordersVInner.getValue() | BordersVOuter.getValue());
-	public static ImGuiTableFlags BordersInner = new ImGuiTableFlags(BordersVInner.getValue() | BordersHInner.getValue());
-	public static ImGuiTableFlags BordersOuter = new ImGuiTableFlags(BordersVOuter.getValue() | BordersHOuter.getValue());
+	public static ImGuiTableFlags RowBg = new ImGuiTableFlags(1 << 7);
+	public static ImGuiTableFlags BordersInnerH = new ImGuiTableFlags(1 << 8);
+	public static ImGuiTableFlags BordersOuterH = new ImGuiTableFlags(1 << 9);
+	public static ImGuiTableFlags BordersInnerV = new ImGuiTableFlags(1 << 10);
+	public static ImGuiTableFlags BordersOuterV = new ImGuiTableFlags(1 << 11);
+	public static ImGuiTableFlags BordersH = new ImGuiTableFlags(BordersInnerH.getValue() | BordersOuterH.getValue());
+	public static ImGuiTableFlags BordersV = new ImGuiTableFlags(BordersInnerV.getValue() | BordersOuterV.getValue());
+	public static ImGuiTableFlags BordersInner = new ImGuiTableFlags(BordersInnerV.getValue() | BordersInnerH.getValue());
+	public static ImGuiTableFlags BordersOuter = new ImGuiTableFlags(BordersOuterV.getValue() | BordersOuterH.getValue());
 	public static ImGuiTableFlags Borders = new ImGuiTableFlags(BordersInner.getValue() | BordersOuter.getValue());
-	public static ImGuiTableFlags BordersVFullHeight = new ImGuiTableFlags(1 << 11);
+	public static ImGuiTableFlags NoBordersInBod = new ImGuiTableFlags(1 << 12);
+	public static ImGuiTableFlags NoBordersInBodyUntilResize = new ImGuiTableFlags(1 << 13);
 
-	// Padding, Sizing
-	public static ImGuiTableFlags NoClipX = new ImGuiTableFlags(1 << 12);
-	public static ImGuiTableFlags SizingPolicyFixedX = new ImGuiTableFlags(1 << 13);
-	public static ImGuiTableFlags SizingPolicyStretchX = new ImGuiTableFlags(1 << 14);
-	public static ImGuiTableFlags NoHeadersWidth = new ImGuiTableFlags(1 << 15);
-	public static ImGuiTableFlags NoHostExtendY = new ImGuiTableFlags(1 << 16);
+	// Sizing
+	public static ImGuiTableFlags ColumnsWidthStretch = new ImGuiTableFlags(1 << 14);
+	public static ImGuiTableFlags ColumnsWidthFixed = new ImGuiTableFlags(1 << 15);
+	public static ImGuiTableFlags SameWidths = new ImGuiTableFlags(1 << 16);
+	public static ImGuiTableFlags NoHeadersWidth = new ImGuiTableFlags(1 << 17);
+	public static ImGuiTableFlags NoHostExtendY = new ImGuiTableFlags(1 << 18);
+	public static ImGuiTableFlags NoKeepColumnsVisible = new ImGuiTableFlags(1 << 19);
+	public static ImGuiTableFlags PreciseWidths = new ImGuiTableFlags(1 << 20);
+	public static ImGuiTableFlags NoClip = new ImGuiTableFlags(1 << 21);
+
+	// Padding
+	public static ImGuiTableFlags PadOuterX = new ImGuiTableFlags(1 << 22);
+	public static ImGuiTableFlags NoPadOuterX = new ImGuiTableFlags(1 << 23);
+	public static ImGuiTableFlags NoPadInnerX = new ImGuiTableFlags(1 << 24);
 
 	// Scrolling
-	public static ImGuiTableFlags ScrollX = new ImGuiTableFlags(1 << 17);
-	public static ImGuiTableFlags ScrollY = new ImGuiTableFlags(1 << 18);
-	public static ImGuiTableFlags Scroll = new ImGuiTableFlags(ScrollX.getValue() | ScrollY.getValue());
-	public static ImGuiTableFlags ScrollFreezeTopRow = new ImGuiTableFlags(1 << 19);
-	public static ImGuiTableFlags ScrollFreeze2Rows = new ImGuiTableFlags(2 << 19);
-	public static ImGuiTableFlags ScrollFreeze3Rows = new ImGuiTableFlags(3 << 19);
-	public static ImGuiTableFlags ScrollFreezeLeftColumn = new ImGuiTableFlags(1 << 21);
-	public static ImGuiTableFlags ScrollFreeze2Columns = new ImGuiTableFlags(2 << 21);
-	public static ImGuiTableFlags ScrollFreeze3Columns = new ImGuiTableFlags(3 << 21);
-
-
+	public static ImGuiTableFlags ScrollX = new ImGuiTableFlags(1 << 25);
+	public static ImGuiTableFlags ScrollY = new ImGuiTableFlags(1 << 26);
 
 	int value;
 

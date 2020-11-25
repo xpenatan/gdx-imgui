@@ -2014,25 +2014,8 @@ public class ImGuiNative {
 		return ImGui::TableGetColumnIndex();
 	*/
 
-//TODO Fix return string
-//	public static native char[] TableGetColumnName() /*-{ }-*/; /*
-//		return ImGui::TableGetColumnName();
-//	*/
-
-	public static native boolean TableGetColumnIsVisible() /*-{ }-*/; /*
-		return ImGui::TableGetColumnIsVisible();
-	*/
-
-	public static native boolean TableGetColumnIsVisible(int column_n) /*-{ }-*/; /*
-		return ImGui::TableGetColumnIsVisible(column_n);
-	*/
-
-	public static native boolean TableGetColumnIsSorted() /*-{ }-*/; /*
-		return ImGui::TableGetColumnIsSorted();
-	*/
-
-	public static native boolean TableGetColumnIsSorted(int column_n) /*-{ }-*/; /*
-		return ImGui::TableGetColumnIsSorted(column_n);
+	public static native int TableGetRowIndex() /*-{ }-*/; /*
+		return ImGui::TableGetRowIndex();
 	*/
 
 	// Tables: Headers & Columns declaration
@@ -2063,6 +2046,29 @@ public class ImGuiNative {
 
 	public static native void TableHeader(String label) /*-{ }-*/; /*
 		ImGui::TableHeader(label);
+	*/
+
+	// Tables: Miscellaneous functions
+
+//TODO Fix return string
+//	public static native char[] TableGetColumnName() /*-{ }-*/; /*
+//		return ImGui::TableGetColumnName();
+//	*/
+
+	public static native int TableGetColumnCount() /*-{ }-*/; /*
+		return ImGui::TableGetColumnCount();
+	*/
+
+	public static native boolean TableGetColumnIsSorted() /*-{ }-*/; /*
+		return ImGui::TableGetColumnIsSorted();
+	*/
+
+	public static native boolean TableGetColumnIsSorted(int column_n) /*-{ }-*/; /*
+		return ImGui::TableGetColumnIsSorted(column_n);
+	*/
+
+	public static native int TableGetHoveredColumn() /*-{ }-*/; /*
+		return ImGui::TableGetHoveredColumn();
 	*/
 
 	// Tab Bars, Tabs

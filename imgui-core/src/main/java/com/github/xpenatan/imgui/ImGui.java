@@ -1449,25 +1449,8 @@ public class ImGui {
 		return ImGuiNative.TableGetColumnIndex();
 	}
 
-	//TODO Fix return string
-	public static String TableGetColumnName() {
-		return null;
-	}
-
-	public static boolean TableGetColumnIsVisible() {
-		return ImGuiNative.TableGetColumnIsVisible();
-	}
-
-	public static boolean TableGetColumnIsVisible(int column_n) {
-		return ImGuiNative.TableGetColumnIsVisible(column_n);
-	}
-
-	public static boolean TableGetColumnIsSorted() {
-		return ImGuiNative.TableGetColumnIsSorted();
-	}
-
-	public static boolean TableGetColumnIsSorted(int column_n) {
-		return ImGuiNative.TableGetColumnIsSorted(column_n);
+	public static int TableGetRowIndex() {
+		return ImGuiNative.TableGetRowIndex();
 	}
 
 	// Tables: Headers & Columns declaration
@@ -1499,6 +1482,37 @@ public class ImGui {
 
 	public static void TableHeader(String label) {
 		ImGuiNative.TableHeader(label);
+	}
+
+	// Tables: Miscellaneous functions
+
+	//TODO Fix return string
+	public static String TableGetColumnName() {
+		return null;
+	}
+
+	public static int TableGetColumnCount() {
+		return ImGuiNative.TableGetColumnCount();
+	}
+
+	public static boolean TableGetColumnIsSorted() {
+		return ImGuiNative.TableGetColumnIsSorted();
+	}
+
+	public static boolean TableGetColumnIsSorted(int column_n) {
+		return ImGuiNative.TableGetColumnIsSorted(column_n);
+	}
+
+	public static int TableGetHoveredColumn() {
+		return ImGuiNative.TableGetHoveredColumn();
+	}
+
+	public static void TableGetSortSpecs() {
+		// TODO
+	}
+
+	public static void TableSetBgColor() {
+		// TODO
 	}
 
 	// Tab Bars, Tabs
