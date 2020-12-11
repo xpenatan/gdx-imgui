@@ -10,6 +10,7 @@ public class ImGuiSelectableFlags {
 	public static ImGuiSelectableFlags SpanAllColumns = new ImGuiSelectableFlags(1 << 1);
 	public static ImGuiSelectableFlags AllowDoubleClick = new ImGuiSelectableFlags(1 << 2);
 	public static ImGuiSelectableFlags Disabled = new ImGuiSelectableFlags(1 << 3);
+	public static ImGuiSelectableFlags AllowItemOverlap = new ImGuiSelectableFlags(1 << 4);
 
 	int value;
 

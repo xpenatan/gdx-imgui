@@ -43,6 +43,7 @@ public class ImGuiInputTextFlags {
 	public static ImGuiInputTextFlags CharsScientific = new ImGuiInputTextFlags(1 << 17);
 	/** Callback on buffer capacity changes request (beyond 'buf_size' parameter value), allowing the string to grow. Notify when the string wants to be resized (for string types which hold a cache of their Size). You will be provided a new BufSize in the callback and NEED to honor it. (see misc/cpp/imgui_stdlib.h for an example of using this) */
 	public static ImGuiInputTextFlags CallbackResize = new ImGuiInputTextFlags(1 << 18);
+	public static ImGuiInputTextFlags CallbackEdit = new ImGuiInputTextFlags(1 << 19);
 
 	public int data;
 

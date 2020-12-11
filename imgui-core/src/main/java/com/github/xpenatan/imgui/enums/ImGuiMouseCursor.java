@@ -14,7 +14,8 @@ public enum ImGuiMouseCursor {
 	ResizeNESW(5),
 	ResizeNWSE(6),
 	Hand(7),
-	COUNT(8);
+	NotAllowed(8),
+	COUNT(9);
 
 	int value;
 

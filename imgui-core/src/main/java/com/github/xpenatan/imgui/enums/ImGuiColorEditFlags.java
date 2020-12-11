@@ -16,6 +16,7 @@ public class ImGuiColorEditFlags {
 	public static ImGuiColorEditFlags NoLabel = new ImGuiColorEditFlags(1 << 7);
 	public static ImGuiColorEditFlags NoSidePreview = new ImGuiColorEditFlags(1 << 8);
 	public static ImGuiColorEditFlags NoDragDrop = new ImGuiColorEditFlags(1 << 9);
+	public static ImGuiColorEditFlags NoBorder = new ImGuiColorEditFlags(1 << 10);
 
 	public static ImGuiColorEditFlags AlphaBar = new ImGuiColorEditFlags(1 << 16);
 	public static ImGuiColorEditFlags AlphaPreview = new ImGuiColorEditFlags(1 << 17);

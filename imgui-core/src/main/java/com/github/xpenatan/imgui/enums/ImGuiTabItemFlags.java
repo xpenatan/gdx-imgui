@@ -10,6 +10,10 @@ public class ImGuiTabItemFlags {
 	public static ImGuiTabItemFlags SetSelected = new ImGuiTabItemFlags(1 << 1);
 	public static ImGuiTabItemFlags NoCloseWithMiddleMouseButton = new ImGuiTabItemFlags(1 << 2);
 	public static ImGuiTabItemFlags NoPushId = new ImGuiTabItemFlags(1 << 3);
+	public static ImGuiTabItemFlags NoTooltip = new ImGuiTabItemFlags(1 << 4);
+	public static ImGuiTabItemFlags NoReorder = new ImGuiTabItemFlags(1 << 5);
+	public static ImGuiTabItemFlags Leading = new ImGuiTabItemFlags(1 << 6);
+	public static ImGuiTabItemFlags Trailing = new ImGuiTabItemFlags(1 << 7);
 
 	int value;
 

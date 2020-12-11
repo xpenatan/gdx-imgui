@@ -9,6 +9,7 @@ public class ImGuiBackendFlags {
 	public static ImGuiBackendFlags HasGamepad = new ImGuiBackendFlags(1 << 0);
 	public static ImGuiBackendFlags HasMouseCursors = new ImGuiBackendFlags(1 << 1);
 	public static ImGuiBackendFlags HasSetMousePos = new ImGuiBackendFlags(1 << 2);
+	public static ImGuiBackendFlags RendererHasVtxOffset = new ImGuiBackendFlags(1 << 3);
 
 	int value;
 

@@ -22,6 +22,11 @@ public class ImGuiTableColumnFlags {
 	public static ImGuiTableColumnFlags IndentEnable = new ImGuiTableColumnFlags(1 << 15);
 	public static ImGuiTableColumnFlags IndentDisable = new ImGuiTableColumnFlags(1 << 16);
 
+	public static ImGuiTableColumnFlags IsEnabled = new ImGuiTableColumnFlags(1 << 20);
+	public static ImGuiTableColumnFlags IsVisible = new ImGuiTableColumnFlags(1 << 21);
+	public static ImGuiTableColumnFlags IsSorted = new ImGuiTableColumnFlags(1 << 22);
+	public static ImGuiTableColumnFlags IsHovered = new ImGuiTableColumnFlags(1 << 23);
+
 	int value;
 
 	private ImGuiTableColumnFlags(int code) {
