@@ -31,7 +31,7 @@ public class ImGui {
 	private static boolean IMGUIINIT = false;
 	public static String TAG = "ImGui";
 
-	public static final int VERSION_CODE = 1;
+	public static final int VERSION_CODE = 2;
 
 	public static void init () {
 		init(true, true);
@@ -1495,18 +1495,6 @@ public class ImGui {
 
 	public static int TableGetColumnCount() {
 		return ImGuiNative.TableGetColumnCount();
-	}
-
-	public static boolean TableGetColumnIsSorted() {
-		return ImGuiNative.TableGetColumnIsSorted();
-	}
-
-	public static boolean TableGetColumnIsSorted(int column_n) {
-		return ImGuiNative.TableGetColumnIsSorted(column_n);
-	}
-
-	public static int TableGetHoveredColumn() {
-		return ImGuiNative.TableGetHoveredColumn();
 	}
 
 	public static void TableGetSortSpecs() {

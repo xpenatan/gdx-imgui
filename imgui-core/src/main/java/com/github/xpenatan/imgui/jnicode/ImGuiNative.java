@@ -2059,18 +2059,6 @@ public class ImGuiNative {
 		return ImGui::TableGetColumnCount();
 	*/
 
-	public static native boolean TableGetColumnIsSorted() /*-{ }-*/; /*
-		return ImGui::TableGetColumnIsSorted();
-	*/
-
-	public static native boolean TableGetColumnIsSorted(int column_n) /*-{ }-*/; /*
-		return ImGui::TableGetColumnIsSorted(column_n);
-	*/
-
-	public static native int TableGetHoveredColumn() /*-{ }-*/; /*
-		return ImGui::TableGetHoveredColumn();
-	*/
-
 	// Tab Bars, Tabs
 	// [BETA API] API may evolve!
 
