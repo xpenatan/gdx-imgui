@@ -6,8 +6,10 @@
 
 #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
 #include <stddef.h>     // intptr_t
+#include <string>     // string
 #else
 #include <stdint.h>     // intptr_t
+#include <string>     // string
 #endif
 
 template<typename TYPE>
@@ -26,6 +28,7 @@ public:
 	TYPE v_max;
 	float power = 1.0f;
 	char* format;
+	int maxChar = 30;
 
 	EditTextData(char* format = NULL) {
 		init(format, NULL, NULL);
@@ -57,4 +60,5 @@ namespace ImGuiExt
 	int EditText(const char* id, int size, ImGuiDataType data_type, intptr_t* dataArray, int flags = 0);
 	int EditTextI(const char* id, EditTextData<int>* data01, EditTextData<int>* data02 = NULL, EditTextData<int>* data03 = NULL, EditTextData<int>* data04 = NULL, int flags = 0);
 	int EditTextF(const char* id, EditTextData<float>* data01, EditTextData<float>* data02 = NULL, EditTextData<float>* data03 = NULL, EditTextData<float>* data04 = NULL, int flags = 0);
+	int EditTextS(const char* id, EditTextData<std::string>* data01, EditTextData<std::string>* data02 = NULL, int flags = 0);
 };

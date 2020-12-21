@@ -571,12 +571,6 @@ namespace ImGuiExt
 		ImGui::SetNextItemWidth(-1);
 		ImGui::DragFloat("", &value, 0.01f, 0, 0, "%.3f");
 
-		//static float value01 = 1;
-		//static float value02 = 2;
-		//static float value03 = 3;
-		//static float value04 = 4;
-
-
 		static EditTextData<float> df1("%.3f", "X:", "Tooltip 01");
 		static EditTextData<float> df2("%.2f", "Y:", "Tooltip 02");
 		static EditTextData<float> df3("%.3f", "Z:", "Tooltip 03");
@@ -609,6 +603,10 @@ namespace ImGuiExt
 		ImGuiExt::EditTextF("##id4", &df1, &df2, &df3, &df4);
 
 		ImGuiExt::EditTextI("##id5", &di1, &di2);
+
+		static EditTextData<std::string> text1(NULL, "S:", "Tooltip String");
+
+		ImGuiExt::EditTextS("##id6", &text1);
 	}
 
 	inline void test16(const char* name, bool debug) {

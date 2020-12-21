@@ -3,8 +3,6 @@
 #include "imgui_ext.h"
 #include "imgui_layout.h"
 
-
-
 // ##################################  ImGuiExt  ###############################################
 
 ImGuiStorage* ImGuiExt::GetImGuiStorage(ImGuiID id) {
@@ -116,6 +114,16 @@ TYPE RoundScalarWithFormatT(const char* format, ImGuiDataType data_type, TYPE v)
 	return v;
 }
 
+ImRect renderLeftLabel(ImU32 leftLabelColor, char* leftLabel) {
+	ImGuiExt::BeginBoundingBox();
+	ImGui::AlignTextToFramePadding();
+	if (leftLabelColor != 0)
+		ImGui::PushStyleColor(ImGuiCol_Text, leftLabelColor);
+	ImGui::Text(leftLabel);
+	if (leftLabelColor != 0)
+		ImGui::PopStyleColor();
+	return ImGuiExt::EndBoundingBox();
+}
 
 template<typename TYPE, typename SIGNEDTYPE, typename FLOATTYPE>
 bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, const EditTextData<TYPE> data) {
@@ -123,21 +131,14 @@ bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, c
 	ImGuiContext& g = *GImGui;
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 	static int SINGLE_EDITTEXT_DRAG = 0;
-
-	ImGuiExt::BeginBoundingBox();
 	ImU32 leftLabelColor = SINGLE_EDITTEXT_DRAG == uniqueId && data.leftLabelDragColor != 0 ? data.leftLabelDragColor : data.leftLabelColor;
-	ImGui::AlignTextToFramePadding();
-	if (leftLabelColor != 0)
-		ImGui::PushStyleColor(ImGuiCol_Text, leftLabelColor);
-	ImGui::Text(data.leftLabel);
-	if (leftLabelColor != 0)
-		ImGui::PopStyleColor();
-	ImRect boundingBox = ImGuiExt::EndBoundingBox();
+
+	ImRect boundingBox = renderLeftLabel(leftLabelColor, data.leftLabel);
 
 	bool isDisabled = (window->DC.ItemFlags & ImGuiItemFlags_Disabled) == ImGuiItemFlags_Disabled;
 	bool hovered = ImGui::IsMouseHoveringRect(boundingBox.Min, boundingBox.Max);
 	bool mouseDown = ImGui::IsMouseDown(ImGuiMouseButton_Left);
-	const bool clicked = (hovered && g.IO.MouseClicked[0]);
+	const bool clicked = (hovered && g.IO.MouseClicked[0]) && data_type != -1;
 
 	if (!isDisabled && clicked && hovered && SINGLE_EDITTEXT_DRAG == 0) {
 		ImGui::SetActiveID(uniqueId, window);
@@ -246,15 +247,31 @@ bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, c
 	return false;
 }
 
+static int InputTextCallback(ImGuiInputTextCallbackData* data)
+{
+	std::string* str = (std::string*)data->UserData;
+	if (data->EventFlag == ImGuiInputTextFlags_CallbackResize)
+	{
+		// Resize string callback
+		// If for some reason we refuse the new length (BufTextLen) and/or capacity (BufSize) we need to set them back to what we want.
+		IM_ASSERT(data->Buf == str->c_str());
+		str->resize(data->BufTextLen);
+		data->Buf = (char*)str->c_str();
+	}
+	return 0;
+}
+
 template<typename TYPE>
 static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<TYPE> * data, int flags) {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 	if (window->SkipItems)
 		return false;
-
-	IM_ASSERT(data->format);
-
 	ImGuiContext& g = *GImGui;
+
+	// Make tooltip time work with disabled widget
+	int backupFlags = window->DC.ItemFlags;
+	window->DC.ItemFlags = window->DC.ItemFlags & ~ImGuiItemFlags_Disabled;
+
 	ImGui::PushID(id);
 	ImGui::BeginGroup();
 	bool ret = false;
@@ -265,18 +282,24 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 
 		switch (data_type)
 		{
-		case ImGuiDataType_Float: { 
-			float* val = (float*)&data->value;
-			ret = renderEdittextLabel<float, float, float >(uniqueId, ImGuiDataType_Float, val, *(EditTextData<float>*)data);
-			ImGui::SameLine(0, 0);
-			break;
-		}
-		case ImGuiDataType_S32: { 
-			ret = renderEdittextLabel<ImS32, ImS32, float >(uniqueId, ImGuiDataType_S32, (ImS32*)&data->value, *(EditTextData<ImS32>*)data);
-			ImGui::SameLine(0, 0);
-			break;
-		}
-		case ImGuiDataType_COUNT: break;
+			case ImGuiDataType_Float: { 
+				float* val = (float*)&data->value;
+				ret = renderEdittextLabel<float, float, float >(uniqueId, ImGuiDataType_Float, val, *(EditTextData<float>*)data);
+				ImGui::SameLine(0, 0);
+				break;
+			}
+			case ImGuiDataType_S32: { 
+				ret = renderEdittextLabel<ImS32, ImS32, float >(uniqueId, ImGuiDataType_S32, (ImS32*)&data->value, *(EditTextData<ImS32>*)data);
+				ImGui::SameLine(0, 0);
+				break;
+			}
+			case -1: {
+				ImU32 leftLabelColor = data->leftLabelColor;
+				renderLeftLabel(leftLabelColor, data->leftLabel);
+				ImGui::SameLine(0, 0);
+				break;
+			}
+			case ImGuiDataType_COUNT: break;
 		}
 	}
 
@@ -284,21 +307,103 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 
 	ImGui::SetNextItemWidth(-1);
 
-	TYPE value = data->value;
-
 	ImGuiExt::BeginBoundingBox();
-	if (ImGui::InputScalar("", data_type, (void*)&value, NULL, NULL, data->format, flags)) {
-		if ((data->v_min == 0 && data->v_max == 0) || value >= data->v_min && value <= data->v_max) {
-			data->value = value;
-			ret = true;
+
+	TYPE value = data->value; // Copy the value
+	void* voidValue = static_cast<void*>(&value);
+
+	if (data_type == -1) { // String
+		std::string* stringPtr = static_cast<std::string*>(voidValue);
+		std::string str = *stringPtr;
+		flags |= ImGuiInputTextFlags_CallbackResize;
+		if (ImGui::InputText("##input text", (char*)str.c_str(), str.capacity(), flags, InputTextCallback, &str)) {
+			int newSize = str.size();
+			bool updateChar = data->maxChar >= 0 && newSize < data->maxChar || data->maxChar == -1;
+			if (updateChar) {
+				// update string data pointer
+				void* voidValue = static_cast<void*>(&data->value);
+				std::string* newStr = static_cast<std::string*>(voidValue);
+				*newStr = str;
+				ret = true;
+			}
+		}
+	}
+	else {
+		if (ImGui::InputScalar("", data_type, voidValue, NULL, NULL, data->format, flags)) {
+			bool updateValue = false;
+
+			void* voidMax = static_cast<void*>(&data->v_max);
+			void* voidMin = static_cast<void*>(&data->v_min);
+
+			switch (data_type) {
+				case ImGuiDataType_S16: // short
+				{
+					ImS16* maxPtr = static_cast<ImS16*>(voidMax);
+					ImS16 max = *maxPtr;
+					ImS16* minPtr = static_cast<ImS16*>(voidMin);
+					ImS16 min = *minPtr;
+					if ((min == 0 && max == 0)) {
+						updateValue = true;
+					}
+				}
+				break;
+				case ImGuiDataType_S32: // int
+				{
+					ImS32* maxPtr = static_cast<ImS32*>(voidMax);
+					ImS32 max = *maxPtr;
+					ImS32* minPtr = static_cast<ImS32*>(voidMin);
+					ImS32 min = *minPtr;
+					if ((min == 0 && max == 0)) {
+						updateValue = true;
+					}
+			
+				}
+				break;
+				case ImGuiDataType_S64: // long long / __int64
+				{
+					ImS64* maxPtr = static_cast<ImS64*>(voidMax);
+					ImS64 max = *maxPtr;
+					ImS64* minPtr = static_cast<ImS64*>(voidMin);
+					ImS64 min = *minPtr;
+					if ((min == 0 && max == 0)) {
+						updateValue = true;
+					}
+				}
+				break;
+				case ImGuiDataType_Float:  // float
+				{
+					float* maxPtr = static_cast<float*>(voidMax);
+					float max = *maxPtr;
+					float* minPtr = static_cast<float*>(voidMin);
+					float min = *minPtr;
+					if ((min == 0 && max == 0)) {
+						updateValue = true;
+					}
+				}
+				break;
+				case ImGuiDataType_Double: // double
+				{
+					double* maxPtr = static_cast<double*>(voidMax);
+					double max = *maxPtr;
+					double* minPtr = static_cast<double*>(voidMin);
+					double min = *minPtr;
+					if ((min == 0 && max == 0)) {
+						updateValue = true;
+					}
+				}
+				break;
+			}
+				
+			if (updateValue || value >= data->v_min && value <= data->v_max) {
+				data->value = value;
+				ret = true;
+			}
 		}
 	}
 	ImRect rect = ImGuiExt::EndBoundingBox();
 	ImGui::EndGroup();
 
-	int backupFlags = window->DC.ItemFlags;
-	window->DC.ItemFlags = window->DC.ItemFlags & ~ImGuiItemFlags_Disabled;
-	bool isHoverable = ImGui::ItemHoverable(rect, id);
+	bool isHoverable = ImGui::IsMouseHoveringRect(rect.Min, rect.Max);
 	window->DC.ItemFlags = backupFlags;
 
 	//ImGuiExt::DrawBoundingBox(rect.Min, rect.Max, 255, 0, 0, 255); // Debug houverable bounding box
@@ -319,17 +424,17 @@ int ImGuiExt::EditText(const char* id, int size, ImGuiDataType data_type, intptr
 	IM_ASSERT(dataArray);
 
 	int retFlags = -1;
-	flags = flags | ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable;
-	int inputScalarFlags = flags;
+	int tableFlags = ImGuiTableFlags_Resizable | ImGuiTableFlags_Reorderable;
+	int inputFlags = flags;
 
 	if (size == 1 && data_type == ImGuiDataType_Float) 
-		inputScalarFlags |= ImGuiInputTextFlags_CharsScientific;
+		inputFlags |= ImGuiInputTextFlags_CharsScientific;
 
-	if (ImGui::BeginTable(id, size, flags)) {
+	if (ImGui::BeginTable(id, size, tableFlags)) {
 		for (int i = 0; i < size; i++) {
 			ImGui::TableNextColumn();
 			EditTextData<TYPE>* data = (EditTextData<TYPE> *)dataArray[i];
-			if (singleEdittext(i + 1, data_type, data, inputScalarFlags))
+			if (singleEdittext(i + 1, data_type, data, inputFlags))
 				retFlags = i;	
 		}
 		ImGui::EndTable();
@@ -362,4 +467,8 @@ int ImGuiExt::EditTextI(const char* id, EditTextData<int>* data01, EditTextData<
 
 int ImGuiExt::EditTextF(const char* id, EditTextData<float>* data01, EditTextData<float>* data02, EditTextData<float>* data03, EditTextData<float>* data04, int flags) {
 	return prepareEditText<float>(id, ImGuiDataType_Float, data01, data02, data03, data04, flags);
+}
+
+int ImGuiExt::EditTextS(const char* id, EditTextData<std::string>* data01, EditTextData<std::string>* data02, int flags) {
+	return prepareEditText<std::string>(id, -1, data01, data02, NULL, NULL, flags);
 }
