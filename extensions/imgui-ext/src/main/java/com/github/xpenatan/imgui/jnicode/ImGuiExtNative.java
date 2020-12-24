@@ -135,14 +135,6 @@ public class ImGuiExtNative {
 				data->v_max = env->GetIntField(jData, v_maxIID);
 				data->value = env->GetIntField(jData, valueIID);
 			}
-//			else if(data_type == -1 && jValue != NULL) {
-	//			return env->NewStringUTF(test);
-//				const char* tooltip = env->GetStringUTFChars(jValue, NULL);
-//				void* voidValue = static_cast<void*>(&data->value);
-//				std::string* newStr = static_cast<std::string*>(voidValue);
-//				*newStr = tooltip;
-//				value = tooltip;
-//			}
 		}
 
 		template<typename TYPE>
@@ -158,13 +150,6 @@ public class ImGuiExtNative {
 				int* newValue = static_cast<int*>(voidValue);
 				env->SetIntField (jData, valueIID, *newValue);
 			}
-//			else if(data_type == -1) {
-//				void* voidValue = static_cast<void*>(&data->value);
-//				std::string* newStr = static_cast<std::string*>(voidValue);
-//				std::string newString(newStr->c_str(), 0, newStr->size());
-//				jstring val = env->NewStringUTF(newString.c_str());
-//				env->SetObjectField (jData, valueSID, val);
-//			}
 		}
 	*/
 
