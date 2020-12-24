@@ -1,14 +1,14 @@
 package com.github.xpenatan.imgui.jnicode;
 
+import com.github.xpenatan.imgui.ImGuiInputTextData;
 import com.github.xpenatan.imgui.custom.EditTextFloatData;
 import com.github.xpenatan.imgui.custom.EditTextIntData;
+import com.github.xpenatan.imgui.custom.EditTextStringData;
 
 public class ImGuiExtNative {
 
 	/*JNI
 		#include <src/imgui_ext.h>
-
-
 
 		jfieldID leftLabelID;
 		jfieldID leftLabelColorID;
@@ -26,12 +26,16 @@ public class ImGuiExtNative {
 		jfieldID valueIID;
 		jfieldID v_minIID;
 		jfieldID v_maxIID;
+
+		jfieldID imTextInputDataSizeID;
+		jfieldID imTextInputDataIsDirtyID;
 	*/
 
 	public static native void init() /*-{ }-*/; /*
 		jclass jEditTextDataClass = env->FindClass("com/github/xpenatan/imgui/custom/EditTextData");
 		jclass jEditTextFloatDataClass = env->FindClass("com/github/xpenatan/imgui/custom/EditTextFloatData");
 		jclass jEditTextIntDataClass = env->FindClass("com/github/xpenatan/imgui/custom/EditTextIntData");
+		jclass jImInputTextDataClass = env->FindClass("com/github/xpenatan/imgui/ImGuiInputTextData");
 
 		leftLabelID = env->GetFieldID(jEditTextDataClass, "leftLabel", "Ljava/lang/String;");
 		leftLabelColorID = env->GetFieldID(jEditTextDataClass, "leftLabelColor", "I");
@@ -49,6 +53,9 @@ public class ImGuiExtNative {
 		valueIID = env->GetFieldID(jEditTextIntDataClass, "value", "I");
 		v_minIID = env->GetFieldID(jEditTextIntDataClass, "v_min", "I");
 		v_maxIID = env->GetFieldID(jEditTextIntDataClass, "v_max", "I");
+
+		imTextInputDataSizeID = env->GetFieldID(jImInputTextDataClass, "size", "I");
+		imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
 	*/
 
 	public static native float GetTableContentHeight() /*-{ }-*/; /*
@@ -66,7 +73,7 @@ public class ImGuiExtNative {
 	/*JNI
 
 		template<typename TYPE>
-		void putEditText(JNIEnv* env, ImGuiDataType data_type, EditTextData<TYPE> * data, jobject jData) {
+		void updateEditText(JNIEnv* env, EditTextData<TYPE> * data, jobject jData) {
 			if(data == NULL)
 				return;
 			jstring jleftLabel = (jstring)env->GetObjectField(jData, leftLabelID);
@@ -106,36 +113,58 @@ public class ImGuiExtNative {
 				const char* format = env->GetStringUTFChars(jformat, NULL);
 				data->format = (char*)format;
 			}
+		}
+
+		template<typename TYPE>
+		void putEditText(JNIEnv* env, ImGuiDataType data_type, EditTextData<TYPE> * data, jobject jData) {
+			if(data == NULL)
+				return;
+			updateEditText(env, data, jData);
 
 			TYPE v_min;
 			TYPE v_max;
 			TYPE value;
 
 			if(data_type == ImGuiDataType_Float) {
-				v_min = env->GetFloatField(jData, v_minFID);
-				v_max = env->GetFloatField(jData, v_maxFID);
-				value = env->GetFloatField(jData, valueFID);
+				data->v_min = env->GetFloatField(jData, v_minFID);
+				data->v_max = env->GetFloatField(jData, v_maxFID);
+				data->value = env->GetFloatField(jData, valueFID);
 			}
 			else if(data_type == ImGuiDataType_S32) {
-				v_min = env->GetIntField(jData, v_minIID);
-				v_max = env->GetIntField(jData, v_maxIID);
-				value = env->GetIntField(jData, valueIID);
+				data->v_min = env->GetIntField(jData, v_minIID);
+				data->v_max = env->GetIntField(jData, v_maxIID);
+				data->value = env->GetIntField(jData, valueIID);
 			}
-			data->v_min = v_min;
-			data->v_max = v_max;
-			data->value = value;
+//			else if(data_type == -1 && jValue != NULL) {
+	//			return env->NewStringUTF(test);
+//				const char* tooltip = env->GetStringUTFChars(jValue, NULL);
+//				void* voidValue = static_cast<void*>(&data->value);
+//				std::string* newStr = static_cast<std::string*>(voidValue);
+//				*newStr = tooltip;
+//				value = tooltip;
+//			}
 		}
 
 		template<typename TYPE>
 		void getEditText(JNIEnv* env, ImGuiDataType data_type, EditTextData<TYPE> * data, jobject jData) {
 			if(data == NULL)
 				return;
+			void* voidValue = static_cast<void*>(&data->value);
 			if(data_type == ImGuiDataType_Float) {
-				env->SetFloatField (jData, valueFID, data->value);
+				float* newValue = static_cast<float*>(voidValue);
+				env->SetFloatField (jData, valueFID, *newValue);
 			}
 			else if(data_type == ImGuiDataType_S32) {
-				env->SetIntField (jData, valueIID, data->value);
+				int* newValue = static_cast<int*>(voidValue);
+				env->SetIntField (jData, valueIID, *newValue);
 			}
+//			else if(data_type == -1) {
+//				void* voidValue = static_cast<void*>(&data->value);
+//				std::string* newStr = static_cast<std::string*>(voidValue);
+//				std::string newString(newStr->c_str(), 0, newStr->size());
+//				jstring val = env->NewStringUTF(newString.c_str());
+//				env->SetObjectField (jData, valueSID, val);
+//			}
 		}
 	*/
 
@@ -195,6 +224,31 @@ public class ImGuiExtNative {
 				getEditText<int>(env, ImGuiDataType_S32, data03, jData03);
 			else if(ret == 3)
 				getEditText<int>(env, ImGuiDataType_S32, data04, jData04);
+		}
+		return ret;
+	 */
+
+	public static native boolean EditTextS(String id, EditTextStringData data, byte [] buff, int maxSize, int flags, ImGuiInputTextData textInputData, int maxChar, String allowedChar, int allowedCharLength) /*-{ }-*/; /*
+		EditTextData<std::string> data01;
+		updateEditText(env, &data01, data);
+		int size = (int)strlen(buff);
+		char tempArray [maxSize];
+		memset(tempArray, 0, sizeof(tempArray));
+		memcpy(tempArray, buff, size);
+		if(maxChar >= 0 && maxChar < maxSize)
+			maxSize = maxChar;
+		data01.value = tempArray;
+		data01.maxChar = maxSize;
+		bool ret = ImGuiExt::EditTextS(id, &data01) == 0 ? true : false;
+		if(ret) {
+			size = data01.value.size();
+			if(size > maxSize)
+				size = maxSize;
+			env->SetIntField (textInputData, imTextInputDataSizeID, size);
+			env->SetBooleanField (textInputData, imTextInputDataIsDirtyID, true);
+			memset(buff, 0, maxSize);
+			memcpy(buff, data01.value.c_str(), size);
+
 		}
 		return ret;
 	 */

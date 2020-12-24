@@ -19,13 +19,14 @@ public enum ImGuiKey {
 	Space(12),
 	Enter(13),
 	Escape(14),
-	A(15),
-	C(16),
-	V(17),
-	X(18),
-	Y(19),
-	Z(20),
-	COUNT(21);
+	KeyPadEnter(15),
+	A(16),
+	C(17),
+	V(18),
+	X(19),
+	Y(20),
+	Z(21),
+	COUNT(22);
 
 	private final int code;
 

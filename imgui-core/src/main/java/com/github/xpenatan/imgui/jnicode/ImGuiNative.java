@@ -197,13 +197,14 @@ public class ImGuiNative {
 		env->SetBooleanField (jImguiIO, WantSaveIniSettingsID, io.WantSaveIniSettings);
 		env->SetBooleanField (jImguiIO, NavActiveID, io.NavActive);
 		env->SetBooleanField (jImguiIO, NavVisibleID, io.NavVisible);
-		env->SetBooleanField (jImguiIO, FramerateID, io.Framerate);
-		env->SetBooleanField (jImguiIO, MetricsRenderVerticesID, io.MetricsRenderVertices);
-		env->SetBooleanField (jImguiIO, MetricsRenderIndicesID, io.MetricsRenderIndices);
-		env->SetBooleanField (jImguiIO, MetricsRenderWindowsID, io.MetricsRenderWindows);
-		env->SetBooleanField (jImguiIO, MetricsActiveWindowsID, io.MetricsActiveWindows);
-		env->SetBooleanField (jImguiIO, MetricsActiveAllocationsID, io.MetricsActiveAllocations);
-		env->SetBooleanField (jImguiIO, MouseDeltaXID, io.MouseDelta.x);
+		env->SetFloatField (jImguiIO, FramerateID, io.Framerate);
+		env->SetIntField (jImguiIO, MetricsRenderVerticesID, io.MetricsRenderVertices);
+		env->SetIntField (jImguiIO, MetricsRenderIndicesID, io.MetricsRenderIndices);
+		env->SetIntField (jImguiIO, MetricsRenderWindowsID, io.MetricsRenderWindows);
+		env->SetIntField (jImguiIO, MetricsActiveWindowsID, io.MetricsActiveWindows);
+		env->SetIntField (jImguiIO, MetricsActiveAllocationsID, io.MetricsActiveAllocations);
+		env->SetFloatField (jImguiIO, MouseDeltaXID, io.MouseDelta.x);
+		env->SetFloatField (jImguiIO, MouseDeltaYID, io.MouseDelta.y);
 
 		// Update ImGuiStyle
 
@@ -1915,7 +1916,7 @@ public class ImGuiNative {
 	@Deprecated
 	public static native int GetColumnIndex() /*-{ }-*/; /*
 		return ImGui::GetColumnIndex();
-	 */
+	*/
 
 	@Deprecated
 	public static native float GetColumnWidth() /*-{ }-*/; /*

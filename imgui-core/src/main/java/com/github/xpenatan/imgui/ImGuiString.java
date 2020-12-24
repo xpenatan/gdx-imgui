@@ -40,6 +40,6 @@ public class ImGuiString {
 
 	@Override
 	public String toString() {
-		return getValue().toString();
+		return getValue();
 	}
 }

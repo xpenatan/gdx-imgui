@@ -606,6 +606,8 @@ namespace ImGuiExt
 
 		static EditTextData<std::string> text1(NULL, "S:", "Tooltip String");
 
+		text1.value = "Hello";
+
 		ImGuiExt::EditTextS("##id6", &text1);
 	}
 

@@ -4,6 +4,7 @@ public class EditTextData {
 
 	public static String DEFAULT_FORMAT_FLOAT = "%0.3f";
 	public static String DEFAULT_FORMAT_INT = "%d";
+	public static String DEFAULT_FORMAT_STRING = null;
 
 	public String leftLabel;
 	public int leftLabelColor;

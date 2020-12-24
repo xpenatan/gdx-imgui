@@ -255,7 +255,7 @@ static int InputTextCallback(ImGuiInputTextCallbackData* data)
 		// Resize string callback
 		// If for some reason we refuse the new length (BufTextLen) and/or capacity (BufSize) we need to set them back to what we want.
 		IM_ASSERT(data->Buf == str->c_str());
-		str->resize(data->BufTextLen);
+		str->resize(data->BufTextLen + 1);
 		data->Buf = (char*)str->c_str();
 	}
 	return 0;
@@ -316,7 +316,7 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 		std::string* stringPtr = static_cast<std::string*>(voidValue);
 		std::string str = *stringPtr;
 		flags |= ImGuiInputTextFlags_CallbackResize;
-		if (ImGui::InputText("##input text", (char*)str.c_str(), str.capacity(), flags, InputTextCallback, &str)) {
+		if (ImGui::InputText("##input text", (char*)str.c_str(), str.capacity() + 1, flags, InputTextCallback, &str)) {
 			int newSize = str.size();
 			bool updateChar = data->maxChar >= 0 && newSize < data->maxChar || data->maxChar == -1;
 			if (updateChar) {

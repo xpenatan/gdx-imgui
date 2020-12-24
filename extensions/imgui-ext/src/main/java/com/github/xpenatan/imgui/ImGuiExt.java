@@ -1,12 +1,11 @@
 package com.github.xpenatan.imgui;
 
 import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
-import com.github.xpenatan.imgui.custom.EditTextFloatData;
-import com.github.xpenatan.imgui.custom.EditTextIntData;
-import com.github.xpenatan.imgui.custom.ImGuiCollapseLayoutOptions;
-import com.github.xpenatan.imgui.custom.ImGuiLayout;
+import com.github.xpenatan.imgui.custom.*;
+import com.github.xpenatan.imgui.enums.ImGuiInputTextFlags;
 import com.github.xpenatan.imgui.jnicode.ImGuiExtNative;
 import com.github.xpenatan.imgui.jnicode.ImGuiLayoutNative;
+import com.github.xpenatan.imgui.jnicode.ImGuiNative;
 import com.github.xpenatan.imgui.util.CharSequenceHelper;
 
 public class ImGuiExt {
@@ -192,5 +191,13 @@ public class ImGuiExt {
 
 	public static int EditTextI(String id, EditTextIntData d1, EditTextIntData d2, EditTextIntData d3, EditTextIntData d4) {
 		return ImGuiExtNative.EditTextI(id, d1, d2, d3, d4);
+	}
+
+	public static boolean EditTextS(String id, EditTextStringData d1) {
+		return ImGuiExtNative.EditTextS(id, d1, d1.getData(), d1.getData().length, 0, d1.inputData, d1.inputData.maxChar, d1.inputData.allowedChar, d1.inputData.allowedChar.length());
+	}
+
+	public static boolean EditTextS(String id, EditTextStringData d1, ImGuiInputTextFlags flags) {
+		return ImGuiExtNative.EditTextS(id, d1, d1.getData(), d1.getData().length, flags.getValue(), d1.inputData, d1.inputData.maxChar, d1.inputData.allowedChar, d1.inputData.allowedChar.length());
 	}
 }

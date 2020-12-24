@@ -73,6 +73,7 @@ public class ImGuiGdxImpl {
 		keys[ImGuiKey.Space.getValue()] = Input.Keys.SPACE;
 		keys[ImGuiKey.Enter.getValue()] = Input.Keys.ENTER;
 		keys[ImGuiKey.Escape.getValue()] = Input.Keys.ESCAPE;
+		keys[ImGuiKey.KeyPadEnter.getValue()] = Input.Keys.NUMPAD_ENTER;
 		keys[ImGuiKey.A.getValue()] = Input.Keys.A;
 		keys[ImGuiKey.C.getValue()] = Input.Keys.C;
 		keys[ImGuiKey.V.getValue()] = Input.Keys.V;
@@ -97,7 +98,6 @@ public class ImGuiGdxImpl {
 				GL20.GL_UNSIGNED_BYTE, texData.pixelBuffer);
 
 		ImGui.SetFontTexID(g_FontTexture);
-
 	}
 
 	private void createBufferObject(DrawData drawData) {
@@ -107,7 +107,6 @@ public class ImGuiGdxImpl {
 		Gdx.gl20.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, drawData.iByteBuffer.capacity(), null, GL20.GL_STATIC_DRAW);
 		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
-
 
 	public void update() {
 		update(null);

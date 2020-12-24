@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.github.xpenatan.imgui.*;
 import com.github.xpenatan.imgui.custom.EditTextFloatData;
 import com.github.xpenatan.imgui.custom.EditTextIntData;
+import com.github.xpenatan.imgui.custom.EditTextStringData;
 import com.github.xpenatan.imgui.custom.ImGuiLayout;
 import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.enums.ImGuiDir;
@@ -71,6 +72,7 @@ public class SimpleExample implements ApplicationListener
 	EditTextIntData dI1 = new EditTextIntData("X:", "Tooltip 01", ImGui.ColorToIntBits(255, 0, 0, 255), 0);
 	EditTextIntData dI2 = new EditTextIntData("Y:", "Tooltip 02");
 	EditTextIntData dI3 = new EditTextIntData("Z:", "Tooltip 03");
+	EditTextStringData dS1 = new EditTextStringData("S:", "Tooltip String");
 
 	boolean init = false;
 	@Override
@@ -88,6 +90,8 @@ public class SimpleExample implements ApplicationListener
 		ImGuiGdxInput input = new ImGuiGdxInput();
 		impl = new ImGuiGdxImpl();
 		Gdx.input.setInputProcessor(input);
+
+		dS1.setValue("Test");
 	}
 
 	@Override
@@ -221,6 +225,11 @@ public class SimpleExample implements ApplicationListener
 		dI3.v_max = 25;
 
 		ImGuiExt.EditTextI("##1", dI1, dI2, dI3);
+
+		if(ImGuiExt.EditTextS("##S", dS1)) {
+			String newValue = dS1.getValue();
+			System.out.println("newValue: " + newValue);
+		}
 
 		testContentSize();
 
