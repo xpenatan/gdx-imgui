@@ -227,13 +227,10 @@ public class ImGuiExtNative {
 		bool ret = ImGuiExt::EditTextS(id, &data01) == 0 ? true : false;
 		if(ret) {
 			size = data01.value.size();
-			if(size > maxSize)
-				size = maxSize;
 			env->SetIntField (textInputData, imTextInputDataSizeID, size);
 			env->SetBooleanField (textInputData, imTextInputDataIsDirtyID, true);
 			memset(buff, 0, maxSize);
 			memcpy(buff, data01.value.c_str(), size);
-
 		}
 		return ret;
 	 */

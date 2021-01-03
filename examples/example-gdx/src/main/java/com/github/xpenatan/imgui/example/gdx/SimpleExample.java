@@ -186,7 +186,9 @@ public class SimpleExample implements ApplicationListener
 		ImGui.ListBox("MyList", listSelected, myList, myList.length);
 
 		// Edittext
-		if(ImGui.InputText("", myText, ImGuiInputTextFlags.EnterReturnsTrue)) {
+		if(ImGui.InputText("InputText", myText, ImGuiInputTextFlags.EnterReturnsTrue)) {
+			String value = myText.getValue();
+			System.out.println("Value: " + value);
 		}
 
 		// Show edittext text
@@ -228,6 +230,7 @@ public class SimpleExample implements ApplicationListener
 
 		if(ImGuiExt.EditTextS("##S", dS1)) {
 			String newValue = dS1.getValue();
+			int length = newValue.length();
 			System.out.println("newValue: " + newValue);
 		}
 

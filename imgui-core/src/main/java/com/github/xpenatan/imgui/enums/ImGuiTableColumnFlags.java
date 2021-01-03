@@ -8,7 +8,7 @@ public class ImGuiTableColumnFlags {
 	public static ImGuiTableColumnFlags DefaultSort = new ImGuiTableColumnFlags(1 << 1);
 	public static ImGuiTableColumnFlags WidthStretch = new ImGuiTableColumnFlags(1 << 2);
 	public static ImGuiTableColumnFlags WidthFixed  = new ImGuiTableColumnFlags(1 << 3);
-	public static ImGuiTableColumnFlags WidthAutoResize = new ImGuiTableColumnFlags(1 << 4);
+	public static ImGuiTableColumnFlags WidthAuto = new ImGuiTableColumnFlags(1 << 4);
 	public static ImGuiTableColumnFlags NoResize = new ImGuiTableColumnFlags(1 << 5);
 	public static ImGuiTableColumnFlags NoReorder = new ImGuiTableColumnFlags(1 << 6);
 	public static ImGuiTableColumnFlags NoHide = new ImGuiTableColumnFlags(1 << 7);

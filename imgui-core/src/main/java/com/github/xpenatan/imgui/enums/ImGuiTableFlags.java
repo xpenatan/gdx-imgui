@@ -26,9 +26,11 @@ public class ImGuiTableFlags {
 	public static ImGuiTableFlags NoBordersInBod = new ImGuiTableFlags(1 << 11);
 	public static ImGuiTableFlags NoBordersInBodyUntilResize = new ImGuiTableFlags(1 << 12);
 
-	// Sizing
-	public static ImGuiTableFlags ColumnsWidthStretch = new ImGuiTableFlags(1 << 13);
-	public static ImGuiTableFlags ColumnsWidthFixed = new ImGuiTableFlags(1 << 14);
+	// Sizing Policy
+	public static ImGuiTableFlags SizingPolicyFixed = new ImGuiTableFlags(1 << 13);
+	public static ImGuiTableFlags SizingPolicyStretch = new ImGuiTableFlags(1 << 14);
+
+	// Sizing Extra Options
 	public static ImGuiTableFlags SameWidths = new ImGuiTableFlags(1 << 15);
 	public static ImGuiTableFlags NoHostExtendY = new ImGuiTableFlags(1 << 16);
 	public static ImGuiTableFlags NoKeepColumnsVisible = new ImGuiTableFlags(1 << 17);
