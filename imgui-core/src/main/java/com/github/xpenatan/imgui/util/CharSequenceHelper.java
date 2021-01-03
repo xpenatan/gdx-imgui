@@ -16,7 +16,7 @@ public class CharSequenceHelper {
 		if(charArray == null)
 			return null;
 		int length = charSequence.length();
-		charArray[length+1] = 0;
+		charArray[length] = 0;
 		for(int i = 0; i < length; i++) {
 			charArray[i] = (byte)charSequence.charAt(i);
 		}
