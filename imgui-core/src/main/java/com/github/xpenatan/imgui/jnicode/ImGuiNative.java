@@ -1860,6 +1860,10 @@ public class ImGuiNative {
 		return ImGui::BeginPopupModal(name);
 	*/
 
+	public static native boolean BeginPopupModal(String name, int flags) /*-{ }-*/; /*
+		return ImGui::BeginPopupModal(name, NULL, flags);
+	*/
+
 	public static native boolean BeginPopupModal(String name, boolean [] p_open, int flags) /*-{ }-*/; /*
 		return ImGui::BeginPopupModal(name, &p_open[0], flags);
 	*/

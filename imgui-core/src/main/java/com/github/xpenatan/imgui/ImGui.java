@@ -1292,6 +1292,10 @@ public class ImGui {
 		return ImGuiNative.BeginPopupModal(name);
 	}
 
+	public static boolean BeginPopupModal(String name, ImGuiWindowFlags flags) {
+		return ImGuiNative.BeginPopupModal(name, flags.getValue());
+	}
+
 	public static boolean BeginPopupModal(String name, ImGuiBoolean p_open, ImGuiWindowFlags flags) {
 		return ImGuiNative.BeginPopupModal(name, p_open.data, flags.getValue());
 	}
