@@ -43,7 +43,7 @@ public enum ImGuiCol {
 	TabActive(35),
 	TabUnfocused(36),
 	TabUnfocusedActive(37),
-	DockingPrevie(38),
+	DockingPreview(38),
 	DockingEmptyBg(39),
 	PlotLines(40),
 	PlotLinesHovered(41),

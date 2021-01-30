@@ -27,8 +27,8 @@ clean.doFirst {
 
 task downloadZipFile(type: Download) {
 //	src 'https://api.github.com/repos/ocornut/imgui/zipball/v1.74'
-	src 'https://github.com/ocornut/imgui/archive/master.zip'
-//	src 'https://github.com/ocornut/imgui/archive/docking.zip'
+//	src 'https://github.com/ocornut/imgui/archive/master.zip'
+	src 'https://github.com/ocornut/imgui/archive/docking.zip'
 	dest new File(buildDir, '1.0.zip')
 }
 
