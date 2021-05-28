@@ -135,7 +135,7 @@ bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, c
 
 	ImRect boundingBox = renderLeftLabel(leftLabelColor, data.leftLabel);
 
-	bool isDisabled = (window->DC.ItemFlags & ImGuiItemFlags_Disabled) == ImGuiItemFlags_Disabled;
+	bool isDisabled = (g.CurrentItemFlags & ImGuiItemFlags_Disabled) == ImGuiItemFlags_Disabled;
 	bool hovered = ImGui::IsMouseHoveringRect(boundingBox.Min, boundingBox.Max);
 	bool mouseDown = ImGui::IsMouseDown(ImGuiMouseButton_Left);
 	const bool clicked = (hovered && g.IO.MouseClicked[0]) && data_type != -1;
@@ -269,13 +269,15 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 	ImGuiContext& g = *GImGui;
 
 	// Make tooltip time work with disabled widget
-	int backupFlags = window->DC.ItemFlags;
-	window->DC.ItemFlags = window->DC.ItemFlags & ~ImGuiItemFlags_Disabled;
+	int backupFlags = g.CurrentItemFlags;
+	g.CurrentItemFlags = g.CurrentItemFlags & ~ImGuiItemFlags_Disabled;
 
 	ImGui::PushID(id);
 	ImGui::BeginGroup();
 	bool ret = false;
-	
+
+	data->isDragging = false;
+
 	if (data->leftLabel != NULL) {
 		unsigned int uniqueId = window->GetIDNoKeepAlive(id);
 		float power = 1.0f;
@@ -285,11 +287,17 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 			case ImGuiDataType_Float: { 
 				float* val = (float*)&data->value;
 				ret = renderEdittextLabel<float, float, float >(uniqueId, ImGuiDataType_Float, val, *(EditTextData<float>*)data);
+				if(ret) {
+					data->isDragging = true;
+				}
 				ImGui::SameLine(0, 0);
 				break;
 			}
 			case ImGuiDataType_S32: { 
 				ret = renderEdittextLabel<ImS32, ImS32, float >(uniqueId, ImGuiDataType_S32, (ImS32*)&data->value, *(EditTextData<ImS32>*)data);
+				if(ret) {
+					data->isDragging = true;
+				}
 				ImGui::SameLine(0, 0);
 				break;
 			}
@@ -404,7 +412,7 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 	ImGui::EndGroup();
 
 	bool isHoverable = ImGui::IsMouseHoveringRect(rect.Min, rect.Max);
-	window->DC.ItemFlags = backupFlags;
+	g.CurrentItemFlags = backupFlags;
 
 	//ImGuiExt::DrawBoundingBox(rect.Min, rect.Max, 255, 0, 0, 255); // Debug houverable bounding box
 

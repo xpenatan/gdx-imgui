@@ -29,6 +29,7 @@ public:
 	float power = 1.0f;
 	char* format;
 	int maxChar = 30;
+	bool isDragging = false;
 
 	EditTextData(char* format = NULL) {
 		init(format, NULL, NULL);

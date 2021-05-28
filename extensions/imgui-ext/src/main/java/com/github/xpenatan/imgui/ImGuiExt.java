@@ -1,6 +1,6 @@
 package com.github.xpenatan.imgui;
 
-import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
+import com.badlogic.gdx.utils.SharedLibraryLoader;
 import com.github.xpenatan.imgui.custom.*;
 import com.github.xpenatan.imgui.enums.ImGuiInputTextFlags;
 import com.github.xpenatan.imgui.jnicode.ImGuiExtNative;
@@ -19,7 +19,8 @@ public class ImGuiExt {
 	public static void init (boolean logging) {
 		if(ImGuiExt.IMGUIINIT)
 			return;
-		JniGenSharedLibraryLoader loader = new JniGenSharedLibraryLoader();
+
+		SharedLibraryLoader loader = new SharedLibraryLoader();
 		loader.load("imgui-ext");
 		ImGuiExt.IMGUIINIT = true;
 

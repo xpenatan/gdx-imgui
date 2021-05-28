@@ -16,12 +16,7 @@ import com.github.xpenatan.imgui.custom.EditTextFloatData;
 import com.github.xpenatan.imgui.custom.EditTextIntData;
 import com.github.xpenatan.imgui.custom.EditTextStringData;
 import com.github.xpenatan.imgui.custom.ImGuiLayout;
-import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
-import com.github.xpenatan.imgui.enums.ImGuiDir;
-import com.github.xpenatan.imgui.enums.ImGuiInputTextFlags;
-import com.github.xpenatan.imgui.enums.ImGuiTabBarFlags;
-import com.github.xpenatan.imgui.enums.ImGuiTreeNodeFlags;
-import com.github.xpenatan.imgui.enums.ImLayout;
+import com.github.xpenatan.imgui.enums.*;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxInput;
 
@@ -155,7 +150,41 @@ public class SimpleExample implements ApplicationListener
 		}
 	}
 
+	private void addItem(String text) {
+		ImGui.TableNextColumn();
+		ImGui.Text(text);
+	}
+
 	private void renderTabImGuiViews() {
+
+		if (ImGui.BeginTable("split2", 2, ImGuiTableFlags.Sortable)) {
+			ImGui.TableSetupColumn("A0", ImGuiTableColumnFlags.PreferSortAscending);
+			ImGui.TableSetupColumn("A1", ImGuiTableColumnFlags.PreferSortAscending);
+
+			ImGui.TableHeadersRow();
+
+			ImGui.TableGetSortSpecs();
+
+			addItem("AAAA1");
+
+			addItem("BBBB2");
+
+			addItem("BBBB1");
+
+			addItem("CCCC2");
+
+			addItem("CCCC1");
+
+			addItem("DDDD2");
+
+
+
+
+			ImGui.EndTable();
+		}
+
+
+
 		ImGui.Text("MyText");
 
 		if (ImGui.TreeNode("Parent 01")) {
@@ -205,8 +234,39 @@ public class SimpleExample implements ApplicationListener
 
 		ImGui.Checkbox("CheckBox", guiBool);
 
-		ImGui.Button("Button");
+		boolean openSave = false;
+		if (ImGui.BeginMainMenuBar()) {
+			ImVec2 imVec2 = ImGui.GetWindowSize();
+			if (ImGui.BeginMenu("File")) {
+				if (ImGui.MenuItem("New Project")) {
 
+				}
+				if (ImGui.MenuItem("Open Project")) {
+
+				}
+				if (ImGui.MenuItem("Save Scene As..")) {
+					openSave = true;
+				}
+				if (ImGui.MenuItem("Open Scene")) {
+
+				}
+				ImGui.EndMenu();
+			}
+			ImGui.EndMainMenuBar();
+		}
+
+		if(openSave) {
+			openSave = false;
+			ImGui.OpenPopup("testt");
+		}
+
+		if (ImGui.BeginPopupModal("testt"))
+		{
+			if (ImGui.Button("Close"))
+				ImGui.CloseCurrentPopup();
+
+			ImGui.EndPopup();
+		}
 	}
 
 	private void renderTabImGuiExtViews() {
@@ -220,8 +280,10 @@ public class SimpleExample implements ApplicationListener
 		dF3.v_speed = 0.01f;
 		int index = ImGuiExt.EditTextF("##1", dF1, dF2, dF3);
 
-		if(index != -1)
+		if(index != -1) {
+			System.out.println("dF1.isDragging: " + dF1.isDragging);
 			System.out.println("index: " + index);
+		}
 
 		dI3.v_min = -25;
 		dI3.v_max = 25;

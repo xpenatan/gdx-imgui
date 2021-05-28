@@ -36,7 +36,7 @@ dependencies {
     }
     
     // Add implementation to your app project
-    implementation "com.badlogicgames.gdx:gdx-jnigen:$project.gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-jnigen:$project.jniGenVersion"
     implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$project.gdxVersion"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-core:$project.jDearImguiVersion"

@@ -8,7 +8,8 @@ apply from: '../../dependencies.gradle'
 def imgui_name = "imgui-ext"
 
 dependencies {
-	implementation "com.badlogicgames.gdx:gdx-jnigen:$project.gdxVersion"
+	implementation "com.badlogicgames.gdx:gdx-jnigen:$project.jniGenVersion"
+	implementation "com.badlogicgames.gdx:gdx-jnigen-loader:$project.jniGenVersion"
 
 	implementation project(':imgui-core')
 	implementation project(':imgui-cpp')

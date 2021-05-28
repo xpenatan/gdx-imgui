@@ -3,7 +3,7 @@ package com.github.xpenatan.imgui;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
-import com.badlogic.gdx.jnigen.JniGenSharedLibraryLoader;
+import com.badlogic.gdx.utils.SharedLibraryLoader;
 import com.github.xpenatan.imgui.enums.ImGuiCol;
 import com.github.xpenatan.imgui.enums.ImGuiComboFlags;
 import com.github.xpenatan.imgui.enums.ImGuiCond;
@@ -31,7 +31,7 @@ public class ImGui {
 	private static boolean IMGUIINIT = false;
 	public static String TAG = "ImGui";
 
-	public static final int VERSION_CODE = 8;
+	public static final int VERSION_CODE = 11;
 
 	public static void init () {
 		init(true, true);
@@ -40,7 +40,7 @@ public class ImGui {
 	public static void init (boolean saveIni, boolean logging) {
 		if(ImGui.IMGUIINIT)
 			return;
-		JniGenSharedLibraryLoader loader = new JniGenSharedLibraryLoader();
+		SharedLibraryLoader loader = new SharedLibraryLoader();
 		loader.load("imgui-cpp");
 		loader.load("imgui");
 		ImGui.IMGUIINIT = true;

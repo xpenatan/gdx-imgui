@@ -1,5 +1,6 @@
 project.ext {
-    gdxVersion = "1.9.13-SNAPSHOT"
+    gdxVersion = "1.9.13"
+    jniGenVersion = "2.2.0"
     jDearImguiVersion = "1.0.0-SNAPSHOT"
     jDearImguiLayoutVersion = "1.0.0-SNAPSHOT"
     jDearImguiGdxVersion = "1.0.0-SNAPSHOT"

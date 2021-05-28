@@ -26,6 +26,7 @@ public class ImGuiExtNative {
 		jfieldID valueIID;
 		jfieldID v_minIID;
 		jfieldID v_maxIID;
+		jfieldID isDraggingBID;
 
 		jfieldID imTextInputDataSizeID;
 		jfieldID imTextInputDataIsDirtyID;
@@ -53,6 +54,8 @@ public class ImGuiExtNative {
 		valueIID = env->GetFieldID(jEditTextIntDataClass, "value", "I");
 		v_minIID = env->GetFieldID(jEditTextIntDataClass, "v_min", "I");
 		v_maxIID = env->GetFieldID(jEditTextIntDataClass, "v_max", "I");
+
+		isDraggingBID = env->GetFieldID(jEditTextIntDataClass, "isDragging", "Z");
 
 		imTextInputDataSizeID = env->GetFieldID(jImInputTextDataClass, "size", "I");
 		imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
@@ -150,6 +153,7 @@ public class ImGuiExtNative {
 				int* newValue = static_cast<int*>(voidValue);
 				env->SetIntField (jData, valueIID, *newValue);
 			}
+			env->SetBooleanField (jData, isDraggingBID, data->isDragging);
 		}
 	*/
 

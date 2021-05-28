@@ -8,7 +8,7 @@ apply from: '../dependencies.gradle'
 def imgui_name = "imgui"
 
 dependencies {
-	implementation "com.badlogicgames.gdx:gdx-jnigen:$project.gdxVersion"
+	implementation "com.badlogicgames.gdx:gdx-jnigen:$project.jniGenVersion"
 
     // Use JUnit test framework
     testImplementation "junit:junit:$project.jUnitVersion"

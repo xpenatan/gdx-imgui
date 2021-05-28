@@ -14,6 +14,7 @@ public class EditTextData {
 	public float v_speed = -1;
 	public float power = -1;
 	public String format = null;
+	public boolean isDragging;
 
 	EditTextData(String format) {
 		this(format, null);
@@ -44,5 +45,6 @@ public class EditTextData {
 		leftLabelColor = 0;
 		tooltip = null;
 		tooltipDelay = -1;
+		isDragging = false;
 	}
 }
