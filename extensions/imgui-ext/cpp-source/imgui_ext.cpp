@@ -134,14 +134,14 @@ bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, c
 	ImU32 leftLabelColor = SINGLE_EDITTEXT_DRAG == uniqueId && data.leftLabelDragColor != 0 ? data.leftLabelDragColor : data.leftLabelColor;
 
 	ImRect boundingBox = renderLeftLabel(leftLabelColor, data.leftLabel);
-
+	bool hovered = ImGui::IsItemHovered();
 	bool isDisabled = (g.CurrentItemFlags & ImGuiItemFlags_Disabled) == ImGuiItemFlags_Disabled;
-	bool hovered = ImGui::IsMouseHoveringRect(boundingBox.Min, boundingBox.Max);
 	bool mouseDown = ImGui::IsMouseDown(ImGuiMouseButton_Left);
 	const bool clicked = (hovered && g.IO.MouseClicked[0]) && data_type != -1;
 
 	if (!isDisabled && clicked && hovered && SINGLE_EDITTEXT_DRAG == 0) {
 		ImGui::SetActiveID(uniqueId, window);
+		ImGui::FocusWindow(window);
 		SINGLE_EDITTEXT_DRAG = uniqueId;
 	}
 
