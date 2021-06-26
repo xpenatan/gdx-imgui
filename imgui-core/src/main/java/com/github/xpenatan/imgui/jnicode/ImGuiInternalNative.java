@@ -32,4 +32,30 @@ public class ImGuiInternalNative {
 	public static native void PopItemFlag() /*-{ }-*/; /*
 		ImGui::PopItemFlag();
 	*/
+
+	/**
+	 *  ##### Start ImGuiWindow
+	 */
+
+	public static native boolean GetWindowSkipItem() /*-{ }-*/; /*
+		ImGuiWindow* window = ImGui::GetCurrentWindow();
+		return window->SkipItems;
+	*/
+
+	/**
+	 *  ##### End ImGuiWindow
+	 */
+
+	/**
+	 *  ##### Start ImGuiContext
+	 */
+
+	public static native double GetContextTime() /*-{ }-*/; /*
+		ImGuiContext& g = *GImGui;
+		return g.Time;
+	*/
+
+	/**
+	 * ##### End ImGuiContext
+	 */
 }

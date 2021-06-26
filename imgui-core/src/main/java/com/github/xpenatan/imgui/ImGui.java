@@ -1728,6 +1728,34 @@ public class ImGui {
 		ImGuiInternalNative.PopItemFlag();
 	}
 
+
+
+	/**
+	 *  ##### Start ImGuiWindow
+	 */
+
+	public static boolean GetWindowSkipItem() {
+		return ImGuiInternalNative.GetWindowSkipItem();
+	}
+
+	/**
+	 *  ##### End ImGuiWindow
+	 */
+
+	/**
+	 *  ##### Start ImGuiContext
+	 */
+
+	public static double GetContextTime() {
+		return ImGuiInternalNative.GetContextTime();
+	}
+
+	/**
+	 * ##### End ImGuiContext
+	 */
+
+
+
 	// Helper methods
 
 	/** Packs the color components into a 32-bit integer with the format ABGR. Note that no range checking is performed for higher
