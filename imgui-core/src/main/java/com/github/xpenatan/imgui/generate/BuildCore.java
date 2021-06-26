@@ -32,13 +32,20 @@ public class BuildCore {
 				genLinux(buildConfig, projectPath, headerDir, includes),
 				genMac(buildConfig, projectPath, headerDir, includes));
 
-		if(isWindows() || isUnix())
-			BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "postcompile");
-		if(isUnix())
-			BuildExecutor.executeAnt("jni/build-linux64.xml", "-v", "-Dhas-compiler=true", "postcompile");
-		if(isMac())
-			BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v", "-Dhas-compiler=true");
-		BuildExecutor.executeAnt("jni/build.xml", "-v", "pack-natives");
+		if(isWindows() || isUnix()) {
+			if(!BuildExecutor.executeAnt("jni/build-windows64.xml", "-v", "-Dhas-compiler=true", "postcompile"))
+				throw new RuntimeException();
+		}
+		if(isUnix()) {
+			if(!BuildExecutor.executeAnt("jni/build-linux64.xml", "-v", "-Dhas-compiler=true", "postcompile"))
+				throw new RuntimeException();
+		}
+		if(isMac()) {
+			if(!BuildExecutor.executeAnt("jni/build-macosx64.xml", "-v", "-Dhas-compiler=true"))
+				throw new RuntimeException();
+		}
+		if(!BuildExecutor.executeAnt("jni/build.xml", "-v", "pack-natives"))
+			throw new RuntimeException();
 	}
 
 	private static BuildTarget genWindows(BuildConfig buildConfig, String projectPath, String[] headerDir, String[] includes) {
