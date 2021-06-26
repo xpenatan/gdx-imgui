@@ -31,7 +31,7 @@ public class ImGui {
 	private static boolean IMGUIINIT = false;
 	public static String TAG = "ImGui";
 
-	public static final int VERSION_CODE = 14;
+	public static final int VERSION_CODE = 15;
 
 	public static void init () {
 		init(true, true);
@@ -1716,8 +1716,8 @@ public class ImGui {
 		ImGuiInternalNative.ItemSize(x1, y1, x2, y2, text_offset_y);
 	}
 
-	public static void ItemAdd(float x1, float y1, float x2, float y2, String id) {
-		ImGuiInternalNative.ItemAdd(x1, y1, x2, y2, id);
+	public static boolean ItemAdd(float x1, float y1, float x2, float y2, String id) {
+		return ImGuiInternalNative.ItemAdd(x1, y1, x2, y2, id);
 	}
 
 	public static void PushItemFlag(ImGuiItemFlags option, boolean enabled) {
