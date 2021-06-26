@@ -635,7 +635,23 @@ public class ImGuiNative {
 
 //TODO	inline    void  PathLineToMergeDuplicate(const ImVec2& pos)                 { if (_Path.Size == 0 || memcmp(&_Path.Data[_Path.Size - 1], &pos, 8) != 0) _Path.push_back(pos); }
 //TODO	inline    void  PathFillConvex(ImU32 col)                                   { AddConvexPolyFilled(_Path.Data, _Path.Size, col); _Path.Size = 0; }  // Note: Anti-aliased filling requires points to be in clockwise order.
+
+	public static native void PathStroke(int type, int col) /*-{ }-*/; /*
+		ImDrawList* drawList = getDrawList(type);
+		drawList->PathStroke(col);
+	*/
+
+	public static native void PathStroke(int type, int col, int flags) /*-{ }-*/; /*
+		ImDrawList* drawList = getDrawList(type);
+		drawList->PathStroke(col, flags);
+	*/
+
+	public static native void PathStroke(int type, int col, int flags, float thickness) /*-{ }-*/; /*
+		ImDrawList* drawList = getDrawList(type);
+		drawList->PathStroke(col, flags, thickness);
+	*/
 //TODO	inline    void  PathStroke(ImU32 col, ImDrawFlags flags = 0, float thickness = 1.0f) { AddPolyline(_Path.Data, _Path.Size, col, flags, thickness); _Path.Size = 0; }
+
 //TODO	IMGUI_API void  PathArcTo(const ImVec2& center, float radius, float a_min, float a_max, int num_segments = 0);
 //TODO	IMGUI_API void  PathArcToFast(const ImVec2& center, float radius, int a_min_of_12, int a_max_of_12);                // Use precomputed angles for a 12 steps circle
 //TODO	IMGUI_API void  PathBezierCubicCurveTo(const ImVec2& p2, const ImVec2& p3, const ImVec2& p4, int num_segments = 0); // Cubic Bezier (4 control points)
