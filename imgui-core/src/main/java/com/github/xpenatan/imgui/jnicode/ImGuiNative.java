@@ -51,6 +51,8 @@ public class ImGuiNative {
 
 		// ImGuiStyle
 
+		jfieldID FramePaddingXID;
+		jfieldID FramePaddingYID;
 		jfieldID ItemInnerSpacingXID;
 		jfieldID ItemInnerSpacingYID;
 
@@ -107,6 +109,8 @@ public class ImGuiNative {
 
 		// ImGuiStyle Prepare IDs
 
+		FramePaddingXID = env->GetFieldID(jImGuiStyleClass, "FramePaddingX", "F");
+		FramePaddingYID = env->GetFieldID(jImGuiStyleClass, "FramePaddingY", "F");
 		ItemInnerSpacingXID = env->GetFieldID(jImGuiStyleClass, "ItemInnerSpacingX", "F");
 		ItemInnerSpacingYID = env->GetFieldID(jImGuiStyleClass, "ItemInnerSpacingY", "F");
 
@@ -209,6 +213,9 @@ public class ImGuiNative {
 		// Update ImGuiStyle
 
 		ImGuiStyle & style = ImGui::GetStyle();
+
+		env->SetFloatField (jImguiStyle, FramePaddingXID, style.FramePadding.x);
+		env->SetFloatField (jImguiStyle, FramePaddingYID, style.FramePadding.y);
 
 		env->SetFloatField (jImguiStyle, ItemInnerSpacingXID, style.ItemInnerSpacing.x);
 		env->SetFloatField (jImguiStyle, ItemInnerSpacingYID, style.ItemInnerSpacing.y);
