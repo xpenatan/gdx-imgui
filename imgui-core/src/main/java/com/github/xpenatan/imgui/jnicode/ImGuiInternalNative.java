@@ -42,6 +42,16 @@ public class ImGuiInternalNative {
 		return window->SkipItems;
 	*/
 
+	public static native float GetWindowDCCursorPosX() /*-{ }-*/; /*
+		ImGuiWindow* window = ImGui::GetCurrentWindow();
+		return window->DC.CursorPos.x;
+	*/
+
+	public static native float GetWindowDCCursorPosY() /*-{ }-*/; /*
+		ImGuiWindow* window = ImGui::GetCurrentWindow();
+		return window->DC.CursorPos.y;
+	*/
+
 	/**
 	 *  ##### End ImGuiWindow
 	 */

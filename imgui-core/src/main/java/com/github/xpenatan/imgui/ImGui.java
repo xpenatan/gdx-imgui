@@ -31,7 +31,7 @@ public class ImGui {
 	private static boolean IMGUIINIT = false;
 	public static String TAG = "ImGui";
 
-	public static final int VERSION_CODE = 16;
+	public static final int VERSION_CODE = 17;
 
 	public static void init () {
 		init(true, true);
@@ -1736,6 +1736,14 @@ public class ImGui {
 
 	public static boolean GetWindowSkipItem() {
 		return ImGuiInternalNative.GetWindowSkipItem();
+	}
+
+	public static float GetWindowDCCursorPosX() {
+		return ImGuiInternalNative.GetWindowDCCursorPosX();
+	}
+
+	public static float GetWindowDCCursorPosY() {
+		return ImGuiInternalNative.GetWindowDCCursorPosY();
 	}
 
 	/**
