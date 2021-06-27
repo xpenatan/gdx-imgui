@@ -416,6 +416,10 @@ public class ImGuiNative {
 		return ImGui::Begin(title);
 	*/
 
+	public static native boolean Begin(String title, int imGuiWindowFlags) /*-{ }-*/; /*
+		return ImGui::Begin(title, NULL, imGuiWindowFlags);
+	*/
+
 	public static native boolean Begin(String title, boolean [] p_open, int imGuiWindowFlags) /*-{ }-*/; /*
 		return ImGui::Begin(title, &p_open[0], imGuiWindowFlags);
 	*/

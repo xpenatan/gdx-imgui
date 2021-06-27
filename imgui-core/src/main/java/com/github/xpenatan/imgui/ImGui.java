@@ -31,7 +31,7 @@ public class ImGui {
 	private static boolean IMGUIINIT = false;
 	public static String TAG = "ImGui";
 
-	public static final int VERSION_CODE = 17;
+	public static final int VERSION_CODE = 18;
 
 	public static void init () {
 		init(true, true);
@@ -153,6 +153,10 @@ public class ImGui {
 
 	public static boolean Begin(String title) {
 		return ImGuiNative.Begin(title);
+	}
+
+	public static boolean Begin(String title, ImGuiWindowFlags flags) {
+		return ImGuiNative.Begin(title, flags.getValue());
 	}
 
 	public static boolean Begin(String title, ImGuiBoolean p_open, ImGuiWindowFlags flags) {
