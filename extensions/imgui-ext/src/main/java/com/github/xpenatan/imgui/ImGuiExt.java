@@ -110,6 +110,10 @@ public class ImGuiExt {
 		return ImGuiLayoutNative.BeginCollapseLayoutEx(id, title, sizeX, sizeY, ImGuiLayoutNative.defaultOptions);
 	}
 
+	public static boolean BeginCollapseLayoutEx(int id, String title, float sizeX, float sizeY) {
+		return ImGuiLayoutNative.BeginCollapseLayoutEx(id, title, sizeX, sizeY, ImGuiLayoutNative.defaultOptions);
+	}
+
 	public static boolean BeginCollapseLayoutEx(String id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options) {
 		return ImGuiLayoutNative.BeginCollapseLayoutEx(id, title, sizeX, sizeY, options);
 	}

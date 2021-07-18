@@ -565,6 +565,12 @@ bool ImGuiExt::BeginCollapseLayoutEx(const char* id, const char* title, float si
 	return ImGuiExt::PrepareCollapseLayout(title, sizeX, sizeY, options);
 }
 
+bool ImGuiExt::BeginCollapseLayoutEx(int id, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
+{
+	ImGuiExt::BeginLayoutEx(id);
+	return ImGuiExt::PrepareCollapseLayout(title, sizeX, sizeY, options);
+}
+
 bool ImGuiExt::BeginCollapseLayout(const char* id, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options)
 {
 	bool flag = ImGuiExt::BeginCollapseLayoutEx(id, title, sizeX, sizeY, options);
