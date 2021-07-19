@@ -597,8 +597,12 @@ namespace ImGuiExt
 
 		int index = ImGuiExt::EditTextF("##id3", &df1, &df2, &df3);
 
-		if (index != -1)
+		if (index != -1) {
 			cout << "Value changed index: " << index << endl;
+			cout << "isDragging 1: " << df1.isDragging << endl;
+			cout << "isDragging 2: " << df2.isDragging << endl;
+			cout << "isDragging 3: " << df3.isDragging << endl;
+		}
 
 		ImGuiExt::EditTextF("##id4", &df1, &df2, &df3, &df4);
 

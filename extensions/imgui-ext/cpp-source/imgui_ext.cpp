@@ -126,12 +126,13 @@ ImRect renderLeftLabel(ImU32 leftLabelColor, char* leftLabel) {
 }
 
 template<typename TYPE, typename SIGNEDTYPE, typename FLOATTYPE>
-bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, const EditTextData<TYPE> data) {
+bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, EditTextData<TYPE> & data) {
 
 	ImGuiContext& g = *GImGui;
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 	static int SINGLE_EDITTEXT_DRAG = 0;
-	ImU32 leftLabelColor = SINGLE_EDITTEXT_DRAG == uniqueId && data.leftLabelDragColor != 0 ? data.leftLabelDragColor : data.leftLabelColor;
+	bool isSelected = SINGLE_EDITTEXT_DRAG == uniqueId;
+	ImU32 leftLabelColor = isSelected && data.leftLabelDragColor != 0 ? data.leftLabelDragColor : data.leftLabelColor;
 
 	ImRect boundingBox = renderLeftLabel(leftLabelColor, data.leftLabel);
 	bool hovered = ImGui::IsItemHovered();
@@ -145,11 +146,16 @@ bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, c
 		SINGLE_EDITTEXT_DRAG = uniqueId;
 	}
 
-	if (SINGLE_EDITTEXT_DRAG == uniqueId && mouseDown == false) {
+	if (isSelected && mouseDown == false) {
 		SINGLE_EDITTEXT_DRAG = 0;
+
+		if (data.isDragging) {
+			data.isDragging = false;
+			return true;
+		}
 	}
 
-	if (SINGLE_EDITTEXT_DRAG == uniqueId) {
+	if (isSelected) {
 		float  adjust_delta = ImGui::GetMouseDragDelta(ImGuiMouseButton_Left, 0.0f).x;
 		ImGui::ResetMouseDragDelta(ImGuiMouseButton_Left);
 
@@ -236,10 +242,12 @@ bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, c
 					v_cur = v_max;
 			}
 			// Apply result
-			if (*v == v_cur)
+			if (*v == v_cur) {
 				return false;
+			}
 			else {
 				*v = v_cur;
+				data.isDragging = true;
 				return true;
 			}
 		}
@@ -276,8 +284,6 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 	ImGui::BeginGroup();
 	bool ret = false;
 
-	data->isDragging = false;
-
 	if (data->leftLabel != NULL) {
 		unsigned int uniqueId = window->GetIDNoKeepAlive(id);
 		float power = 1.0f;
@@ -287,17 +293,11 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 			case ImGuiDataType_Float: { 
 				float* val = (float*)&data->value;
 				ret = renderEdittextLabel<float, float, float >(uniqueId, ImGuiDataType_Float, val, *(EditTextData<float>*)data);
-				if(ret) {
-					data->isDragging = true;
-				}
 				ImGui::SameLine(0, 0);
 				break;
 			}
 			case ImGuiDataType_S32: { 
 				ret = renderEdittextLabel<ImS32, ImS32, float >(uniqueId, ImGuiDataType_S32, (ImS32*)&data->value, *(EditTextData<ImS32>*)data);
-				if(ret) {
-					data->isDragging = true;
-				}
 				ImGui::SameLine(0, 0);
 				break;
 			}
@@ -443,7 +443,7 @@ int ImGuiExt::EditText(const char* id, int size, ImGuiDataType data_type, intptr
 			ImGui::TableNextColumn();
 			EditTextData<TYPE>* data = (EditTextData<TYPE> *)dataArray[i];
 			if (singleEdittext(i + 1, data_type, data, inputFlags))
-				retFlags = i;	
+				retFlags = i;
 		}
 		ImGui::EndTable();
 	}
