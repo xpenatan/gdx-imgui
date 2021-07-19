@@ -130,8 +130,9 @@ bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, E
 
 	ImGuiContext& g = *GImGui;
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
-	static int SINGLE_EDITTEXT_DRAG = 0;
-	bool isSelected = SINGLE_EDITTEXT_DRAG == uniqueId;
+	static int SINGLE_EDITTEXT_DRAG_ID = 0;
+	static bool SINGLE_EDITTEXT_DRAG = 0;
+	bool isSelected = SINGLE_EDITTEXT_DRAG_ID == uniqueId;
 	ImU32 leftLabelColor = isSelected && data.leftLabelDragColor != 0 ? data.leftLabelDragColor : data.leftLabelColor;
 
 	ImRect boundingBox = renderLeftLabel(leftLabelColor, data.leftLabel);
@@ -140,16 +141,17 @@ bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, E
 	bool mouseDown = ImGui::IsMouseDown(ImGuiMouseButton_Left);
 	const bool clicked = (hovered && g.IO.MouseClicked[0]) && data_type != -1;
 
-	if (!isDisabled && clicked && hovered && SINGLE_EDITTEXT_DRAG == 0) {
+	if (!isDisabled && clicked && hovered && SINGLE_EDITTEXT_DRAG_ID == 0) {
 		ImGui::SetActiveID(uniqueId, window);
 		ImGui::FocusWindow(window);
-		SINGLE_EDITTEXT_DRAG = uniqueId;
+		SINGLE_EDITTEXT_DRAG_ID = uniqueId;
 	}
 
 	if (isSelected && mouseDown == false) {
-		SINGLE_EDITTEXT_DRAG = 0;
+		SINGLE_EDITTEXT_DRAG_ID = 0;
 
-		if (data.isDragging) {
+		if (SINGLE_EDITTEXT_DRAG) {
+			SINGLE_EDITTEXT_DRAG = false;
 			data.isDragging = false;
 			return true;
 		}
@@ -248,6 +250,7 @@ bool renderEdittextLabel(const int uniqueId, ImGuiDataType data_type, TYPE* v, E
 			else {
 				*v = v_cur;
 				data.isDragging = true;
+				SINGLE_EDITTEXT_DRAG = true;
 				return true;
 			}
 		}

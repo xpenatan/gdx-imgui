@@ -157,6 +157,8 @@ public class SimpleExample implements ApplicationListener
 
 	private void renderTabImGuiViews() {
 
+		ImGui.Text("jDear-ImGui VersionCode: " + ImGui.VERSION_CODE);
+
 		if (ImGui.BeginTable("split2", 2, ImGuiTableFlags.Sortable)) {
 			ImGui.TableSetupColumn("A0", ImGuiTableColumnFlags.PreferSortAscending);
 			ImGui.TableSetupColumn("A1", ImGuiTableColumnFlags.PreferSortAscending);
@@ -281,8 +283,10 @@ public class SimpleExample implements ApplicationListener
 		int index = ImGuiExt.EditTextF("##1", dF1, dF2, dF3);
 
 		if(index != -1) {
-			System.out.println("dF1.isDragging: " + dF1.isDragging);
 			System.out.println("index: " + index);
+			System.out.println("dF1.isDragging: " + dF1.isDragging);
+			System.out.println("dF2.isDragging: " + dF2.isDragging);
+			System.out.println("dF3.isDragging: " + dF3.isDragging);
 		}
 
 		dI3.v_min = -25;
