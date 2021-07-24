@@ -15,4 +15,5 @@ public class ImGuiCollapseLayoutOptions {
 	public int borderColor = ImGui.ColorToIntBits(0x40, 0x40, 0x49, 0xFF);
 	public int borderRound = 4;
 	public int roundingCorners = ImDrawCornerFlags.TopLeft.or(ImDrawCornerFlags.TopRight).getValue();
+	public boolean openDefault = false;
 }

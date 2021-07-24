@@ -102,6 +102,7 @@ public:
 	ImU32 borderColor;
 	int borderRound;
 	int roundingCorners;
+	bool openDefault;
 
 	ImGuiCollapseLayoutOptions();
 	ImGuiCollapseLayoutOptions(float paddingLeft, float paddingRight, float paddingTop, float paddingBottom);

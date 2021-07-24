@@ -22,6 +22,7 @@ public class ImGuiLayoutNative {
 		jfieldID borderColorID;
 		jfieldID borderRoundID;
 		jfieldID roundingCornersID;
+		jfieldID openDefaultID;
 
 		jfieldID positionXID;
 		jfieldID positionYID;
@@ -55,6 +56,7 @@ public class ImGuiLayoutNative {
 		borderColorID = env->GetFieldID(jLayoutOptionsClass, "borderColor", "I");
 		borderRoundID = env->GetFieldID(jLayoutOptionsClass, "borderRound", "I");
 		roundingCornersID = env->GetFieldID(jLayoutOptionsClass, "roundingCorners", "I");
+		openDefaultID = env->GetFieldID(jLayoutOptionsClass, "openDefault", "I");
 
 		positionXID = env->GetFieldID(jLayoutClass, "positionX", "F");
 		positionYID = env->GetFieldID(jLayoutClass, "positionY", "F");
@@ -131,6 +133,7 @@ public class ImGuiLayoutNative {
 			options.borderColor = env->GetIntField (jOptions, borderColorID);
 			options.borderRound = env->GetIntField (jOptions, borderRoundID);
 			options.roundingCorners = env->GetIntField (jOptions, roundingCornersID);
+			options.openDefault = env->GetBooleanField (jOptions, openDefaultID);
 		}
 	*/
 

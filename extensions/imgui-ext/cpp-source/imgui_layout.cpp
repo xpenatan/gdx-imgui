@@ -514,7 +514,7 @@ bool ImGuiExt::PrepareCollapseLayout(const char* title, float sizeX, float sizeY
 
 	float frameHeight = ImGui::GetFrameHeight();
 
-	bool flag = rootLayout->map.GetBool(OPEN_KEY, true);
+	bool flag = rootLayout->map.GetBool(OPEN_KEY, options.openDefault);
 	bool* isOpen = &flag;
 
 	sizeY = *isOpen ? sizeY : ImLayout::WRAP_PARENT;
