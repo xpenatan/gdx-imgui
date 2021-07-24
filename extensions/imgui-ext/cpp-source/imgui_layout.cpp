@@ -699,5 +699,5 @@ ImRect ImGuiExt::EndBoundingBox() {
 	ImGuiContext& g = *GImGui;
 	ImGuiWindow* window = g.CurrentWindow;
 	ImGui::EndGroup();
-	return window->DC.LastItemRect;
+	return g.LastItemData.Rect;
 }
