@@ -56,7 +56,7 @@ public class ImGuiLayoutNative {
 		borderColorID = env->GetFieldID(jLayoutOptionsClass, "borderColor", "I");
 		borderRoundID = env->GetFieldID(jLayoutOptionsClass, "borderRound", "I");
 		roundingCornersID = env->GetFieldID(jLayoutOptionsClass, "roundingCorners", "I");
-		openDefaultID = env->GetFieldID(jLayoutOptionsClass, "openDefault", "I");
+		openDefaultID = env->GetFieldID(jLayoutOptionsClass, "openDefault", "Z");
 
 		positionXID = env->GetFieldID(jLayoutClass, "positionX", "F");
 		positionYID = env->GetFieldID(jLayoutClass, "positionY", "F");
