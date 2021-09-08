@@ -149,6 +149,12 @@ public class ImGuiLayoutNative {
 		return ImGuiExt::BeginCollapseLayoutEx(id, title, sizeX, sizeY, options);
 	*/
 
+	public static native boolean BeginCollapseLayoutEx(int id, byte[] title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+		ImGuiCollapseLayoutOptions options;
+		configOptions(env, options, jOptions);
+		return ImGuiExt::BeginCollapseLayoutEx(id, title, sizeX, sizeY, options);
+	*/
+
 	public static native void BeginCollapseLayoutEx(String id, boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
 		ImGuiCollapseLayoutOptions options;
 		configOptions(env, options, jOptions);
