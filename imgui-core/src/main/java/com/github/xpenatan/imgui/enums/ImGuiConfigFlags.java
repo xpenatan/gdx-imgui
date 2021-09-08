@@ -13,6 +13,9 @@ public class ImGuiConfigFlags {
 	public static ImGuiConfigFlags NoMouse = new ImGuiConfigFlags(1 << 4);
 	public static ImGuiConfigFlags NoMouseCursorChange = new ImGuiConfigFlags(1 << 5);
 	public static ImGuiConfigFlags DockingEnable = new ImGuiConfigFlags(1 << 6);
+	public static ImGuiConfigFlags ViewportsEnable = new ImGuiConfigFlags(1 << 10);
+	public static ImGuiConfigFlags DpiEnableScaleViewports = new ImGuiConfigFlags(1 << 14);
+	public static ImGuiConfigFlags DpiEnableScaleFonts = new ImGuiConfigFlags(1 << 15);
 	public static ImGuiConfigFlags IsSRGB = new ImGuiConfigFlags(1 << 20);
 	public static ImGuiConfigFlags IsTouchScreen = new ImGuiConfigFlags(1 << 21);
 

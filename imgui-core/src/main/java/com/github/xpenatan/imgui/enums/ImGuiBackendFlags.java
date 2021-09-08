@@ -10,6 +10,9 @@ public class ImGuiBackendFlags {
 	public static ImGuiBackendFlags HasMouseCursors = new ImGuiBackendFlags(1 << 1);
 	public static ImGuiBackendFlags HasSetMousePos = new ImGuiBackendFlags(1 << 2);
 	public static ImGuiBackendFlags RendererHasVtxOffset = new ImGuiBackendFlags(1 << 3);
+	public static ImGuiBackendFlags PlatformHasViewports = new ImGuiBackendFlags(1 << 10);
+	public static ImGuiBackendFlags HasMouseHoveredViewport = new ImGuiBackendFlags(1 << 11);
+	public static ImGuiBackendFlags RendererHasViewports = new ImGuiBackendFlags(1 << 12);
 
 	int value;
 

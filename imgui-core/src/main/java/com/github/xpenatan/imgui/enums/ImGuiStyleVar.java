@@ -1,30 +1,31 @@
 package com.github.xpenatan.imgui.enums;
 
 public enum ImGuiStyleVar {
-	Alpha(0),
-	WindowPadding(1),
-	WindowRounding(2),
-	WindowBorderSize(3),
-	WindowMinSize(4),
-	WindowTitleAlign(5),
-	ChildRounding(6),
-	ChildBorderSize(7),
-	PopupRounding(8),
-	PopupBorderSize(9),
-	FramePadding(10),
-	FrameRounding(11),
-	ImGuiStyleVar_FrameBorderSize(12),
-	ItemSpacing(13),
-	ItemInnerSpacing(14),
-	IndentSpacing(15),
-	ScrollbarSize(16),
-	ScrollbarRounding(17),
-	GrabMinSize(18),
-	GrabRounding(19),
-	TabRounding(20),
-	ButtonTextAlign(21),
-	SelectableTextAlign(22),
-	COUNT(23);
+	Alpha(0),                // float     Alpha
+	WindowPadding(1),        // ImVec2    WindowPadding
+	WindowRounding(2),       // float     WindowRounding
+	WindowBorderSize(3),     // float     WindowBorderSize
+	WindowMinSize(4),        // ImVec2    WindowMinSize
+	WindowTitleAlign(5),     // ImVec2    WindowTitleAlign
+	ChildRounding(6),        // float     ChildRounding
+	ChildBorderSize(7),      // float     ChildBorderSize
+	PopupRounding(8),        // float     PopupRounding
+	PopupBorderSize(9),      // float     PopupBorderSize
+	FramePadding(10),        // ImVec2    FramePadding
+	FrameRounding(11),       // float     FrameRounding
+	FrameBorderSize(12),     // float     FrameBorderSize
+	ItemSpacing(13),         // ImVec2    ItemSpacing
+	ItemInnerSpacing(14),    // ImVec2    ItemInnerSpacing
+	IndentSpacing(15),       // float     IndentSpacing
+	CellPadding(16),         // ImVec2    CellPadding
+	ScrollbarSize(17),       // float     ScrollbarSize
+	ScrollbarRounding(18),   // float     ScrollbarRounding
+	GrabMinSize(19),         // float     GrabMinSize
+	GrabRounding(20),        // float     GrabRounding
+	TabRounding(21),         // float     TabRounding
+	ButtonTextAlign(22),     // ImVec2    ButtonTextAlign
+	SelectableTextAlign(23), // ImVec2    SelectableTextAlign
+	COUNT(24);
 
 	int value;
 

@@ -27,29 +27,31 @@ public class ImGuiTableFlags {
 	public static ImGuiTableFlags NoBordersInBodyUntilResize = new ImGuiTableFlags(1 << 12);
 
 	// Sizing Policy
-	public static ImGuiTableFlags SizingPolicyFixed = new ImGuiTableFlags(1 << 13);
-	public static ImGuiTableFlags SizingPolicyStretch = new ImGuiTableFlags(1 << 14);
+	public static ImGuiTableFlags SizingFixedFit = new ImGuiTableFlags(1 << 13);
+	public static ImGuiTableFlags SizingFixedSame = new ImGuiTableFlags(2 << 13);
+	public static ImGuiTableFlags SizingStretchProp = new ImGuiTableFlags(3 << 13);
+	public static ImGuiTableFlags SizingStretchSame = new ImGuiTableFlags(4 << 13);
 
 	// Sizing Extra Options
-	public static ImGuiTableFlags SameWidths = new ImGuiTableFlags(1 << 15);
-	public static ImGuiTableFlags NoHostExtendY = new ImGuiTableFlags(1 << 16);
-	public static ImGuiTableFlags NoKeepColumnsVisible = new ImGuiTableFlags(1 << 17);
-	public static ImGuiTableFlags PreciseWidths = new ImGuiTableFlags(1 << 18);
+	public static ImGuiTableFlags NoHostExtendX = new ImGuiTableFlags(1 << 16);
+	public static ImGuiTableFlags NoHostExtendY = new ImGuiTableFlags(1 << 17);
+	public static ImGuiTableFlags NoKeepColumnsVisible = new ImGuiTableFlags(1 << 18);
+	public static ImGuiTableFlags PreciseWidths = new ImGuiTableFlags(1 << 19);
 
 	// Clipping
-	public static ImGuiTableFlags NoClip = new ImGuiTableFlags(1 << 19);
+	public static ImGuiTableFlags NoClip = new ImGuiTableFlags(1 << 20);
 
 	// Padding
-	public static ImGuiTableFlags PadOuterX = new ImGuiTableFlags(1 << 20);
-	public static ImGuiTableFlags NoPadOuterX = new ImGuiTableFlags(1 << 21);
-	public static ImGuiTableFlags NoPadInnerX = new ImGuiTableFlags(1 << 22);
+	public static ImGuiTableFlags PadOuterX = new ImGuiTableFlags(1 << 21);
+	public static ImGuiTableFlags NoPadOuterX = new ImGuiTableFlags(1 << 22);
+	public static ImGuiTableFlags NoPadInnerX = new ImGuiTableFlags(1 << 23);
 
 	// Scrolling
-	public static ImGuiTableFlags ScrollX = new ImGuiTableFlags(1 << 23);
-	public static ImGuiTableFlags ScrollY = new ImGuiTableFlags(1 << 24);
-
-	public static ImGuiTableFlags SortMulti = new ImGuiTableFlags(1 << 25);
-	public static ImGuiTableFlags SortTristate = new ImGuiTableFlags(1 << 26);
+	public static ImGuiTableFlags ScrollX = new ImGuiTableFlags(1 << 24);
+	public static ImGuiTableFlags ScrollY = new ImGuiTableFlags(1 << 25);
+	// Sorting
+	public static ImGuiTableFlags SortMulti = new ImGuiTableFlags(1 << 26);
+	public static ImGuiTableFlags SortTristate = new ImGuiTableFlags(1 << 27);
 
 	int value;
 

@@ -418,7 +418,7 @@ public class ImGui {
 	}
 
 	public static void PushStyleVar(ImGuiStyleVar idx, float val) {
-		ImGuiNative.PushStyleVar(idx.getValue(), val);
+		ImGuiNative.PushStyleVar(idx.	getValue(), val);
 	}
 
 	public static void PushStyleVar(ImGuiStyleVar idx, float valX, float valY) {

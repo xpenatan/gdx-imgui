@@ -3,16 +3,12 @@ package com.github.xpenatan.imgui.enums;
 public enum ImGuiCol {
 	Text(0),
 	TextDisabled(1),
-	/** Background of normal windows */
-	WindowBg(2),
-	/** Background of child windows */
-	ChildBg(3),
-	/** Background of popups, menus, tooltips windows */
-	PopupBg(4),
+	WindowBg(2),              // Background of normal windows
+	ChildBg(3),               // Background of child windows
+	PopupBg(4),               // Background of popups, menus, tooltips windows
 	Border(5),
 	BorderShadow(6),
-	/** Background of checkbox, radio button, plot, slider, text input */
-	FrameBg(7),
+	FrameBg(7),               // Background of checkbox, radio button, plot, slider, text input
 	FrameBgHovered(8),
 	FrameBgActive(9),
 	TitleBg(10),
@@ -29,7 +25,7 @@ public enum ImGuiCol {
 	Button(21),
 	ButtonHovered(22),
 	ButtonActive(23),
-	Header(24),
+	Header(24),                // Header* colors are used for CollapsingHeader, TreeNode, Selectable, MenuItem
 	HeaderHovered(25),
 	HeaderActive(26),
 	Separator(27),
@@ -43,23 +39,24 @@ public enum ImGuiCol {
 	TabActive(35),
 	TabUnfocused(36),
 	TabUnfocusedActive(37),
-	DockingPreview(38),
-	DockingEmptyBg(39),
+	DockingPreview(38),        // Preview overlay color when about to docking something
+	DockingEmptyBg(39),        // Background color for empty node (e.g. CentralNode with no window docked into it)
 	PlotLines(40),
 	PlotLinesHovered(41),
 	PlotHistogram(42),
 	PlotHistogramHovered(43),
-	TextSelectedBg(44),
-	DragDropTarget(45),
-	/** Gamepad/keyboard: current highlighted item */
-	NavHighlight(46),
-	/** Highlight window when using CTRL+TAB */
-	NavWindowingHighlight(47),
-	/** Darken/colorize entire screen behind the CTRL+TAB window list, when active */
-	NavWindowingDimBg(48),
-	/** Darken/colorize entire screen behind a modal window, when one is active */
-	ModalWindowDimBg(49),
-	COUNT(48);
+	TableHeaderBg(44),         // Table header background
+	TableBorderStrong(45),     // Table outer and header borders (prefer using Alpha=1.0 here)
+	TableBorderLight(46),      // Table inner borders (prefer using Alpha=1.0 here)
+	TableRowBg(47),            // Table row background (even rows)
+	TableRowBgAlt(48),         // Table row background (odd rows)
+	TextSelectedBg(49),
+	DragDropTarget(50),
+	NavHighlight(51),          // Gamepad/keyboard: current highlighted item
+	NavWindowingHighlight(52), // Highlight window when using CTRL+TAB
+	NavWindowingDimBg(53),     // Darken/colorize entire screen behind the CTRL+TAB window list, when active
+	ModalWindowDimBg(54),      // Darken/colorize entire screen behind a modal window, when one is active
+	COUNT(55);
 
 	int value;
 
