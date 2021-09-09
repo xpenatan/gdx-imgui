@@ -1,31 +1,32 @@
 package com.github.xpenatan.imgui.enums;
 
 public enum ImGuiStyleVar {
-	Alpha(0),                // float     Alpha
-	WindowPadding(1),        // ImVec2    WindowPadding
-	WindowRounding(2),       // float     WindowRounding
-	WindowBorderSize(3),     // float     WindowBorderSize
-	WindowMinSize(4),        // ImVec2    WindowMinSize
-	WindowTitleAlign(5),     // ImVec2    WindowTitleAlign
-	ChildRounding(6),        // float     ChildRounding
-	ChildBorderSize(7),      // float     ChildBorderSize
-	PopupRounding(8),        // float     PopupRounding
-	PopupBorderSize(9),      // float     PopupBorderSize
-	FramePadding(10),        // ImVec2    FramePadding
-	FrameRounding(11),       // float     FrameRounding
-	FrameBorderSize(12),     // float     FrameBorderSize
-	ItemSpacing(13),         // ImVec2    ItemSpacing
-	ItemInnerSpacing(14),    // ImVec2    ItemInnerSpacing
-	IndentSpacing(15),       // float     IndentSpacing
-	CellPadding(16),         // ImVec2    CellPadding
-	ScrollbarSize(17),       // float     ScrollbarSize
-	ScrollbarRounding(18),   // float     ScrollbarRounding
-	GrabMinSize(19),         // float     GrabMinSize
-	GrabRounding(20),        // float     GrabRounding
-	TabRounding(21),         // float     TabRounding
-	ButtonTextAlign(22),     // ImVec2    ButtonTextAlign
-	SelectableTextAlign(23), // ImVec2    SelectableTextAlign
-	COUNT(24);
+	Alpha(0),               // float     Alpha
+	DisabledAlpha(1),       // float     DisabledAlpha
+	WindowPadding(2),       // ImVec2    WindowPadding
+	WindowRounding(3),      // float     WindowRounding
+	WindowBorderSize(4),    // float     WindowBorderSize
+	WindowMinSize(5),       // ImVec2    WindowMinSize
+	WindowTitleAlign(6),    // ImVec2    WindowTitleAlign
+	ChildRounding(7),       // float     ChildRounding
+	ChildBorderSize(8),     // float     ChildBorderSize
+	PopupRounding(9),       // float     PopupRounding
+	PopupBorderSize(10),     // float     PopupBorderSize
+	FramePadding(11),        // ImVec2    FramePadding
+	FrameRounding(12),       // float     FrameRounding
+	FrameBorderSize(13),     // float     FrameBorderSize
+	ItemSpacing(14),         // ImVec2    ItemSpacing
+	ItemInnerSpacing(15),    // ImVec2    ItemInnerSpacing
+	IndentSpacing(16),       // float     IndentSpacing
+	CellPadding(17),         // ImVec2    CellPadding
+	ScrollbarSize(18),       // float     ScrollbarSize
+	ScrollbarRounding(19),   // float     ScrollbarRounding
+	GrabMinSize(20),         // float     GrabMinSize
+	GrabRounding(21),        // float     GrabRounding
+	TabRounding(22),         // float     TabRounding
+	ButtonTextAlign(23),     // ImVec2    ButtonTextAlign
+	SelectableTextAlign(24), // ImVec2    SelectableTextAlign
+	COUNT(25);
 
 	int value;
 

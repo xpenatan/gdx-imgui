@@ -31,7 +31,7 @@ public class ImGui {
 	private static boolean IMGUIINIT = false;
 	public static String TAG = "ImGui";
 
-	public static final int VERSION_CODE = 28;
+	public static final int VERSION_CODE = 29;
 
 	public static void init () {
 		init(true, true);
