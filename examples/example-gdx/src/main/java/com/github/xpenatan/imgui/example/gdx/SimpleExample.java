@@ -69,6 +69,8 @@ public class SimpleExample implements ApplicationListener
 	EditTextIntData dI3 = new EditTextIntData("Z:", "Tooltip 03");
 	EditTextStringData dS1 = new EditTextStringData("S:", "Tooltip String");
 
+	private String dragDropValue;
+
 	boolean init = false;
 	@Override
 	public void create () {
@@ -185,9 +187,7 @@ public class SimpleExample implements ApplicationListener
 			ImGui.EndTable();
 		}
 
-
-
-		ImGui.Text("MyText");
+		testDragAndDrop();
 
 		if (ImGui.TreeNode("Parent 01")) {
 			for (int i = 0; i < 5; i++) {
@@ -207,6 +207,7 @@ public class SimpleExample implements ApplicationListener
 			}
 			ImGui.TreePop();
 		}
+
 		if (ImGui.TreeNode("Parent 02")) {
 			ImGui.TreePop();
 		}
@@ -267,6 +268,54 @@ public class SimpleExample implements ApplicationListener
 			if (ImGui.Button("Close"))
 				ImGui.CloseCurrentPopup();
 
+			ImGui.EndPopup();
+		}
+	}
+
+	private void testDragAndDrop() {
+		ImGui.Button("DragMe Integer");
+		if (ImGui.BeginDragDropSource())
+		{
+			ImGui.SetDragDropPayload("DND_DEMO_CELL", 100);
+			ImGui.Text("This is a drag and drop source");
+			ImGui.EndDragDropSource();
+		}
+
+		ImGui.Button("DragMe String");
+		if (ImGui.BeginDragDropSource())
+		{
+			ImGui.SetDragDropPayload("DND_DEMO_CELL", "MyCoolText");
+			ImGui.Text("This is a drag and drop source");
+			ImGui.EndDragDropSource();
+		}
+
+		ImGui.Button("Drop Here");
+		if (ImGui.BeginDragDropTarget())
+		{
+			Integer intValue = ImGui.AcceptDragDropPayload("DND_DEMO_CELL", Integer.class);
+			if(intValue != null) {
+				dragDropValue = String.valueOf(intValue);
+				ImGui.OpenPopup("ShowModal");
+			}
+			String stringValue = ImGui.AcceptDragDropPayload("DND_DEMO_CELL", String.class);
+			if(stringValue != null) {
+				dragDropValue = stringValue;
+				ImGui.OpenPopup("ShowModal");
+			}
+
+			Integer currentIntValue = ImGui.GetDragDropPayload(Integer.class);
+			String currentStringValue = ImGui.GetDragDropPayload(String.class);
+
+			System.out.println("currentIntValue: " + currentIntValue);
+			System.out.println("currentStringValue: " + currentStringValue);
+
+			ImGui.EndDragDropTarget();
+		}
+		if (ImGui.BeginPopupModal("ShowModal", ImGuiWindowFlags.AlwaysAutoResize)) {
+			ImGui.Text(dragDropValue);
+			if (ImGui.Button("OK", 120, 0)) {
+				ImGui.CloseCurrentPopup();
+			}
 			ImGui.EndPopup();
 		}
 	}

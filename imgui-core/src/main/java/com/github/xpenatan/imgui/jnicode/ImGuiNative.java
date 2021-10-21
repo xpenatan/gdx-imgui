@@ -2162,6 +2162,37 @@ public class ImGuiNative {
 //		ImGui::DockSpace(id, ImVec2(sizeX, sizeY), flags);
 	*/
 
+	// Drag and Drop
+
+	public static native boolean BeginDragDropSource(int flags) /*-{ }-*/; /*
+		return ImGui::BeginDragDropSource(flags);
+	*/
+
+	public static native boolean SetDragDropPayload(String type) /*-{ }-*/; /*
+		char myByte = 0;
+		return ImGui::SetDragDropPayload(type, &myByte, 1);
+	*/
+
+	public static native void EndDragDropSource() /*-{ }-*/; /*
+		ImGui::EndDragDropSource();
+	*/
+
+	public static native boolean BeginDragDropTarget() /*-{ }-*/; /*
+		return ImGui::BeginDragDropTarget();
+	*/
+
+	public static native boolean AcceptDragDropPayload(String type, int flags) /*-{ }-*/; /*
+		return ImGui::AcceptDragDropPayload(type, flags) != NULL;
+	*/
+
+	public static native void EndDragDropTarget() /*-{ }-*/; /*
+		ImGui::EndDragDropTarget();
+	*/
+
+	public static native boolean HasDragDropPayloadData(); /*
+        return ImGui::GetDragDropPayload()->Data != NULL;
+    */
+
 	// Focus, Activation
 	// - Prefer using "SetItemDefaultFocus()" over "if (IsWindowAppearing()) SetScrollHereY()" when applicable to signify "this is the default item"
 

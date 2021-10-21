@@ -1,26 +1,11 @@
 package com.github.xpenatan.imgui;
 
+import java.lang.ref.WeakReference;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 
 import com.badlogic.gdx.utils.SharedLibraryLoader;
-import com.github.xpenatan.imgui.enums.ImGuiCol;
-import com.github.xpenatan.imgui.enums.ImGuiComboFlags;
-import com.github.xpenatan.imgui.enums.ImGuiCond;
-import com.github.xpenatan.imgui.enums.ImGuiDataType;
-import com.github.xpenatan.imgui.enums.ImGuiDir;
-import com.github.xpenatan.imgui.enums.ImGuiDockNodeFlags;
-import com.github.xpenatan.imgui.enums.ImGuiFocusedFlags;
-import com.github.xpenatan.imgui.enums.ImGuiHoveredFlags;
-import com.github.xpenatan.imgui.enums.ImGuiInputTextFlags;
-import com.github.xpenatan.imgui.enums.ImGuiItemFlags;
-import com.github.xpenatan.imgui.enums.ImGuiStyleVar;
-import com.github.xpenatan.imgui.enums.ImGuiTabBarFlags;
-import com.github.xpenatan.imgui.enums.ImGuiTabItemFlags;
-import com.github.xpenatan.imgui.enums.ImGuiTableColumnFlags;
-import com.github.xpenatan.imgui.enums.ImGuiTableFlags;
-import com.github.xpenatan.imgui.enums.ImGuiTreeNodeFlags;
-import com.github.xpenatan.imgui.enums.ImGuiWindowFlags;
+import com.github.xpenatan.imgui.enums.*;
 import com.github.xpenatan.imgui.jnicode.ImGuiInternalNative;
 import com.github.xpenatan.imgui.jnicode.ImGuiNative;
 import com.github.xpenatan.imgui.util.CharSequenceHelper;
@@ -31,7 +16,7 @@ public class ImGui {
 	private static boolean IMGUIINIT = false;
 	public static String TAG = "ImGui";
 
-	public static final int VERSION_CODE = 29;
+	public static final int VERSION_CODE = 30;
 
 	public static void init () {
 		init(true, true);
@@ -1562,6 +1547,66 @@ public class ImGui {
 
 	public static void DockSpace(int id, float sizeX, float sizeY, ImGuiDockNodeFlags flags) {
 		ImGuiNative.DockSpace(id, sizeX, sizeY, flags.getValue());
+	}
+
+	// Drag and Drop
+
+	private static WeakReference<Object> dragDropData = null;
+
+	public static boolean BeginDragDropSource() {
+		return ImGuiNative.BeginDragDropSource(0);
+	}
+
+	public static boolean BeginDragDropSource(ImGuiDragDropFlags flags) {
+		return ImGuiNative.BeginDragDropSource(flags.getValue());
+	}
+
+	public static boolean SetDragDropPayload(String type, Object data) {
+		if (dragDropData == null || dragDropData.get() != data) {
+			dragDropData = new WeakReference<>(data);
+		}
+		return ImGuiNative.SetDragDropPayload(type);
+	}
+
+	public static void EndDragDropSource() {
+		ImGuiNative.EndDragDropSource();
+	}
+
+	public static boolean BeginDragDropTarget() {
+		return ImGuiNative.BeginDragDropTarget();
+	}
+
+	public static <T> T AcceptDragDropPayload(String type, Class<T> classType) {
+		return AcceptDragDropPayload(type, classType, ImGuiDragDropFlags.None);
+	}
+
+	public static <T> T AcceptDragDropPayload(String type, Class<T> classType, ImGuiDragDropFlags flags) {
+		if(ImGuiNative.AcceptDragDropPayload(type, flags.getValue())) {
+			if(dragDropData != null) {
+				Object data = dragDropData.get();
+				if(data != null && data.getClass() == classType) {
+					return (T)data;
+				}
+			}
+		}
+		return null;
+	}
+
+	public static void EndDragDropTarget() {
+		ImGuiNative.EndDragDropTarget();
+	}
+
+	/**
+	 * Peek directly into the current payload from anywhere. may return NULL
+	 */
+	public static <T> T GetDragDropPayload( Class<T> classType) {
+		if(dragDropData != null && ImGuiNative.HasDragDropPayloadData()) {
+			Object data = dragDropData.get();
+			if(data != null && data.getClass() == classType) {
+				return (T)data;
+			}
+		}
+		return null;
 	}
 
 	// Focus, Activation
