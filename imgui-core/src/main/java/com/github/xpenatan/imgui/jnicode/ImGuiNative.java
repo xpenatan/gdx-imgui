@@ -234,7 +234,7 @@ public class ImGuiNative {
 	*/
 
 	public static native void updateScroll(float amountX, float amountY) /*-{ }-*/; /*
-		 ImGuiIO& io = ImGui::GetIO();
+		ImGuiIO& io = ImGui::GetIO();
 		io.MouseWheelH -= amountX;
 		io.MouseWheel -= amountY;
 	 */
@@ -2336,6 +2336,13 @@ public class ImGuiNative {
 
 	public static native boolean IsMouseHoveringRect(float minX, float minY, float maxX, float maxY, boolean clip) /*-{ }-*/; /*
 		return ImGui::IsMouseHoveringRect(ImVec2(minX, minY), ImVec2(maxX, maxY), clip);
+	*/
+
+	// ImGuiIO setters
+
+	public static native void SetFontGlobalScale(float scale) /*-{ }-*/; /*
+		ImGuiIO& io = ImGui::GetIO();
+		io.FontGlobalScale = scale;
 	*/
 
 
