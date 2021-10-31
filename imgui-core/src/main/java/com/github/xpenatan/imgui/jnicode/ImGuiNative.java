@@ -154,12 +154,11 @@ public class ImGuiNative {
 	*/
 
 	public static native void SetDockingFlags(boolean ConfigDockingNoSplit, boolean ConfigDockingWithShift, boolean ConfigDockingAlwaysTabBar, boolean ConfigDockingTransparentPayload) /*-{ }-*/; /*
-		//TODO reenable it when docking is avaliable
 		ImGuiIO& io = ImGui::GetIO();
-//		io.ConfigDockingNoSplit = ConfigDockingNoSplit;
-//		io.ConfigDockingWithShift = ConfigDockingWithShift;
-//		io.ConfigDockingAlwaysTabBar = ConfigDockingAlwaysTabBar;
-//		io.ConfigDockingTransparentPayload = ConfigDockingTransparentPayload;
+		io.ConfigDockingNoSplit = ConfigDockingNoSplit;
+		io.ConfigDockingWithShift = ConfigDockingWithShift;
+		io.ConfigDockingAlwaysTabBar = ConfigDockingAlwaysTabBar;
+		io.ConfigDockingTransparentPayload = ConfigDockingTransparentPayload;
 	 */
 
 	public static native void UpdateDisplayAndInputAndFrame(ImGuiIO jImguiIO, ImGuiStyle jImguiStyle, float deltaTime, float w, float h, float display_w, float display_h,
