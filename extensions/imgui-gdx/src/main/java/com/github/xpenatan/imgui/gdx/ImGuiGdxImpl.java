@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.github.xpenatan.imgui.DrawData;
 import com.github.xpenatan.imgui.ImGui;
 import com.github.xpenatan.imgui.TexDataRGBA32;
+import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.enums.ImGuiKey;
 
 /**
@@ -127,13 +128,11 @@ public class ImGuiGdxImpl {
 			mouseDown1 = inputProcessor.mouseDown1;
 			mouseDown2 = inputProcessor.mouseDown2;
 		}
-
 		ImGui.UpdateDisplayAndInputAndFrame(Gdx.graphics.getDeltaTime(), width, height, backBufferWidth, backBufferHeight,
 				Gdx.input.getX(), Gdx.input.getY(), mouseDown0, mouseDown1, mouseDown2);
 	}
 
 	public void render(DrawData drawData) {
-
 		if(!fontInit) {
 			fontInit = true;
 			createBufferObject(drawData);
@@ -218,7 +217,6 @@ public class ImGuiGdxImpl {
 			if (last_enable_scissor_test) Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST); else Gdx.gl.glDisable(GL20.GL_SCISSOR_TEST);
 		}
 	}
-
 
 	public void bind(DrawData drawData) {
 		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);

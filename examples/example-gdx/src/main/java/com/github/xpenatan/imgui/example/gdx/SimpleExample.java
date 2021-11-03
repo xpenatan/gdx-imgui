@@ -3,14 +3,12 @@ package com.github.xpenatan.imgui.example.gdx;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.github.xpenatan.imgui.*;
 import com.github.xpenatan.imgui.custom.EditTextFloatData;
 import com.github.xpenatan.imgui.custom.EditTextIntData;
@@ -23,12 +21,11 @@ import com.github.xpenatan.imgui.gdx.ImGuiGdxInput;
 public class SimpleExample implements ApplicationListener
 {
 	public static void main (String[] args) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1444;
-		config.height = 800;
-		config.title = "Gdx-imgui";
-		config.vSyncEnabled = true;
-		new LwjglApplication(new SimpleExample(), config);
+		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+		config.setWindowedMode(1444, 800);
+		config.setTitle("Gdx-imgui");
+		config.useVsync(true);
+		new Lwjgl3Application(new SimpleExample(), config);
 	}
 
 	OrthographicCamera uiCam;
@@ -79,7 +76,7 @@ public class SimpleExample implements ApplicationListener
 		batch = new SpriteBatch();
 		ImGui.init();
 		ImGuiExt.init();
-		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable);
+		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable.or(ImGuiConfigFlags.ViewportsEnable));
 		ImGui.GetIO().SetDockingFlags(false, false, false, false);
 
 		buttonTexture = new Texture(Gdx.files.internal("data/badlogicsmall.jpg"));
@@ -95,7 +92,6 @@ public class SimpleExample implements ApplicationListener
 	public void render () {
 		Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 
 		boolean mode01 = false;
 		if(mode01) {

@@ -12,6 +12,8 @@ import com.github.xpenatan.imgui.TexDataRGBA32;
 public class ImGuiNative {
 
 	/*JNI
+		#include "imgui_helper.h"
+
 		#include <imgui.h>
 		#include <cstring>
 		#if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
@@ -56,11 +58,6 @@ public class ImGuiNative {
 		jfieldID ItemInnerSpacingXID;
 		jfieldID ItemInnerSpacingYID;
 
-		jfieldID imVec2XID;
-		jfieldID imVec2YID;
-		jfieldID imVec4ZID;
-		jfieldID imVec4WID;
-
 		jfieldID imTextInputDataSizeID;
 		jfieldID imTextInputDataIsDirtyID;
 
@@ -70,10 +67,10 @@ public class ImGuiNative {
 	*/
 
 	public static native void init() /*-{ }-*/; /*
+		ImGuiHelper::Init(env);
 		jclass jDrawDataClass = env->FindClass("com/github/xpenatan/imgui/DrawData");
 		jclass jImGuiIOClass = env->FindClass("com/github/xpenatan/imgui/ImGuiIO");
 		jclass jImGuiStyleClass = env->FindClass("com/github/xpenatan/imgui/ImGuiStyle");
-		jclass jImVec2Class = env->FindClass("com/github/xpenatan/imgui/ImVec2");
 		jclass jImVec4Class = env->FindClass("com/github/xpenatan/imgui/ImVec4");
 		jclass jImInputTextDataClass = env->FindClass("com/github/xpenatan/imgui/ImGuiInputTextData");
 
@@ -114,16 +111,6 @@ public class ImGuiNative {
 		ItemInnerSpacingXID = env->GetFieldID(jImGuiStyleClass, "ItemInnerSpacingX", "F");
 		ItemInnerSpacingYID = env->GetFieldID(jImGuiStyleClass, "ItemInnerSpacingY", "F");
 
-		//ImVec2 Prepare IDs
-
-		imVec2XID = env->GetFieldID(jImVec2Class, "x", "F");
-		imVec2YID = env->GetFieldID(jImVec2Class, "y", "F");
-
-		//ImVec4 Prepare IDs
-
-		imVec4ZID = env->GetFieldID(jImVec4Class, "z", "F");
-		imVec4WID = env->GetFieldID(jImVec4Class, "w", "F");
-
 		imTextInputDataSizeID = env->GetFieldID(jImInputTextDataClass, "size", "I");
 		imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
 	*/
@@ -151,6 +138,12 @@ public class ImGuiNative {
 	public static native void SetConfigFlags(int flag) /*-{ }-*/; /*
 		ImGuiIO& io = ImGui::GetIO();
 		io.ConfigFlags = flag;
+	*/
+
+	public static native boolean ContainsConfigFlags(int flag) /*-{ }-*/; /*
+		ImGuiIO& io = ImGui::GetIO();
+		int newFlag = io.ConfigFlags & flag;
+		return newFlag == flag;
 	*/
 
 	public static native void SetDockingFlags(boolean ConfigDockingNoSplit, boolean ConfigDockingWithShift, boolean ConfigDockingAlwaysTabBar, boolean ConfigDockingTransparentPayload) /*-{ }-*/; /*
@@ -686,8 +679,7 @@ public class ImGuiNative {
 
 	public static native void GetWindowPos(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetWindowPos();
-		env->SetFloatField (jImVec2, imVec2XID, vec.x);
-		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+		ImGuiHelper::SetImVec2(env, vec, jImVec2);
 	*/
 
 	public static native float GetWindowPosX() /*-{ }-*/; /*
@@ -700,8 +692,7 @@ public class ImGuiNative {
 
 	public static native void GetWindowSize(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetWindowSize();
-		env->SetFloatField (jImVec2, imVec2XID, vec.x);
-		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+		ImGuiHelper::SetImVec2(env, vec, jImVec2);
 	*/
 
 	public static native float GetWindowWidth() /*-{ }-*/; /*
@@ -816,14 +807,12 @@ public class ImGuiNative {
 
 	public static native void GetContentRegionMax(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetContentRegionMax();
-		env->SetFloatField (jImVec2, imVec2XID, vec.x);
-		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+		ImGuiHelper::SetImVec2(env, vec, jImVec2);
 	*/
 
 	public static native void GetContentRegionAvail(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetContentRegionAvail();
-		env->SetFloatField (jImVec2, imVec2XID, vec.x);
-		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+		ImGuiHelper::SetImVec2(env, vec, jImVec2);
 	*/
 
 	public static native float GetContentRegionAvailWidth() /*-{ }-*/; /*
@@ -832,14 +821,12 @@ public class ImGuiNative {
 
 	public static native void GetWindowContentRegionMin(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetWindowContentRegionMin();
-		env->SetFloatField (jImVec2, imVec2XID, vec.x);
-		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+		ImGuiHelper::SetImVec2(env, vec, jImVec2);
 	*/
 
 	public static native void GetWindowContentRegionMax(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetWindowContentRegionMax();
-		env->SetFloatField (jImVec2, imVec2XID, vec.x);
-		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+		ImGuiHelper::SetImVec2(env, vec, jImVec2);
 	*/
 
 	public static native float GetWindowContentRegionWidth() /*-{ }-*/; /*
@@ -1099,14 +1086,12 @@ public class ImGuiNative {
 
 	public static native void GetCursorStartPos(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetCursorStartPos();
-		env->SetFloatField (jImVec2, imVec2XID, vec.x);
-		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+		ImGuiHelper::SetImVec2(env, vec, jImVec2);
 	*/
 
 	public static native void GetCursorScreenPos(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetCursorScreenPos();
-		env->SetFloatField (jImVec2, imVec2XID, vec.x);
-		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+		ImGuiHelper::SetImVec2(env, vec, jImVec2);
 	 */
 
 	public static native void SetCursorScreenPos(float x, float y) /*-{ }-*/; /*
@@ -2269,20 +2254,17 @@ public class ImGuiNative {
 
 	public static native void GetItemRectMin(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetItemRectMin();
-		env->SetFloatField (jImVec2, imVec2XID, vec.x);
-		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+		ImGuiHelper::SetImVec2(env, vec, jImVec2);
 	*/
 
 	public static native void GetItemRectMax(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetItemRectMax();
-		env->SetFloatField (jImVec2, imVec2XID, vec.x);
-		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+		ImGuiHelper::SetImVec2(env, vec, jImVec2);
 	*/
 
 	public static native void GetItemRectSize(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetItemRectSize();
-		env->SetFloatField (jImVec2, imVec2XID, vec.x);
-		env->SetFloatField (jImVec2, imVec2YID, vec.y);
+		ImGuiHelper::SetImVec2(env, vec, jImVec2);
 	*/
 
 	public static native void SetItemAllowOverlap() /*-{ }-*/; /*
@@ -2335,6 +2317,16 @@ public class ImGuiNative {
 
 	public static native boolean IsMouseHoveringRect(float minX, float minY, float maxX, float maxY, boolean clip) /*-{ }-*/; /*
 		return ImGui::IsMouseHoveringRect(ImVec2(minX, minY), ImVec2(maxX, maxY), clip);
+	*/
+
+	// (Optional) Platform/OS interface for multi-viewport support
+
+	public static native void UpdatePlatformWindows() /*-{ }-*/; /*
+		ImGui::UpdatePlatformWindows();
+	*/
+
+	public static native void RenderPlatformWindowsDefault() /*-{ }-*/; /*
+		ImGui::RenderPlatformWindowsDefault();
 	*/
 
 	// ImGuiIO setters

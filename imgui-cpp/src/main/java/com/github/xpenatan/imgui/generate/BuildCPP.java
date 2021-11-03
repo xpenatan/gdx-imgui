@@ -31,6 +31,16 @@ public class BuildCPP {
 
 		BuildConfig buildConfig = new BuildConfig(libName, "target", "libs", "jni");
 
+		File from = new File(projectPath + "/cpp-source/");
+		File dest = new File(projectPath + "/jni/src");
+
+		System.out.println("imguiCPP - path: " + projectPath);
+		System.out.println("imgui - path: " + projectPath);
+		System.out.println("imgui - from: " + from);
+		System.out.println("imgui - dest: " + dest);
+
+		BuildCPP.copyDir(from.toPath(), dest.toPath());
+
 		String classpathStr = System.getProperty("java.class.path");
 		System.out.println("classpath: " + classpathStr);
 
@@ -85,51 +95,42 @@ public class BuildCPP {
 		File directory = dest.toFile();
 		if (!directory.exists())
 			directory.mkdirs();
-		Files.walk(src).forEach(source -> {
-			Path destPath = dest.resolve(src.relativize(source));
 
-
-			try {
-				boolean skip = false;
-				if(excludes != null) {
-					String fileStr = source.getFileName().toString();
-					for(int i = 0; i < excludes.length; i++) {
-						String excludeFile = excludes[i];
-						if(fileStr.contains(excludeFile)) {
-							skip = true;
-							break;
-						}
-					}
-				}
-				if(!skip) {
-					deleteDirectory(destPath.toFile().getAbsolutePath());
-					Files.copy(source, destPath, StandardCopyOption.REPLACE_EXISTING);
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
-
-	}
-
-	public static void deleteDirectory (String directoryFilePath) throws IOException {
-		Path directory = Paths.get(directoryFilePath);
-
-		if(Files.exists(directory)) {
-			Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
+		if(Files.exists(src)) {
+			Files.walkFileTree(src, new SimpleFileVisitor<Path>() {
 				@Override
 				public FileVisitResult visitFile (Path path, BasicFileAttributes basicFileAttributes) throws IOException {
-					Files.delete(path);
+					boolean skip = false;
+					if(excludes != null) {
+						String fileStr = path.getFileName().toString();
+						for(int i = 0; i < excludes.length; i++) {
+							String excludeFile = excludes[i];
+							if(fileStr.contains(excludeFile)) {
+								skip = true;
+								break;
+							}
+						}
+					}
+					if(!skip) {
+						File file = path.toFile();
+						String name = file.getName();
+						Path newDest = dest.resolve(name);
+						Files.copy(path, newDest, StandardCopyOption.REPLACE_EXISTING);
+					}
 					return FileVisitResult.CONTINUE;
 				}
 
 				@Override
 				public FileVisitResult postVisitDirectory (Path directory, IOException ioException) throws IOException {
-					Files.delete(directory);
 					return FileVisitResult.CONTINUE;
 				}
 			});
 		}
+	}
+
+	public static void copy (Path src, Path dest) throws IOException {
+
+
 	}
 
 	private static String OS = System.getProperty("os.name").toLowerCase();

@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.SharedLibraryLoader;
 import com.github.xpenatan.imgui.enums.*;
 import com.github.xpenatan.imgui.jnicode.ImGuiInternalNative;
 import com.github.xpenatan.imgui.jnicode.ImGuiNative;
+import com.github.xpenatan.imgui.jnicode.ImGuiPlatformNative;
 import com.github.xpenatan.imgui.util.CharSequenceHelper;
 
 public class ImGui {
@@ -16,7 +17,7 @@ public class ImGui {
 	private static boolean IMGUIINIT = false;
 	public static String TAG = "ImGui";
 
-	public static final int VERSION_CODE = 32;
+	public static final int VERSION_CODE = 33;
 
 	public static void init () {
 		init(true, true);
@@ -1750,6 +1751,17 @@ public class ImGui {
 	public static boolean IsMouseHoveringRect(float minX, float minY, float maxX, float maxY, boolean clip) {
 		return ImGuiNative.IsMouseHoveringRect(minX, minY, maxX, maxY, clip);
 	}
+
+	// (Optional) Platform/OS interface for multi-viewport support
+
+	public static void UpdatePlatformWindows() {
+		ImGuiNative.UpdatePlatformWindows();
+	}
+
+	public static void RenderPlatformWindowsDefault() {
+		ImGuiNative.RenderPlatformWindowsDefault();
+	}
+
 
 	// Internal methods
 

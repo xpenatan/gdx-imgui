@@ -1,1 +1,1 @@
-include ":imgui-cpp", ":imgui-core", ":extensions:imgui-ext", ":extensions:imgui-gdx", ":extensions:imgui-gdx-frame-viewport", ":examples:example-gdx", ":examples:example-gdx-frame-viewport"
+include ":imgui-cpp", ":imgui-core", ":extensions:imgui-ext", ":extensions:imgui-gdx", ":extensions:imgui-gdx-lwjgl3", ":extensions:imgui-gdx-frame-viewport", ":examples:example-gdx", ":examples:example-gdx-frame-viewport"
