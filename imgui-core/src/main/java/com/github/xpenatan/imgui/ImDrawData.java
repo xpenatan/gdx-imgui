@@ -3,7 +3,12 @@ package com.github.xpenatan.imgui;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-public final class DrawData {
+public final class ImDrawData {
+
+	public static int MAX_VERTICES = 100000;
+	public static int MAX_INDICES = 100000;
+	public static int MAX_CMD = 1000;
+
 	public int cmdListsCount; // Number of ImDrawList* to render
 	public int totalIdxCount; // For convenience, sum of all ImDrawList's IdxBuffer.Size
 	public int totalVtxCount;
@@ -26,18 +31,22 @@ public final class DrawData {
 	public ByteBuffer iByteBuffer;
 	public ByteBuffer cmdByteBuffer;
 
-	public DrawData(ByteBuffer vByteBuffer, ByteBuffer iByteBuffer, ByteBuffer cmdByteBuffer) {
-		this.vByteBuffer = vByteBuffer;
-		this.iByteBuffer = iByteBuffer;
-		this.cmdByteBuffer = cmdByteBuffer;
+	public ImDrawData() {
+		this(MAX_VERTICES, MAX_INDICES, MAX_CMD);
 	}
 
-	public DrawData(int maxVertice, int maxIndices, int maxCmd) {
-		this.vByteBuffer = ByteBuffer.allocateDirect(maxVertice * vBufferSize);
+	public ImDrawData(int maxVertices, int maxIndices, int maxCmd) {
+		this.vByteBuffer = ByteBuffer.allocateDirect(maxVertices * vBufferSize);
 		this.iByteBuffer = ByteBuffer.allocateDirect(maxIndices * iBufferSize);
 		this.cmdByteBuffer = ByteBuffer.allocateDirect(maxCmd * cmdBufferSize);
 		vByteBuffer.order(ByteOrder.nativeOrder());
 		iByteBuffer.order(ByteOrder.nativeOrder());
 		cmdByteBuffer.order(ByteOrder.nativeOrder());
+	}
+
+	public ImDrawData(ByteBuffer vByteBuffer, ByteBuffer iByteBuffer, ByteBuffer cmdByteBuffer) {
+		this.vByteBuffer = vByteBuffer;
+		this.iByteBuffer = iByteBuffer;
+		this.cmdByteBuffer = cmdByteBuffer;
 	}
 }

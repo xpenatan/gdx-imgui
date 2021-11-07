@@ -3,6 +3,7 @@ package com.github.xpenatan.imgui.example.gdx;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.backends.lwjgl3.ImGuiLWJGL3Impl;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
@@ -82,7 +83,7 @@ public class SimpleExample implements ApplicationListener
 		buttonTexture = new Texture(Gdx.files.internal("data/badlogicsmall.jpg"));
 
 		ImGuiGdxInput input = new ImGuiGdxInput();
-		impl = new ImGuiGdxImpl();
+		impl = new ImGuiLWJGL3Impl();
 		Gdx.input.setInputProcessor(input);
 
 		dS1.setValue("Test");
@@ -128,7 +129,7 @@ public class SimpleExample implements ApplicationListener
 		ImGui.ShowDemoWindow(false);
 
 		ImGui.Render();
-		DrawData drawData = ImGui.GetDrawData();
+		ImDrawData drawData = ImGui.GetDrawData();
 		impl.render(drawData);
 
 	}
@@ -450,6 +451,7 @@ public class SimpleExample implements ApplicationListener
 
 	@Override
 	public void dispose () {
+		impl.dispose();
 		ImGui.dispose();
 	}
 }

@@ -15,130 +15,266 @@ public class ImGuiPlatformNative {
 		#include <stdint.h>     // intptr_t
 		#endif
 
-		#include <iostream>
-
 		static jobject jListener;
+		static jobject jViewport;
 
-
-		jmethodID mid_CreateWindow;
-		jmethodID mid_ShowWindow;
-		jmethodID mid_DestroyWindow;
-		jmethodID mid_SetWindowPos;
-		jmethodID mid_GetWindowPos;
-		jmethodID mid_SetWindowSize;
-		jmethodID mid_GetWindowSize;
-		jmethodID mid_SetWindowFocus;
-		jmethodID mid_GetWindowFocus;
-		jmethodID mid_GetWindowMinimized;
-		jmethodID mid_SetWindowTitle;
-		jmethodID mid_RenderWindow;
-		jmethodID mid_SwapBuffers;
+		jmethodID mid_Platform_CreateWindow;
+		jmethodID mid_Platform_ShowWindow;
+		jmethodID mid_Platform_DestroyWindow;
+		jmethodID mid_Platform_SetWindowPos;
+		jmethodID mid_Platform_GetWindowPos;
+		jmethodID mid_Platform_SetWindowSize;
+		jmethodID mid_Platform_GetWindowSize;
+		jmethodID mid_Platform_SetWindowFocus;
+		jmethodID mid_Platform_GetWindowFocus;
+		jmethodID mid_Platform_GetWindowMinimized;
+		jmethodID mid_Platform_SetWindowTitle;
+		jmethodID mid_Platform_RenderWindow;
+		jmethodID mid_Platform_SwapBuffers;
+		jmethodID mid_Renderer_RenderWindow;
 
 	*/
 
 		/*JNI
-		static void ImGui_CreateWindow(ImGuiViewport* viewport) {
+		static void ImGui_Platform_CreateWindow(ImGuiViewport* viewport) {
 			JNIEnv *env = ImGuiHelper::GetEnv();
-			env->CallVoidMethod(jListener, mid_CreateWindow);
+			int64_t* handler = new int64_t;
+			*handler = 0;
+			viewport->PlatformHandle = handler;
+			viewport->PlatformUserData = NULL;
+			ImGuiHelper::SetImGuiViewport(env, viewport, jViewport);
+			env->CallVoidMethod(jListener, mid_Platform_CreateWindow, jViewport);
+			ImGuiHelper::SetImGuiViewport(env, jViewport, viewport);
 		}
-		static void ImGui_ShowWindow(ImGuiViewport* viewport) {
+		static void ImGui_Platform_DestroyWindow(ImGuiViewport* viewport) {
 			JNIEnv *env = ImGuiHelper::GetEnv();
-			env->CallVoidMethod(jListener, mid_ShowWindow);
+			int64_t platformHandle = -1;
+			int platformUserData = -1;
+			if(viewport->PlatformHandle != NULL) {
+				platformHandle = *(int64_t*)viewport->PlatformHandle;
+			}
+			if(viewport->PlatformUserData != NULL) {
+				intptr_t test = reinterpret_cast<intptr_t>(viewport->PlatformUserData);
+				platformUserData = static_cast<int>(test);
+			}
+			env->CallVoidMethod(jListener, mid_Platform_DestroyWindow, platformHandle, platformUserData);
+			if(viewport->PlatformHandle != NULL) {
+				delete viewport->PlatformHandle;
+				viewport->PlatformHandle = NULL;
+			}
+			viewport->PlatformUserData = NULL;
 		}
-		static void ImGui_DestroyWindow(ImGuiViewport* viewport) {
+		static void ImGui_Platform_ShowWindow(ImGuiViewport* viewport) {
 			JNIEnv *env = ImGuiHelper::GetEnv();
-			env->CallVoidMethod(jListener, mid_DestroyWindow);
+			int64_t platformHandle = -1;
+			int platformUserData = -1;
+			if(viewport->PlatformHandle != NULL) {
+				platformHandle = *(int64_t*)viewport->PlatformHandle;
+			}
+			if(viewport->PlatformUserData != NULL) {
+				intptr_t test = reinterpret_cast<intptr_t>(viewport->PlatformUserData);
+				platformUserData = static_cast<int>(test);
+			}
+			env->CallVoidMethod(jListener, mid_Platform_ShowWindow, platformHandle, platformUserData);
 		}
-		static void ImGui_SetWindowPos(ImGuiViewport* viewport, ImVec2 pos) {
+		static void ImGui_Platform_SetWindowPos(ImGuiViewport* viewport, ImVec2 pos) {
 			JNIEnv *env = ImGuiHelper::GetEnv();
-			env->CallVoidMethod(jListener, mid_SetWindowPos);
+			int64_t platformHandle = -1;
+			int platformUserData = -1;
+			if(viewport->PlatformHandle != NULL) {
+				platformHandle = *(int64_t*)viewport->PlatformHandle;
+			}
+			if(viewport->PlatformUserData != NULL) {
+				intptr_t test = reinterpret_cast<intptr_t>(viewport->PlatformUserData);
+				platformUserData = static_cast<int>(test);
+			}
+			env->CallVoidMethod(jListener, mid_Platform_SetWindowPos, platformHandle, platformUserData, pos.x, pos.y);
 		}
-		static ImVec2 ImGui_GetWindowPos(ImGuiViewport* viewport) {
+		static ImVec2 ImGui_Platform_GetWindowPos(ImGuiViewport* viewport) {
 			JNIEnv *env = ImGuiHelper::GetEnv();
-			jobject jImVec2 = env->CallObjectMethod(jListener, mid_GetWindowPos);
+			int64_t platformHandle = -1;
+			int platformUserData = -1;
+			if(viewport->PlatformHandle != NULL) {
+				platformHandle = *(int64_t*)viewport->PlatformHandle;
+			}
+			if(viewport->PlatformUserData != NULL) {
+				intptr_t test = reinterpret_cast<intptr_t>(viewport->PlatformUserData);
+				platformUserData = static_cast<int>(test);
+			}
+			jobject jImVec2 = env->CallObjectMethod(jListener, mid_Platform_GetWindowPos, platformHandle, platformUserData);
 			ImVec2 vec2 = ImVec2();
 			ImGuiHelper::SetImVec2(env, jImVec2, &vec2);
 			return vec2;
 		}
-		static void ImGui_SetWindowSize(ImGuiViewport* viewport, ImVec2 size) {
+		static void ImGui_Platform_SetWindowSize(ImGuiViewport* viewport, ImVec2 size) {
 			JNIEnv *env = ImGuiHelper::GetEnv();
-			env->CallVoidMethod(jListener, mid_SetWindowSize);
+			int64_t platformHandle = -1;
+			int platformUserData = -1;
+			if(viewport->PlatformHandle != NULL) {
+				platformHandle = *(int64_t*)viewport->PlatformHandle;
+			}
+			if(viewport->PlatformUserData != NULL) {
+				intptr_t test = reinterpret_cast<intptr_t>(viewport->PlatformUserData);
+				platformUserData = static_cast<int>(test);
+			}
+			env->CallVoidMethod(jListener, mid_Platform_SetWindowSize, platformHandle, platformUserData, size.x, size.y);
 		}
-		static ImVec2 ImGui_GetWindowSize(ImGuiViewport* viewport) {
+		static ImVec2 ImGui_Platform_GetWindowSize(ImGuiViewport* viewport) {
 			JNIEnv *env = ImGuiHelper::GetEnv();
-			jobject jImVec2 = env->CallObjectMethod(jListener, mid_GetWindowSize);
+			int64_t platformHandle = -1;
+			int platformUserData = -1;
+			if(viewport->PlatformHandle != NULL) {
+				platformHandle = *(int64_t*)viewport->PlatformHandle;
+			}
+			if(viewport->PlatformUserData != NULL) {
+				intptr_t test = reinterpret_cast<intptr_t>(viewport->PlatformUserData);
+				platformUserData = static_cast<int>(test);
+			}
+			jobject jImVec2 = env->CallObjectMethod(jListener, mid_Platform_GetWindowSize, platformHandle, platformUserData);
 			ImVec2 vec2 = ImVec2();
 			ImGuiHelper::SetImVec2(env, jImVec2, &vec2);
 			return vec2;
 		}
-		static void ImGui_SetWindowFocus(ImGuiViewport* viewport) {
+		static void ImGui_Platform_SetWindowFocus(ImGuiViewport* viewport) {
 			JNIEnv *env = ImGuiHelper::GetEnv();
-			env->CallVoidMethod(jListener, mid_SetWindowFocus);
+			int64_t platformHandle = -1;
+			int platformUserData = -1;
+			if(viewport->PlatformHandle != NULL) {
+				platformHandle = *(int64_t*)viewport->PlatformHandle;
+			}
+			if(viewport->PlatformUserData != NULL) {
+				intptr_t test = reinterpret_cast<intptr_t>(viewport->PlatformUserData);
+				platformUserData = static_cast<int>(test);
+			}
+			env->CallVoidMethod(jListener, mid_Platform_SetWindowFocus, platformHandle, platformUserData);
 		}
-		static bool ImGui_GetWindowFocus(ImGuiViewport* viewport) {
+		static bool ImGui_Platform_GetWindowFocus(ImGuiViewport* viewport) {
 			JNIEnv *env = ImGuiHelper::GetEnv();
-			bool flag = (bool)env->CallBooleanMethod(jListener, mid_GetWindowFocus);
+			int64_t platformHandle = -1;
+			int platformUserData = -1;
+			if(viewport->PlatformHandle != NULL) {
+				platformHandle = *(int64_t*)viewport->PlatformHandle;
+			}
+			if(viewport->PlatformUserData != NULL) {
+				intptr_t test = reinterpret_cast<intptr_t>(viewport->PlatformUserData);
+				platformUserData = static_cast<int>(test);
+			}
+			bool flag = false;
+			flag = (bool)env->CallBooleanMethod(jListener, mid_Platform_GetWindowFocus, platformHandle, platformUserData);
 			return flag;
 		}
-		static bool ImGui_GetWindowMinimized(ImGuiViewport* viewport) {
+		static bool ImGui_Platform_GetWindowMinimized(ImGuiViewport* viewport) {
 			JNIEnv *env = ImGuiHelper::GetEnv();
-			bool flag = (bool)env->CallBooleanMethod(jListener, mid_GetWindowMinimized);
+			int64_t platformHandle = -1;
+			int platformUserData = -1;
+			if(viewport->PlatformHandle != NULL) {
+				platformHandle = *(int64_t*)viewport->PlatformHandle;
+			}
+			if(viewport->PlatformUserData != NULL) {
+				intptr_t test = reinterpret_cast<intptr_t>(viewport->PlatformUserData);
+				platformUserData = static_cast<int>(test);
+			}
+			bool flag = false;
+			flag = (bool)env->CallBooleanMethod(jListener, mid_Platform_GetWindowMinimized, platformHandle, platformUserData);
 			return flag;
 		}
-		static void ImGui_SetWindowTitle(ImGuiViewport* viewport, const char* title) {
+		static void ImGui_Platform_SetWindowTitle(ImGuiViewport* viewport, const char* title) {
 			JNIEnv *env = ImGuiHelper::GetEnv();
-			env->CallVoidMethod(jListener, mid_SetWindowTitle);
+			int64_t platformHandle = -1;
+			int platformUserData = -1;
+			if(viewport->PlatformHandle != NULL) {
+				platformHandle = *(int64_t*)viewport->PlatformHandle;
+			}
+			if(viewport->PlatformUserData != NULL) {
+				intptr_t test = reinterpret_cast<intptr_t>(viewport->PlatformUserData);
+				platformUserData = static_cast<int>(test);
+			}
+			jstring jTitle = env->NewStringUTF(title);
+			env->CallVoidMethod(jListener, mid_Platform_SetWindowTitle, platformHandle, platformUserData, jTitle);
 		}
-		static void ImGui_RenderWindow(ImGuiViewport* viewport, void*) {
+		static void ImGui_Platform_RenderWindow(ImGuiViewport* viewport, void*) {
 			JNIEnv *env = ImGuiHelper::GetEnv();
-			env->CallVoidMethod(jListener, mid_RenderWindow);
+			int64_t platformHandle = -1;
+			int platformUserData = -1;
+			if(viewport->PlatformHandle != NULL) {
+				platformHandle = *(int64_t*)viewport->PlatformHandle;
+			}
+			if(viewport->PlatformUserData != NULL) {
+				intptr_t test = reinterpret_cast<intptr_t>(viewport->PlatformUserData);
+				platformUserData = static_cast<int>(test);
+			}
+			env->CallVoidMethod(jListener, mid_Platform_RenderWindow, platformHandle, platformUserData);
 		}
-		static void ImGui_SwapBuffers(ImGuiViewport* viewport, void*) {
+		static void ImGui_Platform_SwapBuffers(ImGuiViewport* viewport, void*) {
 			JNIEnv *env = ImGuiHelper::GetEnv();
-			env->CallVoidMethod(jListener, mid_SwapBuffers);
+			int64_t platformHandle = -1;
+			int platformUserData = -1;
+			if(viewport->PlatformHandle != NULL) {
+				platformHandle = *(int64_t*)viewport->PlatformHandle;
+			}
+			if(viewport->PlatformUserData != NULL) {
+				intptr_t test = reinterpret_cast<intptr_t>(viewport->PlatformUserData);
+				platformUserData = static_cast<int>(test);
+			}
+			env->CallVoidMethod(jListener, mid_Platform_SwapBuffers, platformHandle, platformUserData);
+		}
+
+		static void ImGui_Renderer_RenderWindow(ImGuiViewport* viewport, void*) {
+			JNIEnv *env = ImGuiHelper::GetEnv();
+			ImGuiHelper::SetImGuiViewport(env, viewport, jViewport, true);
+			env->CallVoidMethod(jListener, mid_Renderer_RenderWindow, jViewport);
 		}
 	 */
 
-    public static native void InitPlatformInterface(ImGuiPlatformListener platformListener, long windowHandle, Object userData) /*-{ }-*/; /*
+    public static native void InitPlatformInterface(ImGuiPlatformListener platformListener, long windowHandle, int userData) /*-{ }-*/; /*
 		jListener = env->NewGlobalRef(platformListener);
 
-		jclass cls_platformListener = env->FindClass("com/github/xpenatan/imgui/util/ImGuiPlatformListener");
-
-		mid_CreateWindow = env->GetMethodID(cls_platformListener, "CreateWindow", "()V");
-		mid_ShowWindow = env->GetMethodID(cls_platformListener, "ShowWindow", "()V");
-		mid_DestroyWindow = env->GetMethodID(cls_platformListener, "DestroyWindow", "()V");
-		mid_SetWindowPos = env->GetMethodID(cls_platformListener, "SetWindowSize", "()V");
-		mid_GetWindowPos = env->GetMethodID(cls_platformListener, "GetWindowPos", "()Lcom/github/xpenatan/imgui/ImVec2;");
-		mid_SetWindowSize = env->GetMethodID(cls_platformListener, "SetWindowSize", "()V");
-		mid_GetWindowSize = env->GetMethodID(cls_platformListener, "GetWindowSize", "()Lcom/github/xpenatan/imgui/ImVec2;");
-		mid_SetWindowFocus = env->GetMethodID(cls_platformListener, "SetWindowFocus", "()V");
-		mid_GetWindowFocus = env->GetMethodID(cls_platformListener, "GetWindowFocus", "()Z");
-		mid_GetWindowMinimized = env->GetMethodID(cls_platformListener, "GetWindowMinimized", "()Z");
-		mid_SetWindowTitle = env->GetMethodID(cls_platformListener, "SetWindowTitle", "()V");
-		mid_RenderWindow = env->GetMethodID(cls_platformListener, "RenderWindow", "()V");
-		mid_SwapBuffers = env->GetMethodID(cls_platformListener, "SwapBuffers", "()V");
+		{
+			jclass cls_platformListener = env->FindClass("com/github/xpenatan/imgui/util/ImGuiPlatformListener");
+			mid_Platform_CreateWindow = env->GetMethodID(cls_platformListener, "CreateWindow", "(Lcom/github/xpenatan/imgui/ImGuiViewport;)V");
+			mid_Platform_ShowWindow = env->GetMethodID(cls_platformListener, "ShowWindow", "(JI)V");
+			mid_Platform_DestroyWindow = env->GetMethodID(cls_platformListener, "DestroyWindow", "(JI)V");
+			mid_Platform_SetWindowPos = env->GetMethodID(cls_platformListener, "SetWindowSize", "(JIFF)V");
+			mid_Platform_GetWindowPos = env->GetMethodID(cls_platformListener, "GetWindowPos", "(JI)Lcom/github/xpenatan/imgui/ImVec2;");
+			mid_Platform_SetWindowSize = env->GetMethodID(cls_platformListener, "SetWindowSize", "(JIFF)V");
+			mid_Platform_GetWindowSize = env->GetMethodID(cls_platformListener, "GetWindowSize", "(JI)Lcom/github/xpenatan/imgui/ImVec2;");
+			mid_Platform_SetWindowFocus = env->GetMethodID(cls_platformListener, "SetWindowFocus", "(JI)V");
+			mid_Platform_GetWindowFocus = env->GetMethodID(cls_platformListener, "GetWindowFocus", "(JI)Z");
+			mid_Platform_GetWindowMinimized = env->GetMethodID(cls_platformListener, "GetWindowMinimized", "(JI)Z");
+			mid_Platform_SetWindowTitle = env->GetMethodID(cls_platformListener, "SetWindowTitle", "(JILjava/lang/String;)V");
+			mid_Platform_RenderWindow = env->GetMethodID(cls_platformListener, "PlatformRenderWindow", "(JI)V");
+			mid_Platform_SwapBuffers = env->GetMethodID(cls_platformListener, "SwapBuffers", "(JI)V");
+			mid_Renderer_RenderWindow = env->GetMethodID(cls_platformListener, "RendererRenderWindow", "(Lcom/github/xpenatan/imgui/ImGuiViewport;)V");
+		}
+		{
+			jViewport = env->NewGlobalRef(ImGuiHelper::CreateJImGuiViewport(env));
+		}
 
 		ImGui::GetIO().BackendFlags |= ImGuiBackendFlags_PlatformHasViewports;
 		ImGui::GetIO().BackendFlags |= ImGuiBackendFlags_RendererHasViewports;
 
 		ImGuiPlatformIO& platform_io = ImGui::GetPlatformIO();
-		platform_io.Platform_CreateWindow = ImGui_CreateWindow;
-		platform_io.Platform_DestroyWindow = ImGui_DestroyWindow;
-		platform_io.Platform_ShowWindow = ImGui_ShowWindow;
-		platform_io.Platform_SetWindowPos = ImGui_SetWindowPos;
-		platform_io.Platform_GetWindowPos = ImGui_GetWindowPos;
-		platform_io.Platform_SetWindowSize = ImGui_SetWindowSize;
-		platform_io.Platform_GetWindowSize = ImGui_GetWindowSize;
-		platform_io.Platform_SetWindowFocus = ImGui_SetWindowFocus;
-		platform_io.Platform_GetWindowFocus = ImGui_GetWindowFocus;
-		platform_io.Platform_GetWindowMinimized = ImGui_GetWindowMinimized;
-		platform_io.Platform_SetWindowTitle = ImGui_SetWindowTitle;
-		platform_io.Platform_RenderWindow = ImGui_RenderWindow;
-		platform_io.Platform_SwapBuffers = ImGui_SwapBuffers;
+		platform_io.Platform_CreateWindow = ImGui_Platform_CreateWindow;
+		platform_io.Platform_DestroyWindow = ImGui_Platform_DestroyWindow;
+		platform_io.Platform_ShowWindow = ImGui_Platform_ShowWindow;
+		platform_io.Platform_SetWindowPos = ImGui_Platform_SetWindowPos;
+		platform_io.Platform_GetWindowPos = ImGui_Platform_GetWindowPos;
+		platform_io.Platform_SetWindowSize = ImGui_Platform_SetWindowSize;
+		platform_io.Platform_GetWindowSize = ImGui_Platform_GetWindowSize;
+		platform_io.Platform_SetWindowFocus = ImGui_Platform_SetWindowFocus;
+		platform_io.Platform_GetWindowFocus = ImGui_Platform_GetWindowFocus;
+		platform_io.Platform_GetWindowMinimized = ImGui_Platform_GetWindowMinimized;
+		platform_io.Platform_SetWindowTitle = ImGui_Platform_SetWindowTitle;
+		platform_io.Platform_RenderWindow = ImGui_Platform_RenderWindow;
+		platform_io.Platform_SwapBuffers = ImGui_Platform_SwapBuffers;
+		platform_io.Renderer_RenderWindow = ImGui_Renderer_RenderWindow;
 
 		ImGuiViewport* main_viewport = ImGui::GetMainViewport();
-		main_viewport->PlatformUserData = userData;
-		main_viewport->PlatformHandle = (void*)windowHandle;
+
+		int64_t* handler = new int64_t;
+		*handler = windowHandle;
+		main_viewport->PlatformUserData = (void*)userData;
+		main_viewport->PlatformHandle = (void*)handler;
 	*/
 
 	// Platform Utils

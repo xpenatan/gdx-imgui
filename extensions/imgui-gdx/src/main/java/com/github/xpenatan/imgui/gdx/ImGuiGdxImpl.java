@@ -9,11 +9,13 @@ import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Matrix4;
-import com.github.xpenatan.imgui.DrawData;
+import com.badlogic.gdx.utils.BufferUtils;
+import com.github.xpenatan.imgui.ImDrawData;
 import com.github.xpenatan.imgui.ImGui;
 import com.github.xpenatan.imgui.TexDataRGBA32;
-import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.enums.ImGuiKey;
+
+import java.nio.IntBuffer;
 
 /**
  *
@@ -21,16 +23,17 @@ import com.github.xpenatan.imgui.enums.ImGuiKey;
  */
 public class ImGuiGdxImpl {
 
-	private boolean fontInit = false;
 	private VertexAttributes vertexAttributes;
 
-	private int vbufferHandle;
-	private int ibufferHandle;
+	private int VboHandle;
+	private int ElementsHandle;
 	private Matrix4 matrix = new Matrix4();
 
 	private ShaderProgram shader;
 
 	private int g_FontTexture;
+
+
 
 	private String vertex_shader_glsl_130 = "uniform mat4 ProjMtx;\n" + "attribute vec2 Position;\n" + "attribute vec2 UV;\n"
 			+ "attribute vec4 Color;\n" + "varying vec2 Frag_UV;\n" + "varying vec4 Frag_Color;\n" + "void main()\n"
@@ -41,7 +44,10 @@ public class ImGuiGdxImpl {
 			+ "uniform sampler2D Texture;\n" + "varying vec2 Frag_UV;\n" + "varying vec4 Frag_Color;\n"
 			+ "void main()\n" + "{\n" + "    gl_FragColor = Frag_Color * texture2D(Texture, Frag_UV.st);\n" + "}\n";
 
+	private final IntBuffer glTmpBuffer;
+
 	public ImGuiGdxImpl() {
+		glTmpBuffer = BufferUtils.newIntBuffer(1);
 		vertexAttributes = new VertexAttributes(new VertexAttribute[] {
 				new VertexAttribute(Usage.Position, 2, GL20.GL_FLOAT, false, "Position"),
 				new VertexAttribute(Usage.TextureCoordinates, 2, GL20.GL_FLOAT, false, "UV"),
@@ -55,6 +61,7 @@ public class ImGuiGdxImpl {
 
 		prepareFont();
 		initKeyMap();
+		createBufferObject();
 	}
 
 	private void initKeyMap() {
@@ -101,12 +108,12 @@ public class ImGuiGdxImpl {
 		ImGui.SetFontTexID(g_FontTexture);
 	}
 
-	private void createBufferObject(DrawData drawData) {
-		vbufferHandle = Gdx.gl20.glGenBuffer();
-		ibufferHandle = Gdx.gl20.glGenBuffer();
-		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, ibufferHandle);
-		Gdx.gl20.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, drawData.iByteBuffer.capacity(), null, GL20.GL_STATIC_DRAW);
-		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
+	private void createBufferObject() {
+		VboHandle = Gdx.gl20.glGenBuffer();
+		ElementsHandle = Gdx.gl20.glGenBuffer();
+//		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, ibufferHandle);
+//		Gdx.gl20.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, drawData.iByteBuffer.capacity(), null, GL20.GL_STATIC_DRAW);
+//		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
 	public void update() {
@@ -114,8 +121,12 @@ public class ImGuiGdxImpl {
 	}
 
 	public void update(ImGuiGdxInput inputProcessor) {
+		float deltaTime = Gdx.graphics.getDeltaTime();
+		int x = Gdx.input.getX();
+		int y = Gdx.input.getY();
 		int width = Gdx.graphics.getWidth();
 		int height = Gdx.graphics.getHeight();
+
 		int backBufferWidth = Gdx.graphics.getBackBufferWidth();
 		int backBufferHeight = Gdx.graphics.getBackBufferHeight();
 
@@ -128,114 +139,150 @@ public class ImGuiGdxImpl {
 			mouseDown1 = inputProcessor.mouseDown1;
 			mouseDown2 = inputProcessor.mouseDown2;
 		}
-		ImGui.UpdateDisplayAndInputAndFrame(Gdx.graphics.getDeltaTime(), width, height, backBufferWidth, backBufferHeight,
-				Gdx.input.getX(), Gdx.input.getY(), mouseDown0, mouseDown1, mouseDown2);
+		updateFrame(deltaTime, width, height, backBufferWidth, backBufferHeight,
+				x, y, mouseDown0, mouseDown1, mouseDown2);
 	}
 
-	public void render(DrawData drawData) {
-		if(!fontInit) {
-			fontInit = true;
-			createBufferObject(drawData);
-		}
+	protected void updateFrame(float deltaTime, int width, int height, int backBufferWidth, int backBufferHeight,
+							   int mouseX, int mouseY, boolean mouseDown0, boolean mouseDown1, boolean mouseDown2) {
+		ImGui.UpdateDisplayAndInputAndFrame(deltaTime, width, height, backBufferWidth, backBufferHeight,
+				mouseX, mouseY, mouseDown0, mouseDown1, mouseDown2);
+	}
 
+	public void render(ImDrawData drawData) {
+		renderDrawData(drawData);
+	}
+
+	public void renderDrawData(ImDrawData drawData) {
 		if (drawData.cmdListsCount > 0) {
+			Gdx.gl.glGetIntegerv(GL20.GL_CURRENT_PROGRAM, glTmpBuffer);
+			int last_program = glTmpBuffer.get(0);
+			Gdx.gl.glGetIntegerv(GL20.GL_TEXTURE_BINDING_2D, glTmpBuffer);
+			int last_texture = glTmpBuffer.get(0);
+			Gdx.gl.glGetIntegerv(GL20.GL_ARRAY_BUFFER_BINDING, glTmpBuffer);
+			int last_array_buffer = glTmpBuffer.get(0);
+
 			boolean last_enable_blend = Gdx.gl.glIsEnabled(GL20.GL_BLEND);
 			boolean last_enable_cull_face = Gdx.gl.glIsEnabled(GL20.GL_CULL_FACE);
 			boolean last_enable_depth_test = Gdx.gl.glIsEnabled(GL20.GL_DEPTH_TEST);
+			boolean last_enable_stencil_test = Gdx.gl.glIsEnabled(GL20.GL_STENCIL_TEST);
 			boolean last_enable_scissor_test = Gdx.gl.glIsEnabled(GL20.GL_SCISSOR_TEST);
 
 			int fb_width = (int) (drawData.displaySizeX * drawData.framebufferScaleX);
 			int fb_height = (int) (drawData.displaySizeY * drawData.framebufferScaleY);
 
-			bind(drawData);
+			setupRenderState(drawData, fb_width, fb_height);
 
-			int verticeOffset = 0;
-			int indexOffset = 0;
+			float clip_offX = drawData.displayPosX; // (0,0) unless using multi-viewports
+			float clip_offY = drawData.displayPosY;
+			float clip_scaleX = drawData.framebufferScaleX; // (1,1) unless using retina display which are often (2,2)
+			float clip_scaleY = drawData.framebufferScaleY;
+
+//			bind(drawData);
+
+			int verticesOffset = 0;
+			int indicesOffset = 0;
 
 			for(int i = 0; i < drawData.cmdListsCount; i++) {
-				drawData.vByteBuffer.limit(verticeOffset + 4);
-				int verticeSize = (int)drawData.vByteBuffer.getFloat(verticeOffset);
+				drawData.vByteBuffer.limit(verticesOffset + 4);
+				int verticeSize = (int)drawData.vByteBuffer.getFloat(verticesOffset);
 
-				drawData.iByteBuffer.limit(indexOffset + 2);
-				short indexSize = (short)drawData.iByteBuffer.getShort(indexOffset);
+				drawData.iByteBuffer.limit(indicesOffset + 2);
+				short indexSize = (short)drawData.iByteBuffer.getShort(indicesOffset);
 				int cmdSize = (int)drawData.cmdByteBuffer.getFloat();
 
-				int verticeStartOffset = verticeOffset + 4;
-				int indexStartOffset = indexOffset + 2;
+				int verticesStartOffset = verticesOffset + 4;
+				int indexStartOffset = indicesOffset + 2;
 
-				drawData.vByteBuffer.position(verticeStartOffset);
+				drawData.vByteBuffer.position(verticesStartOffset);
 				drawData.iByteBuffer.position(indexStartOffset);
 
-				int newVlimit = verticeStartOffset + verticeSize * DrawData.vBufferSize;
-				int newIlimit = indexStartOffset + indexSize * DrawData.iBufferSize;
+				int newVlimit = verticesStartOffset + verticeSize * ImDrawData.vBufferSize;
+				int newIlimit = indexStartOffset + indexSize * ImDrawData.iBufferSize;
 
 				drawData.vByteBuffer.limit(newVlimit);
 				drawData.iByteBuffer.limit(newIlimit);
 
-				Gdx.gl.glBufferData(GL20.GL_ARRAY_BUFFER, drawData.vByteBuffer.limit(), drawData.vByteBuffer, GL20.GL_STATIC_DRAW);
-				Gdx.gl.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, drawData.iByteBuffer.limit(), drawData.iByteBuffer, GL20.GL_STATIC_DRAW);
+				Gdx.gl.glBufferData(GL20.GL_ARRAY_BUFFER, drawData.vByteBuffer.limit(), drawData.vByteBuffer, GL20.GL_STREAM_DRAW);
+				Gdx.gl.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, drawData.iByteBuffer.limit(), drawData.iByteBuffer, GL20.GL_STREAM_DRAW);
 
-				verticeOffset += ((verticeSize) * DrawData.vBufferSize) + 4;
-				indexOffset += ((indexSize) * DrawData.iBufferSize) + 2;
-
-				float clip_offX = drawData.displayPosX; // (0,0) unless using multi-viewports
-				float clip_offY = drawData.displayPosY;
-				float clip_scaleX = drawData.framebufferScaleX; // (1,1) unless using retina display which are often (2,2)
-				float clip_scaleY = drawData.framebufferScaleY;
-
-				int idx_buffer_offset = 0;
+				verticesOffset += ((verticeSize) * ImDrawData.vBufferSize) + 4;
+				indicesOffset += ((indexSize) * ImDrawData.iBufferSize) + 2;
 
 				for (int j = 0; j < cmdSize; j++) {
 
-					int elemCount = (int) drawData.cmdByteBuffer.getFloat();
 					float clipRectX = drawData.cmdByteBuffer.getFloat();
 					float clipRectY = drawData.cmdByteBuffer.getFloat();
 					float clipRectZ = drawData.cmdByteBuffer.getFloat();
 					float clipRectW = drawData.cmdByteBuffer.getFloat();
 					int textureID = (int) drawData.cmdByteBuffer.getFloat();
+					int vtxOffset = (int) drawData.cmdByteBuffer.getFloat();
+					int idxOffset = (int) drawData.cmdByteBuffer.getFloat();
+					int elemCount = (int) drawData.cmdByteBuffer.getFloat();
+					float clip_minX = (clipRectX - clip_offX) * clip_scaleX;
+					float clip_minY = (clipRectY - clip_offY) * clip_scaleY;
+					float clip_maxX = (clipRectZ - clip_offX) * clip_scaleX;
+					float clip_maxY = (clipRectW - clip_offY) * clip_scaleY;
 
-					float clip_rectX = (clipRectX - clip_offX) * clip_scaleX;
-					float clip_rectY = (clipRectY - clip_offY) * clip_scaleY;
-					float clip_rectZ = (clipRectZ - clip_offX) * clip_scaleX;
-					float clip_rectW = (clipRectW - clip_offY) * clip_scaleY;
+					if (clip_maxX < clip_minX || clip_maxY < clip_minY)
+						continue;
 
-					if (clip_rectX < fb_width && clip_rectY < fb_height && clip_rectZ >= 0.0f && clip_rectW >= 0.0f) {
-						Gdx.gl.glScissor((int) clip_rectX, (int) (fb_height - clip_rectW), (int) (clip_rectZ - clip_rectX),
-								(int) (clip_rectW - clip_rectY));
-						Gdx.gl.glBindTexture(GL20.GL_TEXTURE_2D, textureID);
-						Gdx.gl.glDrawElements(GL20.GL_TRIANGLES, elemCount, GL20.GL_UNSIGNED_SHORT, idx_buffer_offset);
-					}
-					idx_buffer_offset += elemCount * 2;
+					Gdx.gl.glScissor((int) clip_minX, (int) (fb_height - clip_maxY), (int) (clip_maxX - clip_minX), (int) (clip_maxY - clip_minY));
+					Gdx.gl.glBindTexture(GL20.GL_TEXTURE_2D, textureID);
+					Gdx.gl.glDrawElements(GL20.GL_TRIANGLES, elemCount, GL20.GL_UNSIGNED_SHORT, idxOffset * 2);
 				}
 			}
 
 			unbind();
 
-			if (last_enable_blend) Gdx.gl.glEnable(GL20.GL_BLEND); else Gdx.gl.glDisable(GL20.GL_BLEND);
-			if (last_enable_cull_face) Gdx.gl.glEnable(GL20.GL_CULL_FACE); else Gdx.gl.glDisable(GL20.GL_CULL_FACE);
-			if (last_enable_depth_test) Gdx.gl.glEnable(GL20.GL_DEPTH_TEST); else Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);
-			if (last_enable_scissor_test) Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST); else Gdx.gl.glDisable(GL20.GL_SCISSOR_TEST);
+			if(last_enable_blend) {
+				Gdx.gl.glEnable(GL20.GL_BLEND);
+			}
+			else {
+				Gdx.gl.glDisable(GL20.GL_BLEND);
+			}
+			if(last_enable_cull_face) {
+				Gdx.gl.glEnable(GL20.GL_CULL_FACE);
+			}
+			else {
+				Gdx.gl.glDisable(GL20.GL_CULL_FACE);
+			}
+			if(last_enable_depth_test) {
+				Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
+			}
+			else {
+				Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);
+			}
+			if(last_enable_stencil_test) {
+				Gdx.gl.glEnable(GL20.GL_STENCIL_TEST);
+			}
+			else {
+				Gdx.gl.glDisable(GL20.GL_STENCIL_TEST);
+			}
+			if(last_enable_scissor_test) {
+				Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
+			}
+			else {
+				Gdx.gl.glDisable(GL20.GL_SCISSOR_TEST);
+			}
 		}
 	}
 
-	public void bind(DrawData drawData) {
-		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
-
+	private void setupRenderState(ImDrawData drawData, int fb_width, int fb_height) {
 		Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendEquation(GL20.GL_FUNC_ADD);
-		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		Gdx.gl.glBlendFuncSeparate(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA, GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glDisable(GL20.GL_CULL_FACE);
 		Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);
+		Gdx.gl.glDisable(GL20.GL_STENCIL_TEST);
 		Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
-
-		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
+		Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
 
 		float L = drawData.displayPosX;
 		float R = drawData.displayPosX + drawData.displaySizeX;
 		float T = drawData.displayPosY;
 		float B = drawData.displayPosY + drawData.displaySizeY;
 
-		//TODO use gdx camera
 		matrix.val[0] = 2.0f / (R - L);
 		matrix.val[1] = 0.0f;
 		matrix.val[2] = 0.0f;
@@ -253,8 +300,14 @@ public class ImGuiGdxImpl {
 		matrix.val[14] = 0;
 		matrix.val[15] = 1.0f;
 
-		// bind vertice
-		Gdx.gl.glBindBuffer(GL20.GL_ARRAY_BUFFER, vbufferHandle);
+		shader.bind();
+		shader.setUniformi("Texture", 0);
+		shader.setUniformMatrix("ProjMtx", matrix);
+
+		Gdx.gl.glBindBuffer(GL20.GL_ARRAY_BUFFER, VboHandle);
+		Gdx.gl.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, ElementsHandle);
+
+		// bind vertices/indices
 		final int numAttributes = vertexAttributes.size();
 		for (int i = 0; i < numAttributes; i++) {
 			final VertexAttribute attribute = vertexAttributes.get(i);
@@ -264,13 +317,6 @@ public class ImGuiGdxImpl {
 			shader.setVertexAttribute(location, attribute.numComponents, attribute.type, attribute.normalized,
 					vertexAttributes.vertexSize, attribute.offset);
 		}
-
-		// bind index
-		Gdx.gl.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, ibufferHandle);
-
-		shader.begin();
-		shader.setUniformMatrix("ProjMtx", matrix);
-		shader.setUniformi("Texture", 0);
 	}
 
 	public void unbind() {
@@ -296,8 +342,11 @@ public class ImGuiGdxImpl {
 
 	public void dispose() {
 		deleteTexture();
+
+		// TODO fix exception
+//		ImGui.DestroyPlatformWindows();
 		Gdx.gl.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
-		Gdx.gl.glDeleteBuffer(ibufferHandle);
-		ibufferHandle = 0;
+		Gdx.gl.glDeleteBuffer(ElementsHandle);
+		ElementsHandle = 0;
 	}
 }

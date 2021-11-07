@@ -8,7 +8,6 @@ import com.badlogic.gdx.utils.SharedLibraryLoader;
 import com.github.xpenatan.imgui.enums.*;
 import com.github.xpenatan.imgui.jnicode.ImGuiInternalNative;
 import com.github.xpenatan.imgui.jnicode.ImGuiNative;
-import com.github.xpenatan.imgui.jnicode.ImGuiPlatformNative;
 import com.github.xpenatan.imgui.util.CharSequenceHelper;
 
 public class ImGui {
@@ -17,7 +16,7 @@ public class ImGui {
 	private static boolean IMGUIINIT = false;
 	public static String TAG = "ImGui";
 
-	public static final int VERSION_CODE = 33;
+	public static final int VERSION_CODE = 34;
 
 	public static void init () {
 		init(true, true);
@@ -40,7 +39,7 @@ public class ImGui {
 		ImGuiNative.DestroyContext();
 	}
 
-	private static DrawData drawData = new DrawData(100000, 100000, 1000);
+	private static ImDrawData drawData = new ImDrawData();
 	private static ImGuiIO imguiIO = new ImGuiIO();
 	private static ImGuiStyle imguiStyle = new ImGuiStyle();
 	private static ImVec2 imVec2 = new ImVec2();
@@ -80,9 +79,9 @@ public class ImGui {
 		ImGuiNative.ShowMetricsWindow(open);
 	}
 
-	public static void UpdateDisplayAndInputAndFrame(float deltaTime, float w, float h, float backBufferWidth, float backBufferHeight,
+	public static void UpdateDisplayAndInputAndFrame(float deltaTime, int width, int height, int backBufferWidth, int backBufferHeight,
 			int mouseX, int mouseY, boolean mouseDown0, boolean mouseDown1, boolean mouseDown2)  {
-		ImGuiNative.UpdateDisplayAndInputAndFrame(imguiIO, imguiStyle, deltaTime, w, h, backBufferWidth, backBufferHeight,
+		ImGuiNative.UpdateDisplayAndInputAndFrame(imguiIO, imguiStyle, deltaTime, width, height, backBufferWidth, backBufferHeight,
 				mouseX, mouseY, mouseDown0, mouseDown1, mouseDown2, false, false, false);
 	}
 
@@ -106,14 +105,14 @@ public class ImGui {
 		ImGuiNative.Render();
 	}
 
-	public static DrawData GetDrawData() {
+	public static ImDrawData GetDrawData() {
 		ByteBuffer cmdByteBuffer = drawData.cmdByteBuffer;
 		ByteBuffer vByteBuffer = drawData.vByteBuffer;
 		ByteBuffer iByteBuffer = drawData.iByteBuffer;
 		vByteBuffer.position(0);
 		iByteBuffer.position(0);
 		cmdByteBuffer.position(0);
-		ImGuiNative.GetDrawData(drawData, iByteBuffer, vByteBuffer, cmdByteBuffer);
+		ImGuiNative.GetDrawData(drawData);
 		return drawData;
 	}
 
@@ -1760,6 +1759,10 @@ public class ImGui {
 
 	public static void RenderPlatformWindowsDefault() {
 		ImGuiNative.RenderPlatformWindowsDefault();
+	}
+
+	public static void DestroyPlatformWindows() {
+		ImGuiNative.DestroyPlatformWindows();
 	}
 
 
