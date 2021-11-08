@@ -443,7 +443,8 @@ public class SimpleExample implements ApplicationListener
 	public void renderColorWidget() {
 		ImGui.ColorPicker3("ColorPicker3", color);
 		ImGui.ColorEdit3("ColorEdit3", color2);
-		ImGui.ColorPicker4("ColorPicker4", color);
+		ImGuiColorEditFlags flag = ImGuiColorEditFlags.PickerHueWheel;
+		ImGui.ColorPicker4("ColorPicker4", color, flag);
 		ImGui.ColorEdit4("ColorEdit4", color2);
 	}
 
