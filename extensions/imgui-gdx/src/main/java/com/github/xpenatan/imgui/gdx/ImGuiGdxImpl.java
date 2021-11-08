@@ -47,7 +47,7 @@ public class ImGuiGdxImpl {
 	private final IntBuffer glTmpBuffer;
 
 	public ImGuiGdxImpl() {
-		glTmpBuffer = BufferUtils.newIntBuffer(1);
+		glTmpBuffer = BufferUtils.newIntBuffer(16);
 		vertexAttributes = new VertexAttributes(new VertexAttribute[] {
 				new VertexAttribute(Usage.Position, 2, GL20.GL_FLOAT, false, "Position"),
 				new VertexAttribute(Usage.TextureCoordinates, 2, GL20.GL_FLOAT, false, "UV"),
@@ -155,12 +155,12 @@ public class ImGuiGdxImpl {
 
 	public void renderDrawData(ImDrawData drawData, int id) {
 		if (drawData.cmdListsCount > 0) {
-			Gdx.gl.glGetIntegerv(GL20.GL_CURRENT_PROGRAM, glTmpBuffer);
-			int last_program = glTmpBuffer.get(0);
-			Gdx.gl.glGetIntegerv(GL20.GL_TEXTURE_BINDING_2D, glTmpBuffer);
-			int last_texture = glTmpBuffer.get(0);
-			Gdx.gl.glGetIntegerv(GL20.GL_ARRAY_BUFFER_BINDING, glTmpBuffer);
-			int last_array_buffer = glTmpBuffer.get(0);
+//			Gdx.gl.glGetIntegerv(GL20.GL_CURRENT_PROGRAM, glTmpBuffer);
+//			int last_program = glTmpBuffer.get(0);
+//			Gdx.gl.glGetIntegerv(GL20.GL_TEXTURE_BINDING_2D, glTmpBuffer);
+//			int last_texture = glTmpBuffer.get(0);
+//			Gdx.gl.glGetIntegerv(GL20.GL_ARRAY_BUFFER_BINDING, glTmpBuffer);
+//			int last_array_buffer = glTmpBuffer.get(0);
 
 			boolean last_enable_blend = Gdx.gl.glIsEnabled(GL20.GL_BLEND);
 			boolean last_enable_cull_face = Gdx.gl.glIsEnabled(GL20.GL_CULL_FACE);
@@ -231,7 +231,7 @@ public class ImGuiGdxImpl {
 				}
 			}
 
-//			unbind();
+			unbind();
 
 			if(last_enable_blend) {
 				Gdx.gl.glEnable(GL20.GL_BLEND);

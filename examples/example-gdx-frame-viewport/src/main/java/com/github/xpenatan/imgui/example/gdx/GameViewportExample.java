@@ -2,11 +2,12 @@ package com.github.xpenatan.imgui.example.gdx;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.ImGuiLWJGL3Impl;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.github.xpenatan.gdx.frame.viewport.EmuApplicationWindow;
-import com.github.xpenatan.imgui.DrawData;
+import com.github.xpenatan.imgui.ImDrawData;
 import com.github.xpenatan.imgui.ImGui;
 import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
@@ -17,12 +18,11 @@ import com.github.xpenatan.imgui.gdx.frame.viewport.ImGuiGdxFrameWindow;
 public class GameViewportExample implements ApplicationListener
 {
 	public static void main (String[] args) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1080;
-		config.height = 800;
-		config.title = "Gdx-imgui";
-		config.vSyncEnabled = true;
-		new LwjglApplication(new GameViewportExample(), config);
+		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+		config.setWindowedMode(1080, 800);
+		config.setTitle("Gdx-imgui");
+		config.useVsync(true);
+		new Lwjgl3Application(new GameViewportExample(), config);
 	}
 
 	boolean init = false;
@@ -36,11 +36,11 @@ public class GameViewportExample implements ApplicationListener
 	@Override
 	public void create () {
 		ImGui.init();
-		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable);
+		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable.or(ImGuiConfigFlags.ViewportsEnable));
 		ImGui.GetIO().SetDockingFlags(false, false, false, false);
 
 
-		impl = new ImGuiGdxImpl();
+		impl = new ImGuiLWJGL3Impl();
 		Gdx.input.setInputProcessor(input);
 		configFrameViewport();
 	}
@@ -73,7 +73,7 @@ public class GameViewportExample implements ApplicationListener
 		gameWindow2.render();
 
 		ImGui.Render();
-		DrawData drawData = ImGui.GetDrawData();
+		ImDrawData drawData = ImGui.GetDrawData();
 		impl.render(drawData);
 	}
 
