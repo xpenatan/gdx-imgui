@@ -214,7 +214,7 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
             Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         }
-        renderDrawData(viewport.drawData);
+        renderDrawData(viewport.drawData, 1);
     }
 
     @Override

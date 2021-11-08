@@ -150,10 +150,10 @@ public class ImGuiGdxImpl {
 	}
 
 	public void render(ImDrawData drawData) {
-		renderDrawData(drawData);
+		renderDrawData(drawData, 0);
 	}
 
-	public void renderDrawData(ImDrawData drawData) {
+	public void renderDrawData(ImDrawData drawData, int id) {
 		if (drawData.cmdListsCount > 0) {
 			Gdx.gl.glGetIntegerv(GL20.GL_CURRENT_PROGRAM, glTmpBuffer);
 			int last_program = glTmpBuffer.get(0);
@@ -178,37 +178,35 @@ public class ImGuiGdxImpl {
 			float clip_scaleX = drawData.framebufferScaleX; // (1,1) unless using retina display which are often (2,2)
 			float clip_scaleY = drawData.framebufferScaleY;
 
-//			bind(drawData);
-
 			int verticesOffset = 0;
 			int indicesOffset = 0;
 
+			drawData.vByteBuffer.position(0);
+			drawData.iByteBuffer.position(0);
+			drawData.cmdByteBuffer.position(0);
+
 			for(int i = 0; i < drawData.cmdListsCount; i++) {
-				drawData.vByteBuffer.limit(verticesOffset + 4);
-				int verticeSize = (int)drawData.vByteBuffer.getFloat(verticesOffset);
-
-				drawData.iByteBuffer.limit(indicesOffset + 2);
-				short indexSize = (short)drawData.iByteBuffer.getShort(indicesOffset);
-				int cmdSize = (int)drawData.cmdByteBuffer.getFloat();
-
-				int verticesStartOffset = verticesOffset + 4;
-				int indexStartOffset = indicesOffset + 2;
-
-				drawData.vByteBuffer.position(verticesStartOffset);
-				drawData.iByteBuffer.position(indexStartOffset);
-
-				int newVlimit = verticesStartOffset + verticeSize * ImDrawData.vBufferSize;
-				int newIlimit = indexStartOffset + indexSize * ImDrawData.iBufferSize;
-
-				drawData.vByteBuffer.limit(newVlimit);
+				int curIndexPosition = drawData.iByteBuffer.position();
+				drawData.iByteBuffer.limit(curIndexPosition + 2);
+				short indexSize = (short)drawData.iByteBuffer.getShort();
+				curIndexPosition = drawData.iByteBuffer.position();
+				int newIlimit = curIndexPosition + (indexSize * ImDrawData.iBufferSize);
 				drawData.iByteBuffer.limit(newIlimit);
 
-				Gdx.gl.glBufferData(GL20.GL_ARRAY_BUFFER, drawData.vByteBuffer.limit(), drawData.vByteBuffer, GL20.GL_STREAM_DRAW);
-				Gdx.gl.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, drawData.iByteBuffer.limit(), drawData.iByteBuffer, GL20.GL_STREAM_DRAW);
+				int curVertexPosition = drawData.vByteBuffer.position();
+				drawData.vByteBuffer.limit(curVertexPosition + 4);
+				int verticesSize = (int)drawData.vByteBuffer.getFloat();
+				curVertexPosition = drawData.vByteBuffer.position();
+				int newVlimit = curVertexPosition + (verticesSize * ImDrawData.vBufferSize);
+				drawData.vByteBuffer.limit(newVlimit);
 
-				verticesOffset += ((verticeSize) * ImDrawData.vBufferSize) + 4;
-				indicesOffset += ((indexSize) * ImDrawData.iBufferSize) + 2;
+				Gdx.gl.glBufferData(GL20.GL_ARRAY_BUFFER, verticesSize * ImDrawData.vBufferSize, drawData.vByteBuffer, GL20.GL_STREAM_DRAW);
+				Gdx.gl.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, indexSize *  ImDrawData.iBufferSize, drawData.iByteBuffer, GL20.GL_STREAM_DRAW);
 
+				drawData.vByteBuffer.position(newVlimit);
+				drawData.iByteBuffer.position(newIlimit);
+
+				int cmdSize = (int)drawData.cmdByteBuffer.getFloat();
 				for (int j = 0; j < cmdSize; j++) {
 
 					float clipRectX = drawData.cmdByteBuffer.getFloat();
@@ -233,7 +231,7 @@ public class ImGuiGdxImpl {
 				}
 			}
 
-			unbind();
+//			unbind();
 
 			if(last_enable_blend) {
 				Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -320,6 +318,8 @@ public class ImGuiGdxImpl {
 	}
 
 	public void unbind() {
+		//TODO check if this method is needed
+
 		// unbind vertice
 		Gdx.gl.glBindBuffer(GL20.GL_ARRAY_BUFFER, 0);
 		final int numAttributes = vertexAttributes.size();

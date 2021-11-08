@@ -23,7 +23,7 @@ public final class ImDrawData {
 	public float framebufferScaleX;
 	public float framebufferScaleY;
 
-	public final static int vBufferSize = (4 + 1) * 4;
+	public final static int vBufferSize = (2 + 2 + 1) * 4;
 	public final static int iBufferSize = 2;
 	public final static int cmdBufferSize = (1 + 4 + 1) * 4;
 

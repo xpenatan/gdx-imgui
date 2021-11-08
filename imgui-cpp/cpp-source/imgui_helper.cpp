@@ -161,7 +161,7 @@ void ImGuiHelper::SetImDrawData(JNIEnv* env, ImDrawData* drawData, jobject jDraw
 
         ImDrawList** drawLists = drawData->CmdLists;
 
-        int verticeOffset = 0;
+        int verticesOffset = 0;
         int indicesOffset = 0;
         int cmdOffset = 0;
         int cmdCount = 0;
@@ -180,9 +180,8 @@ void ImGuiHelper::SetImDrawData(JNIEnv* env, ImDrawData* drawData, jobject jDraw
 
             int colorSize = 1;
 
-            int verticeItemSize = (4 + colorSize);
-
-            vertexArrayDest[verticeOffset++] = vtxBuffer.Size;
+            vertexArrayDest[verticesOffset] = vtxBuffer.Size;
+            verticesOffset++;
             // copy vertices to Destination buffer
             for(int j = 0; j < vtxBuffer.Size; j++) {
                 ImDrawVert v = vtxBuffer[j];
@@ -191,53 +190,41 @@ void ImGuiHelper::SetImDrawData(JNIEnv* env, ImDrawData* drawData, jobject jDraw
                 float uvX = v.uv.x;
                 float uvY = v.uv.y;
 
-                int byteIndex = (j * verticeItemSize) + verticeOffset;
-
                 float color = 0;
                 memcpy(&color, &v.col, 4); // move unsigned int color to float
 
-                vertexArrayDest[byteIndex + 0] = posX;
-                vertexArrayDest[byteIndex + 1] = posY;
-                vertexArrayDest[byteIndex + 2] = uvX;
-                vertexArrayDest[byteIndex + 3] = uvY;
-                vertexArrayDest[byteIndex + 4] = color;
+                vertexArrayDest[verticesOffset++] = posX;
+                vertexArrayDest[verticesOffset++] = posY;
+                vertexArrayDest[verticesOffset++] = uvX;
+                vertexArrayDest[verticesOffset++] = uvY;
+                vertexArrayDest[verticesOffset++] = color;
             }
-            verticeOffset += vtxBuffer.Size * verticeItemSize;
 
             // copy index to destination buffer
-            indexArrayDest[indicesOffset++] = idxBuffer.Size;
+            indexArrayDest[indicesOffset] = idxBuffer.Size;
+            indicesOffset++;
             for(int j = 0; j < idxBuffer.Size; j++) {
-                indexArrayDest[j + indicesOffset] = idxBuffer[j];
+                indexArrayDest[indicesOffset++] = idxBuffer[j];
             }
-            indicesOffset += idxBuffer.Size;
 
             float * cmdArrayDest = (float *)cmdBuffer;
 
-            cmdArrayDest[cmdOffset++] = imDrawCmdList.Size;
-            int bytesOffset = 0;
-            int imDrawCmdSize = 4 + 1 + 1 + 1 + 1;
+            cmdArrayDest[cmdOffset] = imDrawCmdList.Size;
+            cmdOffset++;
             for (int cmd_i = 0; cmd_i < imDrawCmdList.Size; cmd_i++) {
                 const ImDrawCmd * pcmd = &imDrawCmdList[cmd_i];
-
                 float  textureID = (float)(intptr_t)pcmd->TextureId;
-                float tempArray [8] = {
-                    pcmd->ClipRect.x,
-                    pcmd->ClipRect.y,
-                    pcmd->ClipRect.z,
-                    pcmd->ClipRect.w,
-                    textureID,
-                    pcmd->VtxOffset,
-                    pcmd->IdxOffset,
-                    pcmd->ElemCount
-                };
-
-                memcpy((cmdArrayDest + (cmd_i * imDrawCmdSize) + cmdOffset), tempArray, imDrawCmdSize * 4);
-                bytesOffset = bytesOffset + imDrawCmdSize;
+                cmdArrayDest[cmdOffset++] = pcmd->ClipRect.x;
+                cmdArrayDest[cmdOffset++] = pcmd->ClipRect.y;
+                cmdArrayDest[cmdOffset++] = pcmd->ClipRect.z;
+                cmdArrayDest[cmdOffset++] = pcmd->ClipRect.w;
+                cmdArrayDest[cmdOffset++] = textureID;
+                cmdArrayDest[cmdOffset++] = pcmd->VtxOffset;
+                cmdArrayDest[cmdOffset++] = pcmd->IdxOffset;
+                cmdArrayDest[cmdOffset++] = pcmd->ElemCount;
             }
-            cmdOffset += imDrawCmdList.Size * imDrawCmdSize;
             cmdCount +=  imDrawCmdList.Size;
         }
-
         env->SetIntField (jDrawData, fid_ImDrawData_totalCmdCount, cmdCount);
     }
 }

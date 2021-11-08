@@ -106,12 +106,6 @@ public class ImGui {
 	}
 
 	public static ImDrawData GetDrawData() {
-		ByteBuffer cmdByteBuffer = drawData.cmdByteBuffer;
-		ByteBuffer vByteBuffer = drawData.vByteBuffer;
-		ByteBuffer iByteBuffer = drawData.iByteBuffer;
-		vByteBuffer.position(0);
-		iByteBuffer.position(0);
-		cmdByteBuffer.position(0);
 		ImGuiNative.GetDrawData(drawData);
 		return drawData;
 	}
