@@ -14,7 +14,7 @@ public class ImGui {
 	private static boolean IMGUIINIT = false;
 	public static String TAG = "ImGui";
 
-	public static final int VERSION_CODE = 36;
+	public static final int VERSION_CODE = 37;
 
 	public static void init () {
 		init(true, true);
@@ -1733,6 +1733,10 @@ public class ImGui {
 
 	// Miscellaneous Utilities
 
+	public static int GetFrameCount() {
+		return ImGuiNative.GetFrameCount();
+	}
+
 	public static boolean BeginChildFrame(int id, float width, float height) {
 		return ImGuiNative.BeginChildFrame(id, width, height);
 	}
@@ -1791,6 +1795,10 @@ public class ImGui {
 
 	public static void DestroyPlatformWindows() {
 		ImGuiNative.DestroyPlatformWindows();
+	}
+
+	public static ImGuiViewport FindViewportByPlatformHandle(long platformHandle, boolean updateDrawData) {
+		return ImGuiNative.FindViewportByPlatformHandle(platformHandle, updateDrawData);
 	}
 
 

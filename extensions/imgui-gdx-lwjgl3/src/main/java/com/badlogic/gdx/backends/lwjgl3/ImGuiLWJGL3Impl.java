@@ -1,10 +1,9 @@
 package com.badlogic.gdx.backends.lwjgl3;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.BufferUtils;
-import com.badlogic.gdx.utils.LongArray;
 import com.github.xpenatan.imgui.ImDrawData;
 import com.github.xpenatan.imgui.ImGui;
 import com.github.xpenatan.imgui.ImGuiViewport;
@@ -28,7 +27,7 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
     private Lwjgl3Application app;
 
     private boolean updateMonitors = false;
-    private LongArray monitors = new LongArray();
+    private Array<Lwjgl3Window> monitors;
     private Lwjgl3Window mainWindow;
 
     private int nextUserData = 1;
@@ -38,14 +37,20 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
 
     public ImGuiLWJGL3Impl() {
         app = (Lwjgl3Application)Gdx.app;
-        Array<Lwjgl3Window> windows = app.windows;
-        mainWindow = windows.get(0);
+        monitors = app.windows;
+        mainWindow = monitors.get(0);
         this.tmpBuffer = BufferUtils.newIntBuffer(1);
         this.tmpBuffer2 = BufferUtils.newIntBuffer(1);
         long windowHandle = mainWindow.getWindowHandle();
-        monitors.add(windowHandle);
         ImGuiPlatformNative.InitPlatformInterface(this, windowHandle, nextUserData);
         updateMonitors();
+        GLFW.glfwSetMonitorCallback(new GLFWMonitorCallback() {
+            @Override
+            public void invoke(long monitor, int event) {
+                updateMonitors = true;
+            }
+        });
+
         GLFW.glfwSetMonitorCallback(new GLFWMonitorCallback() {
             @Override
             public void invoke(long monitor, int event) {
@@ -66,12 +71,24 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
     @Override
     protected void updateFrame(float deltaTime, int width, int height, int backBufferWidth, int backBufferHeight, int mouseX, int mouseY, boolean mouseDown0, boolean mouseDown1, boolean mouseDown2) {
         if(ImGui.GetIO().ContainsConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
-            long platformHandle = mainWindow.getWindowHandle();
-            GLFW.glfwGetWindowPos(platformHandle, tmpBuffer, tmpBuffer2);
-            int windowX = tmpBuffer.get(0);
-            int windowY = tmpBuffer2.get(0);
-            mouseX = mouseX + windowX;
-            mouseY = mouseY + windowY;
+            for(int i = 0; i < monitors.size; i++) {
+                Lwjgl3Window lwjgl3Window = monitors.get(i);
+                long platformHandle = lwjgl3Window.getWindowHandle();
+                boolean focused = GLFW.glfwGetWindowAttrib(platformHandle, GLFW.GLFW_FOCUSED) != 0;
+                if(focused) {
+                    Lwjgl3Input input = lwjgl3Window.getInput();
+                    GLFW.glfwGetWindowPos(platformHandle, tmpBuffer, tmpBuffer2);
+                    mouseX = input.getX();
+                    mouseY = input.getY();
+                    int windowX = tmpBuffer.get(0);
+                    int windowY = tmpBuffer2.get(0);
+                    mouseX = mouseX + windowX;
+                    mouseY = mouseY + windowY;
+                    mouseDown0 = mouseDown0 || input.isButtonPressed(Input.Buttons.LEFT);
+                    mouseDown1 = mouseDown1 || input.isButtonPressed(Input.Buttons.MIDDLE);
+                    mouseDown2 = mouseDown2 || input.isButtonPressed(Input.Buttons.RIGHT);
+                }
+            }
         }
         super.updateFrame(deltaTime, width, height, backBufferWidth, backBufferHeight, mouseX, mouseY, mouseDown0, mouseDown1, mouseDown2);
     }
@@ -82,14 +99,14 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
         if(ImGui.GetIO().ContainsConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
             ImGui.UpdatePlatformWindows();
             ImGui.RenderPlatformWindowsDefault();
-            mainWindow.makeCurrent();
         }
     }
 
     private void updateMonitors() {
         ImGuiPlatformNative.PlatformResize(0);
         for(int i = 0; i < monitors.size; i++) {
-            long platformHandle = monitors.get(i);
+            Lwjgl3Window lwjgl3Window = monitors.get(i);
+            long platformHandle = lwjgl3Window.getWindowHandle();
             GLFW.glfwGetMonitorPos(platformHandle, tmpBuffer, tmpBuffer2);
             GLFWVidMode vid_mode = GLFW.glfwGetVideoMode(platformHandle);
             float positionX = tmpBuffer.get(0);
@@ -106,42 +123,48 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
         }
     }
 
+    private Lwjgl3Window findWindow(long platformHandle) {
+        for(int i = 0; i < monitors.size; i++) {
+            Lwjgl3Window lwjgl3Window = monitors.get(i);
+            if(lwjgl3Window.getWindowHandle() == platformHandle) {
+                return lwjgl3Window;
+            }
+        }
+        return null;
+    }
+
     @Override
     public void CreateWindow(ImGuiViewport viewport) {
         nextUserData++;
         viewport.platformUserData = nextUserData;
 
-        GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
-        GLFW.glfwWindowHint(GLFW.GLFW_FOCUSED, GLFW.GLFW_FALSE);
-//        if (GLFW.glfwHasFocusOnShow) {
-//            GLFW.glfwWindowHint(GLFW.GLFW_FOCUS_ON_SHOW, GLFW.GLFW_FALSE);
-//        }
-
         boolean noDecoration = (viewport.flags & ImGuiViewportFlags.NoDecoration.getValue()) == ImGuiViewportFlags.NoDecoration.getValue();
         boolean isTopMost = (viewport.flags & ImGuiViewportFlags.TopMost.getValue()) == ImGuiViewportFlags.TopMost.getValue();
-        GLFW.glfwWindowHint(GLFW.GLFW_DECORATED, noDecoration ? GLFW.GLFW_FALSE : GLFW.GLFW_TRUE);
-//        if (GLFW.glfwHawWindowTopmost) {
-            GLFW.glfwWindowHint(GLFW.GLFW_FLOATING, isTopMost ? GLFW.GLFW_TRUE : GLFW.GLFW_FALSE);
-//        }
 
-//        Lwjgl3Window lwjgl3Window = app.newWindow(new ImGuiApplication(), config);
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        config.setWindowPosition((int) viewport.posX, (int) viewport.posY);
+        config.setWindowedMode((int) viewport.sizeX, (int) viewport.sizeY);
+        config.windowDecorated = !noDecoration;
+        config.title = "Empty";
+
+        ImGuiApplication imGuiApplication = new ImGuiApplication(this);
+        Lwjgl3Window lwjgl3Window = new Lwjgl3Window(imGuiApplication, config, app);
+        imGuiApplication.lwjgl3Window = lwjgl3Window;
         long mainWindowHandle = mainWindow.getWindowHandle();
-        long newPlatformHandle = GLFW.glfwCreateWindow((int) viewport.sizeX, (int) viewport.sizeY, "No Title Yet", 0, mainWindowHandle);
-        viewport.platformHandle = newPlatformHandle;
-        GLFW.glfwSetWindowPos(newPlatformHandle, (int) viewport.posX, (int) viewport.posY);
+        app.createWindow(lwjgl3Window, config, mainWindowHandle);
+        monitors.add(lwjgl3Window);
 
-        GLFW.glfwMakeContextCurrent(newPlatformHandle);
+        viewport.platformHandle = lwjgl3Window.getWindowHandle();
+        lwjgl3Window.makeCurrent();
         GLFW.glfwSwapInterval(0);
-        monitors.add(newPlatformHandle);
     }
 
     @Override
     public void DestroyWindow(long platformHandle, int platformUserData) {
-        if(mainWindow.getWindowHandle() == platformHandle)
-            return;
-
-        monitors.removeValue(platformHandle);
-        GLFW.glfwDestroyWindow(platformHandle);
+        Lwjgl3Window window = findWindow(platformHandle);
+        if(window != null) {
+            window.closeWindow();
+        }
     }
 
     @Override
@@ -188,8 +211,7 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
 
     @Override
     public boolean GetWindowFocus(long platformHandle, int platformUserData) {
-        final boolean focused = GLFW.glfwGetWindowAttrib(platformHandle, GLFW.GLFW_FOCUSED) != 0;
-        return focused;
+        return GLFW.glfwGetWindowAttrib(platformHandle, GLFW.GLFW_FOCUSED) != 0;
     }
 
     @Override
@@ -204,22 +226,13 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
 
     @Override
     public void PlatformRenderWindow(long platformHandle, int platformUserData) {
-        GLFW.glfwMakeContextCurrent(platformHandle);
     }
 
     @Override
     public void RendererRenderWindow(ImGuiViewport viewport) {
-        int flag = viewport.flags & ImGuiViewportFlags.NoRendererClear.getValue();
-        if(!(flag == ImGuiViewportFlags.NoRendererClear.getValue())) {
-            Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        }
-        renderDrawData(viewport.drawData, 1);
     }
 
     @Override
     public void SwapBuffers(long platformHandle, int platformUserData) {
-        GLFW.glfwMakeContextCurrent(platformHandle);
-        GLFW.glfwSwapBuffers(platformHandle);
     }
 }

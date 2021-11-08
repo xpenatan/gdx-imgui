@@ -1,13 +1,8 @@
 package com.github.xpenatan.imgui.jnicode;
 
-import java.nio.Buffer;
+import com.github.xpenatan.imgui.*;
 
-import com.github.xpenatan.imgui.ImDrawData;
-import com.github.xpenatan.imgui.ImGuiIO;
-import com.github.xpenatan.imgui.ImGuiInputTextData;
-import com.github.xpenatan.imgui.ImGuiStyle;
-import com.github.xpenatan.imgui.ImVec2;
-import com.github.xpenatan.imgui.TexDataRGBA32;
+import java.nio.Buffer;
 
 public class ImGuiNative {
 
@@ -21,6 +16,8 @@ public class ImGuiNative {
 		#else
 		#include <stdint.h>     // intptr_t
 		#endif
+
+		static jobject jViewport;
 
 		// ImGuiIO
 
@@ -89,6 +86,8 @@ public class ImGuiNative {
 
 		imTextInputDataSizeID = env->GetFieldID(jImInputTextDataClass, "size", "I");
 		imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
+
+		jViewport = env->NewGlobalRef(ImGuiHelper::CreateJImGuiViewport(env));
 	*/
 
 	public static native void CreateContext(boolean saveIni) /*-{ }-*/; /*
@@ -2169,6 +2168,10 @@ public class ImGuiNative {
 
 	// Miscellaneous Utilities
 
+	public static native int GetFrameCount() /*-{ }-*/; /*
+		return ImGui::GetFrameCount();
+	*/
+
 	public static native boolean BeginChildFrame(int id, float width, float height) /*-{ }-*/; /*
 		return ImGui::BeginChildFrame(id, ImVec2(width, height));
 	*/
@@ -2227,6 +2230,23 @@ public class ImGuiNative {
 
 	public static native void DestroyPlatformWindows() /*-{ }-*/; /*
 		ImGui::DestroyPlatformWindows();
+	*/
+
+	// Custom search because handle is int64 pointer.
+	public static native ImGuiViewport FindViewportByPlatformHandle(long platformHandle, boolean updateDrawData) /*-{ }-*/; /*
+		int64_t handle = platformHandle;
+		ImGuiContext& g = *GImGui;
+		for (int i = 0; i != g.Viewports.Size; i++) {
+			ImGuiViewport* viewport = g.Viewports[i];
+			if(viewport->PlatformHandle != NULL) {
+				int64_t viewportHandle = *(int64_t*)viewport->PlatformHandle;
+				if (viewportHandle == handle) {
+					ImGuiHelper::SetImGuiViewport(env, viewport, jViewport, updateDrawData);
+					return jViewport;
+				}
+			}
+		}
+		return NULL;
 	*/
 
 	// ImGuiIO setters

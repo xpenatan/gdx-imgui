@@ -234,7 +234,7 @@ public class ImGuiPlatformNative {
 			mid_Platform_CreateWindow = env->GetMethodID(cls_platformListener, "CreateWindow", "(Lcom/github/xpenatan/imgui/ImGuiViewport;)V");
 			mid_Platform_ShowWindow = env->GetMethodID(cls_platformListener, "ShowWindow", "(JI)V");
 			mid_Platform_DestroyWindow = env->GetMethodID(cls_platformListener, "DestroyWindow", "(JI)V");
-			mid_Platform_SetWindowPos = env->GetMethodID(cls_platformListener, "SetWindowSize", "(JIFF)V");
+			mid_Platform_SetWindowPos = env->GetMethodID(cls_platformListener, "SetWindowPos", "(JIFF)V");
 			mid_Platform_GetWindowPos = env->GetMethodID(cls_platformListener, "GetWindowPos", "(JI)Lcom/github/xpenatan/imgui/ImVec2;");
 			mid_Platform_SetWindowSize = env->GetMethodID(cls_platformListener, "SetWindowSize", "(JIFF)V");
 			mid_Platform_GetWindowSize = env->GetMethodID(cls_platformListener, "GetWindowSize", "(JI)Lcom/github/xpenatan/imgui/ImVec2;");
