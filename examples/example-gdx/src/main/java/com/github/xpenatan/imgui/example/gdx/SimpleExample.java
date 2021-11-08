@@ -69,8 +69,8 @@ public class SimpleExample implements ApplicationListener
 
 	private String dragDropValue;
 
-	ImColor color = new ImColor();
-	ImColor color2 = new ImColor();
+	ImColor color = new ImColor(0, 0, 255, 0);
+	ImColor color2 = new ImColor(0.0f, 1.0f, 0.0f, 1.0f);
 
 	boolean init = false;
 	@Override
