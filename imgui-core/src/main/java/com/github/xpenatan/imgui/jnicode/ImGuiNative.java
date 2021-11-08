@@ -1522,6 +1522,25 @@ public class ImGuiNative {
 		return ImGui::InputDouble(label, &v[0], step, step_fast, format, flags);
 	*/
 
+	// Widgets: Color Editor/Picker (tip: the ColorEdit* functions have a little color square that can be left-clicked to open a picker, and right-clicked to open an option menu.)
+	// - Note that in C++ a 'float v[X]' function argument is the _same_ as 'float* v', the array syntax is just a way to document the number of elements that are expected to be accessible.
+	// - You can pass the address of a first float element out of a contiguous structure, e.g. &myvector.x
+
+	public static native boolean ColorEdit3(String label, float [] col, int flags) /*-{ }-*/; /*
+		return ImGui::ColorEdit3(label, col, flags);
+	*/
+
+	public static native boolean ColorEdit4(String label, float [] col, int flags) /*-{ }-*/; /*
+		return ImGui::ColorEdit4(label, col, flags);
+	*/
+
+	public static native boolean ColorPicker3(String label, float [] col, int flags) /*-{ }-*/; /*
+		return ImGui::ColorPicker3(label, col, flags);
+	*/
+
+	public static native boolean ColorPicker4(String label, float [] col, int flags) /*-{ }-*/; /*
+		return ImGui::ColorPicker4(label, col, flags);
+	*/
 
 	// Widgets: Trees
 	// - TreeNode functions return true when the node is open, in which case you need to also call TreePop() when you are finished displaying the tree node contents.

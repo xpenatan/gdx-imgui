@@ -2,8 +2,6 @@ package com.github.xpenatan.imgui;
 
 import java.lang.ref.WeakReference;
 import java.nio.Buffer;
-import java.nio.ByteBuffer;
-
 import com.badlogic.gdx.utils.SharedLibraryLoader;
 import com.github.xpenatan.imgui.enums.*;
 import com.github.xpenatan.imgui.jnicode.ImGuiInternalNative;
@@ -16,7 +14,7 @@ public class ImGui {
 	private static boolean IMGUIINIT = false;
 	public static String TAG = "ImGui";
 
-	public static final int VERSION_CODE = 34;
+	public static final int VERSION_CODE = 35;
 
 	public static void init () {
 		init(true, true);
@@ -1037,6 +1035,42 @@ public class ImGui {
 
 	public static boolean InputDouble(String label, ImGuiDouble v, float step, float step_fast, String format, ImGuiInputTextFlags flags) {
 		return ImGuiNative.InputDouble(label, v.data, step, step_fast, format, flags.getValue());
+	}
+
+	// Widgets: Color Editor/Picker (tip: the ColorEdit* functions have a little color square that can be left-clicked to open a picker, and right-clicked to open an option menu.)
+	// - Note that in C++ a 'float v[X]' function argument is the _same_ as 'float* v', the array syntax is just a way to document the number of elements that are expected to be accessible.
+	// - You can pass the address of a first float element out of a contiguous structure, e.g. &myvector.x
+
+	public static boolean ColorEdit3(String label, ImColor color) {
+		return ColorEdit3(label, color, ImGuiColorEditFlags.None);
+	}
+
+	public static boolean ColorEdit3(String label, ImColor color, ImGuiColorEditFlags flags) {
+		return ImGuiNative.ColorEdit3(label, color.data, flags.getValue());
+	}
+
+	public static boolean ColorEdit4(String label, ImColor color) {
+		return ColorEdit4(label, color, ImGuiColorEditFlags.None);
+	}
+
+	public static boolean ColorEdit4(String label, ImColor color, ImGuiColorEditFlags flags) {
+		return ImGuiNative.ColorEdit4(label, color.data, flags.getValue());
+	}
+
+	public static boolean ColorPicker3(String label, ImColor color) {
+		return ColorPicker3(label, color, ImGuiColorEditFlags.None);
+	}
+
+	public static boolean ColorPicker3(String label, ImColor color, ImGuiColorEditFlags flags) {
+		return ImGuiNative.ColorPicker3(label, color.data, flags.getValue());
+	}
+
+	public static boolean ColorPicker4(String label, ImColor color) {
+		return ColorPicker4(label, color, ImGuiColorEditFlags.None);
+	}
+
+	public static boolean ColorPicker4(String label, ImColor color, ImGuiColorEditFlags flags) {
+		return ImGuiNative.ColorPicker4(label, color.data, flags.getValue());
 	}
 
 	// Widgets: Trees

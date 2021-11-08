@@ -69,6 +69,9 @@ public class SimpleExample implements ApplicationListener
 
 	private String dragDropValue;
 
+	ImColor color = new ImColor();
+	ImColor color2 = new ImColor();
+
 	boolean init = false;
 	@Override
 	public void create () {
@@ -155,7 +158,7 @@ public class SimpleExample implements ApplicationListener
 	}
 
 	private void renderTabImGuiViews() {
-
+		renderColorWidget();
 		ImGui.Text("jDear-ImGui VersionCode: " + ImGui.VERSION_CODE);
 
 		if (ImGui.BeginTable("split2", 2, ImGuiTableFlags.Sortable)) {
@@ -435,6 +438,13 @@ public class SimpleExample implements ApplicationListener
 			ImGuiExt.EndAlign();
 		}
 		ImGuiExt.EndCollapseLayout();
+	}
+
+	public void renderColorWidget() {
+		ImGui.ColorPicker3("ColorPicker3", color);
+		ImGui.ColorEdit3("ColorEdit3", color2);
+		ImGui.ColorPicker4("ColorPicker4", color);
+		ImGui.ColorEdit4("ColorEdit4", color2);
 	}
 
 	@Override
