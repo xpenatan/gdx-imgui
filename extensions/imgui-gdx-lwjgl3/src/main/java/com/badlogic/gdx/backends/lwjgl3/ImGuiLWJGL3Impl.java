@@ -136,14 +136,15 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
     @Override
     public void CreateWindow(ImGuiViewport viewport) {
         nextUserData++;
-        viewport.platformUserData = nextUserData;
+        viewport.setPlatformUserData(nextUserData);
 
-        boolean noDecoration = (viewport.flags & ImGuiViewportFlags.NoDecoration.getValue()) == ImGuiViewportFlags.NoDecoration.getValue();
-        boolean isTopMost = (viewport.flags & ImGuiViewportFlags.TopMost.getValue()) == ImGuiViewportFlags.TopMost.getValue();
+        int viewportFlags = viewport.getFlags();
+        boolean noDecoration = (viewportFlags & ImGuiViewportFlags.NoDecoration.getValue()) == ImGuiViewportFlags.NoDecoration.getValue();
+        boolean isTopMost = (viewportFlags & ImGuiViewportFlags.TopMost.getValue()) == ImGuiViewportFlags.TopMost.getValue();
 
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-        config.setWindowPosition((int) viewport.posX, (int) viewport.posY);
-        config.setWindowedMode((int) viewport.sizeX, (int) viewport.sizeY);
+        config.setWindowPosition((int) viewport.getPosX(), (int) viewport.getPosY());
+        config.setWindowedMode((int) viewport.getSizeX(), (int) viewport.getSizeY());
         config.windowDecorated = !noDecoration;
         config.title = "Empty";
 
@@ -154,7 +155,7 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
         app.createWindow(lwjgl3Window, config, mainWindowHandle);
         monitors.add(lwjgl3Window);
 
-        viewport.platformHandle = lwjgl3Window.getWindowHandle();
+        viewport.setPlatformHandle(lwjgl3Window.getWindowHandle());
         lwjgl3Window.makeCurrent();
         GLFW.glfwSwapInterval(0);
     }

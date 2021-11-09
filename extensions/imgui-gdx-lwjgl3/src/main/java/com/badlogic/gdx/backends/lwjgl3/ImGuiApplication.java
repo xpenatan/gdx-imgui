@@ -35,7 +35,7 @@ public class ImGuiApplication implements ApplicationListener {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         ImGuiViewport imGuiViewport = ImGui.FindViewportByPlatformHandle(lwjgl3Window.getWindowHandle(), true);
         if(imGuiViewport != null) {
-            ImDrawData drawData = imGuiViewport.drawData;
+            ImDrawData drawData = imGuiViewport.getDrawData();
             impl.renderDrawData(drawData, 1);
         }
     }

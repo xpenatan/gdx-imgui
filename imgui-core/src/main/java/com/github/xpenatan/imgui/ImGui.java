@@ -248,7 +248,11 @@ public class ImGui {
 		return ImGuiNative.GetWindowHeight();
 	}
 
-	// Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin).
+	public static ImGuiViewport GetWindowViewport() {
+		return ImGuiNative.GetWindowViewport();
+	}
+
+	// Window manipulation
 
 	public static void SetNextWindowPos(float x, float y) {
 		ImGuiNative.SetNextWindowPos(x, y);

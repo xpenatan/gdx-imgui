@@ -579,6 +579,12 @@ public class ImGuiNative {
 		return ImGui::GetWindowHeight();
 	 */
 
+	public static native ImGuiViewport GetWindowViewport() /*-{ }-*/; /*
+		ImGuiViewport* viewport = ImGui::GetWindowViewport();
+		ImGuiHelper::SetImGuiViewport(env, viewport, jViewport);
+		return jViewport;
+	 */
+
 	// Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin).
 
 	public static native void SetNextWindowPos(float x, float y) /*-{ }-*/; /*
