@@ -19,7 +19,7 @@ When project is ready, run buildImGuiNatives from gralde GUI and publishToMavenL
 
 ### Gradle
 
-Only SNAPSHOTS are currently available and use the docking branch. Release will be ready when ImGui docking api goes to master.
+Only SNAPSHOTS are currently available. Release will be ready when ImGui docking api goes to master.
 
     gdxVersion = "1.9.11-SNAPSHOT"
     jDearImguiVersion = "1.0.0-SNAPSHOT"
