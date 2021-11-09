@@ -7,6 +7,7 @@ package com.github.xpenatan.imgui.enums;
  */
 public class ImGuiCond {
 	private static ImGuiCond Custom = new ImGuiCond(0);
+	public static ImGuiCond None = new ImGuiCond(0);
 	public static ImGuiCond Always = new ImGuiCond(1 << 0);
 	public static ImGuiCond Once = new ImGuiCond(1 << 1);
 	public static ImGuiCond FirstUseEver = new ImGuiCond(1 << 2);

@@ -2029,16 +2029,38 @@ public class ImGuiNative {
 	// Use DockSpace() to create an explicit dock node _within_ an existing window. See Docking demo for details.
 
 
-	public static native void DockSpace(int id) /*-{ }-*/; /*
-//		ImGui::DockSpace(id);
+	public static native int DockSpace(int id) /*-{ }-*/; /*
+		return ImGui::DockSpace(id);
 	*/
 
-	public static native void DockSpace(int id, float sizeX, float sizeY) /*-{ }-*/; /*
-//		ImGui::DockSpace(id, ImVec2(sizeX, sizeY));
+	public static native int DockSpace(int id, float sizeX, float sizeY) /*-{ }-*/; /*
+		return ImGui::DockSpace(id, ImVec2(sizeX, sizeY));
 	*/
 
-	public static native void DockSpace(int id, float sizeX, float sizeY, int flags) /*-{ }-*/; /*
-//		ImGui::DockSpace(id, ImVec2(sizeX, sizeY), flags);
+	public static native int DockSpace(int id, float sizeX, float sizeY, int flags) /*-{ }-*/; /*
+		return ImGui::DockSpace(id, ImVec2(sizeX, sizeY), flags);
+	*/
+
+	public static native int DockSpaceOverViewport() /*-{ }-*/; /*
+		return ImGui::DockSpaceOverViewport();
+	*/
+
+	public static native int DockSpaceOverViewport(ImGuiViewport viewport, int flags) /*-{ }-*/; /*
+		ImGuiViewport tmp = ImGuiViewport();
+		ImGuiHelper::SetImGuiViewport(env, viewport, &tmp);
+		return ImGui::DockSpaceOverViewport(&tmp, flags);
+	*/
+
+	public static native void SetNextWindowDockID(int dock_id, int cond) /*-{ }-*/; /*
+		ImGui::SetNextWindowDockID(dock_id, cond);
+	*/
+
+	public static native int GetWindowDockID() /*-{ }-*/; /*
+		return ImGui::GetWindowDockID();
+	*/
+
+	public static native boolean IsWindowDocked() /*-{ }-*/; /*
+		return ImGui::IsWindowDocked();
 	*/
 
 	// Drag and Drop
@@ -2164,6 +2186,17 @@ public class ImGuiNative {
 
 	public static native void SetItemAllowOverlap() /*-{ }-*/; /*
 		ImGui::SetItemAllowOverlap();
+	*/
+
+	// Viewports
+	// - Currently represents the Platform Window created by the application which is hosting our Dear ImGui windows.
+	// - In 'docking' branch with multi-viewport enabled, we extend this concept to have multiple active viewports.
+	// - In the future we will extend this concept further to also represent Platform Monitor and support a "no main platform window" operation mode.
+
+	public static native ImGuiViewport GetMainViewport(boolean updateDrawData) /*-{ }-*/; /*
+		ImGuiViewport* viewport = ImGui::GetMainViewport();
+		ImGuiHelper::SetImGuiViewport(env, viewport, jViewport, updateDrawData);
+		return jViewport;
 	*/
 
 	// Miscellaneous Utilities

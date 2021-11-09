@@ -2,6 +2,7 @@ package com.github.xpenatan.imgui.enums;
 
 public class ImGuiDockNodeFlags {
 	private static ImGuiDockNodeFlags Custom = new ImGuiDockNodeFlags(0);
+	public static ImGuiDockNodeFlags None = new ImGuiDockNodeFlags(0);
 	public static ImGuiDockNodeFlags KeepAliveOnly = new ImGuiDockNodeFlags(1 << 0);
 
 	public static ImGuiDockNodeFlags NoDockingInCentralNode = new ImGuiDockNodeFlags(1 << 2);

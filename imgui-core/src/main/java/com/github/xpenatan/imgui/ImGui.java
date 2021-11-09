@@ -14,7 +14,7 @@ public class ImGui {
 	private static boolean IMGUIINIT = false;
 	public static String TAG = "ImGui";
 
-	public static final int VERSION_CODE = 37;
+	public static final int VERSION_CODE = 38;
 
 	public static void init () {
 		init(true, true);
@@ -1564,17 +1564,46 @@ public class ImGui {
 	// To dock windows: if io.ConfigDockingWithShift == true: hold SHIFT anywhere while moving windows.
 	// Use DockSpace() to create an explicit dock node _within_ an existing window. See Docking demo for details.
 
+	//TODO Create ImGuiWindowClass. May need to have a C++ pointer reference.
 
-	public static void DockSpace(int id) {
-		ImGuiNative.DockSpace(id);
+	public static int DockSpace(int id) {
+		return ImGuiNative.DockSpace(id);
 	}
 
-	public static void DockSpace(int id, float sizeX, float sizeY) {
-		ImGuiNative.DockSpace(id, sizeX, sizeY);
+	public static int DockSpace(int id, float sizeX, float sizeY) {
+		return ImGuiNative.DockSpace(id, sizeX, sizeY);
 	}
 
-	public static void DockSpace(int id, float sizeX, float sizeY, ImGuiDockNodeFlags flags) {
-		ImGuiNative.DockSpace(id, sizeX, sizeY, flags.getValue());
+	public static int DockSpace(int id, float sizeX, float sizeY, ImGuiDockNodeFlags flags) {
+		return ImGuiNative.DockSpace(id, sizeX, sizeY, flags.getValue());
+	}
+
+	public static int DockSpaceOverViewport() {
+		return ImGuiNative.DockSpaceOverViewport();
+	}
+
+	public static int DockSpaceOverViewport(ImGuiViewport viewport) {
+		return ImGuiNative.DockSpaceOverViewport(viewport, ImGuiDockNodeFlags.None.getValue());
+	}
+
+	public static int DockSpaceOverViewport(ImGuiViewport viewport, ImGuiDockNodeFlags flags) {
+		return ImGuiNative.DockSpaceOverViewport(viewport, flags.getValue());
+	}
+
+	public static void SetNextWindowDockID(int dock_id) {
+		SetNextWindowDockID(dock_id, ImGuiCond.None);
+	}
+
+	public static void SetNextWindowDockID(int dock_id, ImGuiCond cond) {
+		ImGuiNative.SetNextWindowDockID(dock_id, cond.getValue());
+	}
+
+	public static int GetWindowDockID() {
+		return ImGuiNative.GetWindowDockID();
+	}
+
+	public static boolean IsWindowDocked() {
+		return ImGuiNative.IsWindowDocked();
 	}
 
 	// Drag and Drop
@@ -1729,6 +1758,19 @@ public class ImGui {
 
 	public static void SetItemAllowOverlap() {
 		ImGuiNative.SetItemAllowOverlap();
+	}
+
+	// Viewports
+	// - Currently represents the Platform Window created by the application which is hosting our Dear ImGui windows.
+	// - In 'docking' branch with multi-viewport enabled, we extend this concept to have multiple active viewports.
+	// - In the future we will extend this concept further to also represent Platform Monitor and support a "no main platform window" operation mode.
+
+	public static ImGuiViewport GetMainViewport() {
+		return GetMainViewport(false);
+	}
+
+	public static ImGuiViewport GetMainViewport(boolean updateDrawData) {
+		return ImGuiNative.GetMainViewport(updateDrawData);
 	}
 
 	// Miscellaneous Utilities
