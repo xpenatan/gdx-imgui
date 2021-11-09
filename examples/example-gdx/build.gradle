@@ -6,13 +6,17 @@ plugins {
 apply from: '../../dependencies.gradle'
 
 dependencies {
-	implementation "com.badlogicgames.gdx:gdx-jnigen:$project.jniGenVersion"
+    // Required
     implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-core:$project.jDearImguiVersion"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-core-platform:$project.jDearImguiVersion:natives-desktop"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx:$project.jDearImguiGdxVersion"
+
+    // Optional. Used for multi viewports. Currently WIP.
     implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx-lwjgl3:$project.jDearImguiGdxVersion"
+
+    // Optional
     implementation "com.github.xpenatan.jDear-Imgui:imgui-ext:$project.jDearImguiLayoutVersion"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-ext-platform:$project.jDearImguiLayoutVersion:natives-desktop"
 
