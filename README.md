@@ -13,7 +13,7 @@ Try out gdx-imgui-demo and see it working.
 
 To build from source you need mingw. You can find the instructions at https://github.com/libgdx/libgdx/wiki/jnigen.
 
-When project is ready, run buildImGuiNatives from gralde GUI.
+When project is ready, run buildImGuiNatives from gralde GUI and publishToMavenLocal to test your changes.
 
 ![img.png](https://i.imgur.com/a1MyyzF.png)
 
