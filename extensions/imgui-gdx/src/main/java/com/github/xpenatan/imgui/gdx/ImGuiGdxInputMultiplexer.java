@@ -16,6 +16,10 @@ public class ImGuiGdxInputMultiplexer extends InputMultiplexer {
 
 	private IntArray keyDown = new IntArray();
 
+	public ImGuiGdxInputMultiplexer() {
+		this.inputProcessor = new ImGuiGdxInput();
+	}
+
 	public ImGuiGdxInputMultiplexer(ImGuiGdxInput inputProcessor) {
 		this.inputProcessor = inputProcessor;
 	}

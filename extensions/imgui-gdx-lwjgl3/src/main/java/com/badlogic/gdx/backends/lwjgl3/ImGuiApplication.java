@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.github.xpenatan.imgui.ImDrawData;
 import com.github.xpenatan.imgui.ImGui;
 import com.github.xpenatan.imgui.ImGuiViewport;
-import com.github.xpenatan.imgui.gdx.ImGuiGdxInput;
+import com.github.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
 
 public class ImGuiApplication implements ApplicationListener {
 
     private ImGuiLWJGL3Impl impl;
     public Lwjgl3Window lwjgl3Window;
-    private ImGuiGdxInput input;
+    private ImGuiGdxInputMultiplexer input;
 
     public ImGuiApplication(ImGuiLWJGL3Impl impl) {
         this.impl = impl;
@@ -20,7 +20,7 @@ public class ImGuiApplication implements ApplicationListener {
 
     @Override
     public void create() {
-        input = new ImGuiGdxInput();
+        input = new ImGuiGdxInputMultiplexer();
         Gdx.input.setInputProcessor(input);
     }
 

@@ -1,12 +1,17 @@
 package com.github.xpenatan.imgui.gdx.frame.viewport;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.backends.lwjgl3.ImGuiLWJGL3Impl;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Window;
 import com.badlogic.gdx.graphics.Color;
 import com.github.xpenatan.gdx.frame.viewport.EmuApplicationWindow;
 import com.github.xpenatan.gdx.frame.viewport.EmuInput;
 import com.github.xpenatan.gdx.frame.viewport.EmuWindow;
 import com.github.xpenatan.imgui.ImGui;
+import com.github.xpenatan.imgui.ImGuiViewport;
 import com.github.xpenatan.imgui.ImVec2;
 import com.github.xpenatan.imgui.enums.ImGuiCol;
 import com.github.xpenatan.imgui.enums.ImGuiCond;
@@ -45,13 +50,13 @@ public class ImGuiGdxFrameWindow {
 
 	private StringBuilder stringBuilder = new StringBuilder();
 
-	public ImGuiGdxFrameWindow(int width, int height, float x, float y) {
-		this(new EmuApplicationWindow(), width, height, x, y);
-		this.startWidth = width;
-		this.startHeight = height;
-	}
+	private long curWindowHandle = 0;
+	private InputMultiplexer curInputMultiplexer;
 
-	public ImGuiGdxFrameWindow(EmuWindow emuWindow, int width, int height, float x, float y) {
+	private ImGuiLWJGL3Impl imp;
+
+	public ImGuiGdxFrameWindow(ImGuiLWJGL3Impl imp, EmuWindow emuWindow, int width, int height, float x, float y) {
+		this.imp = imp;
 		this.startWidth = width;
 		this.startHeight = height;
 		this.startX = x;
@@ -61,6 +66,26 @@ public class ImGuiGdxFrameWindow {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	private void updateInput(long windowHandle) {
+		EmuInput emuInput = emuWindow.getInput();
+		if(curInputMultiplexer != null) {
+			curInputMultiplexer.removeProcessor(emuInput);
+			curInputMultiplexer = null;
+		}
+
+		Lwjgl3Window window = imp.findWindow(windowHandle);
+		Input windowInput = imp.getWindowInput(window);
+
+		if(windowInput != null) {
+			InputProcessor inputProcessor = windowInput.getInputProcessor();
+			if(inputProcessor instanceof InputMultiplexer) {
+				curInputMultiplexer = (InputMultiplexer)inputProcessor;
+				curInputMultiplexer.addProcessor(emuInput);
+				curWindowHandle = windowHandle;
+			}
+		}
 	}
 
 	public void render() {
@@ -82,6 +107,10 @@ public class ImGuiGdxFrameWindow {
 		EmuInput input = emuWindow.getInput();
 
 		ImGui.Begin(name);
+
+		ImGuiViewport viewport = ImGui.GetWindowViewport();
+		updateInput(viewport.getPlatformHandle());
+
 		if(curFrameFocus)
 			ImGui.PopStyleColor();
 		boolean beginChild = ImGui.BeginChild(beginID, 0, -ImGui.GetFrameHeightWithSpacing(), false, ImGuiWindowFlags.NoMove);

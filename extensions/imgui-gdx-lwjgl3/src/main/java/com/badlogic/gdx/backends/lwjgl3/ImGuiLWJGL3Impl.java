@@ -123,7 +123,7 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
         }
     }
 
-    private Lwjgl3Window findWindow(long platformHandle) {
+    public Lwjgl3Window findWindow(long platformHandle) {
         for(int i = 0; i < monitors.size; i++) {
             Lwjgl3Window lwjgl3Window = monitors.get(i);
             if(lwjgl3Window.getWindowHandle() == platformHandle) {
@@ -235,5 +235,11 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
 
     @Override
     public void SwapBuffers(long platformHandle, int platformUserData) {
+    }
+
+    public Input getWindowInput(Lwjgl3Window window) {
+        if(window == null)
+            return null;
+        return window.getInput();
     }
 }

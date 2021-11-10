@@ -10,8 +10,6 @@ import com.github.xpenatan.gdx.frame.viewport.EmuApplicationWindow;
 import com.github.xpenatan.imgui.ImDrawData;
 import com.github.xpenatan.imgui.ImGui;
 import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
-import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
-import com.github.xpenatan.imgui.gdx.ImGuiGdxInput;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
 import com.github.xpenatan.imgui.gdx.frame.viewport.ImGuiGdxFrameWindow;
 
@@ -27,11 +25,10 @@ public class GameViewportExample implements ApplicationListener
 
 	boolean init = false;
 
-	ImGuiGdxInput input = new ImGuiGdxInput();
 	ImGuiGdxFrameWindow gameWindow1;
 	ImGuiGdxFrameWindow gameWindow2;
 
-	ImGuiGdxImpl impl;
+	ImGuiLWJGL3Impl impl;
 
 	@Override
 	public void create () {
@@ -39,26 +36,22 @@ public class GameViewportExample implements ApplicationListener
 		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable.or(ImGuiConfigFlags.ViewportsEnable));
 		ImGui.GetIO().SetDockingFlags(false, false, false, false);
 
-
 		impl = new ImGuiLWJGL3Impl();
-		Gdx.input.setInputProcessor(input);
 		configFrameViewport();
 	}
 
 	private void configFrameViewport() {
 		EmuApplicationWindow emuApplication1 = new EmuApplicationWindow();
-		gameWindow1 = new ImGuiGdxFrameWindow(emuApplication1, 400, 400, 100, 100);
+		gameWindow1 = new ImGuiGdxFrameWindow(impl, emuApplication1, 400, 400, 100, 100);
 		gameWindow1.setName("Game 1");
 		emuApplication1.setApplicationListener(new GameApp());
 
 		EmuApplicationWindow emuApplication2 = new EmuApplicationWindow();
-		gameWindow2 = new ImGuiGdxFrameWindow(emuApplication2, 400, 400, 600, 100);
+		gameWindow2 = new ImGuiGdxFrameWindow(impl, emuApplication2, 400, 400, 600, 100);
 		gameWindow2.setName("Game 2");
 		emuApplication2.setApplicationListener(new GameApp());
 
-		ImGuiGdxInputMultiplexer multiplexer = new ImGuiGdxInputMultiplexer(input);
-		multiplexer.addProcessor(gameWindow1.getInput());
-		multiplexer.addProcessor(gameWindow2.getInput());
+		ImGuiGdxInputMultiplexer multiplexer = new ImGuiGdxInputMultiplexer();
 		Gdx.input.setInputProcessor(multiplexer);
 	}
 

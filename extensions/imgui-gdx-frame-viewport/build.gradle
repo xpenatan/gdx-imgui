@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+	id 'java-library'
 }
 
 apply from: '../../dependencies.gradle'
@@ -9,6 +10,9 @@ def imgui_name = "imgui-gdx-frame-viewport"
 dependencies {
 	implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
 	implementation "com.github.xpenatan:gdx-frame-viewport:$project.gdxFrameViewportVersion"
+	implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx-lwjgl3:$project.jDearImguiGdxVersion"
+	implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
+	implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx:$project.jDearImguiGdxVersion"
 
 	implementation project(':imgui-core')
 

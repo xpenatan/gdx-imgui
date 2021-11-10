@@ -18,6 +18,7 @@ import com.github.xpenatan.imgui.custom.ImGuiLayout;
 import com.github.xpenatan.imgui.enums.*;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxInput;
+import com.github.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
 
 public class SimpleExample implements ApplicationListener
 {
@@ -85,7 +86,7 @@ public class SimpleExample implements ApplicationListener
 
 		buttonTexture = new Texture(Gdx.files.internal("data/badlogicsmall.jpg"));
 
-		ImGuiGdxInput input = new ImGuiGdxInput();
+		ImGuiGdxInputMultiplexer input = new ImGuiGdxInputMultiplexer();
 		impl = new ImGuiLWJGL3Impl();
 		Gdx.input.setInputProcessor(input);
 
