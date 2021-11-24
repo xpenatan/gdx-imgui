@@ -14,7 +14,7 @@ public class ImGui {
 	private static boolean IMGUIINIT = false;
 	public static String TAG = "ImGui";
 
-	public static final int VERSION_CODE = 38;
+	public static final int VERSION_CODE = 39;
 
 	public static void init () {
 		init(true, true);
@@ -699,6 +699,14 @@ public class ImGui {
 
 	public static boolean ImageButton(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, int frame_padding) {
 		return ImGuiNative.ImageButton(textureID, sizeX, sizeY, uv0_x, uv0_y, uv1_x, uv1_y, frame_padding);
+	}
+
+	public static boolean ImageButton(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, int frame_padding, ImColor bg_col) {
+		return ImGuiNative.ImageButton(textureID, sizeX, sizeY, uv0_x, uv0_y, uv1_x, uv1_y, frame_padding, bg_col.getR(), bg_col.getG(), bg_col.getB(), bg_col.getA(), 1f, 1f, 1f, 1f);
+	}
+
+	public static boolean ImageButton(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, int frame_padding, ImColor bg_col, ImColor tint_col) {
+		return ImGuiNative.ImageButton(textureID, sizeX, sizeY, uv0_x, uv0_y, uv1_x, uv1_y, frame_padding, bg_col.getR(), bg_col.getG(), bg_col.getB(), bg_col.getA(), tint_col.getR(), tint_col.getG(), tint_col.getB(), tint_col.getA());
 	}
 
 	public static boolean Checkbox(String label, ImGuiBoolean value) {
