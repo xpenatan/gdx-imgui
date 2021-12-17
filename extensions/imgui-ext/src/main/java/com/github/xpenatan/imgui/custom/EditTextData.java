@@ -14,6 +14,9 @@ public class EditTextData {
 	public float v_speed = -1;
 	public float power = -1;
 	public String format = null;
+	/**
+	 * When dragging feature is used, the UI will return true multiple times. isDragging will be true when dragging and false when the user release the click button.
+	 */
 	public boolean isDragging;
 
 	EditTextData(String format) {
