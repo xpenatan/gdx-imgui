@@ -1124,14 +1124,6 @@ public class ImGui {
 		return ImGuiNative.GetTreeNodeToLabelSpacing();
 	}
 
-	public static void SetNextTreeNodeOpen(boolean is_open) {
-		ImGuiNative.SetNextTreeNodeOpen(is_open);
-	}
-
-	public static void SetNextTreeNodeOpen(boolean is_open, ImGuiCond cond) {
-		ImGuiNative.SetNextTreeNodeOpen(is_open, cond.getValue());
-	}
-
 	public static boolean CollapsingHeader(String label) {
 		return ImGuiNative.CollapsingHeader(label);
 	}

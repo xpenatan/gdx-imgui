@@ -1586,14 +1586,6 @@ public class ImGuiNative {
 		return ImGui::GetTreeNodeToLabelSpacing();
 	*/
 
-	public static native void SetNextTreeNodeOpen(boolean is_open) /*-{ }-*/; /*
-		ImGui::SetNextTreeNodeOpen(is_open);
-	*/
-
-	public static native void SetNextTreeNodeOpen(boolean is_open, int cond) /*-{ }-*/; /*
-		ImGui::SetNextTreeNodeOpen(is_open, cond);
-	*/
-
 	public static native boolean CollapsingHeader(String label) /*-{ }-*/; /*
 		return ImGui::CollapsingHeader(label);
 	*/
