@@ -2100,6 +2100,14 @@ public class ImGuiNative {
 		return ImGui::GetDragDropPayload()->Data != NULL;
 	*/
 
+	public static native void BeginDisabled(boolean disabled); /*
+		ImGui::BeginDisabled(disabled);
+	*/
+
+	public static native void EndDisabled(); /*
+		ImGui::EndDisabled();
+	*/
+
 	// Focus, Activation
 	// - Prefer using "SetItemDefaultFocus()" over "if (IsWindowAppearing()) SetScrollHereY()" when applicable to signify "this is the default item"
 
