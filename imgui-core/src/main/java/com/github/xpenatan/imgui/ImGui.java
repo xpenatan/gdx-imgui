@@ -320,10 +320,6 @@ public class ImGui {
 		return imVec2;
 	}
 
-	public static float GetContentRegionAvailWidth() {
-		return ImGuiNative.GetContentRegionAvailWidth();
-	}
-
 	public static ImVec2 GetWindowContentRegionMin() {
 		ImGuiNative.GetWindowContentRegionMin(imVec2);
 		return imVec2;
@@ -362,14 +358,6 @@ public class ImGui {
 
 	public static void SetScrollY(float scroll_y) {
 		ImGuiNative.SetScrollY(scroll_y);
-	}
-
-	public static void SetScrollHereY() {
-		ImGuiNative.SetScrollHereY();
-	}
-
-	public static void SetScrollHereY(float center_y_ratio) {
-		ImGuiNative.SetScrollHereY(center_y_ratio);
 	}
 
 	public static void SetScrollFromPosY(float local_y) {
@@ -1130,10 +1118,6 @@ public class ImGui {
 
 	public static void TreePop() {
 		ImGuiNative.TreePop();
-	}
-
-	public static void TreeAdvanceToLabelPos() {
-		ImGuiNative.TreeAdvanceToLabelPos();
 	}
 
 	public static float GetTreeNodeToLabelSpacing() {

@@ -697,10 +697,6 @@ public class ImGuiNative {
 		ImGuiHelper::SetImVec2(env, vec, jImVec2);
 	*/
 
-	public static native float GetContentRegionAvailWidth() /*-{ }-*/; /*
-		return ImGui::GetContentRegionAvailWidth();
-	*/
-
 	public static native void GetWindowContentRegionMin(ImVec2 jImVec2) /*-{ }-*/; /*
 		ImVec2 vec = ImGui::GetWindowContentRegionMin();
 		ImGuiHelper::SetImVec2(env, vec, jImVec2);
@@ -739,14 +735,6 @@ public class ImGuiNative {
 
 	public static native void SetScrollY(float scroll_y) /*-{ }-*/; /*
 		ImGui::SetScrollY(scroll_y);
-	*/
-
-	public static native void SetScrollHereY() /*-{ }-*/; /*
-		ImGui::SetScrollHereY();
-	*/
-
-	public static native void SetScrollHereY(float center_y_ratio) /*-{ }-*/; /*
-		ImGui::SetScrollHereY(center_y_ratio);
 	*/
 
 	public static native void SetScrollFromPosY(float local_y) /*-{ }-*/; /*
@@ -1592,10 +1580,6 @@ public class ImGuiNative {
 
 	public static native void TreePop() /*-{ }-*/; /*
 		ImGui::TreePop();
-	*/
-
-	public static native void TreeAdvanceToLabelPos() /*-{ }-*/; /*
-		ImGui::TreeAdvanceToLabelPos();
 	*/
 
 	public static native float GetTreeNodeToLabelSpacing() /*-{ }-*/; /*
