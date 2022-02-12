@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/gdx-jnigen"/>
-	<classpathentry exported="true" kind="lib" path="libs/imgui-cpp-natives.jar"/>
-	<classpathentry kind="output" path="build/classes/java/main"/>
-</classpath>
