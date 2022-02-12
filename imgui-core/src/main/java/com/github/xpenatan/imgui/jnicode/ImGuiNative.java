@@ -102,12 +102,24 @@ public class ImGuiNative {
 		ImGui::DestroyContext();
 	*/
 
-	public static native void initKeyMap(int [] keys) /*-{ }-*/; /*
+	public static native void AddKeyEvent(int imGuiKey, boolean down) /*-{ }-*/; /*
 		ImGuiIO& io = ImGui::GetIO();
+		io.AddKeyEvent(imGuiKey, down);
+	*/
 
-		for(int i = 0; i < ImGuiKey_COUNT; i++) {
-			io.KeyMap[i] = keys[i];
-		}
+	public static native void AddMousePosEvent(float x, float y) /*-{ }-*/; /*
+		ImGuiIO& io = ImGui::GetIO();
+		io.AddMousePosEvent(x, y);
+	*/
+
+	public static native void AddMouseButtonEvent(int button, boolean down) /*-{ }-*/; /*
+		ImGuiIO& io = ImGui::GetIO();
+		io.AddMouseButtonEvent(button, down);
+	*/
+
+	public static native void AddMouseWheelEvent(float xOffset, float yOffset) /*-{ }-*/; /*
+		ImGuiIO& io = ImGui::GetIO();
+		io.AddMouseWheelEvent(xOffset, yOffset);
 	*/
 
 	public static native void SetConfigFlags(int flag) /*-{ }-*/; /*
@@ -129,34 +141,13 @@ public class ImGuiNative {
 		io.ConfigDockingTransparentPayload = ConfigDockingTransparentPayload;
 	 */
 
-	public static native void UpdateDisplayAndInputAndFrame(ImGuiIO jImguiIO, ImGuiStyle jImguiStyle, float deltaTime, int width, int height, int display_w, int display_h,
-			int mouseX, int mouseY, boolean mouseDown0, boolean mouseDown1, boolean mouseDown2, boolean mouseDown3, boolean mouseDown4, boolean mouseDown5) /*-{ }-*/; /*
+	public static native void UpdateDisplayAndInputAndFrame(ImGuiIO jImguiIO, ImGuiStyle jImguiStyle, float deltaTime, int width, int height, int display_w, int display_h) /*-{ }-*/; /*
 		ImGuiIO& io = ImGui::GetIO();
 
 		io.DisplaySize = ImVec2(width, height);
 		if (width > 0 && height > 0)
 			io.DisplayFramebufferScale = ImVec2((float)display_w / width, (float)display_h / height);
 		io.DeltaTime = deltaTime;
-
-		bool m0 = mouseDown0;
-		bool m1 = mouseDown1;
-		bool m2 = mouseDown2;
-		bool m3 = mouseDown3;
-		bool m4 = mouseDown4;
-		bool m5 = mouseDown5;
-
-		io.MouseDown[0] = m0;
-		io.MouseDown[1] = m1;
-		io.MouseDown[2] = m2;
-		io.MouseDown[3] = m3;
-		io.MouseDown[4] = m4;
-		io.MouseDown[5] = m5;
-
-		if (io.WantSetMousePos) {
-		}
-		else {
-			io.MousePos = ImVec2(mouseX, mouseY);
-		}
 
 		ImGui::NewFrame();
 
@@ -187,24 +178,6 @@ public class ImGuiNative {
 		env->SetFloatField (jImguiStyle, ItemInnerSpacingXID, style.ItemInnerSpacing.x);
 		env->SetFloatField (jImguiStyle, ItemInnerSpacingYID, style.ItemInnerSpacing.y);
 	*/
-
-	public static native void updateKey(int key, boolean pressed, boolean released, boolean ctrlKey, boolean shiftKey, boolean altKey, boolean superKey) /*-{ }-*/; /*
-		ImGuiIO& io = ImGui::GetIO();
-		if (pressed)
-			io.KeysDown[key] = true;
-		if (released)
-			io.KeysDown[key] = false;
-		io.KeyCtrl = ctrlKey;
-		io.KeyShift = shiftKey;
-		io.KeyAlt = altKey;
-		io.KeySuper = superKey;
-	*/
-
-	public static native void updateScroll(float amountX, float amountY) /*-{ }-*/; /*
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseWheelH -= amountX;
-		io.MouseWheel -= amountY;
-	 */
 
 	public static native void updateKeyTyped(int c) /*-{ }-*/; /*
 		ImGuiIO& io = ImGui::GetIO();

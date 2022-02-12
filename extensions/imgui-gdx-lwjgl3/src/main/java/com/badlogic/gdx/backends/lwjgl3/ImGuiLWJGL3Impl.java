@@ -69,28 +69,29 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
     }
 
     @Override
-    protected void updateFrame(float deltaTime, int width, int height, int backBufferWidth, int backBufferHeight, int mouseX, int mouseY, boolean mouseDown0, boolean mouseDown1, boolean mouseDown2) {
-        if(ImGui.GetIO().ContainsConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
-            for(int i = 0; i < monitors.size; i++) {
-                Lwjgl3Window lwjgl3Window = monitors.get(i);
-                long platformHandle = lwjgl3Window.getWindowHandle();
-                boolean focused = GLFW.glfwGetWindowAttrib(platformHandle, GLFW.GLFW_FOCUSED) != 0;
-                if(focused) {
-                    Lwjgl3Input input = lwjgl3Window.getInput();
-                    GLFW.glfwGetWindowPos(platformHandle, tmpBuffer, tmpBuffer2);
-                    mouseX = input.getX();
-                    mouseY = input.getY();
-                    int windowX = tmpBuffer.get(0);
-                    int windowY = tmpBuffer2.get(0);
-                    mouseX = mouseX + windowX;
-                    mouseY = mouseY + windowY;
-                    mouseDown0 = mouseDown0 || input.isButtonPressed(Input.Buttons.LEFT);
-                    mouseDown1 = mouseDown1 || input.isButtonPressed(Input.Buttons.MIDDLE);
-                    mouseDown2 = mouseDown2 || input.isButtonPressed(Input.Buttons.RIGHT);
-                }
-            }
-        }
-        super.updateFrame(deltaTime, width, height, backBufferWidth, backBufferHeight, mouseX, mouseY, mouseDown0, mouseDown1, mouseDown2);
+    protected void updateFrame(float deltaTime, int width, int height, int backBufferWidth, int backBufferHeight) {
+        // TODO improve viewport impl
+//        if(ImGui.GetIO().ContainsConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
+//            for(int i = 0; i < monitors.size; i++) {
+//                Lwjgl3Window lwjgl3Window = monitors.get(i);
+//                long platformHandle = lwjgl3Window.getWindowHandle();
+//                boolean focused = GLFW.glfwGetWindowAttrib(platformHandle, GLFW.GLFW_FOCUSED) != 0;
+//                if(focused) {
+//                    Lwjgl3Input input = lwjgl3Window.getInput();
+//                    GLFW.glfwGetWindowPos(platformHandle, tmpBuffer, tmpBuffer2);
+//                    mouseX = input.getX();
+//                    mouseY = input.getY();
+//                    int windowX = tmpBuffer.get(0);
+//                    int windowY = tmpBuffer2.get(0);
+//                    mouseX = mouseX + windowX;
+//                    mouseY = mouseY + windowY;
+//                    mouseDown0 = mouseDown0 || input.isButtonPressed(Input.Buttons.LEFT);
+//                    mouseDown1 = mouseDown1 || input.isButtonPressed(Input.Buttons.MIDDLE);
+//                    mouseDown2 = mouseDown2 || input.isButtonPressed(Input.Buttons.RIGHT);
+//                }
+//            }
+//        }
+        super.updateFrame(deltaTime, width, height, backBufferWidth, backBufferHeight);
     }
 
     @Override

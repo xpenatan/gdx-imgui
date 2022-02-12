@@ -17,7 +17,7 @@ import com.badlogic.gdx.jnigen.BuildTarget.TargetOs;
 
 public class BuildCPP {
 
-	public static boolean DEBUG_BUILD = true;
+	public static boolean DEBUG_BUILD = false;
 
 	public static void main(String[] args) throws Exception {
 		String libName = "imgui-cpp";
@@ -69,7 +69,7 @@ public class BuildCPP {
 		BuildTarget win64 = BuildTarget.newDefaultTarget(TargetOs.Windows, true);
 		win64.cppIncludes = includes;
 		win64.headerDirs = headerDir;
-
+		win64.cppFlags += " -std=c++11";
 		if(BuildCPP.DEBUG_BUILD)
 			win64.cppFlags = "-c -Wall -O0 -mfpmath=sse -msse2 -fmessage-length=0 -m64 -g";
 		return win64;

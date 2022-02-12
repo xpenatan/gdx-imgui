@@ -77,22 +77,24 @@ public class ImGui {
 		ImGuiNative.ShowMetricsWindow(open);
 	}
 
-	public static void UpdateDisplayAndInputAndFrame(float deltaTime, int width, int height, int backBufferWidth, int backBufferHeight,
-			int mouseX, int mouseY, boolean mouseDown0, boolean mouseDown1, boolean mouseDown2)  {
-		ImGuiNative.UpdateDisplayAndInputAndFrame(imguiIO, imguiStyle, deltaTime, width, height, backBufferWidth, backBufferHeight,
-				mouseX, mouseY, mouseDown0, mouseDown1, mouseDown2, false, false, false);
+	public static void UpdateDisplayAndInputAndFrame(float deltaTime, int width, int height, int backBufferWidth, int backBufferHeight)  {
+		ImGuiNative.UpdateDisplayAndInputAndFrame(imguiIO, imguiStyle, deltaTime, width, height, backBufferWidth, backBufferHeight);
 	}
 
-	public static void initKeyMap(int [] keys) {
-		ImGuiNative.initKeyMap(keys);
+	public static void AddKeyEvent(int imGuiKey, boolean down) {
+		ImGuiNative.AddKeyEvent(imGuiKey, down);
 	}
 
-	public static void UpdateKey(int key, boolean pressed, boolean released, boolean ctrlKey, boolean shiftKey, boolean altKey, boolean superKey)  {
-		ImGuiNative.updateKey(key, pressed, released, ctrlKey, shiftKey, altKey, superKey);
+	public static void AddMousePosEvent(float x, float y) {
+		ImGuiNative.AddMousePosEvent(x, y);
 	}
 
-	public static void UpdateScroll(float amountX, float amountY) {
-		ImGuiNative.updateScroll(amountX, amountY);
+	public static void AddMouseButtonEvent(int button, boolean down) {
+		ImGuiNative.AddMouseButtonEvent(button, down);
+	}
+
+	public static void AddMouseWheelEvent(float xOffset, float yOffset) {
+		ImGuiNative.AddMouseWheelEvent(xOffset, yOffset);
 	}
 
 	public static void UpdateKeyTyped(int c)  {

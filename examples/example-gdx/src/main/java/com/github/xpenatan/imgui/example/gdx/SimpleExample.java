@@ -81,7 +81,8 @@ public class SimpleExample implements ApplicationListener
 		batch = new SpriteBatch();
 		ImGui.init();
 		ImGuiExt.init();
-		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable.or(ImGuiConfigFlags.ViewportsEnable));
+//		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable.or(ImGuiConfigFlags.ViewportsEnable));
+		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable);
 		ImGui.GetIO().SetDockingFlags(false, false, false, false);
 
 		buttonTexture = new Texture(Gdx.files.internal("data/badlogicsmall.jpg"));
@@ -98,23 +99,7 @@ public class SimpleExample implements ApplicationListener
 		Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		boolean mode01 = false;
-		if(mode01) {
-			// use ImGui method which requires some input from gdx
-			int width = Gdx.graphics.getWidth();
-			int height = Gdx.graphics.getHeight();
-			int backBufferWidth = Gdx.graphics.getBackBufferWidth();
-			int backBufferHeight = Gdx.graphics.getBackBufferHeight();
-			boolean mouseDown0 = Gdx.input.isButtonPressed(Buttons.LEFT);
-			boolean mouseDown1 = Gdx.input.isButtonPressed(Buttons.RIGHT);
-			boolean mouseDown2 = Gdx.input.isButtonPressed(Buttons.MIDDLE);
-			ImGui.UpdateDisplayAndInputAndFrame(Gdx.graphics.getDeltaTime(), width, height, backBufferWidth, backBufferHeight,
-					Gdx.input.getX(), Gdx.input.getY(), mouseDown0, mouseDown1, mouseDown2);
-		}
-		else {
-			// Or use from Impl object which does it for you
-			impl.update();
-		}
+		impl.update();
 
 		uiCam.update();
 		batch.setProjectionMatrix(uiCam.combined);

@@ -60,35 +60,7 @@ public class ImGuiGdxImpl {
 		}
 
 		prepareFont();
-		initKeyMap();
 		createBufferObject();
-	}
-
-	private void initKeyMap() {
-		int [] keys = new int[ImGuiKey.COUNT.getValue()];
-		keys[ImGuiKey.Tab.getValue()] = Input.Keys.TAB;
-		keys[ImGuiKey.LeftArrow.getValue()] = Input.Keys.LEFT;
-		keys[ImGuiKey.RightArrow.getValue()] = Input.Keys.RIGHT;
-		keys[ImGuiKey.UpArrow.getValue()] = Input.Keys.UP;
-		keys[ImGuiKey.DownArrow.getValue()] = Input.Keys.DOWN;
-		keys[ImGuiKey.PageUp.getValue()] = Input.Keys.PAGE_UP;
-		keys[ImGuiKey.PageDown.getValue()] = Input.Keys.PAGE_DOWN;
-		keys[ImGuiKey.Home.getValue()] = Input.Keys.HOME;
-		keys[ImGuiKey.End.getValue()] = Input.Keys.END;
-		keys[ImGuiKey.Insert.getValue()] = Input.Keys.INSERT;
-		keys[ImGuiKey.Delete.getValue()] =Input.Keys. FORWARD_DEL;
-		keys[ImGuiKey.Backspace.getValue()] = Input.Keys.BACKSPACE;
-		keys[ImGuiKey.Space.getValue()] = Input.Keys.SPACE;
-		keys[ImGuiKey.Enter.getValue()] = Input.Keys.ENTER;
-		keys[ImGuiKey.Escape.getValue()] = Input.Keys.ESCAPE;
-		keys[ImGuiKey.KeyPadEnter.getValue()] = Input.Keys.NUMPAD_ENTER;
-		keys[ImGuiKey.A.getValue()] = Input.Keys.A;
-		keys[ImGuiKey.C.getValue()] = Input.Keys.C;
-		keys[ImGuiKey.V.getValue()] = Input.Keys.V;
-		keys[ImGuiKey.X.getValue()] = Input.Keys.X;
-		keys[ImGuiKey.Y.getValue()] = Input.Keys.Y;
-		keys[ImGuiKey.Z.getValue()] = Input.Keys.Z;
-		ImGui.initKeyMap(keys);
 	}
 
 	private void prepareFont() {
@@ -130,23 +102,11 @@ public class ImGuiGdxImpl {
 		int backBufferWidth = Gdx.graphics.getBackBufferWidth();
 		int backBufferHeight = Gdx.graphics.getBackBufferHeight();
 
-		boolean mouseDown0 = Gdx.input.isButtonPressed(Buttons.LEFT);
-		boolean mouseDown1 = Gdx.input.isButtonPressed(Buttons.RIGHT);
-		boolean mouseDown2 = Gdx.input.isButtonPressed(Buttons.MIDDLE);
-
-		if(inputProcessor != null) {
-			mouseDown0 = inputProcessor.mouseDown0;
-			mouseDown1 = inputProcessor.mouseDown1;
-			mouseDown2 = inputProcessor.mouseDown2;
-		}
-		updateFrame(deltaTime, width, height, backBufferWidth, backBufferHeight,
-				x, y, mouseDown0, mouseDown1, mouseDown2);
+		updateFrame(deltaTime, width, height, backBufferWidth, backBufferHeight);
 	}
 
-	protected void updateFrame(float deltaTime, int width, int height, int backBufferWidth, int backBufferHeight,
-							   int mouseX, int mouseY, boolean mouseDown0, boolean mouseDown1, boolean mouseDown2) {
-		ImGui.UpdateDisplayAndInputAndFrame(deltaTime, width, height, backBufferWidth, backBufferHeight,
-				mouseX, mouseY, mouseDown0, mouseDown1, mouseDown2);
+	protected void updateFrame(float deltaTime, int width, int height, int backBufferWidth, int backBufferHeight) {
+		ImGui.UpdateDisplayAndInputAndFrame(deltaTime, width, height, backBufferWidth, backBufferHeight);
 	}
 
 	public void render(ImDrawData drawData) {
