@@ -17,8 +17,8 @@ public class ImGuiString {
 		data = new byte[size];
 	}
 
-	public ImGuiString(String text) {
-		this(100);
+	public ImGuiString(int maxTextSize, String text) {
+		this(maxTextSize);
 		setValue(text);
 	}
 
