@@ -1666,6 +1666,18 @@ public class ImGuiNative {
 		return ImGui::MenuItem(label);
 	*/
 
+	public static native boolean MenuItem(String label, boolean selected) /*-{ }-*/; /*
+		return ImGui::MenuItem(label, NULL, selected);
+	*/
+
+	public static native boolean MenuItem(String label, boolean selected, boolean enabled) /*-{ }-*/; /*
+		return ImGui::MenuItem(label, NULL, selected, enabled);
+	*/
+
+	public static native boolean MenuItem(String label, String shortcut, boolean selected) /*-{ }-*/; /*
+		return ImGui::MenuItem(label, shortcut, selected);
+	*/
+
 	public static native boolean MenuItem(String label, String shortcut, boolean selected, boolean enabled) /*-{ }-*/; /*
 		return ImGui::MenuItem(label, shortcut, selected, enabled);
 	*/

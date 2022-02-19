@@ -1224,6 +1224,18 @@ public class ImGui {
 		return ImGuiNative.MenuItem(label);
 	}
 
+	public static boolean MenuItem(String label, boolean selected) {
+		return ImGuiNative.MenuItem(label, selected);
+	}
+
+	public static boolean MenuItem(String label, boolean selected, boolean enabled) {
+		return ImGuiNative.MenuItem(label, selected, enabled);
+	}
+
+	public static boolean MenuItem(String label, String shortcut, boolean selected) {
+		return ImGuiNative.MenuItem(label, shortcut, selected);
+	}
+
 	public static boolean MenuItem(String label, String shortcut, boolean selected, boolean enabled) {
 		return ImGuiNative.MenuItem(label, shortcut, selected, enabled);
 	}

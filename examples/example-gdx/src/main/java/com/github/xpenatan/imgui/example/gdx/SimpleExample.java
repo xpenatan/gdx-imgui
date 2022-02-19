@@ -44,7 +44,7 @@ public class SimpleExample implements ApplicationListener
 
 	int treeSelected = -1;
 
-	ImGuiString myText =  new ImGuiString("Hello");
+	ImGuiString myText =  new ImGuiString(100, "Hello");
 	ImGuiFloat dragFloat =  new ImGuiFloat(0.0f);
 	ImGuiFloat dragFloat2 =  new ImGuiFloat(1.0f);
 	ImGuiFloat sliderFloat =  new ImGuiFloat(0.5f);
