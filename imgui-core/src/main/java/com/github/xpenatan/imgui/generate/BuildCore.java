@@ -87,6 +87,7 @@ public class BuildCore {
 		mac64.libraries = "-L" + libFolder + " -limgui-cpp64";
 		mac64.excludeFromMasterBuildFile = true;
 		buildConfig.sharedLibs[2] = libFolder;
+		mac64.cppFlags += " -std=c++11";
 		return mac64;
 	}
 
