@@ -18,11 +18,6 @@ public class ImGuiGdxInput implements InputProcessor {
 
 	static private final char DELETE = 127;
 
-	boolean ctrlKey = false;
-	boolean shiftKey = false;
-	boolean altKey = false;
-	boolean superKey = false;
-
 	boolean mouseDown0;
 	boolean mouseDown1;
 	boolean mouseDown2;
@@ -86,6 +81,11 @@ public class ImGuiGdxInput implements InputProcessor {
 
 	@Override
 	public boolean keyDown(int keycode) {
+		boolean ctrlKey = false;
+		boolean shiftKey = false;
+		boolean altKey = false;
+		boolean superKey = false;
+
 		if(keycode == Keys.CONTROL_LEFT || keycode == Keys.CONTROL_RIGHT)
 			ctrlKey = true;
 		if(keycode == Keys.SHIFT_LEFT || keycode == Keys.SHIFT_RIGHT)
@@ -96,7 +96,6 @@ public class ImGuiGdxInput implements InputProcessor {
 			superKey = true;
 		int imGuiKey = getImGuiKey(keycode);
 		ImGui.AddKeyEvent(imGuiKey, true);
-
 		if(superKey) {
 			ImGui.AddKeyEvent(ImGuiKey.ModSuper, true);
 		}
@@ -117,14 +116,19 @@ public class ImGuiGdxInput implements InputProcessor {
 
 	@Override
 	public boolean keyUp(int keycode) {
+		boolean ctrlKey = false;
+		boolean shiftKey = false;
+		boolean altKey = false;
+		boolean superKey = false;
+
 		if(keycode == Keys.CONTROL_LEFT || keycode == Keys.CONTROL_RIGHT)
-			ctrlKey = false;
+			ctrlKey = true;
 		if(keycode == Keys.SHIFT_LEFT || keycode == Keys.SHIFT_RIGHT)
-			shiftKey = false;
+			shiftKey = true;
 		if(keycode == Keys.ALT_LEFT || keycode == Keys.ALT_RIGHT)
-			altKey = false;
+			altKey = true;
 		if(keycode == Keys.SYM)
-			superKey = false;
+			superKey = true;
 		int imGuiKey = getImGuiKey(keycode);
 		ImGui.AddKeyEvent(imGuiKey, false);
 
