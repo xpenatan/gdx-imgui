@@ -176,35 +176,67 @@ public class ImGuiExt {
 	//Custom Widget
 
 	public static int EditTextF(String id, EditTextFloatData d1) {
-		return ImGuiExtNative.EditTextF(id, d1, null, null, null);
+		return ImGuiExtNative.EditTextF(id, d1, null, null, null, 0);
 	}
 
 	public static int EditTextF(String id, EditTextFloatData d1, EditTextFloatData d2) {
-		return ImGuiExtNative.EditTextF(id, d1, d2, null, null);
+		return ImGuiExtNative.EditTextF(id, d1, d2, null, null, 0);
 	}
 
 	public static int EditTextF(String id, EditTextFloatData d1, EditTextFloatData d2, EditTextFloatData d3) {
-		return ImGuiExtNative.EditTextF(id, d1, d2, d3, null);
+		return ImGuiExtNative.EditTextF(id, d1, d2, d3, null, 0);
 	}
 
 	public static int EditTextF(String id, EditTextFloatData d1, EditTextFloatData d2, EditTextFloatData d3, EditTextFloatData d4) {
-		return ImGuiExtNative.EditTextF(id, d1, d2, d3, d4);
+		return ImGuiExtNative.EditTextF(id, d1, d2, d3, d4, 0);
 	}
 
 	public static int EditTextI(String id, EditTextIntData d1) {
-		return ImGuiExtNative.EditTextI(id, d1, null, null, null);
+		return ImGuiExtNative.EditTextI(id, d1, null, null, null, 0);
 	}
 
 	public static int EditTextI(String id, EditTextIntData d1, EditTextIntData d2) {
-		return ImGuiExtNative.EditTextI(id, d1, d2, null, null);
+		return ImGuiExtNative.EditTextI(id, d1, d2, null, null, 0);
 	}
 
 	public static int EditTextI(String id, EditTextIntData d1, EditTextIntData d2, EditTextIntData d3) {
-		return ImGuiExtNative.EditTextI(id, d1, d2, d3, null);
+		return ImGuiExtNative.EditTextI(id, d1, d2, d3, null, 0);
 	}
 
 	public static int EditTextI(String id, EditTextIntData d1, EditTextIntData d2, EditTextIntData d3, EditTextIntData d4) {
-		return ImGuiExtNative.EditTextI(id, d1, d2, d3, d4);
+		return ImGuiExtNative.EditTextI(id, d1, d2, d3, d4, 0);
+	}
+
+	public static int EditTextF(String id, EditTextFloatData d1, int flags) {
+		return ImGuiExtNative.EditTextF(id, d1, null, null, null, flags);
+	}
+
+	public static int EditTextF(String id, EditTextFloatData d1, EditTextFloatData d2, int flags) {
+		return ImGuiExtNative.EditTextF(id, d1, d2, null, null, flags);
+	}
+
+	public static int EditTextF(String id, EditTextFloatData d1, EditTextFloatData d2, EditTextFloatData d3, int flags) {
+		return ImGuiExtNative.EditTextF(id, d1, d2, d3, null, flags);
+	}
+
+	public static int EditTextF(String id, EditTextFloatData d1, EditTextFloatData d2, EditTextFloatData d3, EditTextFloatData d4, int flags) {
+		return ImGuiExtNative.EditTextF(id, d1, d2, d3, d4, flags);
+	}
+
+	public static int EditTextI(String id, EditTextIntData d1, int flags) {
+		return ImGuiExtNative.EditTextI(id, d1, null, null, null, flags);
+	}
+
+	public static int EditTextI(String id, EditTextIntData d1, EditTextIntData d2, int flags) {
+		return ImGuiExtNative.EditTextI(id, d1, d2, null, null, flags);
+	}
+
+	public static int EditTextI(String id, EditTextIntData d1, EditTextIntData d2, EditTextIntData d3, int flags) {
+		return ImGuiExtNative.EditTextI(id, d1, d2, d3, null, flags);
+	}
+
+	public static int EditTextI(String id, EditTextIntData d1, EditTextIntData d2, EditTextIntData d3, EditTextIntData d4, int flags) {
+		return ImGuiExtNative.EditTextI(id, d1, d2, d3, d4, flags);
 	}
 
 	public static boolean EditTextS(String id, EditTextStringData d1) {

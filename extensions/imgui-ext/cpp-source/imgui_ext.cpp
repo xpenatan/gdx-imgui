@@ -314,8 +314,6 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 		}
 	}
 
-	flags |= ImGuiInputTextFlags_EnterReturnsTrue;
-
 	ImGui::SetNextItemWidth(-1);
 
 	ImGuiExt::BeginBoundingBox();

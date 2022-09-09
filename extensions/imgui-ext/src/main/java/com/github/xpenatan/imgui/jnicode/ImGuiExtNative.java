@@ -157,7 +157,7 @@ public class ImGuiExtNative {
 		}
 	*/
 
-	public static native int EditTextF(String id, EditTextFloatData jData01, EditTextFloatData jData02, EditTextFloatData jData03, EditTextFloatData jData04) /*-{ }-*/; /*
+	public static native int EditTextF(String id, EditTextFloatData jData01, EditTextFloatData jData02, EditTextFloatData jData03, EditTextFloatData jData04, int flags) /*-{ }-*/; /*
 		EditTextData<float> localData01;
 		EditTextData<float> localData02;
 		EditTextData<float> localData03;
@@ -172,7 +172,7 @@ public class ImGuiExtNative {
 		putEditText<float>(env, ImGuiDataType_Float, data02, jData02);
 		putEditText<float>(env, ImGuiDataType_Float, data03, jData03);
 		putEditText<float>(env, ImGuiDataType_Float, data04, jData04);
-		int ret = ImGuiExt::EditTextF(id, data01, data02, data03, data04);
+		int ret = ImGuiExt::EditTextF(id, data01, data02, data03, data04, flags);
 
 		if(ret != -1) {
 			if(ret == 0)
@@ -187,7 +187,7 @@ public class ImGuiExtNative {
 		return ret;
 	*/
 
-	public static native int EditTextI(String id, EditTextIntData jData01, EditTextIntData jData02, EditTextIntData jData03, EditTextIntData jData04) /*-{ }-*/; /*
+	public static native int EditTextI(String id, EditTextIntData jData01, EditTextIntData jData02, EditTextIntData jData03, EditTextIntData jData04, int flags) /*-{ }-*/; /*
 		EditTextData<int> localData01;
 		EditTextData<int> localData02;
 		EditTextData<int> localData03;
@@ -202,7 +202,7 @@ public class ImGuiExtNative {
 		putEditText<int>(env, ImGuiDataType_S32, data02, jData02);
 		putEditText<int>(env, ImGuiDataType_S32, data03, jData03);
 		putEditText<int>(env, ImGuiDataType_S32, data04, jData04);
-		int ret = ImGuiExt::EditTextI(id, data01, data02, data03, data04);
+		int ret = ImGuiExt::EditTextI(id, data01, data02, data03, data04, flags);
 
 		if(ret != -1) {
 			if(ret == 0)
@@ -228,7 +228,7 @@ public class ImGuiExtNative {
 			maxSize = maxChar;
 		data01.value = tempArray;
 		data01.maxChar = maxSize;
-		bool ret = ImGuiExt::EditTextS(id, &data01) == 0 ? true : false;
+		bool ret = ImGuiExt::EditTextS(id, &data01, NULL, flags) == 0 ? true : false;
 		if(ret) {
 			size = data01.value.size();
 			env->SetIntField (textInputData, imTextInputDataSizeID, size);
