@@ -288,7 +288,7 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 	bool ret = false;
 
 	if (data->leftLabel != NULL) {
-		unsigned int uniqueId = window->GetIDNoKeepAlive(id);
+		unsigned int uniqueId = window->GetID(id);
 		float power = 1.0f;
 
 		switch (data_type)
