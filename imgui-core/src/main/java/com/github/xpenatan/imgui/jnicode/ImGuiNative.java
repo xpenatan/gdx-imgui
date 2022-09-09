@@ -1737,8 +1737,8 @@ public class ImGuiNative {
 		return ImGui::BeginPopupContextWindow();
 	*/
 
-	public static native boolean BeginPopupContextWindow(String str_id, int mouse_button, boolean also_over_items) /*-{ }-*/; /*
-		return ImGui::BeginPopupContextWindow(str_id, mouse_button, also_over_items);
+	public static native boolean BeginPopupContextWindow(String str_id, int flags) /*-{ }-*/; /*
+		return ImGui::BeginPopupContextWindow(str_id, flags);
 	*/
 
 	public static native boolean BeginPopupContextVoid() /*-{ }-*/; /*

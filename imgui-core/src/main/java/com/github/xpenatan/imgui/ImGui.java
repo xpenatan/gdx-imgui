@@ -1295,8 +1295,8 @@ public class ImGui {
 		return ImGuiNative.BeginPopupContextWindow();
 	}
 
-	public static boolean BeginPopupContextWindow(String str_id, int mouse_button, boolean also_over_items) {
-		return ImGuiNative.BeginPopupContextWindow(str_id, mouse_button, also_over_items);
+	public static boolean BeginPopupContextWindow(String str_id) {
+		return ImGuiNative.BeginPopupContextWindow(str_id, 1);
 	}
 
 	public static boolean BeginPopupContextVoid() {
