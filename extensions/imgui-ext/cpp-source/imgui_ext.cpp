@@ -314,6 +314,8 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 		}
 	}
 
+	bool containsEnterReturn = (flags & ImGuiInputTextFlags_EnterReturnsTrue) == ImGuiInputTextFlags_EnterReturnsTrue;
+
 	ImGui::SetNextItemWidth(-1);
 
 	ImGuiExt::BeginBoundingBox();
@@ -325,7 +327,13 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 		std::string* stringPtr = static_cast<std::string*>(voidValue);
 		std::string str = *stringPtr;
 		flags |= ImGuiInputTextFlags_CallbackResize;
-		if (ImGui::InputText("##input text", (char*)str.c_str(), str.capacity() + 1, flags, InputTextCallback, &str)) {
+		bool shouldWrite = ImGui::InputText("##input text", (char*)str.c_str(), str.capacity() + 1, flags, InputTextCallback, &str);
+		if(containsEnterReturn) {
+			if(ImGui::IsItemDeactivatedAfterEdit()) {
+				shouldWrite = true;
+			}
+		}
+		if (shouldWrite) {
 			int newSize = str.size();
 			bool updateChar = data->maxChar >= 0 && newSize < data->maxChar || data->maxChar == -1;
 			if (updateChar) {
@@ -338,7 +346,13 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 		}
 	}
 	else {
-		if (ImGui::InputScalar("", data_type, voidValue, NULL, NULL, data->format, flags)) {
+		bool shouldWrite = ImGui::InputScalar("", data_type, voidValue, NULL, NULL, data->format, flags)
+		if(containsEnterReturn) {
+			if(ImGui::IsItemDeactivatedAfterEdit()) {
+				shouldWrite = true;
+			}
+		}
+		if (shouldWrite) {
 			bool updateValue = false;
 
 			void* voidMax = static_cast<void*>(&data->v_max);
