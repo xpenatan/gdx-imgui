@@ -346,7 +346,7 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 		}
 	}
 	else {
-		bool shouldWrite = ImGui::InputScalar("", data_type, voidValue, NULL, NULL, data->format, flags)
+		bool shouldWrite = ImGui::InputScalar("", data_type, voidValue, NULL, NULL, data->format, flags);
 		if(containsEnterReturn) {
 			if(ImGui::IsItemDeactivatedAfterEdit()) {
 				shouldWrite = true;
