@@ -32,7 +32,7 @@ public class ImGuiInputTextFlags {
 	/** Disable following the cursor horizontally */
 	public static ImGuiInputTextFlags NoHorizontalScroll = new ImGuiInputTextFlags(1 << 12);
 	/** Insert mode */
-	public static ImGuiInputTextFlags AlwaysInsertMode = new ImGuiInputTextFlags(1 << 13);
+	public static ImGuiInputTextFlags AlwaysOverwrite = new ImGuiInputTextFlags(1 << 13);
 	/** Read-only mode */
 	public static ImGuiInputTextFlags ReadOnly = new ImGuiInputTextFlags(1 << 14);
 	/** Password mode, display all characters as '*' */
