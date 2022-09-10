@@ -67,7 +67,7 @@ public class BuildExt {
 		win64.headerDirs = headerDir;
 		win64.linkerFlags =  "-Wl,--kill-at -shared -static-libgcc -static-libstdc++ -m64";
 		win64.libraries = "-L" + libFolder + " -limgui-cpp64";
-
+		win64.cppFlags += " -std=c++11";
 		if(BuildCPP.DEBUG_BUILD)
 			win64.cppFlags = "-c -Wall -O0 -mfpmath=sse -msse2 -fmessage-length=0 -m64 -g";
 		return win64;
