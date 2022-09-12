@@ -334,7 +334,7 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 			if (updateChar) {
 				void* voidValue = static_cast<void*>(&data->value);
 				std::string* newStr = static_cast<std::string*>(voidValue);
-				newStr->assign(state->TextA.Data, state->CurLenA + 1);
+				newStr->assign(state->TextA.Data, state->CurLenA);
 				ret = true;
 			}
 		}
