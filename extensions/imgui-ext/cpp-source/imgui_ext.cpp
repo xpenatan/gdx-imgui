@@ -1,7 +1,6 @@
-#include "imgui.h"
-#include "imgui_internal.h"
 #include "imgui_ext.h"
 #include "imgui_layout.h"
+#include "imgui_custom_widget.h"
 
 // ##################################  ImGuiExt  ###############################################
 
@@ -76,9 +75,8 @@ float ImGuiExt::GetTableRowHeight() {
 	return 0;
 }
 
-
 template<typename TYPE>
-static const char* ImAtoi(const char* src, TYPE* output)
+static const char* ImAtoii(const char* src, TYPE* output)
 {
 	// TODO FIX EXTERN
 	// Couldn't get extern to work so this code is duplicated from imgui.widgets.cpp
@@ -110,7 +108,7 @@ TYPE RoundScalarWithFormatT(const char* format, ImGuiDataType data_type, TYPE v)
 	if (data_type == ImGuiDataType_Float || data_type == ImGuiDataType_Double)
 		v = (TYPE)ImAtof(p);
 	else
-		ImAtoi(p, (SIGNEDTYPE*)&v);
+		ImAtoii(p, (SIGNEDTYPE*)&v);
 	return v;
 }
 
@@ -314,8 +312,6 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 		}
 	}
 
-	bool containsEnterReturn = (flags & ImGuiInputTextFlags_EnterReturnsTrue) == ImGuiInputTextFlags_EnterReturnsTrue;
-
 	ImGui::SetNextItemWidth(-1);
 
 	ImGuiExt::BeginBoundingBox();
@@ -327,33 +323,32 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 		std::string* stringPtr = static_cast<std::string*>(voidValue);
 		std::string str = *stringPtr;
 		flags |= ImGuiInputTextFlags_CallbackResize;
-		bool shouldWrite = ImGui::InputText("##input text", (char*)str.c_str(), str.capacity() + 1, flags, InputTextCallback, &str);
-		if(containsEnterReturn) {
-			if(ImGui::IsItemDeactivatedAfterEdit()) {
-				shouldWrite = true;
-			}
-		}
-		if (shouldWrite) {
+		ImGuiExt::InputText("##input text", (char*)str.c_str(), str.capacity() + 1, flags, InputTextCallback, &str);
+		ImGuiID id = ImGui::GetItemID();
+		ImGuiInputTextState * state = ImGui::GetInputTextState(id);
+		bool isItemDeactivated = ImGui::IsItemDeactivated();
+		bool escKey = ImGui::IsKeyPressed(ImGuiKey_Escape, false);
+		if (state != NULL && isItemDeactivated && !escKey) {
 			int newSize = str.size();
 			bool updateChar = data->maxChar >= 0 && newSize < data->maxChar || data->maxChar == -1;
 			if (updateChar) {
-				// update string data pointer
 				void* voidValue = static_cast<void*>(&data->value);
 				std::string* newStr = static_cast<std::string*>(voidValue);
-				*newStr = str;
+				newStr->assign(state->TextA.Data, state->CurLenA + 1);
 				ret = true;
 			}
 		}
 	}
 	else {
-		bool shouldWrite = ImGui::InputScalar("", data_type, voidValue, NULL, NULL, data->format, flags);
-		if(containsEnterReturn) {
-			if(ImGui::IsItemDeactivatedAfterEdit()) {
-				shouldWrite = true;
-			}
-		}
-		if (shouldWrite) {
+		ImGuiExt::InputScalar("", data_type, voidValue, NULL, NULL, data->format);
+		ImGuiID id = ImGui::GetItemID();
+		ImGuiInputTextState * state = ImGui::GetInputTextState(id);
+		bool isItemDeactivated = ImGui::IsItemDeactivated();
+		bool escKey = ImGui::IsKeyPressed(ImGuiKey_Escape, false);
+		if (state != NULL && isItemDeactivated && !escKey) {
 			bool updateValue = false;
+
+			ImGui::DataTypeApplyFromText(state->TextA.Data, data_type, voidValue, data->format);
 
 			void* voidMax = static_cast<void*>(&data->v_max);
 			void* voidMin = static_cast<void*>(&data->v_min);
