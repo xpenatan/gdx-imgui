@@ -100,7 +100,7 @@ namespace ImGuiExt
 			bool escKey = ImGui::IsKeyPressed(ImGuiKey_Escape, false);
 
 			if (state != NULL && isItemDeactivated && !escKey) {
-				myText[i].assign(state->TextA.Data, state->CurLenA + 1);
+				myText[i].assign(state->TextA.Data, state->CurLenA);
 			}
 			ImGui::PopID();
 		}

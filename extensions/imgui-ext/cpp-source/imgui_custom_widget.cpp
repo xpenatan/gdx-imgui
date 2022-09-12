@@ -426,9 +426,9 @@ bool ImGuiExt::InputTextEx(const char* label, const char* hint, char* buf, int b
     ImGuiInputTextState* state = GetInputTextState(id);
 
     const bool input_requested_by_tabbing = (item_status_flags & ImGuiItemStatusFlags_FocusedByTabbing) != 0;
-    const bool input_requested_by_nav = (g.ActiveId != id) && ((g.NavActivateInputId == id) || (g.NavActivateId == id && g.NavInputSource == ImGuiInputSource_Keyboard));
+    bool input_requested_by_nav = (g.ActiveId != id) && ((g.NavActivateInputId == id) || (g.NavActivateId == id && g.NavInputSource == ImGuiInputSource_Keyboard));
 
-    const bool user_clicked = hovered && io.MouseClicked[0];
+    bool user_clicked = hovered && io.MouseClicked[0];
     const bool user_scroll_finish = is_multiline && state != NULL && g.ActiveId == 0 && g.ActiveIdPreviousFrame == GetWindowScrollbarID(draw_window, ImGuiAxis_Y);
     const bool user_scroll_active = is_multiline && state != NULL && g.ActiveId == GetWindowScrollbarID(draw_window, ImGuiAxis_Y);
     bool clear_active_id = false;
@@ -438,13 +438,21 @@ bool ImGuiExt::InputTextEx(const char* label, const char* hint, char* buf, int b
 
     const bool init_changed_specs = (state != NULL && state->Stb.single_line != !is_multiline);
     bool init_make_active = (user_clicked || user_scroll_finish || input_requested_by_nav || input_requested_by_tabbing);
-    const bool init_state = (init_make_active || user_scroll_active);
+    bool init_state = (init_make_active || user_scroll_active);
 
     // #### CHANGED HERE
     static ImGuiID NextID = 0;
     if (NextID == id)
     {
         init_make_active = true;
+        user_clicked = true;
+        if (io.MouseDown[0]) {
+            io.MouseClicked[0] = true;
+        }
+        if (IsKeyDown(ImGuiKey_Tab)) {
+            input_requested_by_nav = true;
+        }
+        init_state = true;
         NextID = 0;
         // #################
 
@@ -498,12 +506,14 @@ bool ImGuiExt::InputTextEx(const char* label, const char* hint, char* buf, int b
         if (flags & ImGuiInputTextFlags_AlwaysOverwrite)
             state->Stb.insert_mode = 1; // stb field name is indeed incorrect (see #2863)
     }
-
-    // #### CHANGED HERE
-    if ((init_state && g.ActiveId != id) || init_changed_specs) {
-        state = &g.InputTextState;
-        NextID = id;
-        init_make_active = false;
+    else {
+        // #### CHANGED HERE
+        if ((init_state && g.ActiveId != id) || init_changed_specs) {
+            state = &g.InputTextState;
+            NextID = id;
+            init_make_active = false;
+            input_requested_by_nav = false;
+        }
     }
     // #################
 
