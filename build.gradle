@@ -12,7 +12,6 @@ buildscript {
 allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
-    apply plugin: "maven"
     apply plugin: 'maven-publish'
     apply plugin: 'java'
 
@@ -28,17 +27,16 @@ allprojects {
         repoUrlSnapshot = 'https://oss.sonatype.org/content/repositories/snapshots/'
 
         def localFile = project.rootProject.file("local.properties")
-        if(localFile.exists()) {
+        if (localFile.exists()) {
             Properties properties = new Properties()
             properties.load(project.rootProject.file("local.properties").newDataInputStream())
             repoUser = properties.getProperty("xUser")
             repoPass = properties.getProperty("xPass")
         }
     }
-    
+
     repositories {
         mavenLocal()
-        jcenter()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
@@ -61,10 +59,10 @@ allprojects {
     }
 }
 
-def containsTask( graph, toFind) {
+def containsTask(graph, toFind) {
     def contains = false
     graph.allTasks.forEach { task ->
-        if(task.path.contains(toFind))
+        if (task.path.contains(toFind))
             contains = true
     }
     return contains
@@ -82,7 +80,7 @@ gradle.taskGraph.whenReady { graph ->
     }
 }
 
-task buildImGuiNatives () {
+task buildImGuiNatives() {
     group = 'build'
     dependsOn ordered(
             ":clean",
