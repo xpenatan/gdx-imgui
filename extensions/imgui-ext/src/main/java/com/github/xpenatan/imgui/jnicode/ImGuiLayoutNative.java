@@ -88,15 +88,11 @@ public class ImGuiLayoutNative {
 		ImGuiExt::ShowLayoutDebugClipping();
 	*/
 
-    public static native void BeginLayout(String id, float sizeX, float sizeY); /*-{ }-*/
-
-    ; /*
+    public static native void BeginLayout(String id, float sizeX, float sizeY); /*-{ }-*/ /*
 		ImGuiExt::BeginLayout(id, sizeX, sizeY);
 	*/
 
-    public static native void BeginLayout(String id, float sizeX, float sizeY, float paddingLeft, float paddingRight, float paddingTop, float paddingBottom); /*-{ }-*/
-
-    ; /*
+    public static native void BeginLayout(String id, float sizeX, float sizeY, float paddingLeft, float paddingRight, float paddingTop, float paddingBottom); /*-{ }-*/ /*
 		ImGuiLayoutOptions options;
 		options.paddingLeft = paddingLeft;
 		options.paddingRight = paddingRight;
@@ -105,15 +101,11 @@ public class ImGuiLayoutNative {
 		ImGuiExt::BeginLayout(id, sizeX, sizeY);
 	*/
 
-    public static native void EndLayout(); /*-{ }-*/
-
-    ; /*
+    public static native void EndLayout(); /*-{ }-*/ /*
 		ImGuiExt::EndLayout();
 	*/
 
-    public static native void GetCurrentLayout(ImGuiLayout jLayout); /*-{ }-*/
-
-    ; /*
+    public static native void GetCurrentLayout(ImGuiLayout jLayout); /*-{ }-*/ /*
 		ImGuiLayout* curLayout = ImGuiExt::GetCurrentLayout();
 		env->SetFloatField (jLayout, positionXID, curLayout->position.x);
 		env->SetFloatField (jLayout, positionYID, curLayout->position.y);
@@ -145,63 +137,47 @@ public class ImGuiLayoutNative {
 		}
 	*/
 
-    public static native boolean BeginCollapseLayoutEx(String id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/
-
-    ; /*
+    public static native boolean BeginCollapseLayoutEx(String id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/ /*
 		ImGuiCollapseLayoutOptions options;
 		configOptions(env, options, jOptions);
 		return ImGuiExt::BeginCollapseLayoutEx(id, title, sizeX, sizeY, options);
 	*/
 
-    public static native boolean BeginCollapseLayoutEx(int id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/
-
-    ; /*
+    public static native boolean BeginCollapseLayoutEx(int id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/ /*
 		ImGuiCollapseLayoutOptions options;
 		configOptions(env, options, jOptions);
 		return ImGuiExt::BeginCollapseLayoutEx(id, title, sizeX, sizeY, options);
 	*/
 
-    public static native boolean BeginCollapseLayoutEx(int id, byte[] title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/
-
-    ; /*
+    public static native boolean BeginCollapseLayoutEx(int id, byte[] title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/ /*
 		ImGuiCollapseLayoutOptions options;
 		configOptions(env, options, jOptions);
 		return ImGuiExt::BeginCollapseLayoutEx(id, title, sizeX, sizeY, options);
 	*/
 
-    public static native void BeginCollapseLayoutEx(String id, boolean[] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/
-
-    ; /*
+    public static native void BeginCollapseLayoutEx(String id, boolean[] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/ /*
 		ImGuiCollapseLayoutOptions options;
 		configOptions(env, options, jOptions);
 		ImGuiExt::BeginCollapseLayoutEx(id, &isOpen[0], title, sizeX, sizeY, options);
 	*/
 
-    public static native boolean BeginCollapseLayout(String id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/
-
-    ; /*
+    public static native boolean BeginCollapseLayout(String id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/ /*
 		ImGuiCollapseLayoutOptions options;
 		configOptions(env, options, jOptions);
 		return ImGuiExt::BeginCollapseLayout(id, title, sizeX, sizeY, options);
 	*/
 
-    public static native void BeginCollapseLayout(String id, boolean[] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/
-
-    ; /*
+    public static native void BeginCollapseLayout(String id, boolean[] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/ /*
 		ImGuiCollapseLayoutOptions options;
 		configOptions(env, options, jOptions);
 		ImGuiExt::BeginCollapseLayout(id, &isOpen[0], title, sizeX, sizeY, options);
 	*/
 
-    public static native void EndCollapseFrameLayout(); /*-{ }-*/
-
-    ; /*
+    public static native void EndCollapseFrameLayout(); /*-{ }-*/ /*
 		ImGuiExt::EndCollapseFrameLayout();
 	*/
 
-    public static native void EndCollapseLayout(); /*-{ }-*/
-
-    ; /*
+    public static native void EndCollapseLayout(); /*-{ }-*/ /*
 		ImGuiExt::EndCollapseLayout();
 	*/
 
