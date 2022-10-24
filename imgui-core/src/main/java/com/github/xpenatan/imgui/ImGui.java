@@ -1106,10 +1106,6 @@ public class ImGui {
 		return ImGuiNative.TreeNodeEx(ptr_id, flags.getValue(), label);
 	}
 
-	public static void TreePush() {
-		ImGuiNative.TreePush();
-	}
-
 	public static void TreePush(String str_id) {
 		ImGuiNative.TreePush(str_id);
 	}

@@ -1539,10 +1539,6 @@ public class ImGuiNative {
 		return ImGui::TreeNodeEx((void*)(intptr_t)ptr_id, flags, label);
 	*/
 
-	public static native void TreePush() /*-{ }-*/; /*
-		ImGui::TreePush();
-	*/
-
 	public static native void TreePush(String str_id) /*-{ }-*/; /*
 		ImGui::TreePush(str_id);
 	*/
