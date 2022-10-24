@@ -109,7 +109,7 @@ public class ImGuiNative {
 
     public static native void AddKeyEvent(int imGuiKey, boolean down) /*-{ }-*/; /*
 		ImGuiIO& io = ImGui::GetIO();
-		io.AddKeyEvent(imGuiKey, down);
+		io.AddKeyEvent((ImGuiKey)imGuiKey, down);
 	*/
 
     public static native void AddMousePosEvent(float x, float y) /*-{ }-*/; /*
