@@ -10,7 +10,6 @@ public class ImGuiViewport {
     private float posY;
     private final ImDrawData drawData = new ImDrawData();
 
-
     public void setPlatformUserData(int platformUserData) {
         this.platformUserData = platformUserData;
     }

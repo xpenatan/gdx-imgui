@@ -277,14 +277,14 @@ public class ImGuiPlatformNative {
 		main_viewport->PlatformHandle = (void*)handler;
 	*/
 
-	// Platform Utils
+    // Platform Utils
 
-	public static native void PlatformResize(int value) /*-{ }-*/; /*
+    public static native void PlatformResize(int value) /*-{ }-*/; /*
 		ImGuiPlatformIO& platform_io = ImGui::GetPlatformIO();
 		platform_io.Monitors.resize(value);
 	*/
 
-	public static native void AddMonitors(float mainPosX, float mainPosY, float mainSizeX, float mainSizeY, float workPosX, float workPosY, float workSizeX, float workSizeY, float dpiScale) /*-{ }-*/; /*
+    public static native void AddMonitors(float mainPosX, float mainPosY, float mainSizeX, float mainSizeY, float workPosX, float workPosY, float workSizeX, float workSizeY, float dpiScale) /*-{ }-*/; /*
 		ImGuiPlatformIO& platform_io = ImGui::GetPlatformIO();
 		ImGuiPlatformMonitor monitor;
 		monitor.MainPos = ImVec2(mainPosX, mainPosY);

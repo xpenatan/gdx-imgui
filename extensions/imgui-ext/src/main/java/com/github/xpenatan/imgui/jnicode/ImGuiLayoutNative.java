@@ -6,7 +6,7 @@ import com.github.xpenatan.imgui.custom.ImGuiLayout;
 
 public class ImGuiLayoutNative {
 
-	public static ImGuiCollapseLayoutOptions defaultOptions = new ImGuiCollapseLayoutOptions();
+    public static ImGuiCollapseLayoutOptions defaultOptions = new ImGuiCollapseLayoutOptions();
 
 	/*JNI
 		#include <src/imgui_layout.h>
@@ -41,7 +41,7 @@ public class ImGuiLayoutNative {
 		jfieldID maxYID;
 	*/
 
-	public static native void init() /*-{ }-*/; /*
+    public static native void init() /*-{ }-*/; /*
 		jclass jLayoutOptionsClass = env->FindClass("com/github/xpenatan/imgui/custom/ImGuiCollapseLayoutOptions");
 		jclass jLayoutClass = env->FindClass("com/github/xpenatan/imgui/custom/ImGuiLayout");
 		jclass jImRectClass = env->FindClass("com/github/xpenatan/imgui/ImRect");
@@ -76,23 +76,27 @@ public class ImGuiLayoutNative {
 		maxYID = env->GetFieldID(jImRectClass, "maxY", "F");
 	*/
 
-	public static native void DrawBoundingBox(float x1, float y1, float x2, float y2, int r, int g, int b, int a) /*-{ }-*/; /*
+    public static native void DrawBoundingBox(float x1, float y1, float x2, float y2, int r, int g, int b, int a) /*-{ }-*/; /*
 		ImGuiExt::DrawBoundingBox(x1, y1, x2, y2, r, g, b, a);
 	*/
 
-	public static native void ShowLayoutDebug() /*-{ }-*/; /*
+    public static native void ShowLayoutDebug() /*-{ }-*/; /*
 		ImGuiExt::ShowLayoutDebug();
 	*/
 
-	public static native void ShowLayoutDebugClipping() /*-{ }-*/; /*
+    public static native void ShowLayoutDebugClipping() /*-{ }-*/; /*
 		ImGuiExt::ShowLayoutDebugClipping();
 	*/
 
-	public static native void BeginLayout(String id, float sizeX, float sizeY); /*-{ }-*/; /*
+    public static native void BeginLayout(String id, float sizeX, float sizeY); /*-{ }-*/
+
+    ; /*
 		ImGuiExt::BeginLayout(id, sizeX, sizeY);
 	*/
 
-	public static native void BeginLayout(String id, float sizeX, float sizeY, float paddingLeft, float paddingRight, float paddingTop, float paddingBottom); /*-{ }-*/; /*
+    public static native void BeginLayout(String id, float sizeX, float sizeY, float paddingLeft, float paddingRight, float paddingTop, float paddingBottom); /*-{ }-*/
+
+    ; /*
 		ImGuiLayoutOptions options;
 		options.paddingLeft = paddingLeft;
 		options.paddingRight = paddingRight;
@@ -101,11 +105,15 @@ public class ImGuiLayoutNative {
 		ImGuiExt::BeginLayout(id, sizeX, sizeY);
 	*/
 
-	public static native void EndLayout(); /*-{ }-*/; /*
+    public static native void EndLayout(); /*-{ }-*/
+
+    ; /*
 		ImGuiExt::EndLayout();
 	*/
 
-	public static native void GetCurrentLayout(ImGuiLayout jLayout); /*-{ }-*/; /*
+    public static native void GetCurrentLayout(ImGuiLayout jLayout); /*-{ }-*/
+
+    ; /*
 		ImGuiLayout* curLayout = ImGuiExt::GetCurrentLayout();
 		env->SetFloatField (jLayout, positionXID, curLayout->position.x);
 		env->SetFloatField (jLayout, positionYID, curLayout->position.y);
@@ -137,88 +145,103 @@ public class ImGuiLayoutNative {
 		}
 	*/
 
-	public static native boolean BeginCollapseLayoutEx(String id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+    public static native boolean BeginCollapseLayoutEx(String id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/
+
+    ; /*
 		ImGuiCollapseLayoutOptions options;
 		configOptions(env, options, jOptions);
 		return ImGuiExt::BeginCollapseLayoutEx(id, title, sizeX, sizeY, options);
 	*/
 
-	public static native boolean BeginCollapseLayoutEx(int id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+    public static native boolean BeginCollapseLayoutEx(int id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/
+
+    ; /*
 		ImGuiCollapseLayoutOptions options;
 		configOptions(env, options, jOptions);
 		return ImGuiExt::BeginCollapseLayoutEx(id, title, sizeX, sizeY, options);
 	*/
 
-	public static native boolean BeginCollapseLayoutEx(int id, byte[] title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+    public static native boolean BeginCollapseLayoutEx(int id, byte[] title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/
+
+    ; /*
 		ImGuiCollapseLayoutOptions options;
 		configOptions(env, options, jOptions);
 		return ImGuiExt::BeginCollapseLayoutEx(id, title, sizeX, sizeY, options);
 	*/
 
-	public static native void BeginCollapseLayoutEx(String id, boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+    public static native void BeginCollapseLayoutEx(String id, boolean[] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/
+
+    ; /*
 		ImGuiCollapseLayoutOptions options;
 		configOptions(env, options, jOptions);
 		ImGuiExt::BeginCollapseLayoutEx(id, &isOpen[0], title, sizeX, sizeY, options);
 	*/
 
-	public static native boolean BeginCollapseLayout(String id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+    public static native boolean BeginCollapseLayout(String id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/
+
+    ; /*
 		ImGuiCollapseLayoutOptions options;
 		configOptions(env, options, jOptions);
 		return ImGuiExt::BeginCollapseLayout(id, title, sizeX, sizeY, options);
 	*/
 
-	public static native void BeginCollapseLayout(String id, boolean [] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/; /*
+    public static native void BeginCollapseLayout(String id, boolean[] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions); /*-{ }-*/
+
+    ; /*
 		ImGuiCollapseLayoutOptions options;
 		configOptions(env, options, jOptions);
 		ImGuiExt::BeginCollapseLayout(id, &isOpen[0], title, sizeX, sizeY, options);
 	*/
 
-	public static native void EndCollapseFrameLayout(); /*-{ }-*/; /*
+    public static native void EndCollapseFrameLayout(); /*-{ }-*/
+
+    ; /*
 		ImGuiExt::EndCollapseFrameLayout();
 	*/
 
-	public static native void EndCollapseLayout(); /*-{ }-*/; /*
+    public static native void EndCollapseLayout(); /*-{ }-*/
+
+    ; /*
 		ImGuiExt::EndCollapseLayout();
 	*/
 
-	public static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY) /*-{ }-*/; /*
+    public static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY) /*-{ }-*/; /*
 		ImGuiExt::BeginAlign(id, sizeX, sizeY, alignX, alignY);
 	*/
 
-	public static native void BeginAlign(byte[] id, float sizeX, float sizeY, float alignX, float alignY) /*-{ }-*/; /*
+    public static native void BeginAlign(byte[] id, float sizeX, float sizeY, float alignX, float alignY) /*-{ }-*/; /*
 		ImGuiExt::BeginAlign(id, sizeX, sizeY, alignX, alignY);
 	*/
 
-	public static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
+    public static native void BeginAlign(String id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
 		ImGuiExt::BeginAlign(id, sizeX, sizeY, alignX, alignY, offsetX, offsetY);
 	*/
 
-	public static native void BeginAlign(byte[] id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
+    public static native void BeginAlign(byte[] id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
 		ImGuiExt::BeginAlign(id, sizeX, sizeY, alignX, alignY, offsetX, offsetY);
 	*/
 
-	public static native void EndAlign() /*-{ }-*/; /*
+    public static native void EndAlign() /*-{ }-*/; /*
 		ImGuiExt::EndAlign();
 	*/
 
-	public static native void AlignLayout(float alignX, float alignY) /*-{ }-*/; /*
+    public static native void AlignLayout(float alignX, float alignY) /*-{ }-*/; /*
 		ImGuiExt::AlignLayout(alignX, alignY);
 	*/
 
-	public static native void AlignLayout(float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
+    public static native void AlignLayout(float alignX, float alignY, float offsetX, float offsetY) /*-{ }-*/; /*
 		ImGuiExt::AlignLayout(alignX, alignY, offsetX, offsetY);
 	*/
 
-	public static native void BeginBoundingBox() /*-{ }-*/; /*
+    public static native void BeginBoundingBox() /*-{ }-*/; /*
 		ImGuiExt::BeginBoundingBox();
 	*/
 
-	public static native void EndBoundingBox(ImRect jData) /*-{ }-*/; /*
+    public static native void EndBoundingBox(ImRect jData) /*-{ }-*/; /*
 		ImRect boundingBox = ImGuiExt::EndBoundingBox();
 		env->SetFloatField (jData, minXID, boundingBox.Min.x);
 		env->SetFloatField (jData, minYID, boundingBox.Min.y);
 		env->SetFloatField (jData, maxXID, boundingBox.Max.x);
 		env->SetFloatField (jData, maxYID, boundingBox.Max.y);
 	*/
-
 }

@@ -13,77 +13,76 @@ import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
 import com.github.xpenatan.imgui.gdx.frame.viewport.ImGuiGdxFrameWindow;
 
-public class GameViewportExample implements ApplicationListener
-{
-	public static void main (String[] args) {
-		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setWindowedMode(1080, 800);
-		config.setTitle("Gdx-imgui");
-		config.useVsync(true);
-		new Lwjgl3Application(new GameViewportExample(), config);
-	}
+public class GameViewportExample implements ApplicationListener {
+    public static void main(String[] args) {
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        config.setWindowedMode(1080, 800);
+        config.setTitle("Gdx-imgui");
+        config.useVsync(true);
+        new Lwjgl3Application(new GameViewportExample(), config);
+    }
 
-	boolean init = false;
+    boolean init = false;
 
-	ImGuiGdxFrameWindow gameWindow1;
-	ImGuiGdxFrameWindow gameWindow2;
+    ImGuiGdxFrameWindow gameWindow1;
+    ImGuiGdxFrameWindow gameWindow2;
 
-	ImGuiLWJGL3Impl impl;
+    ImGuiLWJGL3Impl impl;
 
-	@Override
-	public void create () {
-		ImGui.init();
-		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable.or(ImGuiConfigFlags.ViewportsEnable));
-		ImGui.GetIO().SetDockingFlags(false, false, false, false);
+    @Override
+    public void create() {
+        ImGui.init();
+        ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable.or(ImGuiConfigFlags.ViewportsEnable));
+        ImGui.GetIO().SetDockingFlags(false, false, false, false);
 
-		impl = new ImGuiLWJGL3Impl();
-		configFrameViewport();
-	}
+        impl = new ImGuiLWJGL3Impl();
+        configFrameViewport();
+    }
 
-	private void configFrameViewport() {
-		EmuApplicationWindow emuApplication1 = new EmuApplicationWindow();
-		gameWindow1 = new ImGuiGdxFrameWindow(impl, emuApplication1, 400, 400, 100, 100);
-		gameWindow1.setName("Game 1");
-		emuApplication1.setApplicationListener(new GameApp());
+    private void configFrameViewport() {
+        EmuApplicationWindow emuApplication1 = new EmuApplicationWindow();
+        gameWindow1 = new ImGuiGdxFrameWindow(impl, emuApplication1, 400, 400, 100, 100);
+        gameWindow1.setName("Game 1");
+        emuApplication1.setApplicationListener(new GameApp());
 
-		EmuApplicationWindow emuApplication2 = new EmuApplicationWindow();
-		gameWindow2 = new ImGuiGdxFrameWindow(impl, emuApplication2, 400, 400, 600, 100);
-		gameWindow2.setName("Game 2");
-		emuApplication2.setApplicationListener(new GameApp());
+        EmuApplicationWindow emuApplication2 = new EmuApplicationWindow();
+        gameWindow2 = new ImGuiGdxFrameWindow(impl, emuApplication2, 400, 400, 600, 100);
+        gameWindow2.setName("Game 2");
+        emuApplication2.setApplicationListener(new GameApp());
 
-		ImGuiGdxInputMultiplexer multiplexer = new ImGuiGdxInputMultiplexer();
-		Gdx.input.setInputProcessor(multiplexer);
-	}
+        ImGuiGdxInputMultiplexer multiplexer = new ImGuiGdxInputMultiplexer();
+        Gdx.input.setInputProcessor(multiplexer);
+    }
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    @Override
+    public void render() {
+        Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		impl.update();
+        impl.update();
 
-		gameWindow1.render();
-		gameWindow2.render();
+        gameWindow1.render();
+        gameWindow2.render();
 
-		ImGui.Render();
-		ImDrawData drawData = ImGui.GetDrawData();
-		impl.render(drawData);
-	}
+        ImGui.Render();
+        ImDrawData drawData = ImGui.GetDrawData();
+        impl.render(drawData);
+    }
 
-	@Override
-	public void resize (int width, int height) {
-	}
+    @Override
+    public void resize(int width, int height) {
+    }
 
-	@Override
-	public void pause () {
-	}
+    @Override
+    public void pause() {
+    }
 
-	@Override
-	public void resume () {
-	}
+    @Override
+    public void resume() {
+    }
 
-	@Override
-	public void dispose () {
-		ImGui.dispose();
-	}
+    @Override
+    public void dispose() {
+        ImGui.dispose();
+    }
 }

@@ -28,7 +28,6 @@ public class GameApp implements ApplicationListener {
         camera.setToOrtho(true);
         batch = new SpriteBatch();
         texture = new Texture(Gdx.files.internal("data/badlogicsmall.jpg"));
-
     }
 
     @Override
@@ -46,7 +45,7 @@ public class GameApp implements ApplicationListener {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
 
-        shapeRenderer.circle(100,100, 30);
+        shapeRenderer.circle(100, 100, 30);
         shapeRenderer.end();
 
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT))

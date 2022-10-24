@@ -13,14 +13,12 @@ import com.github.xpenatan.imgui.enums.ImGuiViewportFlags;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.github.xpenatan.imgui.jnicode.ImGuiPlatformNative;
 import com.github.xpenatan.imgui.util.ImGuiPlatformListener;
+import java.nio.IntBuffer;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWMonitorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 
-import java.nio.IntBuffer;
-
 /**
- *
  * @author xpenatan
  */
 public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListener {
@@ -144,8 +142,8 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
         boolean isTopMost = (viewportFlags & ImGuiViewportFlags.TopMost.getValue()) == ImGuiViewportFlags.TopMost.getValue();
 
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-        config.setWindowPosition((int) viewport.getPosX(), (int) viewport.getPosY());
-        config.setWindowedMode((int) viewport.getSizeX(), (int) viewport.getSizeY());
+        config.setWindowPosition((int)viewport.getPosX(), (int)viewport.getPosY());
+        config.setWindowedMode((int)viewport.getSizeX(), (int)viewport.getSizeY());
         config.windowDecorated = !noDecoration;
         config.title = "Empty";
 

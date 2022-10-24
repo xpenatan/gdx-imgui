@@ -1,7 +1,7 @@
 package com.github.xpenatan.imgui;
 
 public class ImColor {
-    float [] data = new float[4];
+    float[] data = new float[4];
 
     public ImColor() {
         setColor(1.0f, 1.0f, 1.0f, 1.0f);

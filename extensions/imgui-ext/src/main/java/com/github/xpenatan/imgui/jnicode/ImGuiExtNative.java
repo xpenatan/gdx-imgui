@@ -32,7 +32,7 @@ public class ImGuiExtNative {
 		jfieldID imTextInputDataIsDirtyID;
 	*/
 
-	public static native void init() /*-{ }-*/; /*
+    public static native void init() /*-{ }-*/; /*
 		jclass jEditTextDataClass = env->FindClass("com/github/xpenatan/imgui/custom/EditTextData");
 		jclass jEditTextFloatDataClass = env->FindClass("com/github/xpenatan/imgui/custom/EditTextFloatData");
 		jclass jEditTextIntDataClass = env->FindClass("com/github/xpenatan/imgui/custom/EditTextIntData");
@@ -61,15 +61,15 @@ public class ImGuiExtNative {
 		imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
 	*/
 
-	public static native float GetTableContentHeight() /*-{ }-*/; /*
+    public static native float GetTableContentHeight() /*-{ }-*/; /*
 		return ImGuiExt::GetTableContentHeight();
 	*/
 
-	public static native void CalculateTableRowHeight() /*-{ }-*/; /*
+    public static native void CalculateTableRowHeight() /*-{ }-*/; /*
 		ImGuiExt::CalculateTableRowHeight();
 	*/
 
-	public static native float GetTableRowHeight() /*-{ }-*/; /*
+    public static native float GetTableRowHeight() /*-{ }-*/; /*
 		return ImGuiExt::GetTableRowHeight();
 	*/
 
@@ -157,7 +157,7 @@ public class ImGuiExtNative {
 		}
 	*/
 
-	public static native int EditTextF(String id, EditTextFloatData jData01, EditTextFloatData jData02, EditTextFloatData jData03, EditTextFloatData jData04, int flags) /*-{ }-*/; /*
+    public static native int EditTextF(String id, EditTextFloatData jData01, EditTextFloatData jData02, EditTextFloatData jData03, EditTextFloatData jData04, int flags) /*-{ }-*/; /*
 		EditTextData<float> localData01;
 		EditTextData<float> localData02;
 		EditTextData<float> localData03;
@@ -187,7 +187,7 @@ public class ImGuiExtNative {
 		return ret;
 	*/
 
-	public static native int EditTextI(String id, EditTextIntData jData01, EditTextIntData jData02, EditTextIntData jData03, EditTextIntData jData04, int flags) /*-{ }-*/; /*
+    public static native int EditTextI(String id, EditTextIntData jData01, EditTextIntData jData02, EditTextIntData jData03, EditTextIntData jData04, int flags) /*-{ }-*/; /*
 		EditTextData<int> localData01;
 		EditTextData<int> localData02;
 		EditTextData<int> localData03;
@@ -217,7 +217,7 @@ public class ImGuiExtNative {
 		return ret;
 	 */
 
-	public static native boolean EditTextS(String id, EditTextStringData data, byte [] buff, int maxSize, int flags, ImGuiInputTextData textInputData, int maxChar, String allowedChar, int allowedCharLength) /*-{ }-*/; /*
+    public static native boolean EditTextS(String id, EditTextStringData data, byte[] buff, int maxSize, int flags, ImGuiInputTextData textInputData, int maxChar, String allowedChar, int allowedCharLength) /*-{ }-*/; /*
 		EditTextData<std::string> data01;
 		updateEditText(env, &data01, data);
 		int size = (int)strlen(buff);

@@ -24,143 +24,136 @@ import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.github.xpenatan.imgui.gdx.frame.viewport.ImGuiGdxFrameWindow;
 
 /**
- *
  * Requires Gdx-test
- *
  */
 public class TestsExample implements ApplicationListener {
 
+    public static void main(String[] args) {
 
-	public static void main(String[] args) {
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.width = 1600;
+        config.height = 900;
+        config.title = "ImGui-Gdx-tests";
+        config.vSyncEnabled = true;
+        new LwjglApplication(new TestsExample(), config);
+    }
 
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 1600;
-		config.height = 900;
-		config.title = "ImGui-Gdx-tests";
-		config.vSyncEnabled = true;
-		new LwjglApplication(new TestsExample(), config);
-	}
+    ImGuiGdxImpl impl;
 
-	ImGuiGdxImpl impl;
+    EmuApplicationWindow emuApplication;
+    ImGuiGdxFrameWindow gameWindow;
 
-	EmuApplicationWindow emuApplication;
-	ImGuiGdxFrameWindow gameWindow;
+    int i = 0;
 
-	int i = 0;
+    boolean gdxTestInit = false;
 
-	boolean gdxTestInit = false;
+    List<String> names;
+    ImGuiInt listSelected = new ImGuiInt();
+    ImGuiBoolean booleanFlag = new ImGuiBoolean();
+    int selected = -1;
 
-	List<String> names;
-	ImGuiInt listSelected = new ImGuiInt();
-	ImGuiBoolean booleanFlag = new ImGuiBoolean();
-	int selected = -1;
-	@Override
-	public void create() {
-		ImGui.init();
+    @Override
+    public void create() {
+        ImGui.init();
 
-		ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable);
-		ImGui.GetIO().SetDockingFlags(false, false, false, false);
+        ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable);
+        ImGui.GetIO().SetDockingFlags(false, false, false, false);
 
-		impl = new ImGuiGdxImpl();
+        impl = new ImGuiGdxImpl();
 
-		EmuFrameBuffer.setDefaultFramebufferHandleInitialized(false);
+        EmuFrameBuffer.setDefaultFramebufferHandleInitialized(false);
 
-		emuApplication = new EmuApplicationWindow();
-		gameWindow = new ImGuiGdxFrameWindow(emuApplication, 400, 400, 300, 100);
+        emuApplication = new EmuApplicationWindow();
+        gameWindow = new ImGuiGdxFrameWindow(emuApplication, 400, 400, 300, 100);
 
-		gameWindow.setName("Game");
+        gameWindow.setName("Game");
 
-		Gdx.input.setInputProcessor(gameWindow.getInput());
+        Gdx.input.setInputProcessor(gameWindow.getInput());
 
-		names = GdxTests.getNames();
+        names = GdxTests.getNames();
 
-		emuApplication.setApplicationListener(new InputTest());
-	}
+        emuApplication.setApplicationListener(new InputTest());
+    }
 
+    private void drawTestListWindow() {
+        if(!gdxTestInit) {
+            gdxTestInit = true;
+            ImGui.SetNextWindowSize(200, 500);
+        }
+        ImGui.Begin("GdxTests");
+        ImGui.BeginChildFrame(313, 0f, 0f);
+        for(int i = 0; i < names.size(); i++) {
+            String testName = names.get(i);
+            boolean isSelected = selected == i;
+            if(ImGui.Selectable(testName, isSelected)) {
+                if(selected != i) {
+                    selected = i;
+                    GdxTest newTest = GdxTests.newTest(testName);
+                    emuApplication.setApplicationListener(newTest);
+                }
+            }
+        }
+        ImGui.EndChildFrame();
+        ImGui.End();
+    }
 
-	private void drawTestListWindow() {
-		if(!gdxTestInit) {
-			gdxTestInit = true;
-			ImGui.SetNextWindowSize(200, 500);
-		}
-		ImGui.Begin("GdxTests");
-		ImGui.BeginChildFrame(313, 0f, 0f);
-		for(int i = 0; i < names.size(); i++) {
-			String testName = names.get(i);
-			boolean isSelected = selected == i;
-			if(ImGui.Selectable(testName, isSelected)) {
-				if(selected != i) {
-					selected = i;
-					GdxTest newTest = GdxTests.newTest(testName);
-					emuApplication.setApplicationListener(newTest);
-				}
-			}
-		}
-		ImGui.EndChildFrame();
-		ImGui.End();
-	}
+    @Override
+    public void render() {
+        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        int width = Gdx.graphics.getWidth();
+        int height = Gdx.graphics.getHeight();
+        int backBufferWidth = Gdx.graphics.getBackBufferWidth();
+        int backBufferHeight = Gdx.graphics.getBackBufferHeight();
 
-	@Override
-	public void render() {
-		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        boolean mouseDown0 = Gdx.input.isButtonPressed(Buttons.LEFT);
+        boolean mouseDown1 = Gdx.input.isButtonPressed(Buttons.RIGHT);
+        boolean mouseDown2 = Gdx.input.isButtonPressed(Buttons.MIDDLE);
 
-		int width = Gdx.graphics.getWidth();
-		int height = Gdx.graphics.getHeight();
-		int backBufferWidth = Gdx.graphics.getBackBufferWidth();
-		int backBufferHeight = Gdx.graphics.getBackBufferHeight();
+        ImGui.UpdateDisplayAndInputAndFrame(Gdx.graphics.getDeltaTime(), width, height, backBufferWidth, backBufferHeight,
+                Gdx.input.getX(), Gdx.input.getY(), mouseDown0, mouseDown1, mouseDown2);
 
-		boolean mouseDown0 = Gdx.input.isButtonPressed(Buttons.LEFT);
-		boolean mouseDown1 = Gdx.input.isButtonPressed(Buttons.RIGHT);
-		boolean mouseDown2 = Gdx.input.isButtonPressed(Buttons.MIDDLE);
+        ImGui.SetNextWindowSize(width, height);
+        ImGui.SetNextWindowPos(0, 0);
 
-		ImGui.UpdateDisplayAndInputAndFrame(Gdx.graphics.getDeltaTime(), width, height, backBufferWidth, backBufferHeight,
-				Gdx.input.getX(), Gdx.input.getY(), mouseDown0, mouseDown1, mouseDown2);
+        ImGuiWindowFlags flags = ImGuiWindowFlags.NoDecoration;
+        flags = flags.or(ImGuiWindowFlags.NoDocking).or(ImGuiWindowFlags.NoBringToFrontOnFocus);
 
+        ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
+        ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);
 
-		ImGui.SetNextWindowSize(width, height);
-		ImGui.SetNextWindowPos(0, 0);
+        ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, 0.0f, 0.0f);
+        ImGui.Begin("DockSpace Demo", booleanFlag, flags);
+        ImGui.PopStyleVar();
+        ImGui.PopStyleVar(2);
 
-		ImGuiWindowFlags flags = ImGuiWindowFlags.NoDecoration;
-		flags = flags.or(ImGuiWindowFlags.NoDocking).or(ImGuiWindowFlags.NoBringToFrontOnFocus);
+        ImGui.DockSpace(201, width, height);
 
-		ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, 0.0f);
-		ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0f);
+        drawTestListWindow();
+        gameWindow.render();
 
-		ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, 0.0f, 0.0f);
-		ImGui.Begin("DockSpace Demo", booleanFlag, flags);
-		ImGui.PopStyleVar();
-		ImGui.PopStyleVar(2);
+        ImGui.End();
 
+        ImGui.Render();
+        DrawData drawData = ImGui.GetDrawData();
+        impl.render(drawData);
+    }
 
-		ImGui.DockSpace(201, width, height);
+    @Override
+    public void resize(int width, int height) {
+    }
 
-		drawTestListWindow();
-		gameWindow.render();
+    @Override
+    public void pause() {
+    }
 
-		ImGui.End();
+    @Override
+    public void resume() {
+    }
 
-		ImGui.Render();
-		DrawData drawData = ImGui.GetDrawData();
-		impl.render(drawData);
-	}
-
-
-	@Override
-	public void resize(int width, int height) {
-	}
-
-	@Override
-	public void pause() {
-	}
-
-	@Override
-	public void resume() {
-	}
-
-	@Override
-	public void dispose() {
-		ImGui.dispose();
-	}
+    @Override
+    public void dispose() {
+        ImGui.dispose();
+    }
 }

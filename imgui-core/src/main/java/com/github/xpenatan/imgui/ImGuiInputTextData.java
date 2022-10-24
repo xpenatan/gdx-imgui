@@ -1,8 +1,8 @@
 package com.github.xpenatan.imgui;
 
 public class ImGuiInputTextData {
-	public int size;
-	public int maxChar = -1;
-	public String allowedChar = "";
-	public boolean isDirty;
+    public int size;
+    public int maxChar = -1;
+    public String allowedChar = "";
+    public boolean isDirty;
 }
