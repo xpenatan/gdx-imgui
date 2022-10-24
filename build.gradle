@@ -2,11 +2,9 @@ apply from: 'dependencies.gradle'
 
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.12.0"
     }
 }
 
