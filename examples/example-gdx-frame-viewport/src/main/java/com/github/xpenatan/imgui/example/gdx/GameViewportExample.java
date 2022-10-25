@@ -7,6 +7,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.github.xpenatan.gdx.frame.viewport.EmuApplicationWindow;
+import com.github.xpenatan.gdx.frame.viewport.EmuInput;
 import com.github.xpenatan.imgui.ImDrawData;
 import com.github.xpenatan.imgui.ImGui;
 import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
@@ -32,7 +33,9 @@ public class GameViewportExample implements ApplicationListener {
     @Override
     public void create() {
         ImGui.init();
-        ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable.or(ImGuiConfigFlags.ViewportsEnable));
+        ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable);
+        // Viewport inputs not working
+//        ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable.or(ImGuiConfigFlags.ViewportsEnable));
         ImGui.GetIO().SetDockingFlags(false, false, false, false);
 
         impl = new ImGuiLWJGL3Impl();
@@ -40,12 +43,39 @@ public class GameViewportExample implements ApplicationListener {
     }
 
     private void configFrameViewport() {
-        EmuApplicationWindow emuApplication1 = new EmuApplicationWindow();
+        EmuInput input01 = new EmuInput(Gdx.input) {
+            @Override
+            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+                boolean b = super.touchUp(screenX, screenY, pointer, button);
+                return b;
+            }
+
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                boolean b = super.touchDown(screenX, screenY, pointer, button);
+                return b;
+            }
+        };
+        EmuInput input02 = new EmuInput(Gdx.input) {
+            @Override
+            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+                boolean b = super.touchUp(screenX, screenY, pointer, button);
+                return b;
+            }
+
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                boolean b = super.touchDown(screenX, screenY, pointer, button);
+                return b;
+            }
+        };
+
+        EmuApplicationWindow emuApplication1 = new EmuApplicationWindow(input01);
         gameWindow1 = new ImGuiGdxFrameWindow(impl, emuApplication1, 400, 400, 100, 100);
         gameWindow1.setName("Game 1");
         emuApplication1.setApplicationListener(new GameApp());
 
-        EmuApplicationWindow emuApplication2 = new EmuApplicationWindow();
+        EmuApplicationWindow emuApplication2 = new EmuApplicationWindow(input02);
         gameWindow2 = new ImGuiGdxFrameWindow(impl, emuApplication2, 400, 400, 600, 100);
         gameWindow2.setName("Game 2");
         emuApplication2.setApplicationListener(new GameApp());

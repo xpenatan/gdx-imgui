@@ -87,7 +87,7 @@ public class GameApp implements ApplicationListener {
 
         batch.begin();
         batch.draw(texture, x1, y1);
-        batch.draw(texture, x2, y2);
+        batch.draw(texture, x2 + 10, y2);
         batch.end();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);

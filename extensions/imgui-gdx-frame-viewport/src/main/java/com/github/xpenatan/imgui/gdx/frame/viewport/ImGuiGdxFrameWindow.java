@@ -16,6 +16,7 @@ import com.github.xpenatan.imgui.enums.ImGuiCol;
 import com.github.xpenatan.imgui.enums.ImGuiCond;
 import com.github.xpenatan.imgui.enums.ImGuiHoveredFlags;
 import com.github.xpenatan.imgui.enums.ImGuiWindowFlags;
+import com.github.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
 
 /**
  * Emulate gdx application inside a ImGui window
@@ -66,25 +67,35 @@ public class ImGuiGdxFrameWindow {
         this.name = name;
     }
 
-	private void updateInput(long windowHandle) {
-		EmuInput emuInput = emuWindow.getInput();
-		if(curInputMultiplexer != null) {
-			curInputMultiplexer.removeProcessor(emuInput);
-			curInputMultiplexer = null;
-		}
+    private void setHandler(long newPlatformHandler) {
+        EmuInput emuInput = emuWindow.getInput();
+        Lwjgl3Window oldWindow = imp.findWindow(curWindowHandle);
+        if(oldWindow != null) {
+            Input windowInput = imp.getWindowInput(oldWindow);
+            InputProcessor inputProcessor = windowInput.getInputProcessor();
+            if(inputProcessor instanceof ImGuiGdxInputMultiplexer) {
+                ImGuiGdxInputMultiplexer oldMultiplexer = (ImGuiGdxInputMultiplexer)inputProcessor;
+                oldMultiplexer.removeProcessor(emuInput);
+            }
+            else if(inputProcessor == emuInput) {
+                windowInput.setInputProcessor(null);
+            }
+        }
 
-        Lwjgl3Window window = imp.findWindow(windowHandle);
-        Input windowInput = imp.getWindowInput(window);
-
-		if(windowInput != null) {
-			InputProcessor inputProcessor = windowInput.getInputProcessor();
-			if(inputProcessor instanceof InputMultiplexer) {
-				curInputMultiplexer = (InputMultiplexer)inputProcessor;
-				curInputMultiplexer.addProcessor(emuInput);
-				curWindowHandle = windowHandle;
-			}
-		}
-	}
+        Lwjgl3Window newWindow = imp.findWindow(newPlatformHandler);
+        if(newWindow != null) {
+            Input windowInput = imp.getWindowInput(newWindow);
+            InputProcessor inputProcessor = windowInput.getInputProcessor();
+            if(inputProcessor instanceof ImGuiGdxInputMultiplexer) {
+                ImGuiGdxInputMultiplexer newMultiplexer = (ImGuiGdxInputMultiplexer)inputProcessor;
+                newMultiplexer.addProcessor(emuInput);
+            }
+            else {
+                windowInput.setInputProcessor(emuInput);
+            }
+        }
+        curWindowHandle = newPlatformHandler;
+    }
 
     public void render() {
         if(name == null)
@@ -107,10 +118,16 @@ public class ImGuiGdxFrameWindow {
         ImGui.Begin(name);
 
         ImGuiViewport viewport = ImGui.GetWindowViewport();
-        updateInput(viewport.getPlatformHandle());
+
+        long platformHandle = viewport.getPlatformHandle();
+
+        if(platformHandle != curWindowHandle) {
+            setHandler(platformHandle);
+        }
 
         if(curFrameFocus)
             ImGui.PopStyleColor();
+        boolean beginFocus = ImGui.IsWindowFocused();
         boolean beginChild = ImGui.BeginChild(beginID, 0, -ImGui.GetFrameHeightWithSpacing(), false, ImGuiWindowFlags.NoMove);
         if(beginChild) {
             windowWidth = (int)ImGui.GetWindowContentRegionWidth();
@@ -123,11 +140,16 @@ public class ImGuiGdxFrameWindow {
             if(input.needsFocus())
                 ImGui.SetWindowFocus();
 
-            curFrameFocus = ImGui.IsWindowFocused();
+            if(beginFocus) {
+                curFrameFocus = true;
+            }
+            else {
+                curFrameFocus = ImGui.IsWindowFocused();
+            }
             isWindowHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.AllowWhenBlockedByActiveItem);
 
-            if(ImGui.InvisibleButton(btnId, windowWidth, windowHeight))
-                curFrameFocus = true;
+//            if(ImGui.InvisibleButton(btnId, windowWidth, windowHeight))
+//                curFrameFocus = true;
 
             emuWindow.begin(curFrameFocus, isWindowHovered, windowX, windowY, windowWidth, windowHeight);
             mouseX = Gdx.input.getX();

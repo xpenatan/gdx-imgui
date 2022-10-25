@@ -1,1 +1,14 @@
 include ":imgui-cpp", ":imgui-core", ":extensions:imgui-ext", ":extensions:imgui-gdx", ":extensions:imgui-gdx-lwjgl3", ":extensions:imgui-gdx-frame-viewport", ":examples:example-gdx", ":examples:example-gdx-frame-viewport"
+
+
+//includeBuild('E:\\Dev\\Projects\\Eclipse\\jDear-imgui') {
+//    dependencySubstitution {
+//        substitute module('com.github.xpenatan.jDear-Imgui:imgui-gdx-frame-viewport') with project(':extensions:imgui-gdx-frame-viewport')
+//    }
+//}
+//
+//includeBuild('E:\\Dev\\Projects\\Eclipse\\gdx-frame-viewport') {
+//    dependencySubstitution {
+//        substitute module('com.github.xpenatan:gdx-frame-viewport') with project(':core')
+//    }
+//}

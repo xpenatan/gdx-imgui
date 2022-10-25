@@ -19,7 +19,8 @@ dependencies {
     // Optional
     implementation "com.github.xpenatan.jDear-Imgui:imgui-ext:$project.jDearImguiLayoutVersion"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-ext-platform:$project.jDearImguiLayoutVersion:natives-desktop"
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx-frame-viewport:$project.jDearImguiGdxFrameViewportVersion"
+//    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx-frame-viewport:$project.jDearImguiGdxFrameViewportVersion"
+    implementation project(":extensions:imgui-gdx-frame-viewport")
     implementation "com.github.xpenatan:gdx-frame-viewport:$project.gdxFrameViewportVersion"
 
     // Use JUnit test framework
