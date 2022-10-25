@@ -9,9 +9,12 @@ dependencies {
     // Required
     implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-core:$project.jDearImguiVersion"
+//    implementation "com.github.xpenatan.jDear-Imgui:imgui-core:$project.jDearImguiVersion"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-core-platform:$project.jDearImguiVersion:natives-desktop"
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx:$project.jDearImguiGdxVersion"
+//    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx:$project.jDearImguiGdxVersion"
+
+    implementation project(":imgui-core")
+    implementation project(":extensions:imgui-gdx")
 
     // Optional. Used for multi viewports. Currently WIP.
     implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx-lwjgl3:$project.jDearImguiGdxVersion"

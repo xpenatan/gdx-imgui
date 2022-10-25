@@ -94,7 +94,6 @@ public class ImGuiGdxInput implements InputProcessor {
         if(keycode == Keys.SYM)
             superKey = true;
         int imGuiKey = getImGuiKey(keycode);
-        ImGui.AddKeyEvent(imGuiKey, true);
         if(superKey) {
             ImGui.AddKeyEvent(ImGuiKey.ModSuper, true);
         }
@@ -107,6 +106,8 @@ public class ImGuiGdxInput implements InputProcessor {
         else if(altKey) {
             ImGui.AddKeyEvent(ImGuiKey.ModAlt, true);
         }
+
+        ImGui.AddKeyEvent(imGuiKey, true);
 
         if(ImGui.IsWindowFocused(ImGuiFocusedFlags.AnyWindow))
             return true;
@@ -129,8 +130,6 @@ public class ImGuiGdxInput implements InputProcessor {
         if(keycode == Keys.SYM)
             superKey = true;
         int imGuiKey = getImGuiKey(keycode);
-        ImGui.AddKeyEvent(imGuiKey, false);
-
         if(superKey) {
             ImGui.AddKeyEvent(ImGuiKey.ModSuper, false);
         }
@@ -143,6 +142,8 @@ public class ImGuiGdxInput implements InputProcessor {
         else if(altKey) {
             ImGui.AddKeyEvent(ImGuiKey.ModAlt, false);
         }
+
+        ImGui.AddKeyEvent(imGuiKey, false);
 
         if(ImGui.IsWindowFocused(ImGuiFocusedFlags.AnyWindow))
             return true;

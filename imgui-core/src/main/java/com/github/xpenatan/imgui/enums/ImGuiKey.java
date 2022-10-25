@@ -63,9 +63,7 @@ public class ImGuiKey {
             KeypadAdd = ID++,
             KeypadEnter = ID++,
             KeypadEqual = ID++,
-
-    // Gamepad (some of those are analog values, 0.0f to 1.0f)
-    GamepadStart = ID++,          // Menu (Xbox)          + (Switch)   Start/Options (PS) // --
+            GamepadStart = ID++,          // Menu (Xbox)          + (Switch)   Start/Options (PS) // --
             GamepadBack = ID++,           // View (Xbox)          - (Switch)   Share (PS)         // --
             GamepadFaceUp = ID++,         // Y (Xbox)             X (Switch)   Triangle (PS)      // -> ImGuiNavInput_Input
             GamepadFaceDown = ID++,       // A (Xbox)             B (Switch)   Cross (PS)         // -> ImGuiNavInput_Activate
@@ -81,29 +79,28 @@ public class ImGuiKey {
             GamepadR2 = ID++,             // R Trigger (Xbox)     ZR (Switch)  R2 (PS) [Analog]
             GamepadL3 = ID++,             // L Thumbstick (Xbox)  L3 (Switch)  L3 (PS)
             GamepadR3 = ID++,             // R Thumbstick (Xbox)  R3 (Switch)  R3 (PS)
-            GamepadLStickUp = ID++,       // [Analog]                                             // -> ImGuiNavInput_LStickUp
-            GamepadLStickDown = ID++,     // [Analog]                                             // -> ImGuiNavInput_LStickDown
             GamepadLStickLeft = ID++,     // [Analog]                                             // -> ImGuiNavInput_LStickLeft
             GamepadLStickRight = ID++,    // [Analog]                                             // -> ImGuiNavInput_LStickRight
-            GamepadRStickUp = ID++,       // [Analog]
-            GamepadRStickDown = ID++,     // [Analog]
+            GamepadLStickUp = ID++,       // [Analog]                                             // -> ImGuiNavInput_LStickUp
+            GamepadLStickDown = ID++,     // [Analog]                                             // -> ImGuiNavInput_LStickDown
             GamepadRStickLeft = ID++,     // [Analog]
             GamepadRStickRight = ID++,    // [Analog]
-
-    // Keyboard Modifiers
-// - This is mirroring the data also written to io.KeyCtrl, io.KeyShift, io.KeyAlt, io.KeySuper, in a format allowing
-//   them to be accessed via standard key API, allowing calls such as IsKeyPressed(), IsKeyReleased(), querying duration etc.
-// - Code polling every keys (e.g. an interface to detect a key press for input mapping) might want to ignore those
-//   and prefer using the real keys (e.g. ImGuiKey_LeftCtrl, ImGuiKey_RightCtrl instead of ImGuiKey_ModCtrl).
-// - In theory the value of keyboard modifiers should be roughly equivalent to a logical or of the equivalent left/right keys.
-//   In practice: it's complicated; mods are often provided from different sources. Keyboard layout, IME, sticky keys and
-//   backends tend to interfere and break that equivalence. The safer decision is to relay that ambiguity down to the end-user...
-    ModCtrl = ID++,
-            ModShift = ID++,
-            ModAlt = ID++,
-            ModSuper = ID++,
-
-    COUNT = ID++;                 // No valid ImGuiKey is ever greater than this value
+            GamepadRStickUp = ID++,       // [Analog]
+            GamepadRStickDown = ID++,     // [Analog]
+            MouseLeft = ID++,
+            MouseRight = ID++,
+            MouseMiddle = ID++,
+            MouseX1 = ID++,
+            MouseX2 = ID++,
+            MouseWheelX = ID++,
+            MouseWheelY = ID++,
+            COUNT = 652,                 // No valid ImGuiKey is ever greater than this value
+            ModNone = 0,
+            ModCtrl = 1 << 12,
+            ModShift = 1 << 13,
+            ModAlt = 1 << 14,
+            ModSuper = 1 << 15,
+            ModMask = 0xF000;
 
     private final int code;
 
