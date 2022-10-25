@@ -54,6 +54,10 @@ public class ImGuiGdxFrameWindow {
 
     private ImGuiLWJGL3Impl imp;
 
+    public ImGuiGdxFrameWindow(EmuWindow emuWindow, int width, int height, float x, float y) {
+        this(null, emuWindow, width, height, x, y);
+    }
+
     public ImGuiGdxFrameWindow(ImGuiLWJGL3Impl imp, EmuWindow emuWindow, int width, int height, float x, float y) {
         this.imp = imp;
         this.startWidth = width;
@@ -68,33 +72,36 @@ public class ImGuiGdxFrameWindow {
     }
 
     private void setHandler(long newPlatformHandler) {
-        EmuInput emuInput = emuWindow.getInput();
-        Lwjgl3Window oldWindow = imp.findWindow(curWindowHandle);
-        if(oldWindow != null) {
-            Input windowInput = imp.getWindowInput(oldWindow);
-            InputProcessor inputProcessor = windowInput.getInputProcessor();
-            if(inputProcessor instanceof ImGuiGdxInputMultiplexer) {
-                ImGuiGdxInputMultiplexer oldMultiplexer = (ImGuiGdxInputMultiplexer)inputProcessor;
-                oldMultiplexer.removeProcessor(emuInput);
-            }
-            else if(inputProcessor == emuInput) {
-                windowInput.setInputProcessor(null);
-            }
-        }
-
-        Lwjgl3Window newWindow = imp.findWindow(newPlatformHandler);
-        if(newWindow != null) {
-            Input windowInput = imp.getWindowInput(newWindow);
-            InputProcessor inputProcessor = windowInput.getInputProcessor();
-            if(inputProcessor instanceof ImGuiGdxInputMultiplexer) {
-                ImGuiGdxInputMultiplexer newMultiplexer = (ImGuiGdxInputMultiplexer)inputProcessor;
-                newMultiplexer.addProcessor(emuInput);
-            }
-            else {
-                windowInput.setInputProcessor(emuInput);
-            }
-        }
+        long oldWindowHandle = curWindowHandle;
         curWindowHandle = newPlatformHandler;
+        if(imp != null) {
+            EmuInput emuInput = emuWindow.getInput();
+            Lwjgl3Window oldWindow = imp.findWindow(oldWindowHandle);
+            if(oldWindow != null) {
+                Input windowInput = imp.getWindowInput(oldWindow);
+                InputProcessor inputProcessor = windowInput.getInputProcessor();
+                if(inputProcessor instanceof ImGuiGdxInputMultiplexer) {
+                    ImGuiGdxInputMultiplexer oldMultiplexer = (ImGuiGdxInputMultiplexer)inputProcessor;
+                    oldMultiplexer.removeProcessor(emuInput);
+                }
+                else if(inputProcessor == emuInput) {
+                    windowInput.setInputProcessor(null);
+                }
+            }
+
+            Lwjgl3Window newWindow = imp.findWindow(newPlatformHandler);
+            if(newWindow != null) {
+                Input windowInput = imp.getWindowInput(newWindow);
+                InputProcessor inputProcessor = windowInput.getInputProcessor();
+                if(inputProcessor instanceof ImGuiGdxInputMultiplexer) {
+                    ImGuiGdxInputMultiplexer newMultiplexer = (ImGuiGdxInputMultiplexer)inputProcessor;
+                    newMultiplexer.addProcessor(emuInput);
+                }
+                else {
+                    windowInput.setInputProcessor(emuInput);
+                }
+            }
+        }
     }
 
     public void render() {
