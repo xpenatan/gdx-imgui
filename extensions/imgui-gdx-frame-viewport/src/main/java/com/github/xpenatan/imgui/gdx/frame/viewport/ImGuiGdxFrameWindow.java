@@ -155,9 +155,6 @@ public class ImGuiGdxFrameWindow {
             }
             isWindowHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.AllowWhenBlockedByActiveItem);
 
-//            if(ImGui.InvisibleButton(btnId, windowWidth, windowHeight))
-//                curFrameFocus = true;
-
             emuWindow.begin(curFrameFocus, isWindowHovered, windowX, windowY, windowWidth, windowHeight);
             mouseX = Gdx.input.getX();
             mouseY = Gdx.input.getY();
