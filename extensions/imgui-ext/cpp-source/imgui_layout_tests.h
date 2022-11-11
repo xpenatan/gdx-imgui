@@ -93,7 +93,7 @@ namespace ImGuiExt
 			flags |= ImGuiInputTextFlags_EnterReturnsTrue;
 			char* string = (char*)str.c_str();
 			int capacity = str.capacity() + 1;
-			bool isValid = ImGuiExt::InputText("##input text", string, capacity, flags, TextCallback::InputTextCallback, &str);
+			bool isValid = ImGui::InputText("##input text", string, capacity, flags, TextCallback::InputTextCallback, &str);
 			ImGuiID id = ImGui::GetItemID();
 			ImGuiInputTextState* state = ImGui::GetInputTextState(id);
 			bool isItemDeactivated = ImGui::IsItemDeactivated();
@@ -121,7 +121,7 @@ namespace ImGuiExt
 			float stepFast = 100.0f;
 			ImGuiContext& g = *GImGui;
 			//bool result = ImGui::InputScalar("", ImGuiDataType_Float , &buffer[0], (void*)(&step), (void*)(&stepFast), "%.3f", flags);
-			bool result = ImGuiExt::InputScalar("", ImGuiDataType_Float, &buffer[0], NULL, NULL, "%.3f", flags);
+			bool result = ImGui::InputScalar("", ImGuiDataType_Float, &buffer[0], NULL, NULL, "%.3f", flags);
 			ImGuiIO& io = g.IO;
 			bool mouseClicked = io.MouseClicked[0];
 			ImGuiID id = ImGui::GetItemID();

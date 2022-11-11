@@ -2199,7 +2199,8 @@ public class ImGuiNative {
 	*/
 
     public static native boolean IsMouseClicked(int button, boolean repeat) /*-{ }-*/; /*
-		return ImGui::IsMouseClicked(button, repeat);
+		bool flag = repeat;
+		return ImGui::IsMouseClicked(button, flag);
 	*/
 
     public static native boolean IsMouseReleased(int button) /*-{ }-*/; /*

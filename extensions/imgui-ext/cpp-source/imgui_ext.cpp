@@ -323,7 +323,7 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 		std::string* stringPtr = static_cast<std::string*>(voidValue);
 		std::string str = *stringPtr;
 		flags |= ImGuiInputTextFlags_CallbackResize;
-		ImGuiExt::InputText("##input text", (char*)str.c_str(), str.capacity() + 1, flags, InputTextCallback, &str);
+		ImGui::InputText("##input text", (char*)str.c_str(), str.capacity() + 1, flags, InputTextCallback, &str);
 		ImGuiID id = ImGui::GetItemID();
 		ImGuiInputTextState * state = ImGui::GetInputTextState(id);
 		bool isItemDeactivated = ImGui::IsItemDeactivated();
@@ -340,7 +340,7 @@ static bool singleEdittext(const int id, ImGuiDataType data_type, EditTextData<T
 		}
 	}
 	else {
-		ImGuiExt::InputScalar("", data_type, voidValue, NULL, NULL, data->format);
+		ImGui::InputScalar("", data_type, voidValue, NULL, NULL, data->format);
 		ImGuiID id = ImGui::GetItemID();
 		ImGuiInputTextState * state = ImGui::GetInputTextState(id);
 		bool isItemDeactivated = ImGui::IsItemDeactivated();
