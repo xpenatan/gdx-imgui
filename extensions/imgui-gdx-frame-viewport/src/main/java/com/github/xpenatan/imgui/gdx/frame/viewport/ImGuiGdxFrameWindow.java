@@ -7,6 +7,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.backends.lwjgl3.ImGuiLWJGL3Impl;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Window;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.utils.StringBuilder;
 import com.github.xpenatan.gdx.frame.viewport.EmuInput;
 import com.github.xpenatan.gdx.frame.viewport.EmuWindow;
 import com.github.xpenatan.imgui.ImGui;
