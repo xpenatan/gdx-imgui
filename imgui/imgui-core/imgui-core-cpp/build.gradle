@@ -1,0 +1,8 @@
+plugins {
+    id 'java'
+}
+
+def module_name = "imgui-core-cpp"
+
+dependencies {
+}

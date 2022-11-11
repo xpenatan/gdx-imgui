@@ -7,4 +7,5 @@ project.ext {
     jDearImguiGdxFrameViewportVersion = "1.0.0-SNAPSHOT"
     gdxFrameViewportVersion = "1.0.0-SNAPSHOT"
     jUnitVersion = "4.12"
+    jParserVersion = "1.0.0-SNAPSHOT"
 }

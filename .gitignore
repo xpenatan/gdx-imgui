@@ -34,3 +34,5 @@ libs/
 *.log
 *.o
 *.ini
+
+**/imgui-core-cpp/src/**

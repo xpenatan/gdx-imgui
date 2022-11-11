@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+}
+
+project.ext.mainClassName = "com.github.xpenatan.imgui.core.generate.Main"
+
+dependencies {
+    implementation "com.github.xpenatan.jParser:jParser-core:$project.jParserVersion"
+}
+
+task generateNativeProject(dependsOn: classes, type: JavaExec) {
+    group = 'other'
+    description = 'Generate native project'
+
+    main = project.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+}

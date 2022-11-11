@@ -1,4 +1,14 @@
-include ":imgui-cpp", ":imgui-core", ":extensions:imgui-ext", ":extensions:imgui-gdx", ":extensions:imgui-gdx-lwjgl3", ":extensions:imgui-gdx-frame-viewport", ":examples:example-gdx", ":examples:example-gdx-frame-viewport"
+include ":imgui-cpp",
+        ":imgui-core",
+        ":imgui:imgui-core:imgui-core-base",
+        ":imgui:imgui-core:imgui-core-build",
+        ":imgui:imgui-core:imgui-core-cpp",
+        ":extensions:imgui-ext",
+        ":extensions:imgui-gdx",
+        ":extensions:imgui-gdx-lwjgl3",
+        ":extensions:imgui-gdx-frame-viewport",
+        ":examples:example-gdx",
+        ":examples:example-gdx-frame-viewport"
 
 
 //includeBuild('E:\\Dev\\Projects\\Eclipse\\jDear-imgui') {
