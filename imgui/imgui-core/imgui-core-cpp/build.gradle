@@ -6,3 +6,12 @@ def module_name = "imgui-core-cpp"
 
 dependencies {
 }
+
+clean.doFirst {
+    def jniPath = projectDir.toString() + "/jni/"
+    def libPath = projectDir.toString() + "/libs/"
+    def srcPath = projectDir.toString() + "/src/main/"
+    project.delete(files(jniPath))
+    project.delete(files(libPath))
+    project.delete(files(srcPath))
+}
