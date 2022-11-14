@@ -21,7 +21,7 @@ When project is ready, run buildImGuiNatives from gralde GUI and publishToMavenL
 
 Only SNAPSHOTS are currently available. Release will be ready when ImGui docking api goes to master.
 
-    gdxVersion = "1.9.11-SNAPSHOT"
+    gdxVersion = "1.11.0"
     jDearImguiVersion = "1.0.0-SNAPSHOT"
     jDearImguiLayoutVersion = "1.0.0-SNAPSHOT"
     jDearImguiGdxVersion = "1.0.0-SNAPSHOT"
@@ -53,6 +53,34 @@ dependencies {
     implementation "com.github.xpenatan.jDear-Imgui:imgui-ext:$project.jDearImguiLayoutVersion"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-ext-platform:$project.jDearImguiLayoutVersion:natives-desktop"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx-frame-viewport:$project.jDearImguiGdxFrameViewportVersion"
+    implementation "com.github.xpenatan:gdx-frame-viewport:$project.gdxFrameViewportVersion"
+}
+```
+New dependencies WIP:
+```groovy
+dependencies {
+    implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
+
+    // Required
+    implementation "com.github.xpenatan.jDear-Imgui:core:$project.jDearImguiVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:gdx:$project.jDearImguiGdxVersion"
+
+    // Required Natives
+    implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-desktop"
+    implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-android"
+    implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-teavm"
+    implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-ios"
+
+    // Optional
+    implementation "com.github.xpenatan.jDear-Imgui:gdx-lwjgl3:$project.jDearImguiGdxVersion"
+
+    // Optional
+    implementation "com.github.xpenatan.jDear-Imgui:ext-layout:$project.jDearImguiLayoutVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:ext-layout-platform:$project.jDearImguiLayoutVersion:natives-desktop"
+
+    // Optional
+    implementation "com.github.xpenatan.jDear-Imgui:ext-gdx-frame-viewport:$project.jDearImguiGdxFrameViewportVersion"
     implementation "com.github.xpenatan:gdx-frame-viewport:$project.gdxFrameViewportVersion"
 }
 ```
