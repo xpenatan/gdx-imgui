@@ -20,19 +20,19 @@ clean.doFirst {
     project.delete(files(srcPath))
 }
 
+task fromClasses(type: Jar) {
+    from(sourceSets.main.output) {
+    }
+}
+
 task javadocJar(type: Jar) {
-    classifier = 'javadoc'
+    archiveClassifier.set("javadoc")
     from javadoc
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    archiveClassifier.set("sources")
     from sourceSets.main.allSource
-}
-
-task fromClasses(type: Jar) {
-    from(sourceSets.main.output) {
-    }
 }
 
 javadoc {

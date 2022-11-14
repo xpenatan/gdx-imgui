@@ -14,6 +14,7 @@ project.ext.mainClassName = "com.github.xpenatan.gdx.example.basic.Build"
 
 dependencies {
     implementation project(":examples:basic:core")
+    implementation project(":imgui:imgui-core:imgui-core-teavm")
     implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
 
     implementation "com.github.xpenatan.gdx-web-tools:backend-web:1.0.0-SNAPSHOT"
@@ -21,9 +22,15 @@ dependencies {
     implementation "com.github.xpenatan.gdx-web-tools:backend-teavm-native:1.0.0-SNAPSHOT"
 }
 
-task runTeaVMBasicExample(dependsOn: classes, type: JavaExec) {
-    setGroup("examples")
-    setDescription("Run basic example")
+task buildJavaScript(dependsOn: classes, type: JavaExec) {
+    setGroup("teavm")
+    setDescription("Build basic example")
     mainClass.set(project.mainClassName)
     setClasspath(sourceSets.main.runtimeClasspath)
+}
+
+
+task runTeaVMBasicExample(dependsOn: [':examples:basic:teavm:buildJavaScript', ':examples:basic:teavm:jettyRun']) {
+    setGroup("examples")
+    setDescription("Run basic example")
 }
