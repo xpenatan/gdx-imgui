@@ -52,10 +52,10 @@ task downloadAndUnzipFile(dependsOn: downloadZipFile, type: Copy) {
 }
 
 task generateNatives(dependsOn: [downloadAndUnzipFile, classes], type: JavaExec) {
-    description = 'Build jDear ImGui-cpp'
-
-    main = project.mainClassName
-    classpath = sourceSets.main.runtimeClasspath
+    setGroup("imgui")
+    setDescription("Build jDear ImGui-cpp")
+    mainClass.set(project.mainClassName)
+    setClasspath(sourceSets.main.runtimeClasspath)
 }
 
 task fromClasses(type: Jar) {

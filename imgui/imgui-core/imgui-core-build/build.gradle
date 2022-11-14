@@ -7,13 +7,15 @@ project.ext.mainClassName = "com.github.xpenatan.imgui.core.generate.BuildCore"
 dependencies {
     implementation "com.github.xpenatan.jParser:jParser-core:$project.jParserVersion"
     implementation "com.github.xpenatan.jParser:jParser-cpp:$project.jParserVersion"
+    implementation "com.github.xpenatan.jParser:jParser-teavm:$project.jParserVersion"
+
     implementation "com.badlogicgames.gdx:gdx-jnigen:$project.jniGenVersion"
+    implementation "com.badlogicgames.gdx:gdx-jnigen-loader:$project.jniGenVersion"
 }
 
-task generateNativeProject(dependsOn: classes, type: JavaExec) {
-    group = 'other'
-    description = 'Generate native project'
-
-    main = project.mainClassName
-    classpath = sourceSets.main.runtimeClasspath
+task generateNatives(dependsOn: classes, type: JavaExec) {
+    setGroup("imgui")
+    setDescription("Generate native project")
+    mainClass.set(project.mainClassName)
+    setClasspath(sourceSets.main.runtimeClasspath)
 }

@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+}
+
+def module_name = "core"
+
+dependencies {
+    implementation "com.badlogicgames.gdx:gdx-jnigen-loader:$project.jniGenVersion"
+}
+
+clean.doFirst {
+    def jniPath = projectDir.toString() + "/jni/"
+    def libPath = projectDir.toString() + "/libs/"
+    def srcPath = projectDir.toString() + "/src/main/"
+    project.delete(files(jniPath))
+    project.delete(files(libPath))
+    project.delete(files(srcPath))
+}
+
+task platformAll(type: Jar) {
+    archiveClassifier = "natives-desktop"
+    from zipTree(projectDir.toString() + "/libs/imgui-core-natives.jar")
+}
+
+task fromClasses(type: Jar) {
+    from(sourceSets.main.output) {
+    }
+}
+
+publishing {
+    publications {
+        imguiClasses(MavenPublication) {
+            version project.jDearImguiVersion
+            project.version = project.jDearImguiVersion
+            artifactId module_name
+            artifact fromClasses
+        }
+        imguiNatives(MavenPublication) {
+            version project.jDearImguiVersion
+            project.version = project.jDearImguiVersion
+            artifactId module_name + "-platform"
+            artifact platformAll
+        }
+    }
+}

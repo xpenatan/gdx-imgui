@@ -6,6 +6,6 @@ import com.github.xpenatan.jparser.cpp.CppCodeParser;
 public class ImGuiCppParser extends CppCodeParser {
 
     public ImGuiCppParser(IDLFile idlFile, String classpath, String jniDir) {
-        super(idlFile, classpath, jniDir);
+        super(null, classpath, jniDir);
     }
 }

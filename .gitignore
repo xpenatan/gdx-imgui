@@ -35,4 +35,6 @@ libs/
 *.o
 *.ini
 
-**/imgui-core-cpp/src/**
+**/imgui-core/src/**
+**/imgui-core-teavm/src/**
+**/webapp/**

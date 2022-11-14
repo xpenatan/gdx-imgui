@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+}
+
+sourceSets.main.java.srcDirs = ["src/main/java/"]
+sourceSets.main.resources.srcDirs = ["src/main/resources/"]
+project.ext.assetsDir = new File("../assets");
+
+dependencies {
+    implementation project(":examples:basic:core")
+
+    implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-desktop"
+}
+
+project.ext.mainClassName = "com.github.xpenatan.imgui.example.Main"
+
+task runDesktopBasicExample(dependsOn: classes, type: JavaExec) {
+    setGroup("examples")
+    setDescription("Run basic example")
+    mainClass.set(project.mainClassName)
+    setClasspath(sourceSets.main.runtimeClasspath)
+}

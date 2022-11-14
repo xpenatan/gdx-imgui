@@ -2,22 +2,33 @@ include ":imgui-cpp",
         ":imgui-core",
         ":imgui:imgui-core:imgui-core-base",
         ":imgui:imgui-core:imgui-core-build",
-        ":imgui:imgui-core:imgui-core-cpp",
+        ":imgui:imgui-core:imgui-core",
+        ":imgui:imgui-core:imgui-core-teavm",
         ":extensions:imgui-ext",
         ":extensions:imgui-gdx",
         ":extensions:imgui-gdx-lwjgl3",
         ":extensions:imgui-gdx-frame-viewport",
         ":examples:example-gdx",
-        ":examples:example-gdx-frame-viewport"
+        ":examples:example-gdx-frame-viewport",
+        ":examples:basic:core",
+        ":examples:basic:desktop",
+        ":examples:basic:teavm"
 
+//includeBuild('D:\\Dev\\Projects\\java\\jParser') {
+//    dependencySubstitution {
+//        substitute module('com.github.xpenatan.jParser:jParser-core') with project(':jParser:core')
+//        substitute module('com.github.xpenatan.jParser:jParser-cpp') with project(':jParser:cpp')
+//        substitute module('com.github.xpenatan.jParser:jParser-teavm') with project(':jParser:teavm')
+//    }
+//}
 
-//includeBuild('E:\\Dev\\Projects\\Eclipse\\jDear-imgui') {
+//includeBuild('E:\\Dev\\Projects\\java\\jDear-imgui') {
 //    dependencySubstitution {
 //        substitute module('com.github.xpenatan.jDear-Imgui:imgui-gdx-frame-viewport') with project(':extensions:imgui-gdx-frame-viewport')
 //    }
 //}
 //
-//includeBuild('E:\\Dev\\Projects\\Eclipse\\gdx-frame-viewport') {
+//includeBuild('E:\\Dev\\Projects\\java\\gdx-frame-viewport') {
 //    dependencySubstitution {
 //        substitute module('com.github.xpenatan:gdx-frame-viewport') with project(':core')
 //    }

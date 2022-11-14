@@ -3,4 +3,5 @@ plugins {
 }
 
 dependencies {
+    implementation "com.badlogicgames.gdx:gdx-jnigen-loader:$project.jniGenVersion"
 }

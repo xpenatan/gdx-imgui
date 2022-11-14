@@ -1,0 +1,29 @@
+plugins {
+    id "org.gretty" version "3.0.6"
+}
+
+sourceCompatibility = 1.8
+
+gretty {
+    servletContainer = 'jetty9'
+    extraResourceBase 'webapp'
+}
+
+sourceSets.main.java.srcDirs = ["src/main/java/"]
+project.ext.mainClassName = "com.github.xpenatan.gdx.example.basic.Build"
+
+dependencies {
+    implementation project(":examples:basic:core")
+    implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
+
+    implementation "com.github.xpenatan.gdx-web-tools:backend-web:1.0.0-SNAPSHOT"
+    implementation "com.github.xpenatan.gdx-web-tools:backend-teavm:1.0.0-SNAPSHOT"
+    implementation "com.github.xpenatan.gdx-web-tools:backend-teavm-native:1.0.0-SNAPSHOT"
+}
+
+task runTeaVMBasicExample(dependsOn: classes, type: JavaExec) {
+    setGroup("examples")
+    setDescription("Run basic example")
+    mainClass.set(project.mainClassName)
+    setClasspath(sourceSets.main.runtimeClasspath)
+}

@@ -1,0 +1,11 @@
+plugins {
+    id 'java'
+}
+
+sourceSets.main.java.srcDirs = ["src/main/java/"]
+sourceSets.main.resources.srcDirs = ["src/main/resources/"]
+
+dependencies {
+    implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
+    implementation project(":imgui:imgui-core:imgui-core")
+}
