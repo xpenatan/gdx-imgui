@@ -29,7 +29,6 @@ task buildJavaScript(dependsOn: classes, type: JavaExec) {
     setClasspath(sourceSets.main.runtimeClasspath)
 }
 
-
 task runTeaVMBasicExample(dependsOn: [':examples:basic:teavm:buildJavaScript', ':examples:basic:teavm:jettyRun']) {
     setGroup("examples")
     setDescription("Run basic example")
