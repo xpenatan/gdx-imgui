@@ -86,11 +86,12 @@ gradle.taskGraph.whenReady { graph ->
 }
 
 task buildImGuiNatives() {
-    group = 'build'
+    group = 'imgui'
     dependsOn ordered(
             ":clean",
             ":imgui-cpp:generateNatives",
             ":imgui-core:generateNatives",
+            ":imgui:imgui-core:imgui-core-build:generateNatives",
             ":extensions:imgui-ext:generateNatives"
     )
 }

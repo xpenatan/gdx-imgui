@@ -15,7 +15,7 @@ public class ImGui {
             return;
         ImGui.IMGUI_INIT = true;
         SharedLibraryLoader loader = new SharedLibraryLoader();
-//        loader.load("imgui-cpp");
+        loader.load("imgui-cpp");
         loader.load("imgui-core");
     }
 

@@ -30,7 +30,6 @@ public class BuildCore {
 
         String imguiCppBase = new File("../../../imgui-cpp").getCanonicalPath();
 
-//        CPPBuildHelper.build("imgui-core", cppPath, imguiCppBase, "imgui-cpp64");
-        CPPBuildHelper.build("imgui-core", cppPath);
+        CPPBuildHelper.build("imgui-core", cppPath, imguiCppBase, "imgui-cpp64");
     }
 }
