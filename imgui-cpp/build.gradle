@@ -15,8 +15,6 @@ dependencies {
 }
 
 project.ext.mainClassName = "com.github.xpenatan.imgui.generate.BuildCPP"
-sourceSets.main.java.srcDirs = ["src/main/java/"]
-sourceSets.main.resources.srcDirs = ["src/main/java/"]
 
 clean.doFirst {
     def jniPath = projectDir.toString() + "/jni/"

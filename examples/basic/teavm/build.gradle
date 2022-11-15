@@ -9,7 +9,6 @@ gretty {
     extraResourceBase 'webapp'
 }
 
-sourceSets.main.java.srcDirs = ["src/main/java/"]
 project.ext.mainClassName = "com.github.xpenatan.gdx.example.basic.Build"
 
 dependencies {

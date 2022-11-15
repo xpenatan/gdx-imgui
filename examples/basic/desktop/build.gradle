@@ -2,8 +2,6 @@ plugins {
     id 'java'
 }
 
-sourceSets.main.java.srcDirs = ["src/main/java/"]
-sourceSets.main.resources.srcDirs = ["src/main/resources/"]
 project.ext.assetsDir = new File("../assets");
 
 dependencies {

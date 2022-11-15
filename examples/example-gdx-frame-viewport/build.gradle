@@ -34,9 +34,6 @@ ext {
     mainTestClass = "com.github.xpenatan.imgui.example.gdx.GameViewportExample"
 }
 
-sourceSets.main.java.srcDirs = ["src/main/java/"]
-sourceSets.main.resources.srcDirs = ["src/main/resources/"]
-
 task launchExampleLwjgl(dependsOn: classes, type: JavaExec) {
     group = "run"
     main = mainTestClass
