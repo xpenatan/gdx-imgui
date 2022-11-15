@@ -14,9 +14,16 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-jnigen-loader:$project.jniGenVersion"
 }
 
-task generateNatives(dependsOn: classes, type: JavaExec) {
-    setGroup("imgui")
+task buildNative(dependsOn: classes, type: JavaExec) {
     setDescription("Generate native project")
     mainClass.set(project.mainClassName)
     setClasspath(sourceSets.main.runtimeClasspath)
+}
+
+task generateNatives() {
+    setDescription("Generate native project")
+    dependsOn ordered(
+            ":imgui-cpp:generateNatives",
+            ":imgui:imgui-core:imgui-core-build:buildNative"
+    )
 }

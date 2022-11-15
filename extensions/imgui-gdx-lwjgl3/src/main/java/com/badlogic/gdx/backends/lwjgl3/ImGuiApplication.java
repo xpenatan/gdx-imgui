@@ -3,9 +3,9 @@ package com.badlogic.gdx.backends.lwjgl3;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.github.xpenatan.imgui.ImDrawData;
-import com.github.xpenatan.imgui.ImGui;
-import com.github.xpenatan.imgui.ImGuiViewport;
+import com.github.xpenatan.imgui.core.ImDrawData;
+import com.github.xpenatan.imgui.core.ImGui;
+import com.github.xpenatan.imgui.core.ImGuiViewport;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
 
 public class ImGuiApplication implements ApplicationListener {

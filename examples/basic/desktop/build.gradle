@@ -5,7 +5,7 @@ plugins {
 project.ext.assetsDir = new File("../assets");
 
 dependencies {
-    implementation files('../../../imgui/imgui-core/imgui-core/libs/imgui-core-natives.jar')
+    implementation files("../../../imgui/imgui-core/imgui-core/libs/imgui-core-natives.jar")
     implementation project(":examples:basic:core")
     implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"

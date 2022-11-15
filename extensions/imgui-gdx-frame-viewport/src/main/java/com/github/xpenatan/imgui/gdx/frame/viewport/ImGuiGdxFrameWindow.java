@@ -10,13 +10,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.StringBuilder;
 import com.github.xpenatan.gdx.frame.viewport.EmuInput;
 import com.github.xpenatan.gdx.frame.viewport.EmuWindow;
-import com.github.xpenatan.imgui.ImGui;
-import com.github.xpenatan.imgui.ImGuiViewport;
-import com.github.xpenatan.imgui.ImVec2;
-import com.github.xpenatan.imgui.enums.ImGuiCol;
-import com.github.xpenatan.imgui.enums.ImGuiCond;
-import com.github.xpenatan.imgui.enums.ImGuiHoveredFlags;
-import com.github.xpenatan.imgui.enums.ImGuiWindowFlags;
+import com.github.xpenatan.imgui.core.ImGui;
+import com.github.xpenatan.imgui.core.ImGuiViewport;
+import com.github.xpenatan.imgui.core.ImVec2;
+import com.github.xpenatan.imgui.core.enums.ImGuiCol;
+import com.github.xpenatan.imgui.core.enums.ImGuiCond;
+import com.github.xpenatan.imgui.core.enums.ImGuiHoveredFlags;
+import com.github.xpenatan.imgui.core.enums.ImGuiWindowFlags;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
 
 /**

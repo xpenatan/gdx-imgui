@@ -90,9 +90,8 @@ task buildImGuiNatives() {
     dependsOn ordered(
             ":clean",
             ":imgui-cpp:generateNatives",
-            ":imgui-core:generateNatives",
-            ":imgui:imgui-core:imgui-core-build:generateNatives",
-            ":extensions:imgui-ext:generateNatives"
+            ":imgui:imgui-core:imgui-core-build:generateNatives"
+//            ":extensions:imgui-ext:generateNatives"
     )
 }
 
