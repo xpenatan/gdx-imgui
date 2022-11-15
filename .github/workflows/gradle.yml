@@ -68,8 +68,8 @@ jobs:
       - name: Fetch imgui and build native files
         run: ./gradlew :buildImGuiNatives
 
-#      - name: Pack natives to jar
-#        run: ant -f ./imgui-core/jni/build.xml pack-natives -v
+      - name: Pack natives to jar
+        run: ant -f ./imgui/imgui-core/imgui-core/jni/build.xml pack-natives -v
 
 #      - name: Pack natives to jar
 #        run: ant -f ./extensions/imgui-ext/jni/build.xml pack-natives -v
