@@ -26,7 +26,7 @@ public class BuildCore {
         ImGuiCppParser cppParser = new ImGuiCppParser(idlFile, classpathStr, jniDir);
         JParser.generate(cppParser, sourceDir, cppGenDir);
         String imguiCppBase = new File("../../../imgui-cpp").getCanonicalPath();
-        CPPBuildHelper.DEBUG_BUILD = true;
+//        CPPBuildHelper.DEBUG_BUILD = true;
         CPPBuildHelper.build("imgui-core", cppPath, imguiCppBase, "imgui-cpp64");
 
         //Generate Javascript
