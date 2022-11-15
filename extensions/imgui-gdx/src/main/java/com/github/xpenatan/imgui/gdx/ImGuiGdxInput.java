@@ -3,10 +3,10 @@ package com.github.xpenatan.imgui.gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
-import com.github.xpenatan.imgui.ImGui;
-import com.github.xpenatan.imgui.ImGuiIO;
-import com.github.xpenatan.imgui.enums.ImGuiFocusedFlags;
-import com.github.xpenatan.imgui.enums.ImGuiKey;
+import com.github.xpenatan.imgui.core.ImGui;
+import com.github.xpenatan.imgui.core.ImGuiIO;
+import com.github.xpenatan.imgui.core.enums.ImGuiFocusedFlags;
+import com.github.xpenatan.imgui.core.enums.ImGuiKey;
 
 /**
  * ImGui use this class to update UI inputs. It will also block (return true) some inputs that is triggered inside ImGui window.

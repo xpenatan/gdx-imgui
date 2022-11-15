@@ -41,11 +41,11 @@ static jfieldID fid_ImDrawData_framebufferScaleY;
 void ImGuiHelper::Init(JNIEnv* env) {
     jint rs = env->GetJavaVM(&jvm);
     assert (rs == JNI_OK);
-    jclass jImVec2Class = env->FindClass("com/github/xpenatan/imgui/ImVec2");
+    jclass jImVec2Class = env->FindClass("com/github/xpenatan/imgui/core/ImVec2");
     fid_ImVec2_x = env->GetFieldID(jImVec2Class, "x", "F");
     fid_ImVec2_y = env->GetFieldID(jImVec2Class, "y", "F");
 
-    jclass cls_tmp_viewport = env->FindClass("com/github/xpenatan/imgui/ImGuiViewport");
+    jclass cls_tmp_viewport = env->FindClass("com/github/xpenatan/imgui/core/ImGuiViewport");
     cls_viewport = (jclass)env->NewGlobalRef(cls_tmp_viewport);
     mid_viewport_init = env->GetMethodID(cls_viewport, "<init>", "()V");
     fid_ImGuiViewport_platformUserData = env->GetFieldID(cls_viewport, "platformUserData", "I");
@@ -55,9 +55,9 @@ void ImGuiHelper::Init(JNIEnv* env) {
     fid_ImGuiViewport_sizeY = env->GetFieldID(cls_viewport, "sizeY", "F");
     fid_ImGuiViewport_posX = env->GetFieldID(cls_viewport, "posX", "F");
     fid_ImGuiViewport_posY = env->GetFieldID(cls_viewport, "posY", "F");
-    fid_ImGuiViewport_drawData = env->GetFieldID(cls_viewport, "drawData", "Lcom/github/xpenatan/imgui/ImDrawData;");
+    fid_ImGuiViewport_drawData = env->GetFieldID(cls_viewport, "drawData", "Lcom/github/xpenatan/imgui/core/ImDrawData;");
 
-    jclass cls_jDrawData = env->FindClass("com/github/xpenatan/imgui/ImDrawData");
+    jclass cls_jDrawData = env->FindClass("com/github/xpenatan/imgui/core/ImDrawData");
     fid_ImDrawData_vByteBuffer = env->GetFieldID(cls_jDrawData, "vByteBuffer", "Ljava/nio/ByteBuffer;");
     fid_ImDrawData_iByteBuffer = env->GetFieldID(cls_jDrawData, "iByteBuffer", "Ljava/nio/ByteBuffer;");
     fid_ImDrawData_cmdByteBuffer = env->GetFieldID(cls_jDrawData, "cmdByteBuffer", "Ljava/nio/ByteBuffer;");

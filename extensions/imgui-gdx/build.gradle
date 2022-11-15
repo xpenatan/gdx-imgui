@@ -2,14 +2,12 @@ plugins {
     id 'java'
 }
 
-apply from: '../../dependencies.gradle'
-
 def imgui_name = "imgui-gdx"
 
 dependencies {
     implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
 
-    implementation project(':imgui-core')
+    implementation project(':imgui:imgui-core:imgui-core')
 
     // Use JUnit test framework
     testImplementation "junit:junit:$project.jUnitVersion"

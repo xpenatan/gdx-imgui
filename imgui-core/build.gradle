@@ -37,9 +37,8 @@ task copyNatives() {
 }
 
 task generateNatives(dependsOn: [copyNatives, classes], type: JavaExec) {
-    description = 'Build jDear ImGui'
-
-    main = project.mainClassName
+    setDescription("Build jDear ImGui")
+    mainClass.set(project.mainClassName)
     classpath = sourceSets.main.runtimeClasspath
 }
 
@@ -70,7 +69,3 @@ publishing {
         }
     }
 }
-
-//install {
-//	dependsOn generateNatives
-//}

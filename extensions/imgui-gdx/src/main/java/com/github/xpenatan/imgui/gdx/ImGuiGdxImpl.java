@@ -8,9 +8,9 @@ import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.BufferUtils;
-import com.github.xpenatan.imgui.ImDrawData;
-import com.github.xpenatan.imgui.ImGui;
-import com.github.xpenatan.imgui.TexDataRGBA32;
+import com.github.xpenatan.imgui.core.ImDrawData;
+import com.github.xpenatan.imgui.core.ImGui;
+import com.github.xpenatan.imgui.core.TexDataRGBA32;
 import java.nio.IntBuffer;
 
 /**

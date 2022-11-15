@@ -7,5 +7,7 @@ sourceSets.main.resources.srcDirs = ["src/main/resources/"]
 
 dependencies {
     implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
+
     implementation project(":imgui:imgui-core:imgui-core")
+    implementation project(":extensions:imgui-gdx")
 }
