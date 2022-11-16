@@ -3,8 +3,6 @@ plugins {
     id 'java-library'
 }
 
-apply from: '../../dependencies.gradle'
-
 dependencies {
     // Required
     implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"

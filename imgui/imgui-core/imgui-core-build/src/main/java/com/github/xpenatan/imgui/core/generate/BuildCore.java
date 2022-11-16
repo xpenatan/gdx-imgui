@@ -23,11 +23,11 @@ public class BuildCore {
         String sourceDir = "../imgui-core-base/src/main/java/";
         String cppGenDir = cppPath + "/src/main/java/";
         String teaVMGenDir = teaVMPath + "/src/main/java/";
+        String imguiCppBase = new File("../../imgui-cpp/imgui-cpp").getCanonicalPath();
 
         //Generate CPP
         ImGuiCppParser cppParser = new ImGuiCppParser(idlFile, classpathStr, jniDir);
         JParser.generate(cppParser, sourceDir, cppGenDir);
-        String imguiCppBase = new File("../../../imgui-cpp").getCanonicalPath();
 //        CPPBuildHelper.DEBUG_BUILD = true;
         CPPBuildHelper.build(libName, cppPath, imguiCppBase, "imgui-cpp64");
 

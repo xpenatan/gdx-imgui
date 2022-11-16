@@ -1,15 +1,20 @@
-include ":imgui-cpp",
+// Core
+include ":imgui:imgui-cpp:imgui-cpp",
         ":imgui:imgui-core:imgui-core-base",
         ":imgui:imgui-core:imgui-core-build",
         ":imgui:imgui-core:imgui-core",
-        ":imgui:imgui-core:imgui-core-teavm",
-//        ":extensions:imgui-ext",
-        ":extensions:imgui-gdx",
-        ":extensions:imgui-gdx-lwjgl3",
-        ":extensions:imgui-gdx-frame-viewport",
+        ":imgui:imgui-core:imgui-core-teavm"
+
+// Extensions
+include ":imgui:imgui-extensions:imgui-gdx",
+        ":imgui:imgui-extensions:imgui-gdx-lwjgl3",
+        ":imgui:imgui-extensions:imgui-gdx-frame-viewport-ext"
+//        ":imgui:imgui-extensions:imgui-layout-ext:imgui-layout-ext"
 //        ":examples:example-gdx",
 //        ":examples:example-gdx-frame-viewport",
-        ":examples:basic:core",
+
+// Examples
+include ":examples:basic:core",
         ":examples:basic:desktop",
         ":examples:basic:teavm"
 

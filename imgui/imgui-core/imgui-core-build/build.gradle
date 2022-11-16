@@ -20,10 +20,12 @@ task buildNative(dependsOn: classes, type: JavaExec) {
     setClasspath(sourceSets.main.runtimeClasspath)
 }
 
+task buildCpp(dependsOn: ":imgui:imgui-cpp:imgui-cpp:generateNatives") {
+}
+
 task generateNatives() {
     setDescription("Generate native project")
-    dependsOn ordered(
-            ":imgui-cpp:generateNatives",
-            ":imgui:imgui-core:imgui-core-build:buildNative"
-    )
+    dependsOn buildCpp, buildNative
 }
+
+buildNative.shouldRunAfter buildCpp

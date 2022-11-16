@@ -85,19 +85,16 @@ def containsTask(graph, toFind) {
 //    }
 //}
 
-task buildImGuiNatives() {
-    group = 'imgui'
-    dependsOn ordered(
-            ":imgui-cpp:generateNatives",
-            ":imgui:imgui-core:imgui-core-build:generateNatives"
-//            ":extensions:imgui-ext:generateNatives"
-    )
+task buildCore(dependsOn: ":imgui:imgui-core:imgui-core-build:generateNatives") {
 }
 
-def ordered(String... dependencyPaths) {
-    def dependencies = dependencyPaths.collect { tasks.getByPath(it) }
-    for (int i = 0; i < dependencies.size() - 1; i++) {
-        dependencies[i + 1].mustRunAfter(dependencies[i])
-    }
-    return dependencies
+task buildCpp(dependsOn: ":imgui:imgui-cpp:imgui-cpp:generateNatives") {
 }
+
+task buildImGuiNatives() {
+    group = 'imgui'
+    dependsOn buildCore, buildCpp
+//            ":extensions:imgui-ext:generateNatives"
+}
+
+buildCore.shouldRunAfter buildCpp

@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+def imgui_name = "gdx"
+
+dependencies {
+    implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
+
+    implementation project(":imgui:imgui-core:imgui-core")
+
+    // Use JUnit test framework
+    testImplementation "junit:junit:$project.jUnitVersion"
+}
+
+task fromClasses(type: Jar) {
+    from(sourceSets.main.output) {
+    }
+}
+
+publishing {
+    publications {
+        imguiGdxClasses(MavenPublication) {
+            version project.jDearImguiGdxVersion
+            project.version = project.jDearImguiGdxVersion
+            artifactId imgui_name
+            artifact fromClasses
+        }
+    }
+}

@@ -26,6 +26,11 @@ jobs:
         run: chmod +x ./gradlew
       - name: Fetch imgui and build native files
         run: ./gradlew :buildImGuiNatives
+      - name: Upload compiled imgui-cpp natives
+        uses: actions/upload-artifact@v1
+        with:
+          name: cppNativeFiles
+          path: ./imgui/imgui-cpp/imgui-cpp/libs/
       - name: Upload compiled imgui-core natives
         uses: actions/upload-artifact@v1
         with:
@@ -35,7 +40,7 @@ jobs:
 #        uses: actions/upload-artifact@v1
 #        with:
 #          name: imlayoutNativeFiles
-#          path: ./extensions/imgui-ext/libs/
+#          path: ./imgui/imgui-extensions/imgui-layout-ext/imgui-layout-ext/libs/
 
   build_Mac:
     name: Build Mac OS
@@ -50,7 +55,12 @@ jobs:
           java-version: 1.8
       - name: Install Ant
         run: brew install ant
-      - name: Download compiled natives
+      - name: Download compiled cpp natives
+        uses: actions/download-artifact@v1
+        with:
+          name: cppNativeFiles
+          path: ./imgui/imgui-cpp/imgui-cpp/libs/
+      - name: Download compiled core natives
         uses: actions/download-artifact@v1
         with:
           name: coreNativeFiles
@@ -59,7 +69,7 @@ jobs:
 #        uses: actions/download-artifact@v1
 #        with:
 #          name: imlayoutNativeFiles
-#          path: ./extensions/imgui-ext/libs/
+#          path: ./imgui/imgui-extensions/imgui-layout-ext/imgui-layout-ext/libs/
       - name: Check g++ version
         run: gcc --version
       - name: Change wrapper permissions
