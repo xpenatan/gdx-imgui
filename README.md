@@ -23,64 +23,40 @@ Only SNAPSHOTS are currently available. Release will be ready when ImGui docking
 
     gdxVersion = "1.11.0"
     jDearImguiVersion = "1.0.0-SNAPSHOT"
-    jDearImguiLayoutVersion = "1.0.0-SNAPSHOT"
-    jDearImguiGdxVersion = "1.0.0-SNAPSHOT"
-    jDearImguiGdxFrameViewportVersion = "1.0.0-SNAPSHOT"
     gdxFrameViewportVersion = "1.0.0-SNAPSHOT"
 
 ```groovy
-dependencies {
-    // Add repository to Root gradle
-    repositories {
-        mavenLocal()
-        jcenter()
-        mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-    }
-
-    // Required
-    implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
-    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-core:$project.jDearImguiVersion"
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-core-platform:$project.jDearImguiVersion:natives-desktop"
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx:$project.jDearImguiGdxVersion"
-
-    // Optional. Used for multi viewports. Currently WIP.
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx-lwjgl3:$project.jDearImguiGdxVersion"
-
-    // Optional
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-ext:$project.jDearImguiLayoutVersion"
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-ext-platform:$project.jDearImguiLayoutVersion:natives-desktop"
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx-frame-viewport:$project.jDearImguiGdxFrameViewportVersion"
-    implementation "com.github.xpenatan:gdx-frame-viewport:$project.gdxFrameViewportVersion"
+// Add repository to Root gradle
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url "https://oss.sonatype.org/content/repositories/releases/" }
 }
-```
-New dependencies WIP:
-```groovy
+
 dependencies {
     implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
 
-    // Required
+    // Require one
     implementation "com.github.xpenatan.jDear-Imgui:core:$project.jDearImguiVersion"
-    implementation "com.github.xpenatan.jDear-Imgui:gdx:$project.jDearImguiGdxVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:gdx:$project.jDearImguiVersion"
 
     // Required Natives
     implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-desktop"
-    implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-android"
-    implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-teavm"
-    implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-ios"
+    //implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-android"
+    //implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-ios"
+    //implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-teavm"
 
     // Optional
-    implementation "com.github.xpenatan.jDear-Imgui:gdx-lwjgl3:$project.jDearImguiGdxVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:gdx-lwjgl3:$project.jDearImguiVersion"
 
     // Optional
-    implementation "com.github.xpenatan.jDear-Imgui:ext-layout:$project.jDearImguiLayoutVersion"
-    implementation "com.github.xpenatan.jDear-Imgui:ext-layout-platform:$project.jDearImguiLayoutVersion:natives-desktop"
+    implementation "com.github.xpenatan.jDear-Imgui:ext-layout:$project.jDearImguiVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:ext-layout-platform:$project.jDearImguiVersion:natives-desktop"
 
     // Optional
-    implementation "com.github.xpenatan.jDear-Imgui:ext-gdx-frame-viewport:$project.jDearImguiGdxFrameViewportVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:ext-gdx-frame-viewport:$project.jDearImguiVersion"
     implementation "com.github.xpenatan:gdx-frame-viewport:$project.gdxFrameViewportVersion"
 }
 ```

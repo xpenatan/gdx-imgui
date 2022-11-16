@@ -60,13 +60,13 @@ publishing {
     publications {
         imguiClasses(MavenPublication) {
             version project.jDearImguiVersion
-            project.version = project.jDearImguiLayoutVersion
+            project.version = project.jDearImguiVersion
             artifactId imgui_name
             artifact fromClasses
         }
         imguiNatives(MavenPublication) {
             version project.jDearImguiVersion
-            project.version = project.jDearImguiLayoutVersion
+            project.version = project.jDearImguiVersion
             artifactId imgui_name + "-platform"
             artifact platformAll
         }

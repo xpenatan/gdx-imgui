@@ -9,7 +9,7 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
 //	implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
-//    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx:$project.jDearImguiGdxVersion"
+//    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx:$project.jDearImguiVersion"
 
 
     implementation project(":imgui:imgui-extensions:imgui-gdx")
@@ -27,8 +27,8 @@ task fromClasses(type: Jar) {
 publishing {
     publications {
         imguiGdxClasses(MavenPublication) {
-            version project.jDearImguiGdxVersion
-            project.version = project.jDearImguiGdxVersion
+            version project.jDearImguiVersion
+            project.version = project.jDearImguiVersion
             artifactId imgui_name
             artifact fromClasses
         }

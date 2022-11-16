@@ -9,18 +9,18 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
 //    implementation "com.github.xpenatan.jDear-Imgui:imgui-core:$project.jDearImguiVersion"
     implementation "com.github.xpenatan.jDear-Imgui:imgui-core-platform:$project.jDearImguiVersion:natives-desktop"
-//    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx:$project.jDearImguiGdxVersion"
+//    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx:$project.jDearImguiVersion"
 
     implementation project(":imgui:imgui-core:imgui-core")
     implementation project(":extensions:imgui-gdx")
 
 
     // Optional. Used for multi viewports. Currently WIP.
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx-lwjgl3:$project.jDearImguiGdxVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx-lwjgl3:$project.jDearImguiVersion"
 
     // Optional
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-ext:$project.jDearImguiLayoutVersion"
-    implementation "com.github.xpenatan.jDear-Imgui:imgui-ext-platform:$project.jDearImguiLayoutVersion:natives-desktop"
+    implementation "com.github.xpenatan.jDear-Imgui:imgui-ext:$project.jDearImguiVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:imgui-ext-platform:$project.jDearImguiVersion:natives-desktop"
 
     // Use JUnit test framework
     testImplementation "junit:junit:$project.jUnitVersion"
