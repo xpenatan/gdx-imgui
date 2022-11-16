@@ -2,6 +2,8 @@ plugins {
     id 'java'
 }
 
+import org.gradle.internal.os.OperatingSystem
+
 dependencies {
     implementation project(":examples:basic:core")
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
@@ -23,4 +25,9 @@ task runDesktopBasicExample(dependsOn: classes, type: JavaExec) {
     mainClass.set(project.mainClassName)
     setClasspath(sourceSets.main.runtimeClasspath)
     workingDir = project.assetsDir
+
+    if (OperatingSystem.current() == OperatingSystem.MAC_OS) {
+        // Required to run on macOS
+        jvmArgs += "-XstartOnFirstThread"
+    }
 }
