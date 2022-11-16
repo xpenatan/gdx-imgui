@@ -12,9 +12,16 @@ clean.doFirst {
     def jniPath = projectDir.toString() + "/jni/"
     def libPath = projectDir.toString() + "/libs/"
     def srcPath = projectDir.toString() + "/src/main/"
-    project.delete(files(jniPath))
-    project.delete(files(libPath))
-    project.delete(files(srcPath))
+
+    if(new File(jniPath).exists()) {
+        project.delete(files(jniPath))
+    }
+    if(new File(libPath).exists()) {
+        project.delete(files(libPath))
+    }
+    if(new File(srcPath).exists()) {
+        project.delete(files(srcPath))
+    }
 }
 
 task platformAll(type: Jar) {

@@ -23,8 +23,12 @@ project.ext.mainClassName = "com.github.xpenatan.imgui.generate.BuildExt"
 clean.doFirst {
     def jniPath = projectDir.toString() + "/jni/"
     def libPath = projectDir.toString() + "/libs/"
-    project.delete(files(jniPath))
-    project.delete(files(libPath))
+    if(new File(jniPath).exists()) {
+        project.delete(files(jniPath))
+    }
+    if(new File(libPath).exists()) {
+        project.delete(files(libPath))
+    }
 }
 
 task copyNatives() {

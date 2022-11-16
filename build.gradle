@@ -88,7 +88,6 @@ def containsTask(graph, toFind) {
 task buildImGuiNatives() {
     group = 'imgui'
     dependsOn ordered(
-            ":clean",
             ":imgui-cpp:generateNatives",
             ":imgui:imgui-core:imgui-core-build:generateNatives"
 //            ":extensions:imgui-ext:generateNatives"

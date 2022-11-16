@@ -9,6 +9,8 @@ import java.io.File;
 public class BuildCore {
 
     public static void main(String[] args) throws Exception {
+        String libName = "imgui-core";
+
         String path = "..\\imgui-core-build\\src\\main\\resources\\imgui.idl";
         IDLFile idlFile = IDLParser.parseFile(path);
 
@@ -27,7 +29,7 @@ public class BuildCore {
         JParser.generate(cppParser, sourceDir, cppGenDir);
         String imguiCppBase = new File("../../../imgui-cpp").getCanonicalPath();
 //        CPPBuildHelper.DEBUG_BUILD = true;
-        CPPBuildHelper.build("imgui-core", cppPath, imguiCppBase, "imgui-cpp64");
+        CPPBuildHelper.build(libName, cppPath, imguiCppBase, "imgui-cpp64");
 
         //Generate Javascript
 //        ImGuiTeaVMParser teaVMParser = new ImGuiTeaVMParser(idlFile);

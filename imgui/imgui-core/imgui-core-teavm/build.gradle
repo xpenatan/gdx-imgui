@@ -17,7 +17,9 @@ dependencies {
 
 clean.doFirst {
     def srcPath = projectDir.toString() + "/src/main/"
-    project.delete(files(srcPath))
+    if(new File(srcPath).exists()) {
+        project.delete(files(srcPath))
+    }
 }
 
 task fromClasses(type: Jar) {
