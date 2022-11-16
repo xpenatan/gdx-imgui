@@ -19,7 +19,8 @@ jobs:
       - name: Check Ant
         run: ant -version
       - name: Set up MinGW
-        uses: egor-tensin/setup-mingw@v2
+        run: |
+          sudo apt install -y --force-yes mingw-w64 lib32z1
         with:
           platform: x64
       - name: Change wrapper permissions
