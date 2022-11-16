@@ -9,7 +9,7 @@ def module_name = "ext-layout"
 
 dependencies {
     implementation "com.badlogicgames.gdx:gdx-jnigen:$project.jniGenVersion"
-    implementation "com.badlogicgames.gdx:gdx-jnigen-loader:$project.jniGenVersion"
+    implementation "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
 
     implementation project(":imgui:imgui-core:imgui-core")
     implementation project(":imgui:imgui-cpp:imgui-cpp")

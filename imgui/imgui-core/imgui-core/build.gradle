@@ -7,7 +7,10 @@ group = project.libGroup
 def module_name = "core"
 
 dependencies {
-    implementation "com.badlogicgames.gdx:gdx-jnigen-loader:$project.jniGenVersion"
+    implementation "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
+
+    testImplementation files("/libs/imgui-core-natives.jar")
+    testImplementation "junit:junit:$project.jUnitVersion"
 }
 
 clean.doFirst {

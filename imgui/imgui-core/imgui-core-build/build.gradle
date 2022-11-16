@@ -11,7 +11,7 @@ dependencies {
     implementation "com.github.xpenatan.jParser:jParser-teavm:$project.jParserVersion"
 
     implementation "com.badlogicgames.gdx:gdx-jnigen:$project.jniGenVersion"
-    implementation "com.badlogicgames.gdx:gdx-jnigen-loader:$project.jniGenVersion"
+    implementation "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
 }
 
 task buildNative(dependsOn: classes, type: JavaExec) {

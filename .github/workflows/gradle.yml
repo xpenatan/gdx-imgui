@@ -26,6 +26,8 @@ jobs:
         run: chmod +x ./gradlew
       - name: Fetch imgui and build native files
         run: ./gradlew :buildImGuiNatives
+      - name: Test ImGui Core Native
+        run: ./gradlew :imgui:imgui-core:imgui-core:test
       - name: Upload compiled imgui-cpp natives
         uses: actions/upload-artifact@v1
         with:
@@ -76,6 +78,8 @@ jobs:
         run: chmod +x ./gradlew
       - name: Fetch imgui and build native files
         run: ./gradlew :buildImGuiNatives
+      - name: Test ImGui Core Native
+        run: ./gradlew :imgui:imgui-core:imgui-core:test
       - name: Upload to repository
         run: ./gradlew publish
         env:

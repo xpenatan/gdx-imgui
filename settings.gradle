@@ -21,6 +21,7 @@ include ":examples:basic:teavm"
 //includeBuild('D:\\Dev\\Projects\\java\\jParser') {
 //    dependencySubstitution {
 //        substitute module('com.github.xpenatan.jParser:jParser-core') with project(':jParser:core')
+//        substitute module('com.github.xpenatan.jParser:jParser-loader') with project(':jParser:loader')
 //        substitute module('com.github.xpenatan.jParser:jParser-cpp') with project(':jParser:cpp')
 //        substitute module('com.github.xpenatan.jParser:jParser-teavm') with project(':jParser:teavm')
 //    }

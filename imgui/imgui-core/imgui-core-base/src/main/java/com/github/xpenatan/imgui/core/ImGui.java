@@ -1,6 +1,5 @@
 package com.github.xpenatan.imgui.core;
 
-import com.badlogic.gdx.utils.SharedLibraryLoader;
 import com.github.xpenatan.imgui.core.enums.ImGuiCol;
 import com.github.xpenatan.imgui.core.enums.ImGuiColorEditFlags;
 import com.github.xpenatan.imgui.core.enums.ImGuiComboFlags;
@@ -23,6 +22,7 @@ import com.github.xpenatan.imgui.core.enums.ImGuiWindowFlags;
 import com.github.xpenatan.imgui.core.jnicode.ImGuiInternalNative;
 import com.github.xpenatan.imgui.core.jnicode.ImGuiNative;
 import com.github.xpenatan.imgui.core.util.CharSequenceHelper;
+import com.github.xpenatan.jparser.loader.JParserLoader;
 import java.lang.ref.WeakReference;
 import java.nio.Buffer;
 
@@ -61,9 +61,10 @@ public class ImGui {
         }
      */
     private static void loadNative() {
-        SharedLibraryLoader loader = new SharedLibraryLoader();
-        loader.load("imgui-cpp");
-        loader.load("imgui-core");
+        JParserLoader loader = new JParserLoader();
+        String libCPP = "imgui-cpp";
+        String libCore = "imgui-core";
+        loader.load(libCore, libCPP);
     }
 
     public static void dispose() {
