@@ -3,7 +3,9 @@ plugins {
     id 'java-library'
 }
 
-def imgui_name = "ext-gdx-frame-viewport"
+group = project.libGroup
+
+def module_name = "ext-gdx-frame-viewport"
 
 dependencies {
     implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
@@ -28,7 +30,7 @@ publishing {
         imguiGdxClasses(MavenPublication) {
             version project.jDearImguiVersion
             project.version = project.jDearImguiVersion
-            artifactId imgui_name
+            artifactId module_name
             artifact fromClasses
         }
     }

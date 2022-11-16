@@ -2,6 +2,8 @@ plugins {
     id 'java'
 }
 
+group = project.libGroup
+
 def module_name = "core"
 
 dependencies {

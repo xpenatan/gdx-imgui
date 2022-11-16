@@ -10,15 +10,11 @@ buildscript {
 
 
 allprojects {
-    apply plugin: "eclipse"
-    apply plugin: "idea"
-    apply plugin: 'maven-publish'
     apply plugin: 'java'
+    apply plugin: 'maven-publish'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
-
-    group = "com.github.xpenatan.jDear-Imgui"
 
     ext {
         repoUser = System.getenv('IMGUI_USER')
@@ -62,15 +58,6 @@ allprojects {
         // Check for updates every build
         resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
     }
-}
-
-def containsTask(graph, toFind) {
-    def contains = false
-    graph.allTasks.forEach { task ->
-        if (task.path.contains(toFind))
-            contains = true
-    }
-    return contains
 }
 
 // Disable building example from root parent

@@ -3,7 +3,9 @@ plugins {
     id 'de.undercouch.download' version '4.0.2'
 }
 
-def imgui_name = "ext-layout"
+group = project.libGroup
+
+def module_name = "ext-layout"
 
 dependencies {
     implementation "com.badlogicgames.gdx:gdx-jnigen:$project.jniGenVersion"
@@ -61,13 +63,13 @@ publishing {
         imguiClasses(MavenPublication) {
             version project.jDearImguiVersion
             project.version = project.jDearImguiVersion
-            artifactId imgui_name
+            artifactId module_name
             artifact fromClasses
         }
         imguiNatives(MavenPublication) {
             version project.jDearImguiVersion
             project.version = project.jDearImguiVersion
-            artifactId imgui_name + "-platform"
+            artifactId module_name + "-platform"
             artifact platformAll
         }
     }

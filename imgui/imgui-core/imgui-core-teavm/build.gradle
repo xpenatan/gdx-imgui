@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'com.github.xpenatan.gdx-web-tools'
+group = project.libGroup
 
 def module_name = "core-teavm"
 

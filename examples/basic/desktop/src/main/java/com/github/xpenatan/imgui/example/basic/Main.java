@@ -1,8 +1,7 @@
-package com.github.xpenatan.imgui.example;
+package com.github.xpenatan.imgui.example.basic;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.github.xpenatan.imgui.example.basic.BasicExample;
 
 public class Main {
     public static void main(String[] args) {

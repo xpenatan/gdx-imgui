@@ -2,20 +2,25 @@ plugins {
     id 'java'
 }
 
-project.ext.assetsDir = new File("../assets");
-
 dependencies {
-    implementation files("../../../imgui/imgui-core/imgui-core/libs/imgui-core-natives.jar")
     implementation project(":examples:basic:core")
-    implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+
+    // Repo Lib
+//    implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-desktop"
+
+    // Local Lib
+    implementation files("../../../imgui/imgui-core/imgui-core/libs/imgui-core-natives.jar")
 }
 
-project.ext.mainClassName = "com.github.xpenatan.imgui.example.Main"
+project.ext.mainClassName = "com.github.xpenatan.imgui.example.basic.Main"
+project.ext.assetsDir = new File("../assets");
 
 task runDesktopBasicExample(dependsOn: classes, type: JavaExec) {
     setGroup("examples")
     setDescription("Run basic example")
     mainClass.set(project.mainClassName)
     setClasspath(sourceSets.main.runtimeClasspath)
+    workingDir = project.assetsDir
 }

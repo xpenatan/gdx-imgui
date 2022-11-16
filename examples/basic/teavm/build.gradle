@@ -12,13 +12,15 @@ gretty {
 project.ext.mainClassName = "com.github.xpenatan.gdx.example.basic.Build"
 
 dependencies {
-    implementation project(":examples:basic:core")
-    implementation project(":imgui:imgui-core:imgui-core-teavm")
     implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
-
     implementation "com.github.xpenatan.gdx-web-tools:backend-web:1.0.0-SNAPSHOT"
     implementation "com.github.xpenatan.gdx-web-tools:backend-teavm:1.0.0-SNAPSHOT"
     implementation "com.github.xpenatan.gdx-web-tools:backend-teavm-native:1.0.0-SNAPSHOT"
+
+    // Local Lib
+    implementation project(":examples:basic:core")
+    implementation project(":imgui:imgui-core:imgui-core-teavm")
+
 }
 
 task buildJavaScript(dependsOn: classes, type: JavaExec) {

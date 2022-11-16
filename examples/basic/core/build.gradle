@@ -5,6 +5,11 @@ plugins {
 dependencies {
     implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
 
+    // Repo Lib
+//    implementation "com.github.xpenatan.jDear-Imgui:core:$project.jDearImguiVersion"
+//    implementation "com.github.xpenatan.jDear-Imgui:gdx:$project.jDearImguiVersion"
+
+    // Local Lib
     implementation project(":imgui:imgui-core:imgui-core")
     implementation project(":imgui:imgui-extensions:imgui-gdx")
 }
