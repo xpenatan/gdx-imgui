@@ -38,11 +38,11 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
 
-    // Require one
+    // Required
     implementation "com.github.xpenatan.jDear-Imgui:core:$project.jDearImguiVersion"
     implementation "com.github.xpenatan.jDear-Imgui:gdx:$project.jDearImguiVersion"
 
-    // Required Natives
+    // Required Platform Natives
     implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-desktop"
     //implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-android"
     //implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-ios"
