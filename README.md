@@ -51,12 +51,12 @@ dependencies {
     // Optional
     implementation "com.github.xpenatan.jDear-Imgui:gdx-lwjgl3:$project.jDearImguiVersion"
 
-    // Optional
-    implementation "com.github.xpenatan.jDear-Imgui:ext-layout:$project.jDearImguiVersion"
-    implementation "com.github.xpenatan.jDear-Imgui:ext-layout-platform:$project.jDearImguiVersion:natives-desktop"
+    // Optional - ImLayout extension
+    implementation "com.github.xpenatan.jDear-Imgui:ImLayout:$project.jDearImguiVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:ImLayout-platform:$project.jDearImguiVersion:natives-desktop"
 
     // Optional
-    implementation "com.github.xpenatan.jDear-Imgui:ext-gdx-frame-viewport:$project.jDearImguiVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:gdx-frame-viewport:$project.jDearImguiVersion"
     implementation "com.github.xpenatan:gdx-frame-viewport:$project.gdxFrameViewportVersion"
 }
 ```

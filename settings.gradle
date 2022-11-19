@@ -8,8 +8,13 @@ include ":imgui:imgui-core:imgui-core-teavm"
 // Extensions
 include ":imgui:imgui-extensions:imgui-gdx"
 include ":imgui:imgui-extensions:imgui-gdx-lwjgl3"
-include ":imgui:imgui-extensions:imgui-gdx-frame-viewport-ext"
-//include ":imgui:imgui-extensions:imgui-layout-ext:imgui-layout-ext"
+include ":imgui:imgui-extensions:imgui-gdx-frame-viewport"
+
+// Extensions ImLayout
+include ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout"
+include ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout-build"
+include ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout-base"
+
 //include ":examples:example-gdx"
 //include ":examples:example-gdx-frame-viewport"
 

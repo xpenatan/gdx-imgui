@@ -3,7 +3,7 @@ package com.github.xpenatan.imgui.core;
 public class ImGuiBoolean {
     public static ImGuiBoolean TMP = new ImGuiBoolean();
 
-    boolean[] data = new boolean[]{false};
+    public boolean[] data = new boolean[]{false};
 
     public ImGuiBoolean() {
     }
