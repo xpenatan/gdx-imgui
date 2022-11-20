@@ -8,7 +8,7 @@ import com.github.xpenatan.imgui.imlayout.custom.EditTextStringData;
 public class ImGuiExtNative {
 
     /*[-cpp;-NATIVE]
-        #include <src/imgui_ext.h>
+        #include <imgui_ext.h>
 
         jfieldID leftLabelID;
         jfieldID leftLabelColorID;

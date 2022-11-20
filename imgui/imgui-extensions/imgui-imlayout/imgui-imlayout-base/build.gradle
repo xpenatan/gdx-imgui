@@ -6,3 +6,15 @@ dependencies {
     implementation project(":imgui:imgui-core:imgui-core")
     implementation "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
 }
+
+clean.doFirst {
+    def jniPath = projectDir.toString() + "/jni/"
+    def libPath = projectDir.toString() + "/libs/"
+
+    if(new File(jniPath).exists()) {
+        project.delete(files(jniPath))
+    }
+    if(new File(libPath).exists()) {
+        project.delete(files(libPath))
+    }
+}

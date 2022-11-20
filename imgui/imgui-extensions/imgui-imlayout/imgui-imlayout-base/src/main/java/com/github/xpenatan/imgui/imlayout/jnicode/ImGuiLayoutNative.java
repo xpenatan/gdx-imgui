@@ -9,7 +9,7 @@ public class ImGuiLayoutNative {
     public static ImGuiCollapseLayoutOptions defaultOptions = new ImGuiCollapseLayoutOptions();
 
     /*[-cpp;-NATIVE]
-        #include <src/imgui_layout.h>
+        #include <imgui_layout.h>
 
         jfieldID paddingLeftID;
         jfieldID paddingRightID;
@@ -97,7 +97,6 @@ public class ImGuiLayoutNative {
     */
     public static native void BeginLayout(String id, float sizeX, float sizeY);
 
-    public static native void BeginLayout(String id, float sizeX, float sizeY, float paddingLeft, float paddingRight, float paddingTop, float paddingBottom);
     /*[-cpp;-NATIVE]
         ImGuiLayoutOptions options;
         options.paddingLeft = paddingLeft;
@@ -106,6 +105,7 @@ public class ImGuiLayoutNative {
         options.paddingBottom = paddingBottom;
         ImGuiExt::BeginLayout(id, sizeX, sizeY);
     */
+    public static native void BeginLayout(String id, float sizeX, float sizeY, float paddingLeft, float paddingRight, float paddingTop, float paddingBottom);
 
     /*[-cpp;-NATIVE]
         ImGuiExt::EndLayout();
@@ -126,7 +126,6 @@ public class ImGuiLayoutNative {
         env->SetFloatField (jLayout, layoutPaddingBottomID, curLayout->paddingBottom);
     */
     public static native void GetCurrentLayout(ImGuiLayout jLayout);
-
 
     /*[-cpp;-NATIVE]
         void configOptions(JNIEnv* env, ImGuiCollapseLayoutOptions & options, jobject jOptions) {
