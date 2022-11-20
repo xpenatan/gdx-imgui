@@ -50,7 +50,7 @@ public class ImLayoutExample implements ApplicationListener {
             ImGui.SetNextWindowSize(400, 400);
         }
 
-        ImGui.Begin("Hello World");
+        ImGui.Begin("ImLayout Example");
         view.renderTabImGuiExtViews();
         ImGui.End();
 
