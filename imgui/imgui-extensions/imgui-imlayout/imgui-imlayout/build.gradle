@@ -38,7 +38,7 @@ task fromClasses(type: Jar) {
 
 task platformAll(type: Jar) {
     archiveClassifier.set("natives-desktop")
-    from zipTree(projectDir.toString() + "/libs/imgui-ext-natives.jar")
+    from zipTree(projectDir.toString() + "/libs/imlayout-natives.jar")
 }
 
 publishing {
