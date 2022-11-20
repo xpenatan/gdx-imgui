@@ -2,10 +2,12 @@ plugins {
     id 'java'
 }
 
-project.ext.mainClassName = "com.github.xpenatan.imgui.core.generate.BuildCore"
+project.ext.mainClassName = "com.github.xpenatan.imgui.imlayout.generate.BuildImLayout"
 
 dependencies {
+    implementation project(":imgui:imgui-core:imgui-core")
     implementation project(":imgui:imgui-core:imgui-core-build")
+    implementation project(":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout-base")
     implementation "com.github.xpenatan.jParser:jParser-core:$project.jParserVersion"
     implementation "com.github.xpenatan.jParser:jParser-cpp:$project.jParserVersion"
     implementation "com.github.xpenatan.jParser:jParser-teavm:$project.jParserVersion"
@@ -23,9 +25,14 @@ task buildNative(dependsOn: classes, type: JavaExec) {
 task buildCpp(dependsOn: ":imgui:imgui-cpp:imgui-cpp:generateNatives") {
 }
 
+task buildCore(dependsOn: ":imgui:imgui-core:imgui-core:generateNatives") {
+}
+
 task generateNatives() {
     setDescription("Generate native project")
     dependsOn buildCpp, buildNative
 }
 
-buildNative.shouldRunAfter buildCpp
+buildCore.shouldRunAfter buildCpp
+
+buildNative.shouldRunAfter buildCore

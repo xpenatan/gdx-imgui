@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'de.undercouch.download' version '4.0.2'
 }
 
 group = project.libGroup
@@ -8,42 +7,27 @@ group = project.libGroup
 def module_name = "ImLayout"
 
 dependencies {
-    implementation "com.badlogicgames.gdx:gdx-jnigen:$project.jniGenVersion"
-    implementation "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
-
     implementation project(":imgui:imgui-core:imgui-core")
-    implementation project(":imgui:imgui-cpp:imgui-cpp")
+    implementation "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
 
     // Use JUnit test framework
     testImplementation "junit:junit:$project.jUnitVersion"
 }
 
-project.ext.mainClassName = "com.github.xpenatan.imgui.generate.BuildExt"
-
 clean.doFirst {
     def jniPath = projectDir.toString() + "/jni/"
     def libPath = projectDir.toString() + "/libs/"
+    def srcPath = projectDir.toString() + "/src/main/"
+
     if(new File(jniPath).exists()) {
         project.delete(files(jniPath))
     }
     if(new File(libPath).exists()) {
         project.delete(files(libPath))
     }
-}
-
-task copyNatives() {
-    doLast {
-        copy {
-            from "../../imgui-cpp/libs"
-            into "./libs/"
-        }
+    if(new File(srcPath).exists()) {
+        project.delete(files(srcPath))
     }
-}
-
-task generateNatives(dependsOn: classes, type: JavaExec) {
-    setDescription("Build jDear ImGui Layout Ext")
-    mainClass.set(project.mainClassName)
-    setClasspath(sourceSets.main.runtimeClasspath)
 }
 
 task fromClasses(type: Jar) {

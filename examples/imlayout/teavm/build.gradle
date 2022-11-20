@@ -7,7 +7,7 @@ gretty {
     extraResourceBase 'webapp'
 }
 
-project.ext.mainClassName = "com.github.xpenatan.gdx.example.basic.Build"
+project.ext.mainClassName = "com.github.xpenatan.gdx.example.imlayout.Build"
 
 dependencies {
     implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
@@ -16,7 +16,7 @@ dependencies {
     implementation "com.github.xpenatan.gdx-web-tools:backend-teavm-native:1.0.0-SNAPSHOT"
 
     // Local Lib
-    implementation project(":examples:basic:core")
+    implementation project(":examples:imlayout:core")
     implementation project(":imgui:imgui-core:imgui-core-teavm")
 
 }
@@ -28,7 +28,7 @@ task buildJavaScript(dependsOn: classes, type: JavaExec) {
     setClasspath(sourceSets.main.runtimeClasspath)
 }
 
-task runTeaVMBasicExample(dependsOn: [':examples:basic:teavm:buildJavaScript', ':examples:basic:teavm:jettyRun']) {
+task runTeaVMBasicExample(dependsOn: [':examples:imlayout:teavm:buildJavaScript', ':examples:imlayout:teavm:jettyRun']) {
     setGroup("examples")
-    setDescription("Run basic example")
+    setDescription("Run ImLayout example")
 }

@@ -37,4 +37,5 @@ libs/
 
 **/imgui-core/src/main/**
 **/imgui-core-teavm/src/**
+**/imgui-imlayout/src/**
 **/webapp/**

@@ -14,8 +14,6 @@ public class BuildCore {
         String path = "..\\imgui-core-build\\src\\main\\resources\\imgui.idl";
         IDLFile idlFile = IDLParser.parseFile(path);
 
-        String classpathStr = System.getProperty("java.class.path") + File.pathSeparator;
-
         String cppPath = new File("../imgui-core/").getCanonicalPath();
         String teaVMPath = new File("../imgui-core-teavm/").getCanonicalPath();
 
@@ -26,10 +24,10 @@ public class BuildCore {
         String imguiCppBase = new File("../../imgui-cpp/imgui-cpp").getCanonicalPath();
 
         //Generate CPP
-        ImGuiCppParser cppParser = new ImGuiCppParser(idlFile, classpathStr, jniDir);
+        ImGuiCppParser cppParser = new ImGuiCppParser(idlFile, ImGuiCppParser.getClassPath("imgui-core"), jniDir);
         JParser.generate(cppParser, sourceDir, cppGenDir);
 //        CPPBuildHelper.DEBUG_BUILD = true;
-        CPPBuildHelper.build(libName, cppPath, imguiCppBase, "imgui-cpp64");
+        CPPBuildHelper.build(libName, cppPath, imguiCppBase, "imgui-cpp64", true);
 
         //Generate Javascript
 //        ImGuiTeaVMParser teaVMParser = new ImGuiTeaVMParser(idlFile);

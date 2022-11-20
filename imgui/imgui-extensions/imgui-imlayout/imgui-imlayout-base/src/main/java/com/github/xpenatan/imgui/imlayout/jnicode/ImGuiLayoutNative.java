@@ -41,7 +41,7 @@ public class ImGuiLayoutNative {
         jfieldID maxYID;
     */
 
-    /* [-cpp;-NATIVE]
+    /*[-cpp;-NATIVE]
         jclass jLayoutOptionsClass = env->FindClass("com/github/xpenatan/imgui/imlayout/custom/ImGuiCollapseLayoutOptions");
         jclass jLayoutClass = env->FindClass("com/github/xpenatan/imgui/imlayout/custom/ImGuiLayout");
         jclass jImRectClass = env->FindClass("com/github/xpenatan/imgui/core/ImRect");
