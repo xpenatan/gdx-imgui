@@ -67,7 +67,7 @@ public class ImLayoutView {
         dI3.v_min = -25;
         dI3.v_max = 25;
 
-        ImLayout.EditTextI("##1", dI1, dI2, dI3);
+        ImLayout.EditTextI("##2", dI1, dI2, dI3);
 
         if(ImLayout.EditTextS("##S", dS1)) {
             String newValue = dS1.getValue();
