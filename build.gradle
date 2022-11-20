@@ -78,10 +78,14 @@ task buildCore(dependsOn: ":imgui:imgui-core:imgui-core-build:generateNatives") 
 task buildCpp(dependsOn: ":imgui:imgui-cpp:imgui-cpp:generateNatives") {
 }
 
+task buildImLayout(dependsOn: ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout-build:generateNatives") {
+}
+
 task buildImGuiNatives() {
     group = 'imgui'
-    dependsOn buildCore, buildCpp
-//            ":extensions:imgui-ext:generateNatives"
+    dependsOn buildCore, buildCpp, buildImLayout
 }
 
 buildCore.shouldRunAfter buildCpp
+
+buildImLayout.shouldRunAfter buildCore

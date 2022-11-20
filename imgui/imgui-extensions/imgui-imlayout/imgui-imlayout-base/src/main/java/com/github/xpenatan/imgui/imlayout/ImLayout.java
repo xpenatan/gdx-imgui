@@ -12,25 +12,29 @@ import com.github.xpenatan.imgui.imlayout.custom.ImGuiCollapseLayoutOptions;
 import com.github.xpenatan.imgui.imlayout.custom.ImGuiLayout;
 import com.github.xpenatan.imgui.imlayout.jnicode.ImGuiExtNative;
 import com.github.xpenatan.imgui.imlayout.jnicode.ImGuiLayoutNative;
+import com.github.xpenatan.jparser.loader.JParserLibraryLoader;
 
 public class ImLayout {
 
-    private static boolean IMGUIINIT = false;
+    public static int MATCH_PARENT = 9999990;
+    public static int WRAP_PARENT = 9999991;
+
+    private static boolean INIT = false;
 
     public static void init() {
         init(true);
     }
 
     public static void init(boolean logging) {
-        if(ImLayout.IMGUIINIT)
+        if(ImLayout.INIT)
             return;
 
-        SharedLibraryLoader loader = new SharedLibraryLoader();
-        loader.load("imgui-ext");
-        ImLayout.IMGUIINIT = true;
+        JParserLibraryLoader loader = new JParserLibraryLoader();
+        loader.load("imlayout");
 
         ImGuiLayoutNative.init();
         ImGuiExtNative.init();
+        ImLayout.INIT = true;
     }
 
     protected ImLayout() {

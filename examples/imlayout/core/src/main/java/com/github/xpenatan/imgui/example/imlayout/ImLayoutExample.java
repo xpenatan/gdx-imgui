@@ -18,6 +18,8 @@ public class ImLayoutExample implements ApplicationListener {
 
     private boolean init = false;
 
+    private ImLayoutView view;
+
     @Override
     public void create() {
         uiCam = new OrthographicCamera();
@@ -25,10 +27,12 @@ public class ImLayoutExample implements ApplicationListener {
         batch = new SpriteBatch();
 
         ImGui.init();
-
         ImGuiGdxInputMultiplexer input = new ImGuiGdxInputMultiplexer();
         impl = new ImGuiGdxImpl();
         Gdx.input.setInputProcessor(input);
+
+        view = new ImLayoutView();
+        view.init();
     }
 
     @Override
@@ -47,7 +51,7 @@ public class ImLayoutExample implements ApplicationListener {
         }
 
         ImGui.Begin("Hello World");
-
+        view.renderTabImGuiExtViews();
         ImGui.End();
 
         ImGui.ShowDemoWindow(false);
@@ -71,6 +75,7 @@ public class ImLayoutExample implements ApplicationListener {
 
     @Override
     public void dispose() {
+        view.dispose();
         ImGui.dispose();
     }
 }
