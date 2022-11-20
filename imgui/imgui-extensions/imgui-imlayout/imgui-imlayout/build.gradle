@@ -44,14 +44,14 @@ task platformAll(type: Jar) {
 publishing {
     publications {
         imguiClasses(MavenPublication) {
-            version project.jDearImguiVersion
-            project.version = project.jDearImguiVersion
+            version project.ImLayoutVersion
+            project.version = project.ImLayoutVersion
             artifactId module_name
             artifact fromClasses
         }
         imguiNatives(MavenPublication) {
-            version project.jDearImguiVersion
-            project.version = project.jDearImguiVersion
+            version project.ImLayoutVersion
+            project.version = project.ImLayoutVersion
             artifactId module_name + "-platform"
             artifact platformAll
         }

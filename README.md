@@ -23,6 +23,7 @@ Only SNAPSHOTS are currently available. Release will be ready when ImGui docking
 
     gdxVersion = "1.11.0"
     jDearImguiVersion = "1.0.0-SNAPSHOT"
+    ImLayoutVersion = "1.0.0-SNAPSHOT"
     gdxFrameViewportVersion = "1.0.0-SNAPSHOT"
 
 ```groovy
@@ -52,8 +53,8 @@ dependencies {
     implementation "com.github.xpenatan.jDear-Imgui:gdx-lwjgl3:$project.jDearImguiVersion"
 
     // Optional - ImLayout extension
-    implementation "com.github.xpenatan.jDear-Imgui:ImLayout:$project.jDearImguiVersion"
-    implementation "com.github.xpenatan.jDear-Imgui:ImLayout-platform:$project.jDearImguiVersion:natives-desktop"
+    implementation "com.github.xpenatan.jDear-Imgui:ImLayout:$project.ImLayoutVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:ImLayout-platform:$project.ImLayoutVersion:natives-desktop"
 
     // Optional
     implementation "com.github.xpenatan.jDear-Imgui:gdx-frame-viewport:$project.jDearImguiVersion"
