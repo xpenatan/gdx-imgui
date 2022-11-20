@@ -37,11 +37,11 @@ jobs:
         with:
           name: coreNativeFiles
           path: ./imgui/imgui-core/imgui-core/libs/
-#      - name: Upload compiled imgui-ext natives
-#        uses: actions/upload-artifact@v1
-#        with:
-#          name: imlayoutNativeFiles
-#          path: ./imgui/imgui-extensions/imgui-layout-ext/imgui-layout-ext/libs/
+      - name: Upload extension ImLayout natives
+        uses: actions/upload-artifact@v1
+        with:
+          name: imlayoutNativeFiles
+          path: ./imgui/imgui-extensions/imgui-imlayout/imgui-imlayout/libs/
 
   build_Mac:
     name: Build Mac OS
@@ -66,11 +66,11 @@ jobs:
         with:
           name: coreNativeFiles
           path: ./imgui/imgui-core/imgui-core/libs/
-#      - name: Download compiled ext natives
-#        uses: actions/download-artifact@v1
-#        with:
-#          name: imlayoutNativeFiles
-#          path: ./imgui/imgui-extensions/imgui-layout-ext/imgui-layout-ext/libs/
+      - name: Download compiled extension ImLayout
+        uses: actions/download-artifact@v1
+        with:
+          name: imlayoutNativeFiles
+          path: ./imgui/imgui-extensions/imgui-imlayout/imgui-imlayout/libs/
       - name: Check g++ version
         run: gcc --version
       - name: Change wrapper permissions
