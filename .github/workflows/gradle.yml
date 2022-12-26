@@ -31,12 +31,12 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: cppNativeFiles
-          path: ./imgui/imgui-cpp/imgui-cpp/libs/
+          path: ./imgui/imgui-cpp/imgui-cpp/jni/libs/
       - name: Upload compiled imgui-core natives
         uses: actions/upload-artifact@v1
         with:
           name: coreNativeFiles
-          path: ./imgui/imgui-core/imgui-core/libs/
+          path: ./imgui/imgui-core/imgui-core/jni/libs/
       - name: Upload extension ImLayout natives
         uses: actions/upload-artifact@v1
         with:
@@ -60,12 +60,12 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: cppNativeFiles
-          path: ./imgui/imgui-cpp/imgui-cpp/libs/
+          path: ./imgui/imgui-cpp/imgui-cpp/jni/libs/
       - name: Download compiled core natives
         uses: actions/download-artifact@v1
         with:
           name: coreNativeFiles
-          path: ./imgui/imgui-core/imgui-core/libs/
+          path: ./imgui/imgui-core/imgui-core/jni/libs/
       - name: Download compiled extension ImLayout
         uses: actions/download-artifact@v1
         with:

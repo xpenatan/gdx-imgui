@@ -12,18 +12,19 @@ public class BuildImLayout {
         String libName = "imlayout";
 
         String cppPath = new File("../imgui-imlayout-base/").getCanonicalPath();
-        String genDir = "../imgui-imlayout";
-        String genLibsDir = genDir + "/libs";
+        String genDir = "../imgui-imlayout/";
+        String genLibsDir = new File(genDir + "/libs").getCanonicalPath();
+
         String genJavaDir = genDir + "/src/main/java/";
         String jniDir = cppPath + "/jni";
         String sourceDir = "../imgui-imlayout-base/src/main/java/";
-        String sharedlibCppPath = new File("../../../imgui-cpp/imgui-cpp").getCanonicalPath();
+        String sharedlibCppPath = new File("../../../imgui-cpp/imgui-cpp/jni").getCanonicalPath();
 
         FileCopyHelper.copyDir(cppPath + "/cpp-source", jniDir);
 
         //Generate CPP
         ImGuiCppParser cppParser = new ImGuiCppParser(ImGuiCppParser.getClassPath("imlayout", "core"), jniDir);
         JParser.generate(cppParser, sourceDir, genJavaDir);
-        CPPBuildHelper.build(libName, cppPath, genLibsDir, sharedlibCppPath, "imgui-cpp64", false);
+        CPPBuildHelper.build(libName, jniDir, genLibsDir, sharedlibCppPath, "/src/", "imgui-cpp64", false);
     }
 }

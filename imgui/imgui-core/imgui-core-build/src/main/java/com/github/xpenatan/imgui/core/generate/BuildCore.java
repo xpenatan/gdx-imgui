@@ -21,13 +21,13 @@ public class BuildCore {
         String sourceDir = "../imgui-core-base/src/main/java/";
         String cppGenDir = cppPath + "/src/main/java/";
         String teaVMGenDir = teaVMPath + "/src/main/java/";
-        String imguiCppBase = new File("../../imgui-cpp/imgui-cpp").getCanonicalPath();
+        String imguiCppBase = new File("../../imgui-cpp/imgui-cpp/jni").getCanonicalPath();
 
         //Generate CPP
         ImGuiCppParser cppParser = new ImGuiCppParser(idlFile, ImGuiCppParser.getClassPath("imgui-core"), jniDir);
         JParser.generate(cppParser, sourceDir, cppGenDir);
 //        CPPBuildHelper.DEBUG_BUILD = true;
-        CPPBuildHelper.build(libName, cppPath, imguiCppBase, "imgui-cpp64", true);
+        CPPBuildHelper.build(libName, jniDir, imguiCppBase, "imgui-cpp64", true);
 
         //Generate Javascript
 //        ImGuiTeaVMParser teaVMParser = new ImGuiTeaVMParser(idlFile);

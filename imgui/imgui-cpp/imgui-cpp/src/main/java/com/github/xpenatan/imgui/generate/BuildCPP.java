@@ -10,12 +10,13 @@ public class BuildCPP {
         String libName = "imgui-cpp";
 
         String cppPath = new File(".").getCanonicalPath();
+        String jniPath = cppPath + "/jni";
 
         File from = new File(cppPath + "/cpp-source/");
-        File dest = new File(cppPath + "/jni/src");
+        File dest = new File(jniPath + "/src");
         FileCopyHelper.copyDir(from.toPath(), dest.toPath());
 
-        CPPBuildHelper.build(libName, cppPath);
+        CPPBuildHelper.build(libName, jniPath);
     }
 
 }

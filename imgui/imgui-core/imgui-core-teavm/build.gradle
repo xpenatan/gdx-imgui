@@ -9,9 +9,8 @@ def module_name = "core-teavm"
 sourceSets.main.resources.srcDirs = ["resources/"]
 
 dependencies {
-    implementation "com.github.xpenatan.gdx-web-tools:backend-web:1.0.0-SNAPSHOT"
-    implementation "com.github.xpenatan.gdx-web-tools:backend-teavm:1.0.0-SNAPSHOT"
-    implementation "com.github.xpenatan.gdx-web-tools:backend-teavm-native:1.0.0-SNAPSHOT"
+    implementation "com.github.xpenatan.gdx-teavm:backend-web:1.0.0-SNAPSHOT"
+    implementation "com.github.xpenatan.gdx-teavm:backend-teavm:1.0.0-SNAPSHOT"
     implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
 }
 
