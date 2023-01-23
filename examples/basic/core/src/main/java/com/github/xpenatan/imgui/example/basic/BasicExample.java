@@ -18,6 +18,8 @@ public class BasicExample implements ApplicationListener {
 
     private boolean init = false;
 
+    private EditTextExample editTextExample = new EditTextExample();
+
     @Override
     public void create() {
         uiCam = new OrthographicCamera();
@@ -47,6 +49,8 @@ public class BasicExample implements ApplicationListener {
         }
 
         ImGui.Begin("Hello World");
+
+        editTextExample.render();
 
         ImGui.End();
 

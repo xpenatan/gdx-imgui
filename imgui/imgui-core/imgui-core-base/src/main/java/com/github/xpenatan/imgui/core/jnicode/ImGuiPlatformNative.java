@@ -4,7 +4,7 @@ import com.github.xpenatan.imgui.core.util.ImGuiPlatformListener;
 
 public class ImGuiPlatformNative {
 
-    /*[-cpp;-NATIVE]
+    /*[-C++;-NATIVE]
         #include "imgui_helper.h"
 
         #include <imgui.h>
@@ -34,7 +34,7 @@ public class ImGuiPlatformNative {
         jmethodID mid_Renderer_RenderWindow;
     */
 
-    /*[-cpp;-NATIVE]
+    /*[-C++;-NATIVE]
         static void ImGui_Platform_CreateWindow(ImGuiViewport* viewport) {
             JNIEnv *env = ImGuiHelper::GetEnv();
             int64_t* handler = new int64_t;
@@ -225,7 +225,7 @@ public class ImGuiPlatformNative {
         }
     */
 
-    /*[-cpp;-NATIVE]
+    /*[-C++;-NATIVE]
         jListener = env->NewGlobalRef(platformListener);
 
         {
@@ -275,17 +275,20 @@ public class ImGuiPlatformNative {
         main_viewport->PlatformUserData = (void*)userData;
         main_viewport->PlatformHandle = (void*)handler;
     */
+    /*[-teaVM;-NATIVE]
+        var test = 100;
+    */
     public static native void InitPlatformInterface(ImGuiPlatformListener platformListener, long windowHandle, int userData);
 
     // Platform Utils
 
-    /*[-cpp;-NATIVE]
+    /*[-C++;-NATIVE]
         ImGuiPlatformIO& platform_io = ImGui::GetPlatformIO();
         platform_io.Monitors.resize(value);
     */
     public static native void PlatformResize(int value);
 
-    /*[-cpp;-NATIVE]
+    /*[-C++;-NATIVE]
         ImGuiPlatformIO& platform_io = ImGui::GetPlatformIO();
         ImGuiPlatformMonitor monitor;
         monitor.MainPos = ImVec2(mainPosX, mainPosY);

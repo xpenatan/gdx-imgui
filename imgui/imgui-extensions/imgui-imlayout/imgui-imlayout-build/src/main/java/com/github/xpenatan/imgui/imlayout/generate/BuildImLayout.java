@@ -23,8 +23,8 @@ public class BuildImLayout {
         FileCopyHelper.copyDir(cppPath + "/cpp-source", jniDir);
 
         //Generate CPP
-        ImGuiCppParser cppParser = new ImGuiCppParser(ImGuiCppParser.getClassPath("imlayout", "core"), jniDir);
+        ImGuiCppParser cppParser = new ImGuiCppParser(ImGuiCppParser.getClassPath("imlayout", "core", "gdx-1", "gdx-jnigen-loader", "jParser"), jniDir);
         JParser.generate(cppParser, sourceDir, genJavaDir);
-        CPPBuildHelper.build(libName, jniDir, genLibsDir, sharedlibCppPath, "/src/", "imgui-cpp64", false);
+        CPPBuildHelper.build(libName, jniDir, genLibsDir, null, sharedlibCppPath, "/src/", "imgui-cpp64", false);
     }
 }

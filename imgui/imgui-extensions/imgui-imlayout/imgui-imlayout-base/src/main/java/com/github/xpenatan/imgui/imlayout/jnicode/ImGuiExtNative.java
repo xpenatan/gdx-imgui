@@ -7,7 +7,7 @@ import com.github.xpenatan.imgui.imlayout.custom.EditTextStringData;
 
 public class ImGuiExtNative {
 
-    /*[-cpp;-NATIVE]
+    /*[-C++;-NATIVE]
         #include <imgui_ext.h>
 
         jfieldID leftLabelID;
@@ -32,7 +32,7 @@ public class ImGuiExtNative {
         jfieldID imTextInputDataIsDirtyID;
     */
 
-    /*[-cpp;-NATIVE]
+    /*[-C++;-NATIVE]
         jclass jEditTextDataClass = env->FindClass("com/github/xpenatan/imgui/imlayout/custom/EditTextData");
         jclass jEditTextFloatDataClass = env->FindClass("com/github/xpenatan/imgui/imlayout/custom/EditTextFloatData");
         jclass jEditTextIntDataClass = env->FindClass("com/github/xpenatan/imgui/imlayout/custom/EditTextIntData");
@@ -62,22 +62,22 @@ public class ImGuiExtNative {
     */
     public static native void init();
 
-    /*[-cpp;-NATIVE]
+    /*[-C++;-NATIVE]
         return ImGuiExt::GetTableContentHeight();
     */
     public static native float GetTableContentHeight();
 
-    /*[-cpp;-NATIVE]
+    /*[-C++;-NATIVE]
         ImGuiExt::CalculateTableRowHeight();
     */
     public static native void CalculateTableRowHeight();
 
-    /*[-cpp;-NATIVE]
+    /*[-C++;-NATIVE]
         return ImGuiExt::GetTableRowHeight();
     */
     public static native float GetTableRowHeight();
 
-    /*[-cpp;-NATIVE]
+    /*[-C++;-NATIVE]
         template<typename TYPE>
         void updateEditText(JNIEnv* env, EditTextData<TYPE> * data, jobject jData) {
             if(data == NULL)
@@ -160,7 +160,7 @@ public class ImGuiExtNative {
         }
     */
 
-    /*[-cpp;-NATIVE]
+    /*[-C++;-NATIVE]
         EditTextData<float> localData01;
         EditTextData<float> localData02;
         EditTextData<float> localData03;
@@ -191,7 +191,7 @@ public class ImGuiExtNative {
     */
     public static native int EditTextF(String id, EditTextFloatData jData01, EditTextFloatData jData02, EditTextFloatData jData03, EditTextFloatData jData04, int flags);
 
-    /*[-cpp;-NATIVE]
+    /*[-C++;-NATIVE]
         EditTextData<int> localData01;
         EditTextData<int> localData02;
         EditTextData<int> localData03;
@@ -222,7 +222,7 @@ public class ImGuiExtNative {
     */
     public static native int EditTextI(String id, EditTextIntData jData01, EditTextIntData jData02, EditTextIntData jData03, EditTextIntData jData04, int flags);
 
-    /*[-cpp;-NATIVE]
+    /*[-C++;-NATIVE]
         EditTextData<std::string> data01;
         updateEditText(env, &data01, data);
         int size = (int)strlen(buff);

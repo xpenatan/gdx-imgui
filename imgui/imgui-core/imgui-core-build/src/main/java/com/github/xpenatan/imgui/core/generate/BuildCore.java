@@ -24,10 +24,11 @@ public class BuildCore {
         String imguiCppBase = new File("../../imgui-cpp/imgui-cpp/jni").getCanonicalPath();
 
         //Generate CPP
-        ImGuiCppParser cppParser = new ImGuiCppParser(idlFile, ImGuiCppParser.getClassPath("imgui-core"), jniDir);
+        String classPaths = ImGuiCppParser.getClassPath("imgui-core", "gdx-1", "gdx-jnigen-loader", "jParser");
+        ImGuiCppParser cppParser = new ImGuiCppParser(idlFile, classPaths, jniDir);
         JParser.generate(cppParser, sourceDir, cppGenDir);
 //        CPPBuildHelper.DEBUG_BUILD = true;
-        CPPBuildHelper.build(libName, jniDir, imguiCppBase, "imgui-cpp64", true);
+        CPPBuildHelper.build(libName, jniDir, null, imguiCppBase, "imgui-cpp64", true);
 
         //Generate Javascript
 //        ImGuiTeaVMParser teaVMParser = new ImGuiTeaVMParser(idlFile);

@@ -76,7 +76,7 @@ public class ImGui {
 //        value++;
 //        return value;
 //     */
-//    /*[-cpp;-NATIVE]
+//    /*[-C++;-NATIVE]
 //        int value = testValue;
 //        value++;
 //        return value;
@@ -86,7 +86,7 @@ public class ImGui {
 //    /*[-teaVM;-NATIVE]
 //        ImGui.SameLine();
 //     */
-//    /*[-cpp;-NATIVE]
+//    /*[-C++;-NATIVE]
 //        ImGui::SameLine();
 //     */
 //    static public native void SameLine();
@@ -817,6 +817,10 @@ public class ImGui {
         return ImGuiNative.DragFloat(label, v.data, v_speed);
     }
 
+    public static boolean DragFloat(String label, ImGuiFloat v, float v_speed, float v_min, float v_max) {
+        return ImGuiNative.DragFloat(label, v.data, v_speed, v_min, v_max);
+    }
+
     public static boolean DragFloat(String label, ImGuiFloat v, float v_speed, float v_min, float v_max, String format) {
         return ImGuiNative.DragFloat(label, v.data, v_speed, v_min, v_max, format);
     }
@@ -825,28 +829,64 @@ public class ImGui {
         return ImGuiNative.DragFloat(label, v.data, v_speed, v_min, v_max, format, power);
     }
 
-    public static boolean DragFloat2(String label, float[] v) {
-        return ImGuiNative.DragFloat2(label, v);
+    public static boolean DragFloat2(String label, ImGuiFloat2 v) {
+        return ImGuiNative.DragFloat2(label, v.data);
     }
 
-    public static boolean DragFloat2(String label, float[] v, float v_speed, float v_min, float v_max, String format, float power) {
-        return ImGuiNative.DragFloat2(label, v, v_speed, v_min, v_max, format, power);
+    public static boolean DragFloat2(String label, ImGuiFloat2 v, float v_speed) {
+        return ImGuiNative.DragFloat2(label, v.data, v_speed);
     }
 
-    public static boolean DragFloat3(String label, float[] v) {
-        return ImGuiNative.DragFloat3(label, v);
+    public static boolean DragFloat2(String label, ImGuiFloat2 v, float v_speed, float v_min, float v_max) {
+        return ImGuiNative.DragFloat2(label, v.data, v_speed, v_min, v_max);
     }
 
-    public static boolean DragFloat3(String label, float[] v, float v_speed, float v_min, float v_max, String format, float power) {
-        return ImGuiNative.DragFloat3(label, v, v_speed, v_min, v_max, format, power);
+    public static boolean DragFloat2(String label, ImGuiFloat2 v, float v_speed, float v_min, float v_max, String format) {
+        return ImGuiNative.DragFloat2(label, v.data, v_speed, v_min, v_max, format);
     }
 
-    public static boolean DragFloat4(String label, float[] v) {
-        return ImGuiNative.DragFloat4(label, v);
+    public static boolean DragFloat2(String label, ImGuiFloat2 v, float v_speed, float v_min, float v_max, String format, float power) {
+        return ImGuiNative.DragFloat2(label, v.data, v_speed, v_min, v_max, format, power);
     }
 
-    public static boolean DragFloat4(String label, float[] v, float v_speed, float v_min, float v_max, String format, float power) {
-        return ImGuiNative.DragFloat4(label, v, v_speed, v_min, v_max, format, power);
+    public static boolean DragFloat3(String label, ImGuiFloat3 v) {
+        return ImGuiNative.DragFloat3(label, v.data);
+    }
+
+    public static boolean DragFloat3(String label, ImGuiFloat3 v, float v_speed) {
+        return ImGuiNative.DragFloat3(label, v.data, v_speed);
+    }
+
+    public static boolean DragFloat3(String label, ImGuiFloat3 v, float v_speed, float v_min, float v_max) {
+        return ImGuiNative.DragFloat3(label, v.data, v_speed, v_min, v_max);
+    }
+
+    public static boolean DragFloat3(String label, ImGuiFloat3 v, float v_speed, float v_min, float v_max, String format) {
+        return ImGuiNative.DragFloat3(label, v.data, v_speed, v_min, v_max, format);
+    }
+
+    public static boolean DragFloat3(String label, ImGuiFloat3 v, float v_speed, float v_min, float v_max, String format, float power) {
+        return ImGuiNative.DragFloat3(label, v.data, v_speed, v_min, v_max, format, power);
+    }
+
+    public static boolean DragFloat4(String label, ImGuiFloat4 v) {
+        return ImGuiNative.DragFloat4(label, v.data);
+    }
+
+    public static boolean DragFloat4(String label, ImGuiFloat4 v, float v_speed) {
+        return ImGuiNative.DragFloat4(label, v.data, v_speed);
+    }
+
+    public static boolean DragFloat4(String label, ImGuiFloat4 v, float v_speed, float v_min, float v_max) {
+        return ImGuiNative.DragFloat4(label, v.data, v_speed, v_min, v_max);
+    }
+
+    public static boolean DragFloat4(String label, ImGuiFloat4 v, float v_speed, float v_min, float v_max, String format) {
+        return ImGuiNative.DragFloat4(label, v.data, v_speed, v_min, v_max, format);
+    }
+
+    public static boolean DragFloat4(String label, ImGuiFloat4 v, float v_speed, float v_min, float v_max, String format, float power) {
+        return ImGuiNative.DragFloat4(label, v.data, v_speed, v_min, v_max, format, power);
     }
 
     public static boolean DragFloatRange2(String label, ImGuiFloat v_current_min, ImGuiFloat v_current_max) {
@@ -865,32 +905,60 @@ public class ImGui {
         return ImGuiNative.DragInt(label, v.data, v_speed);
     }
 
+    public static boolean DragInt(String label, ImGuiInt v, float v_speed, float v_min, float v_max) {
+        return ImGuiNative.DragInt(label, v.data, v_speed, v_min, v_max);
+    }
+
     public static boolean DragInt(String label, ImGuiInt v, float v_speed, float v_min, float v_max, String format) {
         return ImGuiNative.DragInt(label, v.data, v_speed, v_min, v_max, format);
     }
 
-    public static boolean DragInt2(String label, int[] v) {
-        return ImGuiNative.DragInt2(label, v);
+    public static boolean DragInt2(String label, ImGuiInt2 v) {
+        return ImGuiNative.DragInt2(label, v.data);
     }
 
-    public static boolean DragInt2(String label, int[] v, float v_speed, float v_min, float v_max, String format) {
-        return ImGuiNative.DragInt2(label, v, v_speed, v_min, v_max, format);
+    public static boolean DragInt2(String label, ImGuiInt2 v, float v_speed) {
+        return ImGuiNative.DragInt2(label, v.data, v_speed);
     }
 
-    public static boolean DragInt3(String label, int[] v) {
-        return ImGuiNative.DragInt3(label, v);
+    public static boolean DragInt2(String label, ImGuiInt2 v, float v_speed, float v_min, float v_max) {
+        return ImGuiNative.DragInt2(label, v.data, v_speed, v_min, v_max);
     }
 
-    public static boolean DragInt3(String label, int[] v, float v_speed, float v_min, float v_max, String format) {
-        return ImGuiNative.DragInt3(label, v, v_speed, v_min, v_max, format);
+    public static boolean DragInt2(String label, ImGuiInt2 v, float v_speed, float v_min, float v_max, String format) {
+        return ImGuiNative.DragInt2(label, v.data, v_speed, v_min, v_max, format);
     }
 
-    public static boolean DragInt4(String label, int[] v) {
-        return ImGuiNative.DragInt4(label, v);
+    public static boolean DragInt3(String label, ImGuiInt3 v) {
+        return ImGuiNative.DragInt3(label, v.data);
     }
 
-    public static boolean DragInt4(String label, int[] v, float v_speed, float v_min, float v_max, String format) {
-        return ImGuiNative.DragInt4(label, v, v_speed, v_min, v_max, format);
+    public static boolean DragInt3(String label, ImGuiInt3 v, float v_speed) {
+        return ImGuiNative.DragInt3(label, v.data, v_speed);
+    }
+
+    public static boolean DragInt3(String label, ImGuiInt3 v, float v_speed, float v_min, float v_max) {
+        return ImGuiNative.DragInt3(label, v.data, v_speed, v_min, v_max);
+    }
+
+    public static boolean DragInt3(String label, ImGuiInt3 v, float v_speed, float v_min, float v_max, String format) {
+        return ImGuiNative.DragInt3(label, v.data, v_speed, v_min, v_max, format);
+    }
+
+    public static boolean DragInt4(String label, ImGuiInt4 v) {
+        return ImGuiNative.DragInt4(label, v.data);
+    }
+
+    public static boolean DragInt4(String label, ImGuiInt4 v, float v_speed) {
+        return ImGuiNative.DragInt4(label, v.data, v_speed);
+    }
+
+    public static boolean DragInt4(String label, ImGuiInt4 v, float v_speed, float v_min, float v_max) {
+        return ImGuiNative.DragInt4(label, v.data, v_speed, v_min, v_max);
+    }
+
+    public static boolean DragInt4(String label, ImGuiInt4 v, float v_speed, float v_min, float v_max, String format) {
+        return ImGuiNative.DragInt4(label, v.data, v_speed, v_min, v_max, format);
     }
 
     public static boolean DragIntRange2(String label, ImGuiInt v_current_min, ImGuiInt v_current_max) {
@@ -922,28 +990,40 @@ public class ImGui {
         return ImGuiNative.SliderFloat(label, v.data, v_min, v_max, format, power);
     }
 
-    public static boolean SliderFloat2(String label, float[] v, float v_min, float v_max) {
-        return ImGuiNative.SliderFloat2(label, v, v_min, v_max);
+    public static boolean SliderFloat2(String label, ImGuiFloat2 v, float v_min, float v_max) {
+        return ImGuiNative.SliderFloat2(label, v.data, v_min, v_max);
     }
 
-    public static boolean SliderFloat2(String label, float[] v, float v_min, float v_max, String format, float power) {
-        return ImGuiNative.SliderFloat2(label, v, v_min, v_max, format, power);
+    public static boolean SliderFloat2(String label, ImGuiFloat2 v, float v_min, float v_max, String format) {
+        return ImGuiNative.SliderFloat2(label, v.data, v_min, v_max, format);
     }
 
-    public static boolean SliderFloat3(String label, float[] v, float v_min, float v_max) {
-        return ImGuiNative.SliderFloat3(label, v, v_min, v_max);
+    public static boolean SliderFloat2(String label, ImGuiFloat2 v, float v_min, float v_max, String format, float power) {
+        return ImGuiNative.SliderFloat2(label, v.data, v_min, v_max, format, power);
     }
 
-    public static boolean SliderFloat3(String label, float[] v, float v_min, float v_max, String format, float power) {
-        return ImGuiNative.SliderFloat3(label, v, v_min, v_max, format, power);
+    public static boolean SliderFloat3(String label, ImGuiFloat3 v, float v_min, float v_max) {
+        return ImGuiNative.SliderFloat3(label, v.data, v_min, v_max);
     }
 
-    public static boolean SliderFloat4(String label, float[] v, float v_min, float v_max) {
-        return ImGuiNative.SliderFloat4(label, v, v_min, v_max);
+    public static boolean SliderFloat3(String label, ImGuiFloat3 v, float v_min, float v_max, String format) {
+        return ImGuiNative.SliderFloat3(label, v.data, v_min, v_max, format);
     }
 
-    public static boolean SliderFloat4(String label, float[] v, float v_min, float v_max, String format, float power) {
-        return ImGuiNative.SliderFloat4(label, v, v_min, v_max, format, power);
+    public static boolean SliderFloat3(String label, ImGuiFloat3 v, float v_min, float v_max, String format, float power) {
+        return ImGuiNative.SliderFloat3(label, v.data, v_min, v_max, format, power);
+    }
+
+    public static boolean SliderFloat4(String label, ImGuiFloat4 v, float v_min, float v_max) {
+        return ImGuiNative.SliderFloat4(label, v.data, v_min, v_max);
+    }
+
+    public static boolean SliderFloat4(String label, ImGuiFloat4 v, float v_min, float v_max, String format) {
+        return ImGuiNative.SliderFloat4(label, v.data, v_min, v_max, format);
+    }
+
+    public static boolean SliderFloat4(String label, ImGuiFloat4 v, float v_min, float v_max, String format, float power) {
+        return ImGuiNative.SliderFloat4(label, v.data, v_min, v_max, format, power);
     }
 
     public static boolean SliderAngle(String label, ImGuiFloat v) {
@@ -962,28 +1042,28 @@ public class ImGui {
         return ImGuiNative.SliderInt(label, v.data, v_min, v_max, format);
     }
 
-    public static boolean SliderInt2(String label, int[] v, int v_min, int v_max) {
-        return ImGuiNative.SliderInt2(label, v, v_min, v_max);
+    public static boolean SliderInt2(String label, ImGuiInt2 v, int v_min, int v_max) {
+        return ImGuiNative.SliderInt2(label, v.data, v_min, v_max);
     }
 
-    public static boolean SliderInt2(String label, int[] v, int v_min, int v_max, String format) {
-        return ImGuiNative.SliderInt2(label, v, v_min, v_max, format);
+    public static boolean SliderInt2(String label, ImGuiInt2 v, int v_min, int v_max, String format) {
+        return ImGuiNative.SliderInt2(label, v.data, v_min, v_max, format);
     }
 
-    public static boolean SliderInt3(String label, int[] v, int v_min, int v_max) {
-        return ImGuiNative.SliderInt3(label, v, v_min, v_max);
+    public static boolean SliderInt3(String label, ImGuiInt3 v, int v_min, int v_max) {
+        return ImGuiNative.SliderInt3(label, v.data, v_min, v_max);
     }
 
-    public static boolean SliderInt3(String label, int[] v, int v_min, int v_max, String format) {
-        return ImGuiNative.SliderInt3(label, v, v_min, v_max, format);
+    public static boolean SliderInt3(String label, ImGuiInt3 v, int v_min, int v_max, String format) {
+        return ImGuiNative.SliderInt3(label, v.data, v_min, v_max, format);
     }
 
-    public static boolean SliderInt4(String label, int[] v, int v_min, int v_max) {
-        return ImGuiNative.SliderInt4(label, v, v_min, v_max);
+    public static boolean SliderInt4(String label, ImGuiInt4 v, int v_min, int v_max) {
+        return ImGuiNative.SliderInt4(label, v.data, v_min, v_max);
     }
 
-    public static boolean SliderInt4(String label, int[] v, int v_min, int v_max, String format) {
-        return ImGuiNative.SliderInt4(label, v, v_min, v_max, format);
+    public static boolean SliderInt4(String label, ImGuiInt4 v, int v_min, int v_max, String format) {
+        return ImGuiNative.SliderInt4(label, v.data, v_min, v_max, format);
     }
 
     public static boolean SliderScalar(String label, ImGuiDataType data_type, ImGuiInt v, int v_min, int v_max) {
