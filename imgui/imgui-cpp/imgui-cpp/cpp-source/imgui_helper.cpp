@@ -9,8 +9,8 @@
 static JavaVM *jvm;
 
 // Java ImVec2
-static jfieldID fid_ImVec2_x;
-static jfieldID fid_ImVec2_y;
+//static jfieldID fid_ImVec2_x;
+//static jfieldID fid_ImVec2_y;
 
 // Java ImGuiViewport
 static jclass cls_viewport;
@@ -41,9 +41,6 @@ static jfieldID fid_ImDrawData_framebufferScaleY;
 void ImGuiHelper::Init(JNIEnv* env) {
     jint rs = env->GetJavaVM(&jvm);
     assert (rs == JNI_OK);
-    jclass jImVec2Class = env->FindClass("com/github/xpenatan/imgui/core/ImVec2");
-    fid_ImVec2_x = env->GetFieldID(jImVec2Class, "x", "F");
-    fid_ImVec2_y = env->GetFieldID(jImVec2Class, "y", "F");
 
     jclass cls_tmp_viewport = env->FindClass("com/github/xpenatan/imgui/core/ImGuiViewport");
     cls_viewport = (jclass)env->NewGlobalRef(cls_tmp_viewport);
@@ -78,18 +75,6 @@ JNIEnv* ImGuiHelper::GetEnv() {
     jint rs = jvm->AttachCurrentThread((void **)&env, NULL);
     assert (rs == JNI_OK);
     return env;
-}
-
-void ImGuiHelper::SetImVec2(JNIEnv* env, jobject in, ImVec2* out) {
-    float x = env->GetFloatField(in, fid_ImVec2_x);
-    float y = env->GetFloatField(in, fid_ImVec2_y);
-    out->x = x;
-    out->y = y;
-}
-
-void ImGuiHelper::SetImVec2(JNIEnv* env, ImVec2 in, jobject out) {
-    env->SetFloatField (out, fid_ImVec2_x, in.x);
-    env->SetFloatField (out, fid_ImVec2_y, in.y);
 }
 
 jobject ImGuiHelper::CreateJImGuiViewport(JNIEnv* env) {

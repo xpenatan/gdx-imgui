@@ -30,14 +30,12 @@ public class ImGui {
 
     public static final int VERSION_CODE = 39;
     private static boolean IMGUI_INIT = false;
-    private static ImDrawData drawData = new ImDrawData();
-    private static ImGuiIO imguiIO = new ImGuiIO();
-    private static ImGuiStyle imguiStyle = new ImGuiStyle();
-    private static ImVec2 imVec2 = new ImVec2();
-    private static ImVec4 imVec4 = new ImVec4();
-    private static ImDrawList imDrawList = new ImDrawList(ImDrawList.TYPE_DEFAULT);
-    private static ImDrawList imDrawListBackground = new ImDrawList(ImDrawList.TYPE_BACKGROUND);
-    private static ImDrawList imDrawListForeground = new ImDrawList(ImDrawList.TYPE_FOREGROUND);
+    private static ImDrawData drawData;
+    private static ImGuiIO imguiIO;
+    private static ImGuiStyle imguiStyle;
+    private static ImDrawList imDrawList;
+    private static ImDrawList imDrawListBackground;
+    private static ImDrawList imDrawListForeground;
 
     public static void init() {
         init(true);
@@ -51,6 +49,13 @@ public class ImGui {
 
         ImGuiNative.init();
         ImGuiNative.CreateContext(saveIni);
+
+        drawData = new ImDrawData();
+        imguiIO = new ImGuiIO();
+        imguiStyle = new ImGuiStyle();
+        imDrawList = new ImDrawList(ImDrawList.TYPE_DEFAULT);
+        imDrawListBackground = new ImDrawList(ImDrawList.TYPE_BACKGROUND);
+        imDrawListForeground = new ImDrawList(ImDrawList.TYPE_FOREGROUND);
     }
 
     /*[-teaVM;-REPLACE]
@@ -269,8 +274,8 @@ public class ImGui {
     }
 
     public static ImVec2 GetWindowPos() {
-        ImGuiNative.GetWindowPos(imVec2);
-        return imVec2;
+        ImGuiNative.GetWindowPos(ImVec2.TMP.getCPointer());
+        return ImVec2.TMP;
     }
 
     public static float GetWindowPosX() {
@@ -282,8 +287,8 @@ public class ImGui {
     }
 
     public static ImVec2 GetWindowSize() {
-        ImGuiNative.GetWindowSize(imVec2);
-        return imVec2;
+        ImGuiNative.GetWindowSize(ImVec2.TMP.getCPointer());
+        return ImVec2.TMP;
     }
 
     public static float GetWindowWidth() {
@@ -357,23 +362,23 @@ public class ImGui {
     // - Those functions are bound to be redesigned soon (they are confusing, incomplete and return values in local window coordinates which increases confusion)
 
     public static ImVec2 GetContentRegionMax() {
-        ImGuiNative.GetContentRegionMax(imVec2);
-        return imVec2;
+        ImGuiNative.GetContentRegionMax(ImVec2.TMP.getCPointer());
+        return ImVec2.TMP;
     }
 
     public static ImVec2 GetContentRegionAvail() {
-        ImGuiNative.GetContentRegionAvail(imVec2);
-        return imVec2;
+        ImGuiNative.GetContentRegionAvail(ImVec2.TMP.getCPointer());
+        return ImVec2.TMP;
     }
 
     public static ImVec2 GetWindowContentRegionMin() {
-        ImGuiNative.GetWindowContentRegionMin(imVec2);
-        return imVec2;
+        ImGuiNative.GetWindowContentRegionMin(ImVec2.TMP.getCPointer());
+        return ImVec2.TMP;
     }
 
     public static ImVec2 GetWindowContentRegionMax() {
-        ImGuiNative.GetWindowContentRegionMax(imVec2);
-        return imVec2;
+        ImGuiNative.GetWindowContentRegionMax(ImVec2.TMP.getCPointer());
+        return ImVec2.TMP;
     }
 
     public static float GetWindowContentRegionWidth() {
@@ -575,13 +580,13 @@ public class ImGui {
     }
 
     public static ImVec2 GetCursorStartPos() {
-        ImGuiNative.GetCursorStartPos(imVec2);
-        return imVec2;
+        ImGuiNative.GetCursorStartPos(ImVec2.TMP.getCPointer());
+        return ImVec2.TMP;
     }
 
     public static ImVec2 GetCursorScreenPos() {
-        ImGuiNative.GetCursorScreenPos(imVec2);
-        return imVec2;
+        ImGuiNative.GetCursorScreenPos(ImVec2.TMP.getCPointer());
+        return ImVec2.TMP;
     }
 
     public static void SetCursorScreenPos(float x, float y) {
@@ -1812,18 +1817,18 @@ public class ImGui {
     }
 
     public static ImVec2 GetItemRectMin() {
-        ImGuiNative.GetItemRectMin(imVec2);
-        return imVec2;
+        ImGuiNative.GetItemRectMin(ImVec2.TMP.getCPointer());
+        return ImVec2.TMP;
     }
 
     public static ImVec2 GetItemRectMax() {
-        ImGuiNative.GetItemRectMax(imVec2);
-        return imVec2;
+        ImGuiNative.GetItemRectMax(ImVec2.TMP.getCPointer());
+        return ImVec2.TMP;
     }
 
     public static ImVec2 GetItemRectSize() {
-        ImGuiNative.GetItemRectSize(imVec2);
-        return imVec2;
+        ImGuiNative.GetItemRectSize(ImVec2.TMP.getCPointer());
+        return ImVec2.TMP;
     }
 
     public static void SetItemAllowOverlap() {

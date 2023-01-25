@@ -100,9 +100,11 @@ public class ImGuiPlatformNative {
                 intptr_t test = reinterpret_cast<intptr_t>(viewport->PlatformUserData);
                 platformUserData = static_cast<int>(test);
             }
-            jobject jImVec2 = env->CallObjectMethod(jListener, mid_Platform_GetWindowPos, platformHandle, platformUserData);
+            long vec2Addr = env->CallLongMethod(jListener, mid_Platform_GetWindowPos, platformHandle, platformUserData);
+            ImVec2 * input = (ImVec2*)vec2Addr;
             ImVec2 vec2 = ImVec2();
-            ImGuiHelper::SetImVec2(env, jImVec2, &vec2);
+            vec2.x = input->x;
+            vec2.y = input->y;
             return vec2;
         }
         static void ImGui_Platform_SetWindowSize(ImGuiViewport* viewport, ImVec2 size) {
@@ -129,9 +131,11 @@ public class ImGuiPlatformNative {
                 intptr_t test = reinterpret_cast<intptr_t>(viewport->PlatformUserData);
                 platformUserData = static_cast<int>(test);
             }
-            jobject jImVec2 = env->CallObjectMethod(jListener, mid_Platform_GetWindowSize, platformHandle, platformUserData);
+            long vec2Addr = env->CallLongMethod(jListener, mid_Platform_GetWindowSize, platformHandle, platformUserData);
+            ImVec2 * input = (ImVec2*)vec2Addr;
             ImVec2 vec2 = ImVec2();
-            ImGuiHelper::SetImVec2(env, jImVec2, &vec2);
+            vec2.x = input->x;
+            vec2.y = input->y;
             return vec2;
         }
         static void ImGui_Platform_SetWindowFocus(ImGuiViewport* viewport) {
@@ -234,9 +238,9 @@ public class ImGuiPlatformNative {
             mid_Platform_ShowWindow = env->GetMethodID(cls_platformListener, "ShowWindow", "(JI)V");
             mid_Platform_DestroyWindow = env->GetMethodID(cls_platformListener, "DestroyWindow", "(JI)V");
             mid_Platform_SetWindowPos = env->GetMethodID(cls_platformListener, "SetWindowPos", "(JIFF)V");
-            mid_Platform_GetWindowPos = env->GetMethodID(cls_platformListener, "GetWindowPos", "(JI)Lcom/github/xpenatan/imgui/core/ImVec2;");
+            mid_Platform_GetWindowPos = env->GetMethodID(cls_platformListener, "GetWindowPos", "(JI)J");
             mid_Platform_SetWindowSize = env->GetMethodID(cls_platformListener, "SetWindowSize", "(JIFF)V");
-            mid_Platform_GetWindowSize = env->GetMethodID(cls_platformListener, "GetWindowSize", "(JI)Lcom/github/xpenatan/imgui/core/ImVec2;");
+            mid_Platform_GetWindowSize = env->GetMethodID(cls_platformListener, "GetWindowSize", "(JI)J");
             mid_Platform_SetWindowFocus = env->GetMethodID(cls_platformListener, "SetWindowFocus", "(JI)V");
             mid_Platform_GetWindowFocus = env->GetMethodID(cls_platformListener, "GetWindowFocus", "(JI)Z");
             mid_Platform_GetWindowMinimized = env->GetMethodID(cls_platformListener, "GetWindowMinimized", "(JI)Z");

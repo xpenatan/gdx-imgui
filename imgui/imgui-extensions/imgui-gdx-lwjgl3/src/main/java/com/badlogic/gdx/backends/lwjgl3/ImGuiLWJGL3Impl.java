@@ -178,14 +178,11 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
     }
 
     @Override
-    public ImVec2 GetWindowPos(long platformHandle, int platformUserData) {
+    public long GetWindowPos(long platformHandle, int platformUserData) {
         ImVec2 tmp = ImVec2.TMP;
-        tmp.x = 0;
-        tmp.y = 0;
         GLFW.glfwGetWindowPos(platformHandle, tmpBuffer, tmpBuffer2);
-        tmp.x = tmpBuffer.get(0);
-        tmp.y = tmpBuffer2.get(0);
-        return tmp;
+        tmp.set(tmpBuffer.get(0), tmpBuffer2.get(0));
+        return tmp.getCPointer();
     }
 
     @Override
@@ -194,14 +191,11 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
     }
 
     @Override
-    public ImVec2 GetWindowSize(long platformHandle, int platformUserData) {
+    public long GetWindowSize(long platformHandle, int platformUserData) {
         ImVec2 tmp = ImVec2.TMP;
-        tmp.x = 0;
-        tmp.y = 0;
         GLFW.glfwGetWindowSize(platformHandle, tmpBuffer, tmpBuffer2);
-        tmp.x = tmpBuffer.get(0);
-        tmp.y = tmpBuffer2.get(0);
-        return tmp;
+        tmp.set(tmpBuffer.get(0), tmpBuffer2.get(0));
+        return tmp.getCPointer();
     }
 
     @Override

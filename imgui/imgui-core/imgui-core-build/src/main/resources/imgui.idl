@@ -1,7 +1,16 @@
 
 interface ImGui {
-//    void Begin([Const] DOMString name);
-//    void End();
+    void Begin([Const] DOMString name);
+    void End();
+    void SameLine(optional float offset_from_start_x, optional float spacing);
 
-    void SameLine(optional float offset_from_start_x, optional float spacing)
+    [Value]ImVec2 GetWindowPos();
 };
+
+interface ImVec2 {
+    void ImVec2();
+    void ImVec2(float x, float y);
+
+    attribute float x;
+    attribute float y;
+}

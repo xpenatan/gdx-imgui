@@ -12,11 +12,11 @@ public interface ImGuiPlatformListener {
 
     public void SetWindowPos(long platformHandle, int platformUserData, float x, float y);
 
-    public ImVec2 GetWindowPos(long platformHandle, int platformUserData);
+    public long GetWindowPos(long platformHandle, int platformUserData);
 
     public void SetWindowSize(long platformHandle, int platformUserData, float width, float height);
 
-    public ImVec2 GetWindowSize(long platformHandle, int platformUserData);
+    public long GetWindowSize(long platformHandle, int platformUserData);
 
     public void SetWindowFocus(long platformHandle, int platformUserData);
 

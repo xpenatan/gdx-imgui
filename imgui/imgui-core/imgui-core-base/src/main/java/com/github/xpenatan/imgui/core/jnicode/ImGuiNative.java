@@ -5,7 +5,6 @@ import com.github.xpenatan.imgui.core.ImGuiIO;
 import com.github.xpenatan.imgui.core.ImGuiInputTextData;
 import com.github.xpenatan.imgui.core.ImGuiStyle;
 import com.github.xpenatan.imgui.core.ImGuiViewport;
-import com.github.xpenatan.imgui.core.ImVec2;
 import com.github.xpenatan.imgui.core.TexDataRGBA32;
 import java.nio.Buffer;
 
@@ -60,7 +59,6 @@ public class ImGuiNative {
         ImGuiHelper::Init(env);
         jclass jImGuiIOClass = env->FindClass("com/github/xpenatan/imgui/core/ImGuiIO");
         jclass jImGuiStyleClass = env->FindClass("com/github/xpenatan/imgui/core/ImGuiStyle");
-        jclass jImVec4Class = env->FindClass("com/github/xpenatan/imgui/core/ImVec4");
         jclass jImInputTextDataClass = env->FindClass("com/github/xpenatan/imgui/core/ImGuiInputTextData");
 
         // ImGuiIO Prepare IDs
@@ -281,11 +279,17 @@ public class ImGuiNative {
     */
     public static native void StyleColorsLight();
 
+    /*[-teaVM;-NATIVE]
+        return ImGui.Begin(title);
+    */
     /*[-C++;-NATIVE]
         return ImGui::Begin(title);
     */
     public static native boolean Begin(String title);
 
+    /*[-teaVM;-NATIVE]
+        return ImGui.Begin(title, imGuiWindowFlags);
+    */
     /*[-C++;-NATIVE]
         return ImGui::Begin(title, NULL, imGuiWindowFlags);
     */
@@ -296,6 +300,9 @@ public class ImGuiNative {
     */
     public static native boolean Begin(String title, boolean[] p_open, int imGuiWindowFlags);
 
+    /*[-teaVM;-NATIVE]
+        ImGui.End();
+    */
     /*[-C++;-NATIVE]
         ImGui::End();
     */
@@ -599,27 +606,53 @@ public class ImGuiNative {
     */
     public static native void ChannelsSetCurrent(int type, int n);
 
-    /*[-C++;-NATIVE]
-        ImVec2 vec = ImGui::GetWindowPos();
-        ImGuiHelper::SetImVec2(env, vec, jImVec2);
+    /*[-teaVM;-NATIVE]
+        var out = ImGui.wrapPointer(vec2Addr, ImGui.ImVec2);
+        var nativeObject = ImGui.GetWindowPos();
+        out.set_x(nativeObject.get_x());
+        out.set_y(nativeObject.get_y());
     */
-    public static native void GetWindowPos(ImVec2 jImVec2);
+    /*[-C++;-NATIVE]
+        ImVec2 nativeObject = ImGui::GetWindowPos();
+        ImVec2 * out = (ImVec2*)vec2Addr;
+        out->x = nativeObject.x;
+        out->y = nativeObject.y;
+    */
+    public static native void GetWindowPos(long vec2Addr);
 
+    /*[-teaVM;-NATIVE]
+        var out = ImGui.wrapPointer(vec2Addr, ImGui.ImVec2);
+        var nativeObject = ImGui.GetWindowPos();
+        return nativeObject.get_x();
+    */
     /*[-C++;-NATIVE]
         return ImGui::GetWindowPos().x;
     */
     public static native float GetWindowPosX();
 
+    /*[-teaVM;-NATIVE]
+        var out = ImGui.wrapPointer(vec2Addr, ImGui.ImVec2);
+        var nativeObject = ImGui.GetWindowPos();
+        return nativeObject.get_y();
+    */
     /*[-C++;-NATIVE]
         return ImGui::GetWindowPos().y;
     */
     public static native float GetWindowPosY();
 
-    /*[-C++;-NATIVE]
-        ImVec2 vec = ImGui::GetWindowSize();
-        ImGuiHelper::SetImVec2(env, vec, jImVec2);
+    /*[-teaVM;-NATIVE]
+        var out = ImGui.wrapPointer(vec2Addr, ImGui.ImVec2);
+        var nativeObject = ImGui.GetWindowSize();
+        out.set_x(nativeObject.get_x());
+        out.set_y(nativeObject.get_y());
     */
-    public static native void GetWindowSize(ImVec2 jImVec2);
+    /*[-C++;-NATIVE]
+        ImVec2 nativeObject = ImGui::GetWindowSize();
+        ImVec2 * out = (ImVec2*)vec2Addr;
+        out->x = nativeObject.x;
+        out->y = nativeObject.y;
+    */
+    public static native void GetWindowSize(long vec2Addr);
 
     /*[-C++;-NATIVE]
         return ImGui::GetWindowWidth();
@@ -764,29 +797,61 @@ public class ImGuiNative {
     // Content region
     // - Those functions are bound to be redesigned soon (they are confusing, incomplete and return values in local window coordinates which increases confusion)
 
-    /*[-C++;-NATIVE]
-        ImVec2 vec = ImGui::GetContentRegionMax();
-        ImGuiHelper::SetImVec2(env, vec, jImVec2);
+    /*[-teaVM;-NATIVE]
+        var out = ImGui.wrapPointer(vec2Addr, ImGui.ImVec2);
+        var nativeObject = ImGui.GetContentRegionMax();
+        out.set_x(nativeObject.get_x());
+        out.set_y(nativeObject.get_y());
     */
-    public static native void GetContentRegionMax(ImVec2 jImVec2);
+    /*[-C++;-NATIVE]
+        ImVec2 nativeObject = ImGui::GetContentRegionMax();
+        ImVec2 * out = (ImVec2*)vec2Addr;
+        out->x = nativeObject.x;
+        out->y = nativeObject.y;
+    */
+    public static native void GetContentRegionMax(long vec2Addr);
 
-    /*[-C++;-NATIVE]
-        ImVec2 vec = ImGui::GetContentRegionAvail();
-        ImGuiHelper::SetImVec2(env, vec, jImVec2);
+    /*[-teaVM;-NATIVE]
+        var out = ImGui.wrapPointer(vec2Addr, ImGui.ImVec2);
+        var nativeObject = ImGui.GetContentRegionAvail();
+        out.set_x(nativeObject.get_x());
+        out.set_y(nativeObject.get_y());
     */
-    public static native void GetContentRegionAvail(ImVec2 jImVec2);
+    /*[-C++;-NATIVE]
+        ImVec2 nativeObject = ImGui::GetContentRegionAvail();
+        ImVec2 * out = (ImVec2*)vec2Addr;
+        out->x = nativeObject.x;
+        out->y = nativeObject.y;
+    */
+    public static native void GetContentRegionAvail(long vec2Addr);
 
-    /*[-C++;-NATIVE]
-        ImVec2 vec = ImGui::GetWindowContentRegionMin();
-        ImGuiHelper::SetImVec2(env, vec, jImVec2);
+    /*[-teaVM;-NATIVE]
+        var out = ImGui.wrapPointer(vec2Addr, ImGui.ImVec2);
+        var nativeObject = ImGui.GetWindowContentRegionMin();
+        out.set_x(nativeObject.get_x());
+        out.set_y(nativeObject.get_y());
     */
-    public static native void GetWindowContentRegionMin(ImVec2 jImVec2);
+    /*[-C++;-NATIVE]
+        ImVec2 nativeObject = ImGui::GetWindowContentRegionMin();
+        ImVec2 * out = (ImVec2*)vec2Addr;
+        out->x = nativeObject.x;
+        out->y = nativeObject.y;
+    */
+    public static native void GetWindowContentRegionMin(long vec2Addr);
 
-    /*[-C++;-NATIVE]
-        ImVec2 vec = ImGui::GetWindowContentRegionMax();
-        ImGuiHelper::SetImVec2(env, vec, jImVec2);
+    /*[-teaVM;-NATIVE]
+        var out = ImGui.wrapPointer(vec2Addr, ImGui.ImVec2);
+        var nativeObject = ImGui.GetWindowContentRegionMax();
+        out.set_x(nativeObject.get_x());
+        out.set_y(nativeObject.get_y());
     */
-    public static native void GetWindowContentRegionMax(ImVec2 jImVec2);
+    /*[-C++;-NATIVE]
+        ImVec2 nativeObject = ImGui::GetWindowContentRegionMax();
+        ImVec2 * out = (ImVec2*)vec2Addr;
+        out->x = nativeObject.x;
+        out->y = nativeObject.y;
+    */
+    public static native void GetWindowContentRegionMax(long vec2Addr);
 
     /*[-C++;-NATIVE]
         return ImGui::GetWindowContentRegionWidth();
@@ -1091,17 +1156,33 @@ public class ImGuiNative {
     */
     public static native void SetCursorPosY(float y);
 
-    /*[-C++;-NATIVE]
-        ImVec2 vec = ImGui::GetCursorStartPos();
-        ImGuiHelper::SetImVec2(env, vec, jImVec2);
+    /*[-teaVM;-NATIVE]
+        var out = ImGui.wrapPointer(vec2Addr, ImGui.ImVec2);
+        var nativeObject = ImGui.GetCursorStartPos();
+        out.set_x(nativeObject.get_x());
+        out.set_y(nativeObject.get_y());
     */
-    public static native void GetCursorStartPos(ImVec2 jImVec2);
-
     /*[-C++;-NATIVE]
-        ImVec2 vec = ImGui::GetCursorScreenPos();
-        ImGuiHelper::SetImVec2(env, vec, jImVec2);
-     */
-    public static native void GetCursorScreenPos(ImVec2 jImVec2);
+        ImVec2 nativeObject = ImGui::GetCursorStartPos();
+        ImVec2 * out = (ImVec2*)vec2Addr;
+        out->x = nativeObject.x;
+        out->y = nativeObject.y;
+    */
+    public static native void GetCursorStartPos(long vec2Addr);
+
+    /*[-teaVM;-NATIVE]
+        var out = ImGui.wrapPointer(vec2Addr, ImGui.ImVec2);
+        var nativeObject = ImGui.GetCursorScreenPos();
+        out.set_x(nativeObject.get_x());
+        out.set_y(nativeObject.get_y());
+    */
+    /*[-C++;-NATIVE]
+        ImVec2 nativeObject = ImGui::GetCursorScreenPos();
+        ImVec2 * out = (ImVec2*)vec2Addr;
+        out->x = nativeObject.x;
+        out->y = nativeObject.y;
+    */
+    public static native void GetCursorScreenPos(long vec2Addr);
 
     /*[-C++;-NATIVE]
         ImGui::SetCursorScreenPos(ImVec2(x, y));
@@ -2575,23 +2656,47 @@ public class ImGuiNative {
     */
     public static native boolean IsAnyItemFocused();
 
-    /*[-C++;-NATIVE]
-        ImVec2 vec = ImGui::GetItemRectMin();
-        ImGuiHelper::SetImVec2(env, vec, jImVec2);
+    /*[-teaVM;-NATIVE]
+        var out = ImGui.wrapPointer(vec2Addr, ImGui.ImVec2);
+        var nativeObject = ImGui.GetItemRectMin();
+        out.set_x(nativeObject.get_x());
+        out.set_y(nativeObject.get_y());
     */
-    public static native void GetItemRectMin(ImVec2 jImVec2);
+    /*[-C++;-NATIVE]
+        ImVec2 nativeObject = ImGui::GetItemRectMin();
+        ImVec2 * out = (ImVec2*)vec2Addr;
+        out->x = nativeObject.x;
+        out->y = nativeObject.y;
+    */
+    public static native void GetItemRectMin(long vec2Addr);
 
-    /*[-C++;-NATIVE]
-        ImVec2 vec = ImGui::GetItemRectMax();
-        ImGuiHelper::SetImVec2(env, vec, jImVec2);
+    /*[-teaVM;-NATIVE]
+        var out = ImGui.wrapPointer(vec2Addr, ImGui.ImVec2);
+        var nativeObject = ImGui.GetItemRectMax();
+        out.set_x(nativeObject.get_x());
+        out.set_y(nativeObject.get_y());
     */
-    public static native void GetItemRectMax(ImVec2 jImVec2);
+    /*[-C++;-NATIVE]
+        ImVec2 nativeObject = ImGui::GetItemRectMax();
+        ImVec2 * out = (ImVec2*)vec2Addr;
+        out->x = nativeObject.x;
+        out->y = nativeObject.y;
+    */
+    public static native void GetItemRectMax(long vec2Addr);
 
-    /*[-C++;-NATIVE]
-        ImVec2 vec = ImGui::GetItemRectSize();
-        ImGuiHelper::SetImVec2(env, vec, jImVec2);
+    /*[-teaVM;-NATIVE]
+        var out = ImGui.wrapPointer(vec2Addr, ImGui.ImVec2);
+        var nativeObject = ImGui.GetItemRectSize();
+        out.set_x(nativeObject.get_x());
+        out.set_y(nativeObject.get_y());
     */
-    public static native void GetItemRectSize(ImVec2 jImVec2);
+    /*[-C++;-NATIVE]
+        ImVec2 nativeObject = ImGui::GetItemRectSize();
+        ImVec2 * out = (ImVec2*)vec2Addr;
+        out->x = nativeObject.x;
+        out->y = nativeObject.y;
+    */
+    public static native void GetItemRectSize(long vec2Addr);
 
     /*[-C++;-NATIVE]
         ImGui::SetItemAllowOverlap();
