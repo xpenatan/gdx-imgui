@@ -1,6 +1,11 @@
 package com.github.xpenatan.imgui.core;
 
-public class ImGuiViewport {
+public class ImGuiViewport extends ImGuiBase {
+
+    /*[-C++;-NATIVE]
+        #include "imgui.h"
+    */
+
     private int platformUserData;
     private long platformHandle;
     private int flags;

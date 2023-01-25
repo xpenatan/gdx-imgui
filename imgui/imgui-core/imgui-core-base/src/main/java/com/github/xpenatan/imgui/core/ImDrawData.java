@@ -9,19 +9,19 @@ public final class ImDrawData {
     public static int MAX_INDICES = 100000;
     public static int MAX_CMD = 1000;
 
-    public int cmdListsCount; // Number of ImDrawList* to render
-    public int totalIdxCount; // For convenience, sum of all ImDrawList's IdxBuffer.Size
-    public int totalVtxCount;
-    public int totalCmdCount;
+    private int cmdListsCount; // Number of ImDrawList* to render
+    private int totalIdxCount; // For convenience, sum of all ImDrawList's IdxBuffer.Size
+    private int totalVtxCount;
+    private int totalCmdCount;
 
-    public float displayPosX;
-    public float displayPosY;
+    private float displayPosX;
+    private float displayPosY;
 
-    public float displaySizeX;
-    public float displaySizeY;
+    private float displaySizeX;
+    private float displaySizeY;
 
-    public float framebufferScaleX;
-    public float framebufferScaleY;
+    private float framebufferScaleX;
+    private float framebufferScaleY;
 
     public final static int vBufferSize = (2 + 2 + 1) * 4;
     public final static int iBufferSize = 2;
@@ -48,5 +48,33 @@ public final class ImDrawData {
         this.vByteBuffer = vByteBuffer;
         this.iByteBuffer = iByteBuffer;
         this.cmdByteBuffer = cmdByteBuffer;
+    }
+
+    public int getCmdListsCount() {
+        return cmdListsCount;
+    }
+
+    public float getDisplayPosX() {
+        return displayPosX;
+    }
+
+    public float getDisplayPosY() {
+        return displayPosY;
+    }
+
+    public float getDisplaySizeX() {
+        return displaySizeX;
+    }
+
+    public float getDisplaySizeY() {
+        return displaySizeY;
+    }
+
+    public float getFramebufferScaleX() {
+        return framebufferScaleX;
+    }
+
+    public float getFramebufferScaleY() {
+        return framebufferScaleY;
     }
 }

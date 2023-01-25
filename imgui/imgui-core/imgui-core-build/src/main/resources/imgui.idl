@@ -14,3 +14,32 @@ interface ImVec2 {
     attribute float x;
     attribute float y;
 }
+
+interface ImDrawList {
+
+    attribute float x;
+    attribute float y;
+}
+
+interface ImVector {
+    void ImVector();
+    void clear();
+    long size();
+
+    attribute float x;
+    attribute float y;
+}
+
+interface ImDrawCmd {
+    [Value]attribute ImVec4 ClipRect
+    attribute long VtxOffset
+    attribute long IdxOffset
+    attribute long ElemCount
+    attribute long TextureId
+}
+
+interface ImDrawVert {
+    [Value]attribute ImVec2 pos;
+    [Value]attribute ImVec2 uv;
+    long ImVec2 pos;
+}

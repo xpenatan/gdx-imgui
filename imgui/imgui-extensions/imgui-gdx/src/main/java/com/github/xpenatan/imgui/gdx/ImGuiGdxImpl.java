@@ -107,7 +107,7 @@ public class ImGuiGdxImpl {
     }
 
     public void renderDrawData(ImDrawData drawData, int id) {
-        if(drawData.cmdListsCount > 0) {
+        if(drawData.getCmdListsCount() > 0) {
 //			Gdx.gl.glGetIntegerv(GL20.GL_CURRENT_PROGRAM, glTmpBuffer);
 //			int last_program = glTmpBuffer.get(0);
 //			Gdx.gl.glGetIntegerv(GL20.GL_TEXTURE_BINDING_2D, glTmpBuffer);
@@ -121,15 +121,15 @@ public class ImGuiGdxImpl {
             boolean last_enable_stencil_test = Gdx.gl.glIsEnabled(GL20.GL_STENCIL_TEST);
             boolean last_enable_scissor_test = Gdx.gl.glIsEnabled(GL20.GL_SCISSOR_TEST);
 
-            int fb_width = (int)(drawData.displaySizeX * drawData.framebufferScaleX);
-            int fb_height = (int)(drawData.displaySizeY * drawData.framebufferScaleY);
+            int fb_width = (int)(drawData.getDisplaySizeX() * drawData.getFramebufferScaleX());
+            int fb_height = (int)(drawData.getDisplaySizeY() * drawData.getFramebufferScaleY());
 
             setupRenderState(drawData, fb_width, fb_height);
 
-            float clip_offX = drawData.displayPosX; // (0,0) unless using multi-viewports
-            float clip_offY = drawData.displayPosY;
-            float clip_scaleX = drawData.framebufferScaleX; // (1,1) unless using retina display which are often (2,2)
-            float clip_scaleY = drawData.framebufferScaleY;
+            float clip_offX = drawData.getDisplayPosX(); // (0,0) unless using multi-viewports
+            float clip_offY = drawData.getDisplayPosY();
+            float clip_scaleX = drawData.getFramebufferScaleX(); // (1,1) unless using retina display which are often (2,2)
+            float clip_scaleY = drawData.getFramebufferScaleY();
 
             int verticesOffset = 0;
             int indicesOffset = 0;
@@ -138,7 +138,7 @@ public class ImGuiGdxImpl {
             drawData.iByteBuffer.position(0);
             drawData.cmdByteBuffer.position(0);
 
-            for(int i = 0; i < drawData.cmdListsCount; i++) {
+            for(int i = 0; i < drawData.getCmdListsCount(); i++) {
                 int curIndexPosition = drawData.iByteBuffer.position();
                 drawData.iByteBuffer.limit(curIndexPosition + 2);
                 short indexSize = (short)drawData.iByteBuffer.getShort();
@@ -229,10 +229,10 @@ public class ImGuiGdxImpl {
         Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
         Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
 
-        float L = drawData.displayPosX;
-        float R = drawData.displayPosX + drawData.displaySizeX;
-        float T = drawData.displayPosY;
-        float B = drawData.displayPosY + drawData.displaySizeY;
+        float L = drawData.getDisplayPosX();
+        float R = drawData.getDisplayPosX() + drawData.getDisplaySizeX();
+        float T = drawData.getDisplayPosY();
+        float B = drawData.getDisplayPosY() + drawData.getDisplaySizeY();
 
         matrix.val[0] = 2.0f / (R - L);
         matrix.val[1] = 0.0f;
