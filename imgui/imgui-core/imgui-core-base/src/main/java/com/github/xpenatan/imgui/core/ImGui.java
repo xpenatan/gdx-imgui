@@ -301,7 +301,8 @@ public class ImGui {
     }
 
     public static ImGuiViewport GetWindowViewport() {
-        return ImGuiNative.GetWindowViewport();
+        ImGuiViewport.TMP_EMPTY.setPointer(ImGuiNative.GetWindowViewport());
+        return ImGuiViewport.TMP_EMPTY;
     }
 
     // Window manipulation
@@ -1640,11 +1641,11 @@ public class ImGui {
     }
 
     public static int DockSpaceOverViewport(ImGuiViewport viewport) {
-        return ImGuiNative.DockSpaceOverViewport(viewport, ImGuiDockNodeFlags.None.getValue());
+        return ImGuiNative.DockSpaceOverViewport(viewport.getCPointer(), ImGuiDockNodeFlags.None.getValue());
     }
 
     public static int DockSpaceOverViewport(ImGuiViewport viewport, ImGuiDockNodeFlags flags) {
-        return ImGuiNative.DockSpaceOverViewport(viewport, flags.getValue());
+        return ImGuiNative.DockSpaceOverViewport(viewport.getCPointer(), flags.getValue());
     }
 
     public static void SetNextWindowDockID(int dock_id) {
@@ -1846,7 +1847,8 @@ public class ImGui {
     }
 
     public static ImGuiViewport GetMainViewport(boolean updateDrawData) {
-        return ImGuiNative.GetMainViewport(updateDrawData);
+        ImGuiViewport.TMP_EMPTY.setPointer(ImGuiNative.GetMainViewport(updateDrawData));
+        return ImGuiViewport.TMP_EMPTY;
     }
 
     // Miscellaneous Utilities
@@ -1916,7 +1918,11 @@ public class ImGui {
     }
 
     public static ImGuiViewport FindViewportByPlatformHandle(long platformHandle, boolean updateDrawData) {
-        return ImGuiNative.FindViewportByPlatformHandle(platformHandle, updateDrawData);
+        long pointer = ImGuiNative.FindViewportByPlatformHandle(platformHandle, updateDrawData);
+        if(pointer == 0)
+            return null;
+        ImGuiViewport.TMP_EMPTY.setPointer(pointer);
+        return ImGuiViewport.TMP_EMPTY;
     }
 
     // Internal methods

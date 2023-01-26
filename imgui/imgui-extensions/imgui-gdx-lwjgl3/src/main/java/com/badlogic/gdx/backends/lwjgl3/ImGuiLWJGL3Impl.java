@@ -133,7 +133,9 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
     }
 
     @Override
-    public void CreateWindow(ImGuiViewport viewport) {
+    public void CreateWindow(long viewportAddr) {
+        ImGuiViewport viewport = ImGuiViewport.TMP_EMPTY;
+        ImGuiViewport.TMP_EMPTY.setPointer(viewportAddr);
         nextUserData++;
         viewport.setPlatformUserData(nextUserData);
 
@@ -142,8 +144,10 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
         boolean isTopMost = (viewportFlags & ImGuiViewportFlags.TopMost.getValue()) == ImGuiViewportFlags.TopMost.getValue();
 
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-        config.setWindowPosition((int)viewport.getPosX(), (int)viewport.getPosY());
-        config.setWindowedMode((int)viewport.getSizeX(), (int)viewport.getSizeY());
+        ImVec2 pos = viewport.getPos();
+        ImVec2 size = viewport.getSize();
+        config.setWindowPosition((int)pos.getX(), (int)pos.getY());
+        config.setWindowedMode((int)size.getX(), (int)size.getY());
         config.windowDecorated = !noDecoration;
         config.title = "Empty";
 
@@ -223,7 +227,9 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
     }
 
     @Override
-    public void RendererRenderWindow(ImGuiViewport viewport) {
+    public void RendererRenderWindow(long viewportAddr) {
+        ImGuiViewport viewport = ImGuiViewport.TMP_EMPTY;
+        viewport.setPointer(viewportAddr);
     }
 
     @Override

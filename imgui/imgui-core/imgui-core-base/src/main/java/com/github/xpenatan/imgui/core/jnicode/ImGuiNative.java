@@ -1,6 +1,5 @@
 package com.github.xpenatan.imgui.core.jnicode;
 
-import com.github.xpenatan.imgui.core.ImDrawData;
 import com.github.xpenatan.imgui.core.ImGuiIO;
 import com.github.xpenatan.imgui.core.ImGuiInputTextData;
 import com.github.xpenatan.imgui.core.ImGuiStyle;
@@ -19,8 +18,6 @@ public class ImGuiNative {
         #else
         #include <stdint.h>     // intptr_t
         #endif
-
-        static jobject jViewport;
 
         // ImGuiIO
 
@@ -88,8 +85,6 @@ public class ImGuiNative {
 
         imTextInputDataSizeID = env->GetFieldID(jImInputTextDataClass, "size", "I");
         imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
-
-        jViewport = env->NewGlobalRef(ImGuiHelper::CreateJImGuiViewport(env));
     */
     public static native void init();
 
@@ -670,10 +665,9 @@ public class ImGuiNative {
 
     /*[-C++;-NATIVE]
         ImGuiViewport* viewport = ImGui::GetWindowViewport();
-        ImGuiHelper::SetImGuiViewport(env, viewport, jViewport);
-        return jViewport;
+        return (jlong)viewport;
     */
-    public static native ImGuiViewport GetWindowViewport();
+    public static native long GetWindowViewport();
 
     // Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin).
 
@@ -2499,11 +2493,10 @@ public class ImGuiNative {
     public static native int DockSpaceOverViewport();
 
     /*[-C++;-NATIVE]
-        ImGuiViewport tmp = ImGuiViewport();
-        ImGuiHelper::SetImGuiViewport(env, viewport, &tmp);
-        return ImGui::DockSpaceOverViewport(&tmp, flags);
+        ImGuiViewport * viewport = (ImGuiViewport*)viewportAddr;
+        return ImGui::DockSpaceOverViewport(viewport, flags);
     */
-    public static native int DockSpaceOverViewport(ImGuiViewport viewport, int flags);
+    public static native int DockSpaceOverViewport(long viewportAddr, int flags);
 
     /*[-C++;-NATIVE]
         ImGui::SetNextWindowDockID(dock_id, cond);
@@ -2714,10 +2707,9 @@ public class ImGuiNative {
 
     /*[-C++;-NATIVE]
         ImGuiViewport* viewport = ImGui::GetMainViewport();
-        ImGuiHelper::SetImGuiViewport(env, viewport, jViewport, updateDrawData);
-        return jViewport;
+        return (jlong)viewport;
     */
-    public static native ImGuiViewport GetMainViewport(boolean updateDrawData);
+    public static native long GetMainViewport(boolean updateDrawData);
 
     // Miscellaneous Utilities
 
@@ -2810,14 +2802,13 @@ public class ImGuiNative {
             if(viewport->PlatformHandle != NULL) {
                 int64_t viewportHandle = *(int64_t*)viewport->PlatformHandle;
                 if (viewportHandle == handle) {
-                    ImGuiHelper::SetImGuiViewport(env, viewport, jViewport, updateDrawData);
-                    return jViewport;
+                    return (jlong)viewport;
                 }
             }
         }
-        return NULL;
+        return 0;
     */
-    public static native ImGuiViewport FindViewportByPlatformHandle(long platformHandle, boolean updateDrawData);
+    public static native long FindViewportByPlatformHandle(long platformHandle, boolean updateDrawData);
 
     // ImGuiIO setters
 

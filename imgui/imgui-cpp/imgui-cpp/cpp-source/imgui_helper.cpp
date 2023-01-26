@@ -12,62 +12,9 @@ static JavaVM *jvm;
 //static jfieldID fid_ImVec2_x;
 //static jfieldID fid_ImVec2_y;
 
-// Java ImGuiViewport
-static jclass cls_viewport;
-static jmethodID mid_viewport_init;
-static jfieldID fid_ImGuiViewport_platformUserData;
-static jfieldID fid_ImGuiViewport_platformHandle;
-static jfieldID fid_ImGuiViewport_flags;
-static jfieldID fid_ImGuiViewport_sizeX;
-static jfieldID fid_ImGuiViewport_sizeY;
-static jfieldID fid_ImGuiViewport_posX;
-static jfieldID fid_ImGuiViewport_posY;
-static jfieldID fid_ImGuiViewport_drawData;
-
-static jfieldID fid_ImDrawData_vByteBuffer;
-static jfieldID fid_ImDrawData_iByteBuffer;
-static jfieldID fid_ImDrawData_cmdByteBuffer;
-static jfieldID fid_ImDrawData_totalVtxCount;
-static jfieldID fid_ImDrawData_totalIdxCount;
-static jfieldID fid_ImDrawData_totalCmdCount;
-static jfieldID fid_ImDrawData_CmdListsCount;
-static jfieldID fid_ImDrawData_displayPosX;
-static jfieldID fid_ImDrawData_displayPosY;
-static jfieldID fid_ImDrawData_displaySizeX;
-static jfieldID fid_ImDrawData_displaySizeY;
-static jfieldID fid_ImDrawData_framebufferScaleX;
-static jfieldID fid_ImDrawData_framebufferScaleY;
-
 void ImGuiHelper::Init(JNIEnv* env) {
     jint rs = env->GetJavaVM(&jvm);
     assert (rs == JNI_OK);
-
-    jclass cls_tmp_viewport = env->FindClass("com/github/xpenatan/imgui/core/ImGuiViewport");
-    cls_viewport = (jclass)env->NewGlobalRef(cls_tmp_viewport);
-    mid_viewport_init = env->GetMethodID(cls_viewport, "<init>", "()V");
-    fid_ImGuiViewport_platformUserData = env->GetFieldID(cls_viewport, "platformUserData", "I");
-    fid_ImGuiViewport_platformHandle = env->GetFieldID(cls_viewport, "platformHandle", "J");
-    fid_ImGuiViewport_flags = env->GetFieldID(cls_viewport, "flags", "I");
-    fid_ImGuiViewport_sizeX = env->GetFieldID(cls_viewport, "sizeX", "F");
-    fid_ImGuiViewport_sizeY = env->GetFieldID(cls_viewport, "sizeY", "F");
-    fid_ImGuiViewport_posX = env->GetFieldID(cls_viewport, "posX", "F");
-    fid_ImGuiViewport_posY = env->GetFieldID(cls_viewport, "posY", "F");
-    fid_ImGuiViewport_drawData = env->GetFieldID(cls_viewport, "drawData", "Lcom/github/xpenatan/imgui/core/ImDrawData;");
-
-//    jclass cls_jDrawData = env->FindClass("com/github/xpenatan/imgui/core/ImDrawData");
-//    fid_ImDrawData_vByteBuffer = env->GetFieldID(cls_jDrawData, "vByteBuffer", "Ljava/nio/ByteBuffer;");
-//    fid_ImDrawData_iByteBuffer = env->GetFieldID(cls_jDrawData, "iByteBuffer", "Ljava/nio/ByteBuffer;");
-//    fid_ImDrawData_cmdByteBuffer = env->GetFieldID(cls_jDrawData, "cmdByteBuffer", "Ljava/nio/ByteBuffer;");
-//    fid_ImDrawData_totalVtxCount = env->GetFieldID(cls_jDrawData, "totalVtxCount", "I");
-//    fid_ImDrawData_totalIdxCount = env->GetFieldID(cls_jDrawData, "totalIdxCount", "I");
-//    fid_ImDrawData_totalCmdCount = env->GetFieldID(cls_jDrawData, "totalCmdCount", "I");
-//    fid_ImDrawData_CmdListsCount = env->GetFieldID(cls_jDrawData, "cmdListsCount", "I");
-//    fid_ImDrawData_displayPosX = env->GetFieldID(cls_jDrawData, "displayPosX", "F");
-//    fid_ImDrawData_displayPosY = env->GetFieldID(cls_jDrawData, "displayPosY", "F");
-//    fid_ImDrawData_displaySizeX = env->GetFieldID(cls_jDrawData, "displaySizeX", "F");
-//    fid_ImDrawData_displaySizeY = env->GetFieldID(cls_jDrawData, "displaySizeY", "F");
-//    fid_ImDrawData_framebufferScaleX = env->GetFieldID(cls_jDrawData, "framebufferScaleX", "F");
-//    fid_ImDrawData_framebufferScaleY = env->GetFieldID(cls_jDrawData, "framebufferScaleY", "F");
 }
 
 JNIEnv* ImGuiHelper::GetEnv() {
@@ -77,47 +24,47 @@ JNIEnv* ImGuiHelper::GetEnv() {
     return env;
 }
 
-jobject ImGuiHelper::CreateJImGuiViewport(JNIEnv* env) {
-    return env->NewObject(cls_viewport, mid_viewport_init);
-}
+//jobject ImGuiHelper::CreateJImGuiViewport(JNIEnv* env) {
+//    return env->NewObject(cls_viewport, mid_viewport_init);
+//}
 
 void ImGuiHelper::SetImGuiViewport(JNIEnv* env, jobject in, ImGuiViewport* out) {
-    float value = 0;
-    int userData = env->GetIntField(in, fid_ImGuiViewport_platformUserData);
-    int64_t platformHandle = env->GetLongField(in, fid_ImGuiViewport_platformHandle);
-    out->PlatformUserData = (void*)userData;
-    int64_t * handler = (int64_t*)out->PlatformHandle;
-    *handler = platformHandle;
-    out->Flags = env->GetIntField(in, fid_ImGuiViewport_flags);
-    value = env->GetFloatField(in, fid_ImGuiViewport_sizeX);
-    out->Size.x = value;
-    value = env->GetFloatField(in, fid_ImGuiViewport_sizeY);
-    out->Size.y = value;
-    value = env->GetFloatField(in, fid_ImGuiViewport_posX);
-    out->Pos.x = value;
-    value = env->GetFloatField(in, fid_ImGuiViewport_posY);
-    out->Pos.y = value;
+//    float value = 0;
+//    int userData = env->GetIntField(in, fid_ImGuiViewport_platformUserData);
+//    int64_t platformHandle = env->GetLongField(in, fid_ImGuiViewport_platformHandle);
+//    out->PlatformUserData = (void*)userData;
+//    int64_t * handler = (int64_t*)out->PlatformHandle;
+//    *handler = platformHandle;
+//    out->Flags = env->GetIntField(in, fid_ImGuiViewport_flags);
+//    value = env->GetFloatField(in, fid_ImGuiViewport_sizeX);
+//    out->Size.x = value;
+//    value = env->GetFloatField(in, fid_ImGuiViewport_sizeY);
+//    out->Size.y = value;
+//    value = env->GetFloatField(in, fid_ImGuiViewport_posX);
+//    out->Pos.x = value;
+//    value = env->GetFloatField(in, fid_ImGuiViewport_posY);
+//    out->Pos.y = value;
 }
 
 void ImGuiHelper::SetImGuiViewport(JNIEnv* env, ImGuiViewport* in, jobject out, bool updateDrawData) {
-    if(in->PlatformUserData != NULL) {
-        intptr_t value = reinterpret_cast<intptr_t>(in->PlatformUserData);
-        int platformUserData = static_cast<int>(value);
-        env->SetIntField (out, fid_ImGuiViewport_platformUserData, platformUserData);
-    }
-    if(in->PlatformHandle != NULL) {
-        int64_t * value = (int64_t*)in->PlatformHandle;
-        env->SetLongField (out, fid_ImGuiViewport_platformHandle, *value);
-    }
-    env->SetIntField (out, fid_ImGuiViewport_flags, in->Flags);
-    env->SetFloatField (out, fid_ImGuiViewport_sizeX, in->Size.x);
-    env->SetFloatField (out, fid_ImGuiViewport_sizeY, in->Size.y);
-    env->SetFloatField (out, fid_ImGuiViewport_posX, in->Pos.x);
-    env->SetFloatField (out, fid_ImGuiViewport_posY, in->Pos.y);
-    if(updateDrawData) {
-        jobject obj_drawData = env->GetObjectField(out, fid_ImGuiViewport_drawData);
-        ImGuiHelper::SetImDrawData(env, in->DrawData, obj_drawData);
-    }
+//    if(in->PlatformUserData != NULL) {
+//        intptr_t value = reinterpret_cast<intptr_t>(in->PlatformUserData);
+//        int platformUserData = static_cast<int>(value);
+//        env->SetIntField (out, fid_ImGuiViewport_platformUserData, platformUserData);
+//    }
+//    if(in->PlatformHandle != NULL) {
+//        int64_t * value = (int64_t*)in->PlatformHandle;
+//        env->SetLongField (out, fid_ImGuiViewport_platformHandle, *value);
+//    }
+//    env->SetIntField (out, fid_ImGuiViewport_flags, in->Flags);
+//    env->SetFloatField (out, fid_ImGuiViewport_sizeX, in->Size.x);
+//    env->SetFloatField (out, fid_ImGuiViewport_sizeY, in->Size.y);
+//    env->SetFloatField (out, fid_ImGuiViewport_posX, in->Pos.x);
+//    env->SetFloatField (out, fid_ImGuiViewport_posY, in->Pos.y);
+//    if(updateDrawData) {
+//        jobject obj_drawData = env->GetObjectField(out, fid_ImGuiViewport_drawData);
+//        ImGuiHelper::SetImDrawData(env, in->DrawData, obj_drawData);
+//    }
 }
 
 void ImGuiHelper::SetImDrawData(JNIEnv* env, ImDrawData* drawData, jobject jDrawData) {

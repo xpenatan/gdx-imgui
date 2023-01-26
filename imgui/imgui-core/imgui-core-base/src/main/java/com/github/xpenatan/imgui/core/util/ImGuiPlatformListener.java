@@ -1,10 +1,7 @@
 package com.github.xpenatan.imgui.core.util;
 
-import com.github.xpenatan.imgui.core.ImGuiViewport;
-import com.github.xpenatan.imgui.core.ImVec2;
-
 public interface ImGuiPlatformListener {
-    public void CreateWindow(ImGuiViewport viewport);
+    public void CreateWindow(long viewportAddr);
 
     public void DestroyWindow(long platformHandle, int platformUserData);
 
@@ -28,7 +25,7 @@ public interface ImGuiPlatformListener {
 
     public void PlatformRenderWindow(long platformHandle, int platformUserData);
 
-    public void RendererRenderWindow(ImGuiViewport viewport);
+    public void RendererRenderWindow(long viewportAddr);
 
     public void SwapBuffers(long platformHandle, int platformUserData);
 }

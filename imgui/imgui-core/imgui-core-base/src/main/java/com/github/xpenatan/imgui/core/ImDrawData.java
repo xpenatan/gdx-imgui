@@ -7,40 +7,10 @@ public final class ImDrawData extends ImGuiBase {
         #include "imgui.h"
     */
 
-    public static int MAX_VERTICES = 100000;
-    public static int MAX_INDICES = 100000;
-    public static int MAX_CMD = 1000;
-
-    private int cmdListsCount; // Number of ImDrawList* to render
-    private int totalIdxCount; // For convenience, sum of all ImDrawList's IdxBuffer.Size
-    private int totalVtxCount;
-    private int totalCmdCount;
-
-    private float displayPosX;
-    private float displayPosY;
-
-    private float displaySizeX;
-    private float displaySizeY;
-
-    private float framebufferScaleX;
-    private float framebufferScaleY;
-
-
     private ImDrawList imDrawList = new ImDrawList(false);
 
     public ImDrawData(boolean cMemoryOwn) {
     }
-
-//    public ByteBuffer byteBuffer =  ByteBuffer.allocateDirect(25000).order(ByteOrder.nativeOrder());
-//    public ByteBuffer iByteBuffer;
-//    public ByteBuffer cmdByteBuffer;
-
-
-//    public ImDrawData(ByteBuffer vByteBuffer, ByteBuffer iByteBuffer, ByteBuffer cmdByteBuffer) {
-//        this.vByteBuffer = vByteBuffer;
-//        this.iByteBuffer = iByteBuffer;
-//        this.cmdByteBuffer = cmdByteBuffer;
-//    }
 
     public int getCmdListsCount() {
         return getCmdListsCountNATIVE(getCPointer());
