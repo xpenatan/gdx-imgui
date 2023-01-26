@@ -1,27 +1,18 @@
-package com.github.xpenatan.imgui.example.gdx;
+package com.github.xpenatan.imgui.example.viewport;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.ImGuiLWJGL3Impl;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.github.xpenatan.gdx.frame.viewport.EmuApplicationWindow;
 import com.github.xpenatan.gdx.frame.viewport.EmuInput;
-import com.github.xpenatan.imgui.ImDrawData;
-import com.github.xpenatan.imgui.ImGui;
-import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
+import com.github.xpenatan.imgui.core.ImDrawData;
+import com.github.xpenatan.imgui.core.ImGui;
+import com.github.xpenatan.imgui.core.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
 import com.github.xpenatan.imgui.gdx.frame.viewport.ImGuiGdxFrameWindow;
 
-public class GameViewportExample implements ApplicationListener {
-    public static void main(String[] args) {
-        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-        config.setWindowedMode(1080, 800);
-        config.setTitle("Gdx-imgui");
-        config.useVsync(true);
-        new Lwjgl3Application(new GameViewportExample(), config);
-    }
+public class MainApp implements ApplicationListener {
 
     boolean init = false;
 

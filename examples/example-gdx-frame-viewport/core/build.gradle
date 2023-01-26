@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'java-library'
+}
+
+dependencies {
+    // Required
+    implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
+
+    implementation project(":imgui:imgui-core:imgui-core")
+    implementation project(":imgui:imgui-extensions:imgui-gdx")
+
+    // Optional. Used for multi viewports. Currently WIP.
+    implementation project(":imgui:imgui-extensions:imgui-gdx-lwjgl3")
+
+    // Optional
+    implementation project(":imgui:imgui-extensions:imgui-gdx-frame-viewport")
+    implementation "com.github.xpenatan:gdx-frame-viewport:$project.gdxFrameViewportVersion"
+
+    // Use JUnit test framework
+    testImplementation "junit:junit:$project.jUnitVersion"
+}

@@ -230,7 +230,7 @@ public class ImGuiPlatformNative {
 
         {
             jclass cls_platformListener = env->FindClass("com/github/xpenatan/imgui/core/util/ImGuiPlatformListener");
-            mid_Platform_CreateWindow = env->GetMethodID(cls_platformListener, "CreateWindow", "(I)V");
+            mid_Platform_CreateWindow = env->GetMethodID(cls_platformListener, "CreateWindow", "(J)V");
             mid_Platform_ShowWindow = env->GetMethodID(cls_platformListener, "ShowWindow", "(JI)V");
             mid_Platform_DestroyWindow = env->GetMethodID(cls_platformListener, "DestroyWindow", "(JI)V");
             mid_Platform_SetWindowPos = env->GetMethodID(cls_platformListener, "SetWindowPos", "(JIFF)V");
@@ -243,7 +243,7 @@ public class ImGuiPlatformNative {
             mid_Platform_SetWindowTitle = env->GetMethodID(cls_platformListener, "SetWindowTitle", "(JILjava/lang/String;)V");
             mid_Platform_RenderWindow = env->GetMethodID(cls_platformListener, "PlatformRenderWindow", "(JI)V");
             mid_Platform_SwapBuffers = env->GetMethodID(cls_platformListener, "SwapBuffers", "(JI)V");
-            mid_Renderer_RenderWindow = env->GetMethodID(cls_platformListener, "RendererRenderWindow", "(I)V");
+            mid_Renderer_RenderWindow = env->GetMethodID(cls_platformListener, "RendererRenderWindow", "(J)V");
         }
 
         ImGui::GetIO().BackendFlags |= ImGuiBackendFlags_PlatformHasViewports;

@@ -1,4 +1,4 @@
-package com.github.xpenatan.imgui.example.gdx;
+package com.github.xpenatan.imgui.example.viewport;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;

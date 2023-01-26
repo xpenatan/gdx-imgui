@@ -16,7 +16,8 @@ include ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout-build"
 include ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout-base"
 
 //include ":examples:example-gdx"
-//include ":examples:example-gdx-frame-viewport"
+include ":examples:example-gdx-frame-viewport:core"
+include ":examples:example-gdx-frame-viewport:desktop"
 
 // Examples
 include ":examples:basic:core"
