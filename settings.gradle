@@ -15,9 +15,8 @@ include ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout"
 include ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout-build"
 include ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout-base"
 
-//include ":examples:example-gdx"
-include ":examples:example-gdx-frame-viewport:core"
-include ":examples:example-gdx-frame-viewport:desktop"
+include ":examples:gdx-frame-viewport:core"
+include ":examples:gdx-frame-viewport:desktop"
 
 // Examples
 include ":examples:basic:core"
@@ -28,23 +27,8 @@ include ":examples:imlayout:core"
 include ":examples:imlayout:desktop"
 include ":examples:imlayout:teavm"
 
-//includeBuild('D:\\Dev\\Projects\\java\\jParser') {
-//    dependencySubstitution {
-//        substitute module('com.github.xpenatan.jParser:jParser-core') with project(':jParser:core')
-//        substitute module('com.github.xpenatan.jParser:jParser-loader') with project(':jParser:loader')
-//        substitute module('com.github.xpenatan.jParser:jParser-cpp') with project(':jParser:cpp')
-//        substitute module('com.github.xpenatan.jParser:jParser-teavm') with project(':jParser:teavm')
-//    }
-//}
+include ":examples:imlayout:core"
+include ":examples:imlayout:desktop"
 
-//includeBuild('E:\\Dev\\Projects\\java\\jDear-imgui') {
-//    dependencySubstitution {
-//        substitute module('com.github.xpenatan.jDear-Imgui:imgui-gdx-frame-viewport') with project(':extensions:imgui-gdx-frame-viewport')
-//    }
-//}
-//
-//includeBuild('E:\\Dev\\Projects\\java\\gdx-frame-viewport') {
-//    dependencySubstitution {
-//        substitute module('com.github.xpenatan:gdx-frame-viewport') with project(':core')
-//    }
-//}
+//include ":examples:gdx-tests:core"
+//include ":examples:gdx-tests:desktop"

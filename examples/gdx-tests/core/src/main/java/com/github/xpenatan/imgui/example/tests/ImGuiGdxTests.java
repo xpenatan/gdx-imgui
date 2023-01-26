@@ -1,42 +1,31 @@
-package com.github.xpenatan.imgui.example.gdx;
+package com.github.xpenatan.imgui.example.tests;
 
+import com.github.xpenatan.imgui.core.ImDrawData;
+import com.github.xpenatan.imgui.core.ImGui;
+import com.github.xpenatan.imgui.core.ImGuiBoolean;
+import com.github.xpenatan.imgui.core.ImGuiInt;
+import com.github.xpenatan.imgui.core.enums.ImGuiConfigFlags;
+import com.github.xpenatan.imgui.core.enums.ImGuiStyleVar;
+import com.github.xpenatan.imgui.core.enums.ImGuiWindowFlags;
+import com.github.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
 import java.util.List;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.tests.InputTest;
 import com.badlogic.gdx.tests.utils.GdxTest;
 import com.badlogic.gdx.tests.utils.GdxTests;
 import com.github.xpenatan.gdx.frame.viewport.EmuApplicationWindow;
 import com.github.xpenatan.gdx.frame.viewport.EmuFrameBuffer;
-import com.github.xpenatan.imgui.DrawData;
-import com.github.xpenatan.imgui.ImGui;
-import com.github.xpenatan.imgui.ImGuiBoolean;
-import com.github.xpenatan.imgui.ImGuiInt;
-import com.github.xpenatan.imgui.enums.ImGuiConfigFlags;
-import com.github.xpenatan.imgui.enums.ImGuiStyleVar;
-import com.github.xpenatan.imgui.enums.ImGuiWindowFlags;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.github.xpenatan.imgui.gdx.frame.viewport.ImGuiGdxFrameWindow;
 
 /**
  * Requires Gdx-test
  */
-public class TestsExample implements ApplicationListener {
-
-    public static void main(String[] args) {
-
-        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.width = 1600;
-        config.height = 900;
-        config.title = "ImGui-Gdx-tests";
-        config.vSyncEnabled = true;
-        new LwjglApplication(new TestsExample(), config);
-    }
+public class ImGuiGdxTests implements ApplicationListener {
 
     ImGuiGdxImpl impl;
 
@@ -65,14 +54,14 @@ public class TestsExample implements ApplicationListener {
 
         emuApplication = new EmuApplicationWindow();
         gameWindow = new ImGuiGdxFrameWindow(emuApplication, 400, 400, 300, 100);
-
         gameWindow.setName("Game");
-
-        Gdx.input.setInputProcessor(gameWindow.getInput());
 
         names = GdxTests.getNames();
 
         emuApplication.setApplicationListener(new InputTest());
+
+        ImGuiGdxInputMultiplexer multiplexer = new ImGuiGdxInputMultiplexer();
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     private void drawTestListWindow() {
@@ -107,12 +96,8 @@ public class TestsExample implements ApplicationListener {
         int backBufferWidth = Gdx.graphics.getBackBufferWidth();
         int backBufferHeight = Gdx.graphics.getBackBufferHeight();
 
-        boolean mouseDown0 = Gdx.input.isButtonPressed(Buttons.LEFT);
-        boolean mouseDown1 = Gdx.input.isButtonPressed(Buttons.RIGHT);
-        boolean mouseDown2 = Gdx.input.isButtonPressed(Buttons.MIDDLE);
 
-        ImGui.UpdateDisplayAndInputAndFrame(Gdx.graphics.getDeltaTime(), width, height, backBufferWidth, backBufferHeight,
-                Gdx.input.getX(), Gdx.input.getY(), mouseDown0, mouseDown1, mouseDown2);
+        impl.update();
 
         ImGui.SetNextWindowSize(width, height);
         ImGui.SetNextWindowPos(0, 0);
@@ -136,7 +121,7 @@ public class TestsExample implements ApplicationListener {
         ImGui.End();
 
         ImGui.Render();
-        DrawData drawData = ImGui.GetDrawData();
+        ImDrawData drawData = ImGui.GetDrawData();
         impl.render(drawData);
     }
 

@@ -5,24 +5,21 @@ plugins {
 import org.gradle.internal.os.OperatingSystem
 
 dependencies {
-    implementation project(":examples:example-gdx-frame-viewport:core")
+    implementation project(":examples:gdx-tests:core")
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
     implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-
-    // Repo Lib
-//    implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-desktop"
 
     // Local Lib
     implementation files("../../../imgui/imgui-core/imgui-core/jni/libs/imgui-core-natives.jar")
     implementation files("../../../imgui/imgui-extensions/imgui-imlayout/imgui-imlayout/libs/imlayout-natives.jar")
 }
 
-project.ext.mainClassName = "com.github.xpenatan.imgui.example.viewport.Main"
-project.ext.assetsDir = new File("../assets");
+project.ext.mainClassName = "com.github.xpenatan.imgui.example.tests.Main"
+project.ext.assetsDir = new File("D:\\Dev\\Projects\\java\\Libgdx\\tests\\gdx-tests-android\\assets\\");
 
-task runFrameViewportExample(dependsOn: classes, type: JavaExec) {
+task runGdxTests(dependsOn: classes, type: JavaExec) {
     setGroup("examples")
-    setDescription("Run viewport example")
+    setDescription("Run gdx tests example")
     mainClass.set(project.mainClassName)
     setClasspath(sourceSets.main.runtimeClasspath)
     workingDir = project.assetsDir
