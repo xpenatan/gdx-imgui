@@ -142,8 +142,8 @@ public class ImGuiGdxFrameWindow {
             windowHeight = (int)ImGui.GetWindowHeight();
 
             ImVec2 winPos = ImGui.GetWindowPos();
-            windowX = (int)winPos.x;
-            windowY = (int)winPos.y;
+            windowX = (int)winPos.getX();
+            windowY = (int)winPos.getY();
 
             if(input.needsFocus())
                 ImGui.SetWindowFocus();
