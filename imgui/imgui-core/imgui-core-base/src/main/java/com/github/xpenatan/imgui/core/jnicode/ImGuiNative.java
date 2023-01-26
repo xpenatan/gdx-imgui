@@ -258,11 +258,15 @@ public class ImGuiNative {
     */
     public static native void SetFontTexID(int id);
 
+    /*[-teaVM;-NATIVE]
+        var jsObj = new ImGui.GetDrawData();
+        return ImGui.getPointer(jsObj);
+    */
     /*[-C++;-NATIVE]
         ImDrawData * drawData = ImGui::GetDrawData();
-        ImGuiHelper::SetImDrawData(env, drawData, jDrawData);
+        return (jlong)drawData;
     */
-    public static native void GetDrawData(ImDrawData jDrawData);
+    public static native long GetDrawData();
 
     /*[-C++;-NATIVE]
         ImGui::StyleColorsDark();

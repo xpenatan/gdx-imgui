@@ -5,6 +5,8 @@ interface ImGui {
     void SameLine(optional float offset_from_start_x, optional float spacing);
 
     [Value]ImVec2 GetWindowPos();
+
+    ImDrawData GetDrawData();
 };
 
 interface ImVec2 {
@@ -42,4 +44,20 @@ interface ImDrawVert {
     [Value]attribute ImVec2 pos;
     [Value]attribute ImVec2 uv;
     long ImVec2 pos;
+}
+
+interface ImDrawData {
+    attribute long CmdListsCount;
+    attribute long TotalIdxCount;
+    attribute long TotalVtxCount;
+    attribute ImDrawList[] CmdLists;
+    [Value]attribute ImVec2 DisplayPos;
+    [Value]attribute ImVec2 DisplaySize;
+    [Value]attribute ImVec2 FramebufferScale;
+}
+
+interface ImDrawList {
+    [Value]attribute ImVector CmdBuffer;
+    [Value]attribute ImVector IdxBuffer;
+    [Value]attribute ImVector VtxBuffer;
 }

@@ -1,9 +1,11 @@
 package com.github.xpenatan.imgui.core;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 
-public final class ImDrawData {
+public final class ImDrawData extends ImGuiBase {
+
+    /*[-C++;-NATIVE]
+        #include "imgui.h"
+    */
 
     public static int MAX_VERTICES = 100000;
     public static int MAX_INDICES = 100000;
@@ -23,58 +25,135 @@ public final class ImDrawData {
     private float framebufferScaleX;
     private float framebufferScaleY;
 
-    public final static int vBufferSize = (2 + 2 + 1) * 4;
-    public final static int iBufferSize = 2;
-    public final static int cmdBufferSize = (1 + 4 + 1) * 4;
 
-    public ByteBuffer vByteBuffer;
-    public ByteBuffer iByteBuffer;
-    public ByteBuffer cmdByteBuffer;
+    private ImDrawList imDrawList = new ImDrawList(false);
 
-    public ImDrawData() {
-        this(MAX_VERTICES, MAX_INDICES, MAX_CMD);
+    public ImDrawData(boolean cMemoryOwn) {
     }
 
-    public ImDrawData(int maxVertices, int maxIndices, int maxCmd) {
-        this.vByteBuffer = ByteBuffer.allocateDirect(maxVertices * vBufferSize);
-        this.iByteBuffer = ByteBuffer.allocateDirect(maxIndices * iBufferSize);
-        this.cmdByteBuffer = ByteBuffer.allocateDirect(maxCmd * cmdBufferSize);
-        vByteBuffer.order(ByteOrder.nativeOrder());
-        iByteBuffer.order(ByteOrder.nativeOrder());
-        cmdByteBuffer.order(ByteOrder.nativeOrder());
-    }
+//    public ByteBuffer byteBuffer =  ByteBuffer.allocateDirect(25000).order(ByteOrder.nativeOrder());
+//    public ByteBuffer iByteBuffer;
+//    public ByteBuffer cmdByteBuffer;
 
-    public ImDrawData(ByteBuffer vByteBuffer, ByteBuffer iByteBuffer, ByteBuffer cmdByteBuffer) {
-        this.vByteBuffer = vByteBuffer;
-        this.iByteBuffer = iByteBuffer;
-        this.cmdByteBuffer = cmdByteBuffer;
-    }
+
+//    public ImDrawData(ByteBuffer vByteBuffer, ByteBuffer iByteBuffer, ByteBuffer cmdByteBuffer) {
+//        this.vByteBuffer = vByteBuffer;
+//        this.iByteBuffer = iByteBuffer;
+//        this.cmdByteBuffer = cmdByteBuffer;
+//    }
 
     public int getCmdListsCount() {
-        return cmdListsCount;
+        return getCmdListsCountNATIVE(getCPointer());
     }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawData);
+        return nativeObject.get_CmdListsCount();
+    */
+    /*[-C++;-NATIVE]
+        ImDrawData* nativeObject = (ImDrawData*)addr;
+        return nativeObject->CmdListsCount;
+    */
+    private static native int getCmdListsCountNATIVE(long addr);
+
+    public ImDrawList getCmdLists(int index) {
+        long pointer = getCmdListsNATIVE(getCPointer(), index);
+        imDrawList.setPointer(pointer);
+        return imDrawList;
+    }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawData);
+        var jsObj = nativeObject.get_CmdLists()[index];
+        return ImGui.getPointer(jsObj); ;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawData* nativeObject = (ImDrawData*)addr;
+        return (jlong)nativeObject->CmdLists[index];
+    */
+    private static native long getCmdListsNATIVE(long addr, int index);
 
     public float getDisplayPosX() {
-        return displayPosX;
+        return getDisplayPosXNATIVE(getCPointer());
     }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawData);
+        return nativeObject.DisplayPos.get_x();
+    */
+    /*[-C++;-NATIVE]
+        ImDrawData* nativeObject = (ImDrawData*)addr;
+        return nativeObject->DisplayPos.x;
+    */
+    private static native int getDisplayPosXNATIVE(long addr);
 
     public float getDisplayPosY() {
-        return displayPosY;
+        return getDisplayPosYNATIVE(getCPointer());
     }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawData);
+        return nativeObject.DisplayPos.get_y();
+    */
+    /*[-C++;-NATIVE]
+        ImDrawData* nativeObject = (ImDrawData*)addr;
+        return nativeObject->DisplayPos.y;
+    */
+    private static native int getDisplayPosYNATIVE(long addr);
 
     public float getDisplaySizeX() {
-        return displaySizeX;
+        return getDisplaySizeXNATIVE(getCPointer());
     }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawData);
+        return nativeObject.DisplaySize.get_x();
+    */
+    /*[-C++;-NATIVE]
+        ImDrawData* nativeObject = (ImDrawData*)addr;
+        return nativeObject->DisplaySize.x;
+    */
+    private static native int getDisplaySizeXNATIVE(long addr);
 
     public float getDisplaySizeY() {
-        return displaySizeY;
+        return getDisplaySizeYNATIVE(getCPointer());
     }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawData);
+        return nativeObject.DisplaySize.get_y();
+    */
+    /*[-C++;-NATIVE]
+        ImDrawData* nativeObject = (ImDrawData*)addr;
+        return nativeObject->DisplaySize.y;
+    */
+    private static native int getDisplaySizeYNATIVE(long addr);
 
     public float getFramebufferScaleX() {
-        return framebufferScaleX;
+        return getFramebufferScaleXNATIVE(getCPointer());
     }
 
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawData);
+        return nativeObject.FramebufferScale.get_x();
+    */
+    /*[-C++;-NATIVE]
+        ImDrawData* nativeObject = (ImDrawData*)addr;
+        return nativeObject->FramebufferScale.x;
+    */
+    private static native int getFramebufferScaleXNATIVE(long addr);
+
     public float getFramebufferScaleY() {
-        return framebufferScaleY;
+        return getFramebufferScaleYNATIVE(getCPointer());
     }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawData);
+        return nativeObject.FramebufferScale.get_y();
+    */
+    /*[-C++;-NATIVE]
+        ImDrawData* nativeObject = (ImDrawData*)addr;
+        return nativeObject->FramebufferScale.y;
+    */
+    private static native int getFramebufferScaleYNATIVE(long addr);
 }

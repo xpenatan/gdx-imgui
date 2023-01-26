@@ -13,7 +13,7 @@ public class ImGuiViewport extends ImGuiBase {
     private float sizeY;
     private float posX;
     private float posY;
-    private final ImDrawData drawData = new ImDrawData();
+    private final ImDrawData drawData = new ImDrawData(false);
 
     public void setPlatformUserData(int platformUserData) {
         this.platformUserData = platformUserData;

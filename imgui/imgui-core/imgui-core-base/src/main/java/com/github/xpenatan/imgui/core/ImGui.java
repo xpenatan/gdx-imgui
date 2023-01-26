@@ -50,7 +50,7 @@ public class ImGui {
         ImGuiNative.init();
         ImGuiNative.CreateContext(saveIni);
 
-        drawData = new ImDrawData();
+        drawData = new ImDrawData(false);
         imguiIO = new ImGuiIO();
         imguiStyle = new ImGuiStyle();
         imDrawList = new ImDrawList(ImDrawList.TYPE_DEFAULT);
@@ -156,7 +156,8 @@ public class ImGui {
     }
 
     public static ImDrawData GetDrawData() {
-        ImGuiNative.GetDrawData(drawData);
+        long pointer = ImGuiNative.GetDrawData();
+        drawData.setPointer(pointer);
         return drawData;
     }
 

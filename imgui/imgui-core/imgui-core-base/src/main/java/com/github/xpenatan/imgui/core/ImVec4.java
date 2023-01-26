@@ -2,6 +2,7 @@ package com.github.xpenatan.imgui.core;
 
 public class ImVec4 extends ImGuiBase {
     public static ImVec4 TMP = new ImVec4(true);
+    public static ImVec4 TMP_EMPTY = new ImVec4(false);
 
     /*[-C++;-NATIVE]
         #include "imgui.h"
@@ -125,6 +126,34 @@ public class ImVec4 extends ImGuiBase {
         return nativeObject->z;
     */
     private static native float getZNATIVE(long addr);
+
+    public void setW(float z) {
+        setWNATIVE(getCPointer(), z);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImVec4);
+        nativeObject.set_w(value);
+    */
+    /*[-C++;-NATIVE]
+        ImVec4* nativeObject = (ImVec4*)addr;
+        nativeObject->w = value;
+    */
+    private static native void setWNATIVE(long addr, float value);
+
+    public float getW() {
+        return getWNATIVE(getCPointer());
+    }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImVec4);
+        return nativeObject.get_w();
+    */
+    /*[-C++;-NATIVE]
+        ImVec4* nativeObject = (ImVec4*)addr;
+        return nativeObject->w;
+    */
+    private static native float getWNATIVE(long addr);
 
     public void set(float x, float y, float z, float w) {
         setNATIVE(getCPointer(), x, y, z, w);

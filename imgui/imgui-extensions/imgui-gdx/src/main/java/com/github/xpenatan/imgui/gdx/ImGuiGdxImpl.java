@@ -8,9 +8,13 @@ import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.BufferUtils;
+import com.github.xpenatan.imgui.core.ImDrawCmd;
 import com.github.xpenatan.imgui.core.ImDrawData;
+import com.github.xpenatan.imgui.core.ImDrawList;
 import com.github.xpenatan.imgui.core.ImGui;
+import com.github.xpenatan.imgui.core.ImVec4;
 import com.github.xpenatan.imgui.core.TexDataRGBA32;
+import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 /**
@@ -107,14 +111,8 @@ public class ImGuiGdxImpl {
     }
 
     public void renderDrawData(ImDrawData drawData, int id) {
-        if(drawData.getCmdListsCount() > 0) {
-//			Gdx.gl.glGetIntegerv(GL20.GL_CURRENT_PROGRAM, glTmpBuffer);
-//			int last_program = glTmpBuffer.get(0);
-//			Gdx.gl.glGetIntegerv(GL20.GL_TEXTURE_BINDING_2D, glTmpBuffer);
-//			int last_texture = glTmpBuffer.get(0);
-//			Gdx.gl.glGetIntegerv(GL20.GL_ARRAY_BUFFER_BINDING, glTmpBuffer);
-//			int last_array_buffer = glTmpBuffer.get(0);
-
+        int cmdListsCount = drawData.getCmdListsCount();
+        if(cmdListsCount > 0) {
             boolean last_enable_blend = Gdx.gl.glIsEnabled(GL20.GL_BLEND);
             boolean last_enable_cull_face = Gdx.gl.glIsEnabled(GL20.GL_CULL_FACE);
             boolean last_enable_depth_test = Gdx.gl.glIsEnabled(GL20.GL_DEPTH_TEST);
@@ -130,54 +128,36 @@ public class ImGuiGdxImpl {
             float clip_offY = drawData.getDisplayPosY();
             float clip_scaleX = drawData.getFramebufferScaleX(); // (1,1) unless using retina display which are often (2,2)
             float clip_scaleY = drawData.getFramebufferScaleY();
+            for(int i = 0; i < cmdListsCount; i++) {
 
-            int verticesOffset = 0;
-            int indicesOffset = 0;
+                ImDrawList imDrawList = drawData.getCmdLists(i);
 
-            drawData.vByteBuffer.position(0);
-            drawData.iByteBuffer.position(0);
-            drawData.cmdByteBuffer.position(0);
+                ByteBuffer vtxBufferData = imDrawList.getVtxBufferData();
+                ByteBuffer idxBufferData = imDrawList.getIdxBufferData();
+                int limit = vtxBufferData.limit();
+                int limit1 = idxBufferData.limit();
+                Gdx.gl.glBufferData(GL20.GL_ARRAY_BUFFER, limit, vtxBufferData, GL20.GL_STREAM_DRAW);
+                Gdx.gl.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, limit1, idxBufferData, GL20.GL_STREAM_DRAW);
 
-            for(int i = 0; i < drawData.getCmdListsCount(); i++) {
-                int curIndexPosition = drawData.iByteBuffer.position();
-                drawData.iByteBuffer.limit(curIndexPosition + 2);
-                short indexSize = (short)drawData.iByteBuffer.getShort();
-                curIndexPosition = drawData.iByteBuffer.position();
-                int newIlimit = curIndexPosition + (indexSize * ImDrawData.iBufferSize);
-                drawData.iByteBuffer.limit(newIlimit);
+                int flags = imDrawList.getFlags();
 
-                int curVertexPosition = drawData.vByteBuffer.position();
-                drawData.vByteBuffer.limit(curVertexPosition + 4);
-                int verticesSize = (int)drawData.vByteBuffer.getFloat();
-                curVertexPosition = drawData.vByteBuffer.position();
-                int newVlimit = curVertexPosition + (verticesSize * ImDrawData.vBufferSize);
-                drawData.vByteBuffer.limit(newVlimit);
-
-                Gdx.gl.glBufferData(GL20.GL_ARRAY_BUFFER, verticesSize * ImDrawData.vBufferSize, drawData.vByteBuffer, GL20.GL_STREAM_DRAW);
-                Gdx.gl.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, indexSize * ImDrawData.iBufferSize, drawData.iByteBuffer, GL20.GL_STREAM_DRAW);
-
-                drawData.vByteBuffer.position(newVlimit);
-                drawData.iByteBuffer.position(newIlimit);
-
-                int cmdSize = (int)drawData.cmdByteBuffer.getFloat();
-                for(int j = 0; j < cmdSize; j++) {
-
-                    float clipRectX = drawData.cmdByteBuffer.getFloat();
-                    float clipRectY = drawData.cmdByteBuffer.getFloat();
-                    float clipRectZ = drawData.cmdByteBuffer.getFloat();
-                    float clipRectW = drawData.cmdByteBuffer.getFloat();
-                    int textureID = (int)drawData.cmdByteBuffer.getFloat();
-                    int vtxOffset = (int)drawData.cmdByteBuffer.getFloat();
-                    int idxOffset = (int)drawData.cmdByteBuffer.getFloat();
-                    int elemCount = (int)drawData.cmdByteBuffer.getFloat();
+                int cmdBufferSize = imDrawList.getCmdBufferSize();
+                for(int j = 0; j < cmdBufferSize; j++) {
+                    ImDrawCmd cmdBuffer = imDrawList.getCmdBuffer(j);
+                    ImVec4 clipRect = cmdBuffer.getClipRect();
+                    float clipRectX = clipRect.getX();
+                    float clipRectY = clipRect.getY();
+                    float clipRectZ = clipRect.getZ();
+                    float clipRectW = clipRect.getW();
+                    int textureID = cmdBuffer.getTextureId();
+                    int idxOffset = cmdBuffer.getIdxOffset();
+                    int elemCount = cmdBuffer.getElemCount();
                     float clip_minX = (clipRectX - clip_offX) * clip_scaleX;
                     float clip_minY = (clipRectY - clip_offY) * clip_scaleY;
                     float clip_maxX = (clipRectZ - clip_offX) * clip_scaleX;
                     float clip_maxY = (clipRectW - clip_offY) * clip_scaleY;
-
                     if(clip_maxX < clip_minX || clip_maxY < clip_minY)
                         continue;
-
                     Gdx.gl.glScissor((int)clip_minX, (int)(fb_height - clip_maxY), (int)(clip_maxX - clip_minX), (int)(clip_maxY - clip_minY));
                     Gdx.gl.glBindTexture(GL20.GL_TEXTURE_2D, textureID);
                     Gdx.gl.glDrawElements(GL20.GL_TRIANGLES, elemCount, GL20.GL_UNSIGNED_SHORT, idxOffset * 2);

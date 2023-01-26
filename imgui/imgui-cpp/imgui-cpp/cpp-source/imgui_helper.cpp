@@ -54,20 +54,20 @@ void ImGuiHelper::Init(JNIEnv* env) {
     fid_ImGuiViewport_posY = env->GetFieldID(cls_viewport, "posY", "F");
     fid_ImGuiViewport_drawData = env->GetFieldID(cls_viewport, "drawData", "Lcom/github/xpenatan/imgui/core/ImDrawData;");
 
-    jclass cls_jDrawData = env->FindClass("com/github/xpenatan/imgui/core/ImDrawData");
-    fid_ImDrawData_vByteBuffer = env->GetFieldID(cls_jDrawData, "vByteBuffer", "Ljava/nio/ByteBuffer;");
-    fid_ImDrawData_iByteBuffer = env->GetFieldID(cls_jDrawData, "iByteBuffer", "Ljava/nio/ByteBuffer;");
-    fid_ImDrawData_cmdByteBuffer = env->GetFieldID(cls_jDrawData, "cmdByteBuffer", "Ljava/nio/ByteBuffer;");
-    fid_ImDrawData_totalVtxCount = env->GetFieldID(cls_jDrawData, "totalVtxCount", "I");
-    fid_ImDrawData_totalIdxCount = env->GetFieldID(cls_jDrawData, "totalIdxCount", "I");
-    fid_ImDrawData_totalCmdCount = env->GetFieldID(cls_jDrawData, "totalCmdCount", "I");
-    fid_ImDrawData_CmdListsCount = env->GetFieldID(cls_jDrawData, "cmdListsCount", "I");
-    fid_ImDrawData_displayPosX = env->GetFieldID(cls_jDrawData, "displayPosX", "F");
-    fid_ImDrawData_displayPosY = env->GetFieldID(cls_jDrawData, "displayPosY", "F");
-    fid_ImDrawData_displaySizeX = env->GetFieldID(cls_jDrawData, "displaySizeX", "F");
-    fid_ImDrawData_displaySizeY = env->GetFieldID(cls_jDrawData, "displaySizeY", "F");
-    fid_ImDrawData_framebufferScaleX = env->GetFieldID(cls_jDrawData, "framebufferScaleX", "F");
-    fid_ImDrawData_framebufferScaleY = env->GetFieldID(cls_jDrawData, "framebufferScaleY", "F");
+//    jclass cls_jDrawData = env->FindClass("com/github/xpenatan/imgui/core/ImDrawData");
+//    fid_ImDrawData_vByteBuffer = env->GetFieldID(cls_jDrawData, "vByteBuffer", "Ljava/nio/ByteBuffer;");
+//    fid_ImDrawData_iByteBuffer = env->GetFieldID(cls_jDrawData, "iByteBuffer", "Ljava/nio/ByteBuffer;");
+//    fid_ImDrawData_cmdByteBuffer = env->GetFieldID(cls_jDrawData, "cmdByteBuffer", "Ljava/nio/ByteBuffer;");
+//    fid_ImDrawData_totalVtxCount = env->GetFieldID(cls_jDrawData, "totalVtxCount", "I");
+//    fid_ImDrawData_totalIdxCount = env->GetFieldID(cls_jDrawData, "totalIdxCount", "I");
+//    fid_ImDrawData_totalCmdCount = env->GetFieldID(cls_jDrawData, "totalCmdCount", "I");
+//    fid_ImDrawData_CmdListsCount = env->GetFieldID(cls_jDrawData, "cmdListsCount", "I");
+//    fid_ImDrawData_displayPosX = env->GetFieldID(cls_jDrawData, "displayPosX", "F");
+//    fid_ImDrawData_displayPosY = env->GetFieldID(cls_jDrawData, "displayPosY", "F");
+//    fid_ImDrawData_displaySizeX = env->GetFieldID(cls_jDrawData, "displaySizeX", "F");
+//    fid_ImDrawData_displaySizeY = env->GetFieldID(cls_jDrawData, "displaySizeY", "F");
+//    fid_ImDrawData_framebufferScaleX = env->GetFieldID(cls_jDrawData, "framebufferScaleX", "F");
+//    fid_ImDrawData_framebufferScaleY = env->GetFieldID(cls_jDrawData, "framebufferScaleY", "F");
 }
 
 JNIEnv* ImGuiHelper::GetEnv() {
@@ -122,94 +122,94 @@ void ImGuiHelper::SetImGuiViewport(JNIEnv* env, ImGuiViewport* in, jobject out, 
 
 void ImGuiHelper::SetImDrawData(JNIEnv* env, ImDrawData* drawData, jobject jDrawData) {
     if(drawData != NULL) {
-        jobject obj_vertexBuffer = env->GetObjectField(jDrawData, fid_ImDrawData_vByteBuffer);
-        jobject obj_indexBuffer = env->GetObjectField(jDrawData, fid_ImDrawData_iByteBuffer);
-        jobject obj_cmdBuffer = env->GetObjectField(jDrawData, fid_ImDrawData_cmdByteBuffer);
-        unsigned char* indexBuffer = (unsigned char*)(obj_indexBuffer?env->GetDirectBufferAddress(obj_indexBuffer):0);
-        unsigned char* vertexBuffer = (unsigned char*)(obj_vertexBuffer?env->GetDirectBufferAddress(obj_vertexBuffer):0);
-        unsigned char* cmdBuffer = (unsigned char*)(obj_cmdBuffer?env->GetDirectBufferAddress(obj_cmdBuffer):0);
-        int cmdListsCount = drawData->CmdListsCount;
-
-        // Set values
-        env->SetIntField (jDrawData, fid_ImDrawData_totalVtxCount, drawData->TotalVtxCount);
-        env->SetIntField (jDrawData, fid_ImDrawData_totalIdxCount, drawData->TotalIdxCount);
-        env->SetIntField (jDrawData, fid_ImDrawData_CmdListsCount, cmdListsCount);
-
-        env->SetFloatField (jDrawData, fid_ImDrawData_displayPosX, drawData->DisplayPos.x);
-        env->SetFloatField (jDrawData, fid_ImDrawData_displayPosY, drawData->DisplayPos.y);
-
-        env->SetFloatField (jDrawData, fid_ImDrawData_displaySizeX, drawData->DisplaySize.x);
-        env->SetFloatField (jDrawData, fid_ImDrawData_displaySizeY, drawData->DisplaySize.y);
-
-        env->SetFloatField (jDrawData, fid_ImDrawData_framebufferScaleX, drawData->FramebufferScale.x);
-        env->SetFloatField (jDrawData, fid_ImDrawData_framebufferScaleY, drawData->FramebufferScale.y);
-
-        ImDrawList** drawLists = drawData->CmdLists;
-
-        int verticesOffset = 0;
-        int indicesOffset = 0;
-        int cmdOffset = 0;
-        int cmdCount = 0;
-
-        for(int i = 0; i < cmdListsCount; i++) {
-            ImDrawList & drawList = *drawLists[i];
-            ImVector<ImDrawCmd> & imDrawCmdList = drawList.CmdBuffer;
-            ImVector<ImDrawIdx> & idxBuffer = drawList.IdxBuffer;
-            ImVector<ImDrawVert> & vtxBuffer = drawList.VtxBuffer;
-
-            int verticeSize = sizeof(ImDrawVert);
-            int indicesSize = sizeof(ImDrawIdx);
-
-            float * vertexArrayDest = (float *)vertexBuffer;
-            short * indexArrayDest = (short *)indexBuffer;
-
-            int colorSize = 1;
-
-            vertexArrayDest[verticesOffset] = vtxBuffer.Size;
-            verticesOffset++;
-            // copy vertices to Destination buffer
-            for(int j = 0; j < vtxBuffer.Size; j++) {
-                ImDrawVert v = vtxBuffer[j];
-                float posX = v.pos.x;
-                float posY = v.pos.y;
-                float uvX = v.uv.x;
-                float uvY = v.uv.y;
-
-                float color = 0;
-                memcpy(&color, &v.col, 4); // move unsigned int color to float
-
-                vertexArrayDest[verticesOffset++] = posX;
-                vertexArrayDest[verticesOffset++] = posY;
-                vertexArrayDest[verticesOffset++] = uvX;
-                vertexArrayDest[verticesOffset++] = uvY;
-                vertexArrayDest[verticesOffset++] = color;
-            }
-
-            // copy index to destination buffer
-            indexArrayDest[indicesOffset] = idxBuffer.Size;
-            indicesOffset++;
-            for(int j = 0; j < idxBuffer.Size; j++) {
-                indexArrayDest[indicesOffset++] = idxBuffer[j];
-            }
-
-            float * cmdArrayDest = (float *)cmdBuffer;
-
-            cmdArrayDest[cmdOffset] = imDrawCmdList.Size;
-            cmdOffset++;
-            for (int cmd_i = 0; cmd_i < imDrawCmdList.Size; cmd_i++) {
-                const ImDrawCmd * pcmd = &imDrawCmdList[cmd_i];
-                float  textureID = (float)(intptr_t)pcmd->TextureId;
-                cmdArrayDest[cmdOffset++] = pcmd->ClipRect.x;
-                cmdArrayDest[cmdOffset++] = pcmd->ClipRect.y;
-                cmdArrayDest[cmdOffset++] = pcmd->ClipRect.z;
-                cmdArrayDest[cmdOffset++] = pcmd->ClipRect.w;
-                cmdArrayDest[cmdOffset++] = textureID;
-                cmdArrayDest[cmdOffset++] = pcmd->VtxOffset;
-                cmdArrayDest[cmdOffset++] = pcmd->IdxOffset;
-                cmdArrayDest[cmdOffset++] = pcmd->ElemCount;
-            }
-            cmdCount +=  imDrawCmdList.Size;
-        }
-        env->SetIntField (jDrawData, fid_ImDrawData_totalCmdCount, cmdCount);
+//        jobject obj_vertexBuffer = env->GetObjectField(jDrawData, fid_ImDrawData_vByteBuffer);
+//        jobject obj_indexBuffer = env->GetObjectField(jDrawData, fid_ImDrawData_iByteBuffer);
+//        jobject obj_cmdBuffer = env->GetObjectField(jDrawData, fid_ImDrawData_cmdByteBuffer);
+//        unsigned char* indexBuffer = (unsigned char*)(obj_indexBuffer?env->GetDirectBufferAddress(obj_indexBuffer):0);
+//        unsigned char* vertexBuffer = (unsigned char*)(obj_vertexBuffer?env->GetDirectBufferAddress(obj_vertexBuffer):0);
+//        unsigned char* cmdBuffer = (unsigned char*)(obj_cmdBuffer?env->GetDirectBufferAddress(obj_cmdBuffer):0);
+//        int cmdListsCount = drawData->CmdListsCount;
+//
+//        // Set values
+//        env->SetIntField (jDrawData, fid_ImDrawData_totalVtxCount, drawData->TotalVtxCount);
+//        env->SetIntField (jDrawData, fid_ImDrawData_totalIdxCount, drawData->TotalIdxCount);
+//        env->SetIntField (jDrawData, fid_ImDrawData_CmdListsCount, cmdListsCount);
+//
+//        env->SetFloatField (jDrawData, fid_ImDrawData_displayPosX, drawData->DisplayPos.x);
+//        env->SetFloatField (jDrawData, fid_ImDrawData_displayPosY, drawData->DisplayPos.y);
+//
+//        env->SetFloatField (jDrawData, fid_ImDrawData_displaySizeX, drawData->DisplaySize.x);
+//        env->SetFloatField (jDrawData, fid_ImDrawData_displaySizeY, drawData->DisplaySize.y);
+//
+//        env->SetFloatField (jDrawData, fid_ImDrawData_framebufferScaleX, drawData->FramebufferScale.x);
+//        env->SetFloatField (jDrawData, fid_ImDrawData_framebufferScaleY, drawData->FramebufferScale.y);
+//
+//        ImDrawList** drawLists = drawData->CmdLists;
+//
+//        int verticesOffset = 0;
+//        int indicesOffset = 0;
+//        int cmdOffset = 0;
+//        int cmdCount = 0;
+//
+//        for(int i = 0; i < cmdListsCount; i++) {
+//            ImDrawList & drawList = *drawLists[i];
+//            ImVector<ImDrawCmd> & imDrawCmdList = drawList.CmdBuffer;
+//            ImVector<ImDrawIdx> & idxBuffer = drawList.IdxBuffer;
+//            ImVector<ImDrawVert> & vtxBuffer = drawList.VtxBuffer;
+//
+//            int verticeSize = sizeof(ImDrawVert);
+//            int indicesSize = sizeof(ImDrawIdx);
+//
+//            float * vertexArrayDest = (float *)vertexBuffer;
+//            short * indexArrayDest = (short *)indexBuffer;
+//
+//            int colorSize = 1;
+//
+//            vertexArrayDest[verticesOffset] = vtxBuffer.Size;
+//            verticesOffset++;
+//            // copy vertices to Destination buffer
+//            for(int j = 0; j < vtxBuffer.Size; j++) {
+//                ImDrawVert v = vtxBuffer[j];
+//                float posX = v.pos.x;
+//                float posY = v.pos.y;
+//                float uvX = v.uv.x;
+//                float uvY = v.uv.y;
+//
+//                float color = 0;
+//                memcpy(&color, &v.col, 4); // move unsigned int color to float
+//
+//                vertexArrayDest[verticesOffset++] = posX;
+//                vertexArrayDest[verticesOffset++] = posY;
+//                vertexArrayDest[verticesOffset++] = uvX;
+//                vertexArrayDest[verticesOffset++] = uvY;
+//                vertexArrayDest[verticesOffset++] = color;
+//            }
+//
+//            // copy index to destination buffer
+//            indexArrayDest[indicesOffset] = idxBuffer.Size;
+//            indicesOffset++;
+//            for(int j = 0; j < idxBuffer.Size; j++) {
+//                indexArrayDest[indicesOffset++] = idxBuffer[j];
+//            }
+//
+//            float * cmdArrayDest = (float *)cmdBuffer;
+//
+//            cmdArrayDest[cmdOffset] = imDrawCmdList.Size;
+//            cmdOffset++;
+//            for (int cmd_i = 0; cmd_i < imDrawCmdList.Size; cmd_i++) {
+//                const ImDrawCmd * pcmd = &imDrawCmdList[cmd_i];
+//                float  textureID = (float)(intptr_t)pcmd->TextureId;
+//                cmdArrayDest[cmdOffset++] = pcmd->ClipRect.x;
+//                cmdArrayDest[cmdOffset++] = pcmd->ClipRect.y;
+//                cmdArrayDest[cmdOffset++] = pcmd->ClipRect.z;
+//                cmdArrayDest[cmdOffset++] = pcmd->ClipRect.w;
+//                cmdArrayDest[cmdOffset++] = textureID;
+//                cmdArrayDest[cmdOffset++] = pcmd->VtxOffset;
+//                cmdArrayDest[cmdOffset++] = pcmd->IdxOffset;
+//                cmdArrayDest[cmdOffset++] = pcmd->ElemCount;
+//            }
+//            cmdCount +=  imDrawCmdList.Size;
+//        }
+//        env->SetIntField (jDrawData, fid_ImDrawData_totalCmdCount, cmdCount);
     }
 }

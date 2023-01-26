@@ -2,8 +2,19 @@ package com.github.xpenatan.imgui.core;
 
 import com.github.xpenatan.imgui.core.enums.ImDrawCornerFlags;
 import com.github.xpenatan.imgui.core.jnicode.ImGuiNative;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
-public class ImDrawList {
+public class ImDrawList extends ImGuiBase {
+
+    /*[-C++;-NATIVE]
+        #include "imgui.h"
+    */
+
+    public final static int VTX_BUFFER_SIZE = 8+8+4;// = ImVec2 + ImVec2 + ImU32;
+    public final static int IDX_BUFFER_SIZE = 2; // short
+    public final static int cmdBufferSize = (1 + 4 + 1) * 4; // = ImVec4 + ImTextureID + int + int + int
+    private static final int RESIZE_FACTOR = 5_000;
 
     public final static int TYPE_DEFAULT = 0;
     public final static int TYPE_BACKGROUND = 1;
@@ -11,9 +22,132 @@ public class ImDrawList {
 
     private int type = TYPE_DEFAULT;
 
+    public ByteBuffer vtxByteBuffer =  ByteBuffer.allocateDirect(25000).order(ByteOrder.nativeOrder());
+    public ByteBuffer idxByteBuffer =  ByteBuffer.allocateDirect(25000).order(ByteOrder.nativeOrder());
+
+
+    private ImDrawCmd imDrawCmd = new ImDrawCmd(false);
+
     public ImDrawList(int type) {
         this.type = type;
     }
+
+    public ImDrawList(boolean cMemoryOwn) {
+    }
+
+    public int getFlags() {
+        return getFlagsNATIVE(getCPointer());
+    }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+        return nativeObject.get_Flags();
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* nativeObject = (ImDrawList*)addr;
+        return nativeObject->Flags;
+    */
+    private static native int getFlagsNATIVE(long addr);
+
+    public ImDrawCmd getCmdBuffer(int index) {
+        long pointer = getCmdBufferNATIVE(getCPointer(), index);
+        imDrawCmd.setPointer(pointer);
+        return imDrawCmd;
+    }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+        var jsObj = nativeObject.get_CmdBuffer.Data[index];
+        return ImGui.getPointer(jsObj);
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* nativeObject = (ImDrawList*)addr;
+        return (jlong)&nativeObject->CmdBuffer.Data[index];
+    */
+    private static native long getCmdBufferNATIVE(long addr, int index);
+
+    public int getCmdBufferSize() {
+        return getCmdBufferSizeNATIVE(getCPointer());
+    }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+        return nativeObject.CmdBuffer.size();
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* nativeObject = (ImDrawList*)addr;
+        return nativeObject->CmdBuffer.size();
+    */
+    private static native int getCmdBufferSizeNATIVE(long addr);
+
+    public ByteBuffer getIdxBufferData() {
+        int vtxBufferSize = getIdxBufferSizeNATIVE(getCPointer());
+        int vtxBufferCapacity = vtxBufferSize * IDX_BUFFER_SIZE;
+        if (idxByteBuffer.capacity() < vtxBufferCapacity) {
+            idxByteBuffer.clear();
+            idxByteBuffer = ByteBuffer.allocateDirect(vtxBufferCapacity + RESIZE_FACTOR).order(ByteOrder.nativeOrder());
+        }
+        getIdxBufferDataNATIVE(getCPointer(), idxByteBuffer, vtxBufferCapacity);
+        idxByteBuffer.position(0);
+        idxByteBuffer.limit(vtxBufferCapacity);
+        return idxByteBuffer;
+    }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* nativeObject = (ImDrawList*)addr;
+        memcpy(buffer, nativeObject->IdxBuffer.Data, bufferCapacity);
+    */
+    private static native void getIdxBufferDataNATIVE(long addr, ByteBuffer buffer, int bufferCapacity);
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+        return nativeObject.IdxBuffer.size();
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* nativeObject = (ImDrawList*)addr;
+        return nativeObject->IdxBuffer.size();
+    */
+    private static native int getIdxBufferSizeNATIVE(long addr);
+
+    public ByteBuffer getVtxBufferData() {
+        int vtxBufferSize = getVtxBufferSizeNATIVE(getCPointer());
+        int vtxBufferCapacity = vtxBufferSize * VTX_BUFFER_SIZE;
+        if (vtxByteBuffer.capacity() < vtxBufferCapacity) {
+            vtxByteBuffer.clear();
+            vtxByteBuffer = ByteBuffer.allocateDirect(vtxBufferCapacity + RESIZE_FACTOR).order(ByteOrder.nativeOrder());
+        }
+        getVtxBufferDataNATIVE(getCPointer(), vtxByteBuffer, vtxBufferCapacity);
+        vtxByteBuffer.position(0);
+        vtxByteBuffer.limit(vtxBufferCapacity);
+        return vtxByteBuffer;
+    }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* nativeObject = (ImDrawList*)addr;
+        memcpy(buffer, nativeObject->VtxBuffer.Data, bufferCapacity);
+    */
+    private static native void getVtxBufferDataNATIVE(long addr, ByteBuffer buffer, int bufferCapacity);
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+        return nativeObject.VtxBuffer.size();
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* nativeObject = (ImDrawList*)addr;
+        return nativeObject->VtxBuffer.size();
+    */
+    private static native int getVtxBufferSizeNATIVE(long addr);
+
+    /*[-C++;-NATIVE]
+        return (int)sizeof(ImDrawIdx);
+    */
+    private static native int getDrawVertSizeNATIVE();
 
     public void AddLine(float a_x, float a_y, float b_x, float b_y, int col) {
         ImGuiNative.AddLine(type, a_x, a_y, b_x, b_y, col);
