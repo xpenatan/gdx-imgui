@@ -51,7 +51,6 @@ public class ImGuiGdxFrameWindow {
     private StringBuilder stringBuilder = new StringBuilder();
 
     private long curWindowHandle = 0;
-    private InputMultiplexer curInputMultiplexer;
 
     private ImGuiLWJGL3Impl imp;
 

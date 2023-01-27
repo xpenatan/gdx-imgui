@@ -63,6 +63,21 @@ public class ImDrawCmd extends ImGuiBase {
     */
     private static native int getIdxOffsetNATIVE(long addr);
 
+    public int getVtxOffset() {
+        return getVtxOffsetNATIVE(getCPointer());
+    }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawCmd);
+        var jsObj = nativeObject.get_VtxOffset;
+        return jsObj;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawCmd* nativeObject = (ImDrawCmd*)addr;
+        return nativeObject->VtxOffset;
+    */
+    private static native int getVtxOffsetNATIVE(long addr);
+
     public int getElemCount() {
         return getElemCountNATIVE(getCPointer());
     }

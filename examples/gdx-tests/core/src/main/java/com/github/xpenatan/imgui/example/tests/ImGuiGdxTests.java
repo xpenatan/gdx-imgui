@@ -1,5 +1,6 @@
 package com.github.xpenatan.imgui.example.tests;
 
+import com.badlogic.gdx.backends.lwjgl3.ImGuiLWJGL3Impl;
 import com.github.xpenatan.imgui.core.ImDrawData;
 import com.github.xpenatan.imgui.core.ImGui;
 import com.github.xpenatan.imgui.core.ImGuiBoolean;
@@ -12,7 +13,6 @@ import java.util.List;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.tests.InputTest;
 import com.badlogic.gdx.tests.utils.GdxTest;
@@ -27,7 +27,7 @@ import com.github.xpenatan.imgui.gdx.frame.viewport.ImGuiGdxFrameWindow;
  */
 public class ImGuiGdxTests implements ApplicationListener {
 
-    ImGuiGdxImpl impl;
+    ImGuiLWJGL3Impl impl;
 
     EmuApplicationWindow emuApplication;
     ImGuiGdxFrameWindow gameWindow;
@@ -37,7 +37,6 @@ public class ImGuiGdxTests implements ApplicationListener {
     boolean gdxTestInit = false;
 
     List<String> names;
-    ImGuiInt listSelected = new ImGuiInt();
     ImGuiBoolean booleanFlag = new ImGuiBoolean();
     int selected = -1;
 
@@ -48,12 +47,12 @@ public class ImGuiGdxTests implements ApplicationListener {
         ImGui.GetIO().SetConfigFlags(ImGuiConfigFlags.DockingEnable);
         ImGui.GetIO().SetDockingFlags(false, false, false, false);
 
-        impl = new ImGuiGdxImpl();
+        impl = new ImGuiLWJGL3Impl();
 
         EmuFrameBuffer.setDefaultFramebufferHandleInitialized(false);
 
         emuApplication = new EmuApplicationWindow();
-        gameWindow = new ImGuiGdxFrameWindow(emuApplication, 400, 400, 300, 100);
+        gameWindow = new ImGuiGdxFrameWindow(impl, emuApplication, 400, 400, 300, 100);
         gameWindow.setName("Game");
 
         names = GdxTests.getNames();
@@ -93,9 +92,6 @@ public class ImGuiGdxTests implements ApplicationListener {
 
         int width = Gdx.graphics.getWidth();
         int height = Gdx.graphics.getHeight();
-        int backBufferWidth = Gdx.graphics.getBackBufferWidth();
-        int backBufferHeight = Gdx.graphics.getBackBufferHeight();
-
 
         impl.update();
 
@@ -116,10 +112,10 @@ public class ImGuiGdxTests implements ApplicationListener {
         ImGui.DockSpace(201, width, height);
 
         drawTestListWindow();
-        gameWindow.render();
 
         ImGui.End();
 
+        gameWindow.render();
         ImGui.Render();
         ImDrawData drawData = ImGui.GetDrawData();
         impl.render(drawData);
@@ -139,6 +135,7 @@ public class ImGuiGdxTests implements ApplicationListener {
 
     @Override
     public void dispose() {
+        impl.dispose();
         ImGui.dispose();
     }
 }

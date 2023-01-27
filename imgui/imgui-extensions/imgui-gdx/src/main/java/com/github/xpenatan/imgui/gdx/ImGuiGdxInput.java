@@ -2,7 +2,7 @@ package com.github.xpenatan.imgui.gdx;
 
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.InputAdapter;
 import com.github.xpenatan.imgui.core.ImGui;
 import com.github.xpenatan.imgui.core.ImGuiIO;
 import com.github.xpenatan.imgui.core.enums.ImGuiFocusedFlags;
@@ -13,7 +13,7 @@ import com.github.xpenatan.imgui.core.enums.ImGuiKey;
  *
  * @author xpenatan
  */
-public class ImGuiGdxInput implements InputProcessor {
+public class ImGuiGdxInput extends InputAdapter {
 
     static private final char DELETE = 127;
 

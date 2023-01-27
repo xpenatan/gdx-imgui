@@ -7,8 +7,9 @@ public class Main {
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setWindowedMode(1444, 800);
-        config.setTitle("ImGui Basic Example");
+        config.setTitle("ImGui Tests Example");
         config.useVsync(true);
+        config.setOpenGLEmulation(Lwjgl3ApplicationConfiguration.GLEmulation.GL20, 3, 2);
         new Lwjgl3Application(new ImGuiGdxTests(), config);
     }
 }

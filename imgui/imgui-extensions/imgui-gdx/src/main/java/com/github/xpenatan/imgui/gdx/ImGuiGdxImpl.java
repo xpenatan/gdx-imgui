@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.utils.BufferUtils;
 import com.github.xpenatan.imgui.core.ImDrawCmd;
 import com.github.xpenatan.imgui.core.ImDrawData;
 import com.github.xpenatan.imgui.core.ImDrawList;
@@ -15,7 +14,6 @@ import com.github.xpenatan.imgui.core.ImGui;
 import com.github.xpenatan.imgui.core.ImVec4;
 import com.github.xpenatan.imgui.core.TexDataRGBA32;
 import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
 
 /**
  * @author xpenatan
@@ -32,25 +30,20 @@ public class ImGuiGdxImpl {
 
     private int g_FontTexture;
 
-    private String vertex_shader_glsl_130 = "uniform mat4 ProjMtx;\n" + "attribute vec2 Position;\n" + "attribute vec2 UV;\n"
-            + "attribute vec4 Color;\n" + "varying vec2 Frag_UV;\n" + "varying vec4 Frag_Color;\n" + "void main()\n"
-            + "{\n" + "    Frag_UV = UV;\n" + "    Frag_Color = Color;\n"
-            + "    gl_Position = ProjMtx * vec4(Position.xy,0,1);\n" + "}\n";
-
-    private String fragment_shader_glsl_130 = "#ifdef GL_ES\n" + "    precision mediump float;\n" + "#endif\n"
-            + "uniform sampler2D Texture;\n" + "varying vec2 Frag_UV;\n" + "varying vec4 Frag_Color;\n"
-            + "void main()\n" + "{\n" + "    gl_FragColor = Frag_Color * texture2D(Texture, Frag_UV.st);\n" + "}\n";
-
-    private final IntBuffer glTmpBuffer;
 
     public ImGuiGdxImpl() {
-        glTmpBuffer = BufferUtils.newIntBuffer(16);
-        vertexAttributes = new VertexAttributes(new VertexAttribute[]{
+        vertexAttributes = new VertexAttributes(
                 new VertexAttribute(Usage.Position, 2, GL20.GL_FLOAT, false, "Position"),
                 new VertexAttribute(Usage.TextureCoordinates, 2, GL20.GL_FLOAT, false, "UV"),
-                new VertexAttribute(Usage.ColorPacked, 4, GL20.GL_UNSIGNED_BYTE, true, "Color")});
+                new VertexAttribute(Usage.ColorPacked, 4, GL20.GL_UNSIGNED_BYTE, true, "Color")
+        );
 
-        shader = new ShaderProgram(vertex_shader_glsl_130, fragment_shader_glsl_130);
+//        String vertex = getVertexShaderGlsl130();
+//        String fragment = getFragmentShaderGlsl130();
+        String vertex = getVertexShaderGlsl300es();
+        String fragment = getFragmentShaderGlsl300es();
+
+        shader = new ShaderProgram(vertex, fragment);
         if(shader.isCompiled() == false) {
             Gdx.app.log("ShaderTest", shader.getLog());
             Gdx.app.exit();
@@ -122,7 +115,7 @@ public class ImGuiGdxImpl {
             int fb_width = (int)(drawData.getDisplaySizeX() * drawData.getFramebufferScaleX());
             int fb_height = (int)(drawData.getDisplaySizeY() * drawData.getFramebufferScaleY());
 
-            setupRenderState(drawData, fb_width, fb_height);
+            bind(drawData, fb_width, fb_height);
 
             float clip_offX = drawData.getDisplayPosX(); // (0,0) unless using multi-viewports
             float clip_offY = drawData.getDisplayPosY();
@@ -139,8 +132,6 @@ public class ImGuiGdxImpl {
                 Gdx.gl.glBufferData(GL20.GL_ARRAY_BUFFER, limit, vtxBufferData, GL20.GL_STREAM_DRAW);
                 Gdx.gl.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, limit1, idxBufferData, GL20.GL_STREAM_DRAW);
 
-                int flags = imDrawList.getFlags();
-
                 int cmdBufferSize = imDrawList.getCmdBufferSize();
                 for(int j = 0; j < cmdBufferSize; j++) {
                     ImDrawCmd cmdBuffer = imDrawList.getCmdBuffer(j);
@@ -149,9 +140,6 @@ public class ImGuiGdxImpl {
                     float clipRectY = clipRect.getY();
                     float clipRectZ = clipRect.getZ();
                     float clipRectW = clipRect.getW();
-                    int textureID = cmdBuffer.getTextureId();
-                    int idxOffset = cmdBuffer.getIdxOffset();
-                    int elemCount = cmdBuffer.getElemCount();
                     float clip_minX = (clipRectX - clip_offX) * clip_scaleX;
                     float clip_minY = (clipRectY - clip_offY) * clip_scaleY;
                     float clip_maxX = (clipRectZ - clip_offX) * clip_scaleX;
@@ -159,6 +147,11 @@ public class ImGuiGdxImpl {
                     if(clip_maxX < clip_minX || clip_maxY < clip_minY)
                         continue;
                     Gdx.gl.glScissor((int)clip_minX, (int)(fb_height - clip_maxY), (int)(clip_maxX - clip_minX), (int)(clip_maxY - clip_minY));
+
+                    int textureID = cmdBuffer.getTextureId();
+                    int idxOffset = cmdBuffer.getIdxOffset();
+                    int elemCount = cmdBuffer.getElemCount();
+
                     Gdx.gl.glBindTexture(GL20.GL_TEXTURE_2D, textureID);
                     Gdx.gl.glDrawElements(GL20.GL_TRIANGLES, elemCount, GL20.GL_UNSIGNED_SHORT, idxOffset * 2);
                 }
@@ -199,14 +192,13 @@ public class ImGuiGdxImpl {
         }
     }
 
-    private void setupRenderState(ImDrawData drawData, int fb_width, int fb_height) {
+    private void bind(ImDrawData drawData, int fb_width, int fb_height) {
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendEquation(GL20.GL_FUNC_ADD);
         Gdx.gl.glBlendFuncSeparate(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA, GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glDisable(GL20.GL_CULL_FACE);
         Gdx.gl.glDisable(GL20.GL_DEPTH_TEST);
         Gdx.gl.glDisable(GL20.GL_STENCIL_TEST);
-        Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
         Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
 
         float L = drawData.getDisplayPosX();
@@ -237,7 +229,6 @@ public class ImGuiGdxImpl {
 
         Gdx.gl.glBindBuffer(GL20.GL_ARRAY_BUFFER, VboHandle);
         Gdx.gl.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, ElementsHandle);
-
         // bind vertices/indices
         final int numAttributes = vertexAttributes.size();
         for(int i = 0; i < numAttributes; i++) {
@@ -263,7 +254,6 @@ public class ImGuiGdxImpl {
         // unbind index
         Gdx.gl.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
         Gdx.gl.glFlush();
-        shader.end();
     }
 
     private void deleteTexture() {
@@ -281,5 +271,62 @@ public class ImGuiGdxImpl {
         Gdx.gl.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
         Gdx.gl.glDeleteBuffer(ElementsHandle);
         ElementsHandle = 0;
+    }
+
+    private String getVertexShaderGlsl130() {
+        return "#version 130\n"
+                + "uniform mat4 ProjMtx;\n"
+                + "in vec2 Position;\n"
+                + "in vec2 UV;\n"
+                + "in vec4 Color;\n"
+                + "out vec2 Frag_UV;\n"
+                + "out vec4 Frag_Color;\n"
+                + "void main()\n"
+                + "{\n"
+                + "    Frag_UV = UV;\n"
+                + "    Frag_Color = Color;\n"
+                + "    gl_Position = ProjMtx * vec4(Position.xy,0,1);\n"
+                + "}\n";
+    }
+
+    private String getFragmentShaderGlsl130() {
+        return "#version 130\n"
+                + "uniform sampler2D Texture;\n"
+                + "in vec2 Frag_UV;\n"
+                + "in vec4 Frag_Color;\n"
+                + "out vec4 Out_Color;\n"
+                + "void main()\n"
+                + "{\n"
+                + "    Out_Color = Frag_Color * texture(Texture, Frag_UV.st);\n"
+                + "}\n";
+    }
+    private String getVertexShaderGlsl300es() {
+        return "#version 300 es\n"
+                + "precision highp float;\n"
+                + "layout (location = 0) in vec2 Position;\n"
+                + "layout (location = 1) in vec2 UV;\n"
+                + "layout (location = 2) in vec4 Color;\n"
+                + "uniform mat4 ProjMtx;\n"
+                + "out vec2 Frag_UV;\n"
+                + "out vec4 Frag_Color;\n"
+                + "void main()\n"
+                + "{\n"
+                + "    Frag_UV = UV;\n"
+                + "    Frag_Color = Color;\n"
+                + "    gl_Position = ProjMtx * vec4(Position.xy,0,1);\n"
+                + "}\n";
+    }
+
+    private String getFragmentShaderGlsl300es() {
+        return "#version 300 es\n"
+                + "precision mediump float;\n"
+                + "uniform sampler2D Texture;\n"
+                + "in vec2 Frag_UV;\n"
+                + "in vec4 Frag_Color;\n"
+                + "layout (location = 0) out vec4 Out_Color;\n"
+                + "void main()\n"
+                + "{\n"
+                + "    Out_Color = Frag_Color * texture(Texture, Frag_UV.st);\n"
+                + "}\n";
     }
 }

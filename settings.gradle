@@ -32,3 +32,5 @@ include ":examples:imlayout:desktop"
 
 //include ":examples:gdx-tests:core"
 //include ":examples:gdx-tests:desktop"
+//includeBuild('D:\\Dev\\Projects\\java\\libgdx') {
+//}
