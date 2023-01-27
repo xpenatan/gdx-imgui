@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.xpenatan.imgui.core.ImDrawData;
 import com.github.xpenatan.imgui.core.ImGui;
+import com.github.xpenatan.imgui.core.ImGuiBoolean;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
 
@@ -17,6 +18,8 @@ public class BasicExample implements ApplicationListener {
     private ImGuiGdxImpl impl;
 
     private boolean init = false;
+
+    private ImGuiBoolean checkbox = new ImGuiBoolean();
 
     private EditTextExample editTextExample = new EditTextExample();
 
@@ -49,6 +52,8 @@ public class BasicExample implements ApplicationListener {
         }
 
         ImGui.Begin("Hello World");
+
+        ImGui.Checkbox("Check", checkbox);
 
         editTextExample.render();
 

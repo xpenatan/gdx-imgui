@@ -294,10 +294,16 @@ public class ImGuiNative {
     */
     public static native boolean Begin(String title, int imGuiWindowFlags);
 
-    /*[-C++;-NATIVE]
-        return ImGui::Begin(title, &p_open[0], imGuiWindowFlags);
+    /*[-teaVM;-NATIVE]
+        ImGui.Begin(title, p_open, imGuiWindowFlags);
     */
-    public static native boolean Begin(String title, boolean[] p_open, int imGuiWindowFlags);
+    /*[-C++;-NATIVE]
+        bool flag = p_open[0];
+        bool ret = ImGui::Begin(title, &flag, imGuiWindowFlags);
+        p_open[0] = flag;
+        return flag;
+    */
+    public static native boolean Begin(String title, byte[] p_open, int imGuiWindowFlags);
 
     /*[-teaVM;-NATIVE]
         ImGui.End();
@@ -1356,9 +1362,12 @@ public class ImGuiNative {
     public static native boolean ImageButton(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, int frame_padding, float bg_color_r, float bg_color_g, float bg_color_b, float bg_color_a, float tint_col_r, float tint_col_g, float tint_col_b, float tint_col_a);
 
     /*[-C++;-NATIVE]
-        return ImGui::Checkbox(label, &data[0]);
+        bool flag = data[0];
+        bool ret = ImGui::Checkbox(label, &flag);
+        data[0] = flag;
+        return ret;
     */
-    public static native boolean Checkbox(String label, boolean[] data);
+    public static native boolean Checkbox(String label, byte[] data);
 
     //TODO check if its working
     /*[-C++;-NATIVE]
@@ -2036,14 +2045,20 @@ public class ImGuiNative {
     public static native boolean CollapsingHeader(String label, int flags);
 
     /*[-C++;-NATIVE]
-        return ImGui::CollapsingHeader(label, p_open);
+        bool flag = p_open[0];
+        bool ret = ImGui::CollapsingHeader(label, &flag);
+        p_open[0] = flag;
+        return ret;
     */
-    public static native boolean CollapsingHeader(String label, boolean[] p_open);
+    public static native boolean CollapsingHeader(String label, byte[] p_open);
 
     /*[-C++;-NATIVE]
-        return ImGui::CollapsingHeader(label, p_open, flags);
+        bool flag = p_open[0];
+        bool ret = ImGui::CollapsingHeader(label, &flag, flags);
+        p_open[0] = flag;
+        return ret;
     */
-    public static native boolean CollapsingHeader(String label, boolean[] p_open, int flags);
+    public static native boolean CollapsingHeader(String label, byte[] p_open, int flags);
 
     // Widgets: Selectables
     // - A selectable highlights when hovered, and can display another color when selected.
@@ -2065,14 +2080,20 @@ public class ImGuiNative {
     public static native boolean Selectable(String label, boolean selected, int flags, float sizeX, float sizeY);
 
     /*[-C++;-NATIVE]
-        return ImGui::Selectable(label, &selected[0]);
+        bool flag = selected[0];
+        bool ret = ImGui::Selectable(label, &flag);
+        selected[0] = flag;
+        return ret;
     */
-    public static native boolean Selectable(String label, boolean[] selected);
+    public static native boolean Selectable(String label, byte[] selected);
 
     /*[-C++;-NATIVE]
-        return ImGui::Selectable(label,  &selected[0], flags, ImVec2(sizeX, sizeY));
+        bool flag = selected[0];
+        bool ret = ImGui::Selectable(label,  &flag, flags, ImVec2(sizeX, sizeY));
+        selected[0] = flag;
+        return ret;
     */
-    public static native boolean Selectable(String label, boolean[] selected, int flags, float sizeX, float sizeY);
+    public static native boolean Selectable(String label, byte[] selected, int flags, float sizeX, float sizeY);
 
     // Widgets: List Boxes
     // - FIXME: To be consistent with all the newer API, ListBoxHeader/ListBoxFooter should in reality be called BeginListBox/EndListBox. Will rename them.
@@ -2176,14 +2197,20 @@ public class ImGuiNative {
     public static native boolean MenuItem(String label, String shortcut, boolean selected, boolean enabled);
 
     /*[-C++;-NATIVE]
-        return ImGui::MenuItem(label, shortcut, &p_selected[0]);
+        bool flag = p_selected[0];
+        bool ret = ImGui::MenuItem(label, shortcut, &flag);
+        p_selected[0] = flag;
+        return ret;
     */
-    public static native boolean MenuItem(String label, String shortcut, boolean[] p_selected);
+    public static native boolean MenuItem(String label, String shortcut, byte[] p_selected);
 
     /*[-C++;-NATIVE]
-        return ImGui::MenuItem(label, shortcut, &p_selected[0], enabled);
+        bool flag = p_selected[0];
+        bool ret = ImGui::MenuItem(label, shortcut, &flag, enabled);
+        p_selected[0] = flag;
+        return ret;
     */
-    public static native boolean MenuItem(String label, String shortcut, boolean[] p_selected, boolean enabled);
+    public static native boolean MenuItem(String label, String shortcut, byte[] p_selected, boolean enabled);
 
     // Tooltips
 
@@ -2267,9 +2294,12 @@ public class ImGuiNative {
     public static native boolean BeginPopupModal(String name, int flags);
 
     /*[-C++;-NATIVE]
-        return ImGui::BeginPopupModal(name, &p_open[0], flags);
+        bool flag = p_open[0];
+        bool ret = ImGui::BeginPopupModal(name, &flag, flags);
+        p_open[0] = flag;
+        return ret;
     */
-    public static native boolean BeginPopupModal(String name, boolean[] p_open, int flags);
+    public static native boolean BeginPopupModal(String name, byte[] p_open, int flags);
 
     /*[-C++;-NATIVE]
         ImGui::EndPopup();
@@ -2451,9 +2481,12 @@ public class ImGuiNative {
     public static native boolean BeginTabItem(String label);
 
     /*[-C++;-NATIVE]
-        return ImGui::BeginTabItem(label, &p_open[0], flags);
+        bool flag = p_open[0];
+        bool ret = ImGui::BeginTabItem(label, &flag, flags);
+        p_open[0] = flag;
+        return ret;
     */
-    public static native boolean BeginTabItem(String label, boolean[] p_open, int flags);
+    public static native boolean BeginTabItem(String label, byte[] p_open, int flags);
 
     /*[-C++;-NATIVE]
         ImGui::EndTabItem();

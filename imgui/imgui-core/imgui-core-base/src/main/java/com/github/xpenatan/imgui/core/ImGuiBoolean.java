@@ -2,8 +2,8 @@ package com.github.xpenatan.imgui.core;
 
 public class ImGuiBoolean {
     public static ImGuiBoolean TMP = new ImGuiBoolean();
-
-    public boolean[] data = new boolean[]{false};
+    // teaVM don't support boolean array.
+    public byte[] data = new byte[]{ 0 };
 
     public ImGuiBoolean() {
     }
@@ -13,11 +13,16 @@ public class ImGuiBoolean {
     }
 
     public void setValue(boolean value) {
-        this.data[0] = value;
+        if(value) {
+            this.data[0] = 1;
+        }
+        else {
+            this.data[0] = 0;
+        }
     }
 
     public boolean getValue() {
-        return this.data[0];
+        return this.data[0] == 1;
     }
 
     @Override
