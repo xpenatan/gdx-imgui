@@ -1445,8 +1445,6 @@ public class ImGuiNative {
     */
     public static native boolean Combo(String label, int[] current_item, String items_separated_by_zeros, int popup_max_height_in_items);
 
-
-
     // Widgets: Trees
     // - TreeNode functions return true when the node is open, in which case you need to also call TreePop() when you are finished displaying the tree node contents.
 
