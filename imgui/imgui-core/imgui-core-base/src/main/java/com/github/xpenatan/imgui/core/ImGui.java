@@ -19,6 +19,7 @@ import com.github.xpenatan.imgui.core.enums.ImGuiTableColumnFlags;
 import com.github.xpenatan.imgui.core.enums.ImGuiTableFlags;
 import com.github.xpenatan.imgui.core.enums.ImGuiTreeNodeFlags;
 import com.github.xpenatan.imgui.core.enums.ImGuiWindowFlags;
+import com.github.xpenatan.imgui.core.jnicode.ImGuiInputNative;
 import com.github.xpenatan.imgui.core.jnicode.ImGuiInternalNative;
 import com.github.xpenatan.imgui.core.jnicode.ImGuiNative;
 import com.github.xpenatan.imgui.core.util.CharSequenceHelper;
@@ -51,8 +52,8 @@ public class ImGui {
         ImGuiNative.CreateContext(saveIni);
 
         drawData = new ImDrawData(false);
-        imguiIO = new ImGuiIO();
-        imguiStyle = new ImGuiStyle();
+        imguiIO = new ImGuiIO(false);
+        imguiStyle = new ImGuiStyle(false);
         imDrawList = new ImDrawList(ImDrawList.TYPE_DEFAULT);
         imDrawListBackground = new ImDrawList(ImDrawList.TYPE_BACKGROUND);
         imDrawListForeground = new ImDrawList(ImDrawList.TYPE_FOREGROUND);
@@ -1126,47 +1127,47 @@ public class ImGui {
     // - Most of the ImGuiInputTextFlags flags are only useful for InputText() and not for InputFloatX, InputIntX, InputDouble etc.
 
     public static boolean InputText(String label, ImGuiString text) {
-        return ImGuiNative.InputText(label, text.data, text.data.length, 0, text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
+        return ImGuiInputNative.InputText(label, text.data, text.data.length, 0, text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
     }
 
     public static boolean InputText(String label, ImGuiString text, ImGuiInputTextFlags flags) {
-        return ImGuiNative.InputText(label, text.data, text.data.length, flags.getValue(), text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
+        return ImGuiInputNative.InputText(label, text.data, text.data.length, flags.getValue(), text.inputData, text.inputData.maxChar, text.inputData.allowedChar, text.inputData.allowedChar.length());
     }
 
     public static boolean InputFloat(String label, ImGuiFloat v) {
-        return ImGuiNative.InputFloat(label, v.data);
+        return ImGuiInputNative.InputFloat(label, v.data);
     }
 
     public static boolean InputFloat(String label, ImGuiFloat v, float step, float step_fast, String format) {
-        return ImGuiNative.InputFloat(label, v.data, step, step_fast, format);
+        return ImGuiInputNative.InputFloat(label, v.data, step, step_fast, format);
     }
 
     public static boolean InputFloat(String label, ImGuiFloat v, float step, float step_fast, String format, ImGuiInputTextFlags flags) {
-        return ImGuiNative.InputFloat(label, v.data, step, step_fast, format, flags.getValue());
+        return ImGuiInputNative.InputFloat(label, v.data, step, step_fast, format, flags.getValue());
     }
 
     public static boolean InputInt(String label, ImGuiInt v) {
-        return ImGuiNative.InputInt(label, v.data);
+        return ImGuiInputNative.InputInt(label, v.data);
     }
 
     public static boolean InputInt(String label, ImGuiInt v, float step, float step_fast) {
-        return ImGuiNative.InputInt(label, v.data, step, step_fast);
+        return ImGuiInputNative.InputInt(label, v.data, step, step_fast);
     }
 
     public static boolean InputInt(String label, ImGuiInt v, float step, float step_fast, ImGuiInputTextFlags flags) {
-        return ImGuiNative.InputInt(label, v.data, step, step_fast, flags.getValue());
+        return ImGuiInputNative.InputInt(label, v.data, step, step_fast, flags.getValue());
     }
 
     public static boolean InputDouble(String label, ImGuiDouble v) {
-        return ImGuiNative.InputDouble(label, v.data);
+        return ImGuiInputNative.InputDouble(label, v.data);
     }
 
     public static boolean InputDouble(String label, ImGuiDouble v, float step, float step_fast, String format) {
-        return ImGuiNative.InputDouble(label, v.data, step, step_fast, format);
+        return ImGuiInputNative.InputDouble(label, v.data, step, step_fast, format);
     }
 
     public static boolean InputDouble(String label, ImGuiDouble v, float step, float step_fast, String format, ImGuiInputTextFlags flags) {
-        return ImGuiNative.InputDouble(label, v.data, step, step_fast, format, flags.getValue());
+        return ImGuiInputNative.InputDouble(label, v.data, step, step_fast, format, flags.getValue());
     }
 
     // Widgets: Color Editor/Picker (tip: the ColorEdit* functions have a little color square that can be left-clicked to open a picker, and right-clicked to open an option menu.)

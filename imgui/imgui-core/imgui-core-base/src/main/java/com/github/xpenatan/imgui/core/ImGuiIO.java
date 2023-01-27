@@ -3,7 +3,7 @@ package com.github.xpenatan.imgui.core;
 import com.github.xpenatan.imgui.core.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.core.jnicode.ImGuiNative;
 
-public class ImGuiIO {
+public class ImGuiIO extends ImGuiBase {
 
     //------------------------------------------------------------------
     // Output - Retrieve after calling NewFrame()
@@ -25,6 +25,9 @@ public class ImGuiIO {
     public float MouseDeltaX; // Mouse delta. Note that this is zero if either current or previous position are invalid (-FLT_MAX,-FLT_MAX), so a disappearing/reappearing mouse won't have a huge delta.
     public float MouseDeltaY;
     public float FontGlobalScale;
+
+    public ImGuiIO(boolean cMemoryOwn) {
+    }
 
     public void SetConfigFlags(ImGuiConfigFlags flags) {
         ImGuiNative.SetConfigFlags(flags.getValue());

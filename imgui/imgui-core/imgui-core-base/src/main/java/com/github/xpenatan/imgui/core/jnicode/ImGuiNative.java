@@ -44,9 +44,6 @@ public class ImGuiNative {
         jfieldID ItemInnerSpacingXID;
         jfieldID ItemInnerSpacingYID;
 
-        jfieldID imTextInputDataSizeID;
-        jfieldID imTextInputDataIsDirtyID;
-
         static int DRAWLIST_TYPE_DEFAULT = 0;
         static int DRAWLIST_TYPE_BACKGROUND = 1;
         static int DRAWLIST_TYPE_FOREGROUND = 2;
@@ -56,7 +53,6 @@ public class ImGuiNative {
         ImGuiHelper::Init(env);
         jclass jImGuiIOClass = env->FindClass("com/github/xpenatan/imgui/core/ImGuiIO");
         jclass jImGuiStyleClass = env->FindClass("com/github/xpenatan/imgui/core/ImGuiStyle");
-        jclass jImInputTextDataClass = env->FindClass("com/github/xpenatan/imgui/core/ImGuiInputTextData");
 
         // ImGuiIO Prepare IDs
 
@@ -83,8 +79,6 @@ public class ImGuiNative {
         ItemInnerSpacingXID = env->GetFieldID(jImGuiStyleClass, "ItemInnerSpacingX", "F");
         ItemInnerSpacingYID = env->GetFieldID(jImGuiStyleClass, "ItemInnerSpacingY", "F");
 
-        imTextInputDataSizeID = env->GetFieldID(jImInputTextDataClass, "size", "I");
-        imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
     */
     public static native void init();
 
@@ -1845,112 +1839,6 @@ public class ImGuiNative {
     */
     public static native boolean VSliderScalar(String label, float sizeX, float sizeY, int data_type, float[] v, float v_min, float v_max, String format, float power);
 
-    // Widgets: Input with Keyboard
-    // - If you want to use InputText() with a dynamic string type such as std::string or your own, see misc/cpp/imgui_stdlib.h
-    // - Most of the ImGuiInputTextFlags flags are only useful for InputText() and not for InputFloatX, InputIntX, InputDouble etc.
-
-    /*[-C++;-NATIVE]
-        struct InputTextCallback_UserData {
-            jobject* textInputData;
-            JNIEnv* env;
-            int maxChar;
-            char * allowedChar;
-            int allowedCharLength;
-            int maxSize;
-            int curSize;
-        };
-
-        static int TextEditCallbackStub(ImGuiInputTextCallbackData* data) {
-            InputTextCallback_UserData* userData = (InputTextCallback_UserData*)data->UserData;
-
-            if (data->EventFlag == ImGuiInputTextFlags_CallbackCharFilter) {
-                if(userData->allowedCharLength > 0) {
-                    bool found = false;
-                    for(int i = 0; i < userData->allowedCharLength; i++) {
-                        if(userData->allowedChar[i] == data->EventChar) {
-                            found = true;
-                            break;
-                        }
-                    }
-                    return found ? 0 : 1;
-                }
-            }
-            return 0;
-        }
-    */
-
-    /*[-C++;-NATIVE]
-        int size = (int)strlen(buff);
-        InputTextCallback_UserData cb_user_data;
-        cb_user_data.textInputData = &textInputData;
-        cb_user_data.env = env;
-        cb_user_data.curSize = size;
-        cb_user_data.maxSize = maxSize;
-        cb_user_data.maxChar = maxChar;
-        cb_user_data.allowedChar = allowedChar;
-        cb_user_data.allowedCharLength = allowedCharLength;
-
-        char tempArray [maxSize];
-        memset(tempArray, 0, sizeof(tempArray));
-        memcpy(tempArray, buff, size);
-        if(maxChar >= 0 && maxChar < maxSize)
-            maxSize = maxChar;
-        bool flag = ImGui::InputText(label, tempArray, maxSize, flags  | ImGuiInputTextFlags_CallbackCharFilter, &TextEditCallbackStub, &cb_user_data);
-        if(flag) {
-            size = (int)strlen(tempArray);
-            env->SetIntField (textInputData, imTextInputDataSizeID, size);
-            env->SetBooleanField (textInputData, imTextInputDataIsDirtyID, true);
-            memset(buff, 0, maxSize);
-            memcpy(buff, tempArray, size);
-        }
-        return flag;
-    */
-    public static native boolean InputText(String label, byte[] buff, int maxSize, int flags, ImGuiInputTextData textInputData, int maxChar, String allowedChar, int allowedCharLength);
-
-    /*[-C++;-NATIVE]
-        return ImGui::InputFloat(label, &v[0]);
-    */
-    public static native boolean InputFloat(String label, float[] v);
-
-    /*[-C++;-NATIVE]
-        return ImGui::InputFloat(label, &v[0], step, step_fast, format);
-    */
-    public static native boolean InputFloat(String label, float[] v, float step, float step_fast, String format);
-
-    /*[-C++;-NATIVE]
-        return ImGui::InputFloat(label, &v[0], step, step_fast, format, flags);
-    */
-    public static native boolean InputFloat(String label, float[] v, float step, float step_fast, String format, int flags);
-
-    /*[-C++;-NATIVE]
-        return ImGui::InputInt(label, &v[0]);
-    */
-    public static native boolean InputInt(String label, int[] v);
-
-    /*[-C++;-NATIVE]
-        return ImGui::InputInt(label, &v[0], step, step_fast);
-    */
-    public static native boolean InputInt(String label, int[] v, float step, float step_fast);
-
-    /*[-C++;-NATIVE]
-        return ImGui::InputInt(label, &v[0], step, step_fast, flags);
-    */
-    public static native boolean InputInt(String label, int[] v, float step, float step_fast, int flags);
-
-    /*[-C++;-NATIVE]
-        return ImGui::InputDouble(label, &v[0]);
-    */
-    public static native boolean InputDouble(String label, double[] v);
-
-    /*[-C++;-NATIVE]
-        return ImGui::InputDouble(label, &v[0], step, step_fast, format);
-    */
-    public static native boolean InputDouble(String label, double[] v, float step, float step_fast, String format);
-
-    /*[-C++;-NATIVE]
-        return ImGui::InputDouble(label, &v[0], step, step_fast, format, flags);
-    */
-    public static native boolean InputDouble(String label, double[] v, float step, float step_fast, String format, int flags);
 
     // Widgets: Color Editor/Picker (tip: the ColorEdit* functions have a little color square that can be left-clicked to open a picker, and right-clicked to open an option menu.)
     // - Note that in C++ a 'float v[X]' function argument is the _same_ as 'float* v', the array syntax is just a way to document the number of elements that are expected to be accessible.
