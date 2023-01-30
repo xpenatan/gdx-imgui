@@ -32,7 +32,7 @@ public class ImGuiGdxInput extends InputAdapter {
         if(button == Buttons.MIDDLE)
             mouseDown2 = true;
         ImGuiIO getIO = ImGui.GetIO();
-        wantCaptureMouse = getIO.WantCaptureMouse;
+        wantCaptureMouse = getIO.getWantCaptureMouse();
 
         ImGui.AddMouseButtonEvent(button, true);
 
@@ -164,7 +164,7 @@ public class ImGuiGdxInput extends InputAdapter {
     public boolean scrolled(float amountX, float amountY) {
         ImGui.AddMouseWheelEvent(amountX, -amountY);
         ImGuiIO getIO = ImGui.GetIO();
-        if(getIO.WantCaptureMouse)
+        if(getIO.getWantCaptureMouse())
             return true;
         return false;
     }

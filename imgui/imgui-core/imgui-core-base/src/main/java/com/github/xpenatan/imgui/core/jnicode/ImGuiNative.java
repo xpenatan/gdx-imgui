@@ -18,24 +18,6 @@ public class ImGuiNative {
         #include <stdint.h>     // intptr_t
         #endif
 
-        // ImGuiIO
-
-        jfieldID WantCaptureMouseID;
-        jfieldID WantCaptureKeyboardID;
-        jfieldID WantTextInputID;
-        jfieldID WantSetMousePosID;
-        jfieldID WantSaveIniSettingsID;
-        jfieldID NavActiveID;
-        jfieldID NavVisibleID;
-        jfieldID FramerateID;
-        jfieldID MetricsRenderVerticesID;
-        jfieldID MetricsRenderIndicesID;
-        jfieldID MetricsRenderWindowsID;
-        jfieldID MetricsActiveWindowsID;
-        jfieldID MetricsActiveAllocationsID;
-        jfieldID MouseDeltaXID;
-        jfieldID MouseDeltaYID;
-
         // ImGuiStyle
 
         jfieldID FramePaddingXID;
@@ -50,26 +32,7 @@ public class ImGuiNative {
 
     /*[-C++;-NATIVE]
         ImGuiHelper::Init(env);
-        jclass jImGuiIOClass = env->FindClass("com/github/xpenatan/imgui/core/ImGuiIO");
         jclass jImGuiStyleClass = env->FindClass("com/github/xpenatan/imgui/core/ImGuiStyle");
-
-        // ImGuiIO Prepare IDs
-
-        WantCaptureMouseID = env->GetFieldID(jImGuiIOClass, "WantCaptureMouse", "Z");
-        WantCaptureKeyboardID = env->GetFieldID(jImGuiIOClass, "WantCaptureKeyboard", "Z");
-        WantTextInputID = env->GetFieldID(jImGuiIOClass, "WantTextInput", "Z");
-        WantSetMousePosID = env->GetFieldID(jImGuiIOClass, "WantSetMousePos", "Z");
-        WantSaveIniSettingsID = env->GetFieldID(jImGuiIOClass, "WantSaveIniSettings", "Z");
-        NavActiveID = env->GetFieldID(jImGuiIOClass, "NavActive", "Z");
-        NavVisibleID = env->GetFieldID(jImGuiIOClass, "NavVisible", "Z");
-        FramerateID = env->GetFieldID(jImGuiIOClass, "Framerate", "F");
-        MetricsRenderVerticesID = env->GetFieldID(jImGuiIOClass, "MetricsRenderVertices", "I");
-        MetricsRenderIndicesID = env->GetFieldID(jImGuiIOClass, "MetricsRenderIndices", "I");
-        MetricsRenderWindowsID = env->GetFieldID(jImGuiIOClass, "MetricsRenderWindows", "I");
-        MetricsActiveWindowsID = env->GetFieldID(jImGuiIOClass, "MetricsActiveWindows", "I");
-        MetricsActiveAllocationsID = env->GetFieldID(jImGuiIOClass, "MetricsActiveAllocations", "I");
-        MouseDeltaXID = env->GetFieldID(jImGuiIOClass, "MouseDeltaX", "F");
-        MouseDeltaYID = env->GetFieldID(jImGuiIOClass, "MouseDeltaY", "F");
 
         // ImGuiStyle Prepare IDs
 
@@ -94,6 +57,15 @@ public class ImGuiNative {
         ImGui::DestroyContext();
     */
     public static native void DestroyContext();
+
+    /*[-teaVM;-NATIVE]
+        var jsObj = ImGui.GetIO();
+        return ImGui.getPointer(jsObj);
+    */
+    /*[-C++;-NATIVE]
+        return (jlong)&ImGui::GetIO();
+    */
+    public static native long getIONATIVE();
 
     /*[-C++;-NATIVE]
         ImGuiIO& io = ImGui::GetIO();
@@ -150,23 +122,6 @@ public class ImGuiNative {
         io.DeltaTime = deltaTime;
 
         ImGui::NewFrame();
-
-        // Update ImGuiIO
-        env->SetBooleanField (jImguiIO, WantCaptureMouseID, io.WantCaptureMouse);
-        env->SetBooleanField (jImguiIO, WantCaptureKeyboardID, io.WantCaptureKeyboard);
-        env->SetBooleanField (jImguiIO, WantTextInputID, io.WantTextInput);
-        env->SetBooleanField (jImguiIO, WantSetMousePosID, io.WantSetMousePos);
-        env->SetBooleanField (jImguiIO, WantSaveIniSettingsID, io.WantSaveIniSettings);
-        env->SetBooleanField (jImguiIO, NavActiveID, io.NavActive);
-        env->SetBooleanField (jImguiIO, NavVisibleID, io.NavVisible);
-        env->SetFloatField (jImguiIO, FramerateID, io.Framerate);
-        env->SetIntField (jImguiIO, MetricsRenderVerticesID, io.MetricsRenderVertices);
-        env->SetIntField (jImguiIO, MetricsRenderIndicesID, io.MetricsRenderIndices);
-        env->SetIntField (jImguiIO, MetricsRenderWindowsID, io.MetricsRenderWindows);
-        env->SetIntField (jImguiIO, MetricsActiveWindowsID, io.MetricsActiveWindows);
-        env->SetIntField (jImguiIO, MetricsActiveAllocationsID, io.MetricsActiveAllocations);
-        env->SetFloatField (jImguiIO, MouseDeltaXID, io.MouseDelta.x);
-        env->SetFloatField (jImguiIO, MouseDeltaYID, io.MouseDelta.y);
 
         // Update ImGuiStyle
 

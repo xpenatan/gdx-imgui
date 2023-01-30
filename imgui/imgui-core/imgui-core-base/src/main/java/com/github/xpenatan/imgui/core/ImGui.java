@@ -102,6 +102,7 @@ public class ImGui {
     }
 
     public static ImGuiIO GetIO() {
+        imguiIO.setPointer(ImGuiNative.getIONATIVE());
         return imguiIO;
     }
 
