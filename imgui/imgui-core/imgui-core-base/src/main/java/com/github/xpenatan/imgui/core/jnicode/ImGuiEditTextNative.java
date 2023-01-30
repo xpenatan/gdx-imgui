@@ -1,6 +1,8 @@
 package com.github.xpenatan.imgui.core.jnicode;
 
-import com.github.xpenatan.imgui.core.ImGuiInputTextData;
+import com.github.xpenatan.imgui.core.ImGuiInputTextCallback;
+import com.github.xpenatan.imgui.core.ImGuiInputTextCallbackData;
+import com.github.xpenatan.imgui.core.ImGuiString;
 
 public class ImGuiEditTextNative {
 
@@ -16,17 +18,16 @@ public class ImGuiEditTextNative {
         #endif
 
         // ImGuiStyle
-        jfieldID imTextInputDataSizeID;
-        jfieldID imTextInputDataIsDirtyID;
-
+        static jmethodID imOnInputTextChangeID = 0;
     */
 
 
     /*[-C++;-NATIVE]
+
         ImGuiHelper::Init(env);
-        jclass jImInputTextDataClass = env->FindClass("com/github/xpenatan/imgui/core/ImGuiInputTextData");
-        imTextInputDataSizeID = env->GetFieldID(jImInputTextDataClass, "size", "I");
-        imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
+        jclass jImGuiInputTextCallbackClass = env->FindClass("com/github/xpenatan/imgui/core/ImGuiInputTextCallback");
+
+        imOnInputTextChangeID = env->GetMethodID(jImGuiInputTextCallbackClass, "onInputTextChange", "(J)I");
     */
     public static native void init();
 
@@ -429,62 +430,32 @@ public class ImGuiEditTextNative {
     // - Most of the ImGuiInputTextFlags flags are only useful for InputText() and not for InputFloatX, InputIntX, InputDouble etc.
 
     /*[-C++;-NATIVE]
-        struct InputTextCallback_UserData {
-            jobject* textInputData;
+        struct InputTextCallback_Data {
             JNIEnv* env;
-            int maxChar;
-            char * allowedChar;
-            int allowedCharLength;
-            int maxSize;
-            int curSize;
+            jobject* obj;
         };
 
-        static int TextEditCallbackStub(ImGuiInputTextCallbackData* data) {
-            InputTextCallback_UserData* userData = (InputTextCallback_UserData*)data->UserData;
-
-            if (data->EventFlag == ImGuiInputTextFlags_CallbackCharFilter) {
-                if(userData->allowedCharLength > 0) {
-                    bool found = false;
-                    for(int i = 0; i < userData->allowedCharLength; i++) {
-                        if(userData->allowedChar[i] == data->EventChar) {
-                            found = true;
-                            break;
-                        }
-                    }
-                    return found ? 0 : 1;
-                }
-            }
-            return 0;
+        static int InputTextCallback(ImGuiInputTextCallbackData* data) {
+            InputTextCallback_Data* userData = (InputTextCallback_Data*)data->UserData;
+            return userData->env->CallIntMethod(*userData->obj, imOnInputTextChangeID, (jlong)data);
         }
     */
 
     /*[-C++;-NATIVE]
-        int size = (int)strlen(buff);
-        InputTextCallback_UserData cb_user_data;
-        cb_user_data.textInputData = &textInputData;
-        cb_user_data.env = env;
-        cb_user_data.curSize = size;
-        cb_user_data.maxSize = maxSize;
-        cb_user_data.maxChar = maxChar;
-        cb_user_data.allowedChar = allowedChar;
-        cb_user_data.allowedCharLength = allowedCharLength;
-
-        char tempArray [maxSize];
-        memset(tempArray, 0, sizeof(tempArray));
-        memcpy(tempArray, buff, size);
-        if(maxChar >= 0 && maxChar < maxSize)
-            maxSize = maxChar;
-        bool flag = ImGui::InputText(label, tempArray, maxSize, flags  | ImGuiInputTextFlags_CallbackCharFilter, &TextEditCallbackStub, &cb_user_data);
-        if(flag) {
-            size = (int)strlen(tempArray);
-            env->SetIntField (textInputData, imTextInputDataSizeID, size);
-            env->SetBooleanField (textInputData, imTextInputDataIsDirtyID, true);
-            memset(buff, 0, maxSize);
-            memcpy(buff, tempArray, size);
-        }
-        return flag;
+        int size = (int)strlen(buf);
+        InputTextCallback_Data callbackData;
+        callbackData.obj = &callback;
+        callbackData.env = env;
+        return ImGui::InputText(label, buf, bufSize, flags | ImGuiInputTextFlags_CallbackResize, &InputTextCallback, &callbackData);
     */
-    public static native boolean InputText(String label, byte[] buff, int maxSize, int flags, ImGuiInputTextData textInputData, int maxChar, String allowedChar, int allowedCharLength);
+    private static native boolean InputTextInternal(String label, byte[] buf, int bufSize, int flags, ImGuiInputTextCallback callback);
+
+    public static boolean InputText(String label, ImGuiString text, int bufSize, int flags, ImGuiInputTextCallback callback) {
+        ImGuiInputTextCallbackData.TMP_EMPTY.imGuiString = text;
+        boolean ret = InputTextInternal(label, text.getData(), bufSize, flags, callback);
+        ImGuiInputTextCallbackData.TMP_EMPTY.imGuiString = null;
+        return ret;
+    }
 
     /*[-C++;-NATIVE]
         return ImGui::InputFloat(label, &v[0]);

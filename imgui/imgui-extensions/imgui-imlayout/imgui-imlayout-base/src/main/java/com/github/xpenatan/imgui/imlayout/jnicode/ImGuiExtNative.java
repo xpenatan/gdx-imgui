@@ -1,9 +1,7 @@
 package com.github.xpenatan.imgui.imlayout.jnicode;
 
-import com.github.xpenatan.imgui.core.ImGuiInputTextData;
 import com.github.xpenatan.imgui.imlayout.custom.EditTextFloatData;
 import com.github.xpenatan.imgui.imlayout.custom.EditTextIntData;
-import com.github.xpenatan.imgui.imlayout.custom.EditTextStringData;
 
 public class ImGuiExtNative {
 
@@ -28,15 +26,12 @@ public class ImGuiExtNative {
         jfieldID v_maxIID;
         jfieldID isDraggingBID;
 
-        jfieldID imTextInputDataSizeID;
-        jfieldID imTextInputDataIsDirtyID;
     */
 
     /*[-C++;-NATIVE]
         jclass jEditTextDataClass = env->FindClass("com/github/xpenatan/imgui/imlayout/custom/EditTextData");
         jclass jEditTextFloatDataClass = env->FindClass("com/github/xpenatan/imgui/imlayout/custom/EditTextFloatData");
         jclass jEditTextIntDataClass = env->FindClass("com/github/xpenatan/imgui/imlayout/custom/EditTextIntData");
-        jclass jImInputTextDataClass = env->FindClass("com/github/xpenatan/imgui/core/ImGuiInputTextData");
 
         leftLabelID = env->GetFieldID(jEditTextDataClass, "leftLabel", "Ljava/lang/String;");
         leftLabelColorID = env->GetFieldID(jEditTextDataClass, "leftLabelColor", "I");
@@ -57,8 +52,6 @@ public class ImGuiExtNative {
 
         isDraggingBID = env->GetFieldID(jEditTextIntDataClass, "isDragging", "Z");
 
-        imTextInputDataSizeID = env->GetFieldID(jImInputTextDataClass, "size", "I");
-        imTextInputDataIsDirtyID = env->GetFieldID(jImInputTextDataClass, "isDirty", "Z");
     */
     public static native void init();
 
@@ -222,26 +215,4 @@ public class ImGuiExtNative {
     */
     public static native int EditTextI(String id, EditTextIntData jData01, EditTextIntData jData02, EditTextIntData jData03, EditTextIntData jData04, int flags);
 
-    /*[-C++;-NATIVE]
-        EditTextData<std::string> data01;
-        updateEditText(env, &data01, data);
-        int size = (int)strlen(buff);
-        char tempArray [maxSize];
-        memset(tempArray, 0, sizeof(tempArray));
-        memcpy(tempArray, buff, size);
-        if(maxChar >= 0 && maxChar < maxSize)
-            maxSize = maxChar;
-        data01.value = tempArray;
-        data01.maxChar = maxSize;
-        bool ret = ImGuiExt::EditTextS(id, &data01, NULL, flags) == 0 ? true : false;
-        if(ret) {
-            size = data01.value.size();
-            env->SetIntField (textInputData, imTextInputDataSizeID, size);
-            env->SetBooleanField (textInputData, imTextInputDataIsDirtyID, true);
-            memset(buff, 0, maxSize);
-            memcpy(buff, data01.value.c_str(), size);
-        }
-        return ret;
-    */
-    public static native boolean EditTextS(String id, EditTextStringData data, byte[] buff, int maxSize, int flags, ImGuiInputTextData textInputData, int maxChar, String allowedChar, int allowedCharLength);
 }

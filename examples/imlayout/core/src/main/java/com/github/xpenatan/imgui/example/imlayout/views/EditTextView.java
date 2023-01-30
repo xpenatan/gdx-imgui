@@ -4,7 +4,6 @@ import com.github.xpenatan.imgui.core.ImGui;
 import com.github.xpenatan.imgui.imlayout.ImLayout;
 import com.github.xpenatan.imgui.imlayout.custom.EditTextFloatData;
 import com.github.xpenatan.imgui.imlayout.custom.EditTextIntData;
-import com.github.xpenatan.imgui.imlayout.custom.EditTextStringData;
 
 public class EditTextView {
 
@@ -16,12 +15,9 @@ public class EditTextView {
     private EditTextIntData dI2 = new EditTextIntData("Y:", "Tooltip 02");
     private EditTextIntData dI3 = new EditTextIntData("Z:", "Min Value=-25, Max Value=25");
 
-    private EditTextStringData dS1 = new EditTextStringData("S:", "Tooltip String");
-
     public void render() {
         renderFloatEditText();
         renderIntEditText();
-        renderStringEditText();
     }
 
     private void renderFloatEditText() {
@@ -47,13 +43,5 @@ public class EditTextView {
         dI3.v_min = -25;
         dI3.v_max = 25;
         ImLayout.EditTextI("##2", dI1, dI2, dI3);
-    }
-
-    private void renderStringEditText() {
-        if(ImLayout.EditTextS("##S", dS1)) {
-            String newValue = dS1.getValue();
-            int length = newValue.length();
-            System.out.println("newValue: " + newValue);
-        }
     }
 }

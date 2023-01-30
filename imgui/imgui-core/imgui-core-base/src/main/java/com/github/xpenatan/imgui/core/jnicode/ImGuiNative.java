@@ -1,7 +1,6 @@
 package com.github.xpenatan.imgui.core.jnicode;
 
 import com.github.xpenatan.imgui.core.ImGuiIO;
-import com.github.xpenatan.imgui.core.ImGuiInputTextData;
 import com.github.xpenatan.imgui.core.ImGuiStyle;
 import com.github.xpenatan.imgui.core.ImGuiViewport;
 import com.github.xpenatan.imgui.core.TexDataRGBA32;

@@ -1,41 +1,64 @@
 package com.github.xpenatan.imgui.core;
 
+import java.nio.charset.StandardCharsets;
+
 public class ImGuiString {
     public static ImGuiString TMP = new ImGuiString();
+
+    boolean isDirty = false;
 
     byte[] data;
 
     private String text;
 
-    final ImGuiInputTextData inputData = new ImGuiInputTextData();
+    int size;
 
     public ImGuiString() {
-        this(100);
+        this(10);
     }
 
-    public ImGuiString(int size) {
-        data = new byte[size];
+    public ImGuiString(int bufferSize) {
+        data = new byte[bufferSize];
     }
 
-    public ImGuiString(int maxTextSize, String text) {
-        this(maxTextSize);
+    public ImGuiString(String text) {
+        this(text.length());
         setValue(text);
     }
 
+    public void resizeBuffer(int newBufferSize) {
+        byte[] newItems = new byte[newBufferSize];
+        int newSize = Math.min(size, newItems.length);
+        System.arraycopy(data, 0, newItems, 0, newSize);
+        this.data = newItems;
+        this.size = newSize;
+        isDirty = true;
+    }
+
     public void setValue(String value) {
-        inputData.size = value.length();
-        text = value;
-        for(int i = 0; i < inputData.size; i++) {
-            data[i] = (byte)value.charAt(i);
+        size = value.length();
+        byte[] strBytes = value.getBytes();
+        if(size >= data.length) {
+            data = new byte[size + 10];
         }
+        System.arraycopy(strBytes, 0, data, 0, size);
+        isDirty = true;
     }
 
     public String getValue() {
-        if(inputData.isDirty) {
-            inputData.isDirty = false;
-            text = new String(data, 0, inputData.size);
+        if(isDirty) {
+            isDirty = false;
+            text = new String(data, 0, size, StandardCharsets.UTF_8);
         }
         return text;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     @Override
