@@ -14,7 +14,7 @@ configurations {
 dependencies {
     includeDep "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
 
-    testImplementation files("./jni/libs/imgui-core-natives.jar")
+    testImplementation files("./build/c++/libs/imgui-core-natives.jar")
     testImplementation "junit:junit:$project.jUnitVersion"
 }
 
