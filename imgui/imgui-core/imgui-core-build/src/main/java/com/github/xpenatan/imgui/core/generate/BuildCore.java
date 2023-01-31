@@ -17,11 +17,11 @@ public class BuildCore {
         String cppPath = new File("../imgui-core/").getCanonicalPath();
         String teaVMPath = new File("../imgui-core-teavm/").getCanonicalPath();
 
-        String jniDir = cppPath + "/jni";
+        String jniDir = cppPath + "/build/c++/";
         String sourceDir = "../imgui-core-base/src/main/java/";
         String cppGenDir = cppPath + "/src/main/java/";
         String teaVMGenDir = teaVMPath + "/src/main/java/";
-        String imguiCppBase = new File("../../imgui-cpp/imgui-cpp/jni").getCanonicalPath();
+        String imguiCppBase = new File("../../imgui-cpp/imgui-cpp/build/c++").getCanonicalPath();
 
         //Generate CPP
         String classPaths = ImGuiCppParser.getClassPath("imgui-core", "gdx-1", "gdx-jnigen-loader", "jParser");

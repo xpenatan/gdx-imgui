@@ -19,12 +19,8 @@ dependencies {
 }
 
 clean.doFirst {
-    def jniPath = projectDir.toString() + "/jni/"
     def srcPath = projectDir.toString() + "/src/main/"
 
-    if(new File(jniPath).exists()) {
-        project.delete(files(jniPath))
-    }
     if(new File(srcPath).exists()) {
         project.delete(files(srcPath))
     }
@@ -32,7 +28,7 @@ clean.doFirst {
 
 task platformAll(type: Jar) {
     archiveClassifier.set("natives-desktop")
-    from zipTree(projectDir.toString() + "/jni/libs/imgui-core-natives.jar")
+    from zipTree(projectDir.toString() + "/build/c++/libs/imgui-core-natives.jar")
 }
 
 task fromClasses(type: Jar) {

@@ -29,7 +29,6 @@ out/
 *.xml
 jni-headers/
 *.c
-**/jni/
 libs/
 *.log
 *.o

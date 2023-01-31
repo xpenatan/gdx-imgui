@@ -8,12 +8,7 @@ dependencies {
 }
 
 clean.doFirst {
-    def jniPath = projectDir.toString() + "/jni/"
     def libPath = projectDir.toString() + "/libs/"
-
-    if(new File(jniPath).exists()) {
-        project.delete(files(jniPath))
-    }
     if(new File(libPath).exists()) {
         project.delete(files(libPath))
     }

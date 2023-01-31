@@ -13,13 +13,6 @@ dependencies {
 
 project.ext.mainClassName = "com.github.xpenatan.imgui.generate.BuildCPP"
 
-clean.doFirst {
-    def jniPath = projectDir.toString() + "/jni/"
-    if(new File(jniPath).exists()) {
-        project.delete(files(jniPath))
-    }
-}
-
 task downloadZipFile(type: Download) {
 //	src 'https://api.github.com/repos/ocornut/imgui/zipball/v1.74'
 //	src 'https://github.com/ocornut/imgui/archive/master.zip'
@@ -42,7 +35,7 @@ task downloadAndUnzipFile(dependsOn: downloadZipFile, type: Copy) {
     includeEmptyDirs = false
 
     into {
-        projectDir.toString() + "/jni/src/"
+        projectDir.toString() + "/build/bullet/"
     }
 }
 
