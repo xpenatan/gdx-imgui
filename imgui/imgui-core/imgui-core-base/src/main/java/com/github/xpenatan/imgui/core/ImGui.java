@@ -107,6 +107,7 @@ public class ImGui {
     }
 
     public static ImGuiStyle GetStyle() {
+        imguiStyle.setPointer(ImGuiNative.GetStyleNATIVE());
         return imguiStyle;
     }
 

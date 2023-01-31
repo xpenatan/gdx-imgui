@@ -18,13 +18,6 @@ public class ImGuiNative {
         #include <stdint.h>     // intptr_t
         #endif
 
-        // ImGuiStyle
-
-        jfieldID FramePaddingXID;
-        jfieldID FramePaddingYID;
-        jfieldID ItemInnerSpacingXID;
-        jfieldID ItemInnerSpacingYID;
-
         static int DRAWLIST_TYPE_DEFAULT = 0;
         static int DRAWLIST_TYPE_BACKGROUND = 1;
         static int DRAWLIST_TYPE_FOREGROUND = 2;
@@ -32,15 +25,6 @@ public class ImGuiNative {
 
     /*[-C++;-NATIVE]
         ImGuiHelper::Init(env);
-        jclass jImGuiStyleClass = env->FindClass("com/github/xpenatan/imgui/core/ImGuiStyle");
-
-        // ImGuiStyle Prepare IDs
-
-        FramePaddingXID = env->GetFieldID(jImGuiStyleClass, "FramePaddingX", "F");
-        FramePaddingYID = env->GetFieldID(jImGuiStyleClass, "FramePaddingY", "F");
-        ItemInnerSpacingXID = env->GetFieldID(jImGuiStyleClass, "ItemInnerSpacingX", "F");
-        ItemInnerSpacingYID = env->GetFieldID(jImGuiStyleClass, "ItemInnerSpacingY", "F");
-
     */
     public static native void init();
 
@@ -66,6 +50,15 @@ public class ImGuiNative {
         return (jlong)&ImGui::GetIO();
     */
     public static native long getIONATIVE();
+
+    /*[-teaVM;-NATIVE]
+        var jsObj = ImGui.GetStyle();
+        return ImGui.getPointer(jsObj);
+    */
+    /*[-C++;-NATIVE]
+        return (jlong)&ImGui::GetStyle();
+    */
+    public static native long GetStyleNATIVE();
 
     /*[-C++;-NATIVE]
         ImGuiIO& io = ImGui::GetIO();
@@ -126,12 +119,6 @@ public class ImGuiNative {
         // Update ImGuiStyle
 
         ImGuiStyle & style = ImGui::GetStyle();
-
-        env->SetFloatField (jImguiStyle, FramePaddingXID, style.FramePadding.x);
-        env->SetFloatField (jImguiStyle, FramePaddingYID, style.FramePadding.y);
-
-        env->SetFloatField (jImguiStyle, ItemInnerSpacingXID, style.ItemInnerSpacing.x);
-        env->SetFloatField (jImguiStyle, ItemInnerSpacingYID, style.ItemInnerSpacing.y);
     */
     public static native void UpdateDisplayAndInputAndFrame(ImGuiIO jImguiIO, ImGuiStyle jImguiStyle, float deltaTime, int width, int height, int display_w, int display_h);
 
