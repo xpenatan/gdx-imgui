@@ -13,7 +13,7 @@ public class BuildCPP {
         String jniPath = cppPath + "/build/c++/";
 
         File from = new File(cppPath + "/cpp-source/");
-        File bulletFrom = new File(cppPath + "/build/bullet/");
+        File bulletFrom = new File(cppPath + "/build/imgui/");
         File dest = new File(jniPath + "/src");
         FileCopyHelper.copyDir(from.toPath(), dest.toPath());
         FileCopyHelper.copyDir(bulletFrom.toPath(), dest.toPath());

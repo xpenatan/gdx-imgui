@@ -35,7 +35,7 @@ task downloadAndUnzipFile(dependsOn: downloadZipFile, type: Copy) {
     includeEmptyDirs = false
 
     into {
-        projectDir.toString() + "/build/bullet/"
+        projectDir.toString() + "/build/imgui/"
     }
 }
 
