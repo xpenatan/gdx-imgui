@@ -3,7 +3,6 @@
 .*.swp
 .DS_STORE
 *.cache
-*.js
 
 bin/
 target/
@@ -34,7 +33,7 @@ libs/
 *.o
 *.ini
 
-**/imgui-core/src/main/**
-**/imgui-core-teavm/src/**
-**/imgui-imlayout/src/**
+**/imgui-core/src/main/java/**
+**/imgui-core-teavm/src/main/java/**
+**/imgui-imlayout/src/main/java/**
 **/webapp/**
