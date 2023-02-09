@@ -19,7 +19,7 @@ dependencies {
 }
 
 clean.doFirst {
-    def srcPath = projectDir.toString() + "/src/main/"
+    def srcPath = projectDir.toString() + "/src/main/java"
     if(new File(srcPath).exists()) {
         project.delete(files(srcPath))
     }
