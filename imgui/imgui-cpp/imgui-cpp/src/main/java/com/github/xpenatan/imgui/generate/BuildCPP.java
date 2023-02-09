@@ -12,11 +12,15 @@ public class BuildCPP {
         String cppPath = new File(".").getCanonicalPath();
         String jniPath = cppPath + "/build/c++/";
 
-        File from = new File(cppPath + "/cpp-source/");
-        File bulletFrom = new File(cppPath + "/build/imgui/");
+        File imguiFrom = new File(cppPath + "/build/imgui/");
         File dest = new File(jniPath + "/src");
-        FileCopyHelper.copyDir(from.toPath(), dest.toPath());
-        FileCopyHelper.copyDir(bulletFrom.toPath(), dest.toPath());
+
+        //Copy JNI helper
+        FileCopyHelper.copyDir(new File(cppPath + "/cpp-source/jni/").toPath(), dest.toPath());
+
+        //Copy Custom code to source
+        FileCopyHelper.copyDir(new File(cppPath + "/cpp-source/custom/").toPath(), imguiFrom.toPath());
+        FileCopyHelper.copyDir(imguiFrom.toPath(), dest.toPath());
 
         CPPBuildHelper.build(libName, jniPath);
     }

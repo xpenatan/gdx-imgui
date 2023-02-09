@@ -1,46 +1,145 @@
 package com.github.xpenatan.imgui.core;
 
-public class ImGuiInt3 {
+public class ImGuiInt3 extends ImGuiInt2 {
+
     public static ImGuiInt3 TMP = new ImGuiInt3();
 
-    int[] data = new int[]{0, 0, 0};
+    /*[-C++;-NATIVE]
+        #include "imgui_custom.h"
+    */
 
     public ImGuiInt3() {
+        initObject(createNative(), true);
     }
 
-    public ImGuiInt3(int x, int y, int z) {
-        setValue(x, y, z);
+    public ImGuiInt3(int value) {
+        initObject(createNative(), true);
     }
+
+    /*[-teaVM;-NATIVE]
+        var jsObj = new ImGui.IntArray(3);
+        return ImGui.getPointer(jsObj);
+    */
+    /*[-C++;-NATIVE]
+        return (jlong)new IntArray(3);
+    */
+    private static native long createNative();
+
+    @Override
+    protected void deleteNative() {
+        deleteNative(cPointer);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var jsObj = ImGui.wrapPointer(addr, ImGui.IntArray);
+        ImGui.destroy(jsObj);
+    */
+    /*[-C++;-NATIVE]
+        delete (IntArray*)addr;
+    */
+    private static native void deleteNative(long addr);
 
     public void setValue(int x, int y, int z) {
-        this.data[0] = x;
-        this.data[1] = y;
-        this.data[2] = z;
+        setValueNATIVE(getCPointer(), x, y, z);
     }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.IntArray);
+        nativeObject.setValue(0, x);
+        nativeObject.setValue(1, y);
+        nativeObject.setValue(2, z);
+    */
+    /*[-C++;-NATIVE]
+        IntArray* nativeObject = (IntArray*)addr;
+        nativeObject->setValue(0, x);
+        nativeObject->setValue(1, y);
+        nativeObject->setValue(2, z);
+    */
+    private static native void setValueNATIVE(long addr, int x, int y, int z);
 
     public void setX(int value) {
-        this.data[0] = value;
+        setValueXNATIVE(getCPointer(), value);
     }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.IntArray);
+        nativeObject.setValue(0, value);
+    */
+    /*[-C++;-NATIVE]
+        IntArray* nativeObject = (IntArray*)addr;
+        nativeObject->setValue(0, value);
+    */
+    private static native void setValueXNATIVE(long addr, int value);
 
     public int getX() {
-        return this.data[0];
+        return getValueXNATIVE(getCPointer());
     }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.IntArray);
+        return nativeObject.getValue(0);
+    */
+    /*[-C++;-NATIVE]
+        IntArray* nativeObject = (IntArray*)addr;
+        return nativeObject->getValue(0);
+    */
+    private static native int getValueXNATIVE(long addr);
 
     public void setY(int value) {
-        this.data[1] = value;
+        setValueYNATIVE(getCPointer(), value);
     }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.IntArray);
+        nativeObject.setValue(1, value);
+    */
+    /*[-C++;-NATIVE]
+        IntArray* nativeObject = (IntArray*)addr;
+        nativeObject->setValue(1, value);
+    */
+    private static native void setValueYNATIVE(long addr, int value);
 
     public int getY() {
-        return this.data[1];
+        return getValueYNATIVE(getCPointer());
     }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.IntArray);
+        return nativeObject.getValue(1);
+    */
+    /*[-C++;-NATIVE]
+        IntArray* nativeObject = (IntArray*)addr;
+        return nativeObject->getValue(1);
+    */
+    private static native int getValueYNATIVE(long addr);
 
     public void setZ(int value) {
-        this.data[2] = value;
+        setValueZNATIVE(getCPointer(), value);
     }
 
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.IntArray);
+        nativeObject.setValue(2, value);
+    */
+    /*[-C++;-NATIVE]
+        IntArray* nativeObject = (IntArray*)addr;
+        nativeObject->setValue(2, value);
+    */
+    private static native void setValueZNATIVE(long addr, int value);
+
     public int getZ() {
-        return this.data[2];
+        return getValueZNATIVE(getCPointer());
     }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.IntArray);
+        return nativeObject.getValue(2);
+    */
+    /*[-C++;-NATIVE]
+        IntArray* nativeObject = (IntArray*)addr;
+        return nativeObject->getValue(2);
+    */
+    private static native int getValueZNATIVE(long addr);
 
     @Override
     public String toString() {

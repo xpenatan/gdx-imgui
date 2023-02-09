@@ -11,8 +11,10 @@ import com.github.xpenatan.imgui.core.ImDrawCmd;
 import com.github.xpenatan.imgui.core.ImDrawData;
 import com.github.xpenatan.imgui.core.ImDrawList;
 import com.github.xpenatan.imgui.core.ImGui;
+import com.github.xpenatan.imgui.core.ImGuiByteArray;
+import com.github.xpenatan.imgui.core.ImGuiIO;
+import com.github.xpenatan.imgui.core.ImGuiInt;
 import com.github.xpenatan.imgui.core.ImVec4;
-import com.github.xpenatan.imgui.core.TexDataRGBA32;
 import java.nio.ByteBuffer;
 
 /**
@@ -38,10 +40,10 @@ public class ImGuiGdxImpl {
                 new VertexAttribute(Usage.ColorPacked, 4, GL20.GL_UNSIGNED_BYTE, true, "Color")
         );
 
-//        String vertex = getVertexShaderGlsl130();
-//        String fragment = getFragmentShaderGlsl130();
-        String vertex = getVertexShaderGlsl300es();
-        String fragment = getFragmentShaderGlsl300es();
+        String vertex = getVertexShaderGlsl130();
+        String fragment = getFragmentShaderGlsl130();
+//        String vertex = getVertexShaderGlsl300es();
+//        String fragment = getFragmentShaderGlsl300es();
 
         shader = new ShaderProgram(vertex, fragment);
         if(shader.isCompiled() == false) {
@@ -54,8 +56,30 @@ public class ImGuiGdxImpl {
     }
 
     private void prepareFont() {
-        TexDataRGBA32 texData = new TexDataRGBA32();
-        ImGui.GetTexDataAsRGBA32(texData, texData.pixelBuffer);
+        int pixelMax = 131072; // 131072
+        ByteBuffer buffer = ByteBuffer.allocateDirect(pixelMax);
+        ImGuiInt width = new ImGuiInt();
+        ImGuiInt height = new ImGuiInt();
+        ImGuiInt bytesPerPixel = new ImGuiInt();
+        ImGuiByteArray bytesArray = new ImGuiByteArray(pixelMax);
+
+        width.setValue(4);
+        height.setValue(3);
+
+        ImGuiIO io = ImGui.GetIO();
+
+        io.GetTexDataAsRGBA32(bytesArray, width, height, bytesPerPixel);
+        int widthValue = width.getValue();
+        int heightValue = height.getValue();
+        int bytesPerPixelValue = bytesPerPixel.getValue();
+
+        int size = widthValue * heightValue * 4;
+
+        for(int i = 0; i < size; i++) {
+            buffer.put(i, bytesArray.getValue(i));
+        }
+        buffer.position(0);
+        buffer.limit(size);
 
         g_FontTexture = Gdx.gl.glGenTexture();
 
@@ -64,10 +88,10 @@ public class ImGuiGdxImpl {
         Gdx.gl.glTexParameteri(GL20.GL_TEXTURE_2D, GL20.GL_TEXTURE_MAG_FILTER, GL20.GL_LINEAR);
 
         Gdx.gl.glPixelStorei(GL20.GL_UNPACK_ALIGNMENT, 1);
-        Gdx.gl.glTexImage2D(GL20.GL_TEXTURE_2D, 0, GL20.GL_RGBA, texData.width, texData.height, 0, GL20.GL_RGBA,
-                GL20.GL_UNSIGNED_BYTE, texData.pixelBuffer);
+        Gdx.gl.glTexImage2D(GL20.GL_TEXTURE_2D, 0, GL20.GL_RGBA, widthValue, heightValue, 0, GL20.GL_RGBA,
+                GL20.GL_UNSIGNED_BYTE, buffer);
 
-        ImGui.SetFontTexID(g_FontTexture);
+        io.SetFontTexID(g_FontTexture);
     }
 
     private void createBufferObject() {
@@ -79,19 +103,11 @@ public class ImGuiGdxImpl {
     }
 
     public void update() {
-        update(null);
-    }
-
-    public void update(ImGuiGdxInput inputProcessor) {
         float deltaTime = Gdx.graphics.getDeltaTime();
-        int x = Gdx.input.getX();
-        int y = Gdx.input.getY();
         int width = Gdx.graphics.getWidth();
         int height = Gdx.graphics.getHeight();
-
         int backBufferWidth = Gdx.graphics.getBackBufferWidth();
         int backBufferHeight = Gdx.graphics.getBackBufferHeight();
-
         updateFrame(deltaTime, width, height, backBufferWidth, backBufferHeight);
     }
 
@@ -146,6 +162,7 @@ public class ImGuiGdxImpl {
                     float clip_maxY = (clipRectW - clip_offY) * clip_scaleY;
                     if(clip_maxX < clip_minX || clip_maxY < clip_minY)
                         continue;
+
                     Gdx.gl.glScissor((int)clip_minX, (int)(fb_height - clip_maxY), (int)(clip_maxX - clip_minX), (int)(clip_maxY - clip_minY));
 
                     int textureID = cmdBuffer.getTextureId();
@@ -273,14 +290,39 @@ public class ImGuiGdxImpl {
         ElementsHandle = 0;
     }
 
+    private String vertex_shader_glsl_130 = "uniform mat4 ProjMtx;\n" +
+            "attribute vec2 Position;\n"
+            + "attribute vec2 UV;\n"
+            + "attribute vec4 Color;\n"
+            + "varying vec2 Frag_UV;\n"
+            + "varying vec4 Frag_Color;\n"
+            + "void main()\n"
+            + "{\n"
+            + "    Frag_UV = UV;\n"
+            + "    Frag_Color = Color;\n"
+            + "    gl_Position = ProjMtx * vec4(Position.xy,0,1);\n"
+            + "}\n";
+
+    private String fragment_shader_glsl_130 = "#ifdef GL_ES\n"
+            + "    precision mediump float;\n"
+            + "#endif\n"
+            + "uniform sampler2D Texture;\n"
+            + "varying vec2 Frag_UV;\n"
+            + "varying vec4 Frag_Color;\n"
+            + "void main()\n"
+            + "{\n"
+            + "    gl_FragColor = Frag_Color * texture2D(Texture, Frag_UV.st);\n"
+            + "}\n";
+
     private String getVertexShaderGlsl130() {
-        return "#version 130\n"
+        return ""
+//                + "#version 130\n"
                 + "uniform mat4 ProjMtx;\n"
-                + "in vec2 Position;\n"
-                + "in vec2 UV;\n"
-                + "in vec4 Color;\n"
-                + "out vec2 Frag_UV;\n"
-                + "out vec4 Frag_Color;\n"
+                + "attribute vec2 Position;\n"
+                + "attribute vec2 UV;\n"
+                + "attribute vec4 Color;\n"
+                + "varying vec2 Frag_UV;\n"
+                + "varying vec4 Frag_Color;\n"
                 + "void main()\n"
                 + "{\n"
                 + "    Frag_UV = UV;\n"
@@ -290,14 +332,17 @@ public class ImGuiGdxImpl {
     }
 
     private String getFragmentShaderGlsl130() {
-        return "#version 130\n"
+        return ""
+//                + "#version 130\n"
+                + "#ifdef GL_ES\n"
+                + "    precision mediump float;\n"
+                + "#endif\n"
                 + "uniform sampler2D Texture;\n"
-                + "in vec2 Frag_UV;\n"
-                + "in vec4 Frag_Color;\n"
-                + "out vec4 Out_Color;\n"
+                + "varying vec2 Frag_UV;\n"
+                + "varying vec4 Frag_Color;\n"
                 + "void main()\n"
                 + "{\n"
-                + "    Out_Color = Frag_Color * texture(Texture, Frag_UV.st);\n"
+                + "    gl_FragColor = Frag_Color * texture2D(Texture, Frag_UV.st);\n"
                 + "}\n";
     }
     private String getVertexShaderGlsl300es() {

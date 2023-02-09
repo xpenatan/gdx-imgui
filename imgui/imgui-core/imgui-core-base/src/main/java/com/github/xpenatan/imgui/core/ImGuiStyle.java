@@ -17,7 +17,7 @@ public class ImGuiStyle extends ImGuiBase {
 
     /*[-teaVM;-NATIVE]
         var nativeObject = ImGui.wrapPointer(addr, ImGui.ImGuiStyle);
-        return return ImGui.getPointer(nativeObject.get_FramePadding);;
+        return ImGui.getPointer(nativeObject.get_FramePadding);
     */
     /*[-C++;-NATIVE]
         ImGuiStyle* nativeObject = (ImGuiStyle*)addr;
@@ -33,7 +33,7 @@ public class ImGuiStyle extends ImGuiBase {
 
     /*[-teaVM;-NATIVE]
         var nativeObject = ImGui.wrapPointer(addr, ImGui.ImGuiStyle);
-        return return ImGui.getPointer(nativeObject.get_ItemInnerSpacing);;
+        return ImGui.getPointer(nativeObject.get_ItemInnerSpacing);
     */
     /*[-C++;-NATIVE]
         ImGuiStyle* nativeObject = (ImGuiStyle*)addr;

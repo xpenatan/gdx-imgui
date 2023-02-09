@@ -1,41 +1,113 @@
+interface BoolArray {
+    attribute long size;
+
+    void BoolArray(long size);
+    void resize(long size);
+    boolean getValue(long index);
+    void setValue(long index, boolean value);
+    any getPointer();
+};
+
+interface IntArray {
+    attribute long size;
+
+    void IntArray(long size);
+    void resize(long size);
+    long getValue(long index);
+    void setValue(long index, long value);
+    any getPointer();
+};
+
+interface FloatArray {
+    attribute long size;
+
+    void FloatArray(long size);
+    void resize(long size);
+    long getValue(long index);
+    void setValue(long index, long value);
+    any getPointer();
+};
+
+interface DoubleArray {
+    attribute long size;
+
+    void DoubleArray(long size);
+    void resize(long size);
+    double getValue(long index);
+    void setValue(long index, double value);
+    any getPointer();
+};
+
+interface CharArray {
+    attribute long size;
+
+    void CharArray(long size);
+    void resize(long size);
+    byte getValue(long index);
+    void setValue(long index, byte value);
+    any getPointer();
+};
+
+interface ImHelper {
+    void memcpyIdx(any destination, ImDrawList drawList, long num);
+    void memcpyVtx(any destination, ImDrawList drawList, long num);
+    void memcpyFont(ImGuiIO io, any pixelBuffer, long[] widthData, long[] heightData, long[] bytesPerPixel);
+    long getTextureId(ImDrawCmd imDrawCmd);
+    void setIniFilename(ImGuiIO io, byte[] fileName);
+    void removeIniFilename(ImGuiIO io);
+};
 
 [NoDelete]
 interface Im {
-    static boolean Begin([Const] DOMString name);
-    static void End();
+    ImGuiContext CreateContext();
+    boolean Begin([Const] DOMString name);
+    void End();
+    void Render();
+    void NewFrame();
+    ImDrawData GetDrawData();
+    [Ref]ImGuiIO GetIO();
+    void SetNextWindowSize([Const, Ref] ImVec2 size, optional long cond = 0);
+    void ShowDemoWindow(optional boolean[] p_open);
+    boolean Checkbox([Const] DOMString label, boolean[] v);
 //    void SameLine(optional float offset_from_start_x, optional float spacing);
 //
 //    [Value]ImVec2 GetWindowPos();
 //
-//    ImDrawData GetDrawData();
 };
 
 interface ImVec2 {
-    void ImVec2();
-    void ImVec2(float x, float y);
-
     attribute float x;
     attribute float y;
+
+    void ImVec2();
+    void ImVec2(float x, float y);
 };
 
 interface ImVec4 {
-    void ImVec4();
-    void ImVec4(float x, float y, float z, float w);
-
     attribute float x;
     attribute float y;
     attribute float z;
     attribute float w;
+
+    void ImVec4();
+    void ImVec4(float x, float y, float z, float w);
 };
 
-//interface ImVector {
-//    void ImVector();
-//    void clear();
-//    long size();
-//
-//    attribute float x;
-//    attribute float y;
-//};
+interface VecCmdBuffer {
+    attribute ImDrawCmd Data;
+    long size();
+};
+
+interface VecIdxBuffer {
+    attribute unsigned short[] Data;
+    long size();
+};
+
+interface VecVtxBuffer {
+    attribute ImDrawVert Data;
+
+    long size();
+};
 
 interface ImDrawCmd {
     [Value]attribute ImVec4 ClipRect;
@@ -62,7 +134,33 @@ interface ImDrawData {
 };
 
 interface ImDrawList {
-//    [Value]attribute ImVector CmdBuffer;
-//    [Value]attribute ImVector IdxBuffer;
-//    [Value]attribute ImVector VtxBuffer;
+    [Value]attribute VecCmdBuffer CmdBuffer;
+    [Value]attribute VecIdxBuffer IdxBuffer;
+    [Value]attribute VecVtxBuffer VtxBuffer;
+};
+
+interface ImGuiIO {
+    attribute boolean WantCaptureMouse;
+    [Value]attribute ImVec2 DisplaySize;
+    [Value]attribute ImVec2 DisplayFramebufferScale;
+    attribute float DeltaTime;
+    attribute ImFontAtlas Fonts;
+
+    void AddMouseWheelEvent(float wheel_x, float wheel_y);
+    void AddMouseButtonEvent(long button, boolean down);
+    void AddMousePosEvent(float x, float y);
+    void AddKeyEvent(ImGuiKey key, boolean down);
+    void AddInputCharacter(unsigned long c);
+};
+
+enum ImGuiKey {
+    "ImGuiKey_None"
+};
+
+interface ImFontAtlas {
+    attribute any TexID;
+};
+
+[NoDelete]
+interface ImGuiContext {
 };

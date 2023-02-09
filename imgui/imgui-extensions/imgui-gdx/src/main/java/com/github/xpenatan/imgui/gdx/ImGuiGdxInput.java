@@ -25,6 +25,8 @@ public class ImGuiGdxInput extends InputAdapter {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        ImGuiIO io = ImGui.GetIO();
+
         if(button == Buttons.LEFT)
             mouseDown0 = true;
         if(button == Buttons.RIGHT)
@@ -34,7 +36,7 @@ public class ImGuiGdxInput extends InputAdapter {
         ImGuiIO getIO = ImGui.GetIO();
         wantCaptureMouse = getIO.getWantCaptureMouse();
 
-        ImGui.AddMouseButtonEvent(button, true);
+        io.AddMouseButtonEvent(button, true);
 
         if(wantCaptureMouse)
             return true;
@@ -47,7 +49,8 @@ public class ImGuiGdxInput extends InputAdapter {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        ImGui.AddMousePosEvent(screenX, screenY);
+        ImGuiIO io = ImGui.GetIO();
+        io.AddMousePosEvent(screenX, screenY);
 
         if(wantCaptureMouse)
             return true;
@@ -56,6 +59,7 @@ public class ImGuiGdxInput extends InputAdapter {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        ImGuiIO io = ImGui.GetIO();
         if(button == Buttons.LEFT)
             mouseDown0 = false;
         if(button == Buttons.RIGHT)
@@ -63,16 +67,17 @@ public class ImGuiGdxInput extends InputAdapter {
         if(button == Buttons.MIDDLE)
             mouseDown2 = false;
 
-        ImGui.AddMouseButtonEvent(button, false);
+        io.AddMouseButtonEvent(button, false);
         wantCaptureMouse = false;
         return false;
     }
 
     @Override
     public boolean keyTyped(char character) {
+        ImGuiIO io = ImGui.GetIO();
         int charr = character;
         if(charr != DELETE) // Ignore if char is delete key
-            ImGui.UpdateKeyTyped(character);
+            io.UpdateKeyTyped(character);
         if(ImGui.IsWindowFocused(ImGuiFocusedFlags.AnyWindow))
             return true;
         return false;
@@ -80,6 +85,8 @@ public class ImGuiGdxInput extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
+        ImGuiIO io = ImGui.GetIO();
+
         boolean ctrlKey = false;
         boolean shiftKey = false;
         boolean altKey = false;
@@ -95,19 +102,19 @@ public class ImGuiGdxInput extends InputAdapter {
             superKey = true;
         int imGuiKey = getImGuiKey(keycode);
         if(superKey) {
-            ImGui.AddKeyEvent(ImGuiKey.ModSuper, true);
+            io.AddKeyEvent(ImGuiKey.ModSuper, true);
         }
         else if(ctrlKey) {
-            ImGui.AddKeyEvent(ImGuiKey.ModCtrl, true);
+            io.AddKeyEvent(ImGuiKey.ModCtrl, true);
         }
         else if(shiftKey) {
-            ImGui.AddKeyEvent(ImGuiKey.ModShift, true);
+            io.AddKeyEvent(ImGuiKey.ModShift, true);
         }
         else if(altKey) {
-            ImGui.AddKeyEvent(ImGuiKey.ModAlt, true);
+            io.AddKeyEvent(ImGuiKey.ModAlt, true);
         }
 
-        ImGui.AddKeyEvent(imGuiKey, true);
+        io.AddKeyEvent(imGuiKey, true);
 
         if(ImGui.IsWindowFocused(ImGuiFocusedFlags.AnyWindow))
             return true;
@@ -116,6 +123,8 @@ public class ImGuiGdxInput extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode) {
+        ImGuiIO io = ImGui.GetIO();
+
         boolean ctrlKey = false;
         boolean shiftKey = false;
         boolean altKey = false;
@@ -131,19 +140,19 @@ public class ImGuiGdxInput extends InputAdapter {
             superKey = true;
         int imGuiKey = getImGuiKey(keycode);
         if(superKey) {
-            ImGui.AddKeyEvent(ImGuiKey.ModSuper, false);
+            io.AddKeyEvent(ImGuiKey.ModSuper, false);
         }
         else if(ctrlKey) {
-            ImGui.AddKeyEvent(ImGuiKey.ModCtrl, false);
+            io.AddKeyEvent(ImGuiKey.ModCtrl, false);
         }
         else if(shiftKey) {
-            ImGui.AddKeyEvent(ImGuiKey.ModShift, false);
+            io.AddKeyEvent(ImGuiKey.ModShift, false);
         }
         else if(altKey) {
-            ImGui.AddKeyEvent(ImGuiKey.ModAlt, false);
+            io.AddKeyEvent(ImGuiKey.ModAlt, false);
         }
 
-        ImGui.AddKeyEvent(imGuiKey, false);
+        io.AddKeyEvent(imGuiKey, false);
 
         if(ImGui.IsWindowFocused(ImGuiFocusedFlags.AnyWindow))
             return true;
@@ -152,8 +161,8 @@ public class ImGuiGdxInput extends InputAdapter {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-
-        ImGui.AddMousePosEvent(screenX, screenY);
+        ImGuiIO io = ImGui.GetIO();
+        io.AddMousePosEvent(screenX, screenY);
         //Experimental. There is a issue with deltaX/Y having high numbers if input is block
 //		if(ImGui.IsWindowFocused(ImGuiFocusedFlags.AnyWindow))
 //			return true;
@@ -162,9 +171,9 @@ public class ImGuiGdxInput extends InputAdapter {
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
-        ImGui.AddMouseWheelEvent(amountX, -amountY);
-        ImGuiIO getIO = ImGui.GetIO();
-        if(getIO.getWantCaptureMouse())
+        ImGuiIO io = ImGui.GetIO();
+        io.AddMouseWheelEvent(amountX, -amountY);
+        if(io.getWantCaptureMouse())
             return true;
         return false;
     }

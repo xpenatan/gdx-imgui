@@ -13,7 +13,7 @@ dependencies {
 //    implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-desktop"
 
     // Local Lib
-    implementation files("../../../imgui/imgui-core/imgui-core/jni/libs/imgui-core-natives.jar")
+    implementation files("../../../imgui/imgui-core/imgui-core/build/c++/libs/imgui-core-natives.jar")
 }
 
 project.ext.mainClassName = "com.github.xpenatan.imgui.example.basic.Main"

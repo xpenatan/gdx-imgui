@@ -166,13 +166,14 @@ public class ImGuiLayoutNative {
     public static native boolean BeginCollapseLayoutEx(int id, byte[] title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions);
 
     /*[-C++;-NATIVE]
+        bool * isOpen = (bool*)isOpenAddr;
         ImGuiCollapseLayoutOptions options;
         configOptions(env, options, jOptions);
         bool flag = isOpen[0];
         ImGuiExt::BeginCollapseLayoutEx(id, &flag, title, sizeX, sizeY, options);
         isOpen[0] = flag;
     */
-    public static native void BeginCollapseLayoutEx(String id, byte[] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions);
+    public static native void BeginCollapseLayoutEx(String id, long isOpenAddr, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions);
 
     /*[-C++;-NATIVE]
         ImGuiCollapseLayoutOptions options;
@@ -182,13 +183,14 @@ public class ImGuiLayoutNative {
     public static native boolean BeginCollapseLayout(String id, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions);
 
     /*[-C++;-NATIVE]
+        bool * isOpen = (bool*)isOpenAddr;
         ImGuiCollapseLayoutOptions options;
         configOptions(env, options, jOptions);
         bool flag = isOpen[0];
         ImGuiExt::BeginCollapseLayout(id, &flag, title, sizeX, sizeY, options);
         isOpen[0] = flag;
     */
-    public static native void BeginCollapseLayout(String id, byte[] isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions);
+    public static native void BeginCollapseLayout(String id, long isOpenAddr, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions jOptions);
 
     /*[-C++;-NATIVE]
         ImGuiExt::EndCollapseFrameLayout();

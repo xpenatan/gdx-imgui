@@ -31,7 +31,7 @@ public class BuildCore {
         CPPBuildHelper.build(libName, jniDir, null, imguiCppBase, "imgui-cpp64", true);
 
         //Generate Javascript
-//        ImGuiTeaVMParser teaVMParser = new ImGuiTeaVMParser(idlFile);
-//        JParser.generate(teaVMParser, sourceDir, teaVMGenDir);
+        ImGuiTeaVMParser teaVMParser = new ImGuiTeaVMParser(idlFile);
+        JParser.generate(teaVMParser, sourceDir, teaVMGenDir);
     }
 }

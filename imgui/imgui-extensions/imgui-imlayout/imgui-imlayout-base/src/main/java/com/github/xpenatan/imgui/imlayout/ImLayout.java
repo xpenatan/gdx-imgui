@@ -135,11 +135,11 @@ public class ImLayout {
     }
 
     public static void BeginCollapseLayoutEx(String id, ImGuiBoolean isOpen, String title, float sizeX, float sizeY) {
-        ImGuiLayoutNative.BeginCollapseLayoutEx(id, isOpen.data, title, sizeX, sizeY, ImGuiLayoutNative.defaultOptions);
+        ImGuiLayoutNative.BeginCollapseLayoutEx(id, isOpen.getCPointer(), title, sizeX, sizeY, ImGuiLayoutNative.defaultOptions);
     }
 
     public static void BeginCollapseLayoutEx(String id, ImGuiBoolean isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options) {
-        ImGuiLayoutNative.BeginCollapseLayoutEx(id, isOpen.data, title, sizeX, sizeY, options);
+        ImGuiLayoutNative.BeginCollapseLayoutEx(id, isOpen.getCPointer(), title, sizeX, sizeY, options);
     }
 
     public static boolean BeginCollapseLayout(String id, String title, float sizeX, float sizeY) {
@@ -151,11 +151,11 @@ public class ImLayout {
     }
 
     public static void BeginCollapseLayout(String id, ImGuiBoolean isOpen, String title, float sizeX, float sizeY) {
-        ImGuiLayoutNative.BeginCollapseLayout(id, isOpen.data, title, sizeX, sizeY, ImGuiLayoutNative.defaultOptions);
+        ImGuiLayoutNative.BeginCollapseLayout(id, isOpen.getCPointer(), title, sizeX, sizeY, ImGuiLayoutNative.defaultOptions);
     }
 
     public static void BeginCollapseLayout(String id, ImGuiBoolean isOpen, String title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options) {
-        ImGuiLayoutNative.BeginCollapseLayout(id, isOpen.data, title, sizeX, sizeY, options);
+        ImGuiLayoutNative.BeginCollapseLayout(id, isOpen.getCPointer(), title, sizeX, sizeY, options);
     }
 
     public static void EndCollapseFrameLayout() {

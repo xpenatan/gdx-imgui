@@ -15,6 +15,7 @@ SET(IMGUI_SRCS
     ../build/imgui/imgui_draw.cpp
     ../build/imgui/imgui_tables.cpp
     ../build/imgui/imgui_widgets.cpp
+    ../build/imgui/imgui_demo.cpp
 )
 
 SET(IMGUI_HDRS
@@ -36,32 +37,34 @@ set(CMAKE_BUILD_TYPE Release CACHE STRING "Build Type")
 # Default is 64*1024*1024 = 64MB
 set(INITIAL_MEMORY 67108864 CACHE STRING "Total Memory")
 
-# Enable for resizable heap, with some amount of slowness
-set(ALLOW_MEMORY_GROWTH 0 CACHE STRING "Allow Memory Growth")
-
 set(EMCC_ARGS
-  -O3
-  -g0 -Wall
-  --llvm-lto 1
+  -O0 # Not working with 1-3. 'memory access out of bounds'
+  -g
+  -Wall
+  -Wformat
+  -DIMGUI_DISABLE_FILE_FUNCTIONS
   --post-js glue.js
   --extern-post-js ${CMAKE_CURRENT_SOURCE_DIR}/post.js
-  --closure 1
-  -s ALLOW_MEMORY_GROWTH=${ALLOW_MEMORY_GROWTH}
-  -s ALLOW_TABLE_GROWTH=1
+  --profiling-funcs
+  -s ALLOW_MEMORY_GROWTH=1
+  -s DISABLE_EXCEPTION_CATCHING=1
+  -s ASSERTIONS=1
+  -s NO_EXIT_RUNTIME=1
   -s EXPORT_NAME="ImGui"
+  -s MALLOC=emmalloc # malloc is causing 'memory access out of bounds' when generating texture with GetTexDataAsRGBA32
   -s MODULARIZE=1
-  -s NO_FILESYSTEM=1
   -s INITIAL_MEMORY=${INITIAL_MEMORY}
+  -s NO_FILESYSTEM=1
   -s EXPORTED_FUNCTIONS=["_free","_malloc"]
   -s EXPORTED_RUNTIME_METHODS=["UTF8ToString"]
 )
 
-#set(EMCC_JS_ARGS ${EMCC_ARGS}
-#  -s AGGRESSIVE_VARIABLE_ELIMINATION=1
-#  -s ELIMINATE_DUPLICATE_FUNCTIONS=1
-#  -s SINGLE_FILE=1
-#  -s WASM=0
-#)
+set(EMCC_JS_ARGS ${EMCC_ARGS}
+  -s AGGRESSIVE_VARIABLE_ELIMINATION=1
+  -s ELIMINATE_DUPLICATE_FUNCTIONS=1
+  -s SINGLE_FILE=1
+  -s WASM=0
+)
 
 set(EMCC_WASM_ARGS ${EMCC_ARGS}
   -s BINARYEN_IGNORE_IMPLICIT_TRAPS=1
@@ -95,6 +98,16 @@ add_custom_command(
   VERBATIM
 )
 add_custom_target(imgui-bindings ALL DEPENDS glue.js glue.o)
+
+#######################################
+add_custom_command(
+  OUTPUT imgui.js
+  COMMAND em++ glue.o ${IMGUI_LIBS} ${EMCC_JS_ARGS} -o imgui.js
+  DEPENDS imgui-bindings ${IMGUI_TARGETS}
+  COMMENT "Building ImGui javascript"
+  VERBATIM
+)
+add_custom_target(imgui-javascript ALL DEPENDS imgui.js)
 
 #######################################
 add_custom_command(

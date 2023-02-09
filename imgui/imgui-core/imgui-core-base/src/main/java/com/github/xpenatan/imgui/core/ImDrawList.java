@@ -9,6 +9,7 @@ public class ImDrawList extends ImGuiBase {
 
     /*[-C++;-NATIVE]
         #include "imgui.h"
+        #include "imgui_custom.h"
     */
 
     public final static int VTX_BUFFER_SIZE = 8+8+4;// = ImVec2 + ImVec2 + ImU32;
@@ -22,8 +23,11 @@ public class ImDrawList extends ImGuiBase {
 
     private int type = TYPE_DEFAULT;
 
-    public ByteBuffer vtxByteBuffer =  ByteBuffer.allocateDirect(25000).order(ByteOrder.nativeOrder());
-    public ByteBuffer idxByteBuffer =  ByteBuffer.allocateDirect(25000).order(ByteOrder.nativeOrder());
+    ImGuiByteArray vtxBuffer;
+    ImGuiByteArray idxBuffer;
+
+    public ByteBuffer vtxByteBuffer;
+    public ByteBuffer idxByteBuffer;
 
 
     private ImDrawCmd imDrawCmd = new ImDrawCmd(false);
@@ -57,8 +61,11 @@ public class ImDrawList extends ImGuiBase {
 
     /*[-teaVM;-NATIVE]
         var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
-        var jsObj = nativeObject.get_CmdBuffer.Data[index];
-        return ImGui.getPointer(jsObj);
+        var cmdBuffer = nativeObject.get_CmdBuffer();
+        var data = cmdBuffer.get_Data();
+        var pointer = ImGui.getPointer(data);
+        var drawCmd = ImGui.wrapPointer(pointer + index, ImGui.ImDrawCmd);
+        return ImGui.getPointer(drawCmd);
     */
     /*[-C++;-NATIVE]
         ImDrawList* nativeObject = (ImDrawList*)addr;
@@ -81,26 +88,41 @@ public class ImDrawList extends ImGuiBase {
     private static native int getCmdBufferSizeNATIVE(long addr);
 
     public ByteBuffer getIdxBufferData() {
-        int vtxBufferSize = getIdxBufferSizeNATIVE(getCPointer());
-        int vtxBufferCapacity = vtxBufferSize * IDX_BUFFER_SIZE;
-        if (idxByteBuffer.capacity() < vtxBufferCapacity) {
-            idxByteBuffer.clear();
-            idxByteBuffer = ByteBuffer.allocateDirect(vtxBufferCapacity + RESIZE_FACTOR).order(ByteOrder.nativeOrder());
+        int idxBufferSize = getIdxBufferSizeNATIVE(getCPointer());
+        int idxBufferCapacity = idxBufferSize * IDX_BUFFER_SIZE;
+        if (idxByteBuffer == null || idxByteBuffer.capacity() < idxBufferCapacity) {
+            if(idxByteBuffer != null) {
+                idxByteBuffer.clear();
+            }
+            if(idxBuffer != null) {
+                idxBuffer.dispose();
+            }
+            idxBuffer = new ImGuiByteArray(idxBufferCapacity + RESIZE_FACTOR);
+            idxByteBuffer = ByteBuffer.allocateDirect(idxBufferCapacity + RESIZE_FACTOR).order(ByteOrder.nativeOrder());
         }
-        getIdxBufferDataNATIVE(getCPointer(), idxByteBuffer, vtxBufferCapacity);
+        getIdxBufferDataNATIVE(getCPointer(), idxBuffer.getCPointer(), idxBufferCapacity);
         idxByteBuffer.position(0);
-        idxByteBuffer.limit(vtxBufferCapacity);
+        idxByteBuffer.limit(idxBufferCapacity);
+        for(int i = 0; i < idxBufferCapacity; i++) {
+            idxByteBuffer.put(i, idxBuffer.getValue(i));
+        }
+        idxByteBuffer.position(0);
+        idxByteBuffer.limit(idxBufferCapacity);
         return idxByteBuffer;
     }
 
     /*[-teaVM;-NATIVE]
         var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+        var charArray = ImGui.wrapPointer(bufferAddr, ImGui.CharArray);
+        var charArrayPtr = charArray.getPointer();
+        ImGui.ImHelper.prototype.memcpyIdx(charArrayPtr, nativeObject, bufferCapacity);
     */
     /*[-C++;-NATIVE]
         ImDrawList* nativeObject = (ImDrawList*)addr;
-        memcpy(buffer, nativeObject->IdxBuffer.Data, bufferCapacity);
+        CharArray* charArray = (CharArray*)bufferAddr;
+        ImHelper::memcpyIdx(charArray->getPointer(), nativeObject, bufferCapacity);
     */
-    private static native void getIdxBufferDataNATIVE(long addr, ByteBuffer buffer, int bufferCapacity);
+    private static native void getIdxBufferDataNATIVE(long addr, long bufferAddr, int bufferCapacity);
 
     /*[-teaVM;-NATIVE]
         var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
@@ -115,11 +137,23 @@ public class ImDrawList extends ImGuiBase {
     public ByteBuffer getVtxBufferData() {
         int vtxBufferSize = getVtxBufferSizeNATIVE(getCPointer());
         int vtxBufferCapacity = vtxBufferSize * VTX_BUFFER_SIZE;
-        if (vtxByteBuffer.capacity() < vtxBufferCapacity) {
-            vtxByteBuffer.clear();
+        if (vtxByteBuffer == null || vtxByteBuffer.capacity() < vtxBufferCapacity) {
+            if(vtxByteBuffer != null) {
+                vtxByteBuffer.clear();
+            }
+            if(vtxBuffer != null) {
+                vtxBuffer.dispose();
+            }
+            vtxBuffer = new ImGuiByteArray(vtxBufferCapacity + RESIZE_FACTOR);
             vtxByteBuffer = ByteBuffer.allocateDirect(vtxBufferCapacity + RESIZE_FACTOR).order(ByteOrder.nativeOrder());
         }
-        getVtxBufferDataNATIVE(getCPointer(), vtxByteBuffer, vtxBufferCapacity);
+        // TODO find a better way to get native byte buffer for c++ and teavm
+        getVtxBufferDataNATIVE(getCPointer(), vtxBuffer.getCPointer(), vtxBufferCapacity);
+        vtxByteBuffer.position(0);
+        vtxByteBuffer.limit(vtxBufferCapacity);
+        for(int i = 0; i < vtxBufferCapacity; i++) {
+            vtxByteBuffer.put(i, vtxBuffer.getValue(i));
+        }
         vtxByteBuffer.position(0);
         vtxByteBuffer.limit(vtxBufferCapacity);
         return vtxByteBuffer;
@@ -127,12 +161,16 @@ public class ImDrawList extends ImGuiBase {
 
     /*[-teaVM;-NATIVE]
         var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+        var charArray = ImGui.wrapPointer(bufferAddr, ImGui.CharArray);
+        var charArrayPtr = charArray.getPointer();
+        ImGui.ImHelper.prototype.memcpyVtx(charArrayPtr, nativeObject, bufferCapacity);
     */
     /*[-C++;-NATIVE]
         ImDrawList* nativeObject = (ImDrawList*)addr;
-        memcpy(buffer, nativeObject->VtxBuffer.Data, bufferCapacity);
+        CharArray* charArray = (CharArray*)bufferAddr;
+        ImHelper::memcpyVtx(charArray->getPointer(), nativeObject, bufferCapacity);
     */
-    private static native void getVtxBufferDataNATIVE(long addr, ByteBuffer buffer, int bufferCapacity);
+    private static native void getVtxBufferDataNATIVE(long addr, long bufferAddr, int bufferCapacity);
 
     /*[-teaVM;-NATIVE]
         var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
@@ -143,11 +181,6 @@ public class ImDrawList extends ImGuiBase {
         return nativeObject->VtxBuffer.size();
     */
     private static native int getVtxBufferSizeNATIVE(long addr);
-
-    /*[-C++;-NATIVE]
-        return (int)sizeof(ImDrawIdx);
-    */
-    private static native int getDrawVertSizeNATIVE();
 
     public void AddLine(float a_x, float a_y, float b_x, float b_y, int col) {
         ImGuiNative.AddLine(type, a_x, a_y, b_x, b_y, col);

@@ -1,24 +1,72 @@
 package com.github.xpenatan.imgui.core;
 
-public class ImGuiInt {
+public class ImGuiInt extends ImGuiBase {
+
     public static ImGuiInt TMP = new ImGuiInt();
 
-    int[] data = new int[]{0};
+    /*[-C++;-NATIVE]
+        #include "imgui_custom.h"
+    */
 
     public ImGuiInt() {
+        initObject(createNative(), true);
     }
 
     public ImGuiInt(int value) {
+        initObject(createNative(), true);
         setValue(value);
     }
 
-    public void setValue(int value) {
-        this.data[0] = value;
+    /*[-teaVM;-NATIVE]
+        var jsObj = new ImGui.IntArray(1);
+        return ImGui.getPointer(jsObj);
+    */
+    /*[-C++;-NATIVE]
+        return (jlong)new IntArray(1);
+    */
+    private static native long createNative();
+
+    @Override
+    protected void deleteNative() {
+        deleteNative(cPointer);
     }
 
-    public int getValue() {
-        return this.data[0];
+    /*[-teaVM;-NATIVE]
+        var jsObj = ImGui.wrapPointer(addr, ImGui.IntArray);
+        ImGui.destroy(jsObj);
+    */
+    /*[-C++;-NATIVE]
+        delete (IntArray*)addr;
+    */
+    private static native void deleteNative(long addr);
+
+    public void setValue(int value) {
+        setValueNATIVE(getCPointer(), value);
     }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.IntArray);
+        nativeObject.setValue(0, value);
+    */
+    /*[-C++;-NATIVE]
+        IntArray* nativeObject = (IntArray*)addr;
+        nativeObject->setValue(0, value);
+    */
+    private static native void setValueNATIVE(long addr, int value);
+
+    public int getValue() {
+        return getValueNATIVE(getCPointer());
+    }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.IntArray);
+        return nativeObject.getValue(0);
+    */
+    /*[-C++;-NATIVE]
+        IntArray* nativeObject = (IntArray*)addr;
+        return nativeObject->getValue(0);
+    */
+    private static native int getValueNATIVE(long addr);
 
     @Override
     public String toString() {

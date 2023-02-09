@@ -4,6 +4,7 @@ public class ImDrawCmd extends ImGuiBase {
 
     /*[-C++;-NATIVE]
         #include "imgui.h"
+        #include "imgui_custom.h"
 
         #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
         #include <stddef.h>     // intptr_t
@@ -23,7 +24,7 @@ public class ImDrawCmd extends ImGuiBase {
 
     /*[-teaVM;-NATIVE]
         var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawCmd);
-        var jsObj = nativeObject.get_ClipRect;
+        var jsObj = nativeObject.get_ClipRect();
         return ImGui.getPointer(jsObj);
     */
     /*[-C++;-NATIVE]
@@ -38,12 +39,12 @@ public class ImDrawCmd extends ImGuiBase {
 
     /*[-teaVM;-NATIVE]
         var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawCmd);
-        var jsObj = nativeObject.get_TextureId;
-        return jsObj;
+        var textureId = ImGui.ImHelper.prototype.getTextureId(nativeObject);
+        return textureId;
     */
     /*[-C++;-NATIVE]
         ImDrawCmd* nativeObject = (ImDrawCmd*)addr;
-        int textureId = (int)(intptr_t)nativeObject->TextureId;
+        int textureId = ImHelper::getTextureId(nativeObject);
         return textureId;
     */
     private static native int getTextureIdNATIVE(long addr);
@@ -54,7 +55,7 @@ public class ImDrawCmd extends ImGuiBase {
 
     /*[-teaVM;-NATIVE]
         var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawCmd);
-        var jsObj = nativeObject.get_IdxOffset;
+        var jsObj = nativeObject.get_IdxOffset();
         return jsObj;
     */
     /*[-C++;-NATIVE]
@@ -69,7 +70,7 @@ public class ImDrawCmd extends ImGuiBase {
 
     /*[-teaVM;-NATIVE]
         var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawCmd);
-        var jsObj = nativeObject.get_VtxOffset;
+        var jsObj = nativeObject.get_VtxOffset();
         return jsObj;
     */
     /*[-C++;-NATIVE]
@@ -84,7 +85,7 @@ public class ImDrawCmd extends ImGuiBase {
 
     /*[-teaVM;-NATIVE]
         var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawCmd);
-        var jsObj = nativeObject.get_ElemCount;
+        var jsObj = nativeObject.get_ElemCount();
         return jsObj;
     */
     /*[-C++;-NATIVE]

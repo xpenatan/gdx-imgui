@@ -56,6 +56,11 @@ public class ImGuiViewport extends ImGuiBase {
     */
     private static native int getPlatformUserDataNATIVE(long addr);
 
+    /*[-teaVM;-REPLACE]
+    public void setPlatformHandle(long platformHandle) {
+        setPlatformHandleNATIVE(getCPointer(), (int)platformHandle);
+    }
+    */
     public void setPlatformHandle(long platformHandle) {
         setPlatformHandleNATIVE(getCPointer(), platformHandle);
     }

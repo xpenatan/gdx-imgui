@@ -1,24 +1,71 @@
 package com.github.xpenatan.imgui.core;
 
-public class ImGuiDouble {
+public class ImGuiDouble extends ImGuiBase {
     public static ImGuiDouble TMP = new ImGuiDouble();
 
-    double[] data = new double[]{0.0d};
+    /*[-C++;-NATIVE]
+        #include "imgui_custom.h"
+    */
 
     public ImGuiDouble() {
+        initObject(createNative(), true);
     }
 
     public ImGuiDouble(double value) {
+        initObject(createNative(), true);
         setValue(value);
     }
 
-    public void setValue(double value) {
-        this.data[0] = value;
+    /*[-teaVM;-NATIVE]
+        var jsObj = new ImGui.DoubleArray(1);
+        return ImGui.getPointer(jsObj);
+    */
+    /*[-C++;-NATIVE]
+        return (jlong)new DoubleArray(1);
+    */
+    private static native long createNative();
+
+    @Override
+    protected void deleteNative() {
+        deleteNative(cPointer);
     }
 
-    public double getValue() {
-        return this.data[0];
+    /*[-teaVM;-NATIVE]
+        var jsObj = ImGui.wrapPointer(addr, ImGui.DoubleArray);
+        ImGui.destroy(jsObj);
+    */
+    /*[-C++;-NATIVE]
+        delete (DoubleArray*)addr;
+    */
+    private static native void deleteNative(long addr);
+
+    public void setValue(double value) {
+        setValueNATIVE(getCPointer(), value);
     }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.DoubleArray);
+        nativeObject.setValue(0, value);
+    */
+    /*[-C++;-NATIVE]
+        DoubleArray* nativeObject = (DoubleArray*)addr;
+        nativeObject->setValue(0, value);
+    */
+    private static native void setValueNATIVE(long addr, double value);
+
+    public double getValue() {
+        return getValueNATIVE(getCPointer());
+    }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.DoubleArray);
+        return nativeObject.getValue(0);
+    */
+    /*[-C++;-NATIVE]
+        DoubleArray* nativeObject = (DoubleArray*)addr;
+        return nativeObject->getValue(0);
+    */
+    private static native double getValueNATIVE(long addr);
 
     @Override
     public String toString() {
