@@ -27,7 +27,7 @@ Module['ready'] = new Promise(function(resolve, reject) {
   readyPromiseResolve = resolve;
   readyPromiseReject = reject;
 });
-["_free","_malloc","_emscripten_bind_VoidPtr___destroy___0","_emscripten_bind_BoolArray_BoolArray_1","_emscripten_bind_BoolArray_resize_1","_emscripten_bind_BoolArray_getValue_1","_emscripten_bind_BoolArray_setValue_2","_emscripten_bind_BoolArray_getPointer_0","_emscripten_bind_BoolArray_get_size_0","_emscripten_bind_BoolArray_set_size_1","_emscripten_bind_BoolArray___destroy___0","_emscripten_bind_IntArray_IntArray_1","_emscripten_bind_IntArray_resize_1","_emscripten_bind_IntArray_getValue_1","_emscripten_bind_IntArray_setValue_2","_emscripten_bind_IntArray_getPointer_0","_emscripten_bind_IntArray_get_size_0","_emscripten_bind_IntArray_set_size_1","_emscripten_bind_IntArray___destroy___0","_emscripten_bind_FloatArray_FloatArray_1","_emscripten_bind_FloatArray_resize_1","_emscripten_bind_FloatArray_getValue_1","_emscripten_bind_FloatArray_setValue_2","_emscripten_bind_FloatArray_getPointer_0","_emscripten_bind_FloatArray_get_size_0","_emscripten_bind_FloatArray_set_size_1","_emscripten_bind_FloatArray___destroy___0","_emscripten_bind_DoubleArray_DoubleArray_1","_emscripten_bind_DoubleArray_resize_1","_emscripten_bind_DoubleArray_getValue_1","_emscripten_bind_DoubleArray_setValue_2","_emscripten_bind_DoubleArray_getPointer_0","_emscripten_bind_DoubleArray_get_size_0","_emscripten_bind_DoubleArray_set_size_1","_emscripten_bind_DoubleArray___destroy___0","_emscripten_bind_CharArray_CharArray_1","_emscripten_bind_CharArray_resize_1","_emscripten_bind_CharArray_getValue_1","_emscripten_bind_CharArray_setValue_2","_emscripten_bind_CharArray_getPointer_0","_emscripten_bind_CharArray_get_size_0","_emscripten_bind_CharArray_set_size_1","_emscripten_bind_CharArray___destroy___0","_emscripten_bind_ImHelper_memcpyIdx_3","_emscripten_bind_ImHelper_memcpyVtx_3","_emscripten_bind_ImHelper_memcpyFont_5","_emscripten_bind_ImHelper_getTextureId_1","_emscripten_bind_ImHelper_setIniFilename_2","_emscripten_bind_ImHelper_removeIniFilename_1","_emscripten_bind_ImHelper___destroy___0","_emscripten_bind_Im_CreateContext_0","_emscripten_bind_Im_Begin_1","_emscripten_bind_Im_End_0","_emscripten_bind_Im_Render_0","_emscripten_bind_Im_NewFrame_0","_emscripten_bind_Im_GetDrawData_0","_emscripten_bind_Im_GetIO_0","_emscripten_bind_Im_SetNextWindowSize_1","_emscripten_bind_Im_SetNextWindowSize_2","_emscripten_bind_Im_ShowDemoWindow_0","_emscripten_bind_Im_ShowDemoWindow_1","_emscripten_bind_Im_Checkbox_2","_emscripten_bind_ImVec2_ImVec2_0","_emscripten_bind_ImVec2_ImVec2_2","_emscripten_bind_ImVec2_get_x_0","_emscripten_bind_ImVec2_set_x_1","_emscripten_bind_ImVec2_get_y_0","_emscripten_bind_ImVec2_set_y_1","_emscripten_bind_ImVec2___destroy___0","_emscripten_bind_ImVec4_ImVec4_0","_emscripten_bind_ImVec4_ImVec4_4","_emscripten_bind_ImVec4_get_x_0","_emscripten_bind_ImVec4_set_x_1","_emscripten_bind_ImVec4_get_y_0","_emscripten_bind_ImVec4_set_y_1","_emscripten_bind_ImVec4_get_z_0","_emscripten_bind_ImVec4_set_z_1","_emscripten_bind_ImVec4_get_w_0","_emscripten_bind_ImVec4_set_w_1","_emscripten_bind_ImVec4___destroy___0","_emscripten_bind_VecCmdBuffer_size_0","_emscripten_bind_VecCmdBuffer_get_Data_0","_emscripten_bind_VecCmdBuffer_set_Data_1","_emscripten_bind_VecCmdBuffer___destroy___0","_emscripten_bind_VecIdxBuffer_size_0","_emscripten_bind_VecIdxBuffer_get_Data_1","_emscripten_bind_VecIdxBuffer_set_Data_2","_emscripten_bind_VecIdxBuffer___destroy___0","_emscripten_bind_VecVtxBuffer_size_0","_emscripten_bind_VecVtxBuffer_get_Data_0","_emscripten_bind_VecVtxBuffer_set_Data_1","_emscripten_bind_VecVtxBuffer___destroy___0","_emscripten_bind_ImDrawCmd_get_ClipRect_0","_emscripten_bind_ImDrawCmd_set_ClipRect_1","_emscripten_bind_ImDrawCmd_get_VtxOffset_0","_emscripten_bind_ImDrawCmd_set_VtxOffset_1","_emscripten_bind_ImDrawCmd_get_IdxOffset_0","_emscripten_bind_ImDrawCmd_set_IdxOffset_1","_emscripten_bind_ImDrawCmd_get_ElemCount_0","_emscripten_bind_ImDrawCmd_set_ElemCount_1","_emscripten_bind_ImDrawCmd_get_TextureId_0","_emscripten_bind_ImDrawCmd_set_TextureId_1","_emscripten_bind_ImDrawCmd___destroy___0","_emscripten_bind_ImDrawVert_get_pos_0","_emscripten_bind_ImDrawVert_set_pos_1","_emscripten_bind_ImDrawVert_get_uv_0","_emscripten_bind_ImDrawVert_set_uv_1","_emscripten_bind_ImDrawVert_get_col_0","_emscripten_bind_ImDrawVert_set_col_1","_emscripten_bind_ImDrawVert___destroy___0","_emscripten_bind_ImDrawData_get_CmdListsCount_0","_emscripten_bind_ImDrawData_set_CmdListsCount_1","_emscripten_bind_ImDrawData_get_TotalIdxCount_0","_emscripten_bind_ImDrawData_set_TotalIdxCount_1","_emscripten_bind_ImDrawData_get_TotalVtxCount_0","_emscripten_bind_ImDrawData_set_TotalVtxCount_1","_emscripten_bind_ImDrawData_get_CmdLists_1","_emscripten_bind_ImDrawData_set_CmdLists_2","_emscripten_bind_ImDrawData_get_DisplayPos_0","_emscripten_bind_ImDrawData_set_DisplayPos_1","_emscripten_bind_ImDrawData_get_DisplaySize_0","_emscripten_bind_ImDrawData_set_DisplaySize_1","_emscripten_bind_ImDrawData_get_FramebufferScale_0","_emscripten_bind_ImDrawData_set_FramebufferScale_1","_emscripten_bind_ImDrawData___destroy___0","_emscripten_bind_ImDrawList_get_CmdBuffer_0","_emscripten_bind_ImDrawList_set_CmdBuffer_1","_emscripten_bind_ImDrawList_get_IdxBuffer_0","_emscripten_bind_ImDrawList_set_IdxBuffer_1","_emscripten_bind_ImDrawList_get_VtxBuffer_0","_emscripten_bind_ImDrawList_set_VtxBuffer_1","_emscripten_bind_ImDrawList___destroy___0","_emscripten_bind_ImGuiIO_AddMouseWheelEvent_2","_emscripten_bind_ImGuiIO_AddMouseButtonEvent_2","_emscripten_bind_ImGuiIO_AddMousePosEvent_2","_emscripten_bind_ImGuiIO_AddKeyEvent_2","_emscripten_bind_ImGuiIO_AddInputCharacter_1","_emscripten_bind_ImGuiIO_get_WantCaptureMouse_0","_emscripten_bind_ImGuiIO_set_WantCaptureMouse_1","_emscripten_bind_ImGuiIO_get_DisplaySize_0","_emscripten_bind_ImGuiIO_set_DisplaySize_1","_emscripten_bind_ImGuiIO_get_DisplayFramebufferScale_0","_emscripten_bind_ImGuiIO_set_DisplayFramebufferScale_1","_emscripten_bind_ImGuiIO_get_DeltaTime_0","_emscripten_bind_ImGuiIO_set_DeltaTime_1","_emscripten_bind_ImGuiIO_get_Fonts_0","_emscripten_bind_ImGuiIO_set_Fonts_1","_emscripten_bind_ImGuiIO___destroy___0","_emscripten_bind_ImFontAtlas_get_TexID_0","_emscripten_bind_ImFontAtlas_set_TexID_1","_emscripten_bind_ImFontAtlas___destroy___0","_emscripten_enum_ImGuiKey_ImGuiKey_None","_fflush","onRuntimeInitialized"].forEach((prop) => {
+["_free","_malloc","_emscripten_bind_VoidPtr___destroy___0","_emscripten_bind_BoolArray_BoolArray_1","_emscripten_bind_BoolArray_resize_1","_emscripten_bind_BoolArray_getValue_1","_emscripten_bind_BoolArray_setValue_2","_emscripten_bind_BoolArray_getPointer_0","_emscripten_bind_BoolArray_get_size_0","_emscripten_bind_BoolArray_set_size_1","_emscripten_bind_BoolArray___destroy___0","_emscripten_bind_IntArray_IntArray_1","_emscripten_bind_IntArray_resize_1","_emscripten_bind_IntArray_getValue_1","_emscripten_bind_IntArray_setValue_2","_emscripten_bind_IntArray_getPointer_0","_emscripten_bind_IntArray_get_size_0","_emscripten_bind_IntArray_set_size_1","_emscripten_bind_IntArray___destroy___0","_emscripten_bind_FloatArray_FloatArray_1","_emscripten_bind_FloatArray_resize_1","_emscripten_bind_FloatArray_getValue_1","_emscripten_bind_FloatArray_setValue_2","_emscripten_bind_FloatArray_getPointer_0","_emscripten_bind_FloatArray_get_size_0","_emscripten_bind_FloatArray_set_size_1","_emscripten_bind_FloatArray___destroy___0","_emscripten_bind_DoubleArray_DoubleArray_1","_emscripten_bind_DoubleArray_resize_1","_emscripten_bind_DoubleArray_getValue_1","_emscripten_bind_DoubleArray_setValue_2","_emscripten_bind_DoubleArray_getPointer_0","_emscripten_bind_DoubleArray_get_size_0","_emscripten_bind_DoubleArray_set_size_1","_emscripten_bind_DoubleArray___destroy___0","_emscripten_bind_CharArray_CharArray_1","_emscripten_bind_CharArray_resize_1","_emscripten_bind_CharArray_getValue_1","_emscripten_bind_CharArray_setValue_2","_emscripten_bind_CharArray_getPointer_0","_emscripten_bind_CharArray_get_size_0","_emscripten_bind_CharArray_set_size_1","_emscripten_bind_CharArray___destroy___0","_emscripten_bind_ImHelper_memcpyIdx_3","_emscripten_bind_ImHelper_memcpyVtx_3","_emscripten_bind_ImHelper_memcpyFont_5","_emscripten_bind_ImHelper_getTextureId_1","_emscripten_bind_ImHelper_setIniFilename_2","_emscripten_bind_ImHelper_removeIniFilename_1","_emscripten_bind_ImHelper___destroy___0","_emscripten_bind_Im_CreateContext_0","_emscripten_bind_Im_Begin_1","_emscripten_bind_Im_End_0","_emscripten_bind_Im_Render_0","_emscripten_bind_Im_NewFrame_0","_emscripten_bind_Im_GetDrawData_0","_emscripten_bind_Im_GetIO_0","_emscripten_bind_Im_SetNextWindowSize_1","_emscripten_bind_Im_SetNextWindowSize_2","_emscripten_bind_Im_ShowDemoWindow_0","_emscripten_bind_Im_ShowDemoWindow_1","_emscripten_bind_Im_Checkbox_2","_emscripten_bind_ImVec2_ImVec2_0","_emscripten_bind_ImVec2_ImVec2_2","_emscripten_bind_ImVec2_get_x_0","_emscripten_bind_ImVec2_set_x_1","_emscripten_bind_ImVec2_get_y_0","_emscripten_bind_ImVec2_set_y_1","_emscripten_bind_ImVec2___destroy___0","_emscripten_bind_ImVec4_ImVec4_0","_emscripten_bind_ImVec4_ImVec4_4","_emscripten_bind_ImVec4_get_x_0","_emscripten_bind_ImVec4_set_x_1","_emscripten_bind_ImVec4_get_y_0","_emscripten_bind_ImVec4_set_y_1","_emscripten_bind_ImVec4_get_z_0","_emscripten_bind_ImVec4_set_z_1","_emscripten_bind_ImVec4_get_w_0","_emscripten_bind_ImVec4_set_w_1","_emscripten_bind_ImVec4___destroy___0","_emscripten_bind_VecCmdBuffer_getData_1","_emscripten_bind_VecCmdBuffer_size_0","_emscripten_bind_VecCmdBuffer___destroy___0","_emscripten_bind_VecIdxBuffer_size_0","_emscripten_bind_VecIdxBuffer___destroy___0","_emscripten_bind_VecVtxBuffer_size_0","_emscripten_bind_VecVtxBuffer___destroy___0","_emscripten_bind_ImDrawCmd_get_ClipRect_0","_emscripten_bind_ImDrawCmd_set_ClipRect_1","_emscripten_bind_ImDrawCmd_get_VtxOffset_0","_emscripten_bind_ImDrawCmd_set_VtxOffset_1","_emscripten_bind_ImDrawCmd_get_IdxOffset_0","_emscripten_bind_ImDrawCmd_set_IdxOffset_1","_emscripten_bind_ImDrawCmd_get_ElemCount_0","_emscripten_bind_ImDrawCmd_set_ElemCount_1","_emscripten_bind_ImDrawCmd_get_TextureId_0","_emscripten_bind_ImDrawCmd_set_TextureId_1","_emscripten_bind_ImDrawCmd___destroy___0","_emscripten_bind_ImDrawVert_get_pos_0","_emscripten_bind_ImDrawVert_set_pos_1","_emscripten_bind_ImDrawVert_get_uv_0","_emscripten_bind_ImDrawVert_set_uv_1","_emscripten_bind_ImDrawVert_get_col_0","_emscripten_bind_ImDrawVert_set_col_1","_emscripten_bind_ImDrawVert___destroy___0","_emscripten_bind_ImDrawData_get_CmdListsCount_0","_emscripten_bind_ImDrawData_set_CmdListsCount_1","_emscripten_bind_ImDrawData_get_TotalIdxCount_0","_emscripten_bind_ImDrawData_set_TotalIdxCount_1","_emscripten_bind_ImDrawData_get_TotalVtxCount_0","_emscripten_bind_ImDrawData_set_TotalVtxCount_1","_emscripten_bind_ImDrawData_get_CmdLists_1","_emscripten_bind_ImDrawData_set_CmdLists_2","_emscripten_bind_ImDrawData_get_DisplayPos_0","_emscripten_bind_ImDrawData_set_DisplayPos_1","_emscripten_bind_ImDrawData_get_DisplaySize_0","_emscripten_bind_ImDrawData_set_DisplaySize_1","_emscripten_bind_ImDrawData_get_FramebufferScale_0","_emscripten_bind_ImDrawData_set_FramebufferScale_1","_emscripten_bind_ImDrawData___destroy___0","_emscripten_bind_ImDrawList_get_CmdBuffer_0","_emscripten_bind_ImDrawList_set_CmdBuffer_1","_emscripten_bind_ImDrawList_get_IdxBuffer_0","_emscripten_bind_ImDrawList_set_IdxBuffer_1","_emscripten_bind_ImDrawList_get_VtxBuffer_0","_emscripten_bind_ImDrawList_set_VtxBuffer_1","_emscripten_bind_ImDrawList___destroy___0","_emscripten_bind_ImGuiIO_AddMouseWheelEvent_2","_emscripten_bind_ImGuiIO_AddMouseButtonEvent_2","_emscripten_bind_ImGuiIO_AddMousePosEvent_2","_emscripten_bind_ImGuiIO_AddKeyEvent_2","_emscripten_bind_ImGuiIO_AddInputCharacter_1","_emscripten_bind_ImGuiIO_get_WantCaptureMouse_0","_emscripten_bind_ImGuiIO_set_WantCaptureMouse_1","_emscripten_bind_ImGuiIO_get_DisplaySize_0","_emscripten_bind_ImGuiIO_set_DisplaySize_1","_emscripten_bind_ImGuiIO_get_DisplayFramebufferScale_0","_emscripten_bind_ImGuiIO_set_DisplayFramebufferScale_1","_emscripten_bind_ImGuiIO_get_DeltaTime_0","_emscripten_bind_ImGuiIO_set_DeltaTime_1","_emscripten_bind_ImGuiIO_get_Fonts_0","_emscripten_bind_ImGuiIO_set_Fonts_1","_emscripten_bind_ImGuiIO___destroy___0","_emscripten_bind_ImFontAtlas_get_TexID_0","_emscripten_bind_ImFontAtlas_set_TexID_1","_emscripten_bind_ImFontAtlas___destroy___0","_emscripten_enum_ImGuiKey_ImGuiKey_None","_fflush","onRuntimeInitialized"].forEach((prop) => {
   if (!Object.getOwnPropertyDescriptor(Module['ready'], prop)) {
     Object.defineProperty(Module['ready'], prop, {
       get: () => abort('You are getting ' + prop + ' on the Promise object, instead of the instance. Use .then() to get called back with the instance, see the MODULARIZE docs in src/settings.js'),
@@ -1277,6 +1277,10 @@ function array_bounds_check_error(idx,size) { throw 'Array index ' + idx + ' out
       }
     }
 
+  function ___assert_fail(condition, filename, line, func) {
+      abort('Assertion failed: ' + UTF8ToString(condition) + ', at: ' + [filename ? UTF8ToString(filename) : 'unknown filename', line, func ? UTF8ToString(func) : 'unknown function']);
+    }
+
   function setErrNo(value) {
       HEAP32[((___errno_location())>>2)] = value;
       return value;
@@ -1461,6 +1465,7 @@ function checkIncomingModuleAPI() {
   ignoredModuleProp('fetchSettings');
 }
 var wasmImports = {
+  "__assert_fail": ___assert_fail,
   "__syscall_fcntl64": ___syscall_fcntl64,
   "__syscall_ioctl": ___syscall_ioctl,
   "__syscall_openat": ___syscall_openat,
@@ -1632,27 +1637,17 @@ var _emscripten_bind_ImVec4_set_w_1 = Module["_emscripten_bind_ImVec4_set_w_1"] 
 /** @type {function(...*):?} */
 var _emscripten_bind_ImVec4___destroy___0 = Module["_emscripten_bind_ImVec4___destroy___0"] = createExportWrapper("emscripten_bind_ImVec4___destroy___0");
 /** @type {function(...*):?} */
+var _emscripten_bind_VecCmdBuffer_getData_1 = Module["_emscripten_bind_VecCmdBuffer_getData_1"] = createExportWrapper("emscripten_bind_VecCmdBuffer_getData_1");
+/** @type {function(...*):?} */
 var _emscripten_bind_VecCmdBuffer_size_0 = Module["_emscripten_bind_VecCmdBuffer_size_0"] = createExportWrapper("emscripten_bind_VecCmdBuffer_size_0");
-/** @type {function(...*):?} */
-var _emscripten_bind_VecCmdBuffer_get_Data_0 = Module["_emscripten_bind_VecCmdBuffer_get_Data_0"] = createExportWrapper("emscripten_bind_VecCmdBuffer_get_Data_0");
-/** @type {function(...*):?} */
-var _emscripten_bind_VecCmdBuffer_set_Data_1 = Module["_emscripten_bind_VecCmdBuffer_set_Data_1"] = createExportWrapper("emscripten_bind_VecCmdBuffer_set_Data_1");
 /** @type {function(...*):?} */
 var _emscripten_bind_VecCmdBuffer___destroy___0 = Module["_emscripten_bind_VecCmdBuffer___destroy___0"] = createExportWrapper("emscripten_bind_VecCmdBuffer___destroy___0");
 /** @type {function(...*):?} */
 var _emscripten_bind_VecIdxBuffer_size_0 = Module["_emscripten_bind_VecIdxBuffer_size_0"] = createExportWrapper("emscripten_bind_VecIdxBuffer_size_0");
 /** @type {function(...*):?} */
-var _emscripten_bind_VecIdxBuffer_get_Data_1 = Module["_emscripten_bind_VecIdxBuffer_get_Data_1"] = createExportWrapper("emscripten_bind_VecIdxBuffer_get_Data_1");
-/** @type {function(...*):?} */
-var _emscripten_bind_VecIdxBuffer_set_Data_2 = Module["_emscripten_bind_VecIdxBuffer_set_Data_2"] = createExportWrapper("emscripten_bind_VecIdxBuffer_set_Data_2");
-/** @type {function(...*):?} */
 var _emscripten_bind_VecIdxBuffer___destroy___0 = Module["_emscripten_bind_VecIdxBuffer___destroy___0"] = createExportWrapper("emscripten_bind_VecIdxBuffer___destroy___0");
 /** @type {function(...*):?} */
 var _emscripten_bind_VecVtxBuffer_size_0 = Module["_emscripten_bind_VecVtxBuffer_size_0"] = createExportWrapper("emscripten_bind_VecVtxBuffer_size_0");
-/** @type {function(...*):?} */
-var _emscripten_bind_VecVtxBuffer_get_Data_0 = Module["_emscripten_bind_VecVtxBuffer_get_Data_0"] = createExportWrapper("emscripten_bind_VecVtxBuffer_get_Data_0");
-/** @type {function(...*):?} */
-var _emscripten_bind_VecVtxBuffer_set_Data_1 = Module["_emscripten_bind_VecVtxBuffer_set_Data_1"] = createExportWrapper("emscripten_bind_VecVtxBuffer_set_Data_1");
 /** @type {function(...*):?} */
 var _emscripten_bind_VecVtxBuffer___destroy___0 = Module["_emscripten_bind_VecVtxBuffer___destroy___0"] = createExportWrapper("emscripten_bind_VecVtxBuffer___destroy___0");
 /** @type {function(...*):?} */
@@ -1816,8 +1811,8 @@ var _emscripten_stack_get_current = function() {
 
 /** @type {function(...*):?} */
 var dynCall_jiji = Module["dynCall_jiji"] = createExportWrapper("dynCall_jiji");
-var ___start_em_js = Module['___start_em_js'] = 92616;
-var ___stop_em_js = Module['___stop_em_js'] = 92714;
+var ___start_em_js = Module['___start_em_js'] = 188544;
+var ___stop_em_js = Module['___stop_em_js'] = 188642;
 
 // include: postamble.js
 // === Auto-generated postamble setup entry stuff ===
@@ -2865,21 +2860,17 @@ VecCmdBuffer.prototype.__class__ = VecCmdBuffer;
 VecCmdBuffer.__cache__ = {};
 Module['VecCmdBuffer'] = VecCmdBuffer;
 
+VecCmdBuffer.prototype['getData'] = VecCmdBuffer.prototype.getData = /** @suppress {undefinedVars, duplicate} @this{Object} */function(index) {
+  var self = this.ptr;
+  if (index && typeof index === 'object') index = index.ptr;
+  return wrapPointer(_emscripten_bind_VecCmdBuffer_getData_1(self, index), ImDrawCmd);
+};;
+
 VecCmdBuffer.prototype['size'] = VecCmdBuffer.prototype.size = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
   var self = this.ptr;
   return _emscripten_bind_VecCmdBuffer_size_0(self);
 };;
 
-  VecCmdBuffer.prototype['get_Data'] = VecCmdBuffer.prototype.get_Data = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
-  var self = this.ptr;
-  return wrapPointer(_emscripten_bind_VecCmdBuffer_get_Data_0(self), ImDrawCmd);
-};
-    VecCmdBuffer.prototype['set_Data'] = VecCmdBuffer.prototype.set_Data = /** @suppress {undefinedVars, duplicate} @this{Object} */function(arg0) {
-  var self = this.ptr;
-  if (arg0 && typeof arg0 === 'object') arg0 = arg0.ptr;
-  _emscripten_bind_VecCmdBuffer_set_Data_1(self, arg0);
-};
-    Object.defineProperty(VecCmdBuffer.prototype, 'Data', { get: VecCmdBuffer.prototype.get_Data, set: VecCmdBuffer.prototype.set_Data });
   VecCmdBuffer.prototype['__destroy__'] = VecCmdBuffer.prototype.__destroy__ = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
   var self = this.ptr;
   _emscripten_bind_VecCmdBuffer___destroy___0(self);
@@ -2897,19 +2888,6 @@ VecIdxBuffer.prototype['size'] = VecIdxBuffer.prototype.size = /** @suppress {un
   return _emscripten_bind_VecIdxBuffer_size_0(self);
 };;
 
-  VecIdxBuffer.prototype['get_Data'] = VecIdxBuffer.prototype.get_Data = /** @suppress {undefinedVars, duplicate} @this{Object} */function(arg0) {
-  var self = this.ptr;
-  if (arg0 && typeof arg0 === 'object') arg0 = arg0.ptr;
-  return _emscripten_bind_VecIdxBuffer_get_Data_1(self, arg0);
-};
-    VecIdxBuffer.prototype['set_Data'] = VecIdxBuffer.prototype.set_Data = /** @suppress {undefinedVars, duplicate} @this{Object} */function(arg0, arg1) {
-  var self = this.ptr;
-  ensureCache.prepare();
-  if (arg0 && typeof arg0 === 'object') arg0 = arg0.ptr;
-  if (arg1 && typeof arg1 === 'object') arg1 = arg1.ptr;
-  _emscripten_bind_VecIdxBuffer_set_Data_2(self, arg0, arg1);
-};
-    Object.defineProperty(VecIdxBuffer.prototype, 'Data', { get: VecIdxBuffer.prototype.get_Data, set: VecIdxBuffer.prototype.set_Data });
   VecIdxBuffer.prototype['__destroy__'] = VecIdxBuffer.prototype.__destroy__ = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
   var self = this.ptr;
   _emscripten_bind_VecIdxBuffer___destroy___0(self);
@@ -2927,16 +2905,6 @@ VecVtxBuffer.prototype['size'] = VecVtxBuffer.prototype.size = /** @suppress {un
   return _emscripten_bind_VecVtxBuffer_size_0(self);
 };;
 
-  VecVtxBuffer.prototype['get_Data'] = VecVtxBuffer.prototype.get_Data = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
-  var self = this.ptr;
-  return wrapPointer(_emscripten_bind_VecVtxBuffer_get_Data_0(self), ImDrawVert);
-};
-    VecVtxBuffer.prototype['set_Data'] = VecVtxBuffer.prototype.set_Data = /** @suppress {undefinedVars, duplicate} @this{Object} */function(arg0) {
-  var self = this.ptr;
-  if (arg0 && typeof arg0 === 'object') arg0 = arg0.ptr;
-  _emscripten_bind_VecVtxBuffer_set_Data_1(self, arg0);
-};
-    Object.defineProperty(VecVtxBuffer.prototype, 'Data', { get: VecVtxBuffer.prototype.get_Data, set: VecVtxBuffer.prototype.set_Data });
   VecVtxBuffer.prototype['__destroy__'] = VecVtxBuffer.prototype.__destroy__ = /** @suppress {undefinedVars, duplicate} @this{Object} */function() {
   var self = this.ptr;
   _emscripten_bind_VecVtxBuffer___destroy___0(self);

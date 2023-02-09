@@ -15,6 +15,6 @@ class Im {
         static ImGuiIO& GetIO() { return ImGui::GetIO(); }
         static ImDrawData* GetDrawData() { return ImGui::GetDrawData(); }
         static void SetNextWindowSize(const ImVec2& size, ImGuiCond cond = 0) { ImGui::SetNextWindowSize(size, cond); }
-        static void ShowDemoWindow(bool* p_open = NULL) {  }
+        static void ShowDemoWindow(bool* p_open = NULL) { ImGui::ShowDemoWindow(p_open); }
         static bool Checkbox(const char* label, bool* v) { return ImGui::Checkbox(label, v); }
 };

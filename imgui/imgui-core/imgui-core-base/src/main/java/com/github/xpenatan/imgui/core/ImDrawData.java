@@ -34,8 +34,7 @@ public final class ImDrawData extends ImGuiBase {
 
     /*[-teaVM;-NATIVE]
         var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawData);
-        var pointer = ImGui.getPointer(nativeObject.get_CmdLists());
-        var cmdList = ImGui.wrapPointer(pointer + index, ImGui.ImDrawList);
+        var cmdList = nativeObject.get_CmdLists(index);
         return ImGui.getPointer(cmdList);
     */
     /*[-C++;-NATIVE]

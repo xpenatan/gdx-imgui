@@ -62,9 +62,7 @@ public class ImDrawList extends ImGuiBase {
     /*[-teaVM;-NATIVE]
         var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
         var cmdBuffer = nativeObject.get_CmdBuffer();
-        var data = cmdBuffer.get_Data();
-        var pointer = ImGui.getPointer(data);
-        var drawCmd = ImGui.wrapPointer(pointer + index, ImGui.ImDrawCmd);
+        var drawCmd = cmdBuffer.getData(index);
         return ImGui.getPointer(drawCmd);
     */
     /*[-C++;-NATIVE]

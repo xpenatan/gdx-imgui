@@ -94,18 +94,15 @@ interface ImVec4 {
 };
 
 interface VecCmdBuffer {
-    attribute ImDrawCmd Data;
+    [Operator="[]", Ref] ImDrawCmd getData(long index);
     long size();
 };
 
 interface VecIdxBuffer {
-    attribute unsigned short[] Data;
     long size();
 };
 
 interface VecVtxBuffer {
-    attribute ImDrawVert Data;
-
     long size();
 };
 
