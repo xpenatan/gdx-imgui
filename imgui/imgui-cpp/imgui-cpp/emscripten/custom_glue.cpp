@@ -39,7 +39,7 @@ class Im {
         static void End() { ImGui::End(); }
 
         static bool BeginChild(const char* str_id, const ImVec2& size = ImVec2(0, 0), bool border = false, ImGuiWindowFlags flags = 0) { return ImGui::BeginChild(str_id, size, border, flags); }
-        static bool BeginChild(ImGuiID id, const ImVec2& size = ImVec2(0, 0), bool border = false, ImGuiWindowFlags flags = 0) { return ImGui::BeginChild(id, size, border, flags); }
+        static bool BeginChild2(ImGuiID id, const ImVec2& size = ImVec2(0, 0), bool border = false, ImGuiWindowFlags flags = 0) { return ImGui::BeginChild(id, size, border, flags); }
         static void EndChild() { ImGui::EndChild(); }
 
         static bool IsWindowAppearing() { return ImGui::IsWindowAppearing(); }
@@ -56,6 +56,7 @@ class Im {
 
         static void SetNextWindowPos(const ImVec2& pos, ImGuiCond cond = 0, const ImVec2& pivot = ImVec2(0, 0)) { ImGui::SetNextWindowPos(pos, cond, pivot); }
         static void SetNextWindowSize(const ImVec2& size, ImGuiCond cond = 0) { ImGui::SetNextWindowSize(size, cond); }
+        static void SetNextWindowSizeConstraints(const ImVec2& size_min, const ImVec2& size_max, ImGuiSizeCallback custom_callback = NULL, void* custom_callback_data = NULL) { ImGui::SetNextWindowSizeConstraints(size_min, size_max, custom_callback, custom_callback_data); }
         static void SetNextWindowContentSize(const ImVec2& size) { ImGui::SetNextWindowContentSize(size); }
         static void SetNextWindowCollapsed(bool collapsed, ImGuiCond cond = 0) { ImGui::SetNextWindowCollapsed(collapsed, cond); }
         static void SetNextWindowFocus() { ImGui::SetNextWindowFocus(); }
@@ -67,10 +68,10 @@ class Im {
         static void SetWindowCollapsed(bool collapsed, ImGuiCond cond = 0) { ImGui::SetWindowCollapsed(collapsed, cond); }
         static void SetWindowFocus() { ImGui::SetWindowFocus(); }
         static void SetWindowFontScale(float scale) { ImGui::SetWindowFontScale(scale); }
-        static void SetWindowPos(const char* name, const ImVec2& pos, ImGuiCond cond = 0) { ImGui::SetWindowPos(name, pos, cond); }
-        static void SetWindowSize(const char* name, const ImVec2& size, ImGuiCond cond = 0) { ImGui::SetWindowSize(name, size, cond); }
-        static void SetWindowCollapsed(const char* name, bool collapsed, ImGuiCond cond = 0) { ImGui::SetWindowCollapsed(name, collapsed, cond); }
-        static void SetWindowFocus(const char* name) { ImGui::SetWindowFocus(name); }
+        static void SetWindowPos2(const char* name, const ImVec2& pos, ImGuiCond cond = 0) { ImGui::SetWindowPos(name, pos, cond); }
+        static void SetWindowSize2(const char* name, const ImVec2& size, ImGuiCond cond = 0) { ImGui::SetWindowSize(name, size, cond); }
+        static void SetWindowCollapsed2(const char* name, bool collapsed, ImGuiCond cond = 0) { ImGui::SetWindowCollapsed(name, collapsed, cond); }
+        static void SetWindowFocus2(const char* name) { ImGui::SetWindowFocus(name); }
 
         static ImVec2 GetContentRegionAvail() { return ImGui::GetContentRegionAvail(); }
         static ImVec2 GetContentRegionMax() { return ImGui::GetContentRegionMax(); }
@@ -91,10 +92,10 @@ class Im {
         static void PushFont(ImFont* font) { ImGui::PushFont(font); }
         static void PopFont() { ImGui::PopFont(); }
         static void PushStyleColor(ImGuiCol idx, ImU32 col) { ImGui::PushStyleColor(idx, col); }
-        static void PushStyleColor(ImGuiCol idx, const ImVec4& col) { ImGui::PushStyleColor(idx, col); }
+        static void PushStyleColor2(ImGuiCol idx, const ImVec4& col) { ImGui::PushStyleColor(idx, col); }
         static void PopStyleColor(int count = 1) { ImGui::PopStyleColor(count); }
         static void PushStyleVar(ImGuiStyleVar idx, float val) { ImGui::PushStyleVar(idx, val); }
-        static void PushStyleVar(ImGuiStyleVar idx, const ImVec2& val) { ImGui::PushStyleVar(idx, val); }
+        static void PushStyleVar2(ImGuiStyleVar idx, const ImVec2& val) { ImGui::PushStyleVar(idx, val); }
         static void PopStyleVar(int count = 1) { ImGui::PopStyleVar(count); }
         static void PushAllowKeyboardFocus(bool allow_keyboard_focus) { ImGui::PushAllowKeyboardFocus(allow_keyboard_focus); }
         static void PopAllowKeyboardFocus() { ImGui::PopAllowKeyboardFocus(); }
@@ -112,8 +113,8 @@ class Im {
         static float GetFontSize() { return ImGui::GetFontSize(); }
         static ImVec2 GetFontTexUvWhitePixel() { return ImGui::GetFontTexUvWhitePixel(); }
         static ImU32 GetColorU32(ImGuiCol idx, float alpha_mul = 1.0f) { return ImGui::GetColorU32(idx, alpha_mul); }
-        static ImU32 GetColorU32(const ImVec4& col) { return ImGui::GetColorU32(col); }
-        static ImU32 GetColorU32(ImU32 col) { return ImGui::GetColorU32(col); }
+        static ImU32 GetColorU322(const ImVec4& col) { return ImGui::GetColorU32(col); }
+        static ImU32 GetColorU323(ImU32 col) { return ImGui::GetColorU32(col); }
         static const ImVec4& GetStyleColorVec4(ImGuiCol idx) { return ImGui::GetStyleColorVec4(idx); }
 
         static void Separator() { ImGui::Separator(); }
@@ -141,13 +142,13 @@ class Im {
         static float GetFrameHeightWithSpacing() { return ImGui::GetFrameHeightWithSpacing(); }
 
         static void PushID(const char* str_id) { ImGui::PushID(str_id); }
-        static void PushID(const char* str_id_begin, const char* str_id_end) { ImGui::PushID(str_id_begin, str_id_end); }
-        static void PushID(const void* ptr_id) { ImGui::PushID(ptr_id); }
-        static void PushID(int int_id) { ImGui::PushID(int_id); }
+        static void PushID2(const char* str_id_begin, const char* str_id_end) { ImGui::PushID(str_id_begin, str_id_end); }
+        static void PushID3(const void* ptr_id) { ImGui::PushID(ptr_id); }
+        static void PushID4(int int_id) { ImGui::PushID(int_id); }
         static void PopID() { ImGui::PopID(); }
         static ImGuiID GetID(const char* str_id) { return ImGui::GetID(str_id); }
-        static ImGuiID GetID(const char* str_id_begin, const char* str_id_end) { return ImGui::GetID(str_id_begin, str_id_end); }
-        static ImGuiID GetID(const void* ptr_id) { return ImGui::GetID(ptr_id); }
+        static ImGuiID GetID2(const char* str_id_begin, const char* str_id_end) { return ImGui::GetID(str_id_begin, str_id_end); }
+        static ImGuiID GetID3(const void* ptr_id) { return ImGui::GetID(ptr_id); }
 
         static void TextUnformatted(const char* text, const char* text_end = NULL) { ImGui::TextUnformatted(text, text_end); }
         static void Text(const char* fmt) { ImGui::Text(fmt); }
@@ -169,16 +170,16 @@ class Im {
         static bool ArrowButton(const char* str_id, ImGuiDir dir) { return ImGui::ArrowButton(str_id, dir); }
         static bool Checkbox(const char* label, bool* v) { return ImGui::Checkbox(label, v); }
         static bool CheckboxFlags(const char* label, int* flags, int flags_value) { return ImGui::CheckboxFlags(label, flags, flags_value); }
-        static bool CheckboxFlags(const char* label, unsigned int* flags, unsigned int flags_value) { return ImGui::CheckboxFlags(label, flags, flags_value); }
+        static bool CheckboxFlags2(const char* label, unsigned int* flags, unsigned int flags_value) { return ImGui::CheckboxFlags(label, flags, flags_value); }
         static bool RadioButton(const char* label, bool active) { return ImGui::RadioButton(label, active); }
-        static bool RadioButton(const char* label, int* v, int v_button) { return ImGui::RadioButton(label, v, v_button); }
-        static void ProgressBar(float fraction, const ImVec2& size_arg = ImVec2(-FLT_MIN, 0)) { ImGui::ProgressBar(fraction, size_arg); }
+        static bool RadioButton2(const char* label, int* v, int v_button) { return ImGui::RadioButton(label, v, v_button); }
+        static void ProgressBar(float fraction, const ImVec2& size_arg = ImVec2(-FLT_MIN, 0), const char* overlay = NULL) { ImGui::ProgressBar(fraction, size_arg, overlay); }
         static void Bullet() { ImGui::Bullet(); }
         static void Image(ImTextureID user_texture_id, const ImVec2& size, const ImVec2& uv0 = ImVec2(0, 0), const ImVec2& uv1 = ImVec2(1, 1), const ImVec4& tint_col = ImVec4(1, 1, 1, 1), const ImVec4& border_col = ImVec4(0, 0, 0, 0)) {
             ImGui::Image(user_texture_id, size, uv0, uv1, tint_col, border_col);
         }
-        static void ImageButton(const char* str_id, ImTextureID user_texture_id, const ImVec2& size, const ImVec2& uv0 = ImVec2(0, 0), const ImVec2& uv1 = ImVec2(1, 1), const ImVec4& bg_col = ImVec4(0, 0, 0, 0), const ImVec4& tint_col = ImVec4(1, 1, 1, 1)) {
-            ImGui::ImageButton(str_id, user_texture_id, size, uv0, uv1, bg_col, tint_col);
+        static bool ImageButton(const char* str_id, ImTextureID user_texture_id, const ImVec2& size, const ImVec2& uv0 = ImVec2(0, 0), const ImVec2& uv1 = ImVec2(1, 1), const ImVec4& bg_col = ImVec4(0, 0, 0, 0), const ImVec4& tint_col = ImVec4(1, 1, 1, 1)) {
+            return ImGui::ImageButton(str_id, user_texture_id, size, uv0, uv1, bg_col, tint_col);
         }
 
         static bool BeginCombo(const char* label, const char* preview_value, ImGuiComboFlags flags = 0) { return ImGui::BeginCombo(label, preview_value, flags); }
@@ -240,25 +241,25 @@ class Im {
         static void SetColorEditOptions(ImGuiColorEditFlags flags) { return ImGui::SetColorEditOptions(flags); }
 
         static bool TreeNode(const char* label) { return ImGui::TreeNode(label); }
-        static bool TreeNode(const char* str_id, const char* fmt) { return ImGui::TreeNode(str_id, fmt); }
-        static bool TreeNode(const void* ptr_id, const char* fmt) { return ImGui::TreeNode(ptr_id, fmt); }
+        static bool TreeNode2(const char* str_id, const char* fmt) { return ImGui::TreeNode(str_id, fmt); }
+        static bool TreeNode3(const void* ptr_id, const char* fmt) { return ImGui::TreeNode(ptr_id, fmt); }
         static bool TreeNodeV(const char* str_id, const char* fmt, va_list args) { return ImGui::TreeNodeV(str_id, fmt, args); }
-        static bool TreeNodeV(const void* ptr_id, const char* fmt, va_list args) { return ImGui::TreeNodeV(ptr_id, fmt, args); }
+        static bool TreeNodeV2(const void* ptr_id, const char* fmt, va_list args) { return ImGui::TreeNodeV(ptr_id, fmt, args); }
         static bool TreeNodeEx(const char* label, ImGuiTreeNodeFlags flags = 0) { return ImGui::TreeNodeEx(label, flags); }
-        static bool TreeNodeEx(const char* str_id, ImGuiTreeNodeFlags flags, const char* fmt) { return ImGui::TreeNodeEx(str_id, flags, fmt); }
-        static bool TreeNodeEx(const void* ptr_id, ImGuiTreeNodeFlags flags, const char* fmt) { return ImGui::TreeNodeEx(ptr_id, flags, fmt); }
+        static bool TreeNodeEx2(const char* str_id, ImGuiTreeNodeFlags flags, const char* fmt) { return ImGui::TreeNodeEx(str_id, flags, fmt); }
+        static bool TreeNodeEx3(const void* ptr_id, ImGuiTreeNodeFlags flags, const char* fmt) { return ImGui::TreeNodeEx(ptr_id, flags, fmt); }
         static bool TreeNodeExV(const char* str_id, ImGuiTreeNodeFlags flags, const char* fmt, va_list args) { return ImGui::TreeNodeExV(str_id, flags, fmt, args); }
-        static bool TreeNodeExV(const void* ptr_id, ImGuiTreeNodeFlags flags, const char* fmt, va_list args) { return ImGui::TreeNodeExV(ptr_id, flags, fmt, args); }
+        static bool TreeNodeExV2(const void* ptr_id, ImGuiTreeNodeFlags flags, const char* fmt, va_list args) { return ImGui::TreeNodeExV(ptr_id, flags, fmt, args); }
         static void TreePush(const char* str_id) { ImGui::TreePush(str_id); }
-        static void TreePush(const void* ptr_id) { ImGui::TreePush(ptr_id); }
+        static void TreePush2(const void* ptr_id) { ImGui::TreePush(ptr_id); }
         static void TreePop() { ImGui::TreePop(); }
         static float GetTreeNodeToLabelSpacing() { return ImGui::GetTreeNodeToLabelSpacing(); }
         static bool CollapsingHeader(const char* label, ImGuiTreeNodeFlags flags = 0) { return ImGui::CollapsingHeader(label, flags); }
-        static bool CollapsingHeader(const char* label, bool* p_visible, ImGuiTreeNodeFlags flags = 0) { return ImGui::CollapsingHeader(label, p_visible, flags); }
+        static bool CollapsingHeader2(const char* label, bool* p_visible, ImGuiTreeNodeFlags flags = 0) { return ImGui::CollapsingHeader(label, p_visible, flags); }
         static void SetNextItemOpen(bool is_open, ImGuiCond cond = 0) { ImGui::SetNextItemOpen(is_open, cond); }
 
         static bool Selectable(const char* label, bool selected = false, ImGuiSelectableFlags flags = 0, const ImVec2& size = ImVec2(0, 0)) { return ImGui::Selectable(label, selected, flags, size); }
-        static bool Selectable(const char* label, bool* p_selected, ImGuiSelectableFlags flags = 0, const ImVec2& size = ImVec2(0, 0)) { return ImGui::Selectable(label, p_selected, flags, size); }
+        static bool Selectable2(const char* label, bool* p_selected, ImGuiSelectableFlags flags = 0, const ImVec2& size = ImVec2(0, 0)) { return ImGui::Selectable(label, p_selected, flags, size); }
 
         static bool BeginListBox(const char* label, const ImVec2& size = ImVec2(0, 0)) { return ImGui::BeginListBox(label, size); }
         static void EndListBox() { ImGui:EndListBox(); }
@@ -271,9 +272,9 @@ class Im {
 //       static void PlotHistogram(const char* label, float(*values_getter)(void* data, int idx), void* data, int values_count, int values_offset = 0, const char* overlay_text = NULL, float scale_min = FLT_MAX, float scale_max = FLT_MAX, ImVec2 graph_size = ImVec2(0, 0)) { ImGui::(); }
 
         static void Value(const char* prefix, bool b) { ImGui::Value(prefix, b); }
-        static void Value(const char* prefix, int v) { ImGui::Value(prefix, v); }
-        static void Value(const char* prefix, unsigned int v) { ImGui::Value(prefix, v); }
-        static void Value(const char* prefix, float v, const char* float_format = NULL) { ImGui::Value(prefix, v, float_format); }
+        static void Value2(const char* prefix, int v) { ImGui::Value(prefix, v); }
+        static void Value3(const char* prefix, unsigned int v) { ImGui::Value(prefix, v); }
+        static void Value4(const char* prefix, float v, const char* float_format = NULL) { ImGui::Value(prefix, v, float_format); }
 
         static bool BeginMenuBar() { return ImGui::BeginMenuBar(); }
         static void EndMenuBar() { ImGui::EndMenuBar(); }
@@ -282,7 +283,7 @@ class Im {
         static bool BeginMenu(const char* label, bool enabled = true) { return ImGui::BeginMenu(label, enabled); }
         static void EndMenu() { ImGui::EndMenu(); }
         static bool MenuItem(const char* label, const char* shortcut = NULL, bool selected = false, bool enabled = true) { return ImGui::MenuItem(label, shortcut, selected, enabled); }
-        static bool MenuItem(const char* label, const char* shortcut, bool* p_selected, bool enabled = true) { return ImGui::MenuItem(label, shortcut, enabled); }
+        static bool MenuItem2(const char* label, const char* shortcut, bool* p_selected, bool enabled = true) { return ImGui::MenuItem(label, shortcut, enabled); }
 
         static void BeginTooltip() { ImGui::BeginTooltip(); }
         static void EndTooltip() { ImGui::EndTooltip(); }
@@ -294,7 +295,7 @@ class Im {
         static void EndPopup() { ImGui::EndPopup(); }
 
         static void OpenPopup(const char* str_id, ImGuiPopupFlags popup_flags = 0) { ImGui::OpenPopup(str_id, popup_flags); }
-        static void OpenPopup(ImGuiID id, ImGuiPopupFlags popup_flags = 0) { ImGui::OpenPopup(id, popup_flags); }
+        static void OpenPopup2(ImGuiID id, ImGuiPopupFlags popup_flags = 0) { ImGui::OpenPopup(id, popup_flags); }
         static void OpenPopupOnItemClick(const char* str_id = NULL, ImGuiPopupFlags popup_flags = 1) { ImGui::OpenPopupOnItemClick(str_id, popup_flags); }
         static void CloseCurrentPopup() { ImGui::CloseCurrentPopup(); }
 
@@ -395,11 +396,11 @@ class Im {
 
         static ImDrawList* GetBackgroundDrawList() { return ImGui::GetBackgroundDrawList(); }
         static ImDrawList* GetForegroundDrawList() { return ImGui::GetForegroundDrawList(); }
-        static ImDrawList* GetBackgroundDrawList(ImGuiViewport* viewport) { return ImGui::GetBackgroundDrawList(viewport); }
-        static ImDrawList* GetForegroundDrawList(ImGuiViewport* viewport) { return ImGui::GetForegroundDrawList(viewport); }
+        static ImDrawList* GetBackgroundDrawList2(ImGuiViewport* viewport) { return ImGui::GetBackgroundDrawList(viewport); }
+        static ImDrawList* GetForegroundDrawList2(ImGuiViewport* viewport) { return ImGui::GetForegroundDrawList(viewport); }
 
         static bool IsRectVisible(const ImVec2& size) { return ImGui::IsRectVisible(size); }
-        static bool IsRectVisible(const ImVec2& rect_min, const ImVec2& rect_max) { return ImGui::IsRectVisible(rect_min, rect_max); }
+        static bool IsRectVisible2(const ImVec2& rect_min, const ImVec2& rect_max) { return ImGui::IsRectVisible(rect_min, rect_max); }
         static double GetTime() { return ImGui::GetTime(); }
         static int GetFrameCount() { return ImGui::GetFrameCount(); }
         static ImDrawListSharedData* GetDrawListSharedData() { return ImGui::GetDrawListSharedData(); }
@@ -413,8 +414,19 @@ class Im {
 
         static ImVec4 ColorConvertU32ToFloat4(ImU32 in) { return ImGui::ColorConvertU32ToFloat4(in); }
         static ImU32 ColorConvertFloat4ToU32(const ImVec4& in) { return ImGui::ColorConvertFloat4ToU32(in); }
-        static void ColorConvertRGBtoHSV(float r, float g, float b, float& out_h, float& out_s, float& out_v) { ImGui::ColorConvertRGBtoHSV(r, g, b, out_h, out_s, out_v); }
-        static void ColorConvertHSVtoRGB(float h, float s, float v, float& out_r, float& out_g, float& out_b) { ImGui::ColorConvertHSVtoRGB(h, s, v, out_r, out_g, out_b); }
+        static void ColorConvertRGBtoHSV(float r, float g, float b, float* out_h, float* out_s, float* out_v) {
+            float & out_h2 = *out_h;
+            float & out_s2 = *out_s;
+            float & out_v2 = *out_v;
+            // TODO test if this works.
+            ImGui::ColorConvertRGBtoHSV(r, g, b, out_h2, out_s2, out_v2);
+        }
+        static void ColorConvertHSVtoRGB(float h, float s, float v, float* out_r, float* out_g, float* out_b) {
+            float & out_r2 = *out_r;
+            float & out_g2 = *out_g;
+            float & out_b2 = *out_b;
+            ImGui::ColorConvertHSVtoRGB(h, s, v, out_r2, out_g2, out_b2);
+        }
 
         static bool IsKeyDown(ImGuiKey key) { return ImGui::IsKeyDown(key); }
         static bool IsKeyPressed(ImGuiKey key, bool repeat = true) { return ImGui::IsKeyPressed(key, repeat); }
@@ -453,7 +465,7 @@ class Im {
 
         static void SetAllocatorFunctions(ImGuiMemAllocFunc alloc_func, ImGuiMemFreeFunc free_func, void* user_data = NULL) { ImGui::SetAllocatorFunctions(alloc_func, free_func, user_data); }
         static void GetAllocatorFunctions(ImGuiMemAllocFunc* p_alloc_func, ImGuiMemFreeFunc* p_free_func, void** p_user_data) { ImGui::GetAllocatorFunctions(p_alloc_func, p_free_func, p_user_data); }
-        static void* MemAlloc(size_t size) { ImGui::MemAlloc(size); }
+        static void* MemAlloc(size_t size) { return ImGui::MemAlloc(size); }
         static void MemFree(void* ptr) { ImGui::MemFree(ptr); }
 
         static ImGuiPlatformIO& GetPlatformIO() { return ImGui::GetPlatformIO(); }
