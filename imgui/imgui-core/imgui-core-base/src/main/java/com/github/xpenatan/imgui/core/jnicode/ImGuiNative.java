@@ -1720,8 +1720,7 @@ public class ImGuiNative {
     // - Most widgets return true when the value has been changed or when pressed/selected
 
     /*[-teaVM;-NATIVE]
-        var test = 0;
-        return false;
+        return ImGui.Im.prototype.DragFloat(label);
     */
     /*[-C++;-NATIVE]
         return ImGui::Button(label);
@@ -1729,17 +1728,16 @@ public class ImGuiNative {
     public static native boolean Button(String label);
 
     /*[-teaVM;-NATIVE]
-        var test = 0;
-        return false;
+        return ImGui.Im.prototype.Button(label, imVec2Addr);
     */
     /*[-C++;-NATIVE]
-        return ImGui::Button(label, ImVec2(width, height));
+        ImVec2 * imVec2 = (ImVec2*)imVec2Addr;
+        return ImGui::Button(label, *imVec2);
     */
-    public static native boolean Button(String label, float width, float height);
+    public static native boolean Button(String label, long imVec2Addr);
 
     /*[-teaVM;-NATIVE]
-        var test = 0;
-        return false;
+        return ImGui.Im.prototype.SmallButton(label);
     */
     /*[-C++;-NATIVE]
         return ImGui::SmallButton(label);
@@ -1747,17 +1745,16 @@ public class ImGuiNative {
     public static native boolean SmallButton(String label);
 
     /*[-teaVM;-NATIVE]
-        var test = 0;
-        return false;
+        return ImGui.Im.prototype.SmallButton(label, imVec2Addr);
     */
     /*[-C++;-NATIVE]
-        return ImGui::InvisibleButton(strId, ImVec2(width, height));
+        ImVec2 * imVec2 = (ImVec2*)imVec2Addr;
+        return ImGui::InvisibleButton(strId, *imVec2);
     */
-    public static native boolean InvisibleButton(String strId, float width, float height);
+    public static native boolean InvisibleButton(String strId, long imVec2Addr);
 
     /*[-teaVM;-NATIVE]
-        var test = 0;
-        return false;
+        return ImGui.Im.prototype.ArrowButton(strId, dir);
     */
     /*[-C++;-NATIVE]
         return ImGui::ArrowButton(strId, dir);
@@ -1765,28 +1762,37 @@ public class ImGuiNative {
     public static native boolean ArrowButton(String strId, int dir);
 
     /*[-teaVM;-NATIVE]
-        var test = 0;
+        return ImGui.Im.prototype.Image(textureID, imVec2Addr);
     */
     /*[-C++;-NATIVE]
-        ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY));
+        ImVec2 * imVec2 = (ImVec2*)imVec2Addr;
+        ImGui::Image((ImTextureID)textureID, *imVec2);
     */
-    public static native void Image(int textureID, float sizeX, float sizeY);
+    public static native void Image(int textureID, long imVec2Addr);
 
     /*[-teaVM;-NATIVE]
-        var test = 0;
+        return ImGui.Im.prototype.Image(textureID, imVec2Addr, uv0Addr, uv1Addr);
     */
     /*[-C++;-NATIVE]
-        ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0_x, uv0_y), ImVec2(uv1_x, uv1_y));
+        ImVec2 * imVec2 = (ImVec2*)imVec2Addr;
+        ImVec2 * uv0 = (ImVec2*)uv0Addr;
+        ImVec2 * uv1 = (ImVec2*)uv1Addr;
+        ImGui::Image((ImTextureID)textureID, *imVec2, *uv0, *uv1);
     */
-    public static native void Image(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y);
+    public static native void Image(int textureID, long imVec2Addr, long uv0Addr, long uv1Addr);
 
     /*[-teaVM;-NATIVE]
-        var test = 0;
+        return ImGui.Im.prototype.Image(textureID, imVec2Addr, uv0Addr, uv1Addr, tintColorAddr, borderColAddr);
     */
     /*[-C++;-NATIVE]
-        ImGui::Image((ImTextureID)textureID, ImVec2(sizeX, sizeY), ImVec2(uv0_x, uv0_y), ImVec2(uv1_x, uv1_y), ImVec4(tint_color_r, tint_color_g, tint_color_b, tint_color_a), ImVec4(border_col_r, border_col_g, border_col_b, border_col_a));
+        ImVec2 * imVec2 = (ImVec2*)imVec2Addr;
+        ImVec2 * uv0 = (ImVec2*)uv0Addr;
+        ImVec2 * uv1 = (ImVec2*)uv1Addr;
+        ImVec4 * tintColor = (ImVec4*)tintColorAddr;
+        ImVec4 * borderCol = (ImVec4*)borderColAddr;
+        ImGui::Image((ImTextureID)textureID, *imVec2, *uv0, *uv1, *tintColor, *borderCol);
     */
-    public static native void Image(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, float tint_color_r, float tint_color_g, float tint_color_b, float tint_color_a, float border_col_r, float border_col_g, float border_col_b, float border_col_a);
+    public static native void Image(int textureID, long imVec2Addr, long uv0Addr, long uv1Addr, long tintColorAddr, long borderColAddr);
 
     /*[-teaVM;-NATIVE]
         var test = 0;

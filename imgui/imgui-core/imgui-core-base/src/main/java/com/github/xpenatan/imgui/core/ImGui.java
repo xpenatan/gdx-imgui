@@ -650,7 +650,8 @@ public class ImGui {
      * button
      */
     public static boolean Button(String label, float width, float height) {
-        return ImGuiNative.Button(label, width, height);
+        ImVec2.TMP.set(width, height);
+        return ImGuiNative.Button(label, ImVec2.TMP.getCPointer());
     }
 
     /**
@@ -664,7 +665,8 @@ public class ImGui {
      * button behavior without the visuals, frequently useful to build custom behaviors using the public api (along with IsItemActive, IsItemHovered, etc.)
      */
     public static boolean InvisibleButton(String strId, float width, float height) {
-        return ImGuiNative.InvisibleButton(strId, width, height);
+        ImVec2.TMP.set(width, height);
+        return ImGuiNative.InvisibleButton(strId, ImVec2.TMP.getCPointer());
     }
 
     /**
@@ -675,11 +677,15 @@ public class ImGui {
     }
 
     public static void Image(int textureID, float sizeX, float sizeY) {
-        ImGuiNative.Image(textureID, sizeX, sizeY);
+        ImVec2.TMP.set(sizeX, sizeY);
+        ImGuiNative.Image(textureID, ImVec2.TMP.getCPointer());
     }
 
     public static void Image(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y) {
-        ImGuiNative.Image(textureID, sizeX, sizeY, uv0_x, uv0_y, uv1_x, uv1_y);
+        ImVec2.TMP.set(sizeX, sizeY);
+        ImVec2.TMP_2.set(uv0_x, uv0_y);
+        ImVec2.TMP_3.set(uv1_x, uv1_y);
+        ImGuiNative.Image(textureID, ImVec2.TMP.getCPointer(), ImVec2.TMP_2.getCPointer(), ImVec2.TMP_3.getCPointer());
     }
 
     public static boolean ImageButton(int textureID, float sizeX, float sizeY) {

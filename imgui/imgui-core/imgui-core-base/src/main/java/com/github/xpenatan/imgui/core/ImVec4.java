@@ -2,6 +2,7 @@ package com.github.xpenatan.imgui.core;
 
 public class ImVec4 extends ImGuiBase {
     public static ImVec4 TMP = new ImVec4(true);
+    public static ImVec4 TMP_2 = new ImVec4(true);
     public static ImVec4 TMP_EMPTY = new ImVec4(false);
 
     /*[-C++;-NATIVE]
