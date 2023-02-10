@@ -171,6 +171,20 @@ public class ImGuiInt4 extends ImGuiBase {
     */
     private static native int getValueWNATIVE(long addr);
 
+    public long getValuePointer() {
+        return getValuePointerNATIVE(getCPointer());
+    }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.IntArray);
+        return nativeObject.getPointer();
+    */
+    /*[-C++;-NATIVE]
+        IntArray* nativeObject = (IntArray*)addr;
+        return (jlong)nativeObject->getPointer();
+    */
+    private static native long getValuePointerNATIVE(long addr);
+
     @Override
     public String toString() {
         return "x: " + getX() + " y:" + getY() + " z:" + getZ() + " w:" + getW();

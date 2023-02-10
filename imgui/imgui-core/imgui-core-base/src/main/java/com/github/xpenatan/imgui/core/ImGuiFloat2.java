@@ -111,6 +111,20 @@ public class ImGuiFloat2 extends ImGuiBase {
     */
     private static native float getValueYNATIVE(long addr);
 
+    public long getValuePointer() {
+        return getValuePointerNATIVE(getCPointer());
+    }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.FloatArray);
+        return nativeObject.getPointer();
+    */
+    /*[-C++;-NATIVE]
+        FloatArray* nativeObject = (FloatArray*)addr;
+        return (jlong)nativeObject->getPointer();
+    */
+    private static native long getValuePointerNATIVE(long addr);
+
     @Override
     public String toString() {
         return "x: " + getX() + " y:" + getY();

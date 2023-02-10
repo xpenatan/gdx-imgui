@@ -63,6 +63,20 @@ public class ImGuiByteArray extends ImGuiBase {
     */
     private static native byte getValueNATIVE(long addr, int index);
 
+    public long getValuePointer() {
+        return getValuePointerNATIVE(getCPointer());
+    }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.CharArray);
+        return nativeObject.getPointer();
+    */
+    /*[-C++;-NATIVE]
+        CharArray* nativeObject = (CharArray*)addr;
+        return (jlong)nativeObject->getPointer();
+    */
+    private static native long getValuePointerNATIVE(long addr);
+
     public long getCPointer() {
         return cPointer;
     }

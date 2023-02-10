@@ -67,6 +67,20 @@ public class ImGuiDouble extends ImGuiBase {
     */
     private static native double getValueNATIVE(long addr);
 
+    public long getValuePointer() {
+        return getValuePointerNATIVE(getCPointer());
+    }
+
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.DoubleArray);
+        return nativeObject.getPointer();
+    */
+    /*[-C++;-NATIVE]
+        DoubleArray* nativeObject = (DoubleArray*)addr;
+        return (jlong)nativeObject->getPointer();
+    */
+    private static native long getValuePointerNATIVE(long addr);
+
     @Override
     public String toString() {
         return String.valueOf(getValue());

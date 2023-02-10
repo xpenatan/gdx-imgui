@@ -50,7 +50,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat(String label, long vAddr);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat(label, vAddr, v_speed);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -59,7 +59,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat(String label, long vAddr, float v_speed);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat(label, vAddr, v_speed, v_min, v_max);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -68,7 +68,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat(String label, long vAddr, float v_speed, float v_min, float v_max);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat(label, vAddr, v_speed, v_min, v_max, format);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -77,7 +77,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat(String label, long vAddr, float v_speed, float v_min, float v_max, String format);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat(label, vAddr, v_speed, v_min, v_max, format, power);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -86,7 +86,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat(String label, long vAddr, float v_speed, float v_min, float v_max, String format, float power);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat2(label, vAddr);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -95,7 +95,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat2(String label, long vAddr);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat2(label, vAddr, v_speed);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -104,7 +104,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat2(String label, long vAddr, float v_speed);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat2(label, vAddr, v_speed, v_min, v_max);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -113,7 +113,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat2(String label, long vAddr, float v_speed, float v_min, float v_max);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat2(label, vAddr, v_speed, v_min, v_max, format);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -122,7 +122,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat2(String label, long vAddr, float v_speed, float v_min, float v_max, String format);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat2(label, vAddr, v_speed, v_min, v_max, format, power);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -131,7 +131,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat2(String label, long vAddr, float v_speed, float v_min, float v_max, String format, float power);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat3(label, vAddr);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -140,7 +140,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat3(String label, long vAddr);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat3(label, vAddr, v_speed);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -149,7 +149,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat3(String label, long vAddr, float v_speed);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat3(label, vAddr, v_speed, v_min, v_max);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -158,7 +158,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat3(String label, long vAddr, float v_speed, float v_min, float v_max);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat3(label, vAddr, v_speed, v_min, v_max, format);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -167,7 +167,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat3(String label, long vAddr, float v_speed, float v_min, float v_max, String format);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat3(label, vAddr, v_speed, v_min, v_max, format, power);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -176,7 +176,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat3(String label, long vAddr, float v_speed, float v_min, float v_max, String format, float power);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat4(label, vAddr);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -185,7 +185,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat4(String label, long vAddr);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat4(label, vAddr, v_speed);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -194,7 +194,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat4(String label, long vAddr, float v_speed);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat4(label, vAddr, v_speed, v_min, v_max);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -203,7 +203,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat4(String label, long vAddr, float v_speed, float v_min, float v_max);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat4(label, vAddr, v_speed, v_min, v_max, format);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
@@ -212,7 +212,7 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat4(String label, long vAddr, float v_speed, float v_min, float v_max, String format);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.DragFloat4(label, vAddr, v_speed, v_min, v_max, format, power);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
