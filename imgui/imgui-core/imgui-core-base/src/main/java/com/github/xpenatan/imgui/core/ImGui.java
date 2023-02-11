@@ -391,7 +391,7 @@ public class ImGui {
 
     public static void PushStyleColor(ImGuiCol idx, float r, float g, float b, float a) {
         ImVec4.TMP.set(r, g, b, a);
-        ImGuiNative.PushStyleColor(idx.getValue(), ImVec4.TMP.getCPointer());
+        ImGuiNative.PushStyleColor2(idx.getValue(), ImVec4.TMP.getCPointer());
     }
 
     public static void PopStyleColor() {
@@ -1316,7 +1316,7 @@ public class ImGui {
     }
 
     public static void ListBoxHeader(String label, int items_count) {
-        ImGuiNative.ListBoxHeader(label, items_count);
+        ImGuiNative.ListBoxHeader2(label, items_count);
     }
 
     public static void ListBoxHeader(String label, int items_count, int height_in_items) {
@@ -1936,8 +1936,8 @@ public class ImGui {
     }
 
     /*[-teaVM;-REPLACE]
-    public static ImGuiViewport FindViewportByPlatformHandle(long platformHandle, boolean updateDrawData) {
-        long pointer = ImGuiNative.FindViewportByPlatformHandle((int)platformHandle, updateDrawData);
+    public static ImGuiViewport FindViewportByPlatformHandle(long platformHandle) {
+        long pointer = ImGuiNative.FindViewportByPlatformHandle((int)platformHandle);
         if(pointer == 0)
             return null;
         ImGuiViewport.TMP_EMPTY.setPointer(pointer);

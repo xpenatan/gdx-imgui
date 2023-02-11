@@ -789,7 +789,7 @@ public class ImGuiNative {
         ImVec4 * color = (ImVec4*)colorAddr;
         ImGui::PushStyleColor(idx, *color);
     */
-    public static native void PushStyleColor(int idx, long colorAddr);
+    public static native void PushStyleColor2(int idx, long colorAddr);
 
     /*[-teaVM;-NATIVE]
         ImGui.Im.prototype.PopStyleColor();
@@ -903,7 +903,7 @@ public class ImGuiNative {
         ImVec4 * color = (ImVec4*)colorAddr;
         return ImGui::GetColorU32(*color);
     */
-    public static native int GetColorU32(long colorAddr);
+    public static native int GetColorU322(long colorAddr);
 
     // Parameters stacks (current window)
 
@@ -1854,7 +1854,7 @@ public class ImGuiNative {
     /*[-C++;-NATIVE]
         return ImGui::ListBoxHeader(label, items_count);
     */
-    public static native boolean ListBoxHeader(String label, int items_count);
+    public static native boolean ListBoxHeader2(String label, int items_count);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.ListBoxHeader(label, items_count, height_in_items);
