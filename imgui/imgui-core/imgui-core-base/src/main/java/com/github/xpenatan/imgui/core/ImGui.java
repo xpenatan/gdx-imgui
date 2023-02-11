@@ -156,15 +156,18 @@ public class ImGui {
     }
 
     public static boolean BeginChild(String str_id, float width, float height) {
-        return ImGuiNative.BeginChild(str_id, width, height);
+        ImVec2.TMP.set(width, height);
+        return ImGuiNative.BeginChild(str_id, ImVec2.TMP.getCPointer());
     }
 
     public static boolean BeginChild(String str_id, float width, float height, boolean border) {
-        return ImGuiNative.BeginChild(str_id, width, height, border);
+        ImVec2.TMP.set(width, height);
+        return ImGuiNative.BeginChild(str_id, ImVec2.TMP.getCPointer(), border);
     }
 
     public static boolean BeginChild(String str_id, float width, float height, boolean border, ImGuiWindowFlags flags) {
-        return ImGuiNative.BeginChild(str_id, width, height, border, flags.getValue());
+        ImVec2.TMP.set(width, height);
+        return ImGuiNative.BeginChild(str_id, ImVec2.TMP.getCPointer(), border, flags.getValue());
     }
 
     public static boolean BeginChild(int imGuiID) {
@@ -172,11 +175,13 @@ public class ImGui {
     }
 
     public static boolean BeginChild(int imGuiID, float width, float height, boolean border) {
-        return ImGuiNative.BeginChild(imGuiID, width, height, border);
+        ImVec2.TMP.set(width, height);
+        return ImGuiNative.BeginChild(imGuiID, ImVec2.TMP.getCPointer(), border);
     }
 
     public static boolean BeginChild(int imGuiID, float width, float height, boolean border, ImGuiWindowFlags flags) {
-        return ImGuiNative.BeginChild(imGuiID, width, height, border, flags.getValue());
+        ImVec2.TMP.set(width, height);
+        return ImGuiNative.BeginChild(imGuiID, ImVec2.TMP.getCPointer(), border, flags.getValue());
     }
 
     public static void EndChild() {
@@ -256,31 +261,40 @@ public class ImGui {
     // Window manipulation
 
     public static void SetNextWindowPos(float x, float y) {
-        ImGuiNative.SetNextWindowPos(x, y);
+        ImVec2.TMP.set(x, y);
+        ImGuiNative.SetNextWindowPos(ImVec2.TMP.getCPointer());
     }
 
     public static void SetNextWindowPos(float x, float y, ImGuiCond cond) {
-        ImGuiNative.SetNextWindowPos(x, y, cond.getValue());
+        ImVec2.TMP.set(x, y);
+        ImGuiNative.SetNextWindowPos(ImVec2.TMP.getCPointer(), cond.getValue());
     }
 
     public static void SetNextWindowPos(float x, float y, ImGuiCond cond, float pivotX, float pivotY) {
-        ImGuiNative.SetNextWindowPos(x, y, cond.getValue(), pivotX, pivotY);
+        ImVec2.TMP.set(x, y);
+        ImVec2.TMP_2.set(x, y);
+        ImGuiNative.SetNextWindowPos(ImVec2.TMP.getCPointer(), cond.getValue(), ImVec2.TMP_2.getCPointer());
     }
 
     public static void SetNextWindowSize(int width, int height) {
-        ImGuiNative.SetNextWindowSize(width, height);
+        ImVec2.TMP.set(width, height);
+        ImGuiNative.SetNextWindowSize(ImVec2.TMP.getCPointer());
     }
 
     public static void SetNextWindowSize(int width, int height, ImGuiCond cond) {
-        ImGuiNative.SetNextWindowSize(width, height, cond.getValue());
+        ImVec2.TMP.set(width, height);
+        ImGuiNative.SetNextWindowSize(ImVec2.TMP.getCPointer(), cond.getValue());
     }
 
     public static void SetNextWindowSizeConstraints(float minWidth, float minHeight, float maxWidth, float maxHeight) {
-        ImGuiNative.SetNextWindowSizeConstraints(minWidth, minHeight, maxWidth, maxHeight);
+        ImVec2.TMP.set(minWidth, minHeight);
+        ImVec2.TMP_2.set(maxWidth, maxHeight);
+        ImGuiNative.SetNextWindowSizeConstraints(ImVec2.TMP.getCPointer(), ImVec2.TMP_2.getCPointer());
     }
 
     public static void SetNextWindowContentSize(float sizeX, float sizeY) {
-        ImGuiNative.SetNextWindowContentSize(sizeX, sizeY);
+        ImVec2.TMP.set(sizeX, sizeY);
+        ImGuiNative.SetNextWindowContentSize(ImVec2.TMP.getCPointer());
     }
 
     public static void SetNextWindowCollapsed(boolean flag) {
@@ -376,7 +390,8 @@ public class ImGui {
     }
 
     public static void PushStyleColor(ImGuiCol idx, float r, float g, float b, float a) {
-        ImGuiNative.PushStyleColor(idx.getValue(), r, g, b, a);
+        ImVec4.TMP.set(r, g, b, a);
+        ImGuiNative.PushStyleColor(idx.getValue(), ImVec4.TMP.getCPointer());
     }
 
     public static void PopStyleColor() {
@@ -392,7 +407,8 @@ public class ImGui {
     }
 
     public static void PushStyleVar(ImGuiStyleVar idx, float valX, float valY) {
-        ImGuiNative.PushStyleVar(idx.getValue(), valX, valY);
+        ImVec2.TMP.set(valX, valY);
+        ImGuiNative.PushStyleVar(idx.getValue(), ImVec2.TMP.getCPointer());
     }
 
     public static void PopStyleVar() {
@@ -478,7 +494,8 @@ public class ImGui {
     }
 
     public static void Dummy(float width, float height) {
-        ImGuiNative.Dummy(width, height);
+        ImVec2.TMP.set(width, height);
+        ImGuiNative.Dummy(ImVec2.TMP.getCPointer());
     }
 
     public static void Indent() {
@@ -505,8 +522,9 @@ public class ImGui {
         ImGuiNative.EndGroup();
     }
 
-    public static void GetCursorPos() {
-        //TODO impl
+    public static ImVec2 GetCursorPos() {
+        ImGuiNative.GetCursorPos(ImVec2.TMP.getCPointer());
+        return ImVec2.TMP;
     }
 
     public static float GetCursorPosX() {
@@ -518,7 +536,8 @@ public class ImGui {
     }
 
     public static void SetCursorPos(float x, float y) {
-        ImGuiNative.SetCursorPos(x, y);
+        ImVec2.TMP.set(x, y);
+        ImGuiNative.SetCursorPos(ImVec2.TMP.getCPointer());
     }
 
     public static void SetCursorPosX(float x) {
@@ -540,7 +559,8 @@ public class ImGui {
     }
 
     public static void SetCursorScreenPos(float x, float y) {
-        ImGuiNative.SetCursorScreenPos(x, y);
+        ImVec2.TMP.set(x, y);
+        ImGuiNative.SetCursorScreenPos(ImVec2.TMP.getCPointer());
     }
 
     public static void AlignTextToFramePadding() {
@@ -617,7 +637,8 @@ public class ImGui {
     }
 
     public static void TextColored(float r, float g, float b, float a, String text) {
-        ImGuiNative.TextColored(r, g, b, a, text);
+        ImVec4.TMP.set(r, g, b, a);
+        ImGuiNative.TextColored(ImVec4.TMP.getCPointer(), text);
     }
 
     public static void TextDisabled(String text) {
@@ -689,19 +710,32 @@ public class ImGui {
     }
 
     public static boolean ImageButton(int textureID, float sizeX, float sizeY) {
-        return ImGuiNative.ImageButton(textureID, sizeX, sizeY);
+        ImVec2.TMP.set(sizeX, sizeY);
+        return ImGuiNative.ImageButton(textureID, ImVec2.TMP.getCPointer());
     }
 
     public static boolean ImageButton(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, int frame_padding) {
-        return ImGuiNative.ImageButton(textureID, sizeX, sizeY, uv0_x, uv0_y, uv1_x, uv1_y, frame_padding);
+        ImVec2.TMP.set(sizeX, sizeY);
+        ImVec2.TMP_2.set(uv0_x, uv0_y);
+        ImVec2.TMP_3.set(uv1_x, uv1_y);
+        return ImGuiNative.ImageButton(textureID, ImVec2.TMP.getCPointer(), ImVec2.TMP_2.getCPointer(), ImVec2.TMP_3.getCPointer(), frame_padding);
     }
 
     public static boolean ImageButton(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, int frame_padding, ImColor bg_col) {
-        return ImGuiNative.ImageButton(textureID, sizeX, sizeY, uv0_x, uv0_y, uv1_x, uv1_y, frame_padding, bg_col.getR(), bg_col.getG(), bg_col.getB(), bg_col.getA(), 1f, 1f, 1f, 1f);
+        ImVec2.TMP.set(sizeX, sizeY);
+        ImVec2.TMP_2.set(uv0_x, uv0_y);
+        ImVec2.TMP_3.set(uv1_x, uv1_y);
+        ImVec4.TMP.set(bg_col.getR(), bg_col.getG(), bg_col.getB(), bg_col.getA());
+        return ImGuiNative.ImageButton(textureID, ImVec2.TMP.getCPointer(), ImVec2.TMP_2.getCPointer(), ImVec2.TMP_3.getCPointer(), frame_padding, ImVec4.TMP.getCPointer());
     }
 
     public static boolean ImageButton(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, int frame_padding, ImColor bg_col, ImColor tint_col) {
-        return ImGuiNative.ImageButton(textureID, sizeX, sizeY, uv0_x, uv0_y, uv1_x, uv1_y, frame_padding, bg_col.getR(), bg_col.getG(), bg_col.getB(), bg_col.getA(), tint_col.getR(), tint_col.getG(), tint_col.getB(), tint_col.getA());
+        ImVec2.TMP.set(sizeX, sizeY);
+        ImVec2.TMP_2.set(uv0_x, uv0_y);
+        ImVec2.TMP_3.set(uv1_x, uv1_y);
+        ImVec4.TMP.set(bg_col.getR(), bg_col.getG(), bg_col.getB(), bg_col.getA());
+        ImVec4.TMP_2.set(tint_col.getR(), tint_col.getG(), tint_col.getB(), tint_col.getA());
+        return ImGuiNative.ImageButton(textureID, ImVec2.TMP.getCPointer(), ImVec2.TMP_2.getCPointer(), ImVec2.TMP_3.getCPointer(), frame_padding, ImVec4.TMP.getCPointer(), ImVec4.TMP_2.getCPointer());
     }
 
     public static boolean Checkbox(String label, ImGuiBoolean value) {
@@ -725,7 +759,8 @@ public class ImGui {
     }
 
     public static void ProgressBar(float fraction, float size_arg_x, float size_arg_y) {
-        ImGuiNative.ProgressBar(fraction, size_arg_x, size_arg_y);
+        ImVec2.TMP.set(size_arg_x, size_arg_y);
+        ImGuiNative.ProgressBar(fraction, ImVec2.TMP.getCPointer());
     }
 
     public static void Bullet() {
@@ -1044,35 +1079,43 @@ public class ImGui {
     }
 
     public static boolean VSliderFloat(String label, float sizeX, float sizeY, ImGuiFloat v, float v_min, float v_max) {
-        return ImGuiEditTextNative.VSliderFloat(label, sizeX, sizeY, v.getValuePointer(), v_min, v_max);
+        ImVec2.TMP.set(sizeX, sizeY);
+        return ImGuiEditTextNative.VSliderFloat(label, ImVec2.TMP.getCPointer(), v.getValuePointer(), v_min, v_max);
     }
 
     public static boolean VSliderFloat(String label, float sizeX, float sizeY, ImGuiFloat v, float v_min, float v_max, String format, float power) {
-        return ImGuiEditTextNative.VSliderFloat(label, sizeX, sizeY, v.getValuePointer(), v_min, v_max, format, power);
+        ImVec2.TMP.set(sizeX, sizeY);
+        return ImGuiEditTextNative.VSliderFloat(label, ImVec2.TMP.getCPointer(), v.getValuePointer(), v_min, v_max, format, power);
     }
 
     public static boolean VSliderInt(String label, float sizeX, float sizeY, ImGuiInt v, int v_min, int v_max) {
-        return ImGuiEditTextNative.VSliderInt(label, sizeX, sizeY, v.getValuePointer(), v_min, v_max);
+        ImVec2.TMP.set(sizeX, sizeY);
+        return ImGuiEditTextNative.VSliderInt(label, ImVec2.TMP.getCPointer(), v.getValuePointer(), v_min, v_max);
     }
 
     public static boolean VSliderInt(String label, float sizeX, float sizeY, ImGuiInt v, int v_min, int v_max, String format) {
-        return ImGuiEditTextNative.VSliderInt(label, sizeX, sizeY, v.getValuePointer(), v_min, v_max, format);
+        ImVec2.TMP.set(sizeX, sizeY);
+        return ImGuiEditTextNative.VSliderInt(label, ImVec2.TMP.getCPointer(), v.getValuePointer(), v_min, v_max, format);
     }
 
     public static boolean VSliderScalar(String label, float sizeX, float sizeY, ImGuiDataType data_type, ImGuiFloat v, float v_min, float v_max) {
-        return ImGuiEditTextNative.VSliderScalar(label, sizeX, sizeY, data_type.getValue(), v.getValuePointer(), v_min, v_max);
+        ImVec2.TMP.set(sizeX, sizeY);
+        return ImGuiEditTextNative.VSliderScalar(label, ImVec2.TMP.getCPointer(), data_type.getValue(), v.getValuePointer(), v_min, v_max);
     }
 
     public static boolean VSliderScalar(String label, float sizeX, float sizeY, ImGuiDataType data_type, ImGuiFloat v, float v_min, float v_max, String format, float power) {
-        return ImGuiEditTextNative.VSliderScalar(label, sizeX, sizeY, data_type.getValue(), v.getValuePointer(), v_min, v_max, format, power);
+        ImVec2.TMP.set(sizeX, sizeY);
+        return ImGuiEditTextNative.VSliderScalar(label, ImVec2.TMP.getCPointer(), data_type.getValue(), v.getValuePointer(), v_min, v_max, format, power);
     }
 
     public static boolean VSliderScalar(String label, float sizeX, float sizeY, ImGuiDataType data_type, ImGuiInt v, int v_min, int v_max) {
-        return ImGuiEditTextNative.VSliderScalar(label, sizeX, sizeY, data_type.getValue(), v.getValuePointer(), v_min, v_max);
+        ImVec2.TMP.set(sizeX, sizeY);
+        return ImGuiEditTextNative.VSliderScalar(label, ImVec2.TMP.getCPointer(), data_type.getValue(), v.getValuePointer(), v_min, v_max);
     }
 
     public static boolean VSliderScalar(String label, float sizeX, float sizeY, ImGuiDataType data_type, ImGuiInt v, int v_min, int v_max, String format, float power) {
-        return ImGuiEditTextNative.VSliderScalar(label, sizeX, sizeY, data_type.getValue(), v.getValuePointer(), v_min, v_max, format, power);
+        ImVec2.TMP.set(sizeX, sizeY);
+        return ImGuiEditTextNative.VSliderScalar(label, ImVec2.TMP.getCPointer(), data_type.getValue(), v.getValuePointer(), v_min, v_max, format, power);
     }
 
     // Widgets: Input with Keyboard
@@ -1243,7 +1286,8 @@ public class ImGui {
     }
 
     public static boolean Selectable(String label, boolean selected, int flags, float sizeX, float sizeY) {
-        return ImGuiNative.Selectable(label, selected, flags, sizeX, sizeY);
+        ImVec2.TMP.set(sizeX, sizeY);
+        return ImGuiNative.Selectable(label, selected, flags, ImVec2.TMP.getCPointer());
     }
 
     public static boolean Selectable(String label, ImGuiBoolean selected) {
@@ -1251,7 +1295,8 @@ public class ImGui {
     }
 
     public static boolean Selectable(String label, ImGuiBoolean selected, int flags, float sizeX, float sizeY) {
-        return ImGuiNative.Selectable(label, selected.getValuePointer(), flags, sizeX, sizeY);
+        ImVec2.TMP.set(sizeX, sizeY);
+        return ImGuiNative.Selectable(label, selected.getValuePointer(), flags, ImVec2.TMP.getCPointer());
     }
 
     // Widgets: List Boxes
@@ -1266,7 +1311,8 @@ public class ImGui {
     }
 
     public static void ListBoxHeader(String label, float sizeX, float sizeY) {
-        ImGuiNative.ListBoxHeader(label, sizeX, sizeY);
+        ImVec2.TMP.set(sizeX, sizeY);
+        ImGuiNative.ListBoxHeader(label, ImVec2.TMP.getCPointer());
     }
 
     public static void ListBoxHeader(String label, int items_count) {
@@ -1437,11 +1483,13 @@ public class ImGui {
     }
 
     public static boolean BeginTable(String id, int columns_count, ImGuiTableFlags flags, float outer_sizeX, float outer_sizeY) {
-        return ImGuiNative.BeginTable(id, columns_count, flags.getValue(), outer_sizeX, outer_sizeY);
+        ImVec2.TMP.set(outer_sizeX, outer_sizeY);
+        return ImGuiNative.BeginTable(id, columns_count, flags.getValue(), ImVec2.TMP.getCPointer());
     }
 
     public static boolean BeginTable(String id, int columns_count, ImGuiTableFlags flags, float outer_sizeX, float outer_sizeY, float inner_width) {
-        return ImGuiNative.BeginTable(id, columns_count, flags.getValue(), outer_sizeX, outer_sizeY, inner_width);
+        ImVec2.TMP.set(outer_sizeX, outer_sizeY);
+        return ImGuiNative.BeginTable(id, columns_count, flags.getValue(), ImVec2.TMP.getCPointer(), inner_width);
     }
 
     public static boolean BeginTable(CharSequence id, int columns_count) {
@@ -1591,11 +1639,13 @@ public class ImGui {
     }
 
     public static int DockSpace(int id, float sizeX, float sizeY) {
-        return ImGuiNative.DockSpace(id, sizeX, sizeY);
+        ImVec2.TMP.set(sizeX, sizeY);
+        return ImGuiNative.DockSpace(id, ImVec2.TMP.getCPointer());
     }
 
     public static int DockSpace(int id, float sizeX, float sizeY, ImGuiDockNodeFlags flags) {
-        return ImGuiNative.DockSpace(id, sizeX, sizeY, flags.getValue());
+        ImVec2.TMP.set(sizeX, sizeY);
+        return ImGuiNative.DockSpace(id, ImVec2.TMP.getCPointer(), flags.getValue());
     }
 
     public static int DockSpaceOverViewport() {
@@ -1820,11 +1870,13 @@ public class ImGui {
     }
 
     public static boolean BeginChildFrame(int id, float width, float height) {
-        return ImGuiNative.BeginChildFrame(id, width, height);
+        ImVec2.TMP.set(width, height);
+        return ImGuiNative.BeginChildFrame(id, ImVec2.TMP.getCPointer());
     }
 
     public static boolean BeginChildFrame(int id, float width, float height, ImGuiWindowFlags flags) {
-        return ImGuiNative.BeginChildFrame(id, width, height, flags.getValue());
+        ImVec2.TMP.set(width, height);
+        return ImGuiNative.BeginChildFrame(id, ImVec2.TMP.getCPointer(), flags.getValue());
     }
 
     public static void EndChildFrame() {
@@ -1858,11 +1910,15 @@ public class ImGui {
     }
 
     public static boolean IsMouseHoveringRect(float minX, float minY, float maxX, float maxY) {
-        return ImGuiNative.IsMouseHoveringRect(minX, minY, maxX, maxY);
+        ImVec2.TMP.set(minX, minY);
+        ImVec2.TMP_2.set(maxX, maxY);
+        return ImGuiNative.IsMouseHoveringRect(ImVec2.TMP.getCPointer(), ImVec2.TMP_2.getCPointer());
     }
 
     public static boolean IsMouseHoveringRect(float minX, float minY, float maxX, float maxY, boolean clip) {
-        return ImGuiNative.IsMouseHoveringRect(minX, minY, maxX, maxY, clip);
+        ImVec2.TMP.set(minX, minY);
+        ImVec2.TMP_2.set(maxX, maxY);
+        return ImGuiNative.IsMouseHoveringRect(ImVec2.TMP.getCPointer(), ImVec2.TMP_2.getCPointer(), clip);
     }
 
     // (Optional) Platform/OS interface for multi-viewport support
@@ -1888,8 +1944,8 @@ public class ImGui {
         return ImGuiViewport.TMP_EMPTY;
     }
      */
-    public static ImGuiViewport FindViewportByPlatformHandle(long platformHandle, boolean updateDrawData) {
-        long pointer = ImGuiNative.FindViewportByPlatformHandle(platformHandle, updateDrawData);
+    public static ImGuiViewport FindViewportByPlatformHandle(long platformHandle) {
+        long pointer = ImGuiNative.FindViewportByPlatformHandle(platformHandle);
         if(pointer == 0)
             return null;
         ImGuiViewport.TMP_EMPTY.setPointer(pointer);

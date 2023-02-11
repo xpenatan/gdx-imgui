@@ -665,84 +665,88 @@ public class ImGuiEditTextNative {
     */
     public static native boolean SliderScalar(String label, int data_type, float[] v, float v_min, float v_max, String format, float power);
 
-    //TODO remove allocating ImVec
-
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.VSliderFloat(label, new ImGui.ImVec2(sizeX, sizeY), vAddr, v_min, v_max);
+        return ImGui.Im.prototype.VSliderFloat(label, sizeAddr, vAddr, v_min, v_max);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
-        return ImGui::VSliderFloat(label, ImVec2(sizeX, sizeY), &v[0], v_min, v_max);
+        ImVec2 * size = (ImVec2*)sizeAddr;
+        return ImGui::VSliderFloat(label, *size, &v[0], v_min, v_max);
     */
-    public static native boolean VSliderFloat(String label, float sizeX, float sizeY, long vAddr, float v_min, float v_max);
-
-    //TODO remove allocating ImVec
+    public static native boolean VSliderFloat(String label, long sizeAddr, long vAddr, float v_min, float v_max);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.VSliderFloat(label, new ImGui.ImVec2(sizeX, sizeY), vAddr, v_min, v_max, format, power);
+        return ImGui.Im.prototype.VSliderFloat(label, sizeAddr, vAddr, v_min, v_max, format, power);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
-        return ImGui::VSliderFloat(label, ImVec2(sizeX, sizeY), &v[0], v_min, v_max, format, power);
+        ImVec2 * size = (ImVec2*)sizeAddr;
+        return ImGui::VSliderFloat(label, *size, &v[0], v_min, v_max, format, power);
     */
-    public static native boolean VSliderFloat(String label, float sizeX, float sizeY, long vAddr, float v_min, float v_max, String format, float power);
+    public static native boolean VSliderFloat(String label, long sizeAddr, long vAddr, float v_min, float v_max, String format, float power);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.VSliderInt(label, sizeAddr, vAddr, v_min, v_max);
     */
     /*[-C++;-NATIVE]
         int * v = (int*)vAddr;
-        return ImGui::VSliderInt(label, ImVec2(sizeX, sizeY), &v[0], v_min, v_max);
+        ImVec2 * size = (ImVec2*)sizeAddr;
+        return ImGui::VSliderInt(label, *size, &v[0], v_min, v_max);
     */
-    public static native boolean VSliderInt(String label, float sizeX, float sizeY, long vAddr, int v_min, int v_max);
+    public static native boolean VSliderInt(String label, long sizeAddr, long vAddr, int v_min, int v_max);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.VSliderInt(label, new ImGui.ImVec2(sizeX, sizeY), vAddr, v_min, v_max, format);
+        return ImGui.Im.prototype.VSliderInt(label, sizeAddr, vAddr, v_min, v_max, format);
     */
     /*[-C++;-NATIVE]
         int * v = (int*)vAddr;
-        return ImGui::VSliderInt(label, ImVec2(sizeX, sizeY), &v[0], v_min, v_max, format);
+        ImVec2 * size = (ImVec2*)sizeAddr;
+        return ImGui::VSliderInt(label, *size, &v[0], v_min, v_max, format);
     */
-    public static native boolean VSliderInt(String label, float sizeX, float sizeY, long vAddr, int v_min, int v_max, String format);
+    public static native boolean VSliderInt(String label, long sizeAddr, long vAddr, int v_min, int v_max, String format);
 
     //TODO impl other types
 
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.VSliderScalar(label, new ImGui.ImVec2(sizeX, sizeY), data_type, vAddr, v_min, v_max);
+        return ImGui.Im.prototype.VSliderScalar(label, sizeAddr, data_type, vAddr, v_min, v_max);
     */
     /*[-C++;-NATIVE]
         int * v = (int*)vAddr;
-        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), data_type, &v[0], &v_min, &v_max);
+        ImVec2 * size = (ImVec2*)sizeAddr;
+        return ImGui::VSliderScalar(label, *size, data_type, &v[0], &v_min, &v_max);
     */
-    public static native boolean VSliderScalar(String label, float sizeX, float sizeY, int data_type, long vAddr, int v_min, int v_max);
+    public static native boolean VSliderScalar(String label, long sizeAddr, int data_type, long vAddr, int v_min, int v_max);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.VSliderScalar(label, new ImGui.ImVec2(sizeX, sizeY), data_type, vAddr, v_min, v_max, format, power);
+        return ImGui.Im.prototype.VSliderScalar(label, sizeAddr, data_type, vAddr, v_min, v_max, format, power);
     */
     /*[-C++;-NATIVE]
         int * v = (int*)vAddr;
-        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), data_type, &v[0], &v_min, &v_max, format, power);
+        ImVec2 * size = (ImVec2*)sizeAddr;
+        return ImGui::VSliderScalar(label, *size, data_type, &v[0], &v_min, &v_max, format, power);
     */
-    public static native boolean VSliderScalar(String label, float sizeX, float sizeY, int data_type, long vAddr, int v_min, int v_max, String format, float power);
+    public static native boolean VSliderScalar(String label, long sizeAddr, int data_type, long vAddr, int v_min, int v_max, String format, float power);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.VSliderScalar(label, new ImGui.ImVec2(sizeX, sizeY), data_type, vAddr, v_min, v_max);
+        return ImGui.Im.prototype.VSliderScalar(label, sizeAddr, data_type, vAddr, v_min, v_max);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
-        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), data_type, &v[0], &v_min, &v_max);
+        ImVec2 * size = (ImVec2*)sizeAddr;
+        return ImGui::VSliderScalar(label, *size, data_type, &v[0], &v_min, &v_max);
     */
-    public static native boolean VSliderScalar(String label, float sizeX, float sizeY, int data_type, long vAddr, float v_min, float v_max);
+    public static native boolean VSliderScalar(String label, long sizeAddr, int data_type, long vAddr, float v_min, float v_max);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.VSliderScalar(label, new ImGui.ImVec2(sizeX, sizeY), data_type, vAddr, v_min, v_max, format, power);
+        return ImGui.Im.prototype.VSliderScalar(label, sizeAddr, data_type, vAddr, v_min, v_max, format, power);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
-        return ImGui::VSliderScalar(label, ImVec2(sizeX, sizeY), data_type, &v[0], &v_min, &v_max, format, power);
+        ImVec2 * size = (ImVec2*)sizeAddr;
+        return ImGui::VSliderScalar(label, *size, data_type, &v[0], &v_min, &v_max, format, power);
     */
-    public static native boolean VSliderScalar(String label, float sizeX, float sizeY, int data_type, long vAddr, float v_min, float v_max, String format, float power);
+    public static native boolean VSliderScalar(String label, long sizeAddr, int data_type, long vAddr, float v_min, float v_max, String format, float power);
 
     // Widgets: Input with Keyboard
     // - If you want to use InputText() with a dynamic string type such as std::string or your own, see misc/cpp/imgui_stdlib.h

@@ -1,7 +1,6 @@
 package com.github.xpenatan.imgui.core;
 
 import com.github.xpenatan.imgui.core.enums.ImGuiConfigFlags;
-import com.github.xpenatan.imgui.core.jnicode.ImGuiNative;
 
 public class ImGuiIO extends ImGuiBase {
 
@@ -16,20 +15,68 @@ public class ImGuiIO extends ImGuiBase {
     }
 
     public void SetConfigFlags(ImGuiConfigFlags flags) {
-        ImGuiNative.SetConfigFlags(flags.getValue());
+        SetConfigFlagsNATIVE(getCPointer(), flags.getValue());
     }
+
+    /*[-teaVM;-NATIVE]
+        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
+        io.set_ConfigFlags(flag);
+    */
+    /*[-C++;-NATIVE]
+        ImGuiIO* io = (ImGuiIO*)addr;
+        io->ConfigFlags = flag;
+    */
+    private static native void SetConfigFlagsNATIVE(long addr, int flag);
 
     public boolean ContainsConfigFlags(ImGuiConfigFlags flags) {
-        return ImGuiNative.ContainsConfigFlags(flags.getValue());
+        return ContainsConfigFlagsNATIVE(getCPointer(), flags.getValue());
     }
+
+    /*[-teaVM;-NATIVE]
+        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
+        var newFlag = io.get_ConfigFlags() & flag;
+        return newFlag == flag;
+    */
+    /*[-C++;-NATIVE]
+        ImGuiIO* io = (ImGuiIO*)addr;
+        int newFlag = io->ConfigFlags & flag;
+        return newFlag == flag;
+    */
+    private static native boolean ContainsConfigFlagsNATIVE(long addr, int flag);
 
     public void SetDockingFlags(boolean ConfigDockingNoSplit, boolean ConfigDockingWithShift, boolean ConfigDockingAlwaysTabBar, boolean ConfigDockingTransparentPayload) {
-        ImGuiNative.SetDockingFlags(ConfigDockingNoSplit, ConfigDockingWithShift, ConfigDockingAlwaysTabBar, ConfigDockingTransparentPayload);
+        SetDockingFlagsNATIVE(getCPointer(), ConfigDockingNoSplit, ConfigDockingWithShift, ConfigDockingAlwaysTabBar, ConfigDockingTransparentPayload);
     }
 
+    /*[-teaVM;-NATIVE]
+        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
+        io.set_ConfigDockingNoSplit(ConfigDockingNoSplit);
+        io.set_ConfigDockingWithShift(ConfigDockingWithShift);
+        io.set_ConfigDockingAlwaysTabBar(ConfigDockingAlwaysTabBar);
+        io.set_ConfigDockingTransparentPayload(ConfigDockingTransparentPayload);
+    */
+    /*[-C++;-NATIVE]
+        ImGuiIO* io = (ImGuiIO*)addr;
+        io->ConfigDockingNoSplit = ConfigDockingNoSplit;
+        io->ConfigDockingWithShift = ConfigDockingWithShift;
+        io->ConfigDockingAlwaysTabBar = ConfigDockingAlwaysTabBar;
+        io->ConfigDockingTransparentPayload = ConfigDockingTransparentPayload;
+    */
+    private static native void SetDockingFlagsNATIVE(long addr, boolean ConfigDockingNoSplit, boolean ConfigDockingWithShift, boolean ConfigDockingAlwaysTabBar, boolean ConfigDockingTransparentPayload);
+
     public void SetFontGlobalScale(float scale) {
-        ImGuiNative.SetFontGlobalScale(scale);
+        SetFontGlobalScaleNATIVE(getCPointer(), scale);
     }
+
+    /*[-teaVM;-NATIVE]
+        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
+        io.set_FontGlobalScale(scale);
+    */
+    /*[-C++;-NATIVE]
+        ImGuiIO* io = (ImGuiIO*)addr;
+        io->FontGlobalScale = scale;
+    */
+    private static native void SetFontGlobalScaleNATIVE(long addr, float scale);
 
     public boolean getWantCaptureMouse() {
         return getWantCaptureMouseNATIVE(getCPointer());

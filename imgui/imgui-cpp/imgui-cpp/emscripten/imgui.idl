@@ -591,6 +591,12 @@ interface ImGuiIO {
     [Value]attribute ImVec2 DisplayFramebufferScale;
     attribute float DeltaTime;
     attribute ImFontAtlas Fonts;
+    attribute float FontGlobalScale;
+    attribute boolean ConfigDockingNoSplit;
+    attribute boolean ConfigDockingWithShift;
+    attribute boolean ConfigDockingAlwaysTabBar;
+    attribute boolean ConfigDockingTransparentPayload;
+    attribute long ConfigFlags;
 
     void AddMouseWheelEvent(float wheel_x, float wheel_y);
     void AddMouseButtonEvent(long button, boolean down);

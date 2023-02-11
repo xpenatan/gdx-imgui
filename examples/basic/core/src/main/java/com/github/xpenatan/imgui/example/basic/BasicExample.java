@@ -1,5 +1,6 @@
 package com.github.xpenatan.imgui.example.basic;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -19,17 +20,25 @@ public class BasicExample implements ApplicationListener {
 
     private boolean init = false;
 
-    private ImGuiBoolean checkbox = new ImGuiBoolean();
+    private ImGuiBoolean checkbox;
 
-    private EditTextExample editTextExample = new EditTextExample();
+    private EditTextExample editTextExample;
 
     @Override
     public void create() {
+        ImGui.init();
+
+        checkbox = new ImGuiBoolean();
+        editTextExample = new EditTextExample();
+
         uiCam = new OrthographicCamera();
         uiCam.setToOrtho(true);
         batch = new SpriteBatch();
 
-        ImGui.init();
+        if(Gdx.app.getType() == Application.ApplicationType.WebGL) {
+            // Not possible to have ini filename with webgl
+            ImGui.GetIO().setIniFilename(null);
+        }
 
         ImGuiGdxInputMultiplexer input = new ImGuiGdxInputMultiplexer();
         impl = new ImGuiGdxImpl();
@@ -59,7 +68,7 @@ public class BasicExample implements ApplicationListener {
 
         ImGui.End();
 
-        ImGui.ShowDemoWindow(false);
+        ImGui.ShowDemoWindow();
 
         ImGui.Render();
         ImDrawData drawData = ImGui.GetDrawData();

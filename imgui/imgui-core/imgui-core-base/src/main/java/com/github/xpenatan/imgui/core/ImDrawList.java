@@ -1,7 +1,6 @@
 package com.github.xpenatan.imgui.core;
 
 import com.github.xpenatan.imgui.core.enums.ImDrawCornerFlags;
-import com.github.xpenatan.imgui.core.jnicode.ImGuiNative;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -10,6 +9,23 @@ public class ImDrawList extends ImGuiBase {
     /*[-C++;-NATIVE]
         #include "imgui.h"
         #include "imgui_custom.h"
+    */
+
+    /*[-C++;-NATIVE]
+        static int DRAWLIST_TYPE_DEFAULT = 0;
+        static int DRAWLIST_TYPE_BACKGROUND = 1;
+        static int DRAWLIST_TYPE_FOREGROUND = 2;
+
+        ImDrawList * getDrawList(int type) {
+            ImDrawList* drawList = NULL;
+            if(type == DRAWLIST_TYPE_DEFAULT)
+                drawList = ImGui::GetWindowDrawList();
+            else if(type == DRAWLIST_TYPE_BACKGROUND)
+                drawList = ImGui::GetBackgroundDrawList();
+            else if(type == DRAWLIST_TYPE_FOREGROUND)
+                drawList = ImGui::GetForegroundDrawList();
+            return drawList;
+        }
     */
 
     public final static int VTX_BUFFER_SIZE = 8+8+4;// = ImVec2 + ImVec2 + ImU32;
@@ -180,147 +196,418 @@ public class ImDrawList extends ImGuiBase {
     */
     private static native int getVtxBufferSizeNATIVE(long addr);
 
-    public void AddLine(float a_x, float a_y, float b_x, float b_y, int col) {
-        ImGuiNative.AddLine(type, a_x, a_y, b_x, b_y, col);
-    }
-
-    public void AddLine(float a_x, float a_y, float b_x, float b_y, int col, float thinkness) {
-        ImGuiNative.AddLine(type, a_x, a_y, b_x, b_y, col, thinkness);
-    }
-
-    public void AddRect(float a_x, float a_y, float b_x, float b_y, int col) {
-        ImGuiNative.AddRect(type, a_x, a_y, b_x, b_y, col);
-    }
-
-    public void AddRect(float a_x, float a_y, float b_x, float b_y, int col, float rounding) {
-        ImGuiNative.AddRect(type, a_x, a_y, b_x, b_y, col, rounding);
-    }
-
-    public void AddRect(float a_x, float a_y, float b_x, float b_y, int col, float rounding, ImDrawCornerFlags rounding_corners_flags) {
-        ImGuiNative.AddRect(type, a_x, a_y, b_x, b_y, col, rounding, rounding_corners_flags.getValue());
-    }
-
-    public void AddRect(float a_x, float a_y, float b_x, float b_y, int col, float rounding, ImDrawCornerFlags rounding_corners_flags, float thickness) {
-        ImGuiNative.AddRect(type, a_x, a_y, b_x, b_y, col, rounding, rounding_corners_flags.getValue(), thickness);
-    }
-
-    public void AddRectFilled(float a_x, float a_y, float b_x, float b_y, int col) {
-        ImGuiNative.AddRectFilled(type, a_x, a_y, b_x, b_y, col);
-    }
-
-    public void AddRectFilled(float a_x, float a_y, float b_x, float b_y, int col, float rounding) {
-        ImGuiNative.AddRectFilled(type, a_x, a_y, b_x, b_y, col, rounding);
-    }
-
-    public void AddRectFilled(float a_x, float a_y, float b_x, float b_y, int col, float rounding, ImDrawCornerFlags rounding_corners_flags) {
-        ImGuiNative.AddRectFilled(type, a_x, a_y, b_x, b_y, col, rounding, rounding_corners_flags.getValue());
-    }
-
-    public void AddRectFilledMultiColor(float a_x, float a_y, float b_x, float b_y, int col_upr_left, float col_upr_right, int col_bot_right, int col_bot_left) {
-        ImGuiNative.AddRectFilledMultiColor(type, a_x, a_y, b_x, b_y, col_upr_left, col_upr_right, col_bot_right, col_bot_left);
-    }
-
-    public void AddQuad(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col) {
-        ImGuiNative.AddQuad(type, a_x, a_y, b_x, b_y, c_x, c_y, d_x, d_y, col);
-    }
-
-    public void AddQuad(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col, float thickness) {
-        ImGuiNative.AddQuad(type, a_x, a_y, b_x, b_y, c_x, c_y, d_x, d_y, col, thickness);
-    }
-
-    public void AddQuadFilled(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col) {
-        ImGuiNative.AddQuadFilled(type, a_x, a_y, b_x, b_y, c_x, c_y, d_x, d_y, col);
-    }
-
-    public void AddTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col) {
-        ImGuiNative.AddTriangle(type, a_x, a_y, b_x, b_y, c_x, c_y, col);
-    }
-
-    public void AddTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col, float thickness) {
-        ImGuiNative.AddTriangle(type, a_x, a_y, b_x, b_y, c_x, c_y, col, thickness);
-    }
-
-    public void AddTriangleFilled(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col) {
-        ImGuiNative.AddTriangleFilled(type, a_x, a_y, b_x, b_y, c_x, c_y, col);
-    }
-
-    public void AddCircle(float centre_x, float centre_y, float radius, float col, int num_segments, float thickness) {
-        ImGuiNative.AddCircle(type, centre_x, centre_y, radius, col, num_segments, thickness);
-    }
-
-    public void AddCircleFilled(float centre_x, float centre_y, float radius, float col) {
-        ImGuiNative.AddCircleFilled(type, centre_x, centre_y, radius, col);
-    }
-
-    public void AddCircleFilled(float centre_x, float centre_y, float radius, float col, int num_segments) {
-        ImGuiNative.AddCircleFilled(type, centre_x, centre_y, radius, col, num_segments);
-    }
-
-    public void AddText(float pos_x, float pos_y, int col, String text_begin) {
-        ImGuiNative.AddText(type, pos_x, pos_y, col, text_begin);
-    }
-
-    public void AddText(float pos_x, float pos_y, int col, String text_begin, String text_end) {
-        ImGuiNative.AddText(type, pos_x, pos_y, col, text_begin, text_end);
-    }
-
-//TODO	IMGUI_API void  AddText(const ImFont* font, float font_size, const ImVec2& pos, ImU32 col, const char* text_begin, const char* text_end = NULL, float wrap_width = 0.0f, const ImVec4* cpu_fine_clip_rect = NULL);
-//TODO	IMGUI_API void  AddPolyline(const ImVec2* points, int num_points, ImU32 col, ImDrawFlags flags, float thickness);
-//TODO	IMGUI_API void  AddConvexPolyFilled(const ImVec2* points, int num_points, ImU32 col); // Note: Anti-aliased filling requires points to be in clockwise order.
-//TODO	IMGUI_API void  AddBezierCubic(const ImVec2& p1, const ImVec2& p2, const ImVec2& p3, const ImVec2& p4, ImU32 col, float thickness, int num_segments = 0); // Cubic Bezier (4 control points)
-//TODO	IMGUI_API void  AddBezierQuadratic(const ImVec2& p1, const ImVec2& p2, const ImVec2& p3, ImU32 col, float thickness, int num_segments = 0);               // Quadratic Bezier (3 control points)
-
-    public void AddImage(int textureID, float a_x, float a_y, float b_x, float b_y) {
-        ImGuiNative.AddImage(type, textureID, a_x, a_y, b_x, b_y);
-    }
-
-    public void AddImage(int textureID, float a_x, float a_y, float b_x, float b_y, float uv_a_x, float uv_a_y, float uv_b_x, float uv_b_y) {
-        ImGuiNative.AddImage(type, textureID, a_x, a_y, b_x, b_y, uv_a_x, uv_a_y, uv_b_x, uv_b_y);
-    }
-
-//TODO	IMGUI_API void  AddImageQuad(ImTextureID user_texture_id, const ImVec2& p1, const ImVec2& p2, const ImVec2& p3, const ImVec2& p4, const ImVec2& uv1 = ImVec2(0, 0), const ImVec2& uv2 = ImVec2(1, 0), const ImVec2& uv3 = ImVec2(1, 1), const ImVec2& uv4 = ImVec2(0, 1), ImU32 col = IM_COL32_WHITE);
-//TODO	IMGUI_API void  AddImageRounded(ImTextureID user_texture_id, const ImVec2& p_min, const ImVec2& p_max, const ImVec2& uv_min, const ImVec2& uv_max, ImU32 col, float rounding, ImDrawFlags flags = 0);
-
     // Stateful path API, add points then finish with PathFillConvex() or PathStroke()
 
-    public void PathClear() {
-        ImGuiNative.PathClear(type);
+    public void AddLine(float a_x, float a_y, float b_x, float b_y, int col) {
+        AddLineNATIVE(type, a_x, a_y, b_x, b_y, col);
     }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddLine(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col);
+    */
+    private static native void AddLineNATIVE(int type, float a_x, float a_y, float b_x, float b_y, int col);
+
+    public void AddLine(float a_x, float a_y, float b_x, float b_y, int col, float thinkness) {
+        AddLineNATIVE(type, a_x, a_y, b_x, b_y, col, thinkness);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddLine(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, thinkness);
+    */
+    private static native void AddLineNATIVE(int type, float a_x, float a_y, float b_x, float b_y, int col, float thinkness);
+
+    public void AddRect(float a_x, float a_y, float b_x, float b_y, int col) {
+        AddRectNATIVE(type, a_x, a_y, b_x, b_y, col);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddRect(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col);
+    */
+    private static native void AddRectNATIVE(int type, float a_x, float a_y, float b_x, float b_y, int col);
+
+    public void AddRect(float a_x, float a_y, float b_x, float b_y, int col, float rounding) {
+        AddRectNATIVE(type, a_x, a_y, b_x, b_y, col, rounding);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddRect(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, rounding);
+    */
+    private static native void AddRectNATIVE(int type, float a_x, float a_y, float b_x, float b_y, int col, float rounding);
+
+    public void AddRect(float a_x, float a_y, float b_x, float b_y, int col, float rounding, ImDrawCornerFlags rounding_corners_flags) {
+        AddRectNATIVE(type, a_x, a_y, b_x, b_y, col, rounding, rounding_corners_flags.getValue());
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddRect(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, rounding, rounding_corners_flags);
+    */
+    private static native void AddRectNATIVE(int type, float a_x, float a_y, float b_x, float b_y, int col, float rounding, int rounding_corners_flags);
+
+    public void AddRect(float a_x, float a_y, float b_x, float b_y, int col, float rounding, ImDrawCornerFlags rounding_corners_flags, float thickness) {
+        AddRectNATIVE(type, a_x, a_y, b_x, b_y, col, rounding, rounding_corners_flags.getValue(), thickness);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddRect(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, rounding, rounding_corners_flags, thickness);
+    */
+    private static native void AddRectNATIVE(int type, float a_x, float a_y, float b_x, float b_y, int col, float rounding, int rounding_corners_flags, float thickness);
+
+    public void AddRectFilled(float a_x, float a_y, float b_x, float b_y, int col) {
+        AddRectFilledNATIVE(type, a_x, a_y, b_x, b_y, col);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddRectFilled(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col);
+    */
+    private static native void AddRectFilledNATIVE(int type, float a_x, float a_y, float b_x, float b_y, int col);
+
+    public void AddRectFilled(float a_x, float a_y, float b_x, float b_y, int col, float rounding) {
+        AddRectFilledNATIVE(type, a_x, a_y, b_x, b_y, col, rounding);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddRectFilled(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, rounding);
+    */
+    private static native void AddRectFilledNATIVE(int type, float a_x, float a_y, float b_x, float b_y, int col, float rounding);
+
+    public void AddRectFilled(float a_x, float a_y, float b_x, float b_y, int col, float rounding, ImDrawCornerFlags rounding_corners_flags) {
+        AddRectFilledNATIVE(type, a_x, a_y, b_x, b_y, col, rounding, rounding_corners_flags.getValue());
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddRectFilled(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col, rounding, rounding_corners_flags);
+    */
+    private static native void AddRectFilledNATIVE(int type, float a_x, float a_y, float b_x, float b_y, int col, float rounding, int rounding_corners_flags);
+
+    public void AddRectFilledMultiColor(float a_x, float a_y, float b_x, float b_y, int col_upr_left, float col_upr_right, int col_bot_right, int col_bot_left) {
+        AddRectFilledMultiColorNATIVE(type, a_x, a_y, b_x, b_y, col_upr_left, col_upr_right, col_bot_right, col_bot_left);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddRectFilledMultiColor(ImVec2(a_x, a_y), ImVec2(b_x, b_y), col_upr_left, col_upr_right, col_bot_right, col_bot_left);
+    */
+    private static native void AddRectFilledMultiColorNATIVE(int type, float a_x, float a_y, float b_x, float b_y, int col_upr_left, float col_upr_right, int col_bot_right, int col_bot_left);
+
+    public void AddQuad(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col) {
+        AddQuadNATIVE(type, a_x, a_y, b_x, b_y, c_x, c_y, d_x, d_y, col);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddQuad(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), ImVec2(d_x, d_y), col);
+    */
+    private static native void AddQuadNATIVE(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col);
+
+    public void AddQuad(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col, float thickness) {
+        AddQuadNATIVE(type, a_x, a_y, b_x, b_y, c_x, c_y, d_x, d_y, col, thickness);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddQuad(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), ImVec2(d_x, d_y), col, thickness);
+    */
+    private static native void AddQuadNATIVE(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col, float thickness);
+
+    public void AddQuadFilled(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col) {
+        AddQuadFilledNATIVE(type, a_x, a_y, b_x, b_y, c_x, c_y, d_x, d_y, col);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddQuadFilled(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), ImVec2(d_x, d_y), col);
+    */
+    private static native void AddQuadFilledNATIVE(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, float d_x, float d_y, int col);
+
+    public void AddTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col) {
+        AddTriangleNATIVE(type, a_x, a_y, b_x, b_y, c_x, c_y, col);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddTriangle(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), col);
+    */
+    private static native void AddTriangleNATIVE(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col);
+
+    public void AddTriangle(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col, float thickness) {
+        AddTriangleNATIVE(type, a_x, a_y, b_x, b_y, c_x, c_y, col, thickness);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddTriangle(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), col, thickness);
+    */
+    private static native void AddTriangleNATIVE(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col, float thickness);
+
+    public void AddTriangleFilled(float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col) {
+        AddTriangleFilledNATIVE(type, a_x, a_y, b_x, b_y, c_x, c_y, col);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddTriangleFilled(ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(c_x, c_y), col);
+    */
+    private static native void AddTriangleFilledNATIVE(int type, float a_x, float a_y, float b_x, float b_y, float c_x, float c_y, int col);
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddCircle(ImVec2(centre_x, centre_y), radius, col);
+    */
+    private static native void AddCircleNATIVE(int type, float centre_x, float centre_y, float radius, float col);
+
+    public void AddCircle(float centre_x, float centre_y, float radius, float col, int num_segments, float thickness) {
+        AddCircleNATIVE(type, centre_x, centre_y, radius, col, num_segments, thickness);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddCircle(ImVec2(centre_x, centre_y), radius, col, num_segments, thickness);
+    */
+    private static native void AddCircleNATIVE(int type, float centre_x, float centre_y, float radius, float col, int num_segments, float thickness);
+
+    public void AddCircleFilled(float centre_x, float centre_y, float radius, float col) {
+        AddCircleFilledNATIVE(type, centre_x, centre_y, radius, col);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddCircleFilled(ImVec2(centre_x, centre_y), radius, col);
+    */
+    private static native void AddCircleFilledNATIVE(int type, float centre_x, float centre_y, float radius, float col);
+
+    public void AddCircleFilled(float centre_x, float centre_y, float radius, float col, int num_segments) {
+        AddCircleFilledNATIVE(type, centre_x, centre_y, radius, col, num_segments);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddCircleFilled(ImVec2(centre_x, centre_y), radius, col, num_segments);
+    */
+    private static native void AddCircleFilledNATIVE(int type, float centre_x, float centre_y, float radius, float col, int num_segments);
+
+    public void AddText(float pos_x, float pos_y, int col, String text_begin) {
+        AddTextNATIVE(type, pos_x, pos_y, col, text_begin);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddText(ImVec2(pos_x, pos_y), col, text_begin);
+    */
+    private static native void AddTextNATIVE(int type, float pos_x, float pos_y, int col, String text_begin);
+
+    public void AddText(float pos_x, float pos_y, int col, String text_begin, String text_end) {
+        AddTextNATIVE(type, pos_x, pos_y, col, text_begin, text_end);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddText(ImVec2(pos_x, pos_y), col, text_begin, text_end);
+    */
+    private static native void AddTextNATIVE(int type, float pos_x, float pos_y, int col, String text_begin, String text_end);
+
+    public void AddImage(int textureID, float a_x, float a_y, float b_x, float b_y) {
+        AddImageNATIVE(type, textureID, a_x, a_y, b_x, b_y);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddImage((void *)textureID, ImVec2(a_x, a_y), ImVec2(b_x, b_y));
+    */
+    private static native void AddImageNATIVE(int type, int textureID, float a_x, float a_y, float b_x, float b_y);
+
+    public void AddImage(int textureID, float a_x, float a_y, float b_x, float b_y, float uv_a_x, float uv_a_y, float uv_b_x, float uv_b_y) {
+        AddImageNATIVE(type, textureID, a_x, a_y, b_x, b_y, uv_a_x, uv_a_y, uv_b_x, uv_b_y);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->AddImage((void *)textureID, ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(uv_a_x, uv_a_y), ImVec2(uv_b_x, uv_b_y));
+    */
+    private static native void AddImageNATIVE(int type, int textureID, float a_x, float a_y, float b_x, float b_y, float uv_a_x, float uv_a_y, float uv_b_x, float uv_b_y);
+
+    public void PathClear() {
+        PathClearNATIVE(type);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->PathClear();
+    */
+    private static native void PathClearNATIVE(int type);
 
     public void PathLineTo(float pos_x, float pos_y) {
-        ImGuiNative.PathLineTo(type, pos_x, pos_y);
+        PathLineToNATIVE(type, pos_x, pos_y);
     }
 
-//TODO	inline    void  PathLineToMergeDuplicate(const ImVec2& pos)                 { if (_Path.Size == 0 || memcmp(&_Path.Data[_Path.Size - 1], &pos, 8) != 0) _Path.push_back(pos); }
-//TODO	inline    void  PathFillConvex(ImU32 col)                                   { AddConvexPolyFilled(_Path.Data, _Path.Size, col); _Path.Size = 0; }  // Note: Anti-aliased filling requires points to be in clockwise order.
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->PathLineTo(ImVec2(pos_x, pos_y));
+    */
+    private static native void PathLineToNATIVE(int type, float pos_x, float pos_y);
 
     public void PathStroke(int col) {
-        ImGuiNative.PathStroke(type, col);
+        PathStrokeNATIVE(type, col);
     }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->PathStroke(col);
+    */
+    private static native void PathStrokeNATIVE(int type, int col);
 
     public void PathStroke(int col, int flags) {
-        ImGuiNative.PathStroke(type, col, flags);
+        PathStrokeNATIVE(type, col, flags);
     }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->PathStroke(col, flags);
+    */
+    private static native void PathStrokeNATIVE(int type, int col, int flags);
 
     public void PathStroke(int col, int flags, float thickness) {
-        ImGuiNative.PathStroke(type, col, flags, thickness);
+        PathStrokeNATIVE(type, col, flags, thickness);
     }
 
-//TODO	IMGUI_API void  PathArcTo(const ImVec2& center, float radius, float a_min, float a_max, int num_segments = 0);
-//	IMGUI_API void  PathArcToFast(const ImVec2& center, float radius, int a_min_of_12, int a_max_of_12);                // Use precomputed angles for a 12 steps circle
-//TODO	IMGUI_API void  PathBezierCubicCurveTo(const ImVec2& p2, const ImVec2& p3, const ImVec2& p4, int num_segments = 0); // Cubic Bezier (4 control points)
-//TODO	IMGUI_API void  PathBezierQuadraticCurveTo(const ImVec2& p2, const ImVec2& p3, int num_segments = 0);               // Quadratic Bezier (3 control points)
-//TODO	IMGUI_API void  PathRect(const ImVec2& rect_min, const ImVec2& rect_max, float rounding = 0.0f, ImDrawFlags flags = 0);
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->PathStroke(col, flags, thickness);
+    */
+    private static native void PathStrokeNATIVE(int type, int col, int flags, float thickness);
 
     public void ChannelsSplit(int count) {
-        ImGuiNative.ChannelsSplit(type, count);
+        ChannelsSplitNATIVE(type, count);
     }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->ChannelsSplit(count);
+    */
+    private static native void ChannelsSplitNATIVE(int type, int count);
 
     public void ChannelsMerge() {
-        ImGuiNative.ChannelsMerge(type);
+        ChannelsMergeNATIVE(type);
     }
 
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->ChannelsMerge();
+    */
+    private static native void ChannelsMergeNATIVE(int type);
+
     public void ChannelsSetCurrent(int n) {
-        ImGuiNative.ChannelsSetCurrent(type, n);
+        ChannelsSetCurrentNATIVE(type, n);
     }
+
+    /*[-teaVM;-NATIVE]
+        var test = 0;
+    */
+    /*[-C++;-NATIVE]
+        ImDrawList* drawList = getDrawList(type);
+        drawList->ChannelsSetCurrent(n);
+    */
+    private static native void ChannelsSetCurrentNATIVE(int type, int n);
+
 }
