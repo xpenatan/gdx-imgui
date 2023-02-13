@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.xpenatan.imgui.core.ImDrawData;
 import com.github.xpenatan.imgui.core.ImGui;
 import com.github.xpenatan.imgui.core.ImGuiBoolean;
+import com.github.xpenatan.imgui.core.ImGuiIO;
+import com.github.xpenatan.imgui.core.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
 
@@ -34,11 +36,13 @@ public class BasicExample implements ApplicationListener {
         uiCam = new OrthographicCamera();
         uiCam.setToOrtho(true);
         batch = new SpriteBatch();
-
+        ImGuiIO io = ImGui.GetIO();
         if(Gdx.app.getType() == Application.ApplicationType.WebGL) {
             // Not possible to have ini filename with webgl
             ImGui.GetIO().setIniFilename(null);
         }
+
+        io.SetConfigFlags(ImGuiConfigFlags.DockingEnable);
 
         ImGuiGdxInputMultiplexer input = new ImGuiGdxInputMultiplexer();
         impl = new ImGuiGdxImpl();

@@ -1,10 +1,10 @@
 plugins {
-    id "org.gretty" version "3.0.6"
+    id "org.gretty" version '3.1.0'
 }
 
 gretty {
-    servletContainer = 'jetty9'
-    extraResourceBase 'webapp'
+    contextPath = '/'
+    extraResourceBase 'build/dist/webapp'
 }
 
 project.ext.mainClassName = "com.github.xpenatan.gdx.example.imlayout.Build"
