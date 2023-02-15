@@ -529,14 +529,14 @@ public class ImGuiNative {
         ImGui::SetWindowSize(*size, cond);
     */
     public static native void SetWindowSize(long sizeAddr, int cond);
-
-    /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.SetWindowCollapsed(collapsed, cond);
-    */
-    /*[-C++;-NATIVE]
-        ImGui::SetWindowCollapsed(collapsed, cond);
-    */
-    public static native void SetWindowCollapsed(boolean collapsed, int cond);
+//
+//    /*[-teaVM;-NATIVE]
+//        ImGui.Im.prototype.SetWindowCollapsed(collapsed, cond);
+//    */
+//    /*[-C++;-NATIVE]
+//        ImGui::SetWindowCollapsed(collapsed, cond);
+//    */
+//    public static native void SetWindowCollapsed(boolean collapsed, int cond);
 
     /*[-teaVM;-NATIVE]
         ImGui.Im.prototype.SetWindowFocus();
