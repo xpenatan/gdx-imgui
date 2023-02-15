@@ -764,25 +764,24 @@ public class ImGuiEditTextNative {
         }
     */
 
-//    /*[-teaVM;-NATIVE]
-//        return false;
-//    */
-//    /*[-C++;-NATIVE]
-//        int size = (int)strlen(buf);
-//        InputTextCallback_Data callbackData;
-//        callbackData.obj = &callback;
-//        callbackData.env = env;
-//        return ImGui::InputText(label, buf, bufSize, flags | ImGuiInputTextFlags_CallbackResize, &InputTextCallback, &callbackData);
-//    */
-//    private static native boolean InputTextInternal(String label, byte[] buf, int bufSize, int flags, ImGuiInputTextCallback callback);
-
     public static boolean InputText(String label, ImGuiString text, int bufSize, int flags, ImGuiInputTextCallback callback) {
-//        ImGuiInputTextCallbackData.TMP_EMPTY.imGuiString = text;
-//        boolean ret = InputTextInternal(label, text.getData(), bufSize, flags, callback);
-//        ImGuiInputTextCallbackData.TMP_EMPTY.imGuiString = null;
-//        return ret;
-        return false;
+        ImGuiInputTextCallbackData.TMP_EMPTY.imGuiString = text;
+        boolean ret = InputTextInternal(label, text.getData(), bufSize, flags, callback);
+        ImGuiInputTextCallbackData.TMP_EMPTY.imGuiString = null;
+        return ret;
     }
+
+    /*[-teaVM;-NATIVE]
+        return false;
+    */
+    /*[-C++;-NATIVE]
+        int size = (int)strlen(buf);
+        InputTextCallback_Data callbackData;
+        callbackData.obj = &callback;
+        callbackData.env = env;
+        return ImGui::InputText(label, buf, bufSize, flags | ImGuiInputTextFlags_CallbackResize, &InputTextCallback, &callbackData);
+    */
+    private static native boolean InputTextInternal(String label, byte[] buf, int bufSize, int flags, ImGuiInputTextCallback callback);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.InputFloat(label, vAddr);
