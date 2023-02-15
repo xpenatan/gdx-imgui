@@ -2,7 +2,7 @@ package com.github.xpenatan.gdx.example.basic;
 
 import com.github.xpenatan.gdx.backends.teavm.TeaBuildConfiguration;
 import com.github.xpenatan.gdx.backends.teavm.TeaBuilder;
-import com.github.xpenatan.gdx.backends.web.gen.SkipClass;
+import com.github.xpenatan.gdx.backends.teavm.gen.SkipClass;
 import com.github.xpenatan.gdx.example.basic.launcher.Launcher;
 import java.io.File;
 import java.io.IOException;

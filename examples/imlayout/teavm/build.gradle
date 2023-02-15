@@ -11,7 +11,6 @@ project.ext.mainClassName = "com.github.xpenatan.gdx.example.imlayout.Build"
 
 dependencies {
     implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
-    implementation "com.github.xpenatan.gdx-teavm:backend-web:1.0.0-SNAPSHOT"
     implementation "com.github.xpenatan.gdx-teavm:backend-teavm:1.0.0-SNAPSHOT"
 
     // Local Lib
