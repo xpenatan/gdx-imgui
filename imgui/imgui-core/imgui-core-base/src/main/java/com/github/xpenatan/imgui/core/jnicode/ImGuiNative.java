@@ -529,14 +529,14 @@ public class ImGuiNative {
         ImGui::SetWindowSize(*size, cond);
     */
     public static native void SetWindowSize(long sizeAddr, int cond);
-//
-//    /*[-teaVM;-NATIVE]
-//        ImGui.Im.prototype.SetWindowCollapsed(collapsed, cond);
-//    */
-//    /*[-C++;-NATIVE]
-//        ImGui::SetWindowCollapsed(collapsed, cond);
-//    */
-//    public static native void SetWindowCollapsed(boolean collapsed, int cond);
+
+    /*[-teaVM;-NATIVE]
+        ImGui.Im.prototype.SetWindowCollapsed(collapsed, cond);
+    */
+    /*[-C++;-NATIVE]
+        ImGui::SetWindowCollapsed(collapsed, cond);
+    */
+    public static native void SetWindowCollapsed(boolean collapsed, int cond);
 
     /*[-teaVM;-NATIVE]
         ImGui.Im.prototype.SetWindowFocus();
@@ -572,21 +572,21 @@ public class ImGuiNative {
     */
     public static native void SetWindowPos(String name, long posAddr, int cond);
 
-    /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.SetWindowCollapsed(name, collapsed);
-    */
-    /*[-C++;-NATIVE]
-        ImGui::SetWindowCollapsed(name, collapsed);
-    */
-    public static native void SetWindowCollapsed(String name, boolean collapsed);
-
-    /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.SetWindowCollapsed(name, collapsed, cond);
-    */
-    /*[-C++;-NATIVE]
-        ImGui::SetWindowCollapsed(name, collapsed, cond);
-    */
-    public static native void SetWindowCollapsed(String name, boolean collapsed, int cond);
+//    /*[-teaVM;-NATIVE]
+//        ImGui.Im.prototype.SetWindowCollapsed(name, collapsed);
+//    */
+//    /*[-C++;-NATIVE]
+//        ImGui::SetWindowCollapsed(name, collapsed);
+//    */
+//    public static native void SetWindowCollapsed(String name, boolean collapsed);
+//
+//    /*[-teaVM;-NATIVE]
+//        ImGui.Im.prototype.SetWindowCollapsed(name, collapsed, cond);
+//    */
+//    /*[-C++;-NATIVE]
+//        ImGui::SetWindowCollapsed(name, collapsed, cond);
+//    */
+//    public static native void SetWindowCollapsed(String name, boolean collapsed, int cond);
 
     /*[-teaVM;-NATIVE]
         ImGui.Im.prototype.SetWindowFocus2(name);
