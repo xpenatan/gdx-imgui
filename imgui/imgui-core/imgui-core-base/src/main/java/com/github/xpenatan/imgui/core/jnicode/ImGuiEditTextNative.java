@@ -764,6 +764,11 @@ public class ImGuiEditTextNative {
         }
     */
 
+    /*[-teaVM;-REPLACE]
+    public static boolean InputText(String label, ImGuiString text, int bufSize, int flags, ImGuiInputTextCallback callback) {
+        return false;
+    }
+    */
     public static boolean InputText(String label, ImGuiString text, int bufSize, int flags, ImGuiInputTextCallback callback) {
         ImGuiInputTextCallbackData.TMP_EMPTY.imGuiString = text;
         boolean ret = InputTextInternal(label, text.getData(), bufSize, flags, callback);
@@ -771,8 +776,9 @@ public class ImGuiEditTextNative {
         return ret;
     }
 
-    /*[-teaVM;-NATIVE]
-        return false;
+    /*[-teaVM;-REPLACE]
+    @org.teavm.jso.JSBody(script = "return false;")
+    private static native boolean InputTextInternal(String label, byte[] buf, int bufSize, int flags);
     */
     /*[-C++;-NATIVE]
         int size = (int)strlen(buf);
