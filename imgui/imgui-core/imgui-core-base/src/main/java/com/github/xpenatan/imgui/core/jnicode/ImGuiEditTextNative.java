@@ -777,7 +777,7 @@ public class ImGuiEditTextNative {
     }
 
     /*[-teaVM;-REPLACE]
-    @org.teavm.jso.JSBody(script = "return false;")
+    @org.teavm.jso.JSBody(params = {"label", "buf", "bufSize", "flags"}, script = "return false;")
     private static native boolean InputTextInternal(String label, byte[] buf, int bufSize, int flags);
     */
     /*[-C++;-NATIVE]
