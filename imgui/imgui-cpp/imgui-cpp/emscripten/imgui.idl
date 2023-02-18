@@ -465,6 +465,14 @@ interface Im {
 //    void CustomImGuiSizeCallback();
 //};
 
+interface ImGuiInputTextCallbackData {
+    attribute byte[] Buf;
+    attribute long BufSize;
+    attribute boolean BufDirty;
+    attribute long BufTextLen;
+    attribute long Flags;
+};
+
 interface BoolArray {
     attribute long size;
 

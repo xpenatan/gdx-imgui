@@ -2,12 +2,12 @@ package com.github.xpenatan.imgui.core;
 
 import java.nio.charset.StandardCharsets;
 
-public class ImGuiString {
+public class ImGuiString extends ImGuiBase {
     public static ImGuiString TMP = new ImGuiString();
 
     boolean isDirty = false;
 
-    byte[] data;
+    ImGuiByteArray data;
 
     private String text;
 
@@ -18,7 +18,7 @@ public class ImGuiString {
     }
 
     public ImGuiString(int bufferSize) {
-        data = new byte[bufferSize];
+        data = new ImGuiByteArray(bufferSize);
     }
 
     public ImGuiString(String text) {
@@ -26,35 +26,54 @@ public class ImGuiString {
         setValue(text);
     }
 
+    @Override
+    public void dispose() {
+        super.dispose();
+        data.dispose();
+    }
+
+    @Override
+    public long getCPointer() {
+        return data.getCPointer();
+    }
+
+    @Override
+    public void setPointer(long cPtr) {
+        data.setPointer(cPtr);
+    }
+
     public void resizeBuffer(int newBufferSize) {
-        byte[] newItems = new byte[newBufferSize];
-        int newSize = Math.min(size, newItems.length);
-        System.arraycopy(data, 0, newItems, 0, newSize);
-        this.data = newItems;
-        this.size = newSize;
+        data.resize(size);
         isDirty = true;
     }
 
     public void setValue(String value) {
         size = value.length();
+        int dataSize = data.getSize();
         byte[] strBytes = value.getBytes();
-        if(size >= data.length) {
-            data = new byte[size + 10];
+        if(size >= dataSize) {
+            data.resize(size);
         }
-        System.arraycopy(strBytes, 0, data, 0, size);
+        ImGuiByteArray.arraycopy(strBytes, 0, data, 0, size);
         isDirty = true;
     }
 
     public String getValue() {
         if(isDirty) {
             isDirty = false;
-            text = new String(data, 0, size, StandardCharsets.UTF_8);
+            byte[] charData = new byte[size];
+            ImGuiByteArray.arraycopy(data, 0, charData, 0, size);
+            text = new String(charData, 0, size);
         }
         return text;
     }
 
-    public byte[] getData() {
-        return data;
+    public long getValuePointer() {
+        return data.getValuePointer();
+    }
+
+    public int getBufferSize() {
+        return data.getSize();
     }
 
     public int getSize() {

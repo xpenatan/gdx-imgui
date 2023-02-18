@@ -1,6 +1,5 @@
 package com.github.xpenatan.imgui.core.jnicode;
 
-import com.github.xpenatan.imgui.core.ImGuiInputTextCallback;
 import com.github.xpenatan.imgui.core.ImGuiInputTextCallbackData;
 import com.github.xpenatan.imgui.core.ImGuiString;
 
@@ -8,6 +7,8 @@ public class ImGuiEditTextNative {
 
     /*[-C++;-NATIVE]
         #include "imgui_helper.h"
+        #include "imgui_custom.h"
+        #include <iostream>
 
         #include <imgui.h>
         #include <cstring>
@@ -28,7 +29,7 @@ public class ImGuiEditTextNative {
     /*[-C++;-NATIVE]
 
         ImGuiHelper::Init(env);
-        jclass jImGuiInputTextCallbackClass = env->FindClass("com/github/xpenatan/imgui/core/ImGuiInputTextCallback");
+        jclass jImGuiInputTextCallbackClass = env->FindClass("com/github/xpenatan/imgui/core/jnicode/ImGuiEditTextNative$InputTextCallback");
 
         imOnInputTextChangeID = env->GetMethodID(jImGuiInputTextCallbackClass, "onInputTextChange", "(J)I");
     */
@@ -764,30 +765,24 @@ public class ImGuiEditTextNative {
         }
     */
 
-    /*[-teaVM;-REPLACE]
-    public static boolean InputText(String label, ImGuiString text, int bufSize, int flags, ImGuiInputTextCallback callback) {
-        return false;
-    }
-    */
-    public static boolean InputText(String label, ImGuiString text, int bufSize, int flags, ImGuiInputTextCallback callback) {
+    public static boolean InputText(String label, ImGuiString text, int bufSize, int flags, InputTextCallback callback) {
         ImGuiInputTextCallbackData.TMP_EMPTY.imGuiString = text;
-        boolean ret = InputTextInternal(label, text.getData(), bufSize, flags, callback);
+        boolean ret = InputTextInternal(label, text.getValuePointer(), bufSize, flags, callback);
         ImGuiInputTextCallbackData.TMP_EMPTY.imGuiString = null;
         return ret;
     }
 
-    /*[-teaVM;-REPLACE]
-    @org.teavm.jso.JSBody(params = {"label", "buf", "bufSize", "flags"}, script = "return false;")
-    private static native boolean InputTextInternal(String label, byte[] buf, int bufSize, int flags);
+    /*[-teaVM;-NATIVE]
+        return false;
     */
     /*[-C++;-NATIVE]
-        int size = (int)strlen(buf);
+        char * charArray = (char*)bufAddr;
         InputTextCallback_Data callbackData;
         callbackData.obj = &callback;
         callbackData.env = env;
-        return ImGui::InputText(label, buf, bufSize, flags | ImGuiInputTextFlags_CallbackResize, &InputTextCallback, &callbackData);
+        return ImGui::InputText(label, charArray, bufSize, flags | ImGuiInputTextFlags_CallbackResize, &InputTextCallback, &callbackData);
     */
-    private static native boolean InputTextInternal(String label, byte[] buf, int bufSize, int flags, ImGuiInputTextCallback callback);
+    private static native boolean InputTextInternal(String label, long bufAddr, int bufSize, int flags, InputTextCallback callback);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.InputFloat(label, vAddr);
@@ -905,4 +900,14 @@ public class ImGuiEditTextNative {
         return ImGui::ColorPicker4(label, col, flags);
     */
     public static native boolean ColorPicker4(String label, float[] col, int flags);
+
+    /*[-teaVM;-REPLACE]
+    @org.teavm.jso.JSFunctor
+    public interface InputTextCallback extends org.teavm.jso.JSObject {
+        int onInputTextChange(int callbackDataAddr);
+    }
+    */
+    public interface InputTextCallback {
+        int onInputTextChange(long callbackDataAddr);
+    }
 }

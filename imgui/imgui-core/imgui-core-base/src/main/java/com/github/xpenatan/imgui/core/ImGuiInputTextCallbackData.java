@@ -4,6 +4,7 @@ public class ImGuiInputTextCallbackData extends ImGuiBase {
 
     /*[-C++;-NATIVE]
         #include "imgui.h"
+        #include "imgui_custom.h"
     */
 
     public ImGuiString imGuiString = null;
@@ -27,17 +28,18 @@ public class ImGuiInputTextCallbackData extends ImGuiBase {
     */
     private static native byte[] getBufNATIVE(long addr);
 
-    public void setBuf(byte[] buf) {
-        setBufNATIVE(getCPointer(), buf);
+    public void setBuf(ImGuiByteArray buf) {
+        setBufNATIVE(getCPointer(), buf.getValuePointer());
     }
 
     //TODO teavm
 
     /*[-C++;-NATIVE]
         ImGuiInputTextCallbackData* nativeObject = (ImGuiInputTextCallbackData*)addr;
-        nativeObject->Buf = buf;
+        char* charArray = (char*)bufAddr;
+        nativeObject->Buf = charArray;
     */
-    private static native void setBufNATIVE(long addr, byte[] buf);
+    private static native void setBufNATIVE(long addr, long bufAddr);
 
     public int getBufSize() {
         return getBufSizeNATIVE(getCPointer());

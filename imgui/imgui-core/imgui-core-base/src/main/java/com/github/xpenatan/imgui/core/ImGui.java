@@ -1123,15 +1123,15 @@ public class ImGui {
     // - Most of the ImGuiInputTextFlags flags are only useful for InputText() and not for InputFloatX, InputIntX, InputDouble etc.
 
     public static boolean InputText(String label, ImGuiString text) {
-        return InputText(label, text, text.data.length, ImGuiInputTextFlags.None, new ImGuiInputTextCallback());
+        return InputText(label, text, text.data.getSize(), ImGuiInputTextFlags.None, new ImGuiInputTextCallback());
     }
 
     public static boolean InputText(String label, ImGuiString text, ImGuiInputTextFlags flags) {
-        return InputText(label, text, text.data.length, flags, new ImGuiInputTextCallback());
+        return InputText(label, text, text.data.getSize(), flags, new ImGuiInputTextCallback());
     }
 
     public static boolean InputText(String label, ImGuiString text, ImGuiInputTextFlags flags, ImGuiInputTextCallback callback) {
-        return InputText(label, text, text.data.length, flags, callback);
+        return InputText(label, text, text.data.getSize(), flags, callback);
     }
 
     public static boolean InputText(String label, ImGuiString text, int bufSize, ImGuiInputTextFlags flags, ImGuiInputTextCallback callback) {
