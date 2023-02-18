@@ -34,3 +34,17 @@ include ":examples:imlayout:desktop"
 //include ":examples:gdx-tests:desktop"
 //includeBuild('D:\\Dev\\Projects\\java\\libgdx') {
 //}
+
+//includeBuild('D:\\Dev\\Projects\\java\\gdx-teavm') {
+//    dependencySubstitution {
+//        substitute module('com.github.xpenatan.gdx-teavm:backend-teavm') with project(':backends:backend-teavm:backend-teavm')
+//    }
+//}
+
+//includeBuild('D:\\Dev\\Projects\\java\\jParser') {
+//    dependencySubstitution {
+//        substitute module('com.github.xpenatan.jParser:jParser-core') with project(':jParser:core')
+//        substitute module('com.github.xpenatan.jParser:jParser-cpp') with project(':jParser:cpp')
+//        substitute module('com.github.xpenatan.jParser:jParser-teavm') with project(':jParser:teavm')
+//    }
+//}
