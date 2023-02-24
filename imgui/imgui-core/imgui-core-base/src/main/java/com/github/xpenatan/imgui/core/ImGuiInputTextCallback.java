@@ -13,12 +13,11 @@ public class ImGuiInputTextCallback implements ImGuiEditTextNative.InputTextCall
         if(flags == ImGuiInputTextFlags.CallbackResize.getValue()) {
             int bufSize = data.getBufSize();
             int bufTextLen = data.getBufTextLen();
-            int length = data.imGuiString.getData().length;
+            int length = data.imGuiString.data.getSize();
             if(bufSize > length) {
                 int newSize = bufSize + 10;
                 data.imGuiString.resizeBuffer(newSize);
-                byte[] stringData = data.imGuiString.getData();
-                data.setBuf(stringData);
+                data.setBuf(data.imGuiString.data);
             }
             data.imGuiString.size = bufTextLen;
             data.imGuiString.isDirty = true;
