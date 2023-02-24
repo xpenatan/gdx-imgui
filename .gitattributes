@@ -1,1 +1,9 @@
 * text=auto eol=lf
+
+# Binary files.
+*.png binary
+*.jpg binary
+*.jar binary
+*.ttf binary
+*.js binary
+*.wasm binary
