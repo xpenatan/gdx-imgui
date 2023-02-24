@@ -20,7 +20,8 @@ dependencies {
 project.ext.mainClassName = "com.github.xpenatan.imgui.example.viewport.Main"
 project.ext.assetsDir = new File("../assets");
 
-task runFrameViewportExample(dependsOn: classes, type: JavaExec) {
+tasks.register('runFrameViewportExample', JavaExec) {
+    dependsOn classes
     setGroup("examples")
     setDescription("Run viewport example")
     mainClass.set(project.mainClassName)

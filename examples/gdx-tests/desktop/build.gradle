@@ -20,7 +20,8 @@ dependencies {
 project.ext.mainClassName = "com.github.xpenatan.imgui.example.tests.Main"
 project.ext.assetsDir = new File("D:\\Dev\\Projects\\java\\Libgdx\\tests\\gdx-tests-android\\assets\\");
 
-task runGdxTests(dependsOn: classes, type: JavaExec) {
+tasks.register('runGdxTests', JavaExec) {
+    dependsOn classes
     setGroup("examples")
     setDescription("Run gdx tests example")
     mainClass.set(project.mainClassName)

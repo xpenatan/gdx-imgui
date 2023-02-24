@@ -19,14 +19,16 @@ dependencies {
 
 }
 
-task buildJavaScript(dependsOn: classes, type: JavaExec) {
+tasks.register('buildImLayoutExample', JavaExec) {
+    dependsOn classes
     setGroup("teavm")
     setDescription("Build basic example")
     mainClass.set(project.mainClassName)
     setClasspath(sourceSets.main.runtimeClasspath)
 }
 
-task runTeaVMBasicExample(dependsOn: [':examples:imlayout:teavm:buildJavaScript', ':examples:imlayout:teavm:jettyRun']) {
+tasks.register('runTeaVMBasicExample') {
+    dependsOn([':examples:imlayout:teavm:buildImLayoutExample', ':examples:imlayout:teavm:jettyRun'])
     setGroup("examples")
     setDescription("Run ImLayout example")
 }

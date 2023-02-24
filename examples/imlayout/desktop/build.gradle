@@ -21,7 +21,8 @@ dependencies {
 project.ext.mainClassName = "com.github.xpenatan.imgui.example.imlayout.Main"
 project.ext.assetsDir = new File("../assets");
 
-task runDesktopImLayoutExample(dependsOn: classes, type: JavaExec) {
+tasks.register('runDesktopImLayoutExample', JavaExec) {
+    dependsOn classes
     setGroup("examples")
     setDescription("Run ImLayout example")
     mainClass.set(project.mainClassName)

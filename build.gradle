@@ -73,16 +73,19 @@ allprojects {
 //    }
 //}
 
-task buildCore(dependsOn: ":imgui:imgui-core:imgui-core-build:generateNatives") {
+tasks.register('buildCore') {
+    dependsOn ":imgui:imgui-core:imgui-core-build:generateNatives"
 }
 
-task buildCpp(dependsOn: ":imgui:imgui-cpp:imgui-cpp:generateNatives") {
+tasks.register('buildCpp') {
+    dependsOn ":imgui:imgui-cpp:imgui-cpp:generateNatives"
 }
 
-task buildImLayout(dependsOn: ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout-build:generateNatives") {
+tasks.register('buildImLayout') {
+    dependsOn ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout-build:generateNatives"
 }
 
-task buildImGuiNatives() {
+tasks.register('buildImGuiNatives') {
     group = 'imgui'
     dependsOn buildCore, buildCpp, buildImLayout
 }

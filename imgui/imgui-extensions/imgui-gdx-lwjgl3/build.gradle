@@ -21,7 +21,7 @@ dependencies {
     testImplementation "junit:junit:$project.jUnitVersion"
 }
 
-task fromClasses(type: Jar) {
+tasks.register('fromClasses', Jar) {
     from(sourceSets.main.output) {
     }
 }

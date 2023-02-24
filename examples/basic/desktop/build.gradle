@@ -19,7 +19,8 @@ dependencies {
 project.ext.mainClassName = "com.github.xpenatan.imgui.example.basic.Main"
 project.ext.assetsDir = new File("../assets");
 
-task runDesktopBasicExample(dependsOn: classes, type: JavaExec) {
+tasks.register('runDesktopBasicExample', JavaExec) {
+    dependsOn classes
     setGroup("examples")
     setDescription("Run basic example")
     mainClass.set(project.mainClassName)
