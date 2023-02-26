@@ -69,6 +69,40 @@ configure(libProjects) {
         withJavadocJar()
         withSourcesJar()
     }
+
+    publishing.publications.configureEach { mav ->
+        pom {
+            name = "jDear-imgui"
+            description = "Java JNI based binding for imgui"
+            url = "https://github.com/xpenatan/jDear-imgui"
+            developers {
+                developer {
+                    id = "Xpe"
+                    name = "Natan"
+                }
+            }
+            scm {
+                connection = "scm:git:git://https://github.com/xpenatan/jDear-imgui.git"
+                developerConnection = "scm:git:ssh://https://github.com/xpenatan/jDear-imgui.git"
+                url = "http://https://github.com/xpenatan/jDear-imgui/tree/master"
+            }
+            licenses {
+                license {
+                    name = "The Apache License, Version 2.0"
+                    url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                }
+            }
+        }
+    }
+
+    signing {
+        def signingKey = System.getenv("SIGNING_KEY")
+        def signingPassword = System.getenv("SIGNING_PASSWORD")
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        publishing.publications.configureEach { mav ->
+            sign mav.name
+        }
+    }
 }
 
 tasks.register('buildCore') {
