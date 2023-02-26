@@ -50,16 +50,18 @@ configure(libProjects) {
         }
     }
 
-    repositories {
-        maven {
-            url {
-                def ver = project.version.toString()
-                def isSnapshot = ver.toUpperCase().contains("SNAPSHOT")
-                isSnapshot ? repoUrlSnapshot : repoUrl
-            }
-            credentials {
-                username repoUser
-                password repoPass
+    publishing {
+        repositories {
+            maven {
+                url {
+                    def ver = project.version.toString()
+                    def isSnapshot = ver.toUpperCase().contains("SNAPSHOT")
+                    isSnapshot ? repoUrlSnapshot : repoUrl
+                }
+                credentials {
+                    username repoUser
+                    password repoPass
+                }
             }
         }
     }
