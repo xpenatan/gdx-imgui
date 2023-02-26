@@ -41,6 +41,7 @@ var libProjects = [
 
 configure(libProjects) {
     apply plugin: 'maven-publish'
+    apply plugin: 'signing'
 
     publishing {
         repositories {
