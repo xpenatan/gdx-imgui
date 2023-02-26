@@ -41,14 +41,8 @@ tasks.register('downloadAndUnzipFile', Copy) {
 }
 
 tasks.register('generateNatives', JavaExec) {
-    dependsOn[downloadAndUnzipFile, classes]
+    dependsOn([downloadAndUnzipFile, classes])
     setDescription("Build jDear ImGui-cpp")
     mainClass.set(project.mainClassName)
     setClasspath(sourceSets.main.runtimeClasspath)
-}
-
-tasks.register('fromClasses', Jar) {
-    from(sourceSets.main.output) {
-        exclude "com/github/xpenatan/imgui/generate/**"
-    }
 }

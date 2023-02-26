@@ -3,16 +3,12 @@ plugins {
 }
 
 group = project.libGroup
+version = project.jDearImguiVersion
 
 def module_name = "core"
 
-configurations {
-    includeDep
-    implementation.extendsFrom includeDep
-}
-
 dependencies {
-    includeDep "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
+    implementation "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
 
     testImplementation files("./build/c++/libs/imgui-core-natives.jar")
     testImplementation "junit:junit:$project.jUnitVersion"
@@ -27,37 +23,19 @@ clean.doFirst {
 }
 
 tasks.register('platformAll', Jar) {
+    dependsOn("jar")
     archiveClassifier.set("natives-desktop")
     from zipTree(projectDir.toString() + "/build/c++/libs/imgui-core-natives.jar")
 }
 
-tasks.register('fromClasses', Jar) {
-    from(sourceSets.main.output) {
-    }
-}
-
 publishing {
     publications {
-        imguiClasses(MavenPublication) {
-            version project.jDearImguiVersion
-            project.version = project.jDearImguiVersion
-            artifactId module_name
-            artifact fromClasses
-
-            pom.withXml {
-                def dependencies = asNode().appendNode('dependencies')
-                configurations.includeDep.allDependencies.each {
-                    def dependencyNode = dependencies.appendNode('dependency')
-                    dependencyNode.appendNode('groupId', it.group)
-                    dependencyNode.appendNode('artifactId', it.name)
-                    dependencyNode.appendNode('version', it.version)
-                }
-            }
+        maven(MavenPublication) {
+            artifactId = module_name
+            from components.java
         }
-        imguiNatives(MavenPublication) {
-            version project.jDearImguiVersion
-            project.version = project.jDearImguiVersion
-            artifactId module_name + "-platform"
+        natives(MavenPublication) {
+            artifactId = module_name + "-platform"
             artifact platformAll
         }
     }

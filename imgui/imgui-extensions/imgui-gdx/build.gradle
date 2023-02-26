@@ -3,8 +3,9 @@ plugins {
 }
 
 group = project.libGroup
+version = project.jDearImguiVersion
 
-def module_name = "gdx"
+def module_name = 'gdx'
 
 dependencies {
     implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
@@ -15,18 +16,11 @@ dependencies {
     testImplementation "junit:junit:$project.jUnitVersion"
 }
 
-tasks.register('fromClasses', Jar) {
-    from(sourceSets.main.output) {
-    }
-}
-
 publishing {
     publications {
-        imguiGdxClasses(MavenPublication) {
-            version project.jDearImguiVersion
-            project.version = project.jDearImguiVersion
-            artifactId module_name
-            artifact fromClasses
+        maven(MavenPublication) {
+            artifactId = module_name
+            from components.java
         }
     }
 }

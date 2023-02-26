@@ -3,6 +3,7 @@ plugins {
 }
 
 group = project.libGroup
+version = project.ImLayoutVersion
 
 def module_name = "ImLayout"
 
@@ -21,12 +22,6 @@ clean.doFirst {
     }
 }
 
-tasks.register('fromClasses', Jar) {
-    from(sourceSets.main.output) {
-        exclude "com/github/xpenatan/imgui/generate/**"
-    }
-}
-
 tasks.register('platformAll', Jar) {
     archiveClassifier.set("natives-desktop")
     from zipTree(projectDir.toString() + "/build/c++/libs/imlayout-natives.jar")
@@ -34,16 +29,12 @@ tasks.register('platformAll', Jar) {
 
 publishing {
     publications {
-        imguiClasses(MavenPublication) {
-            version project.ImLayoutVersion
-            project.version = project.ImLayoutVersion
-            artifactId module_name
-            artifact fromClasses
+        maven(MavenPublication) {
+            artifactId = module_name
+            from components.java
         }
-        imguiNatives(MavenPublication) {
-            version project.ImLayoutVersion
-            project.version = project.ImLayoutVersion
-            artifactId module_name + "-platform"
+        natives(MavenPublication) {
+            artifactId = module_name + "-platform"
             artifact platformAll
         }
     }

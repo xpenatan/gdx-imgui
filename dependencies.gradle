@@ -1,9 +1,10 @@
 project.ext {
     libGroup = "com.github.xpenatan.jDear-Imgui"
-    gdxVersion = "1.11.0"
-    jniGenVersion = "2.3.1"
     jDearImguiVersion = "1.0.0-SNAPSHOT"
     ImLayoutVersion = "1.0.0-SNAPSHOT"
+
+    gdxVersion = "1.11.0"
+    jniGenVersion = "2.3.1"
     gdxFrameViewportVersion = "1.0.0-SNAPSHOT"
     jUnitVersion = "4.12"
     jParserVersion = "1.0.0-SNAPSHOT"

@@ -4,6 +4,7 @@ plugins {
 }
 
 group = project.libGroup
+version = project.jDearImguiVersion
 
 def module_name = "gdx-lwjgl3"
 
@@ -21,18 +22,11 @@ dependencies {
     testImplementation "junit:junit:$project.jUnitVersion"
 }
 
-tasks.register('fromClasses', Jar) {
-    from(sourceSets.main.output) {
-    }
-}
-
 publishing {
     publications {
-        imguiGdxClasses(MavenPublication) {
-            version project.jDearImguiVersion
-            project.version = project.jDearImguiVersion
-            artifactId module_name
-            artifact fromClasses
+        maven(MavenPublication) {
+            artifactId = module_name
+            from components.java
         }
     }
 }

@@ -35,7 +35,3 @@ tasks.register('generateNatives') {
     setDescription("Generate native project")
     dependsOn buildCpp, buildNative
 }
-
-buildCore.shouldRunAfter buildCpp
-
-buildNative.shouldRunAfter buildCore

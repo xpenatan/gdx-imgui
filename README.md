@@ -24,7 +24,6 @@ Only SNAPSHOTS are currently available. Release will be ready when ImGui docking
     gdxVersion = "1.11.0"
     jDearImguiVersion = "1.0.0-SNAPSHOT"
     ImLayoutVersion = "1.0.0-SNAPSHOT"
-    gdxFrameViewportVersion = "1.0.0-SNAPSHOT"
 
 ```groovy
 // Add repository to Root gradle
@@ -58,7 +57,6 @@ dependencies {
 
     // Optional
     implementation "com.github.xpenatan.jDear-Imgui:gdx-frame-viewport:$project.jDearImguiVersion"
-    implementation "com.github.xpenatan:gdx-frame-viewport:$project.gdxFrameViewportVersion"
 }
 ```
 
