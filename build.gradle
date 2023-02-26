@@ -21,6 +21,11 @@ subprojects {
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
         maven { url "https://teavm.org/maven/repository/" }
     }
+
+    configurations.configureEach {
+        // Check for updates every build
+        resolutionStrategy.cacheChangingModulesFor(0, 'seconds')
+    }
 }
 
 var libProjects = [
@@ -64,11 +69,6 @@ configure(libProjects) {
                 }
             }
         }
-    }
-
-    configurations.configureEach {
-        // Check for updates every build
-        resolutionStrategy.cacheChangingModulesFor(0, 'seconds')
     }
 }
 
