@@ -4,10 +4,11 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'release'
+      - "release"
 
 jobs:
   build-and-upload:
     uses: ./.github/workflows/build_and_upload.yml
     with:
       release: true
+      shouldUpload: true
