@@ -23,7 +23,6 @@ clean.doFirst {
 }
 
 tasks.register('platformAll', Jar) {
-    dependsOn("jar")
     archiveClassifier.set("natives-desktop")
     from zipTree(projectDir.toString() + "/build/c++/libs/imgui-core-natives.jar")
 }
