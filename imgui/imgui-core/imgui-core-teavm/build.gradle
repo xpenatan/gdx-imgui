@@ -16,11 +16,6 @@ clean.doFirst {
     }
 }
 
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
 publishing {
     publications {
         maven(MavenPublication) {
