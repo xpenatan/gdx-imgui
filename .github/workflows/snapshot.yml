@@ -9,5 +9,6 @@ jobs:
   build-and-upload:
     uses: ./.github/workflows/build_and_upload.yml
     with:
-      release: false
+      isRelease: false
       shouldUpload: true
+    secrets: inherit

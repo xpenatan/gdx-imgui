@@ -3,19 +3,24 @@ name: Build and Upload
 on:
   workflow_call:
     inputs:
-      release:
+      isRelease:
         required: true
         type: boolean
       shouldUpload:
         required: true
         type: boolean
+      secrets:
+        USER:
+          required: true
+        PASSWORD:
+          required: true
+        PGP_SECRET:
+          required: true
+        PGP_PASSPHRASE:
+          required: true
 
 env:
-  RELEASE: ${{ inputs.release }}
-  USER: ${{ secrets.USER }}
-  PASSWORD: ${{ secrets.PASSWORD }}
-  SIGNING_KEY: ${{ secrets.PGP_SECRET }}
-  SIGNING_PASSWORD: ${{ secrets.PGP_PASSPHRASE }}
+  RELEASE: ${{ inputs.isRelease }}
 
 jobs:
   build_Linux:
@@ -114,3 +119,8 @@ jobs:
       - name: Upload to repository
         if: ${{ inputs.shouldUpload }}
         run: ./gradlew publish
+        env:
+          USER: ${{ secrets.USER }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          SIGNING_KEY: ${{ secrets.PGP_SECRET }}
+          SIGNING_PASSWORD: ${{ secrets.PGP_PASSPHRASE }}

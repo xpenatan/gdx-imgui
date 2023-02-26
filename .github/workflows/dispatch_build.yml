@@ -1,15 +1,15 @@
-name: Build Release
+name: Manual Build
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - "release"
-
+    inputs:
+      isRelease:
+        required: true
+        type: boolean
 jobs:
   build-and-upload:
     uses: ./.github/workflows/build_and_upload.yml
     with:
-      isRelease: true
+      isRelease: ${{ inputs.isRelease }}
       shouldUpload: true
     secrets: inherit
