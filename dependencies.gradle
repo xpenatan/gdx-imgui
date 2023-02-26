@@ -1,7 +1,18 @@
 project.ext {
-    libGroup = "com.github.xpenatan.jDear-Imgui"
-    jDearImguiVersion = "1.0.0-SNAPSHOT"
-    ImLayoutVersion = "1.0.0-SNAPSHOT"
+    groupId = "com.github.xpenatan.jDear-Imgui"
+    var isRelease = System.getenv('RELEASE')
+    if(isRelease != null && isRelease.toBoolean()) {
+        jDearImguiVersion = "1.0.0-b1"
+    }
+    else {
+        jDearImguiVersion = "1.0.0-SNAPSHOT"
+    }
+
+    System.out.println("jDear-imgui Version: " + jDearImguiVersion)
+
+    ImLayoutVersion = jDearImguiVersion
+
+
 
     gdxVersion = "1.11.0"
     jniGenVersion = "2.3.1"

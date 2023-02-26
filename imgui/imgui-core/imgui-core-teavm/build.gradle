@@ -1,4 +1,3 @@
-group = project.libGroup
 version = project.jDearImguiVersion
 
 def module_name = "core-teavm"

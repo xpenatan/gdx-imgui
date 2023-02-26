@@ -1,4 +1,3 @@
-group = project.libGroup
 version = project.ImLayoutVersion
 
 def module_name = "ImLayout"
