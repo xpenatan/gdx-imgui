@@ -9,15 +9,15 @@ on:
       shouldUpload:
         required: true
         type: boolean
-      secrets:
-        USER:
-          required: true
-        PASSWORD:
-          required: true
-        PGP_SECRET:
-          required: true
-        PGP_PASSPHRASE:
-          required: true
+    secrets:
+      USER:
+        required: true
+      PASSWORD:
+        required: true
+      PGP_SECRET:
+        required: true
+      PGP_PASSPHRASE:
+        required: true
 
 env:
   RELEASE: ${{ inputs.isRelease }}
