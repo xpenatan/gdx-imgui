@@ -1,8 +1,3 @@
-plugins {
-    id 'java'
-    id 'java-library'
-}
-
 dependencies {
     // Required
     implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
