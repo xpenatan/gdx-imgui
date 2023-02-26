@@ -1,9 +1,18 @@
-name: Deploy Libs
+name: Build and Upload
 
 on:
-  push:
-    branches:
-      - master
+  workflow_call:
+    inputs:
+      release:
+        required: true
+        type: boolean
+
+env:
+  RELEASE: ${{ inputs.release }}
+  USER: ${{ secrets.USER }}
+  PASSWORD: ${{ secrets.PASSWORD }}
+  SIGNING_KEY: ${{ secrets.PGP_SECRET }}
+  SIGNING_PASSWORD: ${{ secrets.PGP_PASSPHRASE }}
 
 jobs:
   build_Linux:
@@ -101,6 +110,3 @@ jobs:
 
       - name: Upload to repository
         run: ./gradlew publish
-        env:
-          IMGUI_USER: ${{ secrets.USER }}
-          IMGUI_PASSWORD: ${{ secrets.PASSWORD }}

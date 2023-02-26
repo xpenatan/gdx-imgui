@@ -1,0 +1,12 @@
+name: Build Snapshot
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-upload:
+    uses: ./.github/workflows/build_and_upload.yml
+    with:
+      release: false
