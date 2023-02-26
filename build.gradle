@@ -53,8 +53,8 @@ configure(libProjects) {
                     isSnapshot ? repoUrlSnapshot : repoUrl
                 }
                 credentials {
-                    username System.getenv('USER')
-                    password System.getenv('PASSWORD')
+                    username = System.getenv('USER')
+                    password = System.getenv('PASSWORD')
                 }
             }
         }
