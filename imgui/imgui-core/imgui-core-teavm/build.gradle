@@ -20,23 +20,9 @@ clean.doFirst {
     }
 }
 
-tasks.register('javadocJar', Jar) {
-    archiveClassifier.set("javadoc")
-    from javadoc
-}
-
-tasks.register('sourcesJar', Jar) {
-    archiveClassifier.set("sources")
-    from sourceSets.main.allSource
-}
-
-javadoc {
-    options.encoding = 'UTF-8'
-    options.addStringOption('Xdoclint:none', '-quiet')
-}
-
-artifacts {
-    archives javadocJar, sourcesJar
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 publishing {

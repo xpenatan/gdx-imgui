@@ -27,6 +27,11 @@ tasks.register('platformAll', Jar) {
     from zipTree(projectDir.toString() + "/build/c++/libs/imlayout-natives.jar")
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 publishing {
     publications {
         maven(MavenPublication) {

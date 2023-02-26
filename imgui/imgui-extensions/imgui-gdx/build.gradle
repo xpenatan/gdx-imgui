@@ -16,6 +16,11 @@ dependencies {
     testImplementation "junit:junit:$project.jUnitVersion"
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
