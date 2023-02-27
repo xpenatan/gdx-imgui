@@ -55,25 +55,25 @@ jobs:
         run: ./gradlew :buildImGuiNatives
 
       - name: Test ImGui Core Native
-        run: ./gradlew :imgui:imgui-core:imgui-core:test
+        run: ./gradlew :imgui:core:imgui-core:test
 
       - name: Upload compiled imgui-cpp natives
         uses: actions/upload-artifact@v1
         with:
           name: cppNativeFiles
-          path: ./imgui/imgui-cpp/imgui-cpp/build/c++/libs/
+          path: ./imgui/cpp/build/c++/libs/
 
       - name: Upload compiled imgui-core natives
         uses: actions/upload-artifact@v1
         with:
           name: coreNativeFiles
-          path: ./imgui/imgui-core/imgui-core/build/c++/libs/
+          path: ./imgui/core/imgui-core/build/c++/libs/
 
       - name: Upload extension ImLayout natives
         uses: actions/upload-artifact@v1
         with:
           name: imlayoutNativeFiles
-          path: ./imgui/imgui-extensions/imgui-imlayout/imgui-imlayout/build/c++/libs/
+          path: ./imgui/extensions/imlayout/imgui-core/build/c++/libs/
 
   build_Mac:
     name: Build Mac OS
@@ -95,19 +95,19 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: cppNativeFiles
-          path: ./imgui/imgui-cpp/imgui-cpp/build/c++/libs/
+          path: ./imgui/cpp/build/c++/libs/
 
       - name: Download compiled core natives
         uses: actions/download-artifact@v1
         with:
           name: coreNativeFiles
-          path: ./imgui/imgui-core/imgui-core/build/c++/libs/
+          path: ./imgui/core/imgui-core/build/c++/libs/
 
       - name: Download compiled extension ImLayout
         uses: actions/download-artifact@v1
         with:
           name: imlayoutNativeFiles
-          path: ./imgui/imgui-extensions/imgui-imlayout/imgui-imlayout/build/c++/libs/
+          path: ./imgui/extensions/imlayout/imgui-core/build/c++/libs/
 
       - name: Check g++ version
         run: gcc --version
@@ -119,7 +119,7 @@ jobs:
         run: ./gradlew :buildImGuiNatives
 
       - name: Test ImGui Core Native
-        run: ./gradlew :imgui:imgui-core:imgui-core:test
+        run: ./gradlew :imgui:core:imgui-core:test
 
       - name: Upload to repository
         if: ${{ inputs.shouldUpload }}
