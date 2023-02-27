@@ -34,6 +34,6 @@ libs/
 *.ini
 
 **/imgui-core/src/main/java/**
-**/imgui-core-teavm/src/main/java/**
-**/imgui-imlayout/src/main/java/**
+**/imgui-teavm/src/main/java/**
+**/imlayout-core/src/main/java/**
 **/webapp/**

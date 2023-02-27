@@ -9,8 +9,8 @@ dependencies {
 //    implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-desktop"
 
     // Local Lib
-    implementation project(":imgui:imgui-core:platform")
-    implementation project(":imgui:imgui-extensions:imgui-imlayout:platform")
+    implementation project(":imgui:core:imgui-platform")
+    implementation project(":imgui:extensions:imlayout:imlayout-platform")
 }
 
 project.ext.mainClassName = "com.github.xpenatan.imgui.example.viewport.Main"

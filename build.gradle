@@ -31,14 +31,14 @@ subprojects {
 }
 
 var libProjects = [
-        project(":imgui:imgui-core:imgui-core"),
-        project(":imgui:imgui-core:platform"),
-        project(":imgui:imgui-core:imgui-core-teavm"),
-        project(":imgui:imgui-extensions:imgui-gdx"),
-        project(":imgui:imgui-extensions:imgui-gdx-lwjgl3"),
-        project(":imgui:imgui-extensions:imgui-gdx-frame-viewport"),
-        project(":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout"),
-        project(":imgui:imgui-extensions:imgui-imlayout:platform")
+        project(":imgui:core:imgui-core"),
+        project(":imgui:core:imgui-platform"),
+        project(":imgui:core:imgui-teavm"),
+        project(":imgui:extensions:gdx"),
+        project(":imgui:extensions:lwjgl3"),
+        project(":imgui:extensions:gdx-frame-viewport"),
+        project(":imgui:extensions:imlayout:imlayout-core"),
+        project(":imgui:extensions:imlayout:imlayout-platform")
 ]
 
 configure(libProjects) {
@@ -111,15 +111,15 @@ configure(libProjects) {
 }
 
 tasks.register('buildCore') {
-    dependsOn ":imgui:imgui-core:imgui-core-build:generateNatives"
+    dependsOn ":imgui:core:imgui-build:generateNatives"
 }
 
 tasks.register('buildCpp') {
-    dependsOn ":imgui:imgui-cpp:imgui-cpp:generateNatives"
+    dependsOn ":imgui:cpp:generateNatives"
 }
 
 tasks.register('buildImLayout') {
-    dependsOn ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout-build:generateNatives"
+    dependsOn ":imgui:extensions:imlayout:imlayout-build:generateNatives"
 }
 
 tasks.register('buildImGuiNatives') {

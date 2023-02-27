@@ -1,26 +1,26 @@
 // Core
-include ":imgui:imgui-cpp:imgui-cpp"
-include ":imgui:imgui-core:imgui-core-base"
-include ":imgui:imgui-core:imgui-core-build"
-include ":imgui:imgui-core:imgui-core"
-include ":imgui:imgui-core:platform"
-include ":imgui:imgui-core:imgui-core-teavm"
+include ":imgui:cpp"
+include ":imgui:core:imgui-base"
+include ":imgui:core:imgui-build"
+include ":imgui:core:imgui-core"
+include ":imgui:core:imgui-platform"
+include ":imgui:core:imgui-teavm"
 
 // Extensions
-include ":imgui:imgui-extensions:imgui-gdx"
-include ":imgui:imgui-extensions:imgui-gdx-lwjgl3"
-include ":imgui:imgui-extensions:imgui-gdx-frame-viewport"
+include ":imgui:extensions:gdx"
+include ":imgui:extensions:lwjgl3"
+include ":imgui:extensions:gdx-frame-viewport"
 
 // Extensions ImLayout
-include ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout"
-include ":imgui:imgui-extensions:imgui-imlayout:platform"
-include ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout-build"
-include ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout-base"
+include ":imgui:extensions:imlayout:imlayout-core"
+include ":imgui:extensions:imlayout:imlayout-platform"
+include ":imgui:extensions:imlayout:imlayout-build"
+include ":imgui:extensions:imlayout:imlayout-base"
 
+// Examples
 include ":examples:gdx-frame-viewport:core"
 include ":examples:gdx-frame-viewport:desktop"
 
-// Examples
 include ":examples:basic:core"
 include ":examples:basic:desktop"
 include ":examples:basic:teavm"

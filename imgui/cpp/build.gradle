@@ -1,0 +1,47 @@
+plugins {
+    id 'de.undercouch.download' version '4.0.2'
+}
+
+dependencies {
+    implementation "com.badlogicgames.gdx:gdx-jnigen:$project.jniGenVersion"
+    implementation "com.github.xpenatan.jParser:jParser-cpp:$project.jParserVersion"
+
+    // Use JUnit test framework
+    testImplementation "junit:junit:$project.jUnitVersion"
+}
+
+project.ext.mainClassName = "com.github.xpenatan.imgui.generate.BuildCPP"
+
+tasks.register('downloadZipFile', Download) {
+//	src 'https://api.github.com/repos/ocornut/imgui/zipball/v1.74'
+//	src 'https://github.com/ocornut/imgui/archive/master.zip'
+    src 'https://github.com/ocornut/imgui/archive/docking.zip'
+    dest new File(buildDir, '1.0.zip')
+}
+
+tasks.register('downloadAndUnzipFile', Copy) {
+    dependsOn downloadZipFile
+    from zipTree(downloadZipFile.dest)
+
+    eachFile { fcd ->
+        include "ocornut-imgui*/"
+        def paths = fcd.relativePath.segments.drop(1)
+        fcd.relativePath = new RelativePath(true, paths)  // (2)
+        def fullString = paths.toString()
+        if (paths.length > 1 || !(fullString.contains(".h") || fullString.contains(".cpp")))
+            fcd.exclude()
+    }
+
+    includeEmptyDirs = false
+
+    into {
+        projectDir.toString() + "/build/imgui/"
+    }
+}
+
+tasks.register('generateNatives', JavaExec) {
+    dependsOn([downloadAndUnzipFile, classes])
+    setDescription("Build jDear ImGui-cpp")
+    mainClass.set(project.mainClassName)
+    setClasspath(sourceSets.main.runtimeClasspath)
+}
