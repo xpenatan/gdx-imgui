@@ -19,7 +19,9 @@ public class ImGuiInputTextCallbackData extends ImGuiBase {
     }
 
     //TODO teavm
-
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImGuiInputTextCallbackData);
+    */
     /*[-C++;-NATIVE]
         ImGuiInputTextCallbackData* nativeObject = (ImGuiInputTextCallbackData*)addr;
         jbyteArray Array = env->NewByteArray(nativeObject->BufSize);
@@ -34,6 +36,10 @@ public class ImGuiInputTextCallbackData extends ImGuiBase {
 
     //TODO teavm
 
+    /*[-teaVM;-NATIVE]
+        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImGuiInputTextCallbackData);
+        return null;
+    */
     /*[-C++;-NATIVE]
         ImGuiInputTextCallbackData* nativeObject = (ImGuiInputTextCallbackData*)addr;
         char* charArray = (char*)bufAddr;
