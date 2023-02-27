@@ -1,0 +1,23 @@
+version = project.jDearImguiVersion
+
+def module_name = "ImLayout-platform"
+
+def jarFile = projectDir.toString() + "/../imgui-imlayout/build/c++/libs/imlayout-natives.jar"
+
+jar {
+    from zipTree(jarFile)
+}
+
+tasks.register('platformAll', Jar) {
+    archiveClassifier.set("natives-desktop")
+    from zipTree(jarFile)
+}
+
+publishing {
+    publications {
+        natives(MavenPublication) {
+            artifactId = module_name
+            artifact platformAll
+        }
+    }
+}

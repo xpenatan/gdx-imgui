@@ -6,8 +6,9 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 
     // Local Lib
-    implementation files("../../../imgui/imgui-core/imgui-core/jni/libs/imgui-core-natives.jar")
-    implementation files("../../../imgui/imgui-extensions/imgui-imlayout/imgui-imlayout/libs/imlayout-natives.jar")
+    implementation project(":imgui:imgui-core:core-platform")
+    implementation project(":imgui:imgui-core:core-platform")
+    implementation project(":imgui:imgui-extensions:imgui-imlayout:platform")
 
     implementation "com.badlogicgames.gdx:gdx-bullet-platform:$project.gdxVersion:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-box2d-platform:$project.gdxVersion:natives-desktop"

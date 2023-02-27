@@ -10,8 +10,8 @@ dependencies {
 //    implementation "com.github.xpenatan.jDear-Imgui:ImLayout-platform:$project.jDearImguiVersion:natives-desktop"
 
     // Local Lib
-    implementation files("../../../imgui/imgui-core/imgui-core/build/c++/libs/imgui-core-natives.jar")
-    implementation files("../../../imgui/imgui-extensions/imgui-imlayout/imgui-imlayout/build/c++/libs/imlayout-natives.jar")
+    implementation project(":imgui:imgui-core:platform")
+    implementation project(":imgui:imgui-extensions:imgui-imlayout:platform")
 }
 
 project.ext.mainClassName = "com.github.xpenatan.imgui.example.imlayout.Main"

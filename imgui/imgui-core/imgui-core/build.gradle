@@ -5,7 +5,7 @@ def module_name = "core"
 dependencies {
     implementation "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
 
-    testImplementation files("./build/c++/libs/imgui-core-natives.jar")
+    testImplementation project(":imgui:imgui-core:platform")
     testImplementation "junit:junit:$project.jUnitVersion"
 }
 
@@ -17,20 +17,11 @@ clean.doFirst {
     }
 }
 
-tasks.register('platformAll', Jar) {
-    archiveClassifier.set("natives-desktop")
-    from zipTree(projectDir.toString() + "/build/c++/libs/imgui-core-natives.jar")
-}
-
 publishing {
     publications {
         maven(MavenPublication) {
             artifactId = module_name
             from components.java
-        }
-        natives(MavenPublication) {
-            artifactId = module_name + "-platform"
-            artifact platformAll
         }
     }
 }

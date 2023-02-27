@@ -17,20 +17,11 @@ clean.doFirst {
     }
 }
 
-tasks.register('platformAll', Jar) {
-    archiveClassifier.set("natives-desktop")
-    from zipTree(projectDir.toString() + "/build/c++/libs/imlayout-natives.jar")
-}
-
 publishing {
     publications {
         maven(MavenPublication) {
             artifactId = module_name
             from components.java
-        }
-        natives(MavenPublication) {
-            artifactId = module_name + "-platform"
-            artifact platformAll
         }
     }
 }

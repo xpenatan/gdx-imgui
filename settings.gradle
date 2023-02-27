@@ -3,6 +3,7 @@ include ":imgui:imgui-cpp:imgui-cpp"
 include ":imgui:imgui-core:imgui-core-base"
 include ":imgui:imgui-core:imgui-core-build"
 include ":imgui:imgui-core:imgui-core"
+include ":imgui:imgui-core:platform"
 include ":imgui:imgui-core:imgui-core-teavm"
 
 // Extensions
@@ -12,6 +13,7 @@ include ":imgui:imgui-extensions:imgui-gdx-frame-viewport"
 
 // Extensions ImLayout
 include ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout"
+include ":imgui:imgui-extensions:imgui-imlayout:platform"
 include ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout-build"
 include ":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout-base"
 

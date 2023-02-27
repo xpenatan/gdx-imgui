@@ -32,11 +32,13 @@ subprojects {
 
 var libProjects = [
         project(":imgui:imgui-core:imgui-core"),
+        project(":imgui:imgui-core:platform"),
         project(":imgui:imgui-core:imgui-core-teavm"),
         project(":imgui:imgui-extensions:imgui-gdx"),
         project(":imgui:imgui-extensions:imgui-gdx-lwjgl3"),
         project(":imgui:imgui-extensions:imgui-gdx-frame-viewport"),
-        project(":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout")
+        project(":imgui:imgui-extensions:imgui-imlayout:imgui-imlayout"),
+        project(":imgui:imgui-extensions:imgui-imlayout:platform")
 ]
 
 configure(libProjects) {
