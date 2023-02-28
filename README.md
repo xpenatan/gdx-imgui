@@ -1,5 +1,5 @@
 # gdx-imgui
-![Deploy Libs](https://github.com/xpenatan/jDear-imgui/workflows/Deploy%20Libs/badge.svg)
+![Deploy Libs](https://github.com/xpenatan/gdx-imgui/workflows/Deploy%20Libs/badge.svg)
 
 gdx-imgui is a java binding for C++ [dear-imgui](https://github.com/ocornut/imgui). <br>
 It's meant to be small and close 1-1 to C++. 
