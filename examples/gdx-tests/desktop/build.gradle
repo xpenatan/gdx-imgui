@@ -6,7 +6,7 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 
     implementation project(":imgui:core:core-desktop")
-    implementation project(":imgui:imgui-extensions:imgui-imlayout:platform")
+    implementation project(":imgui:extensions:imlayout:imlayout-desktop")
 
     implementation "com.badlogicgames.gdx:gdx-bullet-platform:$project.gdxVersion:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-box2d-platform:$project.gdxVersion:natives-desktop"
