@@ -4,10 +4,10 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
 
     implementation project(":imgui:core:core")
-    implementation project(":imgui:imgui-extensions:imgui-gdx")
+    implementation project(":imgui:imgui-extensions:gdx")
 
     // Optional. Used for multi viewports. Currently WIP.
-    implementation project(":imgui:imgui-extensions:imgui-gdx-lwjgl3")
+    implementation project(":imgui:extensions:lwjgl3")
 
     // Optional
     implementation project(":imgui:imgui-extensions:imgui-gdx-frame-viewport")
