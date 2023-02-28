@@ -75,9 +75,9 @@ configure(libProjects) {
 
     publishing.publications.configureEach { mav ->
         pom {
-            name = "jDear-imgui"
+            name = "gdx-imgui"
             description = "Java JNI based binding for imgui"
-            url = "https://github.com/xpenatan/jDear-imgui"
+            url = "https://github.com/xpenatan/gdx-imgui"
             developers {
                 developer {
                     id = "Xpe"
@@ -85,9 +85,9 @@ configure(libProjects) {
                 }
             }
             scm {
-                connection = "scm:git:git://https://github.com/xpenatan/jDear-imgui.git"
-                developerConnection = "scm:git:ssh://https://github.com/xpenatan/jDear-imgui.git"
-                url = "http://https://github.com/xpenatan/jDear-imgui/tree/master"
+                connection = "scm:git:git://https://github.com/xpenatan/gdx-imgui.git"
+                developerConnection = "scm:git:ssh://https://github.com/xpenatan/gdx-imgui.git"
+                url = "http://https://github.com/xpenatan/gdx-imgui/tree/master"
             }
             licenses {
                 license {

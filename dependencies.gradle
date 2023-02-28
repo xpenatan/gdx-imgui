@@ -8,7 +8,7 @@ project.ext {
         gdxImguiVersion = "1.0.0-SNAPSHOT"
     }
 
-    System.out.println("jDear-imgui Version: " + gdxImguiVersion)
+    System.out.println("gdx-imgui Version: " + gdxImguiVersion)
 
     imlayoutVersion = gdxImguiVersion
 
