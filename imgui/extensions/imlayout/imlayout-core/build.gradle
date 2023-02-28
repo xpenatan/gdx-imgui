@@ -1,6 +1,6 @@
 version = project.ImLayoutVersion
 
-def module_name = "ImLayout"
+def module_name = "imlayout"
 
 dependencies {
     implementation project(":imgui:core:core")

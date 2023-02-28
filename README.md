@@ -52,8 +52,8 @@ dependencies {
     implementation "com.github.xpenatan.jDear-Imgui:lwjgl3:$project.jDearImguiVersion"
 
     // Optional - ImLayout extension
-    implementation "com.github.xpenatan.jDear-Imgui:ImLayout:$project.ImLayoutVersion"
-    implementation "com.github.xpenatan.jDear-Imgui:ImLayout-desktop:$project.ImLayoutVersion:natives-desktop"
+    implementation "com.github.xpenatan.jDear-Imgui:imlayout:$project.ImLayoutVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:imlayout-desktop:$project.ImLayoutVersion:natives-desktop"
 
     // Optional
     implementation "com.github.xpenatan.jDear-Imgui:gdx-frame-viewport:$project.jDearImguiVersion"

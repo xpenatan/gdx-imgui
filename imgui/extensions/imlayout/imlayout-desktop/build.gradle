@@ -1,6 +1,6 @@
 version = project.jDearImguiVersion
 
-def module_name = "ImLayout-desktop"
+def module_name = "imlayout-desktop"
 
 def jarFile = projectDir.toString() + "/../imlayout-core/build/c++/libs/imlayout-natives.jar"
 
