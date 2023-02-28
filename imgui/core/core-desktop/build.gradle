@@ -1,4 +1,4 @@
-version = project.jDearImguiVersion
+version = project.gdxImguiVersion
 
 def module_name = "core-desktop"
 

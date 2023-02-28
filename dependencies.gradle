@@ -2,15 +2,15 @@ project.ext {
     groupId = "com.github.xpenatan.gdx-imgui"
     var isRelease = System.getenv('RELEASE')
     if(isRelease != null && isRelease.toBoolean()) {
-        jDearImguiVersion = "1.0.0-b1"
+        gdxImguiVersion = "1.0.0-b1"
     }
     else {
-        jDearImguiVersion = "1.0.0-SNAPSHOT"
+        gdxImguiVersion = "1.0.0-SNAPSHOT"
     }
 
-    System.out.println("jDear-imgui Version: " + jDearImguiVersion)
+    System.out.println("jDear-imgui Version: " + gdxImguiVersion)
 
-    ImLayoutVersion = jDearImguiVersion
+    imlayoutVersion = gdxImguiVersion
 
     gdxTeaVMVersion = "1.0.0-SNAPSHOT"
     gdxVersion = "1.11.0"

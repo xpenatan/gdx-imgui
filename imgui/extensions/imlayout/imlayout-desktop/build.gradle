@@ -1,4 +1,4 @@
-version = project.jDearImguiVersion
+version = project.imlayoutVersion
 
 def module_name = "imlayout-desktop"
 

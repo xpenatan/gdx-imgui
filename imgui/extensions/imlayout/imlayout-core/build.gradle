@@ -1,4 +1,4 @@
-version = project.ImLayoutVersion
+version = project.imlayoutVersion
 
 def module_name = "imlayout"
 
