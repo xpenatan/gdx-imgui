@@ -1,15 +1,15 @@
 version = project.jDearImguiVersion
 
-def module_name = "core-platform"
+def module_name = "core-desktop"
 
-def jarFile = projectDir.toString() + "/../imgui-core/build/c++/libs/imgui-core-natives.jar"
+def jarFile = projectDir.toString() + "/../core/build/c++/libs/imgui-core-natives.jar"
 
 jar {
     from zipTree(jarFile)
 }
 
 tasks.register('platformAll', Jar) {
-    archiveClassifier.set("natives-desktop")
+//    archiveClassifier.set("natives-desktop")
     from zipTree(jarFile)
 }
 

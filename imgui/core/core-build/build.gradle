@@ -1,7 +1,7 @@
 project.ext.mainClassName = "com.github.xpenatan.imgui.core.generate.BuildCore"
 
 dependencies {
-    implementation project(":imgui:core:imgui-base")
+    implementation project(":imgui:core:core-base")
     implementation "com.github.xpenatan.jParser:jParser-core:$project.jParserVersion"
     implementation "com.github.xpenatan.jParser:jParser-cpp:$project.jParserVersion"
     implementation "com.github.xpenatan.jParser:jParser-teavm:$project.jParserVersion"

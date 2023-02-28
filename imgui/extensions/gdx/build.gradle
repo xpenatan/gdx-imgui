@@ -5,7 +5,7 @@ def module_name = 'gdx'
 dependencies {
     implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
 
-    implementation project(":imgui:core:imgui-core")
+    implementation project(":imgui:core:core")
 
     // Use JUnit test framework
     testImplementation "junit:junit:$project.jUnitVersion"

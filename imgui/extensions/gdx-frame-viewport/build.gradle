@@ -9,7 +9,7 @@ dependencies {
     implementation project(":imgui:extensions:gdx")
     implementation project(":imgui:extensions:lwjgl3")
 
-    implementation project(":imgui:core:imgui-core")
+    implementation project(":imgui:core:core")
 
     // Use JUnit test framework
     testImplementation "junit:junit:$project.jUnitVersion"

@@ -31,9 +31,9 @@ subprojects {
 }
 
 var libProjects = [
-        project(":imgui:core:imgui-core"),
-        project(":imgui:core:imgui-platform"),
-        project(":imgui:core:imgui-teavm"),
+        project(":imgui:core:core"),
+        project(":imgui:core:core-desktop"),
+        project(":imgui:core:core-teavm"),
         project(":imgui:extensions:gdx"),
         project(":imgui:extensions:lwjgl3"),
         project(":imgui:extensions:gdx-frame-viewport"),
@@ -111,7 +111,7 @@ configure(libProjects) {
 }
 
 tasks.register('buildCore') {
-    dependsOn ":imgui:core:imgui-build:generateNatives"
+    dependsOn ":imgui:core:core-build:generateNatives"
 }
 
 tasks.register('buildCpp') {

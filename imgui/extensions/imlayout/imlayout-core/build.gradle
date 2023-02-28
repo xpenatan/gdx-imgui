@@ -3,7 +3,7 @@ version = project.ImLayoutVersion
 def module_name = "ImLayout"
 
 dependencies {
-    implementation project(":imgui:core:imgui-core")
+    implementation project(":imgui:core:core")
     implementation "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
 
     // Use JUnit test framework

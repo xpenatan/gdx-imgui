@@ -1,8 +1,8 @@
 project.ext.mainClassName = "com.github.xpenatan.imgui.imlayout.generate.BuildImLayout"
 
 dependencies {
-    implementation project(":imgui:core:imgui-core")
-    implementation project(":imgui:core:imgui-build")
+    implementation project(":imgui:core:core")
+    implementation project(":imgui:core:core-build")
     implementation project(":imgui:extensions:imlayout:imlayout-base")
     implementation "com.github.xpenatan.jParser:jParser-core:$project.jParserVersion"
     implementation "com.github.xpenatan.jParser:jParser-cpp:$project.jParserVersion"

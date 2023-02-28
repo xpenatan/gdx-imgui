@@ -13,9 +13,8 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
     implementation "com.github.xpenatan.gdx-teavm:backend-teavm:$project.gdxTeaVMVersion"
 
-    // Local Lib
     implementation project(":examples:basic:core")
-    implementation project(":imgui:core:imgui-teavm")
+    implementation project(":imgui:core:core-teavm")
 
 }
 

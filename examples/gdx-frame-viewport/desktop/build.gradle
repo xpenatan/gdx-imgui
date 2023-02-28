@@ -9,7 +9,7 @@ dependencies {
 //    implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-desktop"
 
     // Local Lib
-    implementation project(":imgui:core:imgui-platform")
+    implementation project(":imgui:core:core-desktop")
     implementation project(":imgui:extensions:imlayout:imlayout-platform")
 }
 

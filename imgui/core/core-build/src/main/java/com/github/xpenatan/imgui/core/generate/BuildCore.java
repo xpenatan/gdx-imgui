@@ -11,20 +11,20 @@ public class BuildCore {
     public static void main(String[] args) throws Exception {
         String libName = "imgui-core";
 
-        String path = "..\\imgui-build\\src\\main\\resources\\imgui.idl";
+        String path = "..\\core-build\\src\\main\\resources\\imgui.idl";
         IDLFile idlFile = IDLParser.parseFile(path);
 
-        String cppPath = new File("../imgui-core/").getCanonicalPath();
-        String teaVMPath = new File("../imgui-teavm/").getCanonicalPath();
+        String cppPath = new File("../core/").getCanonicalPath();
+        String teaVMPath = new File("../core-teavm/").getCanonicalPath();
 
         String jniDir = cppPath + "/build/c++/";
-        String sourceDir = "../imgui-base/src/main/java/";
+        String sourceDir = "../core-base/src/main/java/";
         String cppGenDir = cppPath + "/src/main/java/";
         String teaVMGenDir = teaVMPath + "/src/main/java/";
         String imguiCppBase = new File("../../cpp/build/c++").getCanonicalPath();
 
         //Generate CPP
-        String classPaths = ImGuiCppParser.getClassPath("imgui-core", "gdx-1", "gdx-jnigen-loader", "jParser");
+        String classPaths = ImGuiCppParser.getClassPath("core", "gdx-1", "gdx-jnigen-loader", "jParser");
         ImGuiCppParser cppParser = new ImGuiCppParser(idlFile, classPaths, jniDir);
         JParser.generate(cppParser, sourceDir, cppGenDir);
 //        CPPBuildHelper.DEBUG_BUILD = true;

@@ -2,11 +2,6 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
     implementation "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
 
-    // Repo Lib
-//    implementation "com.github.xpenatan.jDear-Imgui:core:$project.jDearImguiVersion"
-//    implementation "com.github.xpenatan.jDear-Imgui:gdx:$project.jDearImguiVersion"
-
-    // Local Lib
-    implementation project(":imgui:core:imgui-core")
+    implementation project(":imgui:core:core")
     implementation project(":imgui:extensions:gdx")
 }

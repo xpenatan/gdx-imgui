@@ -9,8 +9,8 @@ dependencies {
 //    implementation "com.github.xpenatan.jDear-Imgui:imgui-gdx:$project.jDearImguiVersion"
 
 
+    implementation project(":imgui:core:core")
     implementation project(":imgui:extensions:gdx")
-    implementation project(":imgui:core:imgui-core")
 
     // Use JUnit test framework
     testImplementation "junit:junit:$project.jUnitVersion"

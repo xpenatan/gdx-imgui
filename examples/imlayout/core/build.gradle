@@ -8,7 +8,7 @@ dependencies {
 //    implementation "com.github.xpenatan.jDear-Imgui:gdx:$project.jDearImguiVersion"
 
     // Local Lib
-    implementation project(":imgui:core:imgui-core")
+    implementation project(":imgui:core:core")
     implementation project(":imgui:extensions:imlayout:imlayout-core")
     implementation project(":imgui:extensions:gdx")
 }

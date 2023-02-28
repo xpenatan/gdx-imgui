@@ -1,10 +1,10 @@
 // Core
 include ":imgui:cpp"
-include ":imgui:core:imgui-base"
-include ":imgui:core:imgui-build"
-include ":imgui:core:imgui-core"
-include ":imgui:core:imgui-platform"
-include ":imgui:core:imgui-teavm"
+include ":imgui:core:core-base"
+include ":imgui:core:core-build"
+include ":imgui:core:core"
+include ":imgui:core:core-desktop"
+include ":imgui:core:core-teavm"
 
 // Extensions
 include ":imgui:extensions:gdx"

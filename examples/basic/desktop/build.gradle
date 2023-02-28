@@ -5,11 +5,7 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
     implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 
-    // Repo Lib
-//    implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-desktop"
-
-    // Local Lib
-    implementation project(":imgui:core:imgui-platform")
+    implementation project(":imgui:core:core-desktop")
 }
 
 project.ext.mainClassName = "com.github.xpenatan.imgui.example.basic.Main"

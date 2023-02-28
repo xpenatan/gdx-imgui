@@ -1,5 +1,5 @@
 dependencies {
-    implementation project(":imgui:core:imgui-core")
+    implementation project(":imgui:core:core")
     implementation "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
 }
 
