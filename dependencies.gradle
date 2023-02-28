@@ -1,5 +1,5 @@
 project.ext {
-    groupId = "com.github.xpenatan.jDear-Imgui"
+    groupId = "com.github.xpenatan.gdx-imgui"
     var isRelease = System.getenv('RELEASE')
     if(isRelease != null && isRelease.toBoolean()) {
         jDearImguiVersion = "1.0.0-b1"
