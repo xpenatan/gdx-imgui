@@ -55,7 +55,7 @@ jobs:
         run: ./gradlew :buildImGuiNatives
 
       - name: Test ImGui Core Native
-        run: ./gradlew :imgui:core:imgui-core:test
+        run: ./gradlew :imgui:core:core:test
 
       - name: Upload compiled imgui-cpp natives
         uses: actions/upload-artifact@v1
@@ -67,7 +67,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: coreNativeFiles
-          path: ./imgui/core/imgui-core/build/c++/libs/
+          path: ./imgui/core/core/build/c++/libs/
 
       - name: Upload extension ImLayout natives
         uses: actions/upload-artifact@v1
@@ -101,7 +101,7 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: coreNativeFiles
-          path: ./imgui/core/imgui-core/build/c++/libs/
+          path: ./imgui/core/core/build/c++/libs/
 
       - name: Download compiled extension ImLayout
         uses: actions/download-artifact@v1
@@ -119,7 +119,7 @@ jobs:
         run: ./gradlew :buildImGuiNatives
 
       - name: Test ImGui Core Native
-        run: ./gradlew :imgui:core:imgui-core:test
+        run: ./gradlew :imgui:core:core:test
 
       - name: Upload to repository
         if: ${{ inputs.shouldUpload }}
