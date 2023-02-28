@@ -36,7 +36,7 @@ var libProjects = [
         project(":imgui:extensions:lwjgl3"),
         project(":imgui:extensions:gdx-frame-viewport"),
         project(":imgui:extensions:imlayout:imlayout-core"),
-        project(":imgui:extensions:imlayout:imlayout-platform")
+        project(":imgui:extensions:imlayout:imlayout-desktop")
 ]
 
 configure(libProjects) {

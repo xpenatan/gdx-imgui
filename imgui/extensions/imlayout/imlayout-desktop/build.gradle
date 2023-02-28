@@ -1,6 +1,6 @@
 version = project.jDearImguiVersion
 
-def module_name = "ImLayout-platform"
+def module_name = "ImLayout-desktop"
 
 def jarFile = projectDir.toString() + "/../imlayout-core/build/c++/libs/imlayout-natives.jar"
 
@@ -9,7 +9,6 @@ jar {
 }
 
 tasks.register('platformAll', Jar) {
-    archiveClassifier.set("natives-desktop")
     from zipTree(jarFile)
 }
 

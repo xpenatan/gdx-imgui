@@ -13,7 +13,7 @@ include ":imgui:extensions:gdx-frame-viewport"
 
 // Extensions ImLayout
 include ":imgui:extensions:imlayout:imlayout-core"
-include ":imgui:extensions:imlayout:imlayout-platform"
+include ":imgui:extensions:imlayout:imlayout-desktop"
 include ":imgui:extensions:imlayout:imlayout-build"
 include ":imgui:extensions:imlayout:imlayout-base"
 

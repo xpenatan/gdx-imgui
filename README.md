@@ -43,17 +43,17 @@ dependencies {
     implementation "com.github.xpenatan.jDear-Imgui:gdx:$project.jDearImguiVersion"
 
     // Required Platform Natives
-    implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-desktop"
-    //implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-android"
-    //implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-ios"
-    //implementation "com.github.xpenatan.jDear-Imgui:core-platform:$project.jDearImguiVersion:natives-teavm"
+    implementation "com.github.xpenatan.jDear-Imgui:core-desktop:$project.jDearImguiVersion"
+    //implementation "com.github.xpenatan.jDear-Imgui:core-android:$project.jDearImguiVersion"
+    //implementation "com.github.xpenatan.jDear-Imgui:core-ios:$project.jDearImguiVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:core-teavm:$project.jDearImguiVersion"
 
     // Optional
-    implementation "com.github.xpenatan.jDear-Imgui:gdx-lwjgl3:$project.jDearImguiVersion"
+    implementation "com.github.xpenatan.jDear-Imgui:lwjgl3:$project.jDearImguiVersion"
 
     // Optional - ImLayout extension
     implementation "com.github.xpenatan.jDear-Imgui:ImLayout:$project.ImLayoutVersion"
-    implementation "com.github.xpenatan.jDear-Imgui:ImLayout-platform:$project.ImLayoutVersion:natives-desktop"
+    implementation "com.github.xpenatan.jDear-Imgui:ImLayout-desktop:$project.ImLayoutVersion:natives-desktop"
 
     // Optional
     implementation "com.github.xpenatan.jDear-Imgui:gdx-frame-viewport:$project.jDearImguiVersion"

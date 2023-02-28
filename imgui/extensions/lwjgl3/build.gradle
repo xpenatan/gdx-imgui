@@ -1,6 +1,6 @@
 version = project.jDearImguiVersion
 
-def module_name = "gdx-lwjgl3"
+def module_name = "lwjgl3"
 
 dependencies {
     implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
