@@ -4,6 +4,8 @@
 gdx-imgui is a java binding for C++ [dear-imgui](https://github.com/ocornut/imgui). <br>
 It's meant to be small and close 1-1 to C++. 
 
+<p align="center"><img src="https://i.imgur.com/rXk4Aq0.gif"/></p>
+
 ## Build
 
 To build from source you need mingw-w64 and maven ant. Emscripten if you want to build javascript file.
@@ -54,8 +56,3 @@ dependencies {
     implementation "com.github.xpenatan.gdx-imgui:gdx-frame-viewport:$project.gdxImguiVersion"
 }
 ```
-
-## Examples
-<p align="center"><img src="https://i.imgur.com/ekZu3lS.png"/></p>
-imgui-gdx-frame-viewport example:
-<p align="center"><img src="https://i.imgur.com/rXk4Aq0.gif"/></p>
