@@ -11,8 +11,6 @@ buildscript {
 subprojects {
     apply plugin: 'java'
 
-    group = project.groupId
-
     sourceCompatibility = 11
     targetCompatibility = 11
 
@@ -44,6 +42,8 @@ var libProjects = [
 configure(libProjects) {
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
+
+    group = project.groupId
 
     publishing {
         repositories {
