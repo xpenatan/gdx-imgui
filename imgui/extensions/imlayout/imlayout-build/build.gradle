@@ -24,7 +24,7 @@ tasks.register('buildCpp') {
 }
 
 tasks.register('buildCore') {
-    dependsOn ":imgui:core:imgui-core:generateNatives"
+    dependsOn ":imgui:core:core:generateNatives"
 }
 
 tasks.register('generateNatives') {

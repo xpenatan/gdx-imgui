@@ -5,9 +5,7 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
     implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 
-    // Local Lib
-    implementation project(":imgui:imgui-core:core-platform")
-    implementation project(":imgui:imgui-core:core-platform")
+    implementation project(":imgui:core:core-desktop")
     implementation project(":imgui:imgui-extensions:imgui-imlayout:platform")
 
     implementation "com.badlogicgames.gdx:gdx-bullet-platform:$project.gdxVersion:natives-desktop"

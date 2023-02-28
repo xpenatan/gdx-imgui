@@ -63,7 +63,7 @@ jobs:
           name: cppNativeFiles
           path: ./imgui/cpp/build/c++/libs/
 
-      - name: Upload compiled imgui-core natives
+      - name: Upload compiled core natives
         uses: actions/upload-artifact@v1
         with:
           name: coreNativeFiles
@@ -73,7 +73,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: imlayoutNativeFiles
-          path: ./imgui/extensions/imlayout/imgui-core/build/c++/libs/
+          path: ./imgui/extensions/imlayout/imlayout-core/build/c++/libs/
 
   build_Mac:
     name: Build Mac OS
@@ -107,7 +107,7 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: imlayoutNativeFiles
-          path: ./imgui/extensions/imlayout/imgui-core/build/c++/libs/
+          path: ./imgui/extensions/imlayout/imlayout-core/build/c++/libs/
 
       - name: Check g++ version
         run: gcc --version
