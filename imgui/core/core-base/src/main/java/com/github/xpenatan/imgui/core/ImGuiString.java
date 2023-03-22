@@ -49,10 +49,14 @@ public class ImGuiString extends ImGuiBase {
 
     public void setValue(String value) {
         size = value.length();
+        int sizeEndLine = size+1;
         int dataSize = data.getSize();
         byte[] strBytes = value.getBytes();
-        if(size >= dataSize) {
-            data.resize(size);
+        if(sizeEndLine > dataSize) {
+            data.resize(sizeEndLine);
+        }
+        else {
+            data.clear();
         }
         ImGuiByteArray.arraycopy(strBytes, 0, data, 0, size);
         isDirty = true;

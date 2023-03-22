@@ -20,11 +20,14 @@ class BoolArray {
                 deleteData();
             }
             bool * newData = new bool[newSize];
-            for(int i = 0; i < newSize; i++) {
-                newData[i] = 0;
-            }
             this->data = newData;
             size = newSize;
+            clear();
+        }
+        void clear() {
+            for(int i = 0; i < size; i++) {
+                data[i] = 0;
+            }
         }
         void deleteData() { delete data; }
         bool getValue(int index) { return data[index]; }
@@ -44,11 +47,14 @@ class IntArray {
                 deleteData();
             }
             int * newData = new int[newSize];
-            for(int i = 0; i < newSize; i++) {
-                newData[i] = 0;
-            }
             this->data = newData;
             size = newSize;
+            clear();
+        }
+        void clear() {
+            for(int i = 0; i < size; i++) {
+                data[i] = 0;
+            }
         }
         void deleteData() { delete data; }
         int getValue(int index) { return data[index]; }
@@ -68,11 +74,14 @@ class FloatArray {
                 deleteData();
             }
             float * newData = new float[newSize];
-            for(int i = 0; i < newSize; i++) {
-                newData[i] = 0;
-            }
             this->data = newData;
             size = newSize;
+            clear();
+        }
+        void clear() {
+            for(int i = 0; i < size; i++) {
+                data[i] = 0;
+            }
         }
         void deleteData() { delete data; }
         float getValue(int index) { return data[index]; }
@@ -92,11 +101,14 @@ class DoubleArray {
                 deleteData();
             }
             double * newData = new double[newSize];
-            for(int i = 0; i < newSize; i++) {
-                newData[i] = 0;
-            }
             this->data = newData;
             size = newSize;
+            clear();
+        }
+        void clear() {
+            for(int i = 0; i < size; i++) {
+                data[i] = 0;
+            }
         }
         void deleteData() { delete data; }
         double getValue(int index) { return data[index]; }
@@ -116,11 +128,14 @@ class CharArray {
                 deleteData();
             }
             char * newData = new char[newSize];
-            for(int i = 0; i < newSize; i++) {
-                newData[i] = 0;
-            }
             this->data = newData;
             size = newSize;
+            clear();
+        }
+        void clear() {
+            for(int i = 0; i < size; i++) {
+                data[i] = 0;
+            }
         }
         void deleteData() { delete data; }
         char getValue(int index) { return data[index]; }
