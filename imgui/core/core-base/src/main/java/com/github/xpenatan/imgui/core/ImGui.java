@@ -1122,12 +1122,14 @@ public class ImGui {
     // - If you want to use InputText() with a dynamic string type such as std::string or your own, see misc/cpp/imgui_stdlib.h
     // - Most of the ImGuiInputTextFlags flags are only useful for InputText() and not for InputFloatX, InputIntX, InputDouble etc.
 
+    private static ImGuiInputTextCallback callback = new ImGuiInputTextCallback();
+
     public static boolean InputText(String label, ImGuiString text) {
-        return InputText(label, text, text.data.getSize(), ImGuiInputTextFlags.None, new ImGuiInputTextCallback());
+        return InputText(label, text, text.data.getSize(), ImGuiInputTextFlags.None, callback);
     }
 
     public static boolean InputText(String label, ImGuiString text, ImGuiInputTextFlags flags) {
-        return InputText(label, text, text.data.getSize(), flags, new ImGuiInputTextCallback());
+        return InputText(label, text, text.data.getSize(), flags, callback);
     }
 
     public static boolean InputText(String label, ImGuiString text, ImGuiInputTextFlags flags, ImGuiInputTextCallback callback) {

@@ -43,7 +43,7 @@ public class ImGuiString extends ImGuiBase {
     }
 
     public void resizeBuffer(int newBufferSize) {
-        data.resize(size);
+        data.resize(newBufferSize);
         isDirty = true;
     }
 
@@ -56,7 +56,9 @@ public class ImGuiString extends ImGuiBase {
             data.resize(sizeEndLine);
         }
         else {
-            data.clear();
+            //setting value 0 to a bigger buffer makes imgui ignore junk characters
+            byte val = 0;
+            data.setValue(size, val);
         }
         ImGuiByteArray.arraycopy(strBytes, 0, data, 0, size);
         isDirty = true;
