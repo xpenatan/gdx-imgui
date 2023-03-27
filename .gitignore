@@ -33,7 +33,7 @@ libs/
 *.o
 *.ini
 
-**/core/src/main/java/**
+**/core/core/src/main/java/**
 **/core-teavm/src/main/java/**
 **/imlayout-core/src/main/java/**
 **/webapp/**

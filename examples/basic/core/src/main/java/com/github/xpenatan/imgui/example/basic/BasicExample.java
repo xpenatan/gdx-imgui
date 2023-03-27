@@ -25,6 +25,7 @@ public class BasicExample implements ApplicationListener {
     private ImGuiBoolean checkbox;
 
     private EditTextExample editTextExample;
+    private SelectListExample selectListExample;
 
     @Override
     public void create() {
@@ -32,6 +33,7 @@ public class BasicExample implements ApplicationListener {
 
         checkbox = new ImGuiBoolean();
         editTextExample = new EditTextExample();
+        selectListExample = new SelectListExample();
 
         uiCam = new OrthographicCamera();
         uiCam.setToOrtho(true);
@@ -69,6 +71,7 @@ public class BasicExample implements ApplicationListener {
         ImGui.Checkbox("Check", checkbox);
 
         editTextExample.render();
+        selectListExample.render();
 
         ImGui.End();
 
