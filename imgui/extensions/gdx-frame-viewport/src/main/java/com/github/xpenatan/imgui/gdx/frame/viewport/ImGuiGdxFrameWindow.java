@@ -137,7 +137,7 @@ public class ImGuiGdxFrameWindow {
         boolean beginFocus = ImGui.IsWindowFocused();
         boolean beginChild = ImGui.BeginChild(beginID, 0, -ImGui.GetFrameHeightWithSpacing(), false, ImGuiWindowFlags.NoMove);
         if(beginChild) {
-            windowWidth = (int)ImGui.GetWindowContentRegionWidth();
+            windowWidth = (int)ImGui.GetWindowContentRegionMax().getX() - (int)ImGui.GetWindowContentRegionMin().getX();
             windowHeight = (int)ImGui.GetWindowHeight();
 
             ImVec2 winPos = ImGui.GetWindowPos();
