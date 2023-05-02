@@ -663,14 +663,6 @@ public class ImGuiNative {
     */
     public static native void GetWindowContentRegionMax(long vec2Addr);
 
-    /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.GetWindowContentRegionWidth();
-    */
-    /*[-C++;-NATIVE]
-        return ImGui::GetWindowContentRegionWidth();
-    */
-    public static native float GetWindowContentRegionWidth();
-
     // Windows Scrolling
 
     /*[-teaVM;-NATIVE]
@@ -1446,39 +1438,39 @@ public class ImGuiNative {
     public static native void Image(int textureID, long imVec2Addr, long uv0Addr, long uv1Addr, long tintColorAddr, long borderColAddr);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.ImageButton(textureID, sizeAddr);
+        return ImGui.Im.prototype.ImageButton(strId, textureID, sizeAddr);
     */
     /*[-C++;-NATIVE]
         ImVec2 * size = (ImVec2*)sizeAddr;
-        return ImGui::ImageButton((ImTextureID)textureID, *size);
+        return ImGui::ImageButton(strId, (ImTextureID)textureID, *size);
     */
-    public static native boolean ImageButton(int textureID, long sizeAddr);
+    public static native boolean ImageButton(String strId, int textureID, long sizeAddr);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.ImageButton(textureID, sizeAddr, uv0Addr, uv1Addr, frame_padding);
+        return ImGui.Im.prototype.ImageButton(strId, textureID, sizeAddr, uv0Addr, uv1Addr);
     */
     /*[-C++;-NATIVE]
         ImVec2 * size = (ImVec2*)sizeAddr;
         ImVec2 * uv0 = (ImVec2*)uv0Addr;
         ImVec2 * uv1 = (ImVec2*)uv1Addr;
-        return ImGui::ImageButton((ImTextureID)textureID, *size, *uv0, *uv1, frame_padding);
+        return ImGui::ImageButton(strId, (ImTextureID)textureID, *size, *uv0, *uv1);
     */
-    public static native boolean ImageButton(int textureID, long sizeAddr, long uv0Addr, long uv1Addr, int frame_padding);
+    public static native boolean ImageButton(String strId, int textureID, long sizeAddr, long uv0Addr, long uv1Addr);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.ImageButton(textureID, sizeAddr, uv0Addr, uv1Addr, frame_padding, colorAddr);
+        return ImGui.Im.prototype.ImageButton(strId, textureID, sizeAddr, uv0Addr, uv1Addr, colorAddr);
     */
     /*[-C++;-NATIVE]
         ImVec2 * size = (ImVec2*)sizeAddr;
         ImVec2 * uv0 = (ImVec2*)uv0Addr;
         ImVec2 * uv1 = (ImVec2*)uv1Addr;
         ImVec4 * color = (ImVec4*)colorAddr;
-        return ImGui::ImageButton((ImTextureID)textureID, *size, *uv0, *uv1, frame_padding, *color);
+        return ImGui::ImageButton(strId, (ImTextureID)textureID, *size, *uv0, *uv1, *color);
     */
-    public static native boolean ImageButton(int textureID, long sizeAddr, long uv0Addr, long uv1Addr, int frame_padding, long colorAddr);
+    public static native boolean ImageButton(String strId, int textureID, long sizeAddr, long uv0Addr, long uv1Addr, long colorAddr);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.ImageButton(textureID, sizeAddr, uv0Addr, uv1Addr, frame_padding, colorAddr, tintAddr);
+        return ImGui.Im.prototype.ImageButton(strId, textureID, sizeAddr, uv0Addr, uv1Addr, colorAddr, tintAddr);
     */
     /*[-C++;-NATIVE]
         ImVec2 * size = (ImVec2*)sizeAddr;
@@ -1486,9 +1478,9 @@ public class ImGuiNative {
         ImVec2 * uv1 = (ImVec2*)uv1Addr;
         ImVec4 * color = (ImVec4*)colorAddr;
         ImVec4 * tint = (ImVec4*)tintAddr;
-        return ImGui::ImageButton((ImTextureID)textureID, *size, *uv0, *uv1, frame_padding, *color, *tint);
+        return ImGui::ImageButton(strId, (ImTextureID)textureID, *size, *uv0, *uv1, *color, *tint);
     */
-    public static native boolean ImageButton(int textureID, long sizeAddr, long uv0Addr, long uv1Addr, int frame_padding, long colorAddr, long tintAddr);
+    public static native boolean ImageButton(String strId, int textureID, long sizeAddr, long uv0Addr, long uv1Addr, long colorAddr, long tintAddr);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.Checkbox(label, dataAddr);
@@ -1830,47 +1822,6 @@ public class ImGuiNative {
         return ImGui::ListBox(label, &current_item[0], listbox_items, items_count);
     */
     public static native boolean ListBox(String label, long current_itemAddr, String[] items, int items_count);
-
-    /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.ListBoxHeader(label);
-    */
-    /*[-C++;-NATIVE]
-        return ImGui::ListBoxHeader(label);
-    */
-    public static native boolean ListBoxHeader(String label);
-
-    /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.ListBoxHeader(label, sizeAddr);
-    */
-    /*[-C++;-NATIVE]
-        ImVec2 * size = (ImVec2*)sizeAddr;
-        return ImGui::ListBoxHeader(label, *size);
-    */
-    public static native boolean ListBoxHeader(String label, long sizeAddr);
-
-    /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.ListBoxHeader(label, items_count);
-    */
-    /*[-C++;-NATIVE]
-        return ImGui::ListBoxHeader(label, items_count);
-    */
-    public static native boolean ListBoxHeader2(String label, int items_count);
-
-    /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.ListBoxHeader(label, items_count, height_in_items);
-    */
-    /*[-C++;-NATIVE]
-        return ImGui::ListBoxHeader(label, items_count, height_in_items);
-    */
-    public static native boolean ListBoxHeader(String label, int items_count, int height_in_items);
-
-    /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.ListBoxFooter();
-    */
-    /*[-C++;-NATIVE]
-        ImGui::ListBoxFooter();
-    */
-    public static native void ListBoxFooter();
 
     // Widgets: Menus
 

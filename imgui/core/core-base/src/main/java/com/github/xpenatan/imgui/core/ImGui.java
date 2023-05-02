@@ -345,10 +345,6 @@ public class ImGui {
         return ImVec2.TMP;
     }
 
-    public static float GetWindowContentRegionWidth() {
-        return ImGuiNative.GetWindowContentRegionWidth();
-    }
-
     // Windows Scrolling
 
     public static float GetScrollX() {
@@ -709,33 +705,33 @@ public class ImGui {
         ImGuiNative.Image(textureID, ImVec2.TMP.getCPointer(), ImVec2.TMP_2.getCPointer(), ImVec2.TMP_3.getCPointer());
     }
 
-    public static boolean ImageButton(int textureID, float sizeX, float sizeY) {
+    public static boolean ImageButton(String strId, int textureID, float sizeX, float sizeY) {
         ImVec2.TMP.set(sizeX, sizeY);
-        return ImGuiNative.ImageButton(textureID, ImVec2.TMP.getCPointer());
+        return ImGuiNative.ImageButton(strId, textureID, ImVec2.TMP.getCPointer());
     }
 
-    public static boolean ImageButton(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, int frame_padding) {
+    public static boolean ImageButton(String strId, int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y) {
         ImVec2.TMP.set(sizeX, sizeY);
         ImVec2.TMP_2.set(uv0_x, uv0_y);
         ImVec2.TMP_3.set(uv1_x, uv1_y);
-        return ImGuiNative.ImageButton(textureID, ImVec2.TMP.getCPointer(), ImVec2.TMP_2.getCPointer(), ImVec2.TMP_3.getCPointer(), frame_padding);
+        return ImGuiNative.ImageButton(strId, textureID, ImVec2.TMP.getCPointer(), ImVec2.TMP_2.getCPointer(), ImVec2.TMP_3.getCPointer());
     }
 
-    public static boolean ImageButton(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, int frame_padding, ImColor bg_col) {
+    public static boolean ImageButton(String strId, int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, ImColor bg_col) {
         ImVec2.TMP.set(sizeX, sizeY);
         ImVec2.TMP_2.set(uv0_x, uv0_y);
         ImVec2.TMP_3.set(uv1_x, uv1_y);
         ImVec4.TMP.set(bg_col.getR(), bg_col.getG(), bg_col.getB(), bg_col.getA());
-        return ImGuiNative.ImageButton(textureID, ImVec2.TMP.getCPointer(), ImVec2.TMP_2.getCPointer(), ImVec2.TMP_3.getCPointer(), frame_padding, ImVec4.TMP.getCPointer());
+        return ImGuiNative.ImageButton(strId, textureID, ImVec2.TMP.getCPointer(), ImVec2.TMP_2.getCPointer(), ImVec2.TMP_3.getCPointer(), ImVec4.TMP.getCPointer());
     }
 
-    public static boolean ImageButton(int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, int frame_padding, ImColor bg_col, ImColor tint_col) {
+    public static boolean ImageButton(String strId, int textureID, float sizeX, float sizeY, float uv0_x, float uv0_y, float uv1_x, float uv1_y, ImColor bg_col, ImColor tint_col) {
         ImVec2.TMP.set(sizeX, sizeY);
         ImVec2.TMP_2.set(uv0_x, uv0_y);
         ImVec2.TMP_3.set(uv1_x, uv1_y);
         ImVec4.TMP.set(bg_col.getR(), bg_col.getG(), bg_col.getB(), bg_col.getA());
         ImVec4.TMP_2.set(tint_col.getR(), tint_col.getG(), tint_col.getB(), tint_col.getA());
-        return ImGuiNative.ImageButton(textureID, ImVec2.TMP.getCPointer(), ImVec2.TMP_2.getCPointer(), ImVec2.TMP_3.getCPointer(), frame_padding, ImVec4.TMP.getCPointer(), ImVec4.TMP_2.getCPointer());
+        return ImGuiNative.ImageButton(strId, textureID, ImVec2.TMP.getCPointer(), ImVec2.TMP_2.getCPointer(), ImVec2.TMP_3.getCPointer(), ImVec4.TMP.getCPointer(), ImVec4.TMP_2.getCPointer());
     }
 
     public static boolean Checkbox(String label, ImGuiBoolean value) {
@@ -1306,23 +1302,6 @@ public class ImGui {
 
     public static void ListBox(String label, ImGuiInt current_item, String[] items, int items_count) {
         ImGuiNative.ListBox(label, current_item.getValuePointer(), items, items_count);
-    }
-
-    public static void ListBoxHeader(String label) {
-        ImGuiNative.ListBoxHeader(label);
-    }
-
-    public static void ListBoxHeader(String label, float sizeX, float sizeY) {
-        ImVec2.TMP.set(sizeX, sizeY);
-        ImGuiNative.ListBoxHeader(label, ImVec2.TMP.getCPointer());
-    }
-
-    public static void ListBoxHeader(String label, int items_count) {
-        ImGuiNative.ListBoxHeader2(label, items_count);
-    }
-
-    public static void ListBoxHeader(String label, int items_count, int height_in_items) {
-        ImGuiNative.ListBoxHeader(label, items_count, height_in_items);
     }
 
     // Widgets: Menus
