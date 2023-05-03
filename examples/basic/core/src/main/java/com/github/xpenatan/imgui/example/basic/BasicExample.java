@@ -27,6 +27,8 @@ public class BasicExample implements ApplicationListener {
     private EditTextExample editTextExample;
     private SelectListExample selectListExample;
 
+    private StringBuilder stringBuilder = new StringBuilder();
+
     @Override
     public void create() {
         ImGui.init();
@@ -67,6 +69,12 @@ public class BasicExample implements ApplicationListener {
         }
 
         ImGui.Begin("Hello World");
+
+        ImGui.Text("HelloText");
+
+        stringBuilder.setLength(0);
+        stringBuilder.append("HelloText 2");
+        ImGui.Text(stringBuilder);
 
         ImGui.Checkbox("Check", checkbox);
 

@@ -22,7 +22,6 @@ import com.github.xpenatan.imgui.core.enums.ImGuiWindowFlags;
 import com.github.xpenatan.imgui.core.jnicode.ImGuiEditTextNative;
 import com.github.xpenatan.imgui.core.jnicode.ImGuiInternalNative;
 import com.github.xpenatan.imgui.core.jnicode.ImGuiNative;
-import com.github.xpenatan.imgui.core.util.CharSequenceHelper;
 import com.github.xpenatan.jparser.loader.JParserLibraryLoader;
 import java.lang.ref.WeakReference;
 
@@ -36,6 +35,7 @@ public class ImGui {
     private static ImDrawList imDrawList;
     private static ImDrawList imDrawListBackground;
     private static ImDrawList imDrawListForeground;
+    private static ImGuiString textStr;
 
     public static void init() {
         init(true);
@@ -57,6 +57,7 @@ public class ImGui {
         imDrawList = new ImDrawList(ImDrawList.TYPE_DEFAULT);
         imDrawListBackground = new ImDrawList(ImDrawList.TYPE_BACKGROUND);
         imDrawListForeground = new ImDrawList(ImDrawList.TYPE_FOREGROUND);
+        textStr = new ImGuiString();
     }
 
     private static void loadNative() {
@@ -628,8 +629,8 @@ public class ImGui {
     }
 
     public static void Text(CharSequence text) {
-        byte[] tempChar = CharSequenceHelper.getTempChar(text, 0);
-        ImGuiNative.Text(tempChar);
+        textStr.setValue(text);
+        ImGuiNative.Text(textStr.getValuePointer());
     }
 
     public static void TextColored(float r, float g, float b, float a, String text) {
@@ -1474,23 +1475,23 @@ public class ImGui {
     }
 
     public static boolean BeginTable(CharSequence id, int columns_count) {
-        byte[] tempChar = CharSequenceHelper.getTempChar(id, 0);
-        return ImGuiNative.BeginTable(tempChar, columns_count);
+        textStr.setValue(id);
+        return ImGuiNative.BeginTable(textStr.getValuePointer(), columns_count);
     }
 
     public static boolean BeginTable(CharSequence id, int columns_count, ImGuiTableFlags flags) {
-        byte[] tempChar = CharSequenceHelper.getTempChar(id, 0);
-        return ImGuiNative.BeginTable(tempChar, columns_count, flags.getValue());
+        textStr.setValue(id);
+        return ImGuiNative.BeginTable(textStr.getValuePointer(), columns_count, flags.getValue());
     }
 
     public static boolean BeginTable(CharSequence id, int columns_count, ImGuiTableFlags flags, float outer_sizeX, float outer_sizeY) {
-        byte[] tempChar = CharSequenceHelper.getTempChar(id, 0);
-        return ImGuiNative.BeginTable(tempChar, columns_count, flags.getValue(), outer_sizeX, outer_sizeY);
+        textStr.setValue(id);
+        return ImGuiNative.BeginTable(textStr.getValuePointer(), columns_count, flags.getValue(), outer_sizeX, outer_sizeY);
     }
 
     public static boolean BeginTable(CharSequence id, int columns_count, ImGuiTableFlags flags, float outer_sizeX, float outer_sizeY, float inner_width) {
-        byte[] tempChar = CharSequenceHelper.getTempChar(id, 0);
-        return ImGuiNative.BeginTable(tempChar, columns_count, flags.getValue(), outer_sizeX, outer_sizeY, inner_width);
+        textStr.setValue(id);
+        return ImGuiNative.BeginTable(textStr.getValuePointer(), columns_count, flags.getValue(), outer_sizeX, outer_sizeY, inner_width);
     }
 
     public static void EndTable() {
@@ -1536,8 +1537,8 @@ public class ImGui {
     }
 
     public static void TableSetupColumn(CharSequence label, ImGuiTableColumnFlags flags) {
-        byte[] tempChar = CharSequenceHelper.getTempChar(label, 0);
-        ImGuiNative.TableSetupColumn(tempChar, flags.getValue());
+        textStr.setValue(label);
+        ImGuiNative.TableSetupColumn(textStr.getValuePointer(), flags.getValue());
     }
 
     public static void TableSetupColumn(String label, ImGuiTableColumnFlags flags, float init_width_or_weight) {

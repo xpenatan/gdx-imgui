@@ -1311,12 +1311,13 @@ public class ImGuiNative {
     public static native void Text(String text);
 
     /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.Text(text);
+        ImGui.Im.prototype.Text(bufAddr);
     */
     /*[-C++;-NATIVE]
-        ImGui::Text(text);
+        char * charArray = (char*)bufAddr;
+        ImGui::Text(charArray);
     */
-    public static native void Text(byte[] text);
+    public static native void Text(long bufAddr);
 
     /*[-teaVM;-NATIVE]
         ImGui.Im.prototype.TextColored(colorAddr, text);
@@ -2152,36 +2153,40 @@ public class ImGuiNative {
         return false;
     */
     /*[-C++;-NATIVE]
-        return ImGui::BeginTable(id, columns_count);
+        char * charArray = (char*)bufAddr;
+        return ImGui::BeginTable(charArray, columns_count);
     */
-    public static native boolean BeginTable(byte[] id, int columns_count);
+    public static native boolean BeginTable(long bufAddr, int columns_count);
 
     /*[-teaVM;-NATIVE]
         var test = 0;
         return false;
     */
     /*[-C++;-NATIVE]
-        return ImGui::BeginTable(id, columns_count, flags);
+        char * charArray = (char*)bufAddr;
+        return ImGui::BeginTable(charArray, columns_count, flags);
     */
-    public static native boolean BeginTable(byte[] id, int columns_count, int flags);
+    public static native boolean BeginTable(long bufAddr, int columns_count, int flags);
 
     /*[-teaVM;-NATIVE]
         var test = 0;
         return false;
     */
     /*[-C++;-NATIVE]
-        return ImGui::BeginTable(id, columns_count, flags, ImVec2(outer_sizeX, outer_sizeY));
+        char * charArray = (char*)bufAddr;
+        return ImGui::BeginTable(charArray, columns_count, flags, ImVec2(outer_sizeX, outer_sizeY));
     */
-    public static native boolean BeginTable(byte[] id, int columns_count, int flags, float outer_sizeX, float outer_sizeY);
+    public static native boolean BeginTable(long bufAddr, int columns_count, int flags, float outer_sizeX, float outer_sizeY);
 
     /*[-teaVM;-NATIVE]
         var test = 0;
         return false;
     */
     /*[-C++;-NATIVE]
-        return ImGui::BeginTable(id, columns_count, flags, ImVec2(outer_sizeX, outer_sizeY), inner_width);
+        char * charArray = (char*)bufAddr;
+        return ImGui::BeginTable(charArray, columns_count, flags, ImVec2(outer_sizeX, outer_sizeY), inner_width);
     */
-    public static native boolean BeginTable(byte[] id, int columns_count, int flags, float outer_sizeX, float outer_sizeY, float inner_width);
+    public static native boolean BeginTable(long bufAddr, int columns_count, int flags, float outer_sizeX, float outer_sizeY, float inner_width);
 
     /*[-teaVM;-NATIVE]
         ImGui.Im.prototype.EndTable();
@@ -2266,12 +2271,13 @@ public class ImGuiNative {
     public static native void TableSetupColumn(String label, int flags);
 
     /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.TableSetupColumn(label, flags);
+        ImGui.Im.prototype.TableSetupColumn(bufAddr, flags);
     */
     /*[-C++;-NATIVE]
-        ImGui::TableSetupColumn(label, flags);
+        char * charArray = (char*)bufAddr;
+        ImGui::TableSetupColumn(charArray, flags);
     */
-    public static native void TableSetupColumn(byte[] label, int flags);
+    public static native void TableSetupColumn(long bufAddr, int flags);
 
     /*[-teaVM;-NATIVE]
         ImGui.Im.prototype.TableSetupColumn(label, flags, init_width_or_weight);

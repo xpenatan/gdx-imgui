@@ -1,7 +1,5 @@
 package com.github.xpenatan.imgui.core;
 
-import java.nio.charset.StandardCharsets;
-
 public class ImGuiString extends ImGuiBase {
     public static ImGuiString TMP = new ImGuiString();
 
@@ -47,11 +45,11 @@ public class ImGuiString extends ImGuiBase {
         isDirty = true;
     }
 
-    public void setValue(String value) {
+    public void setValue(CharSequence value) {
         size = value.length();
         int sizeEndLine = size+1;
         int dataSize = data.getSize();
-        byte[] strBytes = value.getBytes();
+
         if(sizeEndLine > dataSize) {
             data.resize(sizeEndLine);
         }
@@ -60,7 +58,10 @@ public class ImGuiString extends ImGuiBase {
             byte val = 0;
             data.setValue(size, val);
         }
-        ImGuiByteArray.arraycopy(strBytes, 0, data, 0, size);
+        for(int i = 0; i < size; i++) {
+            char c = value.charAt(i);
+            data.setValue(i, (byte)c);
+        }
         isDirty = true;
     }
 
