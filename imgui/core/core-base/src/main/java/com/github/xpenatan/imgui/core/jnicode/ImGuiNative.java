@@ -135,6 +135,33 @@ public class ImGuiNative {
     public static native void ShowMetricsWindow(boolean open);
 
     /*[-teaVM;-NATIVE]
+        var jsObj = ImGui.Im.prototype.GetWindowDrawList();
+        return ImGui.getPointer(jsObj);
+    */
+    /*[-C++;-NATIVE]
+        return (jlong)ImGui::GetWindowDrawList();
+    */
+    public static native long GetWindowDrawListNATIVE();
+
+    /*[-teaVM;-NATIVE]
+        var jsObj = ImGui.Im.prototype.GetBackgroundDrawList();
+        return ImGui.getPointer(jsObj);
+    */
+    /*[-C++;-NATIVE]
+        return (jlong)ImGui::GetBackgroundDrawList();
+    */
+    public static native long GetBackgroundDrawListNATIVE();
+
+    /*[-teaVM;-NATIVE]
+        var jsObj = ImGui.Im.prototype.GetForegroundDrawList();
+        return ImGui.getPointer(jsObj);
+    */
+    /*[-C++;-NATIVE]
+        return (jlong)ImGui::GetForegroundDrawList();
+    */
+    public static native long GetForegroundDrawListNATIVE();
+
+    /*[-teaVM;-NATIVE]
         var jsObj = ImGui.Im.prototype.GetDrawData();
         return ImGui.getPointer(jsObj);
     */

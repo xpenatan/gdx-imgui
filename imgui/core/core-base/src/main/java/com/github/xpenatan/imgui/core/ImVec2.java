@@ -4,6 +4,7 @@ public class ImVec2 extends ImGuiBase {
     public static ImVec2 TMP = new ImVec2(true);
     public static ImVec2 TMP_2 = new ImVec2(true);
     public static ImVec2 TMP_3 = new ImVec2(true);
+    public static ImVec2 TMP_4 = new ImVec2(true);
     public static ImVec2 TMP_EMPTY = new ImVec2(false);
 
     /*[-C++;-NATIVE]

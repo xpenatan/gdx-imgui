@@ -591,6 +591,7 @@ interface ImDrawList {
     [Value]attribute VecCmdBuffer CmdBuffer;
     [Value]attribute VecIdxBuffer IdxBuffer;
     [Value]attribute VecVtxBuffer VtxBuffer;
+    void AddImage(any user_texture_id, [Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, [Const, Ref]optional ImVec2 uv_min, [Const, Ref]optional ImVec2 uv_max, optional unsigned long col);
 };
 
 interface ImGuiIO {

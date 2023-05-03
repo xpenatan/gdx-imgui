@@ -217,14 +217,17 @@ public class ImGui {
     }
 
     public static ImDrawList GetWindowDrawList() {
+        imDrawList.setPointer(ImGuiNative.GetWindowDrawListNATIVE());
         return imDrawList;
     }
 
     public static ImDrawList GetBackgroundDrawList() {
+        imDrawListBackground.setPointer(ImGuiNative.GetBackgroundDrawListNATIVE());
         return imDrawListBackground;
     }
 
     public static ImDrawList GetForegroundDrawList() {
+        imDrawListForeground.setPointer(ImGuiNative.GetForegroundDrawListNATIVE());
         return imDrawListForeground;
     }
 

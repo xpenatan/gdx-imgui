@@ -494,17 +494,26 @@ public class ImDrawList extends ImGuiBase {
     private static native void AddImageNATIVE(int type, int textureID, float a_x, float a_y, float b_x, float b_y);
 
     public void AddImage(int textureID, float a_x, float a_y, float b_x, float b_y, float uv_a_x, float uv_a_y, float uv_b_x, float uv_b_y) {
-        AddImageNATIVE(type, textureID, a_x, a_y, b_x, b_y, uv_a_x, uv_a_y, uv_b_x, uv_b_y);
+        ImVec2.TMP.set(a_x, a_y);
+        ImVec2.TMP_2.set(b_x, b_y);
+        ImVec2.TMP_3.set(uv_a_x, uv_a_y);
+        ImVec2.TMP_4.set(uv_b_x, uv_b_y);
+        AddImageNATIVE(getCPointer(), textureID, ImVec2.TMP.getCPointer(), ImVec2.TMP_2.getCPointer(), ImVec2.TMP_3.getCPointer(), ImVec2.TMP_4.getCPointer());
     }
 
     /*[-teaVM;-NATIVE]
-        var test = 0;
+        var drawList = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+        drawList.AddImage(textureID, p_minAddr, p_maxAddr, uv_minAddr, uv_maxAddr);
     */
     /*[-C++;-NATIVE]
-        ImDrawList* drawList = getDrawList(type);
-        drawList->AddImage((void *)textureID, ImVec2(a_x, a_y), ImVec2(b_x, b_y), ImVec2(uv_a_x, uv_a_y), ImVec2(uv_b_x, uv_b_y));
+        ImDrawList* drawList = (ImDrawList*)addr;
+        ImVec2 * p_min = (ImVec2*)p_minAddr;
+        ImVec2 * p_max = (ImVec2*)p_maxAddr;
+        ImVec2 * uv_min = (ImVec2*)uv_minAddr;
+        ImVec2 * uv_max = (ImVec2*)uv_maxAddr;
+        drawList->AddImage((ImTextureID)textureID, *p_min, *p_max, *uv_min, *uv_max);
     */
-    private static native void AddImageNATIVE(int type, int textureID, float a_x, float a_y, float b_x, float b_y, float uv_a_x, float uv_a_y, float uv_b_x, float uv_b_y);
+    private static native void AddImageNATIVE(long addr, int textureID, long p_minAddr, long p_maxAddr, long uv_minAddr, long uv_maxAddr);
 
     public void PathClear() {
         PathClearNATIVE(type);
