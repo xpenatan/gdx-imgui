@@ -204,7 +204,7 @@ public class ImGuiNative {
     public static native boolean Begin(String title);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.Begin(title, imGuiWindowFlags);
+        return ImGui.Im.prototype.Begin(title, null, imGuiWindowFlags);
     */
     /*[-C++;-NATIVE]
         return ImGui::Begin(title, NULL, imGuiWindowFlags);

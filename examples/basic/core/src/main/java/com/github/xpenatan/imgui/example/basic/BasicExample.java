@@ -11,6 +11,7 @@ import com.github.xpenatan.imgui.core.ImGui;
 import com.github.xpenatan.imgui.core.ImGuiBoolean;
 import com.github.xpenatan.imgui.core.ImGuiIO;
 import com.github.xpenatan.imgui.core.enums.ImGuiConfigFlags;
+import com.github.xpenatan.imgui.core.enums.ImGuiWindowFlags;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
 
@@ -68,7 +69,8 @@ public class BasicExample implements ApplicationListener {
             ImGui.SetNextWindowSize(400, 400);
         }
 
-        ImGui.Begin("Hello World");
+        ImGuiWindowFlags noDecoration = ImGuiWindowFlags.NoDecoration;
+        ImGui.Begin("Hello World", noDecoration);
 
         ImGui.Text("HelloText");
 

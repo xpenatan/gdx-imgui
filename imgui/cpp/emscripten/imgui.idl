@@ -29,7 +29,7 @@ interface Im {
     void                    StyleColorsLight(optional ImGuiStyle dst);
     void                    StyleColorsClassic(optional ImGuiStyle dst);
 
-    boolean                 Begin([Const] DOMString name);
+    boolean                 Begin([Const] DOMString name, optional boolean[] p_open, optional long flags);
     void                    End();
 
     boolean                 BeginChild([Const] DOMString str_id, [Const,Ref]optional ImVec2 size, optional boolean border, optional long flags);

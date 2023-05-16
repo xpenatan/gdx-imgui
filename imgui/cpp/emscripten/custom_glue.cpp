@@ -35,7 +35,7 @@ class Im {
         static void StyleColorsLight(ImGuiStyle* dst = NULL) { ImGui::StyleColorsLight(dst); }
         static void StyleColorsClassic(ImGuiStyle* dst = NULL) { ImGui::StyleColorsClassic(dst); }
 
-        static bool Begin(const char* name) { return ImGui::Begin(name); }
+        static bool Begin(const char* name, bool* p_open = NULL, ImGuiWindowFlags flags = 0) { return ImGui::Begin(name, p_open, flags); }
         static void End() { ImGui::End(); }
 
         static bool BeginChild(const char* str_id, const ImVec2& size = ImVec2(0, 0), bool border = false, ImGuiWindowFlags flags = 0) { return ImGui::BeginChild(str_id, size, border, flags); }
