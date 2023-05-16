@@ -97,8 +97,8 @@ class Im {
         static void PushStyleVar(ImGuiStyleVar idx, float val) { ImGui::PushStyleVar(idx, val); }
         static void PushStyleVar2(ImGuiStyleVar idx, const ImVec2& val) { ImGui::PushStyleVar(idx, val); }
         static void PopStyleVar(int count = 1) { ImGui::PopStyleVar(count); }
-        static void PushAllowKeyboardFocus(bool allow_keyboard_focus) { ImGui::PushAllowKeyboardFocus(allow_keyboard_focus); }
-        static void PopAllowKeyboardFocus() { ImGui::PopAllowKeyboardFocus(); }
+        static void PushTabStop(bool tab_stop) { ImGui::PushTabStop(tab_stop); }
+        static void PopTabStop() { ImGui::PopTabStop(); }
         static void PushButtonRepeat(bool repeat) { ImGui::PushButtonRepeat(repeat); }
         static void PopButtonRepeat() { ImGui::PopButtonRepeat(); }
 

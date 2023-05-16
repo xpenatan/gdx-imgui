@@ -91,8 +91,8 @@ interface Im {
     void                    PushStyleVar(long idx, float val);
     void                    PushStyleVar2(long idx, [Const, Ref]ImVec2 val);
     void                    PopStyleVar(optional long count);
-    void                    PushAllowKeyboardFocus(boolean allow_keyboard_focus);
-    void                    PopAllowKeyboardFocus();
+    void                    PushTabStop(boolean tab_stop);
+    void                    PopTabStop();
     void                    PushButtonRepeat(boolean repeat);
     void                    PopButtonRepeat();
 

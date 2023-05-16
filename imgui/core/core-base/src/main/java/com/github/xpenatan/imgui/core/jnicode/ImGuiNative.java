@@ -772,7 +772,7 @@ public class ImGuiNative {
     */
     public static native void SetScrollFromPosY(float local_y, float center_y_ratio);
 
-    // Parameters stacks (shared)
+    //############################### Parameters stacks (shared)
 
     //TODO impl
 
@@ -860,6 +860,98 @@ public class ImGuiNative {
     public static native void PopStyleVar(int count);
 
     /*[-teaVM;-NATIVE]
+        ImGui.Im.prototype.PushTabStop(tab_stop);
+    */
+    /*[-C++;-NATIVE]
+        ImGui::PushTabStop(tab_stop);
+    */
+    public static native void PushTabStop(boolean tab_stop);
+
+    /*[-teaVM;-NATIVE]
+        ImGui.Im.prototype.PopTabStop();
+    */
+    /*[-C++;-NATIVE]
+        ImGui::PopTabStop();
+    */
+    public static native void PopTabStop();
+
+    /*[-teaVM;-NATIVE]
+        ImGui.Im.prototype.PushButtonRepeat(repeat);
+    */
+    /*[-C++;-NATIVE]
+        ImGui::PushButtonRepeat(repeat);
+    */
+    public static native void PushButtonRepeat(boolean repeat);
+
+    /*[-teaVM;-NATIVE]
+        ImGui.Im.prototype.PopButtonRepeat();
+    */
+    /*[-C++;-NATIVE]
+        ImGui::PopButtonRepeat();
+    */
+    public static native void PopButtonRepeat();
+
+    //############################### Parameters stacks (current window)
+
+    /*[-teaVM;-NATIVE]
+        ImGui.Im.prototype.PushItemWidth(item_width);
+    */
+    /*[-C++;-NATIVE]
+        ImGui::PushItemWidth(item_width);
+    */
+    public static native void PushItemWidth(float item_width);
+
+    /*[-teaVM;-NATIVE]
+        ImGui.Im.prototype.PopItemWidth();
+    */
+    /*[-C++;-NATIVE]
+        ImGui::PopItemWidth();
+    */
+    public static native void PopItemWidth();
+
+    /*[-teaVM;-NATIVE]
+        ImGui.Im.prototype.SetNextItemWidth(item_width);
+    */
+    /*[-C++;-NATIVE]
+        ImGui::SetNextItemWidth(item_width);
+    */
+    public static native void SetNextItemWidth(float item_width);
+
+    /*[-teaVM;-NATIVE]
+        return ImGui.Im.prototype.CalcItemWidth();
+    */
+    /*[-C++;-NATIVE]
+        return ImGui::CalcItemWidth();
+    */
+    public static native float CalcItemWidth();
+
+    /*[-teaVM;-NATIVE]
+        ImGui.Im.prototype.PushTextWrapPos(wrap_local_pos_x);
+    */
+    /*[-C++;-NATIVE]
+        ImGui::PushTextWrapPos(wrap_local_pos_x);
+    */
+    public static native void PushTextWrapPos(float wrap_local_pos_x);
+
+    /*[-teaVM;-NATIVE]
+        ImGui.Im.prototype.PushTextWrapPos();
+    */
+    /*[-C++;-NATIVE]
+        ImGui::PushTextWrapPos();
+    */
+    public static native void PushTextWrapPos();
+
+    /*[-teaVM;-NATIVE]
+        ImGui.Im.prototype.PopTextWrapPos();
+    */
+    /*[-C++;-NATIVE]
+        ImGui::PopTextWrapPos();
+    */
+    public static native void PopTextWrapPos();
+
+    //############################### Style read access
+
+    /*[-teaVM;-NATIVE]
         var colorVec4 = ImGui.Im.prototype.GetStyleColorVec4(idx);
         return ImGui.getPointer(colorVec4);
     */
@@ -924,95 +1016,6 @@ public class ImGuiNative {
     */
     public static native int GetColorU322(long colorAddr);
 
-    // Parameters stacks (current window)
-
-    /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.PushItemWidth(item_width);
-    */
-    /*[-C++;-NATIVE]
-        ImGui::PushItemWidth(item_width);
-    */
-    public static native void PushItemWidth(float item_width);
-
-    /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.PopItemWidth();
-    */
-    /*[-C++;-NATIVE]
-        ImGui::PopItemWidth();
-    */
-    public static native void PopItemWidth();
-
-    /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.SetNextItemWidth(item_width);
-    */
-    /*[-C++;-NATIVE]
-        ImGui::SetNextItemWidth(item_width);
-    */
-    public static native void SetNextItemWidth(float item_width);
-
-    /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.CalcItemWidth();
-    */
-    /*[-C++;-NATIVE]
-        return ImGui::CalcItemWidth();
-    */
-    public static native float CalcItemWidth();
-
-    /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.PushTextWrapPos(wrap_local_pos_x);
-    */
-    /*[-C++;-NATIVE]
-        ImGui::PushTextWrapPos(wrap_local_pos_x);
-    */
-    public static native void PushTextWrapPos(float wrap_local_pos_x);
-
-    /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.PushTextWrapPos();
-    */
-    /*[-C++;-NATIVE]
-        ImGui::PushTextWrapPos();
-    */
-    public static native void PushTextWrapPos();
-
-    /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.PopTextWrapPos();
-    */
-    /*[-C++;-NATIVE]
-        ImGui::PopTextWrapPos();
-    */
-    public static native void PopTextWrapPos();
-
-    /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.PushAllowKeyboardFocus(allow_keyboard_focus);
-    */
-    /*[-C++;-NATIVE]
-        ImGui::PushAllowKeyboardFocus(allow_keyboard_focus);
-    */
-    public static native void PushAllowKeyboardFocus(boolean allow_keyboard_focus);
-
-    /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.PopAllowKeyboardFocus();
-    */
-    /*[-C++;-NATIVE]
-        ImGui::PopAllowKeyboardFocus();
-    */
-    public static native void PopAllowKeyboardFocus();
-
-    /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.PushButtonRepeat(repeat);
-    */
-    /*[-C++;-NATIVE]
-        ImGui::PushButtonRepeat(repeat);
-    */
-    public static native void PushButtonRepeat(boolean repeat);
-
-    /*[-teaVM;-NATIVE]
-        ImGui.Im.prototype.PopButtonRepeat();
-    */
-    /*[-C++;-NATIVE]
-        ImGui::PopButtonRepeat();
-    */
-    public static native void PopButtonRepeat();
 
     // Cursor / Layout
     // - By "cursor" we mean the current output position.
@@ -1833,7 +1836,6 @@ public class ImGuiNative {
     public static native boolean Selectable(String label, long selectedAddr, int flags, long sizeAddr);
 
     // Widgets: List Boxes
-    // - FIXME: To be consistent with all the newer API, ListBoxHeader/ListBoxFooter should in reality be called BeginListBox/EndListBox. Will rename them.
 
     /*[-teaVM;-NATIVE]
         var test = 0;

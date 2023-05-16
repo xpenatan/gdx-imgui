@@ -78,13 +78,13 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat(String label, long vAddr, float v_speed, float v_min, float v_max, String format);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.DragFloat(label, vAddr, v_speed, v_min, v_max, format, power);
+        return ImGui.Im.prototype.DragFloat(label, vAddr, v_speed, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
-        return ImGui::DragFloat(label, &v[0], v_speed, v_min, v_max, format, power);
+        return ImGui::DragFloat(label, &v[0], v_speed, v_min, v_max, format, flags);
     */
-    public static native boolean DragFloat(String label, long vAddr, float v_speed, float v_min, float v_max, String format, float power);
+    public static native boolean DragFloat(String label, long vAddr, float v_speed, float v_min, float v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.DragFloat2(label, vAddr);
@@ -123,13 +123,13 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat2(String label, long vAddr, float v_speed, float v_min, float v_max, String format);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.DragFloat2(label, vAddr, v_speed, v_min, v_max, format, power);
+        return ImGui.Im.prototype.DragFloat2(label, vAddr, v_speed, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
-        return ImGui::DragFloat2(label, v, v_speed, v_min, v_max, format, power);
+        return ImGui::DragFloat2(label, v, v_speed, v_min, v_max, format, flags);
     */
-    public static native boolean DragFloat2(String label, long vAddr, float v_speed, float v_min, float v_max, String format, float power);
+    public static native boolean DragFloat2(String label, long vAddr, float v_speed, float v_min, float v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.DragFloat3(label, vAddr);
@@ -168,13 +168,13 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat3(String label, long vAddr, float v_speed, float v_min, float v_max, String format);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.DragFloat3(label, vAddr, v_speed, v_min, v_max, format, power);
+        return ImGui.Im.prototype.DragFloat3(label, vAddr, v_speed, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
-        return ImGui::DragFloat3(label, v, v_speed, v_min, v_max, format, power);
+        return ImGui::DragFloat3(label, v, v_speed, v_min, v_max, format, flags);
     */
-    public static native boolean DragFloat3(String label, long vAddr, float v_speed, float v_min, float v_max, String format, float power);
+    public static native boolean DragFloat3(String label, long vAddr, float v_speed, float v_min, float v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.DragFloat4(label, vAddr);
@@ -213,13 +213,13 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloat4(String label, long vAddr, float v_speed, float v_min, float v_max, String format);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.DragFloat4(label, vAddr, v_speed, v_min, v_max, format, power);
+        return ImGui.Im.prototype.DragFloat4(label, vAddr, v_speed, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
-        return ImGui::DragFloat4(label, v, v_speed, v_min, v_max, format, power);
+        return ImGui::DragFloat4(label, v, v_speed, v_min, v_max, format, flags);
     */
-    public static native boolean DragFloat4(String label, long vAddr, float v_speed, float v_min, float v_max, String format, float power);
+    public static native boolean DragFloat4(String label, long vAddr, float v_speed, float v_min, float v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.DragFloatRange2(label, v_current_minAddr, v_current_maxAddr);
@@ -232,14 +232,14 @@ public class ImGuiEditTextNative {
     public static native boolean DragFloatRange2(String label, long v_current_minAddr, long v_current_maxAddr);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.DragFloatRange2(label, v_current_minAddr, v_current_maxAddr, v_speed, v_min, v_max, format, format_max, power);
+        return ImGui.Im.prototype.DragFloatRange2(label, v_current_minAddr, v_current_maxAddr, v_speed, v_min, v_max, format, format_max, flags);
     */
     /*[-C++;-NATIVE]
         float * v_current_min = (float*)v_current_minAddr;
         float * v_current_max = (float*)v_current_maxAddr;
-        return ImGui::DragFloatRange2(label, &v_current_min[0], &v_current_max[0], v_speed, v_min, v_max, format, format_max, power);
+        return ImGui::DragFloatRange2(label, &v_current_min[0], &v_current_max[0], v_speed, v_min, v_max, format, format_max, flags);
     */
-    public static native boolean DragFloatRange2(String label, long v_current_minAddr, long v_current_maxAddr, float v_speed, float v_min, float v_max, String format, String format_max, float power);
+    public static native boolean DragFloatRange2(String label, long v_current_minAddr, long v_current_maxAddr, float v_speed, float v_min, float v_max, String format, String format_max, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.DragInt(label, vAddr);
@@ -269,13 +269,13 @@ public class ImGuiEditTextNative {
     public static native boolean DragInt(String label, long vAddr, float v_speed, float v_min, float v_max);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.DragInt(label, vAddr, v_speed, v_min, v_max, format);
+        return ImGui.Im.prototype.DragInt(label, vAddr, v_speed, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         int * v = (int*)vAddr;
-        return ImGui::DragInt(label, &v[0], v_speed, v_min, v_max, format);
+        return ImGui::DragInt(label, &v[0], v_speed, v_min, v_max, format, flags);
     */
-    public static native boolean DragInt(String label, long vAddr, float v_speed, float v_min, float v_max, String format);
+    public static native boolean DragInt(String label, long vAddr, float v_speed, float v_min, float v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.DragInt2(label, vAddr);
@@ -305,13 +305,13 @@ public class ImGuiEditTextNative {
     public static native boolean DragInt2(String label, long vAddr, float v_speed, float v_min, float v_max);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.DragInt2(label, vAddr, v_speed, v_min, v_max, format);
+        return ImGui.Im.prototype.DragInt2(label, vAddr, v_speed, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         int * v = (int*)vAddr;
-        return ImGui::DragInt2(label, v, v_speed, v_min, v_max, format);
+        return ImGui::DragInt2(label, v, v_speed, v_min, v_max, format, flags);
     */
-    public static native boolean DragInt2(String label, long vAddr, float v_speed, float v_min, float v_max, String format);
+    public static native boolean DragInt2(String label, long vAddr, float v_speed, float v_min, float v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.DragInt3(label, vAddr);
@@ -341,13 +341,13 @@ public class ImGuiEditTextNative {
     public static native boolean DragInt3(String label, long vAddr, float v_speed, float v_min, float v_max);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.DragInt3(label, vAddr, v_speed, v_min, v_max, format);
+        return ImGui.Im.prototype.DragInt3(label, vAddr, v_speed, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         int * v = (int*)vAddr;
-        return ImGui::DragInt2(label, v, v_speed, v_min, v_max, format);
+        return ImGui::DragInt2(label, v, v_speed, v_min, v_max, format, flags);
     */
-    public static native boolean DragInt3(String label, long vAddr, float v_speed, float v_min, float v_max, String format);
+    public static native boolean DragInt3(String label, long vAddr, float v_speed, float v_min, float v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.DragInt4(label, vAddr);
@@ -377,13 +377,13 @@ public class ImGuiEditTextNative {
     public static native boolean DragInt4(String label, long vAddr, float v_speed, float v_min, float v_max);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.DragInt4(label, vAddr, v_speed, v_min, v_max, format);
+        return ImGui.Im.prototype.DragInt4(label, vAddr, v_speed, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         int * v = (int*)vAddr;
-        return ImGui::DragInt4(label, v, v_speed, v_min, v_max, format);
+        return ImGui::DragInt4(label, v, v_speed, v_min, v_max, format, flags);
     */
-    public static native boolean DragInt4(String label, long vAddr, float v_speed, float v_min, float v_max, String format);
+    public static native boolean DragInt4(String label, long vAddr, float v_speed, float v_min, float v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.DragIntRange2(label, v_current_minAddr, v_current_maxAddr);
@@ -396,14 +396,14 @@ public class ImGuiEditTextNative {
     public static native boolean DragIntRange2(String label, long v_current_minAddr, long v_current_maxAddr);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.DragIntRange2(label, v_current_minAddr, v_current_maxAddr, v_speed, v_min, v_max, format, format_max);
+        return ImGui.Im.prototype.DragIntRange2(label, v_current_minAddr, v_current_maxAddr, v_speed, v_min, v_max, format, format_max, flags);
     */
     /*[-C++;-NATIVE]
         int * v_current_min = (int*)v_current_minAddr;
         int * v_current_max = (int*)v_current_maxAddr;
-        return ImGui::DragIntRange2(label, &v_current_min[0], &v_current_max[0], v_speed, v_min, v_max, format, format_max);
+        return ImGui::DragIntRange2(label, &v_current_min[0], &v_current_max[0], v_speed, v_min, v_max, format, format_max, flags);
     */
-    public static native boolean DragIntRange2(String label, long v_current_minAddr, long v_current_maxAddr, float v_speed, float v_min, float v_max, String format, String format_max);
+    public static native boolean DragIntRange2(String label, long v_current_minAddr, long v_current_maxAddr, float v_speed, float v_min, float v_max, String format, String format_max, int flags);
 
     //TODO impl other types
 
@@ -419,13 +419,13 @@ public class ImGuiEditTextNative {
     //TODO impl other types
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.DragScalar(label, data_type, vAddr, v_speed, v_min, v_max, format, power);
+        return ImGui.Im.prototype.DragScalar(label, data_type, vAddr, v_speed, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         int * v = (int*)vAddr;
-        return ImGui::DragScalar(label, data_type, &v[0], v_speed, &v_min, &v_max, format, power);
+        return ImGui::DragScalar(label, data_type, &v[0], v_speed, &v_min, &v_max, format, flags);
     */
-    public static native boolean DragScalar(String label, int data_type, long vAddr, float v_speed, float v_min, float v_max, String format, float power);
+    public static native boolean DragScalar(String label, int data_type, long vAddr, float v_speed, float v_min, float v_max, String format, int flags);
 
     // Widgets: Sliders
     // - CTRL+Click on any slider to turn them into an input box. Manually input values aren't clamped and can go off-bounds.
@@ -450,13 +450,13 @@ public class ImGuiEditTextNative {
     public static native boolean SliderFloat(String label, long vAddr, float v_min, float v_max, String format);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.SliderFloat(label, vAddr, v_min, v_max, format, power);
+        return ImGui.Im.prototype.SliderFloat(label, vAddr, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
-        return ImGui::SliderFloat(label, &v[0], v_min, v_max, format, power);
+        return ImGui::SliderFloat(label, &v[0], v_min, v_max, format, flags);
     */
-    public static native boolean SliderFloat(String label, long vAddr, float v_min, float v_max, String format, float power);
+    public static native boolean SliderFloat(String label, long vAddr, float v_min, float v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.SliderFloat2(label, vAddr, v_min, v_max);
@@ -477,13 +477,13 @@ public class ImGuiEditTextNative {
     public static native boolean SliderFloat2(String label, long vAddr, float v_min, float v_max, String format);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.SliderFloat2(label, vAddr, v_min, v_max, format, power);
+        return ImGui.Im.prototype.SliderFloat2(label, vAddr, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
-        return ImGui::SliderFloat2(label, v, v_min, v_max, format, power);
+        return ImGui::SliderFloat2(label, v, v_min, v_max, format, flags);
     */
-    public static native boolean SliderFloat2(String label, long vAddr, float v_min, float v_max, String format, float power);
+    public static native boolean SliderFloat2(String label, long vAddr, float v_min, float v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.SliderFloat3(label, vAddr, v_min, v_max);
@@ -504,13 +504,13 @@ public class ImGuiEditTextNative {
     public static native boolean SliderFloat3(String label, long vAddr, float v_min, float v_max, String format);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.SliderFloat3(label, vAddr, v_min, v_max, format, power);
+        return ImGui.Im.prototype.SliderFloat3(label, vAddr, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
-        return ImGui::SliderFloat3(label, v, v_min, v_max, format, power);
+        return ImGui::SliderFloat3(label, v, v_min, v_max, format, flags);
     */
-    public static native boolean SliderFloat3(String label, long vAddr, float v_min, float v_max, String format, float power);
+    public static native boolean SliderFloat3(String label, long vAddr, float v_min, float v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.SliderFloat4(label, vAddr, v_min, v_max);
@@ -531,13 +531,13 @@ public class ImGuiEditTextNative {
     public static native boolean SliderFloat4(String label, long vAddr, float v_min, float v_max, String format);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.SliderFloat4(label, vAddr, v_min, v_max, format, power);
+        return ImGui.Im.prototype.SliderFloat4(label, vAddr, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
-        return ImGui::SliderFloat4(label, v, v_min, v_max, format, power);
+        return ImGui::SliderFloat4(label, v, v_min, v_max, format, flags);
     */
-    public static native boolean SliderFloat4(String label, long vAddr, float v_min, float v_max, String format, float power);
+    public static native boolean SliderFloat4(String label, long vAddr, float v_min, float v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.SliderAngle(label, v_radAddr);
@@ -641,13 +641,13 @@ public class ImGuiEditTextNative {
     public static native boolean SliderScalar(String label, int data_type, long vAddr, int v_min, int v_max);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.SliderScalar(label, data_type, vAddr, v_min, v_max, format, power);
+        return ImGui.Im.prototype.SliderScalar(label, data_type, vAddr, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         int * v = (int*)vAddr;
-        return ImGui::SliderScalar(label, data_type, &v[0], &v_min, &v_max, format, power);
+        return ImGui::SliderScalar(label, data_type, &v[0], &v_min, &v_max, format, flags);
     */
-    public static native boolean SliderScalar(String label, int data_type, long vAddr, float v_min, float v_max, String format, float power);
+    public static native boolean SliderScalar(String label, int data_type, long vAddr, float v_min, float v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return false;
@@ -662,9 +662,9 @@ public class ImGuiEditTextNative {
         return false;
     */
     /*[-C++;-NATIVE]
-        return ImGui::SliderScalar(label, data_type, &v[0], &v_min, &v_max, format, power);
+        return ImGui::SliderScalar(label, data_type, &v[0], &v_min, &v_max, format, flags);
     */
-    public static native boolean SliderScalar(String label, int data_type, float[] v, float v_min, float v_max, String format, float power);
+    public static native boolean SliderScalar(String label, int data_type, float[] v, float v_min, float v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.VSliderFloat(label, sizeAddr, vAddr, v_min, v_max);
@@ -677,14 +677,14 @@ public class ImGuiEditTextNative {
     public static native boolean VSliderFloat(String label, long sizeAddr, long vAddr, float v_min, float v_max);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.VSliderFloat(label, sizeAddr, vAddr, v_min, v_max, format, power);
+        return ImGui.Im.prototype.VSliderFloat(label, sizeAddr, vAddr, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
         ImVec2 * size = (ImVec2*)sizeAddr;
-        return ImGui::VSliderFloat(label, *size, &v[0], v_min, v_max, format, power);
+        return ImGui::VSliderFloat(label, *size, &v[0], v_min, v_max, format, flags);
     */
-    public static native boolean VSliderFloat(String label, long sizeAddr, long vAddr, float v_min, float v_max, String format, float power);
+    public static native boolean VSliderFloat(String label, long sizeAddr, long vAddr, float v_min, float v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.VSliderInt(label, sizeAddr, vAddr, v_min, v_max);
@@ -697,14 +697,14 @@ public class ImGuiEditTextNative {
     public static native boolean VSliderInt(String label, long sizeAddr, long vAddr, int v_min, int v_max);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.VSliderInt(label, sizeAddr, vAddr, v_min, v_max, format);
+        return ImGui.Im.prototype.VSliderInt(label, sizeAddr, vAddr, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         int * v = (int*)vAddr;
         ImVec2 * size = (ImVec2*)sizeAddr;
-        return ImGui::VSliderInt(label, *size, &v[0], v_min, v_max, format);
+        return ImGui::VSliderInt(label, *size, &v[0], v_min, v_max, format, flags);
     */
-    public static native boolean VSliderInt(String label, long sizeAddr, long vAddr, int v_min, int v_max, String format);
+    public static native boolean VSliderInt(String label, long sizeAddr, long vAddr, int v_min, int v_max, String format, int flags);
 
     //TODO impl other types
 
@@ -720,14 +720,14 @@ public class ImGuiEditTextNative {
     public static native boolean VSliderScalar(String label, long sizeAddr, int data_type, long vAddr, int v_min, int v_max);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.VSliderScalar(label, sizeAddr, data_type, vAddr, v_min, v_max, format, power);
+        return ImGui.Im.prototype.VSliderScalar(label, sizeAddr, data_type, vAddr, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         int * v = (int*)vAddr;
         ImVec2 * size = (ImVec2*)sizeAddr;
-        return ImGui::VSliderScalar(label, *size, data_type, &v[0], &v_min, &v_max, format, power);
+        return ImGui::VSliderScalar(label, *size, data_type, &v[0], &v_min, &v_max, format, flags);
     */
-    public static native boolean VSliderScalar(String label, long sizeAddr, int data_type, long vAddr, int v_min, int v_max, String format, float power);
+    public static native boolean VSliderScalar(String label, long sizeAddr, int data_type, long vAddr, int v_min, int v_max, String format, int flags);
 
     /*[-teaVM;-NATIVE]
         return ImGui.Im.prototype.VSliderScalar(label, sizeAddr, data_type, vAddr, v_min, v_max);
@@ -740,14 +740,14 @@ public class ImGuiEditTextNative {
     public static native boolean VSliderScalar(String label, long sizeAddr, int data_type, long vAddr, float v_min, float v_max);
 
     /*[-teaVM;-NATIVE]
-        return ImGui.Im.prototype.VSliderScalar(label, sizeAddr, data_type, vAddr, v_min, v_max, format, power);
+        return ImGui.Im.prototype.VSliderScalar(label, sizeAddr, data_type, vAddr, v_min, v_max, format, flags);
     */
     /*[-C++;-NATIVE]
         float * v = (float*)vAddr;
         ImVec2 * size = (ImVec2*)sizeAddr;
-        return ImGui::VSliderScalar(label, *size, data_type, &v[0], &v_min, &v_max, format, power);
+        return ImGui::VSliderScalar(label, *size, data_type, &v[0], &v_min, &v_max, format, flags);
     */
-    public static native boolean VSliderScalar(String label, long sizeAddr, int data_type, long vAddr, float v_min, float v_max, String format, float power);
+    public static native boolean VSliderScalar(String label, long sizeAddr, int data_type, long vAddr, float v_min, float v_max, String format, int flags);
 
     // Widgets: Input with Keyboard
     // - If you want to use InputText() with a dynamic string type such as std::string or your own, see misc/cpp/imgui_stdlib.h

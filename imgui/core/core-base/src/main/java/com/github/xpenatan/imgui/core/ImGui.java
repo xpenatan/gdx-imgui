@@ -12,6 +12,7 @@ import com.github.xpenatan.imgui.core.enums.ImGuiFocusedFlags;
 import com.github.xpenatan.imgui.core.enums.ImGuiHoveredFlags;
 import com.github.xpenatan.imgui.core.enums.ImGuiInputTextFlags;
 import com.github.xpenatan.imgui.core.enums.ImGuiItemFlags;
+import com.github.xpenatan.imgui.core.enums.ImGuiSliderFlags;
 import com.github.xpenatan.imgui.core.enums.ImGuiStyleVar;
 import com.github.xpenatan.imgui.core.enums.ImGuiTabBarFlags;
 import com.github.xpenatan.imgui.core.enums.ImGuiTabItemFlags;
@@ -419,6 +420,22 @@ public class ImGui {
         ImGuiNative.PopStyleVar(count);
     }
 
+    public static void PushTabStop(boolean tab_stop) {
+        ImGuiNative.PushTabStop(tab_stop);
+    }
+
+    public static void PopTabStop() {
+        ImGuiNative.PopTabStop();
+    }
+
+    public static void PushButtonRepeat(boolean repeat) {
+        ImGuiNative.PushButtonRepeat(repeat);
+    }
+
+    public static void PopButtonRepeat() {
+        ImGuiNative.PopButtonRepeat();
+    }
+
     // Parameters stacks (current window)
 
     public static void PushItemWidth(float item_width) {
@@ -447,22 +464,6 @@ public class ImGui {
 
     public static void PopTextWrapPos() {
         ImGuiNative.PopTextWrapPos();
-    }
-
-    public static void PushAllowKeyboardFocus(boolean allow_keyboard_focus) {
-        ImGuiNative.PushAllowKeyboardFocus(allow_keyboard_focus);
-    }
-
-    public static void PushButtonRepeat() {
-        ImGuiNative.PopAllowKeyboardFocus();
-    }
-
-    public static void PushButtonRepeat(boolean repeat) {
-        ImGuiNative.PushButtonRepeat(repeat);
-    }
-
-    public static void PopButtonRepeat() {
-        ImGuiNative.PopButtonRepeat();
     }
 
     // Cursor / Layout
@@ -821,8 +822,8 @@ public class ImGui {
         return ImGuiEditTextNative.DragFloat(label, v.getValuePointer(), v_speed, v_min, v_max, format);
     }
 
-    public static boolean DragFloat(String label, ImGuiFloat v, float v_speed, float v_min, float v_max, String format, float power) {
-        return ImGuiEditTextNative.DragFloat(label, v.getValuePointer(), v_speed, v_min, v_max, format, power);
+    public static boolean DragFloat(String label, ImGuiFloat v, float v_speed, float v_min, float v_max, String format, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.DragFloat(label, v.getValuePointer(), v_speed, v_min, v_max, format, flags.getValue());
     }
 
     public static boolean DragFloat2(String label, ImGuiFloat2 v) {
@@ -841,8 +842,8 @@ public class ImGui {
         return ImGuiEditTextNative.DragFloat2(label, v.getValuePointer(), v_speed, v_min, v_max, format);
     }
 
-    public static boolean DragFloat2(String label, ImGuiFloat2 v, float v_speed, float v_min, float v_max, String format, float power) {
-        return ImGuiEditTextNative.DragFloat2(label, v.getValuePointer(), v_speed, v_min, v_max, format, power);
+    public static boolean DragFloat2(String label, ImGuiFloat2 v, float v_speed, float v_min, float v_max, String format, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.DragFloat2(label, v.getValuePointer(), v_speed, v_min, v_max, format, flags.getValue());
     }
 
     public static boolean DragFloat3(String label, ImGuiFloat3 v) {
@@ -861,8 +862,8 @@ public class ImGui {
         return ImGuiEditTextNative.DragFloat3(label, v.getValuePointer(), v_speed, v_min, v_max, format);
     }
 
-    public static boolean DragFloat3(String label, ImGuiFloat3 v, float v_speed, float v_min, float v_max, String format, float power) {
-        return ImGuiEditTextNative.DragFloat3(label, v.getValuePointer(), v_speed, v_min, v_max, format, power);
+    public static boolean DragFloat3(String label, ImGuiFloat3 v, float v_speed, float v_min, float v_max, String format, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.DragFloat3(label, v.getValuePointer(), v_speed, v_min, v_max, format, flags.getValue());
     }
 
     public static boolean DragFloat4(String label, ImGuiFloat4 v) {
@@ -881,16 +882,16 @@ public class ImGui {
         return ImGuiEditTextNative.DragFloat4(label, v.getValuePointer(), v_speed, v_min, v_max, format);
     }
 
-    public static boolean DragFloat4(String label, ImGuiFloat4 v, float v_speed, float v_min, float v_max, String format, float power) {
-        return ImGuiEditTextNative.DragFloat4(label, v.getValuePointer(), v_speed, v_min, v_max, format, power);
+    public static boolean DragFloat4(String label, ImGuiFloat4 v, float v_speed, float v_min, float v_max, String format, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.DragFloat4(label, v.getValuePointer(), v_speed, v_min, v_max, format, flags.getValue());
     }
 
     public static boolean DragFloatRange2(String label, ImGuiFloat v_current_min, ImGuiFloat v_current_max) {
         return ImGuiEditTextNative.DragFloatRange2(label, v_current_min.getValuePointer(), v_current_max.getValuePointer());
     }
 
-    public static boolean DragFloatRange2(String label, ImGuiFloat v_current_min, ImGuiFloat v_current_max, float v_speed, float v_min, float v_max, String format, String format_max, float power) {
-        return ImGuiEditTextNative.DragFloatRange2(label, v_current_min.getValuePointer(), v_current_max.getValuePointer(), v_speed, v_min, v_max, format, format_max, power);
+    public static boolean DragFloatRange2(String label, ImGuiFloat v_current_min, ImGuiFloat v_current_max, float v_speed, float v_min, float v_max, String format, String format_max, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.DragFloatRange2(label, v_current_min.getValuePointer(), v_current_max.getValuePointer(), v_speed, v_min, v_max, format, format_max, flags.getValue());
     }
 
     public static boolean DragInt(String label, ImGuiInt v) {
@@ -905,8 +906,8 @@ public class ImGui {
         return ImGuiEditTextNative.DragInt(label, v.getValuePointer(), v_speed, v_min, v_max);
     }
 
-    public static boolean DragInt(String label, ImGuiInt v, float v_speed, float v_min, float v_max, String format) {
-        return ImGuiEditTextNative.DragInt(label, v.getValuePointer(), v_speed, v_min, v_max, format);
+    public static boolean DragInt(String label, ImGuiInt v, float v_speed, float v_min, float v_max, String format, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.DragInt(label, v.getValuePointer(), v_speed, v_min, v_max, format, flags.getValue());
     }
 
     public static boolean DragInt2(String label, ImGuiInt2 v) {
@@ -921,8 +922,8 @@ public class ImGui {
         return ImGuiEditTextNative.DragInt2(label, v.getValuePointer(), v_speed, v_min, v_max);
     }
 
-    public static boolean DragInt2(String label, ImGuiInt2 v, float v_speed, float v_min, float v_max, String format) {
-        return ImGuiEditTextNative.DragInt2(label, v.getValuePointer(), v_speed, v_min, v_max, format);
+    public static boolean DragInt2(String label, ImGuiInt2 v, float v_speed, float v_min, float v_max, String format, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.DragInt2(label, v.getValuePointer(), v_speed, v_min, v_max, format, flags.getValue());
     }
 
     public static boolean DragInt3(String label, ImGuiInt3 v) {
@@ -937,8 +938,8 @@ public class ImGui {
         return ImGuiEditTextNative.DragInt3(label, v.getValuePointer(), v_speed, v_min, v_max);
     }
 
-    public static boolean DragInt3(String label, ImGuiInt3 v, float v_speed, float v_min, float v_max, String format) {
-        return ImGuiEditTextNative.DragInt3(label, v.getValuePointer(), v_speed, v_min, v_max, format);
+    public static boolean DragInt3(String label, ImGuiInt3 v, float v_speed, float v_min, float v_max, String format, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.DragInt3(label, v.getValuePointer(), v_speed, v_min, v_max, format, flags.getValue());
     }
 
     public static boolean DragInt4(String label, ImGuiInt4 v) {
@@ -953,16 +954,16 @@ public class ImGui {
         return ImGuiEditTextNative.DragInt4(label, v.getValuePointer(), v_speed, v_min, v_max);
     }
 
-    public static boolean DragInt4(String label, ImGuiInt4 v, float v_speed, float v_min, float v_max, String format) {
-        return ImGuiEditTextNative.DragInt4(label, v.getValuePointer(), v_speed, v_min, v_max, format);
+    public static boolean DragInt4(String label, ImGuiInt4 v, float v_speed, float v_min, float v_max, String format, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.DragInt4(label, v.getValuePointer(), v_speed, v_min, v_max, format, flags.getValue());
     }
 
     public static boolean DragIntRange2(String label, ImGuiInt v_current_min, ImGuiInt v_current_max) {
         return ImGuiEditTextNative.DragIntRange2(label, v_current_min.getValuePointer(), v_current_max.getValuePointer());
     }
 
-    public static boolean DragIntRange2(String label, ImGuiInt v_current_min, ImGuiInt v_current_max, float v_speed, float v_min, float v_max, String format, String format_max) {
-        return ImGuiEditTextNative.DragIntRange2(label, v_current_min.getValuePointer(), v_current_max.getValuePointer(), v_speed, v_min, v_max, format, format_max);
+    public static boolean DragIntRange2(String label, ImGuiInt v_current_min, ImGuiInt v_current_max, float v_speed, float v_min, float v_max, String format, String format_max, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.DragIntRange2(label, v_current_min.getValuePointer(), v_current_max.getValuePointer(), v_speed, v_min, v_max, format, format_max, flags.getValue());
     }
 
     //TODO impl
@@ -982,8 +983,8 @@ public class ImGui {
         return ImGuiEditTextNative.SliderFloat(label, v.getValuePointer(), v_min, v_max, format);
     }
 
-    public static boolean SliderFloat(String label, ImGuiFloat v, float v_min, float v_max, String format, float power) {
-        return ImGuiEditTextNative.SliderFloat(label, v.getValuePointer(), v_min, v_max, format, power);
+    public static boolean SliderFloat(String label, ImGuiFloat v, float v_min, float v_max, String format, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.SliderFloat(label, v.getValuePointer(), v_min, v_max, format, flags.getValue());
     }
 
     public static boolean SliderFloat2(String label, ImGuiFloat2 v, float v_min, float v_max) {
@@ -994,8 +995,8 @@ public class ImGui {
         return ImGuiEditTextNative.SliderFloat2(label, v.getValuePointer(), v_min, v_max, format);
     }
 
-    public static boolean SliderFloat2(String label, ImGuiFloat2 v, float v_min, float v_max, String format, float power) {
-        return ImGuiEditTextNative.SliderFloat2(label, v.getValuePointer(), v_min, v_max, format, power);
+    public static boolean SliderFloat2(String label, ImGuiFloat2 v, float v_min, float v_max, String format, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.SliderFloat2(label, v.getValuePointer(), v_min, v_max, format, flags.getValue());
     }
 
     public static boolean SliderFloat3(String label, ImGuiFloat3 v, float v_min, float v_max) {
@@ -1006,8 +1007,8 @@ public class ImGui {
         return ImGuiEditTextNative.SliderFloat3(label, v.getValuePointer(), v_min, v_max, format);
     }
 
-    public static boolean SliderFloat3(String label, ImGuiFloat3 v, float v_min, float v_max, String format, float power) {
-        return ImGuiEditTextNative.SliderFloat3(label, v.getValuePointer(), v_min, v_max, format, power);
+    public static boolean SliderFloat3(String label, ImGuiFloat3 v, float v_min, float v_max, String format, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.SliderFloat3(label, v.getValuePointer(), v_min, v_max, format, flags.getValue());
     }
 
     public static boolean SliderFloat4(String label, ImGuiFloat4 v, float v_min, float v_max) {
@@ -1018,8 +1019,8 @@ public class ImGui {
         return ImGuiEditTextNative.SliderFloat4(label, v.getValuePointer(), v_min, v_max, format);
     }
 
-    public static boolean SliderFloat4(String label, ImGuiFloat4 v, float v_min, float v_max, String format, float power) {
-        return ImGuiEditTextNative.SliderFloat4(label, v.getValuePointer(), v_min, v_max, format, power);
+    public static boolean SliderFloat4(String label, ImGuiFloat4 v, float v_min, float v_max, String format, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.SliderFloat4(label, v.getValuePointer(), v_min, v_max, format, flags.getValue());
     }
 
     public static boolean SliderAngle(String label, ImGuiFloat v) {
@@ -1066,16 +1067,16 @@ public class ImGui {
         return ImGuiEditTextNative.SliderScalar(label, data_type.getValue(), v.getValuePointer(), v_min, v_max);
     }
 
-    public static boolean SliderScalar(String label, ImGuiDataType data_type, ImGuiInt v, int v_min, int v_max, String format, float power) {
-        return ImGuiEditTextNative.SliderScalar(label, data_type.getValue(), v.getValuePointer(), v_min, v_max, format, power);
+    public static boolean SliderScalar(String label, ImGuiDataType data_type, ImGuiInt v, int v_min, int v_max, String format, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.SliderScalar(label, data_type.getValue(), v.getValuePointer(), v_min, v_max, format, flags.getValue());
     }
 
     public static boolean SliderScalar(String label, ImGuiDataType data_type, ImGuiFloat v, float v_min, float v_max) {
         return ImGuiEditTextNative.SliderScalar(label, data_type.getValue(), v.getValuePointer(), v_min, v_max);
     }
 
-    public static boolean SliderScalar(String label, ImGuiDataType data_type, ImGuiFloat v, float v_min, float v_max, String format, float power) {
-        return ImGuiEditTextNative.SliderScalar(label, data_type.getValue(), v.getValuePointer(), v_min, v_max, format, power);
+    public static boolean SliderScalar(String label, ImGuiDataType data_type, ImGuiFloat v, float v_min, float v_max, String format, ImGuiSliderFlags flags) {
+        return ImGuiEditTextNative.SliderScalar(label, data_type.getValue(), v.getValuePointer(), v_min, v_max, format, flags.getValue());
     }
 
     public static boolean VSliderFloat(String label, float sizeX, float sizeY, ImGuiFloat v, float v_min, float v_max) {
@@ -1083,9 +1084,9 @@ public class ImGui {
         return ImGuiEditTextNative.VSliderFloat(label, ImVec2.TMP.getCPointer(), v.getValuePointer(), v_min, v_max);
     }
 
-    public static boolean VSliderFloat(String label, float sizeX, float sizeY, ImGuiFloat v, float v_min, float v_max, String format, float power) {
+    public static boolean VSliderFloat(String label, float sizeX, float sizeY, ImGuiFloat v, float v_min, float v_max, String format, ImGuiSliderFlags flags) {
         ImVec2.TMP.set(sizeX, sizeY);
-        return ImGuiEditTextNative.VSliderFloat(label, ImVec2.TMP.getCPointer(), v.getValuePointer(), v_min, v_max, format, power);
+        return ImGuiEditTextNative.VSliderFloat(label, ImVec2.TMP.getCPointer(), v.getValuePointer(), v_min, v_max, format, flags.getValue());
     }
 
     public static boolean VSliderInt(String label, float sizeX, float sizeY, ImGuiInt v, int v_min, int v_max) {
@@ -1093,9 +1094,9 @@ public class ImGui {
         return ImGuiEditTextNative.VSliderInt(label, ImVec2.TMP.getCPointer(), v.getValuePointer(), v_min, v_max);
     }
 
-    public static boolean VSliderInt(String label, float sizeX, float sizeY, ImGuiInt v, int v_min, int v_max, String format) {
+    public static boolean VSliderInt(String label, float sizeX, float sizeY, ImGuiInt v, int v_min, int v_max, String format, ImGuiSliderFlags flags) {
         ImVec2.TMP.set(sizeX, sizeY);
-        return ImGuiEditTextNative.VSliderInt(label, ImVec2.TMP.getCPointer(), v.getValuePointer(), v_min, v_max, format);
+        return ImGuiEditTextNative.VSliderInt(label, ImVec2.TMP.getCPointer(), v.getValuePointer(), v_min, v_max, format, flags.getValue());
     }
 
     public static boolean VSliderScalar(String label, float sizeX, float sizeY, ImGuiDataType data_type, ImGuiFloat v, float v_min, float v_max) {
@@ -1103,9 +1104,9 @@ public class ImGui {
         return ImGuiEditTextNative.VSliderScalar(label, ImVec2.TMP.getCPointer(), data_type.getValue(), v.getValuePointer(), v_min, v_max);
     }
 
-    public static boolean VSliderScalar(String label, float sizeX, float sizeY, ImGuiDataType data_type, ImGuiFloat v, float v_min, float v_max, String format, float power) {
+    public static boolean VSliderScalar(String label, float sizeX, float sizeY, ImGuiDataType data_type, ImGuiFloat v, float v_min, float v_max, String format, ImGuiSliderFlags flags) {
         ImVec2.TMP.set(sizeX, sizeY);
-        return ImGuiEditTextNative.VSliderScalar(label, ImVec2.TMP.getCPointer(), data_type.getValue(), v.getValuePointer(), v_min, v_max, format, power);
+        return ImGuiEditTextNative.VSliderScalar(label, ImVec2.TMP.getCPointer(), data_type.getValue(), v.getValuePointer(), v_min, v_max, format, flags.getValue());
     }
 
     public static boolean VSliderScalar(String label, float sizeX, float sizeY, ImGuiDataType data_type, ImGuiInt v, int v_min, int v_max) {
@@ -1113,9 +1114,9 @@ public class ImGui {
         return ImGuiEditTextNative.VSliderScalar(label, ImVec2.TMP.getCPointer(), data_type.getValue(), v.getValuePointer(), v_min, v_max);
     }
 
-    public static boolean VSliderScalar(String label, float sizeX, float sizeY, ImGuiDataType data_type, ImGuiInt v, int v_min, int v_max, String format, float power) {
+    public static boolean VSliderScalar(String label, float sizeX, float sizeY, ImGuiDataType data_type, ImGuiInt v, int v_min, int v_max, String format, ImGuiSliderFlags flags) {
         ImVec2.TMP.set(sizeX, sizeY);
-        return ImGuiEditTextNative.VSliderScalar(label, ImVec2.TMP.getCPointer(), data_type.getValue(), v.getValuePointer(), v_min, v_max, format, power);
+        return ImGuiEditTextNative.VSliderScalar(label, ImVec2.TMP.getCPointer(), data_type.getValue(), v.getValuePointer(), v_min, v_max, format, flags.getValue());
     }
 
     // Widgets: Input with Keyboard
@@ -1302,7 +1303,6 @@ public class ImGui {
     }
 
     // Widgets: List Boxes
-    // - FIXME: To be consistent with all the newer API, ListBoxHeader/ListBoxFooter should in reality be called BeginListBox/EndListBox. Will rename them.
 
     public static void ListBox(String label, ImGuiInt current_item, String[] items, int items_count) {
         ImGuiNative.ListBox(label, current_item.getValuePointer(), items, items_count);
@@ -1740,9 +1740,6 @@ public class ImGui {
         ImGuiNative.EndDisabled();
     }
 
-    // Focus, Activation
-    // - Prefer using "SetItemDefaultFocus()" over "if (IsWindowAppearing()) SetScrollHereY()" when applicable to signify "this is the default item"
-
     public static void SetItemDefaultFocus() {
         ImGuiNative.SetItemDefaultFocus();
     }
@@ -1754,10 +1751,6 @@ public class ImGui {
     public static void SetKeyboardFocusHere(int offset) {
         ImGuiNative.SetKeyboardFocusHere(offset);
     }
-
-    // Item/Widgets Utilities
-    // - Most of the functions are referring to the last/previous item we submitted.
-    // - See Demo Window under "Widgets->Querying Status" for an interactive visualization of most of those functions.
 
     public static boolean IsItemHovered() {
         return ImGuiNative.IsItemHovered();
