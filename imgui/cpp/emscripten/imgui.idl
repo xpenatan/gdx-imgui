@@ -498,8 +498,8 @@ interface FloatArray {
 
     void FloatArray(long size);
     void resize(long size);
-    long getValue(long index);
-    void setValue(long index, long value);
+    float getValue(long index);
+    void setValue(long index, float value);
     any getPointer();
 };
 
