@@ -1186,7 +1186,7 @@ public class ImGui {
     }
 
     public static boolean ColorEdit3(String label, ImColor color, ImGuiColorEditFlags flags) {
-        return ImGuiEditTextNative.ColorEdit3(label, color.data, flags.getValue());
+        return ImGuiEditTextNative.ColorEdit3(label, color.data.getValuePointer(), flags.getValue());
     }
 
     public static boolean ColorEdit4(String label, ImColor color) {
@@ -1194,7 +1194,7 @@ public class ImGui {
     }
 
     public static boolean ColorEdit4(String label, ImColor color, ImGuiColorEditFlags flags) {
-        return ImGuiEditTextNative.ColorEdit4(label, color.data, flags.getValue());
+        return ImGuiEditTextNative.ColorEdit4(label, color.data.getValuePointer(), flags.getValue());
     }
 
     public static boolean ColorPicker3(String label, ImColor color) {
@@ -1202,7 +1202,7 @@ public class ImGui {
     }
 
     public static boolean ColorPicker3(String label, ImColor color, ImGuiColorEditFlags flags) {
-        return ImGuiEditTextNative.ColorPicker3(label, color.data, flags.getValue());
+        return ImGuiEditTextNative.ColorPicker3(label, color.data.getValuePointer(), flags.getValue());
     }
 
     public static boolean ColorPicker4(String label, ImColor color) {
@@ -1210,7 +1210,7 @@ public class ImGui {
     }
 
     public static boolean ColorPicker4(String label, ImColor color, ImGuiColorEditFlags flags) {
-        return ImGuiEditTextNative.ColorPicker4(label, color.data, flags.getValue());
+        return ImGuiEditTextNative.ColorPicker4(label, color.data.getValuePointer(), flags.getValue());
     }
 
     // Widgets: Trees

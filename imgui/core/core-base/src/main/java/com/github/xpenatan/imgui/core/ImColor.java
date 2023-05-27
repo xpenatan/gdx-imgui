@@ -1,25 +1,31 @@
 package com.github.xpenatan.imgui.core;
 
 public class ImColor {
-    float[] data = new float[4];
+
+    ImGuiFloat4 data;
 
     public ImColor() {
+        data = new ImGuiFloat4();
         setColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     public ImColor(float r, float g, float b, float a) {
+        data = new ImGuiFloat4();
         setColor(r, g, b, a);
     }
 
     public ImColor(float r, float g, float b) {
+        data = new ImGuiFloat4();
         setColor(r, g, b);
     }
 
     public ImColor(int r, int g, int b, int a) {
+        data = new ImGuiFloat4();
         setColor(r, g, b, a);
     }
 
     public ImColor(int r, int g, int b) {
+        data = new ImGuiFloat4();
         setColor(r, g, b);
     }
 
@@ -27,53 +33,54 @@ public class ImColor {
      * Color from 0.0-1.0
      */
     public void setColor(float r, float g, float b, float a) {
-        data[0] = r;
-        data[1] = g;
-        data[2] = b;
-        data[3] = a;
+        data.setValue(r, g, b, a);
     }
 
     /**
      * Color from 0.0-1.0
      */
     public void setColor(float r, float g, float b) {
-        data[0] = r;
-        data[1] = g;
-        data[2] = b;
+        data.setValue(r, g, b, 0);
     }
 
     /**
      * Color from 0-255
      */
     public void setColor(int r, int g, int b, int a) {
-        data[0] = r / 255f;
-        data[1] = g / 255f;
-        data[2] = b / 255f;
-        data[3] = a / 255f;
+        float rr = r / 255f;
+        float gg = g / 255f;
+        float bb = b / 255f;
+        float aa = a / 255f;
+        setColor(rr, gg, bb, aa);
     }
 
     /**
      * Color from 0-255
      */
     public void setColor(int r, int g, int b) {
-        data[0] = r / 255f;
-        data[1] = g / 255f;
-        data[2] = b / 255f;
+        float rr = r / 255f;
+        float gg = g / 255f;
+        float bb = b / 255f;
+        setColor(rr, gg, bb);
     }
 
     public float getR() {
-        return data[0];
+        return data.getX();
     }
 
     public float getG() {
-        return data[1];
+        return data.getY();
     }
 
     public float getB() {
-        return data[2];
+        return data.getZ();
     }
 
     public float getA() {
-        return data[3];
+        return data.getW();
+    }
+
+    public long getValuePointer() {
+        return data.getValuePointer();
     }
 }

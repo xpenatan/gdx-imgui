@@ -870,36 +870,40 @@ public class ImGuiEditTextNative {
     // - You can pass the address of a first float element out of a contiguous structure, e.g. &myvector.x
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.ColorEdit3(label, vAddr, flags);
     */
     /*[-C++;-NATIVE]
-        return ImGui::ColorEdit3(label, col, flags);
+        float * v = (float*)vAddr;
+        return ImGui::ColorEdit3(label, v, flags);
     */
-    public static native boolean ColorEdit3(String label, float[] col, int flags);
+    public static native boolean ColorEdit3(String label, long vAddr, int flags);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.ColorEdit4(label, vAddr, flags);
     */
     /*[-C++;-NATIVE]
-        return ImGui::ColorEdit4(label, col, flags);
+        float * v = (float*)vAddr;
+        return ImGui::ColorEdit4(label, v, flags);
     */
-    public static native boolean ColorEdit4(String label, float[] col, int flags);
+    public static native boolean ColorEdit4(String label, long vAddr, int flags);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.ColorPicker3(label, vAddr, flags);
     */
     /*[-C++;-NATIVE]
-        return ImGui::ColorPicker3(label, col, flags);
+        float * v = (float*)vAddr;
+        return ImGui::ColorPicker3(label, v, flags);
     */
-    public static native boolean ColorPicker3(String label, float[] col, int flags);
+    public static native boolean ColorPicker3(String label, long vAddr, int flags);
 
     /*[-teaVM;-NATIVE]
-        return false;
+        return ImGui.Im.prototype.ColorPicker4(label, vAddr, flags);
     */
     /*[-C++;-NATIVE]
-        return ImGui::ColorPicker4(label, col, flags);
+        float * v = (float*)vAddr;
+        return ImGui::ColorPicker4(label, v, flags);
     */
-    public static native boolean ColorPicker4(String label, float[] col, int flags);
+    public static native boolean ColorPicker4(String label, long vAddr, int flags);
 
     /*[-teaVM;-REPLACE]
     @org.teavm.jso.JSFunctor
