@@ -12,6 +12,9 @@ import com.github.xpenatan.imgui.core.ImGuiBoolean;
 import com.github.xpenatan.imgui.core.ImGuiIO;
 import com.github.xpenatan.imgui.core.enums.ImGuiConfigFlags;
 import com.github.xpenatan.imgui.core.enums.ImGuiWindowFlags;
+import com.github.xpenatan.imgui.example.basic.renderer.ColorRenderer;
+import com.github.xpenatan.imgui.example.basic.renderer.EditTextRenderer;
+import com.github.xpenatan.imgui.example.basic.renderer.SelectListRenderer;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
 
@@ -25,8 +28,9 @@ public class BasicExample implements ApplicationListener {
 
     private ImGuiBoolean checkbox;
 
-    private EditTextExample editTextExample;
-    private SelectListExample selectListExample;
+    private EditTextRenderer editTextRenderer;
+    private SelectListRenderer selectListRenderer;
+    private ColorRenderer colorRenderer;
 
     private StringBuilder stringBuilder = new StringBuilder();
 
@@ -35,8 +39,9 @@ public class BasicExample implements ApplicationListener {
         ImGui.init();
 
         checkbox = new ImGuiBoolean();
-        editTextExample = new EditTextExample();
-        selectListExample = new SelectListExample();
+        editTextRenderer = new EditTextRenderer();
+        selectListRenderer = new SelectListRenderer();
+        colorRenderer = new ColorRenderer();
 
         uiCam = new OrthographicCamera();
         uiCam.setToOrtho(true);
@@ -69,8 +74,7 @@ public class BasicExample implements ApplicationListener {
             ImGui.SetNextWindowSize(400, 400);
         }
 
-        ImGuiWindowFlags noDecoration = ImGuiWindowFlags.NoDecoration;
-        ImGui.Begin("Hello World", noDecoration);
+        ImGui.Begin("Hello World");
 
         ImGui.Text("HelloText");
 
@@ -80,8 +84,9 @@ public class BasicExample implements ApplicationListener {
 
         ImGui.Checkbox("Check", checkbox);
 
-        editTextExample.render();
-        selectListExample.render();
+        editTextRenderer.render();
+        selectListRenderer.render();
+        colorRenderer.render();
 
         ImGui.End();
 

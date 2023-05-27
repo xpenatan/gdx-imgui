@@ -1,4 +1,4 @@
-package com.github.xpenatan.imgui.example.basic;
+package com.github.xpenatan.imgui.example.basic.renderer;
 
 import com.github.xpenatan.imgui.core.ImGui;
 import com.github.xpenatan.imgui.core.ImGuiFloat;
@@ -7,7 +7,7 @@ import com.github.xpenatan.imgui.core.ImGuiFloat3;
 import com.github.xpenatan.imgui.core.ImGuiFloat4;
 import com.github.xpenatan.imgui.core.ImGuiString;
 
-public class EditTextExample {
+public class EditTextRenderer {
 
     private final ImGuiFloat imguiFloat1 = new ImGuiFloat();
     private final ImGuiFloat2 imguiFloat2 = new ImGuiFloat2();
@@ -16,7 +16,7 @@ public class EditTextExample {
 
     private final ImGuiString imguiString1 = new ImGuiString();
 
-    public EditTextExample() {
+    public EditTextRenderer() {
     }
 
     public void render() {

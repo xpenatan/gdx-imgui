@@ -1,15 +1,15 @@
-package com.github.xpenatan.imgui.example.basic;
+package com.github.xpenatan.imgui.example.basic.renderer;
 
 import com.badlogic.gdx.utils.Array;
 import com.github.xpenatan.imgui.core.ImGui;
 
-public class SelectListExample {
+public class SelectListRenderer {
 
     private Array<String> items;
 
     private int currentIndex = 0;
 
-    public SelectListExample() {
+    public SelectListRenderer() {
         items = new Array<>();
         items.add("Item01");
         items.add("Item02");
