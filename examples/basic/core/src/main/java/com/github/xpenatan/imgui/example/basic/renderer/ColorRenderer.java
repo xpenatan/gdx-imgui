@@ -14,9 +14,9 @@ public class ColorRenderer {
     public void render() {
 
         if(ImGui.ColorEdit3("color 01", color3)) {
-            float r = color4.getR();
-            float g = color4.getG();
-            float b = color4.getB();
+            float r = color3.getR();
+            float g = color3.getG();
+            float b = color3.getB();
             System.out.println("Red: " + r + " Green: " + g + " Blue: " + b);
         }
 
