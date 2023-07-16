@@ -1,8 +1,7 @@
 package com.github.xpenatan.imgui.core.generate;
 
 import com.github.xpenatan.jparser.core.JParser;
-import com.github.xpenatan.jparser.core.idl.IDLFile;
-import com.github.xpenatan.jparser.core.idl.IDLParser;
+import com.github.xpenatan.jparser.idl.IDLReader;
 import com.github.xpenatan.jparser.cpp.CPPBuildHelper;
 import java.io.File;
 
@@ -12,7 +11,7 @@ public class BuildCore {
         String libName = "imgui-core";
 
         String path = "..\\core-build\\src\\main\\resources\\imgui.idl";
-        IDLFile idlFile = IDLParser.parseFile(path);
+        IDLReader idlReader = IDLReader.readIDL(path);
 
         String cppPath = new File("../core/").getCanonicalPath();
         String teaVMPath = new File("../core-teavm/").getCanonicalPath();
@@ -25,13 +24,13 @@ public class BuildCore {
 
         //Generate CPP
         String classPaths = ImGuiCppParser.getClassPath("core", "gdx-1", "gdx-jnigen-loader", "jParser");
-        ImGuiCppParser cppParser = new ImGuiCppParser(idlFile, classPaths, jniDir);
+        ImGuiCppParser cppParser = new ImGuiCppParser(idlReader, classPaths, jniDir);
         JParser.generate(cppParser, sourceDir, cppGenDir);
 //        CPPBuildHelper.DEBUG_BUILD = true;
         CPPBuildHelper.build(libName, jniDir, null, imguiCppBase, "imgui-cpp64", true);
 
         //Generate Javascript
-        ImGuiTeaVMParser teaVMParser = new ImGuiTeaVMParser(idlFile);
+        ImGuiTeaVMParser teaVMParser = new ImGuiTeaVMParser(idlReader);
         JParser.generate(teaVMParser, sourceDir, teaVMGenDir);
     }
 }

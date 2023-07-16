@@ -11,11 +11,18 @@ include ":imgui:extensions:gdx"
 include ":imgui:extensions:lwjgl3"
 include ":imgui:extensions:gdx-frame-viewport"
 
-// Extensions ImLayout
+// Extension ImLayout
 include ":imgui:extensions:imlayout:imlayout-core"
 include ":imgui:extensions:imlayout:imlayout-desktop"
 include ":imgui:extensions:imlayout:imlayout-build"
 include ":imgui:extensions:imlayout:imlayout-base"
+
+// Extension imgui-node-editor
+include ":imgui:extensions:node-editor:editor-build"
+include ":imgui:extensions:node-editor:editor-base"
+include ":imgui:extensions:node-editor:editor-core"
+include ":imgui:extensions:node-editor:editor-desktop"
+include ":imgui:extensions:node-editor:editor-teavm"
 
 // Examples
 include ":examples:gdx-frame-viewport:core"
@@ -29,8 +36,9 @@ include ":examples:imlayout:core"
 include ":examples:imlayout:desktop"
 include ":examples:imlayout:teavm"
 
-include ":examples:imlayout:core"
-include ":examples:imlayout:desktop"
+include ":examples:node-editor:core"
+include ":examples:node-editor:desktop"
+include ":examples:node-editor:teavm"
 
 //include ":examples:gdx-tests:core"
 //include ":examples:gdx-tests:desktop"
@@ -39,14 +47,14 @@ include ":examples:imlayout:desktop"
 
 //includeBuild('D:\\Dev\\Projects\\java\\gdx-teavm') {
 //    dependencySubstitution {
-//        substitute module('com.github.xpenatan.gdx-teavm:backend-teavm') with project(':backends:backend-teavm:backend-teavm')
+//        substitute module('com.github.xpenatan.gdx-teavm:backend-teavm') using project(':backends:backend-teavm:backend-teavm')
 //    }
 //}
 
-//includeBuild('D:\\Dev\\Projects\\java\\jParser') {
+//includeBuild('E:\\Dev\\Projects\\java\\jParser') {
 //    dependencySubstitution {
-//        substitute module('com.github.xpenatan.jParser:jParser-core') with project(':jParser:core')
-//        substitute module('com.github.xpenatan.jParser:jParser-cpp') with project(':jParser:cpp')
-//        substitute module('com.github.xpenatan.jParser:jParser-teavm') with project(':jParser:teavm')
+//        substitute module('com.github.xpenatan.jParser:jParser-core') using project(':jParser:core')
+//        substitute module('com.github.xpenatan.jParser:jParser-cpp') using project(':jParser:cpp')
+//        substitute module('com.github.xpenatan.jParser:jParser-teavm') using project(':jParser:teavm')
 //    }
 //}

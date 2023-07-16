@@ -36,4 +36,6 @@ libs/
 **/core/core/src/main/java/**
 **/core-teavm/src/main/java/**
 **/imlayout-core/src/main/java/**
+**/node-editor/editor-core/src/main/java/**
+**/node-editor/editor-teavm/src/main/java/**
 **/webapp/**

@@ -124,9 +124,8 @@ tasks.register('buildImLayout') {
 
 tasks.register('buildImGuiNatives') {
     group = 'imgui'
-    dependsOn buildCore, buildCpp, buildImLayout
+    dependsOn buildCpp, buildCore, buildImLayout
+
+    tasks.findByName("buildCore").mustRunAfter "buildCpp"
+    tasks.findByName("buildImLayout").mustRunAfter "buildCore"
 }
-
-buildCore.shouldRunAfter buildCpp
-
-buildImLayout.shouldRunAfter buildCore
