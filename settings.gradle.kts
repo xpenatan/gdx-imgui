@@ -1,43 +1,43 @@
 // Core
-include ":imgui:base"
-include ":imgui:generator"
-include ":imgui:core"
-include ":imgui:desktop"
-include ":imgui:teavm"
+include(":imgui:base")
+include(":imgui:generator")
+include(":imgui:core")
+include(":imgui:desktop")
+include(":imgui:teavm")
 
 // Extensions
-//include ":extensions:gdx"
-//include ":extensions:lwjgl3"
-//include ":extensions:gdx-frame-viewport"
+//include(":extensions:gdx")
+//include(":extensions:lwjgl3")
+//include(":extensions:gdx-frame-viewport")
 
 // Extension ImLayout
-//include ":extensions:imlayout:imlayout-core"
-//include ":extensions:imlayout:imlayout-desktop"
-//include ":extensions:imlayout:imlayout-build"
-//include ":extensions:imlayout:imlayout-base"
+//include(":extensions:imlayout:imlayout-core")
+//include(":extensions:imlayout:imlayout-desktop")
+//include(":extensions:imlayout:imlayout-build")
+//include(":extensions:imlayout:imlayout-base")
 
 // Extension imgui-node-editor
-//include ":extensions:node-editor:editor-build"
-//include ":extensions:node-editor:editor-base"
-//include ":extensions:node-editor:editor-core"
-//include ":extensions:node-editor:editor-desktop"
-//include ":extensions:node-editor:editor-teavm"
+//include(":extensions:node-editor:editor-build")
+//include(":extensions:node-editor:editor-base")
+//include(":extensions:node-editor:editor-core")
+//include(":extensions:node-editor:editor-desktop")
+//include(":extensions:node-editor:editor-teavm")
 
 // Examples
-//include ":examples:gdx-frame-viewport:core"
-//include ":examples:gdx-frame-viewport:desktop"
+//include(":examples:gdx-frame-viewport:core")
+//include(":examples:gdx-frame-viewport:desktop")
 //
-//include ":examples:basic:core"
-//include ":examples:basic:desktop"
-//include ":examples:basic:teavm"
+//include(":examples:basic:core")
+//include(":examples:basic:desktop")
+//include(":examples:basic:teavm")
 //
-//include ":examples:imlayout:core"
-//include ":examples:imlayout:desktop"
-//include ":examples:imlayout:teavm"
+//include(":examples:imlayout:core")
+//include(":examples:imlayout:desktop")
+//include(":examples:imlayout:teavm")
 //
-//include ":examples:node-editor:core"
-//include ":examples:node-editor:desktop"
-//include ":examples:node-editor:teavm"
+//include(":examples:node-editor:core")
+//include(":examples:node-editor:desktop")
+//include(":examples:node-editor:teavm")
 
 //include ":examples:gdx-tests:core"
 //include ":examples:gdx-tests:desktop"
