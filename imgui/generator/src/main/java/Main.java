@@ -10,11 +10,11 @@ public class Main {
     }
 
     public static void generate() throws Exception {
-        String basePackage = "bullet";
+        String basePackage = "imgui";
         String emscriptenCustomCodePath = new File("src\\main\\cpp\\emscripten").getCanonicalPath();
-        String idlPath = new File(emscriptenCustomCodePath + "\\bullet.idl").getCanonicalPath();
+        String idlPath = new File(emscriptenCustomCodePath + "\\imgui.idl").getCanonicalPath();
         String emscriptenDir = new File("./build/bullet/").getCanonicalPath();
-        String cppSourceDir = new File(emscriptenDir + "/bullet/src/").getCanonicalPath();
+        String cppSourceDir = new File(emscriptenDir + "/imgui/src/").getCanonicalPath();
         String baseJavaDir = new File(".").getAbsolutePath() + "./base/src/main/java";
         IDLReader idlReader = IDLReader.readIDL(idlPath, cppSourceDir);
 
