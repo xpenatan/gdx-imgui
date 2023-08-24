@@ -29,14 +29,14 @@ subprojects {
 }
 
 var libProjects = [
-        project(":imgui:core:core"),
-        project(":imgui:core:core-desktop"),
-        project(":imgui:core:core-teavm"),
-        project(":imgui:extensions:gdx"),
-        project(":imgui:extensions:lwjgl3"),
-        project(":imgui:extensions:gdx-frame-viewport"),
-        project(":imgui:extensions:imlayout:imlayout-core"),
-        project(":imgui:extensions:imlayout:imlayout-desktop")
+        project(":imgui:core"),
+        project(":imgui:desktop"),
+        project(":imgui:teavm"),
+        project(":extensions:gdx"),
+        project(":extensions:lwjgl3"),
+        project(":extensions:gdx-frame-viewport"),
+        project(":extensions:imlayout:imlayout-core"),
+        project(":extensions:imlayout:imlayout-desktop")
 ]
 
 configure(libProjects) {

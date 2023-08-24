@@ -1,0 +1,23 @@
+version = project.gdxImguiVersion
+
+def module_name = "core-desktop"
+
+def jarFile = projectDir.toString() + "/../core/build/c++/libs/imgui-core-natives.jar"
+
+jar {
+    from zipTree(jarFile)
+}
+
+tasks.register('platformAll', Jar) {
+//    archiveClassifier.set("natives-desktop")
+    from zipTree(jarFile)
+}
+
+publishing {
+    publications {
+        natives(MavenPublication) {
+            artifactId = module_name
+            artifact platformAll
+        }
+    }
+}

@@ -1,28 +1,27 @@
 // Core
-include ":imgui:cpp"
-include ":imgui:core:core-base"
-include ":imgui:core:core-build"
-include ":imgui:core:core"
-include ":imgui:core:core-desktop"
-include ":imgui:core:core-teavm"
+include ":imgui:base"
+include ":imgui:generator"
+include ":imgui:core"
+include ":imgui:desktop"
+include ":imgui:teavm"
 
 // Extensions
-include ":imgui:extensions:gdx"
-include ":imgui:extensions:lwjgl3"
-include ":imgui:extensions:gdx-frame-viewport"
+include ":extensions:gdx"
+include ":extensions:lwjgl3"
+include ":extensions:gdx-frame-viewport"
 
 // Extension ImLayout
-include ":imgui:extensions:imlayout:imlayout-core"
-include ":imgui:extensions:imlayout:imlayout-desktop"
-include ":imgui:extensions:imlayout:imlayout-build"
-include ":imgui:extensions:imlayout:imlayout-base"
+include ":extensions:imlayout:imlayout-core"
+include ":extensions:imlayout:imlayout-desktop"
+include ":extensions:imlayout:imlayout-build"
+include ":extensions:imlayout:imlayout-base"
 
 // Extension imgui-node-editor
-include ":imgui:extensions:node-editor:editor-build"
-include ":imgui:extensions:node-editor:editor-base"
-include ":imgui:extensions:node-editor:editor-core"
-include ":imgui:extensions:node-editor:editor-desktop"
-include ":imgui:extensions:node-editor:editor-teavm"
+include ":extensions:node-editor:editor-build"
+include ":extensions:node-editor:editor-base"
+include ":extensions:node-editor:editor-core"
+include ":extensions:node-editor:editor-desktop"
+include ":extensions:node-editor:editor-teavm"
 
 // Examples
 include ":examples:gdx-frame-viewport:core"
@@ -51,10 +50,15 @@ include ":examples:node-editor:teavm"
 //    }
 //}
 
-//includeBuild('E:\\Dev\\Projects\\java\\jParser') {
-//    dependencySubstitution {
-//        substitute module('com.github.xpenatan.jParser:jParser-core') using project(':jParser:core')
-//        substitute module('com.github.xpenatan.jParser:jParser-cpp') using project(':jParser:cpp')
-//        substitute module('com.github.xpenatan.jParser:jParser-teavm') using project(':jParser:teavm')
-//    }
-//}
+includeBuild("E:\\Dev\\Projects\\java\\jParser") {
+    dependencySubstitution {
+        substitute(module("com.github.xpenatan.jParser:base")).using(project(":jParser:base"))
+        substitute(module("com.github.xpenatan.jParser:builder")).using(project(":jParser:builder"))
+        substitute(module("com.github.xpenatan.jParser:core")).using(project(":jParser:core"))
+        substitute(module("com.github.xpenatan.jParser:cpp")).using(project(":jParser:cpp"))
+        substitute(module("com.github.xpenatan.jParser:idl")).using(project(":jParser:idl"))
+        substitute(module("com.github.xpenatan.jParser:teavm")).using(project(":jParser:teavm"))
+        substitute(module("com.github.xpenatan.jParser:loader-core")).using(project(":jParser:loader:loader-core"))
+        substitute(module("com.github.xpenatan.jParser:loader-teavm")).using(project(":jParser:loader:loader-teavm"))
+    }
+}

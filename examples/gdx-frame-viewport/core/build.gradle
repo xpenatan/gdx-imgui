@@ -3,14 +3,14 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
 
-    implementation project(":imgui:core:core")
-    implementation project(":imgui:extensions:gdx")
+    implementation project(":imgui:core")
+    implementation project(":extensions:gdx")
 
     // Optional. Used for multi viewports. Currently WIP.
-    implementation project(":imgui:extensions:lwjgl3")
+    implementation project(":extensions:lwjgl3")
 
     // Optional
-    implementation project(":imgui:extensions:gdx-frame-viewport")
+    implementation project(":extensions:gdx-frame-viewport")
     implementation "com.github.xpenatan:gdx-frame-viewport:$project.gdxFrameViewportVersion"
 
     // Use JUnit test framework

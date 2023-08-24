@@ -14,8 +14,8 @@ dependencies {
     implementation "com.github.xpenatan.gdx-teavm:backend-teavm:$project.gdxTeaVMVersion"
 
     implementation project(":examples:node-editor:core")
-    implementation project(":imgui:core:core-teavm")
-    implementation project(":imgui:extensions:node-editor:editor-teavm")
+    implementation project(":imgui:teavm")
+    implementation project(":extensions:node-editor:editor-teavm")
 
 }
 

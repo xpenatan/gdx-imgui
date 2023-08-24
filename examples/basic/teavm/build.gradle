@@ -14,7 +14,7 @@ dependencies {
     implementation "com.github.xpenatan.gdx-teavm:backend-teavm:$project.gdxTeaVMVersion"
 
     implementation project(":examples:basic:core")
-    implementation project(":imgui:core:core-teavm")
+    implementation project(":imgui:teavm")
 
 }
 

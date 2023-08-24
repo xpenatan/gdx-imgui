@@ -1,0 +1,28 @@
+version = project.imlayoutVersion
+
+def module_name = "node-editor"
+
+dependencies {
+    implementation project(":imgui:core")
+
+    implementation "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
+
+    // Use JUnit test framework
+    testImplementation "junit:junit:$project.jUnitVersion"
+}
+
+clean.doFirst {
+    def srcPath = projectDir.toString() + "/src/main/"
+    if(new File(srcPath).exists()) {
+        project.delete(files(srcPath))
+    }
+}
+
+//publishing {
+//    publications {
+//        maven(MavenPublication) {
+//            artifactId = module_name
+//            from components.java
+//        }
+//    }
+//}

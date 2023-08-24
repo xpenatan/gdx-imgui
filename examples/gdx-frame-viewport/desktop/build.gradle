@@ -5,8 +5,8 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
     implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 
-    implementation project(":imgui:core:core-desktop")
-    implementation project(":imgui:extensions:imlayout:imlayout-desktop")
+    implementation project(":imgui:desktop")
+    implementation project(":extensions:imlayout:imlayout-desktop")
 }
 
 project.ext.mainClassName = "com.github.xpenatan.imgui.example.viewport.Main"
