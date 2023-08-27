@@ -5,7 +5,6 @@ import com.github.xpenatan.jparser.loader.JParserLibraryLoader;
 /**
  * @author xpenatan
  */
-/*[-IDL_SKIP]*/
 public class ImGui {
 
     /*[-teaVM;-ADD]

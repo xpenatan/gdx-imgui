@@ -23,7 +23,7 @@ interface ImGui {
     void                    ShowStyleSelector([Const]DOMString label);
     void                    ShowFontSelector([Const]DOMString label);
     void                    ShowUserGuide();
-    [Const]DOMString        GetVersion();
+//    [Const]DOMString        GetVersion();
 
     void                    StyleColorsDark(optional ImGuiStyle dst);
     void                    StyleColorsLight(optional ImGuiStyle dst);
@@ -253,7 +253,7 @@ interface ImGui {
 
     boolean                 BeginListBox([Const]DOMString label, [Const, Ref]optional ImVec2 size);
     void                    EndListBox();
-    boolean                 ListBox([Const]DOMString label, long[] current_item, [Const]DOMString[] items, long items_count, optional long height_in_items);
+//    boolean                 ListBox([Const]DOMString label, long[] current_item, [Const]DOMString[] items, long items_count, optional long height_in_items);
 //    boolean                 ListBox([Const]DOMString label, long[] current_item, boolean (*items_getter)(any data, long idx, [Const]DOMString[] out_text), any data, long items_count, optional long height_in_items);
 
     void                    PlotLines([Const]DOMString label, [Const]float[] values, long values_count, optional long values_offset, [Const]optional DOMString overlay_text, optional float scale_min, optional float scale_max); //, [Value] optional ImVec2 graph_size, optional long stride); //ERROR graph size
@@ -310,7 +310,7 @@ interface ImGui {
     long                    TableGetColumnCount();
     long                    TableGetColumnIndex();
     long                    TableGetRowIndex();
-    [Const]DOMString        TableGetColumnName(optional long column_n);
+//    [Const]DOMString        TableGetColumnName(optional long column_n);
     long                    TableGetColumnFlags(optional long column_n);
     void                    TableSetColumnEnabled(long column_n, boolean v);
     void                    TableSetBgColor(long target, unsigned long color, optional long column_n);
@@ -394,7 +394,7 @@ interface ImGui {
     double                  GetTime();
     long                    GetFrameCount();
     ImDrawListSharedData    GetDrawListSharedData();
-    [Const]DOMString        GetStyleColorName(long idx);
+//    [Const]DOMString        GetStyleColorName(long idx);
     void                    SetStateStorage(ImGuiStorage storage);
     ImGuiStorage            GetStateStorage();
     boolean                 BeginChildFrame(long id, [Const, Ref]ImVec2 size, optional long flags);
@@ -411,7 +411,7 @@ interface ImGui {
     boolean                 IsKeyPressed(ImGuiKey key, optional boolean repeat);
     boolean                 IsKeyReleased(ImGuiKey key);
     long                    GetKeyPressedAmount(ImGuiKey key, float repeat_delay, float rate);
-    [Const]DOMString        GetKeyName(ImGuiKey key);
+//    [Const]DOMString        GetKeyName(ImGuiKey key);
     void                    SetNextFrameWantCaptureKeyboard(boolean want_capture_keyboard);
 
     boolean                 IsMouseDown(long button);
@@ -431,14 +431,14 @@ interface ImGui {
     void                    SetMouseCursor(long cursor_type);
     void                    SetNextFrameWantCaptureMouse(boolean want_capture_mouse);
 
-    [Const]DOMString        GetClipboardText();
+//    [Const]DOMString        GetClipboardText();
     void                    SetClipboardText([Const]DOMString text);
 
     void                    LoadIniSettingsFromDisk([Const]DOMString ini_filename);
     void                    LoadIniSettingsFromMemory([Const]DOMString ini_data, optional long long ini_size);
     void                    SaveIniSettingsToDisk([Const]DOMString ini_filename);
 //    [Const]DOMString           SaveIniSettingsToMemory(optional long long[] out_ini_size); // ERROR
-    [Const]DOMString           SaveIniSettingsToMemory();
+//    [Const]DOMString           SaveIniSettingsToMemory();
 
     void                    DebugTextEncoding([Const]DOMString text);
     boolean                 DebugCheckVersionAndDataLayout([Const]DOMString version_str, long long sz_io, long long sz_style, long long sz_vec2, long long sz_vec4, long long sz_drawvert, long long sz_drawidx); // This is called by IMGUI_CHECKVERSION() macro.
@@ -601,4 +601,16 @@ interface ImGuiPlatformIO {
 
 [NoDelete]
 interface ImGuiContext {
+};
+
+enum ImDrawCornerFlags {
+    "ImDrawCornerFlags_None",
+    "ImDrawCornerFlags_TopRight",
+    "ImDrawCornerFlags_BotLeft",
+    "ImDrawCornerFlags_BotRight",
+    "ImDrawCornerFlags_All",
+    "ImDrawCornerFlags_Top",
+    "ImDrawCornerFlags_Bot",
+    "ImDrawCornerFlags_Left",
+    "ImDrawCornerFlags_Right"
 };

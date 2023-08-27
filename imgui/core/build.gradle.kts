@@ -1,7 +1,7 @@
 val moduleName = "core"
 
 dependencies {
-    implementation("com.github.xpenatan.jParser:jParser-loader:${LibExt.jParserVersion}")
+    implementation("com.github.xpenatan.jParser:loader-core:${LibExt.jParserVersion}")
 
     testImplementation(project(":imgui:desktop"))
     testImplementation("junit:junit:${LibExt.jUnitVersion}")
