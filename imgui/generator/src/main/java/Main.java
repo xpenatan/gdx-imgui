@@ -79,20 +79,16 @@ public class Main {
         JParser.generate(teavmParser, baseJavaDir, teaVMgenDir);
 
         Path copyOut = new File(libDestinationPath).toPath();
+        Path copyJNIOut = new File(cppDestinationPath + "/jniglue").toPath();
         FileHelper.copyDir(new File("src/main/cpp/cpp-source/custom").toPath(), copyOut);
-        FileHelper.copyDir(new File("src/main/cpp/cpp-source/jni").toPath(), copyOut);
+        FileHelper.copyDir(new File("src/main/cpp/cpp-source/jni").toPath(), copyJNIOut);
 
         JBuilder.build(
                 buildConfig,
-                getWindowBuildTarget()
-//                getEmscriptenBuildTarget(idlPath)
+                getWindowBuildTarget(),
+                getEmscriptenBuildTarget(idlPath)
 //                getAndroidBuildTarget()
         );
-
-
-
-
-
 
 //
 //        String path = "..\\core-build\\src\\main\\resources\\imgui.idl";
@@ -128,15 +124,13 @@ public class Main {
 
     private static BuildTarget getEmscriptenBuildTarget(String idlPath) {
         EmscriptenTarget teaVMTarget = new EmscriptenTarget(idlPath);
-        teaVMTarget.headerDirs.add("-Isrc/bullet");
-        teaVMTarget.headerDirs.add("-includesrc/jsglue/Bullet.h");
-        teaVMTarget.headerDirs.add("-includesrc/jsglue/custom_glue.cpp");
-        teaVMTarget.cppIncludes.add("**/src/bullet/BulletCollision/**.cpp");
-        teaVMTarget.cppIncludes.add("**/src/bullet/BulletDynamics/**.cpp");
-        teaVMTarget.cppIncludes.add("**/src/bullet/BulletSoftBody/**.cpp");
-        teaVMTarget.cppIncludes.add("**/src/bullet/LinearMath/**.cpp");
-        teaVMTarget.cppIncludes.add("**/src/jsglue/glue.cpp");
-        teaVMTarget.cppFlags.add("-DBT_USE_INVERSE_DYNAMICS_WITH_BULLET2");
+        teaVMTarget.headerDirs.add("-Isrc/imgui");
+        teaVMTarget.headerDirs.add("-includesrc/jsglue/Imgui_lib.h");
+//        teaVMTarget.headerDirs.add("-includesrc/imgui/imgui.h");
+//        teaVMTarget.headerDirs.add("-includesrc/jsglue/custom_glue.cpp");
+        teaVMTarget.cppIncludes.add("**/imgui/*.cpp");
+        teaVMTarget.cppFlags.add("-DIMGUI_DISABLE_FILE_FUNCTIONS");
+        teaVMTarget.cppFlags.add("-DIMGUI_DEFINE_MATH_OPERATORS");
         return teaVMTarget;
     }
 }

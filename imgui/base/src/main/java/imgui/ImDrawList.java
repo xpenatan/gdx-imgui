@@ -62,7 +62,7 @@ public class ImDrawList extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawList);
         return nativeObject.get_Flags();
     */
     /*[-C++;-NATIVE]
@@ -78,10 +78,10 @@ public class ImDrawList extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawList);
         var cmdBuffer = nativeObject.get_CmdBuffer();
         var drawCmd = cmdBuffer.getData(index);
-        return ImGui.getPointer(drawCmd);
+        return imgui.getPointer(drawCmd);
     */
     /*[-C++;-NATIVE]
         ImDrawList* nativeObject = (ImDrawList*)addr;
@@ -94,7 +94,7 @@ public class ImDrawList extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawList);
         return nativeObject.CmdBuffer.size();
     */
     /*[-C++;-NATIVE]
@@ -128,20 +128,20 @@ public class ImDrawList extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
-        var charArray = ImGui.wrapPointer(bufferAddr, ImGui.CharArray);
+        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawList);
+        var charArray = imgui.wrapPointer(bufferAddr, imgui.ByteArray);
         var charArrayPtr = charArray.getPointer();
-        ImGui.ImHelper.prototype.memcpyIdx(charArrayPtr, nativeObject, bufferCapacity);
+        imgui.ImHelper.prototype.memcpyIdx(charArrayPtr, nativeObject, bufferCapacity);
     */
     /*[-C++;-NATIVE]
         ImDrawList* nativeObject = (ImDrawList*)addr;
-        CharArray* charArray = (CharArray*)bufferAddr;
+        ByteArray* charArray = (ByteArray*)bufferAddr;
         ImHelper::memcpyIdx(charArray->getPointer(), nativeObject, bufferCapacity);
     */
     private static native void getIdxBufferDataNATIVE(long addr, long bufferAddr, int bufferCapacity);
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawList);
         return nativeObject.IdxBuffer.size();
     */
     /*[-C++;-NATIVE]
@@ -176,20 +176,20 @@ public class ImDrawList extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
-        var charArray = ImGui.wrapPointer(bufferAddr, ImGui.CharArray);
+        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawList);
+        var charArray = imgui.wrapPointer(bufferAddr, imgui.ByteArray);
         var charArrayPtr = charArray.getPointer();
-        ImGui.ImHelper.prototype.memcpyVtx(charArrayPtr, nativeObject, bufferCapacity);
+        imgui.ImHelper.prototype.memcpyVtx(charArrayPtr, nativeObject, bufferCapacity);
     */
     /*[-C++;-NATIVE]
         ImDrawList* nativeObject = (ImDrawList*)addr;
-        CharArray* charArray = (CharArray*)bufferAddr;
+        ByteArray* charArray = (ByteArray*)bufferAddr;
         ImHelper::memcpyVtx(charArray->getPointer(), nativeObject, bufferCapacity);
     */
     private static native void getVtxBufferDataNATIVE(long addr, long bufferAddr, int bufferCapacity);
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawList);
         return nativeObject.VtxBuffer.size();
     */
     /*[-C++;-NATIVE]
@@ -504,7 +504,7 @@ public class ImDrawList extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var drawList = ImGui.wrapPointer(addr, ImGui.ImDrawList);
+        var drawList = imgui.wrapPointer(addr, imgui.ImDrawList);
         drawList.AddImage(textureID, p_minAddr, p_maxAddr, uv_minAddr, uv_maxAddr);
     */
     /*[-C++;-NATIVE]

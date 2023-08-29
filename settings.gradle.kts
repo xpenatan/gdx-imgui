@@ -6,7 +6,7 @@ include(":imgui:desktop")
 include(":imgui:teavm")
 
 // Extensions
-//include(":extensions:gdx")
+include(":extensions:gdx")
 //include(":extensions:lwjgl3")
 //include(":extensions:gdx-frame-viewport")
 
@@ -26,11 +26,11 @@ include(":imgui:teavm")
 // Examples
 //include(":examples:gdx-frame-viewport:core")
 //include(":examples:gdx-frame-viewport:desktop")
-//
-//include(":examples:basic:core")
-//include(":examples:basic:desktop")
-//include(":examples:basic:teavm")
-//
+
+include(":examples:basic:core")
+include(":examples:basic:desktop")
+include(":examples:basic:teavm")
+
 //include(":examples:imlayout:core")
 //include(":examples:imlayout:desktop")
 //include(":examples:imlayout:teavm")

@@ -2,7 +2,6 @@ package imgui;
 
 import idl.IDLBase;
 
-/*[-IDL_SKIP]*/
 public class ImDrawCmd extends IDLBase {
 
     /*[-C++;-NATIVE]
@@ -19,26 +18,13 @@ public class ImDrawCmd extends IDLBase {
     public ImDrawCmd(boolean cMemoryOwn) {
     }
 
-    public native ImVec4 getClipRect();
-
-    /*[-teaVM;-NATIVE]
-        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawCmd);
-        var jsObj = nativeObject.get_ClipRect();
-        return ImGui.getPointer(jsObj);
-    */
-    /*[-C++;-NATIVE]
-        ImDrawCmd* nativeObject = (ImDrawCmd*)addr;
-        return (jlong)&nativeObject->ClipRect;
-    */
-    private static native long getClipRectNATIVE(long addr);
-
     public int getTextureId() {
         return getTextureIdNATIVE(getCPointer());
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawCmd);
-        var textureId = ImGui.ImHelper.prototype.getTextureId(nativeObject);
+        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawCmd);
+        var textureId = imgui.ImHelper.prototype.getTextureId(nativeObject);
         return textureId;
     */
     /*[-C++;-NATIVE]
@@ -53,7 +39,7 @@ public class ImDrawCmd extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawCmd);
+        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawCmd);
         var jsObj = nativeObject.get_IdxOffset();
         return jsObj;
     */
@@ -68,7 +54,7 @@ public class ImDrawCmd extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawCmd);
+        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawCmd);
         var jsObj = nativeObject.get_VtxOffset();
         return jsObj;
     */
@@ -83,7 +69,7 @@ public class ImDrawCmd extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = ImGui.wrapPointer(addr, ImGui.ImDrawCmd);
+        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawCmd);
         var jsObj = nativeObject.get_ElemCount();
         return jsObj;
     */

@@ -3,10 +3,10 @@ package com.github.xpenatan.imgui.gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.github.xpenatan.imgui.core.ImGui;
-import com.github.xpenatan.imgui.core.ImGuiIO;
-import com.github.xpenatan.imgui.core.enums.ImGuiFocusedFlags;
-import com.github.xpenatan.imgui.core.enums.ImGuiKey;
+import imgui.ImGui;
+import imgui.ImGuiFocusedFlags;
+import imgui.ImGuiIO;
+import imgui.ImGuiKey;
 
 /**
  * ImGui use this class to update UI inputs. It will also block (return true) some inputs that is triggered inside ImGui window.
@@ -78,7 +78,7 @@ public class ImGuiGdxInput extends InputAdapter {
         int charr = character;
         if(charr != DELETE) // Ignore if char is delete key
             io.UpdateKeyTyped(character);
-        if(ImGui.IsWindowFocused(ImGuiFocusedFlags.AnyWindow))
+        if(ImGui.IsWindowFocused(ImGuiFocusedFlags.ImGuiFocusedFlags_AnyWindow))
             return true;
         return false;
     }
@@ -102,21 +102,21 @@ public class ImGuiGdxInput extends InputAdapter {
             superKey = true;
         int imGuiKey = getImGuiKey(keycode);
         if(superKey) {
-            io.AddKeyEvent(ImGuiKey.ModSuper, true);
+            io.AddKeyEvent(ImGuiKey.ImGuiMod_Super, true);
         }
         else if(ctrlKey) {
-            io.AddKeyEvent(ImGuiKey.ModCtrl, true);
+            io.AddKeyEvent(ImGuiKey.ImGuiMod_Ctrl, true);
         }
         else if(shiftKey) {
-            io.AddKeyEvent(ImGuiKey.ModShift, true);
+            io.AddKeyEvent(ImGuiKey.ImGuiMod_Shift, true);
         }
         else if(altKey) {
-            io.AddKeyEvent(ImGuiKey.ModAlt, true);
+            io.AddKeyEvent(ImGuiKey.ImGuiMod_Alt, true);
         }
 
         io.AddKeyEvent(imGuiKey, true);
 
-        if(ImGui.IsWindowFocused(ImGuiFocusedFlags.AnyWindow))
+        if(ImGui.IsWindowFocused(ImGuiFocusedFlags.ImGuiFocusedFlags_AnyWindow))
             return true;
         return false;
     }
@@ -140,21 +140,21 @@ public class ImGuiGdxInput extends InputAdapter {
             superKey = true;
         int imGuiKey = getImGuiKey(keycode);
         if(superKey) {
-            io.AddKeyEvent(ImGuiKey.ModSuper, false);
+            io.AddKeyEvent(ImGuiKey.ImGuiMod_Super, false);
         }
         else if(ctrlKey) {
-            io.AddKeyEvent(ImGuiKey.ModCtrl, false);
+            io.AddKeyEvent(ImGuiKey.ImGuiMod_Ctrl, false);
         }
         else if(shiftKey) {
-            io.AddKeyEvent(ImGuiKey.ModShift, false);
+            io.AddKeyEvent(ImGuiKey.ImGuiMod_Shift, false);
         }
         else if(altKey) {
-            io.AddKeyEvent(ImGuiKey.ModAlt, false);
+            io.AddKeyEvent(ImGuiKey.ImGuiMod_Alt, false);
         }
 
         io.AddKeyEvent(imGuiKey, false);
 
-        if(ImGui.IsWindowFocused(ImGuiFocusedFlags.AnyWindow))
+        if(ImGui.IsWindowFocused(ImGuiFocusedFlags.ImGuiFocusedFlags_AnyWindow))
             return true;
         return false;
     }
@@ -181,216 +181,216 @@ public class ImGuiGdxInput extends InputAdapter {
     private static int getImGuiKey(int gdxKey) {
         switch(gdxKey) {
             case Keys.TAB:
-                return ImGuiKey.Tab;
+                return ImGuiKey.ImGuiKey_Tab;
             case Keys.LEFT:
-                return ImGuiKey.LeftArrow;
+                return ImGuiKey.ImGuiKey_LeftArrow;
             case Keys.RIGHT:
-                return ImGuiKey.RightArrow;
+                return ImGuiKey.ImGuiKey_RightArrow;
             case Keys.UP:
-                return ImGuiKey.UpArrow;
+                return ImGuiKey.ImGuiKey_UpArrow;
             case Keys.DOWN:
-                return ImGuiKey.DownArrow;
+                return ImGuiKey.ImGuiKey_DownArrow;
             case Keys.PAGE_UP:
-                return ImGuiKey.PageUp;
+                return ImGuiKey.ImGuiKey_PageUp;
             case Keys.PAGE_DOWN:
-                return ImGuiKey.PageDown;
+                return ImGuiKey.ImGuiKey_PageDown;
             case Keys.HOME:
-                return ImGuiKey.Home;
+                return ImGuiKey.ImGuiKey_Home;
             case Keys.END:
-                return ImGuiKey.End;
+                return ImGuiKey.ImGuiKey_End;
             case Keys.INSERT:
-                return ImGuiKey.Insert;
+                return ImGuiKey.ImGuiKey_Insert;
             case Keys.FORWARD_DEL:
-                return ImGuiKey.Delete;
+                return ImGuiKey.ImGuiKey_Delete;
             case Keys.BACKSPACE:
-                return ImGuiKey.Backspace;
+                return ImGuiKey.ImGuiKey_Backspace;
             case Keys.SPACE:
-                return ImGuiKey.Space;
+                return ImGuiKey.ImGuiKey_Space;
             case Keys.ENTER:
-                return ImGuiKey.Enter;
+                return ImGuiKey.ImGuiKey_Enter;
             case Keys.ESCAPE:
-                return ImGuiKey.Escape;
+                return ImGuiKey.ImGuiKey_Escape;
             case Keys.APOSTROPHE:
-                return ImGuiKey.Apostrophe;
+                return ImGuiKey.ImGuiKey_Apostrophe;
             case Keys.COMMA:
-                return ImGuiKey.Comma;
+                return ImGuiKey.ImGuiKey_Comma;
             case Keys.MINUS:
-                return ImGuiKey.Minus;
+                return ImGuiKey.ImGuiKey_Minus;
             case Keys.PERIOD:
-                return ImGuiKey.Period;
+                return ImGuiKey.ImGuiKey_Period;
             case Keys.SLASH:
-                return ImGuiKey.Slash;
+                return ImGuiKey.ImGuiKey_Slash;
             case Keys.SEMICOLON:
-                return ImGuiKey.Semicolon;
+                return ImGuiKey.ImGuiKey_Semicolon;
             case Keys.EQUALS:
-                return ImGuiKey.Equal;
+                return ImGuiKey.ImGuiKey_Equal;
             case Keys.LEFT_BRACKET:
-                return ImGuiKey.LeftBracket;
+                return ImGuiKey.ImGuiKey_LeftBracket;
             case Keys.BACKSLASH:
-                return ImGuiKey.Backslash;
+                return ImGuiKey.ImGuiKey_Backslash;
             case Keys.RIGHT_BRACKET:
-                return ImGuiKey.RightBracket;
+                return ImGuiKey.ImGuiKey_RightBracket;
             case Keys.GRAVE:
-                return ImGuiKey.GraveAccent;
+                return ImGuiKey.ImGuiKey_GraveAccent;
             case Keys.CAPS_LOCK:
-                return ImGuiKey.CapsLock;
+                return ImGuiKey.ImGuiKey_CapsLock;
             case Keys.SCROLL_LOCK:
-                return ImGuiKey.ScrollLock;
+                return ImGuiKey.ImGuiKey_ScrollLock;
             case Keys.NUM_LOCK:
-                return ImGuiKey.NumLock;
+                return ImGuiKey.ImGuiKey_NumLock;
             case Keys.PRINT_SCREEN:
-                return ImGuiKey.PrintScreen;
+                return ImGuiKey.ImGuiKey_PrintScreen;
             case Keys.PAUSE:
-                return ImGuiKey.Pause;
+                return ImGuiKey.ImGuiKey_Pause;
             case Keys.NUMPAD_0:
-                return ImGuiKey.Keypad0;
+                return ImGuiKey.ImGuiKey_Keypad0;
             case Keys.NUMPAD_1:
-                return ImGuiKey.Keypad1;
+                return ImGuiKey.ImGuiKey_Keypad1;
             case Keys.NUMPAD_2:
-                return ImGuiKey.Keypad2;
+                return ImGuiKey.ImGuiKey_Keypad2;
             case Keys.NUMPAD_3:
-                return ImGuiKey.Keypad3;
+                return ImGuiKey.ImGuiKey_Keypad3;
             case Keys.NUMPAD_4:
-                return ImGuiKey.Keypad4;
+                return ImGuiKey.ImGuiKey_Keypad4;
             case Keys.NUMPAD_5:
-                return ImGuiKey.Keypad5;
+                return ImGuiKey.ImGuiKey_Keypad5;
             case Keys.NUMPAD_6:
-                return ImGuiKey.Keypad6;
+                return ImGuiKey.ImGuiKey_Keypad6;
             case Keys.NUMPAD_7:
-                return ImGuiKey.Keypad7;
+                return ImGuiKey.ImGuiKey_Keypad7;
             case Keys.NUMPAD_8:
-                return ImGuiKey.Keypad8;
+                return ImGuiKey.ImGuiKey_Keypad8;
             case Keys.NUMPAD_9:
-                return ImGuiKey.Keypad9;
+                return ImGuiKey.ImGuiKey_Keypad9;
             case Keys.NUMPAD_DOT:
-                return ImGuiKey.KeypadDecimal;
+                return ImGuiKey.ImGuiKey_KeypadDecimal;
             case Keys.NUMPAD_DIVIDE:
-                return ImGuiKey.KeypadDivide;
+                return ImGuiKey.ImGuiKey_KeypadDivide;
             case Keys.NUMPAD_MULTIPLY:
-                return ImGuiKey.KeypadMultiply;
+                return ImGuiKey.ImGuiKey_KeypadMultiply;
             case Keys.NUMPAD_SUBTRACT:
-                return ImGuiKey.KeypadSubtract;
+                return ImGuiKey.ImGuiKey_KeypadSubtract;
             case Keys.NUMPAD_ADD:
-                return ImGuiKey.KeypadAdd;
+                return ImGuiKey.ImGuiKey_KeypadAdd;
             case Keys.NUMPAD_ENTER:
-                return ImGuiKey.KeypadEnter;
+                return ImGuiKey.ImGuiKey_KeypadEnter;
             case Keys.NUMPAD_EQUALS:
-                return ImGuiKey.KeypadEqual;
+                return ImGuiKey.ImGuiKey_KeypadEqual;
             case Keys.SHIFT_LEFT:
-                return ImGuiKey.LeftShift;
+                return ImGuiKey.ImGuiKey_LeftShift;
             case Keys.CONTROL_LEFT:
-                return ImGuiKey.LeftCtrl;
+                return ImGuiKey.ImGuiKey_LeftCtrl;
             case Keys.ALT_LEFT:
-                return ImGuiKey.LeftAlt;
+                return ImGuiKey.ImGuiKey_LeftAlt;
             case Keys.SYM:
-                return ImGuiKey.LeftSuper;
+                return ImGuiKey.ImGuiKey_LeftSuper;
             case Keys.SHIFT_RIGHT:
-                return ImGuiKey.RightShift;
+                return ImGuiKey.ImGuiKey_RightShift;
             case Keys.CONTROL_RIGHT:
-                return ImGuiKey.RightCtrl;
+                return ImGuiKey.ImGuiKey_RightCtrl;
             case Keys.ALT_RIGHT:
-                return ImGuiKey.RightAlt;
+                return ImGuiKey.ImGuiKey_RightAlt;
 //			case Keys.SYM: return ImGuiKey.RightSuper;
             case Keys.MENU:
-                return ImGuiKey.Menu;
+                return ImGuiKey.ImGuiKey_Menu;
             case Keys.NUM_0:
-                return ImGuiKey.NUM_0;
+                return ImGuiKey.ImGuiKey_0;
             case Keys.NUM_1:
-                return ImGuiKey.NUM_1;
+                return ImGuiKey.ImGuiKey_1;
             case Keys.NUM_2:
-                return ImGuiKey.NUM_2;
+                return ImGuiKey.ImGuiKey_2;
             case Keys.NUM_3:
-                return ImGuiKey.NUM_3;
+                return ImGuiKey.ImGuiKey_3;
             case Keys.NUM_4:
-                return ImGuiKey.NUM_4;
+                return ImGuiKey.ImGuiKey_4;
             case Keys.NUM_5:
-                return ImGuiKey.NUM_5;
+                return ImGuiKey.ImGuiKey_5;
             case Keys.NUM_6:
-                return ImGuiKey.NUM_6;
+                return ImGuiKey.ImGuiKey_6;
             case Keys.NUM_7:
-                return ImGuiKey.NUM_7;
+                return ImGuiKey.ImGuiKey_7;
             case Keys.NUM_8:
-                return ImGuiKey.NUM_8;
+                return ImGuiKey.ImGuiKey_8;
             case Keys.NUM_9:
-                return ImGuiKey.NUM_9;
+                return ImGuiKey.ImGuiKey_9;
             case Keys.A:
-                return ImGuiKey.A;
+                return ImGuiKey.ImGuiKey_A;
             case Keys.B:
-                return ImGuiKey.B;
+                return ImGuiKey.ImGuiKey_B;
             case Keys.C:
-                return ImGuiKey.C;
+                return ImGuiKey.ImGuiKey_C;
             case Keys.D:
-                return ImGuiKey.D;
+                return ImGuiKey.ImGuiKey_D;
             case Keys.E:
-                return ImGuiKey.E;
+                return ImGuiKey.ImGuiKey_E;
             case Keys.F:
-                return ImGuiKey.F;
+                return ImGuiKey.ImGuiKey_F;
             case Keys.G:
-                return ImGuiKey.G;
+                return ImGuiKey.ImGuiKey_G;
             case Keys.H:
-                return ImGuiKey.H;
+                return ImGuiKey.ImGuiKey_H;
             case Keys.I:
-                return ImGuiKey.I;
+                return ImGuiKey.ImGuiKey_I;
             case Keys.J:
-                return ImGuiKey.J;
+                return ImGuiKey.ImGuiKey_J;
             case Keys.K:
-                return ImGuiKey.K;
+                return ImGuiKey.ImGuiKey_K;
             case Keys.L:
-                return ImGuiKey.L;
+                return ImGuiKey.ImGuiKey_L;
             case Keys.M:
-                return ImGuiKey.M;
+                return ImGuiKey.ImGuiKey_M;
             case Keys.N:
-                return ImGuiKey.N;
+                return ImGuiKey.ImGuiKey_N;
             case Keys.O:
-                return ImGuiKey.O;
+                return ImGuiKey.ImGuiKey_O;
             case Keys.P:
-                return ImGuiKey.P;
+                return ImGuiKey.ImGuiKey_P;
             case Keys.Q:
-                return ImGuiKey.Q;
+                return ImGuiKey.ImGuiKey_Q;
             case Keys.R:
-                return ImGuiKey.R;
+                return ImGuiKey.ImGuiKey_R;
             case Keys.S:
-                return ImGuiKey.S;
+                return ImGuiKey.ImGuiKey_S;
             case Keys.T:
-                return ImGuiKey.T;
+                return ImGuiKey.ImGuiKey_T;
             case Keys.U:
-                return ImGuiKey.U;
+                return ImGuiKey.ImGuiKey_U;
             case Keys.V:
-                return ImGuiKey.V;
+                return ImGuiKey.ImGuiKey_V;
             case Keys.W:
-                return ImGuiKey.W;
+                return ImGuiKey.ImGuiKey_W;
             case Keys.X:
-                return ImGuiKey.X;
+                return ImGuiKey.ImGuiKey_X;
             case Keys.Y:
-                return ImGuiKey.Y;
+                return ImGuiKey.ImGuiKey_Y;
             case Keys.Z:
-                return ImGuiKey.Z;
+                return ImGuiKey.ImGuiKey_Z;
             case Keys.F1:
-                return ImGuiKey.F1;
+                return ImGuiKey.ImGuiKey_F1;
             case Keys.F2:
-                return ImGuiKey.F2;
+                return ImGuiKey.ImGuiKey_F2;
             case Keys.F3:
-                return ImGuiKey.F3;
+                return ImGuiKey.ImGuiKey_F3;
             case Keys.F4:
-                return ImGuiKey.F4;
+                return ImGuiKey.ImGuiKey_F4;
             case Keys.F5:
-                return ImGuiKey.F5;
+                return ImGuiKey.ImGuiKey_F5;
             case Keys.F6:
-                return ImGuiKey.F6;
+                return ImGuiKey.ImGuiKey_F6;
             case Keys.F7:
-                return ImGuiKey.F7;
+                return ImGuiKey.ImGuiKey_F7;
             case Keys.F8:
-                return ImGuiKey.F8;
+                return ImGuiKey.ImGuiKey_F8;
             case Keys.F9:
-                return ImGuiKey.F9;
+                return ImGuiKey.ImGuiKey_F9;
             case Keys.F10:
-                return ImGuiKey.F10;
+                return ImGuiKey.ImGuiKey_F10;
             case Keys.F11:
-                return ImGuiKey.F11;
+                return ImGuiKey.ImGuiKey_F11;
             case Keys.F12:
-                return ImGuiKey.F12;
+                return ImGuiKey.ImGuiKey_F12;
             default:
-                return ImGuiKey.None;
+                return ImGuiKey.ImGuiKey_None;
         }
     }
 }

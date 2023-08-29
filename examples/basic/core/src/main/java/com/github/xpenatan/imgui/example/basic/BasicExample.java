@@ -1,24 +1,21 @@
 package com.github.xpenatan.imgui.example.basic;
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.github.xpenatan.imgui.core.ImDrawData;
-import com.github.xpenatan.imgui.core.ImGui;
-import com.github.xpenatan.imgui.core.ImGuiBoolean;
-import com.github.xpenatan.imgui.core.ImGuiIO;
-import com.github.xpenatan.imgui.core.enums.ImGuiConfigFlags;
-import com.github.xpenatan.imgui.core.enums.ImGuiWindowFlags;
 import com.github.xpenatan.imgui.example.basic.renderer.ColorRenderer;
 import com.github.xpenatan.imgui.example.basic.renderer.EditTextRenderer;
 import com.github.xpenatan.imgui.example.basic.renderer.SelectListRenderer;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
+import imgui.ImDrawData;
+import imgui.ImGui;
+import imgui.ImVec2;
+import imgui.ImVec4;
 
-public class BasicExample implements ApplicationListener {
+public class BasicExample extends ScreenAdapter {
 
     private OrthographicCamera uiCam;
     private SpriteBatch batch;
@@ -26,7 +23,7 @@ public class BasicExample implements ApplicationListener {
 
     private boolean init = false;
 
-    private ImGuiBoolean checkbox;
+//    private ImGuiBoolean checkbox;
 
     private EditTextRenderer editTextRenderer;
     private SelectListRenderer selectListRenderer;
@@ -35,10 +32,10 @@ public class BasicExample implements ApplicationListener {
     private StringBuilder stringBuilder = new StringBuilder();
 
     @Override
-    public void create() {
-        ImGui.init();
+    public void show() {
+        ImGui.CreateContext(false);
 
-        checkbox = new ImGuiBoolean();
+//        checkbox = new ImGuiBoolean();
         editTextRenderer = new EditTextRenderer();
         selectListRenderer = new SelectListRenderer();
         colorRenderer = new ColorRenderer();
@@ -46,13 +43,13 @@ public class BasicExample implements ApplicationListener {
         uiCam = new OrthographicCamera();
         uiCam.setToOrtho(true);
         batch = new SpriteBatch();
-        ImGuiIO io = ImGui.GetIO();
-        if(Gdx.app.getType() == Application.ApplicationType.WebGL) {
-            // Not possible to have ini filename with webgl
-            ImGui.GetIO().setIniFilename(null);
-        }
+//        ImGuiIO io = ImGui.GetIO();
+//        if(Gdx.app.getType() == Application.ApplicationType.WebGL) {
+//            // Not possible to have ini filename with webgl
+//            ImGui.GetIO().setIniFilename(null);
+//        }
 
-        io.SetConfigFlags(ImGuiConfigFlags.DockingEnable);
+//        io.SetConfigFlags(ImGuiConfigFlags.DockingEnable);
 
         ImGuiGdxInputMultiplexer input = new ImGuiGdxInputMultiplexer();
         impl = new ImGuiGdxImpl();
@@ -60,7 +57,7 @@ public class BasicExample implements ApplicationListener {
     }
 
     @Override
-    public void render() {
+    public void render(float delta) {
         Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -71,25 +68,25 @@ public class BasicExample implements ApplicationListener {
 
         if(init == false) {
             init = true;
-            ImGui.SetNextWindowSize(400, 400);
+            ImGui.SetNextWindowSize(new ImVec2(400, 400), 1 << 1);
         }
+//
+//        ImGui.Begin("Hello World");
 
-        ImGui.Begin("Hello World");
-
-        ImGui.Text("HelloText");
-
-        stringBuilder.setLength(0);
-        stringBuilder.append("HelloText 2");
-        ImGui.Text(stringBuilder);
-
-        ImGui.Checkbox("Check", checkbox);
-
-        editTextRenderer.render();
-        selectListRenderer.render();
-        colorRenderer.render();
-
-        ImGui.End();
-
+//        ImGui.Text("HelloText");
+//
+////        stringBuilder.setLength(0);
+////        stringBuilder.append("HelloText 2");
+////        ImGui.Text(stringBuilder);
+//
+////        ImGui.Checkbox("Check", checkbox);
+//
+//        editTextRenderer.render();
+//        selectListRenderer.render();
+//        colorRenderer.render();
+//
+//        ImGui.End();
+//
         ImGui.ShowDemoWindow();
 
         ImGui.Render();
@@ -111,6 +108,6 @@ public class BasicExample implements ApplicationListener {
 
     @Override
     public void dispose() {
-        ImGui.dispose();
+//        ImGui.dispose();
     }
 }

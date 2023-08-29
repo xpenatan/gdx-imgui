@@ -1,7 +1,0 @@
-dependencies {
-    implementation "com.badlogicgames.gdx:gdx:$project.gdxVersion"
-    implementation "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
-
-    implementation project(":imgui:core")
-    implementation project(":extensions:gdx")
-}

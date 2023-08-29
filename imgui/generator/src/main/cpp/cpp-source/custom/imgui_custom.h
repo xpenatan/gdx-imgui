@@ -10,15 +10,18 @@
 
 class ImHelper {
     public:
-        static void memcpyIdx(void * destination, ImDrawList * drawList, int num) {
-            memcpy(destination, drawList->IdxBuffer.Data, num);
+        static void memcpyIdx(intptr_t destination, ImDrawList * drawList, int num) {
+            void * dest = (void*)destination;
+            memcpy(dest, drawList->IdxBuffer.Data, num);
         }
 
-        static void memcpyVtx(void * destination, ImDrawList * drawList, int num) {
-            memcpy(destination, drawList->VtxBuffer.Data, num);
+        static void memcpyVtx(intptr_t destination, ImDrawList * drawList, int num) {
+            void * dest = (void*)destination;
+            memcpy(dest, drawList->VtxBuffer.Data, num);
         }
 
-        static void memcpyFont(ImGuiIO * io, void * pixelBuffer, int * width, int * height, int * bytesPerPixel) {
+        static void memcpyFont(ImGuiIO * io, intptr_t pixelBuff, int * width, int * height, int * bytesPerPixel) {
+            void * pixelBuffer = (void *)pixelBuff;
             unsigned char* pixels;
             io->Fonts->GetTexDataAsRGBA32(&pixels, width, height, bytesPerPixel);
             int size = (*width) * (*height) * (*bytesPerPixel);

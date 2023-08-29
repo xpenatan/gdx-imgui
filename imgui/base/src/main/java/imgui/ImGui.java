@@ -7,36 +7,51 @@ import com.github.xpenatan.jparser.loader.JParserLibraryLoader;
  */
 public class ImGui {
 
-    /*[-teaVM;-ADD]
-        @org.teavm.jso.JSFunctor
-        public interface OnInitFunction extends org.teavm.jso.JSObject {
-            void onInit();
+    /*[-C++;-NATIVE]
+        #include "ImGuiWrapper.h"
+    */
+
+    public static void UpdateDisplayAndInputAndFrame(float deltaTime, int width, int height, int backBufferWidth, int backBufferHeight) {
+        UpdateDisplayAndInputAndFrameNative(deltaTime, width, height, backBufferWidth, backBufferHeight);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var io = ImGui.wrapPointer(imguiIOAddr, ImGui.ImGuiIO);
+        io.get_DisplaySize().set_x(width);
+        io.get_DisplaySize().set_y(height);
+        if (width > 0 && height > 0) {
+            io.get_DisplayFramebufferScale().set_x(display_w / width);
+            io.get_DisplayFramebufferScale().set_y(display_h / height);
         }
+        io.set_DeltaTime = deltaTime;
+        ImGui.Im.prototype.NewFrame();
     */
+    /*[-C++;-NATIVE]
+        ImGuiIO * io = &ImGui::GetIO();
 
-    /*[-teaVM;-REPLACE]
-     public static void init(Runnable run) {
-        JParserLibraryLoader libraryLoader = new JParserLibraryLoader();
-        OnInitFunction onInitFunction = new OnInitFunction() {
-            @Override
-            public void onInit() {
-                run.run();
-            }
-        };
-        setOnLoadInit(onInitFunction);
-        libraryLoader.load("bullet.wasm");
-    }
+        io->DisplaySize = ImVec2(width, height);
+        if (width > 0 && height > 0)
+            io->DisplayFramebufferScale = ImVec2((float)display_w / width, (float)display_h / height);
+        io->DeltaTime = deltaTime;
+
+        ImGui::NewFrame();
     */
-    public static void init(Runnable run) {
-        JParserLibraryLoader libraryLoader = new JParserLibraryLoader();
-        libraryLoader.load("imgui");
-        run.run();
+    public static native void UpdateDisplayAndInputAndFrameNative(float deltaTime, int width, int height, int display_w, int display_h);
+
+
+    /*[-IDL_SKIP]*/
+    public static void CreateContext() {
     }
 
-    /*[-teaVM;-REPLACE]
-        @org.teavm.jso.JSBody(params = { "onInitFunction" }, script = "window.imguiOnInit = onInitFunction;")
-        private static native void setOnLoadInit(OnInitFunction onInitFunction);
+    /*[-teaVM;-NATIVE]
+        ImGui.Im.prototype.CreateContext();
     */
-    /*[-C++;-REMOVE] */
-    public static native void setOnLoadInit();
+    /*[-C++;-NATIVE]
+        ImGui::CreateContext();
+        if(saveIni == false) {
+            ImGui::GetIO().IniFilename = NULL;
+        }
+        ImGui::GetIO().BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
+    */
+    public static native void CreateContext(boolean saveIni);
 }

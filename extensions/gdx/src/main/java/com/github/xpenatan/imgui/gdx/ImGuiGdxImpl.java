@@ -7,14 +7,14 @@ import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Matrix4;
-import com.github.xpenatan.imgui.core.ImDrawCmd;
-import com.github.xpenatan.imgui.core.ImDrawData;
-import com.github.xpenatan.imgui.core.ImDrawList;
-import com.github.xpenatan.imgui.core.ImGui;
-import com.github.xpenatan.imgui.core.ImGuiByteArray;
-import com.github.xpenatan.imgui.core.ImGuiIO;
-import com.github.xpenatan.imgui.core.ImGuiInt;
-import com.github.xpenatan.imgui.core.ImVec4;
+import imgui.ImDrawCmd;
+import imgui.ImDrawData;
+import imgui.ImDrawList;
+import imgui.ImGui;
+import imgui.ImGuiIO;
+import imgui.ImGuiInt;
+import imgui.ImVec4;
+import imgui.idl.helper.ByteArray;
 import java.nio.ByteBuffer;
 
 /**
@@ -61,7 +61,7 @@ public class ImGuiGdxImpl {
         ImGuiInt width = new ImGuiInt();
         ImGuiInt height = new ImGuiInt();
         ImGuiInt bytesPerPixel = new ImGuiInt();
-        ImGuiByteArray bytesArray = new ImGuiByteArray(pixelMax);
+        ByteArray bytesArray = new ByteArray(pixelMax);
 
         width.setValue(4);
         height.setValue(3);
@@ -151,11 +151,11 @@ public class ImGuiGdxImpl {
                 int cmdBufferSize = imDrawList.getCmdBufferSize();
                 for(int j = 0; j < cmdBufferSize; j++) {
                     ImDrawCmd cmdBuffer = imDrawList.getCmdBuffer(j);
-                    ImVec4 clipRect = cmdBuffer.getClipRect();
-                    float clipRectX = clipRect.getX();
-                    float clipRectY = clipRect.getY();
-                    float clipRectZ = clipRect.getZ();
-                    float clipRectW = clipRect.getW();
+                    ImVec4 clipRect = cmdBuffer.get_ClipRect();
+                    float clipRectX = clipRect.get_x();
+                    float clipRectY = clipRect.get_y();
+                    float clipRectZ = clipRect.get_z();
+                    float clipRectW = clipRect.get_w();
                     float clip_minX = (clipRectX - clip_offX) * clip_scaleX;
                     float clip_minY = (clipRectY - clip_offY) * clip_scaleY;
                     float clip_maxX = (clipRectZ - clip_offX) * clip_scaleX;
