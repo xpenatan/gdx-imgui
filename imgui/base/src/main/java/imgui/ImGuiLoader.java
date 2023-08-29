@@ -24,7 +24,7 @@ public class ImGuiLoader {
             }
         };
         setOnLoadInit(onInitFunction);
-        libraryLoader.load("bullet.wasm");
+        libraryLoader.load("imgui.wasm");
     }
     */
     public static void init(Runnable run) {
