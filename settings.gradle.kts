@@ -44,12 +44,12 @@ include(":examples:basic:teavm")
 //includeBuild('D:\\Dev\\Projects\\java\\libgdx') {
 //}
 
-//includeBuild('D:\\Dev\\Projects\\java\\gdx-teavm') {
+//includeBuild("E:\\Dev\\Projects\\java\\gdx-teavm") {
 //    dependencySubstitution {
-//        substitute module('com.github.xpenatan.gdx-teavm:backend-teavm') using project(':backends:backend-teavm:backend-teavm')
+//        substitute(module("com.github.xpenatan.gdx-teavm:backend-teavm")).using(project(":backends:backend-teavm"))
 //    }
 //}
-
+//
 //includeBuild("E:\\Dev\\Projects\\java\\jParser") {
 //    dependencySubstitution {
 //        substitute(module("com.github.xpenatan.jParser:base")).using(project(":jParser:base"))
