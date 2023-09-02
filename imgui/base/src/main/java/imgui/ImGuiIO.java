@@ -24,7 +24,7 @@ public class ImGuiIO extends IDLBase {
 //    }
 //
 //    /*[-teaVM;-NATIVE]
-//        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
+//        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
 //        io.set_ConfigFlags(flag);
 //    */
 //    /*[-C++;-NATIVE]
@@ -38,7 +38,7 @@ public class ImGuiIO extends IDLBase {
 //    }
 //
 //    /*[-teaVM;-NATIVE]
-//        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
+//        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
 //        var newFlag = io.get_ConfigFlags() & flag;
 //        return newFlag == flag;
 //    */
@@ -54,7 +54,7 @@ public class ImGuiIO extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
+        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
         io.set_ConfigDockingNoSplit(ConfigDockingNoSplit);
         io.set_ConfigDockingWithShift(ConfigDockingWithShift);
         io.set_ConfigDockingAlwaysTabBar(ConfigDockingAlwaysTabBar);
@@ -74,7 +74,7 @@ public class ImGuiIO extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
+        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
         io.set_FontGlobalScale(scale);
     */
     /*[-C++;-NATIVE]
@@ -88,7 +88,7 @@ public class ImGuiIO extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
+        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
         return io.get_WantCaptureMouse();
     */
     /*[-C++;-NATIVE]
@@ -119,8 +119,8 @@ public class ImGuiIO extends IDLBase {
 //    }
 //
 //    /*[-teaVM;-NATIVE]
-//        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
-//        ImGui.ImHelper.prototype.setIniFilename(io, fileName);
+//        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
+//        imgui.ImHelper.prototype.setIniFilename(io, fileName);
 //    */
 //    /*[-C++;-NATIVE]
 //        ImGuiIO* io = (ImGuiIO*)addr;
@@ -129,8 +129,8 @@ public class ImGuiIO extends IDLBase {
 //    private static native void setIniFilenameNATIVE(long addr, byte[] fileName);
 //
 //    /*[-teaVM;-NATIVE]
-//        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
-//        ImGui.ImHelper.prototype.removeIniFilename(io);
+//        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
+//        imgui.ImHelper.prototype.removeIniFilename(io);
 //    */
 //    /*[-C++;-NATIVE]
 //        ImGuiIO* io = (ImGuiIO*)addr;
@@ -143,8 +143,8 @@ public class ImGuiIO extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
-        return ImGui.ImHelper.prototype.containsIniFilename();
+        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
+        return imgui.ImHelper.prototype.containsIniFilename();
     */
     /*[-C++;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
@@ -157,16 +157,16 @@ public class ImGuiIO extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
-        var widthIntArray = ImGui.wrapPointer(widthAddr, ImGui.IntArray);
-        var heightIntArray = ImGui.wrapPointer(heightAddr, ImGui.IntArray);
-        var bytesPerPixelArray = ImGui.wrapPointer(bytesPerPixelAddr, ImGui.IntArray);
-        var pixelBufferArray = ImGui.wrapPointer(pixelBufferAddr, ImGui.ByteArray);
+        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
+        var widthIntArray = imgui.wrapPointer(widthAddr, imgui.IntArray);
+        var heightIntArray = imgui.wrapPointer(heightAddr, imgui.IntArray);
+        var bytesPerPixelArray = imgui.wrapPointer(bytesPerPixelAddr, imgui.IntArray);
+        var pixelBufferArray = imgui.wrapPointer(pixelBufferAddr, imgui.ByteArray);
         var widthArr = widthIntArray.getPointer();
         var heightArr = heightIntArray.getPointer();
         var bytesPerPixelArr = bytesPerPixelArray.getPointer();
         var pixelBufferArr = pixelBufferArray.getPointer();
-        ImGui.ImHelper.prototype.memcpyFont(io, pixelBufferArr, widthArr, heightArr, bytesPerPixelArr);
+        imgui.ImHelper.prototype.memcpyFont(io, pixelBufferArr, widthArr, heightArr, bytesPerPixelArr);
     */
     /*[-C++;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
@@ -183,7 +183,7 @@ public class ImGuiIO extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
+        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
         io.get_Fonts().set_TexID(id);
     */
     /*[-C++;-NATIVE]
@@ -197,7 +197,7 @@ public class ImGuiIO extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
+        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
         if (c > 0 && c < 0x10000)
             io.AddInputCharacter(c);
     */
@@ -213,7 +213,7 @@ public class ImGuiIO extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
+        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
         io.AddKeyEvent(imGuiKey, down);
     */
     /*[-C++;-NATIVE]
@@ -227,7 +227,7 @@ public class ImGuiIO extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
+        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
         io.AddMousePosEvent(x, y);
     */
     /*[-C++;-NATIVE]
@@ -241,7 +241,7 @@ public class ImGuiIO extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
+        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
         io.AddMouseButtonEvent(button, down);
     */
     /*[-C++;-NATIVE]
@@ -255,7 +255,7 @@ public class ImGuiIO extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var io = ImGui.wrapPointer(addr, ImGui.ImGuiIO);
+        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
         io.AddMouseWheelEvent(xOffset, yOffset);
     */
     /*[-C++;-NATIVE]

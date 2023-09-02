@@ -475,9 +475,9 @@ interface ImGuiInputTextCallbackData {
 };
 
 interface ImHelper {
-    void memcpyIdx(any destination, ImDrawList drawList, long num);
-    void memcpyVtx(any destination, ImDrawList drawList, long num);
-    void memcpyFont(ImGuiIO io, any pixelBuffer, long[] widthData, long[] heightData, long[] bytesPerPixel);
+    void memcpyIdx(long destination, ImDrawList drawList, long num);
+    void memcpyVtx(long destination, ImDrawList drawList, long num);
+    void memcpyFont(ImGuiIO io, long pixelBuffer, long[] widthData, long[] heightData, long[] bytesPerPixel);
     long getTextureId(ImDrawCmd imDrawCmd);
     void setIniFilename(ImGuiIO io, byte[] fileName);
     void removeIniFilename(ImGuiIO io);
@@ -499,10 +499,12 @@ interface ImVec4 {
 
     void ImVec4();
     void ImVec4(float x, float y, float z, float w);
+
+    [Operator="=", Ref] ImVec4 copy([Ref]ImVec4 value);
 };
 
 interface VecCmdBuffer {
-//    [Operator="[]", Ref] ImDrawCmd getData(long index);
+    [Operator="[]", Ref] ImDrawCmd getData(long index);
     long size();
 };
 
@@ -532,7 +534,7 @@ interface ImDrawData {
     attribute long CmdListsCount;
     attribute long TotalIdxCount;
     attribute long TotalVtxCount;
-//    attribute ImDrawList[] CmdLists;
+    attribute ImDrawList[] CmdLists;
     [Value]attribute ImVec2 DisplayPos;
     [Value]attribute ImVec2 DisplaySize;
     [Value]attribute ImVec2 FramebufferScale;
@@ -561,7 +563,7 @@ interface ImGuiIO {
     void AddMouseWheelEvent(float wheel_x, float wheel_y);
     void AddMouseButtonEvent(long button, boolean down);
     void AddMousePosEvent(float x, float y);
-//    void AddKeyEvent(ImGuiKey key, boolean down);
+    void AddKeyEvent(ImGuiKey key, boolean down);
     void AddInputCharacter(unsigned long c);
 };
 
