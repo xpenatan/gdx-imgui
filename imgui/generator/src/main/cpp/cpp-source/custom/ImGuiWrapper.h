@@ -184,16 +184,16 @@ class ImGui {
 //            return im::ImageButton(str_id, user_texture_id, size, uv0, uv1, bg_col, tint_col);
 //        }
 //
-//        static bool BeginCombo(const char* label, const char* preview_value, ImGuiComboFlags flags = 0) { return im::BeginCombo(label, preview_value, flags); }
-//        static void EndCombo() { im::EndCombo(); }
+        static bool BeginCombo(const char* label, const char* preview_value, ImGuiComboFlags flags = 0) { return im::BeginCombo(label, preview_value, flags); }
+        static void EndCombo() { im::EndCombo(); }
 //        static bool Combo(const char* label, int* current_item, const char* const items[], int items_count, int popup_max_height_in_items = -1) { return im::Combo(label, current_item, items, items_count, popup_max_height_in_items); }
 //        static bool Combo(const char* label, int* current_item, const char* items_separated_by_zeros, int popup_max_height_in_items = -1) { return im::Combo(label, current_item, items_separated_by_zeros, popup_max_height_in_items); }
 ////        static bool Combo(const char* label, int* current_item, bool(*items_getter)(void* data, int idx, const char** out_text), void* data, int items_count, int popup_max_height_in_items = -1) { return im::Combo(label, current_item, items_getter, data, idx, out_text); }
 //
-//        static bool DragFloat(const char* label, float* v, float v_speed = 1.0f, float v_min = 0.0f, float v_max = 0.0f, const char* format = "%.3f", ImGuiSliderFlags flags = 0) { return im::DragFloat(label, v, v_speed, v_min, v_max, format, flags); }
-//        static bool DragFloat2(const char* label, float v[2], float v_speed = 1.0f, float v_min = 0.0f, float v_max = 0.0f, const char* format = "%.3f", ImGuiSliderFlags flags = 0) { return im::DragFloat2(label, v, v_speed, v_min, v_max, format, flags); }
-//        static bool DragFloat3(const char* label, float v[3], float v_speed = 1.0f, float v_min = 0.0f, float v_max = 0.0f, const char* format = "%.3f", ImGuiSliderFlags flags = 0) { return im::DragFloat3(label, v, v_speed, v_min, v_max, format, flags); }
-//        static bool DragFloat4(const char* label, float v[4], float v_speed = 1.0f, float v_min = 0.0f, float v_max = 0.0f, const char* format = "%.3f", ImGuiSliderFlags flags = 0) { return im::DragFloat4(label, v, v_speed, v_min, v_max, format, flags); }
+        static bool DragFloat(const char* label, float* v, float v_speed = 1.0f, float v_min = 0.0f, float v_max = 0.0f, const char* format = "%.3f", ImGuiSliderFlags flags = 0) { return im::DragFloat(label, v, v_speed, v_min, v_max, format, flags); }
+        static bool DragFloat2(const char* label, float v[2], float v_speed = 1.0f, float v_min = 0.0f, float v_max = 0.0f, const char* format = "%.3f", ImGuiSliderFlags flags = 0) { return im::DragFloat2(label, v, v_speed, v_min, v_max, format, flags); }
+        static bool DragFloat3(const char* label, float v[3], float v_speed = 1.0f, float v_min = 0.0f, float v_max = 0.0f, const char* format = "%.3f", ImGuiSliderFlags flags = 0) { return im::DragFloat3(label, v, v_speed, v_min, v_max, format, flags); }
+        static bool DragFloat4(const char* label, float v[4], float v_speed = 1.0f, float v_min = 0.0f, float v_max = 0.0f, const char* format = "%.3f", ImGuiSliderFlags flags = 0) { return im::DragFloat4(label, v, v_speed, v_min, v_max, format, flags); }
 //        static bool DragFloatRange2(const char* label, float* v_current_min, float* v_current_max, float v_speed = 1.0f, float v_min = 0.0f, float v_max = 0.0f, const char* format = "%.3f", const char* format_max = NULL, ImGuiSliderFlags flags = 0) {
 //            return im::DragFloatRange2(label, v_current_min, v_current_max, v_speed, v_min, v_max, format, format_max, flags);
 //        }
@@ -220,7 +220,7 @@ class ImGui {
 //        static bool VSliderInt(const char* label, const ImVec2& size, int* v, int v_min, int v_max, const char* format = "%d", ImGuiSliderFlags flags = 0) { return im::VSliderInt(label, size, v, v_min, v_max, format, flags); }
 //        static bool VSliderScalar(const char* label, const ImVec2& size, ImGuiDataType data_type, void* p_data, const void* p_min, const void* p_max, const char* format = NULL, ImGuiSliderFlags flags = 0) { return im::VSliderScalar(label, size, data_type, p_data, p_min, p_max, format, flags); }
 //
-//        static bool InputText(const char* label, char* buf, size_t buf_size, ImGuiInputTextFlags flags = 0, ImGuiInputTextCallback callback = NULL, void* user_data = NULL) { return im::InputText(label, buf, buf_size, flags, callback, user_data); }
+        static bool InputText(const char* label, char* buf, size_t buf_size, ImGuiInputTextFlags flags = 0, ImGuiInputTextCallback callback = NULL, void* user_data = NULL) { return im::InputText(label, buf, buf_size, flags, callback, user_data); }
 //        static bool InputTextMultiline(const char* label, char* buf, size_t buf_size, const ImVec2& size = ImVec2(0, 0), ImGuiInputTextFlags flags = 0, ImGuiInputTextCallback callback = NULL, void* user_data = NULL) { return im::InputTextMultiline(label, buf, buf_size, size, flags, callback, user_data); }
 //        static bool InputTextWithHint(const char* label, const char* hint, char* buf, size_t buf_size, ImGuiInputTextFlags flags = 0, ImGuiInputTextCallback callback = NULL, void* user_data = NULL) { return im::InputTextWithHint(label, hint, buf, buf_size, flags, callback, user_data); }
 //        static bool InputFloat(const char* label, float* v, float step = 0.0f, float step_fast = 0.0f, const char* format = "%.3f", ImGuiInputTextFlags flags = 0) { return im::InputFloat(label, v, step, step_fast, format, flags); }
@@ -234,9 +234,9 @@ class ImGui {
 //        static bool InputDouble(const char* label, double* v, double step = 0.0, double step_fast = 0.0, const char* format = "%.6f", ImGuiInputTextFlags flags = 0) { return im::InputDouble(label, v, step, step_fast, format, flags); }
 //        static bool InputScalar(const char* label, ImGuiDataType data_type, void* p_data, const void* p_step = NULL, const void* p_step_fast = NULL, const char* format = NULL, ImGuiInputTextFlags flags = 0) { return im::InputScalar(label, data_type, p_data, p_step, p_step_fast, format); }
 //        static bool InputScalarN(const char* label, ImGuiDataType data_type, void* p_data, int components, const void* p_step = NULL, const void* p_step_fast = NULL, const char* format = NULL, ImGuiInputTextFlags flags = 0) { return im::InputScalarN(label, data_type, p_data, components, p_step, p_step_fast, format, flags); }
-//
-//        static bool ColorEdit3(const char* label, float col[3], ImGuiColorEditFlags flags = 0) { return im::ColorEdit3(label, col, flags); }
-//        static bool ColorEdit4(const char* label, float col[4], ImGuiColorEditFlags flags = 0) { return im::ColorEdit4(label, col, flags); }
+
+        static bool ColorEdit3(const char* label, float col[3], ImGuiColorEditFlags flags = 0) { return im::ColorEdit3(label, col, flags); }
+        static bool ColorEdit4(const char* label, float col[4], ImGuiColorEditFlags flags = 0) { return im::ColorEdit4(label, col, flags); }
 //        static bool ColorPicker3(const char* label, float col[3], ImGuiColorEditFlags flags = 0) { return im::ColorPicker3(label, col, flags); }
 //        static bool ColorPicker4(const char* label, float col[4], ImGuiColorEditFlags flags = 0, const float* ref_col = NULL) { return im::ColorPicker4(label, col, flags); }
 //        static bool ColorButton(const char* desc_id, const ImVec4& col, ImGuiColorEditFlags flags = 0, const ImVec2& size = ImVec2(0, 0)) { return im::ColorButton(desc_id, col, flags); }
@@ -259,10 +259,10 @@ class ImGui {
 //        static bool CollapsingHeader(const char* label, ImGuiTreeNodeFlags flags = 0) { return im::CollapsingHeader(label, flags); }
 //        static bool CollapsingHeader2(const char* label, bool* p_visible, ImGuiTreeNodeFlags flags = 0) { return im::CollapsingHeader(label, p_visible, flags); }
 //        static void SetNextItemOpen(bool is_open, ImGuiCond cond = 0) { im::SetNextItemOpen(is_open, cond); }
-//
-//        static bool Selectable(const char* label, bool selected = false, ImGuiSelectableFlags flags = 0, const ImVec2& size = ImVec2(0, 0)) { return im::Selectable(label, selected, flags, size); }
-//        static bool Selectable2(const char* label, bool* p_selected, ImGuiSelectableFlags flags = 0, const ImVec2& size = ImVec2(0, 0)) { return im::Selectable(label, p_selected, flags, size); }
-//
+
+        static bool Selectable(const char* label, bool selected = false, ImGuiSelectableFlags flags = 0, const ImVec2& size = ImVec2(0, 0)) { return im::Selectable(label, selected, flags, size); }
+        static bool Selectable2(const char* label, bool* p_selected, ImGuiSelectableFlags flags = 0, const ImVec2& size = ImVec2(0, 0)) { return im::Selectable(label, p_selected, flags, size); }
+
 //        static bool BeginListBox(const char* label, const ImVec2& size = ImVec2(0, 0)) { return im::BeginListBox(label, size); }
 //        static void EndListBox() { ImGui:EndListBox(); }
 //        static bool ListBox(const char* label, int* current_item, const char* const items[], int items_count, int height_in_items = -1) { return im::ListBox(label, current_item, items, items_count, height_in_items); }

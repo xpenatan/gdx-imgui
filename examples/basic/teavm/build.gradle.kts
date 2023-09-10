@@ -17,18 +17,18 @@ dependencies {
 
 val mainClassName = "com.github.xpenatan.gdx.example.basic.Build"
 
-tasks.register<JavaExec>("build-app-teavm") {
+tasks.register<JavaExec>("basic-build") {
     group = "example-teavm"
     description = "Build basic example"
     mainClass.set(mainClassName)
     classpath = sourceSets["main"].runtimeClasspath
 }
 
-tasks.register("run-app-teavm") {
+tasks.register("basic-run-teavm") {
     group = "example-teavm"
     description = "Run teavm app"
-    val list = listOf("build-app-teavm", "jettyRun")
+    val list = listOf("basic-build", "jettyRun")
     dependsOn(list)
 
-    tasks.findByName("jettyRun")?.mustRunAfter("build-app-teavm")
+    tasks.findByName("jettyRun")?.mustRunAfter("basic-build")
 }

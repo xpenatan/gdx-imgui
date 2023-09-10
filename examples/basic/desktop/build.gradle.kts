@@ -9,7 +9,7 @@ dependencies {
 val mainClassName = "com.github.xpenatan.imgui.example.basic.Main"
 val assetsDir = File("../assets");
 
-tasks.register<JavaExec>("run-app-desktop") {
+tasks.register<JavaExec>("basci-run-desktop") {
     group = "example-desktop"
     description = "Run desktop app"
     mainClass.set(mainClassName)

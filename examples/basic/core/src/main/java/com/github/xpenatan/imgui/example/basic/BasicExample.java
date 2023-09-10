@@ -12,6 +12,7 @@ import com.github.xpenatan.imgui.gdx.ImGuiGdxImpl;
 import com.github.xpenatan.imgui.gdx.ImGuiGdxInputMultiplexer;
 import imgui.ImDrawData;
 import imgui.ImGui;
+import imgui.ImGuiBoolean;
 import imgui.ImVec2;
 import imgui.ImVec4;
 
@@ -23,7 +24,7 @@ public class BasicExample extends ScreenAdapter {
 
     private boolean init = false;
 
-//    private ImGuiBoolean checkbox;
+    private ImGuiBoolean checkbox;
 
     private EditTextRenderer editTextRenderer;
     private SelectListRenderer selectListRenderer;
@@ -35,7 +36,7 @@ public class BasicExample extends ScreenAdapter {
     public void show() {
         ImGui.CreateContext(false);
 
-//        checkbox = new ImGuiBoolean();
+        checkbox = new ImGuiBoolean();
         editTextRenderer = new EditTextRenderer();
         selectListRenderer = new SelectListRenderer();
         colorRenderer = new ColorRenderer();
@@ -70,23 +71,19 @@ public class BasicExample extends ScreenAdapter {
             init = true;
             ImGui.SetNextWindowSize(new ImVec2(400, 400), 1 << 1);
         }
-//
-//        ImGui.Begin("Hello World");
 
-//        ImGui.Text("HelloText");
-//
-////        stringBuilder.setLength(0);
-////        stringBuilder.append("HelloText 2");
-////        ImGui.Text(stringBuilder);
-//
-////        ImGui.Checkbox("Check", checkbox);
-//
-//        editTextRenderer.render();
-//        selectListRenderer.render();
-//        colorRenderer.render();
-//
-//        ImGui.End();
-//
+        ImGui.Begin("Hello World");
+
+        ImGui.Text("HelloText");
+
+        ImGui.Checkbox("Check", checkbox);
+
+        editTextRenderer.render();
+        selectListRenderer.render();
+        colorRenderer.render();
+
+        ImGui.End();
+
         ImGui.ShowDemoWindow();
 
         ImGui.Render();
