@@ -83,12 +83,16 @@ public class Main {
         FileHelper.copyDir(new File("src/main/cpp/cpp-source/custom").toPath(), copyOut);
         FileHelper.copyDir(new File("src/main/cpp/cpp-source/jni").toPath(), copyJNIOut);
 
-        JBuilder.build(
-                buildConfig,
-                getWindowBuildTarget(),
-                getEmscriptenBuildTarget(idlPath)
-//                getAndroidBuildTarget()
-        );
+
+        ArrayList<BuildTarget> targets = new ArrayList<>();
+
+        if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
+            targets.add(getWindowBuildTarget());
+        }
+        targets.add(getEmscriptenBuildTarget(idlPath));
+//        targets.add(getAndroidBuildTarget());
+
+        JBuilder.build(buildConfig, targets);
 
 //
 //        String path = "..\\core-build\\src\\main\\resources\\imgui.idl";
