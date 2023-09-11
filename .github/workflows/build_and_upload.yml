@@ -48,32 +48,47 @@ jobs:
         run: |
           sudo apt install -y --force-yes mingw-w64 lib32z1
 
+      - name: Install emscripten
+        uses: mymindstorm/setup-emsdk@v11
+
+      - name: Install NDK
+        id: setup-ndk
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r25c
+          add-to-path: false
+
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
-      - name: Fetch imgui and build native files
-        run: ./gradlew :buildImGuiNatives
+      - name: Download imgui source
+        run: ./gradlew :gdx-imgui:imgui:generator:download_source
 
-      - name: Test ImGui Core Native
-        run: ./gradlew :imgui:core:core:test
+      - name: Build imgui
+        run: ./gradlew :gdx-imgui:imgui:generator:build_project
+        env:
+          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
-      - name: Upload compiled imgui-cpp natives
-        uses: actions/upload-artifact@v1
+#      - name: Test ImGui Core Native
+#        run: ./gradlew :imgui:core:core:test
+
+      - name: Upload imgui natives
+        uses: actions/upload-artifact@v3
         with:
-          name: cppNativeFiles
-          path: ./imgui/cpp/build/c++/libs/
+          name: imgui-natives
+          path: ./imgui/generator/build/c++/libs/
 
-      - name: Upload compiled core natives
-        uses: actions/upload-artifact@v1
-        with:
-          name: coreNativeFiles
-          path: ./imgui/core/core/build/c++/libs/
-
-      - name: Upload extension ImLayout natives
-        uses: actions/upload-artifact@v1
-        with:
-          name: imlayoutNativeFiles
-          path: ./imgui/extensions/imlayout/imlayout-core/build/c++/libs/
+#      - name: Upload compiled core natives
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: coreNativeFiles
+#          path: ./imgui/core/core/build/c++/libs/
+#
+#      - name: Upload extension ImLayout natives
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: imlayoutNativeFiles
+#          path: ./imgui/extensions/imlayout/imlayout-core/build/c++/libs/
 
   build_Mac:
     name: Build Mac OS
@@ -91,23 +106,34 @@ jobs:
 
       - name: Install Ant
         run: brew install ant
-      - name: Download compiled cpp natives
-        uses: actions/download-artifact@v1
-        with:
-          name: cppNativeFiles
-          path: ./imgui/cpp/build/c++/libs/
 
-      - name: Download compiled core natives
-        uses: actions/download-artifact@v1
-        with:
-          name: coreNativeFiles
-          path: ./imgui/core/core/build/c++/libs/
+      - name: Install emscripten
+        uses: mymindstorm/setup-emsdk@v11
 
-      - name: Download compiled extension ImLayout
-        uses: actions/download-artifact@v1
+      - name: Install NDK
+        id: setup-ndk
+        uses: nttld/setup-ndk@v1
         with:
-          name: imlayoutNativeFiles
-          path: ./imgui/extensions/imlayout/imlayout-core/build/c++/libs/
+          ndk-version: r25c
+          add-to-path: false
+
+      - name: Download imgui natives natives
+        uses: actions/download-artifact@v3
+        with:
+          name: imgui-natives
+          path: ./imgui/generator/build/c++/libs/
+
+#      - name: Download compiled core natives
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: coreNativeFiles
+#          path: ./imgui/core/core/build/c++/libs/
+#
+#      - name: Download compiled extension ImLayout
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: imlayoutNativeFiles
+#          path: ./imgui/extensions/imlayout/imlayout-core/build/c++/libs/
 
       - name: Check g++ version
         run: gcc --version
@@ -115,11 +141,16 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
-      - name: Fetch imgui and build native files
-        run: ./gradlew :buildImGuiNatives
+      - name: Download imgui source
+        run: ./gradlew :gdx-imgui:imgui:generator:download_source
 
-      - name: Test ImGui Core Native
-        run: ./gradlew :imgui:core:core:test
+      - name: Build imgui
+        run: ./gradlew :gdx-imgui:imgui:generator:build_project
+        env:
+          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+#      - name: Test ImGui Core Native
+#        run: ./gradlew :imgui:core:core:test
 
       - name: Upload to repository
         if: ${{ inputs.shouldUpload }}
