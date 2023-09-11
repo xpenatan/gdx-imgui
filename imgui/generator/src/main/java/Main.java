@@ -23,8 +23,8 @@ public class Main {
 
     public static void generate() throws Exception {
         String basePackage = "imgui";
-        String emscriptenCustomCodePath = new File("src\\main\\cpp\\emscripten").getCanonicalPath();
-        String idlPath = new File(emscriptenCustomCodePath + "\\imgui.idl").getCanonicalPath();
+        String emscriptenCustomCodePath = new File("src/main/cpp/emscripten").getCanonicalPath();
+        String idlPath = new File(emscriptenCustomCodePath + "/imgui.idl").getCanonicalPath();
         String cppSourceDir = new File("./build/imgui/").getCanonicalPath();
         String baseJavaDir = new File(".").getAbsolutePath() + "./base/src/main/java";
         IDLReader idlReader = IDLReader.readIDL(idlPath, cppSourceDir);
@@ -53,7 +53,7 @@ public class Main {
     ) throws Exception {
         String libName = "imgui";
 
-        String emscriptenCustomCodePath = new File("src\\main\\cpp\\emscripten").getCanonicalPath();
+        String emscriptenCustomCodePath = new File("src/main/cpp/emscripten").getCanonicalPath();
 
         String libsDir = new File("./build/c++/libs/").getCanonicalPath();
         String genDir = "../core/src/main/java";
