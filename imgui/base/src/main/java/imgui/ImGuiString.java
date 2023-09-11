@@ -3,16 +3,11 @@ package imgui;
 import idl.helper.ByteArray;
 
 public class ImGuiString extends ByteArray {
-    public static ImGuiString TMP = new ImGuiString();
 
-    boolean isDirty = false;
-
-    private String text;
-
-    int size;
+    private static byte[] tempBytes = new byte[1000];
 
     public ImGuiString() {
-        this(10);
+        this(256);
     }
 
     public ImGuiString(int bufferSize) {
@@ -26,19 +21,17 @@ public class ImGuiString extends ByteArray {
 
     public void resizeBuffer(int newBufferSize) {
         resize(newBufferSize);
-        isDirty = true;
     }
 
     public void setValue(CharSequence value) {
-        size = value.length();
-        int sizeEndLine = size+1;
+        int size = value.length();
+        int sizeEndLine = size + 1;
         int dataSize = getSize();
-
         if(sizeEndLine > dataSize) {
             resize(sizeEndLine);
         }
         else {
-            //setting value 0 to a bigger buffer makes imgui ignore junk characters
+            // setting value 0 to a bigger buffer makes imgui ignore junk characters
             byte val = 0;
             setValue(size, val);
         }
@@ -46,25 +39,21 @@ public class ImGuiString extends ByteArray {
             char c = value.charAt(i);
             setValue(i, (byte)c);
         }
-        isDirty = true;
     }
 
     public String getValue() {
-        if(isDirty) {
-            isDirty = false;
-            byte[] charData = new byte[size];
-            ByteArray.arraycopy(this, 0, charData, 0, size);
-            text = new String(charData, 0, size);
+        int bufferSize = getSize();
+        int size = 0;
+        for(int i = 0; i < bufferSize; i++) {
+            byte value = getValue(i);
+            if(value == 0 || value == 3) {
+                // 3 = End of text
+                size = i;
+                break;
+            }
+            tempBytes[i] = value;
         }
-        return text;
-    }
-
-    public int getBufferSize() {
-        return super.getSize();
-    }
-
-    public int getSize() {
-        return size;
+        return new String(tempBytes, 0, size);
     }
 
     @Override

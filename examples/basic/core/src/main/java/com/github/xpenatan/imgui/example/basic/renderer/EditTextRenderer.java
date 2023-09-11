@@ -25,10 +25,7 @@ public class EditTextRenderer {
         ImGui.DragFloat3("TestFloat3", imguiFloat3);
         ImGui.DragFloat4("TestFloat4", imguiFloat4, 0.01f, -2, 2);
 
-        int bufferSize = imguiString1.getBufferSize();
-
-        if(ImGui.InputText("TestString2", imguiString1, bufferSize)) {
-            //TODO fix
+        if(ImGui.InputText("TestString2", imguiString1, imguiString1.getSize())) {
             String value = imguiString1.getValue();
             System.out.println("value: " + value);
         }

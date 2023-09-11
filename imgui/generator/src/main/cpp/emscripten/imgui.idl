@@ -208,18 +208,18 @@ interface ImGui {
     static boolean                 VSliderInt([Const] DOMString label, [Const, Ref] ImVec2 size, long[] v, long v_min, long v_max, [Const]optional DOMString format, optional long flags);
 //    static boolean                 VSliderScalar([Const] DOMString label, [Const, Ref] ImVec2 size, long data_type, any p_data, [Const] any p_min, [Const] any p_max, [Const]optional DOMString format, optional long flags);
 
-    static boolean                 InputText([Const] DOMString label, byte[] buf, long long buf_size, optional long flags); //, optional ImGuiInputTextCallback callback, optional any user_data);
-    static boolean                 InputTextMultiline([Const] DOMString label, byte[] buf, long long buf_size, [Const, Ref]optional ImVec2 size, optional long flags); //, optional ImGuiInputTextCallback callback, optional any user_data);
-    static boolean                 InputTextWithHint([Const] DOMString label, [Const] DOMString hint, byte[] buf, long long buf_size, optional long flags); //, optional ImGuiInputTextCallback callback, optional any user_data);
-    static boolean                 InputFloat([Const] DOMString label, float[] v, optional float step, optional float step_fast, [Const]optional DOMString format, optional long flags);
-    static boolean                 InputFloat2([Const] DOMString label, float[] v, [Const]optional DOMString format, optional long flags);
-    static boolean                 InputFloat3([Const] DOMString label, float[] v, [Const]optional DOMString format, optional long flags);
-    static boolean                 InputFloat4([Const] DOMString label, float[] v, [Const]optional DOMString format, optional long flags);
-    static boolean                 InputInt([Const] DOMString label, long[] v, optional long step, optional long step_fast, optional long flags);
-    static boolean                 InputInt2([Const] DOMString label, long[] v, optional long flags);
-    static boolean                 InputInt3([Const] DOMString label, long[] v, optional long flags);
-    static boolean                 InputInt4([Const] DOMString label, long[] v, optional long flags);
-    static boolean                 InputDouble([Const] DOMString label, double[] v, optional double step, optional double step_fast, [Const]optional DOMString format, optional long flags);
+    static boolean                 InputText([Const] DOMString label, byte[] buf, long long buf_size, optional ImGuiInputTextFlags flags); //, optional ImGuiInputTextCallback callback, optional long flags);
+    static boolean                 InputTextMultiline([Const] DOMString label, byte[] buf, long long buf_size, [Const, Ref]optional ImVec2 size, optional ImGuiInputTextFlags flags); //, optional ImGuiInputTextCallback callback, optional any user_data);
+    static boolean                 InputTextWithHint([Const] DOMString label, [Const] DOMString hint, byte[] buf, long long buf_size, optional ImGuiInputTextFlags flags); //, optional ImGuiInputTextCallback callback, optional any user_data);
+    static boolean                 InputFloat([Const] DOMString label, float[] v, optional float step, optional float step_fast, [Const]optional DOMString format, optional ImGuiInputTextFlags flags);
+    static boolean                 InputFloat2([Const] DOMString label, float[] v, [Const]optional DOMString format, optional ImGuiInputTextFlags flags);
+    static boolean                 InputFloat3([Const] DOMString label, float[] v, [Const]optional DOMString format, optional ImGuiInputTextFlags flags);
+    static boolean                 InputFloat4([Const] DOMString label, float[] v, [Const]optional DOMString format, optional ImGuiInputTextFlags flags);
+    static boolean                 InputInt([Const] DOMString label, long[] v, optional long step, optional long step_fast, optional ImGuiInputTextFlags flags);
+    static boolean                 InputInt2([Const] DOMString label, long[] v, optional ImGuiInputTextFlags flags);
+    static boolean                 InputInt3([Const] DOMString label, long[] v, optional ImGuiInputTextFlags flags);
+    static boolean                 InputInt4([Const] DOMString label, long[] v, optional ImGuiInputTextFlags flags);
+    static boolean                 InputDouble([Const] DOMString label, double[] v, optional double step, optional double step_fast, [Const]optional DOMString format, optional ImGuiInputTextFlags flags);
 //    static boolean                 InputScalar([Const] DOMString label, long data_type, any p_data, [Const]optional any p_step, [Const]optional any p_step_fast, [Const]optional DOMString format, optional long flags);
 //    static boolean                 InputScalarN([Const] DOMString label, long data_type, any p_data, long components, [Const]optional any p_step, [Const]optional any p_step_fast, [Const]optional DOMString format, optional long flags);
 //
@@ -787,4 +787,29 @@ enum ImGuiCond {
     "ImGuiCond_Once",
     "ImGuiCond_FirstUseEver",
     "ImGuiCond_Appearing"
+};
+
+enum ImGuiInputTextFlags {
+    "ImGuiInputTextFlags_None",
+    "ImGuiInputTextFlags_CharsDecimal",
+    "ImGuiInputTextFlags_CharsHexadecimal",
+    "ImGuiInputTextFlags_CharsUppercase",
+    "ImGuiInputTextFlags_CharsNoBlank",
+    "ImGuiInputTextFlags_AutoSelectAll",
+    "ImGuiInputTextFlags_EnterReturnsTrue",
+    "ImGuiInputTextFlags_CallbackCompletion",
+    "ImGuiInputTextFlags_CallbackHistory",
+    "ImGuiInputTextFlags_CallbackAlways",
+    "ImGuiInputTextFlags_CallbackCharFilter",
+    "ImGuiInputTextFlags_AllowTabInput",
+    "ImGuiInputTextFlags_CtrlEnterForNewLine",
+    "ImGuiInputTextFlags_NoHorizontalScroll",
+    "ImGuiInputTextFlags_AlwaysOverwrite",
+    "ImGuiInputTextFlags_ReadOnly",
+    "ImGuiInputTextFlags_Password",
+    "ImGuiInputTextFlags_NoUndoRedo",
+    "ImGuiInputTextFlags_CharsScientific",
+    "ImGuiInputTextFlags_CallbackResize",
+    "ImGuiInputTextFlags_CallbackEdit",
+    "ImGuiInputTextFlags_EscapeClearsAll"
 };
