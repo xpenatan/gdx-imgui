@@ -147,17 +147,17 @@ interface ImGui {
 
     static void                    TextUnformatted([Const] DOMString text, [Const]optional DOMString text_end);
     static void                    Text([Const] DOMString fmt);
-    static void                    TextV([Const] DOMString fmt, DOMString args);
+////    static void                    TextV([Const] DOMString fmt, DOMString args);
     static void                    TextColored([Const, Ref] ImVec4 col, [Const] DOMString fmt);
-    static void                    TextColoredV([Const, Ref] ImVec4 col, [Const] DOMString fmt, DOMString args);
+////    static void                    TextColoredV([Const, Ref] ImVec4 col, [Const] DOMString fmt, DOMString args);
     static void                    TextDisabled([Const] DOMString fmt);
-    static void                    TextDisabledV([Const] DOMString fmt, DOMString args);
+////    static void                    TextDisabledV([Const] DOMString fmt, DOMString args);
     static void                    TextWrapped([Const] DOMString fmt);
-    static void                    TextWrappedV([Const] DOMString fmt, DOMString args);
+////    static void                    TextWrappedV([Const] DOMString fmt, DOMString args);
     static void                    LabelText([Const] DOMString label, [Const] DOMString fmt);
-    static void                    LabelTextV([Const] DOMString label, [Const] DOMString fmt, DOMString args);
+////    static void                    LabelTextV([Const] DOMString label, [Const] DOMString fmt, DOMString args);
     static void                    BulletText([Const] DOMString fmt);
-    static void                    BulletTextV([Const] DOMString fmt, DOMString args);
+////    static void                    BulletTextV([Const] DOMString fmt, DOMString args);
 
     static boolean                 Button([Const] DOMString label, [Const, Ref]optional ImVec2 size);
     static boolean                 SmallButton([Const] DOMString label);
@@ -233,13 +233,13 @@ interface ImGui {
     static boolean                 TreeNode([Const] DOMString label);
     static boolean                 TreeNode_2([Const] DOMString str_id, [Const] DOMString fmt);
     static boolean                 TreeNode_3([Const] any ptr_id, [Const] DOMString fmt);
-    static boolean                 TreeNodeV([Const] DOMString str_id, [Const] DOMString fmt, DOMString args);
-    static boolean                 TreeNodeV_2([Const] any ptr_id, [Const] DOMString fmt, DOMString args);
+////    static boolean                 TreeNodeV([Const] DOMString str_id, [Const] DOMString fmt, DOMString args);
+////    static boolean                 TreeNodeV_2([Const] any ptr_id, [Const] DOMString fmt, DOMString args);
     static boolean                 TreeNodeEx([Const] DOMString label, optional long flags);
     static boolean                 TreeNodeEx_2([Const] DOMString str_id, long flags, [Const] DOMString fmt);
     static boolean                 TreeNodeEx_3([Const] any ptr_id, long flags, [Const] DOMString fmt);
-    static boolean                 TreeNodeExV([Const] DOMString str_id, long flags, [Const] DOMString fmt, DOMString args);
-    static boolean                 TreeNodeExV_2([Const] any ptr_id, long flags, [Const] DOMString fmt, DOMString args);
+////    static boolean                 TreeNodeExV([Const] DOMString str_id, long flags, [Const] DOMString fmt, DOMString args);
+////    static boolean                 TreeNodeExV_2([Const] any ptr_id, long flags, [Const] DOMString fmt, DOMString args);
     static void                    TreePush([Const] DOMString str_id);
 //    static void                    TreePush_2([Const] any ptr_id);
     static void                    TreePop();
@@ -278,7 +278,7 @@ interface ImGui {
     static void                    BeginTooltip();
     static void                    EndTooltip();
     static void                    SetTooltip([Const]DOMString fmt);
-    static void                    SetTooltipV([Const]DOMString fmt, DOMString args);
+////    static void                    SetTooltipV([Const]DOMString fmt, DOMString args);
 
     static boolean                 BeginPopup([Const]DOMString str_id, optional long flags);
     static boolean                 BeginPopupModal([Const]DOMString name, optional boolean[] p_open, optional long flags);
@@ -344,7 +344,7 @@ interface ImGui {
 //    static void                    LogFinish();
 //    static void                    LogButtons();
 //    static void                    LogText([Const]DOMString fmt);
-//    static void                    LogTextV([Const]DOMString fmt, DOMString args);
+////    static void                    LogTextV([Const]DOMString fmt, DOMString args);
 
     static boolean                 BeginDragDropSource(optional long flags);
     static boolean                 SetDragDropPayload([Const]DOMString type, [Const]any data, long long sz, optional ImGuiCond cond);
