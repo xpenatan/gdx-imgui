@@ -39,7 +39,7 @@ allprojects  {
     }
 }
 
-configure(allprojects) {
+configure(allprojects - project(":imgui:android") - project(":examples:basic:android")) {
     apply {
         plugin("java")
     }

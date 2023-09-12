@@ -25,7 +25,6 @@ local.properties
 *.class
 .settings
 out/
-*.xml
 jni-headers/
 *.c
 libs/

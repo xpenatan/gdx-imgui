@@ -1,6 +1,7 @@
 import com.github.xpenatan.jparser.builder.BuildConfig;
 import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.JBuilder;
+import com.github.xpenatan.jparser.builder.targets.AndroidTarget;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
 import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
 import com.github.xpenatan.jparser.core.JParser;
@@ -87,10 +88,10 @@ public class Main {
         ArrayList<BuildTarget> targets = new ArrayList<>();
 
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
-            targets.add(getWindowBuildTarget());
+//            targets.add(getWindowBuildTarget());
+            targets.add(getAndroidBuildTarget());
         }
         targets.add(getEmscriptenBuildTarget(idlPath));
-//        targets.add(getAndroidBuildTarget());
 
         JBuilder.build(buildConfig, targets);
 
@@ -136,5 +137,13 @@ public class Main {
         teaVMTarget.cppFlags.add("-DIMGUI_DISABLE_FILE_FUNCTIONS");
         teaVMTarget.cppFlags.add("-DIMGUI_DEFINE_MATH_OPERATORS");
         return teaVMTarget;
+    }
+
+    private static BuildTarget getAndroidBuildTarget() {
+        AndroidTarget androidTarget = new AndroidTarget();
+        androidTarget.headerDirs.add("src/imgui");
+        androidTarget.cppIncludes.add("**/imgui/*.cpp");
+        androidTarget.cppFlags.add("-Wno-error=format-security");
+        return androidTarget;
     }
 }
