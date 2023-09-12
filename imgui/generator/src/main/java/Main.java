@@ -88,7 +88,7 @@ public class Main {
         ArrayList<BuildTarget> targets = new ArrayList<>();
 
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
-//            targets.add(getWindowBuildTarget());
+            targets.add(getWindowBuildTarget());
             targets.add(getAndroidBuildTarget());
         }
         targets.add(getEmscriptenBuildTarget(idlPath));
