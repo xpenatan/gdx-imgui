@@ -25,7 +25,11 @@ Only SNAPSHOTS are currently available. Release will be ready when ImGui docking
     gdxImguiVersion = "1.0.0-SNAPSHOT"
     imlayoutVersion = "1.0.0-SNAPSHOT"
 
+
+# Repo libs Deprecated. Will update it later.
+
 ```groovy
+
 // Add repository to Root gradle
 repositories {
     mavenLocal()
