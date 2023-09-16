@@ -133,17 +133,24 @@ public class BuildImLayout {
         return windowsTarget;
     }
 
-//    private static BuildTarget getEmscriptenBuildTarget(String idlPath) {
-//        EmscriptenTarget teaVMTarget = new EmscriptenTarget(idlPath);
-//        teaVMTarget.headerDirs.add("-Isrc/imgui");
-//        teaVMTarget.headerDirs.add("-includesrc/jsglue/Imgui_lib.h");
-////        teaVMTarget.headerDirs.add("-includesrc/imgui/imgui.h");
-////        teaVMTarget.headerDirs.add("-includesrc/jsglue/custom_glue.cpp");
-//        teaVMTarget.cppIncludes.add("**/imgui/*.cpp");
-//        teaVMTarget.cppFlags.add("-DIMGUI_DISABLE_FILE_FUNCTIONS");
-//        teaVMTarget.cppFlags.add("-DIMGUI_DEFINE_MATH_OPERATORS");
-//        return teaVMTarget;
-//    }
+    private static BuildTarget getEmscriptenBuildTarget(String idlPath) throws IOException {
+        String imguiPath = new File("../../../imgui/generator/build/c++/src/imgui").getCanonicalPath();
+        String imguiPath2 = new File("../../../imgui/generator/build/c++/libs/").getCanonicalPath();
+
+        EmscriptenTarget teaVMTarget = new EmscriptenTarget(idlPath);
+        teaVMTarget.headerDirs.add("-I" + imguiPath);
+        teaVMTarget.headerDirs.add("-Isrc/imlayout");
+        teaVMTarget.headerDirs.add("-includesrc/jsglue/ImLayout_lib.h");
+        teaVMTarget.cppIncludes.add("**/imlayout/*.cpp");
+        teaVMTarget.cppFlags.add("-fPIC");
+
+        teaVMTarget.linkerFlags.add("-L" + imguiPath2.replace("\\" ,"/"));
+        teaVMTarget.linkerFlags.add("-l:imgui.wasm.js");
+        teaVMTarget.linkerFlags.add("-s SIDE_MODULE=1");
+//        teaVMTarget.linkerFlags.add("-s RUNTIME_LINKED_LIBS=\"['imgui.wasm.js']\"");
+        return teaVMTarget;
+    }
+
 //
 //    private static BuildTarget getAndroidBuildTarget() {
 //        AndroidTarget androidTarget = new AndroidTarget();

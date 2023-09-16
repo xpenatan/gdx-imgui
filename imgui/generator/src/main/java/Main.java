@@ -88,7 +88,7 @@ public class Main {
 
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
             targets.add(getWindowBuildTarget());
-            targets.add(getAndroidBuildTarget());
+//            targets.add(getAndroidBuildTarget());
         }
         targets.add(getEmscriptenBuildTarget(idlPath));
 
@@ -109,6 +109,10 @@ public class Main {
         teaVMTarget.cppIncludes.add("**/imgui/*.cpp");
         teaVMTarget.cppFlags.add("-DIMGUI_DISABLE_FILE_FUNCTIONS");
         teaVMTarget.cppFlags.add("-DIMGUI_DEFINE_MATH_OPERATORS");
+        teaVMTarget.cppFlags.add("-fPIC");
+//        teaVMTarget.linkerFlags.add("-s MAIN_MODULE=1");
+//        teaVMTarget.linkerFlags.add("-s SIDE_MODULE=1");
+//        teaVMTarget.linkerFlags.add("-shared");
         return teaVMTarget;
     }
 
