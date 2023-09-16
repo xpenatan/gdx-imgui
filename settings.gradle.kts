@@ -16,6 +16,7 @@ include(":extensions:imlayout:imlayout-base")
 include(":extensions:imlayout:imlayout-generator")
 include(":extensions:imlayout:imlayout-core")
 include(":extensions:imlayout:imlayout-desktop")
+include(":extensions:imlayout:imlayout-teavm")
 
 // Extension imgui-node-editor
 //include(":extensions:node-editor:editor-build")

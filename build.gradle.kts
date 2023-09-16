@@ -58,7 +58,8 @@ var libProjects = mutableSetOf(
 
 var libProjects2 = mutableSetOf(
     project(":extensions:imlayout:imlayout-core"),
-    project(":extensions:imlayout:imlayout-desktop")
+    project(":extensions:imlayout:imlayout-desktop"),
+    project(":extensions:imlayout:imlayout-teavm")
 )
 
 configure(libProjects) {
