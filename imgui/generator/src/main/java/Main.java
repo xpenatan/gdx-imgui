@@ -82,42 +82,17 @@ public class Main {
         Path copyOut = new File(libDestinationPath).toPath();
         Path copyJNIOut = new File(cppDestinationPath + "/jniglue").toPath();
         FileHelper.copyDir(new File("src/main/cpp/cpp-source/custom").toPath(), copyOut);
-//        FileHelper.copyDir(new File("src/main/cpp/cpp-source/jni").toPath(), copyJNIOut);
-
+        FileHelper.copyDir(new File("src/main/cpp/cpp-source/jni").toPath(), copyJNIOut);
 
         ArrayList<BuildTarget> targets = new ArrayList<>();
 
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
             targets.add(getWindowBuildTarget());
-//            targets.add(getAndroidBuildTarget());
+            targets.add(getAndroidBuildTarget());
         }
-//        targets.add(getEmscriptenBuildTarget(idlPath));
+        targets.add(getEmscriptenBuildTarget(idlPath));
 
         JBuilder.build(buildConfig, targets);
-
-//
-//        String path = "..\\core-build\\src\\main\\resources\\imgui.idl";
-//        IDLReader idlReader = IDLReader.readIDL(path);
-//
-//        String cppPath = new File("../core/").getCanonicalPath();
-//        String teaVMPath = new File("../core-teavm/").getCanonicalPath();
-//
-//        String jniDir = cppPath + "/build/c++/";
-//        String sourceDir = "../core-base/src/main/java/";
-//        String cppGenDir = cppPath + "/src/main/java/";
-//        String teaVMGenDir = teaVMPath + "/src/main/java/";
-//        String imguiCppBase = new File("../../cpp/build/c++").getCanonicalPath();
-//
-//        //Generate CPP
-//        String classPaths = ImGuiCppParser.getClassPath("core", "gdx-1", "gdx-jnigen-loader", "jParser");
-//        ImGuiCppParser cppParser = new ImGuiCppParser(idlReader, classPaths, jniDir);
-//        JParser.generate(cppParser, sourceDir, cppGenDir);
-////        CPPBuildHelper.DEBUG_BUILD = true;
-//        CPPBuildHelper.build(libName, jniDir, null, imguiCppBase, "imgui-cpp64", true);
-//
-//        //Generate Javascript
-//        ImGuiTeaVMParser teaVMParser = new ImGuiTeaVMParser(idlReader);
-//        JParser.generate(teaVMParser, sourceDir, teaVMGenDir);
     }
 
     private static BuildTarget getWindowBuildTarget() {
@@ -131,8 +106,6 @@ public class Main {
         EmscriptenTarget teaVMTarget = new EmscriptenTarget(idlPath);
         teaVMTarget.headerDirs.add("-Isrc/imgui");
         teaVMTarget.headerDirs.add("-includesrc/jsglue/Imgui_lib.h");
-//        teaVMTarget.headerDirs.add("-includesrc/imgui/imgui.h");
-//        teaVMTarget.headerDirs.add("-includesrc/jsglue/custom_glue.cpp");
         teaVMTarget.cppIncludes.add("**/imgui/*.cpp");
         teaVMTarget.cppFlags.add("-DIMGUI_DISABLE_FILE_FUNCTIONS");
         teaVMTarget.cppFlags.add("-DIMGUI_DEFINE_MATH_OPERATORS");
