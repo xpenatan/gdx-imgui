@@ -54,16 +54,28 @@ var libProjects = mutableSetOf(
     project(":extensions:gdx"),
 //        project(":extensions:lwjgl3"),
 //        project(":extensions:gdx-frame-viewport"),
-    project(":extensions:imlayout:core"),
-    project(":extensions:imlayout:desktop")
+)
+
+var libProjects2 = mutableSetOf(
+    project(":extensions:imlayout:imlayout-core"),
+    project(":extensions:imlayout:imlayout-desktop")
 )
 
 configure(libProjects) {
-    apply(plugin = "signing")
     apply(plugin = "maven-publish")
-
     group = LibExt.groupId
     version = LibExt.libVersion
+}
+
+configure(libProjects2) {
+    apply(plugin = "maven-publish")
+    group = LibExt.groupId
+    version = LibExt.imlayoutVersion
+}
+
+configure(libProjects + libProjects2) {
+    apply(plugin = "signing")
+    apply(plugin = "maven-publish")
 
     publishing {
         repositories {

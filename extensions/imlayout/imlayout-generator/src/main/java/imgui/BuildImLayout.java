@@ -50,7 +50,7 @@ public class BuildImLayout {
         String basePackage = "imgui.imlayout";
         String idlPath = new File("src/main/cpp/imlayout.idl").getCanonicalPath();
         String cppSourceDir = new File("./src/main/cpp/source/").getCanonicalPath();
-        String baseJavaDir = new File(".").getAbsolutePath() + "./base/src/main/java";
+        String baseJavaDir = new File(".").getAbsolutePath() + "./imlayout-base/src/main/java";
         IDLReader idlReader = IDLReader.readIDL(idlPath, cppSourceDir);
 
 //        generateClassOnly(idlReader, basePackage, baseJavaDir);
@@ -64,7 +64,7 @@ public class BuildImLayout {
     ) throws Exception {
         IDLDefaultCodeParser idlParser = new IDLDefaultCodeParser(basePackage, "C++", idlReader);
         idlParser.generateClass = true;
-        String genDir = "../core/src/main/java";
+        String genDir = "../imlayout-core/src/main/java";
         JParser.generate(idlParser, baseJavaDir, genDir);
     }
 
@@ -79,7 +79,7 @@ public class BuildImLayout {
         String emscriptenCustomCodePath = new File("src/main/cpp/emscripten").getCanonicalPath();
 
         String libsDir = new File("./build/c++/libs/").getCanonicalPath();
-        String genDir = "../core/src/main/java";
+        String genDir = "../imlayout-core/src/main/java";
         String libBuildPath = new File("./build/c++/").getCanonicalPath();
         String cppDestinationPath = libBuildPath + "/src";
         String libDestinationPath = cppDestinationPath + "/imlayout";
@@ -97,7 +97,7 @@ public class BuildImLayout {
                 emscriptenCustomCodePath
         );
 
-        String teaVMgenDir = "../teavm/src/main/java/";
+        String teaVMgenDir = "../imlayout-teavm/src/main/java/";
         TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, libName, basePackage);
         JParser.generate(teavmParser, baseJavaDir, teaVMgenDir);
 

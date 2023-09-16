@@ -4,7 +4,7 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx-platform:${LibExt.gdxVersion}:natives-desktop")
 
     implementation(project(":imgui:desktop"))
-    implementation(project(":extensions:imlayout:desktop"))
+    implementation(project(":extensions:imlayout:imlayout-desktop"))
 }
 
 val mainClassName = "com.github.xpenatan.imgui.example.imlayout.Main"

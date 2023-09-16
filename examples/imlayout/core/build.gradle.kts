@@ -4,6 +4,6 @@ dependencies {
 
     implementation(project(":examples:basic:base"))
     implementation(project(":imgui:core"))
-    implementation(project(":extensions:imlayout:core"))
+    implementation(project(":extensions:imlayout:imlayout-core"))
     implementation(project(":extensions:gdx"))
 }

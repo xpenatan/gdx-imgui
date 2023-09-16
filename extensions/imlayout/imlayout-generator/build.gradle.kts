@@ -1,7 +1,7 @@
 val mainClassName = "imgui.BuildImLayout"
 
 dependencies {
-    implementation(project(":extensions:imlayout:base"))
+    implementation(project(":extensions:imlayout:imlayout-base"))
     implementation("com.github.xpenatan.jParser:core:${LibExt.jParserVersion}")
     implementation("com.github.xpenatan.jParser:builder:${LibExt.jParserVersion}")
     implementation("com.github.xpenatan.jParser:teavm:${LibExt.jParserVersion}")

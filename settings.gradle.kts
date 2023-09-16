@@ -12,10 +12,10 @@ include(":extensions:gdx")
 //include(":extensions:gdx-frame-viewport")
 
 // Extension ImLayout
-include(":extensions:imlayout:base")
-include(":extensions:imlayout:generator")
-include(":extensions:imlayout:core")
-include(":extensions:imlayout:desktop")
+include(":extensions:imlayout:imlayout-base")
+include(":extensions:imlayout:imlayout-generator")
+include(":extensions:imlayout:imlayout-core")
+include(":extensions:imlayout:imlayout-desktop")
 
 // Extension imgui-node-editor
 //include(":extensions:node-editor:editor-build")

@@ -2,6 +2,8 @@ package com.github.xpenatan.imgui.example.imlayout.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import imgui.ImGui;
+import imgui.imlayout.ImLayout;
 
 public class CollapseView {
 
@@ -30,6 +32,14 @@ public class CollapseView {
     }
 
     public void render() {
+        ImLayout.DrawBoundingBox(100f, 100f,40f, 40f, 255, 0, 0);
+
+        if(ImLayout.BeginCollapseLayout("##idd", "Hello", ImLayout.get_MATCH_PARENT(), ImLayout.get_WRAP_PARENT())) {
+            ImGui.Button("HI");
+
+        }
+        ImLayout.EndCollapseLayout();
+
 //        ImLayout.BeginCollapseLayoutEx("##ID1", isCollapseOpen, "Stuff", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
 //
 //        if(isDebug.getValue()) {

@@ -1,4 +1,4 @@
-val moduleName = "core-desktop"
+val moduleName = "imgui-desktop"
 
 val windowsFile = "$projectDir/../generator/build/c++/libs/imgui64.dll"
 

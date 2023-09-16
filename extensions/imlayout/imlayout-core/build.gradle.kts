@@ -1,6 +1,4 @@
-version = LibExt.imlayoutVersion
-
-val moduleName = "imlayout"
+val moduleName = "imlayout-core"
 
 dependencies {
     implementation(project(":imgui:core"))

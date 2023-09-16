@@ -1,0 +1,9 @@
+
+interface ImLayout {
+    static readonly attribute long WRAP_PARENT;
+    static readonly attribute long MATCH_PARENT;
+
+    static void DrawBoundingBox(float x1, float y1, float x2, float y2, long r, long g, long b, optional long a, optional boolean clipping);
+    static boolean BeginCollapseLayout([Const]DOMString id, [Const]DOMString title, float sizeX, float sizeY);
+    static void EndCollapseLayout();
+};

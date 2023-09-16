@@ -2,6 +2,7 @@ package com.github.xpenatan.imgui.example.imlayout;
 
 import com.badlogic.gdx.ScreenAdapter;
 import imgui.ImGuiLoader;
+import imgui.imlayout.ImLayoutLoader;
 
 public class ImGuiInitScreen extends ScreenAdapter {
 
@@ -15,7 +16,7 @@ public class ImGuiInitScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        ImGuiLoader.init(() -> bulletInit = true);
+        ImGuiLoader.init(() -> ImLayoutLoader.init(() -> bulletInit = true));
     }
 
     @Override
