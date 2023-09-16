@@ -1,11 +1,8 @@
 package com.github.xpenatan.imgui.example.imlayout;
 
-import com.github.xpenatan.imgui.core.ImGui;
-import com.github.xpenatan.imgui.core.ImRect;
 import com.github.xpenatan.imgui.example.imlayout.views.CollapseView;
 import com.github.xpenatan.imgui.example.imlayout.views.EditTextView;
 import com.github.xpenatan.imgui.example.imlayout.views.LayoutTestView;
-import com.github.xpenatan.imgui.imlayout.ImLayout;
 
 public class ImLayoutView {
 
@@ -17,7 +14,7 @@ public class ImLayoutView {
 
 
     public void init() {
-        ImLayout.init();
+//        ImLayout.init();
         collapseView.init();;
     }
 
@@ -37,10 +34,10 @@ public class ImLayoutView {
     }
 
     private void testContentSize() {
-        ImLayout.BeginBoundingBox();
-        ImGui.Button("Label");
-        ImGui.Button("Label Test");
-        ImRect boundingBox = ImLayout.EndBoundingBox();
-        ImLayout.DrawBoundingBox(boundingBox.minX, boundingBox.minY, boundingBox.maxX, boundingBox.maxY, 255, 0, 0, 255);
+//        ImLayout.BeginBoundingBox();
+//        ImGui.Button("Label");
+//        ImGui.Button("Label Test");
+//        ImRect boundingBox = ImLayout.EndBoundingBox();
+//        ImLayout.DrawBoundingBox(boundingBox.minX, boundingBox.minY, boundingBox.maxX, boundingBox.maxY, 255, 0, 0, 255);
     }
 }

@@ -12,10 +12,10 @@ include(":extensions:gdx")
 //include(":extensions:gdx-frame-viewport")
 
 // Extension ImLayout
-//include(":extensions:imlayout:imlayout-core")
-//include(":extensions:imlayout:imlayout-desktop")
-//include(":extensions:imlayout:imlayout-build")
-//include(":extensions:imlayout:imlayout-base")
+include(":extensions:imlayout:base")
+include(":extensions:imlayout:generator")
+include(":extensions:imlayout:core")
+include(":extensions:imlayout:desktop")
 
 // Extension imgui-node-editor
 //include(":extensions:node-editor:editor-build")
@@ -28,14 +28,15 @@ include(":extensions:gdx")
 //include(":examples:gdx-frame-viewport:core")
 //include(":examples:gdx-frame-viewport:desktop")
 
+include(":examples:basic:base")
 include(":examples:basic:core")
 include(":examples:basic:desktop")
 include(":examples:basic:teavm")
 include(":examples:basic:android")
 
-//include(":examples:imlayout:core")
-//include(":examples:imlayout:desktop")
-//include(":examples:imlayout:teavm")
+include(":examples:imlayout:core")
+include(":examples:imlayout:desktop")
+include(":examples:imlayout:teavm")
 //
 //include(":examples:node-editor:core")
 //include(":examples:node-editor:desktop")

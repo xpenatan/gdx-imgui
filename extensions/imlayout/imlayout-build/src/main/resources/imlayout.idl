@@ -1,7 +1,0 @@
-
-interface ImGui {
-//    void Begin([Const] DOMString name);
-//    void End();
-
-    void SameLine(optional float offset_from_start_x, optional float spacing)
-};

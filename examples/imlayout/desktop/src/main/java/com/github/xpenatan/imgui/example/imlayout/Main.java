@@ -9,6 +9,6 @@ public class Main {
         config.setWindowedMode(1444, 800);
         config.setTitle("ImGui Basic Example");
         config.useVsync(true);
-        new Lwjgl3Application(new ImLayoutExample(), config);
+        new Lwjgl3Application(new ImGuiGame(), config);
     }
 }

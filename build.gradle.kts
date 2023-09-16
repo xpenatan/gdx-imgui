@@ -51,11 +51,11 @@ var libProjects = mutableSetOf(
     project(":imgui:core"),
     project(":imgui:desktop"),
     project(":imgui:teavm"),
-    project(":extensions:gdx")
+    project(":extensions:gdx"),
 //        project(":extensions:lwjgl3"),
 //        project(":extensions:gdx-frame-viewport"),
-//        project(":extensions:imlayout:imlayout-core"),
-//        project(":extensions:imlayout:imlayout-desktop")
+    project(":extensions:imlayout:core"),
+    project(":extensions:imlayout:desktop")
 )
 
 configure(libProjects) {

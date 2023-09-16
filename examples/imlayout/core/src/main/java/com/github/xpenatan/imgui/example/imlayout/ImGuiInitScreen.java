@@ -1,4 +1,4 @@
-package com.github.xpenatan.imgui.example.basic;
+package com.github.xpenatan.imgui.example.imlayout;
 
 import com.badlogic.gdx.ScreenAdapter;
 import imgui.ImGuiLoader;
@@ -22,7 +22,7 @@ public class ImGuiInitScreen extends ScreenAdapter {
     public void render(float delta) {
         if(bulletInit) {
             bulletInit = false;
-            game.setScreen(new BasicExample());
+            game.setScreen(new ImLayoutExample());
         }
     }
 }
