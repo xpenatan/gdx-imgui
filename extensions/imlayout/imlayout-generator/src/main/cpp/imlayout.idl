@@ -4,6 +4,49 @@ interface ImLayout {
     static readonly attribute long MATCH_PARENT;
 
     static void DrawBoundingBox(float x1, float y1, float x2, float y2, long r, long g, long b, optional long a, optional boolean clipping);
+    static void ShowLayoutDebug();
+    static void ShowLayoutDebugClipping();
+
     static boolean BeginCollapseLayout([Const]DOMString id, [Const]DOMString title, float sizeX, float sizeY);
+    static boolean BeginCollapseLayout([Const]DOMString id, [Const]DOMString title, float sizeX, float sizeY, [Ref] ImGuiCollapseLayoutOptions option);
+
+    static void BeginCollapseLayout([Const]DOMString id, boolean[] isOpen, [Const]DOMString title, float sizeX, float sizeY);
+    static void BeginCollapseLayout([Const]DOMString id, boolean[] isOpen, [Const]DOMString title, float sizeX, float sizeY, [Ref] ImGuiCollapseLayoutOptions option);
+
     static void EndCollapseLayout();
+
+    static boolean BeginCollapseLayoutEx([Const]DOMString id, [Const]DOMString title, float sizeX, float sizeY);
+    static boolean BeginCollapseLayoutEx([Const]DOMString id, [Const]DOMString title, float sizeX, float sizeY, [Ref] ImGuiCollapseLayoutOptions option);
+
+    static boolean BeginCollapseLayoutEx_2(long id, [Const]DOMString title, float sizeX, float sizeY);
+    static boolean BeginCollapseLayoutEx_2(long id, [Const]DOMString title, float sizeX, float sizeY, [Ref] ImGuiCollapseLayoutOptions option);
+
+    static void BeginCollapseLayoutEx([Const]DOMString id, boolean[] isOpen, [Const]DOMString title, float sizeX, float sizeY);
+    static void BeginCollapseLayoutEx([Const]DOMString id, boolean[] isOpen, [Const]DOMString title, float sizeX, float sizeY, [Ref] ImGuiCollapseLayoutOptions option);
+
+    static void BeginAlign([Const]DOMString id, float sizeX, float sizeY, optional float alignX, optional float alignY, optional float offsetX, optional float offsetY);
+    static void AlignLayout(optional float alignX, optional float alignY, optional float offsetX, optional float offsetY);
+    static void EndAlign();
+
+    static boolean BeginLayout([Const]DOMString id, float sizeX, float sizeY);
+    static boolean BeginLayout([Const]DOMString id, float sizeX, float sizeY, [Ref] ImGuiLayoutOptions options);
+};
+
+interface ImGuiLayoutOptions {
+    attribute boolean clipping;
+    attribute float paddingLeft;
+    attribute float paddingRight;
+    attribute float paddingTop;
+    attribute float paddingBottom;
+};
+
+interface ImGuiCollapseLayoutOptions {
+    attribute unsigned long arrowColor;
+    attribute unsigned long arrowBackgroundHoveredColor;
+    attribute unsigned long arrowBackgroundClickedColor;
+    attribute unsigned long frameColor;
+    attribute unsigned long borderColor;
+    attribute long borderRound;
+    attribute long roundingCorners;
+    attribute boolean openDefault;
 };
