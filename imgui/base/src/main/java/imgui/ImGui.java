@@ -52,4 +52,8 @@ public class ImGui {
         ImGui::GetIO().BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
     */
     public static native void CreateContext(boolean saveIni);
+
+    public static void disposeStatic() {
+        //TODO impl
+    }
 }

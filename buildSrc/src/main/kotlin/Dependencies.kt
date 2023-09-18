@@ -3,6 +3,7 @@ object LibExt {
     val libVersion: String = getVersion("1.0.0", "b1")
 
     val imlayoutVersion = libVersion
+    val gdxImguiVersion = libVersion
 
     const val teaVMVersion = "0.9.0-dev-12"
     const val gdxTeaVMVersion = "1.0.0-b7"

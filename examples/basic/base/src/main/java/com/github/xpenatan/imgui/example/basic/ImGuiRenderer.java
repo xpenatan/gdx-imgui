@@ -12,6 +12,8 @@ public abstract class ImGuiRenderer extends ScreenAdapter {
 
     private ImGuiGdxImpl impl;
 
+    protected ImGuiGdxInputMultiplexer input;
+
     @Override
     public void show() {
         ImGui.CreateContext(false);
@@ -23,7 +25,7 @@ public abstract class ImGuiRenderer extends ScreenAdapter {
 
 //        io.SetConfigFlags(ImGuiConfigFlags.DockingEnable);
 
-        ImGuiGdxInputMultiplexer input = new ImGuiGdxInputMultiplexer();
+        input = new ImGuiGdxInputMultiplexer();
         impl = new ImGuiGdxImpl();
         Gdx.input.setInputProcessor(input);
     }
@@ -58,7 +60,7 @@ public abstract class ImGuiRenderer extends ScreenAdapter {
 
     @Override
     public void dispose() {
-//        ImGui.dispose();
+        ImGui.disposeStatic();
     }
 
 }

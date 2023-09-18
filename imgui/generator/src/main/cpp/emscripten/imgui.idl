@@ -86,8 +86,8 @@ interface ImGui {
 
     static void                    PushFont(ImFont font);
     static void                    PopFont();
-    static void                    PushStyleColor(long idx, unsigned long col);
-    static void                    PushStyleColor_2(long idx, [Const, Ref] ImVec4 col);
+    static void                    PushStyleColor(ImGuiCol idx, unsigned long col);
+    static void                    PushStyleColor_2(ImGuiCol idx, [Const, Ref] ImVec4 col);
     static void                    PopStyleColor(optional long count);
     static void                    PushStyleVar(long idx, float val);
     static void                    PushStyleVar_2(long idx, [Const, Ref]ImVec2 val);
@@ -624,6 +624,20 @@ enum ImGuiFocusedFlags {
     "ImGuiFocusedFlags_RootAndChildWindows"
 };
 
+enum ImGuiConfigFlags {
+    "ImGuiConfigFlags_None",
+    "ImGuiConfigFlags_NavEnableKeyboard",
+    "ImGuiConfigFlags_NavEnableGamepad",
+    "ImGuiConfigFlags_NavEnableSetMousePos",
+    "ImGuiConfigFlags_NavNoCaptureKeyboard",
+    "ImGuiConfigFlags_NoMouse",
+    "ImGuiConfigFlags_NoMouseCursorChange",
+    "ImGuiConfigFlags_DockingEnable",
+    "ImGuiConfigFlags_ViewportsEnable",
+    "ImGuiConfigFlags_DpiEnableScaleViewports",
+    "ImGuiConfigFlags_DpiEnableScaleFonts"
+};
+
 enum ImGuiKey {
     "ImGuiKey_None",
     "ImGuiKey_Tab",
@@ -804,6 +818,82 @@ enum ImGuiSliderFlags {
     "ImGuiSliderFlags_Logarithmic",
     "ImGuiSliderFlags_NoRoundToFormat",
     "ImGuiSliderFlags_NoInput"
+};
+
+enum ImGuiHoveredFlags {
+    "ImGuiHoveredFlags_None",
+    "ImGuiHoveredFlags_ChildWindows",
+    "ImGuiHoveredFlags_RootWindow",
+    "ImGuiHoveredFlags_AnyWindow",
+    "ImGuiHoveredFlags_NoPopupHierarchy",
+    "ImGuiHoveredFlags_DockHierarchy",
+    "ImGuiHoveredFlags_AllowWhenBlockedByPopup",
+    "ImGuiHoveredFlags_AllowWhenBlockedByActiveItem",
+    "ImGuiHoveredFlags_AllowWhenOverlappedByItem",
+    "ImGuiHoveredFlags_AllowWhenOverlappedByWindow",
+    "ImGuiHoveredFlags_AllowWhenDisabled",
+    "ImGuiHoveredFlags_NoNavOverride",
+    "ImGuiHoveredFlags_AllowWhenOverlapped",
+    "ImGuiHoveredFlags_RectOnly",
+    "ImGuiHoveredFlags_RootAndChildWindows"
+};
+
+enum ImGuiCol {
+    "ImGuiCol_Text",
+    "ImGuiCol_TextDisabled",
+    "ImGuiCol_WindowBg",
+    "ImGuiCol_ChildBg",
+    "ImGuiCol_PopupBg",
+    "ImGuiCol_Border",
+    "ImGuiCol_BorderShadow",
+    "ImGuiCol_FrameBg",
+    "ImGuiCol_FrameBgHovered",
+    "ImGuiCol_FrameBgActive",
+    "ImGuiCol_TitleBg",
+    "ImGuiCol_TitleBgActive",
+    "ImGuiCol_TitleBgCollapsed",
+    "ImGuiCol_MenuBarBg",
+    "ImGuiCol_ScrollbarBg",
+    "ImGuiCol_ScrollbarGrab",
+    "ImGuiCol_ScrollbarGrabHovered",
+    "ImGuiCol_ScrollbarGrabActive",
+    "ImGuiCol_CheckMark",
+    "ImGuiCol_SliderGrab",
+    "ImGuiCol_SliderGrabActive",
+    "ImGuiCol_Button",
+    "ImGuiCol_ButtonHovered",
+    "ImGuiCol_ButtonActive",
+    "ImGuiCol_Header",
+    "ImGuiCol_HeaderHovered",
+    "ImGuiCol_HeaderActive",
+    "ImGuiCol_Separator",
+    "ImGuiCol_SeparatorHovered",
+    "ImGuiCol_SeparatorActive",
+    "ImGuiCol_ResizeGrip",
+    "ImGuiCol_ResizeGripHovered",
+    "ImGuiCol_ResizeGripActive",
+    "ImGuiCol_Tab",
+    "ImGuiCol_TabHovered",
+    "ImGuiCol_TabActive",
+    "ImGuiCol_TabUnfocused",
+    "ImGuiCol_TabUnfocusedActive",
+    "ImGuiCol_DockingPreview",
+    "ImGuiCol_DockingEmptyBg",
+    "ImGuiCol_PlotLines",
+    "ImGuiCol_PlotLinesHovered",
+    "ImGuiCol_PlotHistogram",
+    "ImGuiCol_PlotHistogramHovered",
+    "ImGuiCol_TableHeaderBg",
+    "ImGuiCol_TableBorderStrong",
+    "ImGuiCol_TableBorderLight",
+    "ImGuiCol_TableRowBg",
+    "ImGuiCol_TableRowBgAlt",
+    "ImGuiCol_TextSelectedBg",
+    "ImGuiCol_DragDropTarget",
+    "ImGuiCol_NavHighlight",
+    "ImGuiCol_NavWindowingHighlight",
+    "ImGuiCol_NavWindowingDimBg",
+    "ImGuiCol_ModalWindowDimBg"
 };
 
 enum ImGuiInputTextFlags {

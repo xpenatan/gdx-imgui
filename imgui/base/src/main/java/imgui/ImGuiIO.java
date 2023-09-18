@@ -19,19 +19,19 @@ public class ImGuiIO extends IDLBase {
     public ImGuiIO(byte value) {
     }
 
-//    public void SetConfigFlags(ImGuiConfigFlags flags) {
-//        SetConfigFlagsNATIVE(getCPointer(), flags.getValue());
-//    }
-//
-//    /*[-teaVM;-NATIVE]
-//        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
-//        io.set_ConfigFlags(flag);
-//    */
-//    /*[-C++;-NATIVE]
-//        ImGuiIO* io = (ImGuiIO*)addr;
-//        io->ConfigFlags = flag;
-//    */
-//    private static native void SetConfigFlagsNATIVE(long addr, int flag);
+    public void set_ConfigFlags(int flags) {
+        SetConfigFlagsNATIVE(getCPointer(), flags);
+    }
+
+    /*[-teaVM;-NATIVE]
+        var io = imgui.wrapPointer(addr, imgui.ImGuiIO);
+        io.set_ConfigFlags(flag);
+    */
+    /*[-C++;-NATIVE]
+        ImGuiIO* io = (ImGuiIO*)addr;
+        io->ConfigFlags = flag;
+    */
+    private static native void SetConfigFlagsNATIVE(long addr, int flag);
 
 //    public boolean ContainsConfigFlags(ImGuiConfigFlags flags) {
 //        return ContainsConfigFlagsNATIVE(getCPointer(), flags.getValue());
