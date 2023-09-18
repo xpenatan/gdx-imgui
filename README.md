@@ -43,7 +43,7 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
 
     // Required
-    implementation "com.github.xpenatan.gdx-imgui:core:$project.gdxImguiVersion"
+    implementation "com.github.xpenatan.gdx-imgui:imgui-core:$project.gdxImguiVersion"
     implementation "com.github.xpenatan.gdx-imgui:gdx:$project.gdxImguiVersion"
 
     // Required Platform Natives
