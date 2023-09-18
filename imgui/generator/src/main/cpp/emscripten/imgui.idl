@@ -295,7 +295,7 @@ interface ImGui {
 //
     static boolean                 IsPopupOpen([Const]DOMString str_id, optional long flags);
 //
-    static boolean                 BeginTable([Const]DOMString str_id, long column, optional long flags, [Const, Ref]optional ImVec2 outer_size, optional float inner_width);
+    static boolean                 BeginTable([Const]DOMString str_id, long column, optional ImGuiTableFlags flags, [Const, Ref]optional ImVec2 outer_size, optional float inner_width);
     static void                    EndTable();
     static void                    TableNextRow(optional long row_flags, optional float min_row_height);
     static boolean                 TableNextColumn();
@@ -818,6 +818,44 @@ enum ImGuiSliderFlags {
     "ImGuiSliderFlags_Logarithmic",
     "ImGuiSliderFlags_NoRoundToFormat",
     "ImGuiSliderFlags_NoInput"
+};
+
+enum ImGuiTableFlags {
+    "ImGuiTableFlags_None",
+    "ImGuiTableFlags_Resizable",
+    "ImGuiTableFlags_Reorderable",
+    "ImGuiTableFlags_Hideable",
+    "ImGuiTableFlags_Sortable",
+    "ImGuiTableFlags_NoSavedSettings",
+    "ImGuiTableFlags_ContextMenuInBody",
+    "ImGuiTableFlags_RowBg",
+    "ImGuiTableFlags_BordersInnerH",
+    "ImGuiTableFlags_BordersOuterH",
+    "ImGuiTableFlags_BordersInnerV",
+    "ImGuiTableFlags_BordersOuterV",
+    "ImGuiTableFlags_BordersH",
+    "ImGuiTableFlags_BordersV",
+    "ImGuiTableFlags_BordersInner",
+    "ImGuiTableFlags_BordersOuter",
+    "ImGuiTableFlags_Borders",
+    "ImGuiTableFlags_NoBordersInBody",
+    "ImGuiTableFlags_NoBordersInBodyUntilResize",
+    "ImGuiTableFlags_SizingFixedFit",
+    "ImGuiTableFlags_SizingFixedSame",
+    "ImGuiTableFlags_SizingStretchProp",
+    "ImGuiTableFlags_SizingStretchSame",
+    "ImGuiTableFlags_NoHostExtendX",
+    "ImGuiTableFlags_NoHostExtendY",
+    "ImGuiTableFlags_NoKeepColumnsVisible",
+    "ImGuiTableFlags_PreciseWidths",
+    "ImGuiTableFlags_NoClip",
+    "ImGuiTableFlags_PadOuterX",
+    "ImGuiTableFlags_NoPadOuterX",
+    "ImGuiTableFlags_NoPadInnerX",
+    "ImGuiTableFlags_ScrollX",
+    "ImGuiTableFlags_ScrollY",
+    "ImGuiTableFlags_SortMulti",
+    "ImGuiTableFlags_SortTristate"
 };
 
 enum ImGuiHoveredFlags {
