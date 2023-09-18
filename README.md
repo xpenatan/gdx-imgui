@@ -47,16 +47,16 @@ dependencies {
     implementation "com.github.xpenatan.gdx-imgui:gdx:$project.gdxImguiVersion"
 
     // Required Platform Natives
-    implementation "com.github.xpenatan.gdx-imgui:core-desktop:$project.gdxImguiVersion"
-    //implementation "com.github.xpenatan.gdx-imgui:core-android:$project.gdxImguiVersion"
-    //implementation "com.github.xpenatan.gdx-imgui:core-ios:$project.gdxImguiVersion"
-    implementation "com.github.xpenatan.gdx-imgui:core-teavm:$project.gdxImguiVersion"
+    implementation "com.github.xpenatan.gdx-imgui:imgui-desktop:$project.gdxImguiVersion"
+    //implementation "com.github.xpenatan.gdx-imgui:imgui-android:$project.gdxImguiVersion"
+    //implementation "com.github.xpenatan.gdx-imgui:imgui-ios:$project.gdxImguiVersion"
+    implementation "com.github.xpenatan.gdx-imgui:imgui-teavm:$project.gdxImguiVersion"
 
     // Optional
-    implementation "com.github.xpenatan.gdx-imgui:lwjgl3:$project.gdxImguiVersion"
+//    implementation "com.github.xpenatan.gdx-imgui:lwjgl3:$project.gdxImguiVersion"
 
     // Optional - ImLayout extension
-    implementation "com.github.xpenatan.gdx-imgui:imlayout:$project.imlayoutVersion"
+    implementation "com.github.xpenatan.gdx-imgui:imlayout-core:$project.imlayoutVersion"
     implementation "com.github.xpenatan.gdx-imgui:imlayout-desktop:$project.imlayoutVersion"
 
     // Optional
