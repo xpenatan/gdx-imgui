@@ -301,7 +301,7 @@ interface ImGui {
     static boolean                 TableNextColumn();
     static boolean                 TableSetColumnIndex(long column_n);
 
-    static void                    TableSetupColumn([Const]DOMString label, optional long flags, optional float init_width_or_weight, optional long user_id);
+    static void                    TableSetupColumn([Const]DOMString label, optional ImGuiTableColumnFlags flags, optional float init_width_or_weight, optional long user_id);
     static void                    TableSetupScrollFreeze(long cols, long rows);
     static void                    TableHeadersRow();
     static void                    TableHeader([Const]DOMString label);
@@ -757,6 +757,32 @@ enum ImGuiButtonFlags {
     "ImGuiButtonFlags_MouseButtonLeft",
     "ImGuiButtonFlags_MouseButtonRight",
     "ImGuiButtonFlags_MouseButtonMiddle"
+};
+
+enum ImGuiTableColumnFlags {
+    "ImGuiTableColumnFlags_None",
+    "ImGuiTableColumnFlags_Disabled",
+    "ImGuiTableColumnFlags_DefaultHide",
+    "ImGuiTableColumnFlags_DefaultSort",
+    "ImGuiTableColumnFlags_WidthStretch",
+    "ImGuiTableColumnFlags_WidthFixed",
+    "ImGuiTableColumnFlags_NoResize",
+    "ImGuiTableColumnFlags_NoReorder",
+    "ImGuiTableColumnFlags_NoHide",
+    "ImGuiTableColumnFlags_NoClip",
+    "ImGuiTableColumnFlags_NoSort",
+    "ImGuiTableColumnFlags_NoSortAscending",
+    "ImGuiTableColumnFlags_NoSortDescending",
+    "ImGuiTableColumnFlags_NoHeaderLabel",
+    "ImGuiTableColumnFlags_NoHeaderWidth",
+    "ImGuiTableColumnFlags_PreferSortAscending",
+    "ImGuiTableColumnFlags_PreferSortDescending",
+    "ImGuiTableColumnFlags_IndentEnable",
+    "ImGuiTableColumnFlags_IndentDisable",
+    "ImGuiTableColumnFlags_IsEnabled",
+    "ImGuiTableColumnFlags_IsVisible",
+    "ImGuiTableColumnFlags_IsSorted",
+    "ImGuiTableColumnFlags_IsHovered"
 };
 
 enum ImGuiComboFlags {
