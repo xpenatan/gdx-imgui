@@ -162,7 +162,7 @@ interface ImGui {
     static boolean                 Button([Const] DOMString label, [Const, Ref]optional ImVec2 size);
     static boolean                 SmallButton([Const] DOMString label);
     static boolean                 InvisibleButton([Const] DOMString str_id, [Const, Ref] ImVec2 size, optional ImGuiButtonFlags flags);
-    static boolean                 ArrowButton([Const] DOMString str_id, long dir);
+    static boolean                 ArrowButton([Const] DOMString str_id, ImGuiDir dir);
     static boolean                 Checkbox([Const] DOMString label, boolean[] v);
     static boolean                 CheckboxFlags([Const] DOMString label, long[] flags, long flags_value);
 //    static boolean                 CheckboxFlags_2([Const] DOMString label, unsigned long[] flags, unsigned long flags_value);
@@ -171,8 +171,8 @@ interface ImGui {
     static void                    ProgressBar(float fraction, [Const, Ref]optional ImVec2 size_arg, [Const]optional DOMString overlay);
     static void                    Bullet();
 
-    static void                    Image(long user_texture_id, [Const, Ref] ImVec2 size, [Const, Ref]optional ImVec2 uv0, [Const, Ref]optional ImVec2 uv1, [Const, Ref]optional ImVec4 tint_col, [Const, Ref] ImVec4 border_col);
-    static boolean                 ImageButton([Const] DOMString str_id, any user_texture_id, [Const, Ref] ImVec2 size, [Const, Ref]optional ImVec2 uv0, [Const, Ref]optional ImVec2 uv1, [Const, Ref]optional ImVec4 bg_col, [Const, Ref]optional ImVec4 tint_col);
+    static void                    Image(long user_texture_id, [Const, Ref] ImVec2 size, [Const, Ref]optional ImVec2 uv0, [Const, Ref]optional ImVec2 uv1, [Const, Ref]optional ImVec4 tint_col, [Const, Ref]optional ImVec4 border_col);
+    static boolean                 ImageButton([Const] DOMString str_id, long user_texture_id, [Const, Ref] ImVec2 size, [Const, Ref]optional ImVec2 uv0, [Const, Ref]optional ImVec2 uv1, [Const, Ref]optional ImVec4 bg_col, [Const, Ref]optional ImVec4 tint_col);
 
     static boolean                 BeginCombo([Const] DOMString label, [Const] DOMString preview_value, optional ImGuiComboFlags flags);
     static void                    EndCombo();
@@ -755,6 +755,14 @@ enum ImGuiComboFlags {
     "ImGuiComboFlags_NoArrowButton",
     "ImGuiComboFlags_NoPreview",
     "ImGuiComboFlags_HeightMask_"
+};
+
+enum ImGuiDir {
+    "ImGuiDir_None",
+    "ImGuiDir_Left",
+    "ImGuiDir_Right",
+    "ImGuiDir_Up",
+    "ImGuiDir_Down"
 };
 
 enum ImGuiWindowFlags {

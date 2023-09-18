@@ -14,8 +14,9 @@ public class ImVec2 extends IDLBase {
     public native void set_x(float x);
     public native void set_y(float y);
 
-    public void set(float x, float y) {
+    public ImVec2 set(float x, float y) {
         set_x(x);
         set_y(y);
+        return this;
     }
 }

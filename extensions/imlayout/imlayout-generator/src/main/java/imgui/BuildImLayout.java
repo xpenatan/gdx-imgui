@@ -75,6 +75,8 @@ public class BuildImLayout {
             String cppSourceDir,
             String idlPath
     ) throws Exception {
+
+        JParser.CREATE_IDL_HELPER = false;
         String libName = "imlayout";
         String emscriptenCustomCodePath = new File("src/main/cpp/emscripten").getCanonicalPath();
 

@@ -13,6 +13,7 @@ interface ImLayout {
     static void BeginCollapseLayout([Const]DOMString id, boolean[] isOpen, [Const]DOMString title, float sizeX, float sizeY);
     static void BeginCollapseLayout([Const]DOMString id, boolean[] isOpen, [Const]DOMString title, float sizeX, float sizeY, [Ref] ImGuiCollapseLayoutOptions option);
 
+    static void EndCollapseFrameLayout();
     static void EndCollapseLayout();
 
     static boolean BeginCollapseLayoutEx([Const]DOMString id, [Const]DOMString title, float sizeX, float sizeY);
@@ -30,6 +31,8 @@ interface ImLayout {
 
     static boolean BeginLayout([Const]DOMString id, float sizeX, float sizeY);
     static boolean BeginLayout([Const]DOMString id, float sizeX, float sizeY, [Ref] ImGuiLayoutOptions options);
+    static ImGuiLayout GetCurrentLayout();
+    static void EndLayout();
 };
 
 interface ImGuiLayoutOptions {
@@ -49,4 +52,9 @@ interface ImGuiCollapseLayoutOptions {
     attribute long borderRound;
     attribute long roundingCorners;
     attribute boolean openDefault;
+};
+
+interface ImGuiLayout {
+    [Value]attribute ImVec2 position;
+    [Value]attribute ImVec2 size;
 };
