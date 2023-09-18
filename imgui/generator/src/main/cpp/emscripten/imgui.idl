@@ -180,33 +180,33 @@ interface ImGui {
     static boolean                 Combo([Const] DOMString label, long[] current_item, [Const] DOMString items_separated_by_zeros, optional long popup_max_height_in_items);
 ////    boolean                 Combo([Const] DOMString label, long[] current_item, boolean(*items_getter)(any data, long idx, [Const] DOMString* out_text), any data, long items_count, optional long popup_max_height_in_items); // crazy boolean with param
 
-    static boolean                 DragFloat([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 DragFloat2([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 DragFloat3([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 DragFloat4([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 DragFloatRange2([Const] DOMString label, float[] v_current_min, float[] v_current_max, optional float v_speed, optional float v_min, optional float v_max, [Const]optional DOMString format, [Const]optional DOMString format_max, optional long flags);
-    static boolean                 DragInt([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 DragInt2([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 DragInt3([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 DragInt4([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 DragIntRange2([Const] DOMString label, long[] v_current_min, long[] v_current_max, optional float v_speed, optional long v_min, optional long v_max, [Const]optional DOMString format, [Const]optional DOMString format_max, optional long flags);
-//    static boolean                 DragScalar([Const] DOMString label, long data_type, any p_data, optional float v_speed, [Const]optional any p_min, [Const]optional any p_max, [Const]optional DOMString format, optional long flags);
-//    static boolean                 DragScalarN([Const] DOMString label, long data_type, any p_data, long components, optional float v_speed, [Const]optional any p_min, [Const]optional any p_max, [Const]optional DOMString format, optional long flags);
+    static boolean                 DragFloat([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 DragFloat2([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 DragFloat3([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 DragFloat4([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 DragFloatRange2([Const] DOMString label, float[] v_current_min, float[] v_current_max, optional float v_speed, optional float v_min, optional float v_max, [Const]optional DOMString format, [Const]optional DOMString format_max, optional ImGuiSliderFlags flags);
+    static boolean                 DragInt([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 DragInt2([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 DragInt3([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 DragInt4([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 DragIntRange2([Const] DOMString label, long[] v_current_min, long[] v_current_max, optional float v_speed, optional long v_min, optional long v_max, [Const]optional DOMString format, [Const]optional DOMString format_max, optional ImGuiSliderFlags flags);
+//    static boolean                 DragScalar([Const] DOMString label, long data_type, any p_data, optional float v_speed, [Const]optional any p_min, [Const]optional any p_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+//    static boolean                 DragScalarN([Const] DOMString label, long data_type, any p_data, long components, optional float v_speed, [Const]optional any p_min, [Const]optional any p_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
 
-    static boolean                 SliderFloat([Const] DOMString label, float[] v, float v_min, float v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 SliderFloat2([Const] DOMString label, float[] v, float v_min, float v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 SliderFloat3([Const] DOMString label, float[] v, float v_min, float v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 SliderFloat4([Const] DOMString label, float[] v, float v_min, float v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 SliderAngle([Const] DOMString label, float[] v_rad, optional float v_degrees_min, optional float v_degrees_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 SliderInt([Const] DOMString label, long[] v, long v_min, long v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 SliderInt2([Const] DOMString label, long[] v, long v_min, long v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 SliderInt3([Const] DOMString label, long[] v, long v_min, long v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 SliderInt4([Const] DOMString label, long[] v, long v_min, long v_max, [Const]optional DOMString format, optional long flags);
-//    static boolean                 SliderScalar([Const] DOMString label, long data_type, any p_data, [Const] any p_min, [Const] any p_max, [Const]optional DOMString format, optional long flags);
-//    static boolean                 SliderScalarN([Const] DOMString label, long data_type, any p_data, long components, [Const] any p_min, [Const] any p_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 VSliderFloat([Const] DOMString label, [Const, Ref] ImVec2 size, float[] v, float v_min, float v_max, [Const]optional DOMString format, optional long flags);
-    static boolean                 VSliderInt([Const] DOMString label, [Const, Ref] ImVec2 size, long[] v, long v_min, long v_max, [Const]optional DOMString format, optional long flags);
-//    static boolean                 VSliderScalar([Const] DOMString label, [Const, Ref] ImVec2 size, long data_type, any p_data, [Const] any p_min, [Const] any p_max, [Const]optional DOMString format, optional long flags);
+    static boolean                 SliderFloat([Const] DOMString label, float[] v, float v_min, float v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 SliderFloat2([Const] DOMString label, float[] v, float v_min, float v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 SliderFloat3([Const] DOMString label, float[] v, float v_min, float v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 SliderFloat4([Const] DOMString label, float[] v, float v_min, float v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 SliderAngle([Const] DOMString label, float[] v_rad, optional float v_degrees_min, optional float v_degrees_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 SliderInt([Const] DOMString label, long[] v, long v_min, long v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 SliderInt2([Const] DOMString label, long[] v, long v_min, long v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 SliderInt3([Const] DOMString label, long[] v, long v_min, long v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 SliderInt4([Const] DOMString label, long[] v, long v_min, long v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+//    static boolean                 SliderScalar([Const] DOMString label, long data_type, any p_data, [Const] any p_min, [Const] any p_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+//    static boolean                 SliderScalarN([Const] DOMString label, long data_type, any p_data, long components, [Const] any p_min, [Const] any p_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 VSliderFloat([Const] DOMString label, [Const, Ref] ImVec2 size, float[] v, float v_min, float v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 VSliderInt([Const] DOMString label, [Const, Ref] ImVec2 size, long[] v, long v_min, long v_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
+//    static boolean                 VSliderScalar([Const] DOMString label, [Const, Ref] ImVec2 size, long data_type, any p_data, [Const] any p_min, [Const] any p_max, [Const]optional DOMString format, optional ImGuiSliderFlags flags);
 
     static boolean                 InputText([Const] DOMString label, byte[] buf, long long buf_size, optional ImGuiInputTextFlags flags); //, optional ImGuiInputTextCallback callback, optional long flags);
     static boolean                 InputTextMultiline([Const] DOMString label, byte[] buf, long long buf_size, [Const, Ref]optional ImVec2 size, optional ImGuiInputTextFlags flags); //, optional ImGuiInputTextCallback callback, optional any user_data);
@@ -796,6 +796,14 @@ enum ImGuiCond {
     "ImGuiCond_Once",
     "ImGuiCond_FirstUseEver",
     "ImGuiCond_Appearing"
+};
+
+enum ImGuiSliderFlags {
+    "ImGuiSliderFlags_None",
+    "ImGuiSliderFlags_AlwaysClamp",
+    "ImGuiSliderFlags_Logarithmic",
+    "ImGuiSliderFlags_NoRoundToFormat",
+    "ImGuiSliderFlags_NoInput"
 };
 
 enum ImGuiInputTextFlags {
