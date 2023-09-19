@@ -1,4 +1,5 @@
 #include <imgui.h>
+#include <imgui_internal.h>
 
 typedef ImVector<ImDrawCmd> VecCmdBuffer;
 typedef ImVector<ImDrawIdx> VecIdxBuffer;
