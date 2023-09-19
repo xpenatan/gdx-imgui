@@ -7,7 +7,7 @@ public class ImGuiInitScreen extends ScreenAdapter {
 
     private ImGuiGame game;
 
-    private boolean bulletInit = false;
+    private boolean init = false;
 
     public ImGuiInitScreen(ImGuiGame game) {
         this.game = game;
@@ -15,13 +15,13 @@ public class ImGuiInitScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        ImGuiLoader.init(() -> bulletInit = true);
+        ImGuiLoader.init(() -> init = true);
     }
 
     @Override
     public void render(float delta) {
-        if(bulletInit) {
-            bulletInit = false;
+        if(init) {
+            init = false;
             game.setScreen(new BasicExample());
         }
     }
