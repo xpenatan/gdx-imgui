@@ -292,6 +292,7 @@ interface ImGui {
 
     static boolean                 BeginPopup([Const]DOMString str_id, optional ImGuiWindowFlags flags);
     static boolean                 BeginPopupModal([Const]DOMString name, optional boolean[] p_open, optional ImGuiWindowFlags flags);
+    static boolean                 BeginPopupModal2([Const]DOMString name, ImGuiWindowFlags flags);
     static void                    EndPopup();
 //
     static void                    OpenPopup([Const]DOMString str_id, optional ImGuiPopupFlags popup_flags);

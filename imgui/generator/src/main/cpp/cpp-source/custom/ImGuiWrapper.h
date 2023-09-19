@@ -304,6 +304,8 @@ class ImGui {
 
         static bool BeginPopup(const char* str_id, ImGuiWindowFlags flags = 0) { return im::BeginPopup(str_id, flags); }
         static bool BeginPopupModal(const char* name, bool* p_open = NULL, ImGuiWindowFlags flags = 0) { return im::BeginPopupModal(name, p_open, flags); }
+        //Custom method
+        static bool BeginPopupModal2(const char* name, ImGuiWindowFlags flags) { return im::BeginPopupModal(name, NULL, flags); }
         static void EndPopup() { im::EndPopup(); }
 
         static void OpenPopup(const char* str_id, ImGuiPopupFlags popup_flags = 0) { im::OpenPopup(str_id, popup_flags); }
