@@ -33,9 +33,13 @@ interface ImLayout {
     static boolean BeginLayout([Const]DOMString id, float sizeX, float sizeY, [Ref] ImGuiLayoutOptions options);
     static ImGuiLayout GetCurrentLayout();
     static void EndLayout();
+
+    static void BeginBoundingBox();
+    [Ref] static ImRect EndBoundingBox();
 };
 
 interface ImGuiLayoutOptions {
+    void ImGuiLayoutOptions();
     attribute boolean clipping;
     attribute float paddingLeft;
     attribute float paddingRight;
@@ -44,6 +48,7 @@ interface ImGuiLayoutOptions {
 };
 
 interface ImGuiCollapseLayoutOptions {
+    void ImGuiCollapseLayoutOptions();
     attribute unsigned long arrowColor;
     attribute unsigned long arrowBackgroundHoveredColor;
     attribute unsigned long arrowBackgroundClickedColor;

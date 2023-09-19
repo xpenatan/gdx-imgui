@@ -7,6 +7,15 @@ typedef ImVector<ImDrawVert> VecVtxBuffer;
 namespace im = ImGui;
 
 namespace ImGuiWrapper {
+
+class ImGuiInternal {
+    // Emscripten webidl don't support binding methods without a class so we need to create a wrapper
+    public:
+        static ImGuiWindow* GetCurrentWindow() { return im::GetCurrentWindow(); }
+        static void ItemSize(const ImVec2& size, float text_baseline_y = -1.0f) { im::ItemSize(size, text_baseline_y); }
+        static void ItemSize_2(const ImRect& bb, float text_baseline_y = -1.0f) { im::ItemSize(bb, text_baseline_y); }
+};
+
 class ImGui {
     // Emscripten webidl don't support binding methods without a class so we need to create a wrapper
     public:
@@ -144,9 +153,9 @@ class ImGui {
         static float GetFrameHeightWithSpacing() { return im::GetFrameHeightWithSpacing(); }
 
         static void PushID(const char* str_id) { im::PushID(str_id); }
-        static void PushID_2(const char* str_id_begin, const char* str_id_end) { im::PushID(str_id_begin, str_id_end); }
+        static void PushID(const char* str_id_begin, const char* str_id_end) { im::PushID(str_id_begin, str_id_end); }
+        static void PushID_2(int int_id) { im::PushID(int_id); }
         static void PushID_3(const void* ptr_id) { im::PushID(ptr_id); }
-        static void PushID_4(int int_id) { im::PushID(int_id); }
         static void PopID() { im::PopID(); }
         static ImGuiID GetID(const char* str_id) { return im::GetID(str_id); }
         static ImGuiID GetID_2(const char* str_id_begin, const char* str_id_end) { return im::GetID(str_id_begin, str_id_end); }
@@ -360,7 +369,8 @@ class ImGui {
 //        static void LogTextV(const char* fmt, va_list args) { im::LogTextV(fmt, args); }
 
         static bool BeginDragDropSource(ImGuiDragDropFlags flags = 0) { return im::BeginDragDropSource(flags); }
-        static bool SetDragDropPayload(const char* type, const void* data, size_t sz, ImGuiCond cond = 0) { return im::SetDragDropPayload(type, data, sz, cond); }
+        // Changed SetDragDropPayload to pass int data
+        static bool SetDragDropPayload(const char* type, int data, ImGuiCond cond = 0) { return im::SetDragDropPayload(type, &data, sizeof(int), cond); }
         static void EndDragDropSource() { im::EndDragDropSource(); }
         static bool BeginDragDropTarget() { return im::BeginDragDropTarget(); }
         static const ImGuiPayload* AcceptDragDropPayload(const char* type, ImGuiDragDropFlags flags = 0) { return im::AcceptDragDropPayload(type, flags); }

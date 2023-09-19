@@ -42,4 +42,8 @@ class ImHelper {
             // not possible to change a readonly attribute in webidl file.
             ImGui::GetIO().IniFilename = NULL;
         }
+
+        static int getImGuiPayloadData(ImGuiPayload * payload) {
+            return *(const int*)payload->Data;
+        }
 };

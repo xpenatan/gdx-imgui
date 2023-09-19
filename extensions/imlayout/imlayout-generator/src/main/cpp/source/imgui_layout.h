@@ -156,6 +156,6 @@ public:
 
     // Calculate content size
     static void BeginBoundingBox();  // Its the same as using Begin/End group and getting the LastItemRect values
-    static ImRect EndBoundingBox();  // Its the same as using Begin/End group and getting the LastItemRect values
+    static ImRect& EndBoundingBox();  // Its the same as using Begin/End group and getting the LastItemRect values
 
 };

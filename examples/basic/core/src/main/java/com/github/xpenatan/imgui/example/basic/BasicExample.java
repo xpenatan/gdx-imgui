@@ -2,11 +2,15 @@ package com.github.xpenatan.imgui.example.basic;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.github.xpenatan.imgui.example.basic.renderer.ColorRenderer;
+import com.github.xpenatan.imgui.example.basic.renderer.DragAndDropRenderer;
 import com.github.xpenatan.imgui.example.basic.renderer.EditTextRenderer;
 import com.github.xpenatan.imgui.example.basic.renderer.SelectListRenderer;
+import com.github.xpenatan.imgui.example.basic.renderer.UIRenderer;
 import imgui.ImGui;
 import imgui.ImGuiBoolean;
+import imgui.ImGuiTabBarFlags;
 import imgui.ImVec2;
 
 public class BasicExample extends ImGuiRenderer {
@@ -16,11 +20,7 @@ public class BasicExample extends ImGuiRenderer {
 
     private boolean init = false;
 
-    private ImGuiBoolean checkbox;
-
-    private EditTextRenderer editTextRenderer;
-    private SelectListRenderer selectListRenderer;
-    private ColorRenderer colorRenderer;
+    private Array<UIRenderer> renderers = new Array<>();
 
     private StringBuilder stringBuilder = new StringBuilder();
 
@@ -28,10 +28,10 @@ public class BasicExample extends ImGuiRenderer {
     public void show() {
         super.show();
 
-        checkbox = new ImGuiBoolean();
-        editTextRenderer = new EditTextRenderer();
-        selectListRenderer = new SelectListRenderer();
-        colorRenderer = new ColorRenderer();
+        renderers.add(new EditTextRenderer());
+        renderers.add(new SelectListRenderer());
+        renderers.add(new ColorRenderer());
+        renderers.add(new DragAndDropRenderer());
 
         uiCam = new OrthographicCamera();
         uiCam.setToOrtho(true);
@@ -50,17 +50,17 @@ public class BasicExample extends ImGuiRenderer {
 
         ImGui.Begin("Hello World");
 
-        ImGui.Text("HelloText");
-
-        ImGui.Checkbox("Check", checkbox);
-
-        editTextRenderer.render();
-        selectListRenderer.render();
-        colorRenderer.render();
-
+        if(ImGui.BeginTabBar("##Renderer", ImGuiTabBarFlags.ImGuiTabBarFlags_FittingPolicyScroll | ImGuiTabBarFlags.ImGuiTabBarFlags_Reorderable)) {
+            for(UIRenderer renderer : renderers) {
+                if(ImGui.BeginTabItem(renderer.getName())) {
+                    renderer.render();
+                    ImGui.EndTabItem();
+                }
+            }
+            ImGui.EndTabBar();
+        }
         ImGui.End();
 
         ImGui.ShowDemoWindow();
-
     }
 }

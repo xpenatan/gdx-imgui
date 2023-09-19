@@ -7,7 +7,7 @@ import imgui.ImGuiFloat3;
 import imgui.ImGuiFloat4;
 import imgui.ImGuiString;
 
-public class EditTextRenderer {
+public class EditTextRenderer implements UIRenderer {
 
     private final ImGuiFloat imguiFloat1 = new ImGuiFloat();
     private final ImGuiFloat2 imguiFloat2 = new ImGuiFloat2();
@@ -29,5 +29,10 @@ public class EditTextRenderer {
             String value = imguiString1.getValue();
             System.out.println("value: " + value);
         }
+    }
+
+    @Override
+    public String getName() {
+        return "EditText";
     }
 }

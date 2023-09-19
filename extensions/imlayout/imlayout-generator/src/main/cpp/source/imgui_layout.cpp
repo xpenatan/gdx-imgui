@@ -726,7 +726,7 @@ void ImLayout::BeginBoundingBox() {
     ImGuiWindow* window = g.CurrentWindow;
 }
 
-ImRect ImLayout::EndBoundingBox() {
+ImRect& ImLayout::EndBoundingBox() {
     ImGuiContext& g = *GImGui;
     ImGuiWindow* window = g.CurrentWindow;
     ImGui::EndGroup();

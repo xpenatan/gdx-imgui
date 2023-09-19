@@ -4,14 +4,15 @@ package com.github.xpenatan.imgui.example.basic.renderer;
 import imgui.ImColor;
 import imgui.ImGui;
 
-public class ColorRenderer {
-//
+public class ColorRenderer implements UIRenderer {
+
     private final ImColor color3 = new ImColor();
     private final ImColor color4 = new ImColor();
 
     public ColorRenderer() {
     }
 
+    @Override
     public void render() {
 
         if(ImGui.ColorEdit3("color 01", color3)) {
@@ -28,5 +29,10 @@ public class ColorRenderer {
             float a = color4.getW();
             System.out.println("Red: " + r + " Green: " + g + " Blue: " + b + " Alpha: " + a);
         }
+    }
+
+    @Override
+    public String getName() {
+        return "Color";
     }
 }

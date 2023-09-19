@@ -3,7 +3,7 @@ package com.github.xpenatan.imgui.example.basic.renderer;
 import com.badlogic.gdx.utils.Array;
 import imgui.ImGui;
 
-public class SelectListRenderer {
+public class SelectListRenderer implements UIRenderer {
 
     private Array<String> items;
 
@@ -17,6 +17,7 @@ public class SelectListRenderer {
         items.add("Item04");
     }
 
+    @Override
     public void render() {
         String selectedText = items.get(currentIndex);
         if(ImGui.BeginCombo("##selectListId", selectedText)) {
@@ -29,5 +30,10 @@ public class SelectListRenderer {
             }
             ImGui.EndCombo();
         }
+    }
+
+    @Override
+    public String getName() {
+        return "SelectList";
     }
 }
