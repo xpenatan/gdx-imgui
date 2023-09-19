@@ -855,7 +855,10 @@ enum ImGuiWindowFlags {
     "ImGuiWindowFlags_NoNavInputs",
     "ImGuiWindowFlags_NoNavFocus",
     "ImGuiWindowFlags_UnsavedDocument",
-    "ImGuiWindowFlags_NoDocking"
+    "ImGuiWindowFlags_NoDocking",
+    "ImGuiWindowFlags_NoNav",
+    "ImGuiWindowFlags_NoDecoration",
+    "ImGuiWindowFlags_NoInputs"
 };
 
 enum ImGuiCond {
