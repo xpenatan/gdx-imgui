@@ -6,6 +6,8 @@ interface ImGuiInternal {
     static ImGuiWindow             GetCurrentWindow();
     static void                    ItemSize([Const, Ref] ImVec2 size, optional float text_baseline_y);
     static void                    ItemSize_2([Const, Ref] ImRect bb, optional float text_baseline_y);
+    static void                    PushItemFlag(ImGuiItemFlags option, boolean enabled);
+    static void                    PopItemFlag();
 
 };
 
@@ -940,6 +942,22 @@ enum ImGuiMouseButton {
     "ImGuiMouseButton_Left",
     "ImGuiMouseButton_Right",
     "ImGuiMouseButton_Middle"
+};
+
+enum ImGuiItemFlags {
+    "ImGuiItemFlags_None",
+    "ImGuiItemFlags_NoTabStop",
+    "ImGuiItemFlags_ButtonRepeat",
+    "ImGuiItemFlags_Disabled",
+    "ImGuiItemFlags_NoNav",
+    "ImGuiItemFlags_NoNavDefaultFocus",
+    "ImGuiItemFlags_SelectableDontClosePopup",
+    "ImGuiItemFlags_MixedValue",
+    "ImGuiItemFlags_ReadOnly",
+    "ImGuiItemFlags_NoWindowHoverableCheck",
+    "ImGuiItemFlags_AllowOverlap",
+    "ImGuiItemFlags_Inputable",
+    "ImGuiItemFlags_HasSelectionUserData"
 };
 
 enum ImGuiDragDropFlags {

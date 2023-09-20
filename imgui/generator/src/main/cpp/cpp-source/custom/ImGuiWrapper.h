@@ -15,6 +15,8 @@ class ImGuiInternal {
         static ImGuiWindow* GetCurrentWindow() { return im::GetCurrentWindow(); }
         static void ItemSize(const ImVec2& size, float text_baseline_y = -1.0f) { im::ItemSize(size, text_baseline_y); }
         static void ItemSize_2(const ImRect& bb, float text_baseline_y = -1.0f) { im::ItemSize(bb, text_baseline_y); }
+        static void PushItemFlag(ImGuiItemFlags option, bool enabled) { im::PushItemFlag(option, enabled); }
+        static void PopItemFlag() { im::PopItemFlag(); }
 };
 
 class ImGui {
