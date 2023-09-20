@@ -24,26 +24,6 @@ public class BuildImLayout {
 
     public static void main(String[] args) throws Exception {
         generate();
-
-
-
-
-//        String libName = "imlayout";
-//
-//        String cppPath = new File("../imlayout-base/").getCanonicalPath();
-//        String genDir = new File("../imlayout-core/").getCanonicalPath();
-//
-//        String genJavaDir = genDir + "/src/main/java/";
-//        String jniDir = genDir + "/build/c++/";
-//        String sourceDir = "../imlayout-base/src/main/java/";
-//        String sharedlibCppPath = new File("../../../cpp/build/c++/").getCanonicalPath();
-//
-//        FileCopyHelper.copyDir(cppPath + "/cpp-source", jniDir);
-//
-//        //Generate CPP
-//        ImGuiCppParser cppParser = new ImGuiCppParser(ImGuiCppParser.getClassPath("imlayout", "core", "gdx-1", "gdx-jnigen-loader", "jParser"), jniDir);
-//        JParser.generate(cppParser, sourceDir, genJavaDir);
-//        CPPBuildHelper.build(libName, jniDir, "libs", null, sharedlibCppPath, "/src/", "imgui-cpp64", false);
     }
 
     public static void generate() throws Exception {
@@ -103,12 +83,6 @@ public class BuildImLayout {
         TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, libName, basePackage);
         JParser.generate(teavmParser, baseJavaDir, teaVMgenDir);
 
-//        Path copyOut = new File(libDestinationPath).toPath();
-//        Path copyJNIOut = new File(cppDestinationPath + "/jniglue").toPath();
-//        FileHelper.copyDir(new File("src/main/cpp/cpp-source/custom").toPath(), copyOut);
-//        FileHelper.copyDir(new File("src/main/cpp/cpp-source/jni").toPath(), copyJNIOut);
-
-
         ArrayList<BuildTarget> targets = new ArrayList<>();
 
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
@@ -118,7 +92,6 @@ public class BuildImLayout {
 //        targets.add(getEmscriptenBuildTarget(idlPath));
 
         JBuilder.build(buildConfig, targets);
-
     }
 
     private static BuildTarget getWindowBuildTarget() throws IOException {
