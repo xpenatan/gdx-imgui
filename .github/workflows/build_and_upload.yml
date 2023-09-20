@@ -61,11 +61,16 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
-      - name: Download imgui source
+      - name: Download ImGui source
         run: ./gradlew :imgui:generator:download_source
 
-      - name: Build imgui
+      - name: Build ImGui
         run: ./gradlew :imgui:generator:build_project
+        env:
+          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+      - name: Build ImLayout
+        run: ./gradlew :extensions:imlayout:imlayout-generator:build_project_imlayout
         env:
           NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
