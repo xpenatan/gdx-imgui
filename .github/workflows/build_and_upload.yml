@@ -69,8 +69,13 @@ jobs:
         env:
           NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
-      - name: Build ImLayout
+      - name: Generate ImLayout
         run: ./gradlew :extensions:imlayout:imlayout-generator:build_project_imlayout
+        env:
+          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+      - name: Build ImLayout
+        run: ./gradlew :extensions:imlayout:imlayout-desktop:assemble
         env:
           NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
