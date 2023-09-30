@@ -620,6 +620,51 @@ interface ImGuiWindowClass {
 [NoDelete]
 interface ImGuiWindow {
     [Value] readonly attribute ImGuiWindowTempData DC;
+    attribute long ID;
+    attribute long Flags;
+    attribute long FlagsPreviousFrame;
+    attribute long ViewportId;
+    [Value] attribute ImVec2 ViewportPos;
+    attribute long ViewportAllowPlatformMonitorExtend;
+    [Value] attribute ImVec2 Pos;
+    [Value] attribute ImVec2 Size;
+    [Value] attribute ImVec2 SizeFull;
+    [Value] attribute ImVec2 ContentSize;
+    [Value] attribute ImVec2 ContentSizeIdeal;
+    [Value] attribute ImVec2 ContentSizeExplicit;
+    [Value] attribute ImVec2 WindowPadding;
+    attribute float WindowRounding;
+    attribute float WindowBorderSize;
+    attribute float DecoOuterSizeX1;
+    attribute float DecoOuterSizeY1;
+    attribute float DecoOuterSizeX2;
+    attribute float DecoOuterSizeY2;
+    attribute float DecoInnerSizeX1;
+    attribute float DecoInnerSizeY1;
+    attribute long NameBufLen;
+    attribute long MoveId;
+    attribute long TabId;
+    attribute long ChildId;
+    [Value] attribute ImVec2 Scroll;
+    [Value] attribute ImVec2 ScrollMax;
+    [Value] attribute ImVec2 ScrollTarget;
+    [Value] attribute ImVec2 ScrollTargetCenterRatio;
+    [Value] attribute ImVec2 ScrollTargetEdgeSnapDist;
+    [Value] attribute ImVec2 ScrollbarSizes;
+    attribute boolean ScrollbarX;
+    attribute boolean ScrollbarY;
+    attribute boolean ViewportOwned;
+    attribute boolean Active;
+    attribute boolean WasActive;
+    attribute boolean WriteAccessed;
+    attribute boolean Collapsed;
+    attribute boolean WantCollapseToggle;
+    attribute boolean SkipItems;
+    attribute boolean Appearing;
+    attribute boolean Hidden;
+    attribute boolean IsFallbackWindow;
+    attribute boolean IsExplicitChild;
+    attribute boolean HasCloseButton;
 };
 
 [NoDelete]
