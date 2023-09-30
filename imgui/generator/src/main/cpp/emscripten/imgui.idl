@@ -619,12 +619,12 @@ interface ImGuiWindowClass {
 
 [NoDelete]
 interface ImGuiWindow {
-    [Value]attribute ImGuiWindowTempData DC;
+    [Value] readonly attribute ImGuiWindowTempData DC;
 };
 
 [NoDelete]
 interface ImGuiWindowTempData {
-    [Value]attribute ImVec2 CursorPos;
+    [Value] readonly attribute ImVec2 CursorPos;
 };
 
 interface ImGuiPayload {

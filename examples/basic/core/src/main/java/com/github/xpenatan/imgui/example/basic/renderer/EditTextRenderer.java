@@ -5,7 +5,11 @@ import imgui.ImGuiFloat;
 import imgui.ImGuiFloat2;
 import imgui.ImGuiFloat3;
 import imgui.ImGuiFloat4;
+import imgui.ImGuiInternal;
 import imgui.ImGuiString;
+import imgui.ImGuiWindow;
+import imgui.ImGuiWindowTempData;
+import imgui.ImVec2;
 
 public class EditTextRenderer implements UIRenderer {
 
@@ -20,6 +24,11 @@ public class EditTextRenderer implements UIRenderer {
     }
 
     public void render() {
+        ImGuiWindow imGuiWindow = ImGuiInternal.GetCurrentWindow();
+        ImGuiWindowTempData dc = imGuiWindow.get_DC();
+        ImVec2 cursorPos = dc.get_CursorPos();
+        System.out.println("X: " + cursorPos.get_y());
+
         ImGui.DragFloat("TestFloat", imguiFloat1);
         ImGui.DragFloat2("TestFloat2", imguiFloat2);
         ImGui.DragFloat3("TestFloat3", imguiFloat3);
