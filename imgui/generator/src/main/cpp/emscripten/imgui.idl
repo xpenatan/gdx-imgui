@@ -765,6 +765,7 @@ interface ImGuiPlatformIO {
 
 [NoDelete]
 interface ImGuiContext {
+    attribute double Time;
 };
 
 enum ImGuiFocusedFlags {
