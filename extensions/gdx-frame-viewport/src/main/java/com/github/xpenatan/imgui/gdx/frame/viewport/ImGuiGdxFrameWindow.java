@@ -66,8 +66,8 @@ public class ImGuiGdxFrameWindow {
     public void render() {
         if(name == null)
             name = "";
-        ImGui.SetNextWindowSize(ImVec2.TMP.set(startWidth, startHeight), ImGuiCond.ImGuiCond_FirstUseEver);
-        ImGui.SetNextWindowPos(ImVec2.TMP.set(startX, startY), ImGuiCond.ImGuiCond_FirstUseEver);
+        ImGui.SetNextWindowSize(ImVec2.TMP_1.set(startWidth, startHeight), ImGuiCond.ImGuiCond_FirstUseEver);
+        ImGui.SetNextWindowPos(ImVec2.TMP_1.set(startX, startY), ImGuiCond.ImGuiCond_FirstUseEver);
 
         int mouseX = 0;
         int mouseY = 0;
@@ -84,7 +84,7 @@ public class ImGuiGdxFrameWindow {
         ImGui.Begin(name);
         if(curFrameFocus)
             ImGui.PopStyleColor();
-        boolean beginChild = ImGui.BeginChild(beginID, ImVec2.TMP.set(0, -ImGui.GetFrameHeightWithSpacing()), false, ImGuiWindowFlags.ImGuiWindowFlags_NoMove);
+        boolean beginChild = ImGui.BeginChild(beginID, ImVec2.TMP_1.set(0, -ImGui.GetFrameHeightWithSpacing()), false, ImGuiWindowFlags.ImGuiWindowFlags_NoMove);
         if(beginChild) {
             float GetWindowContentRegionWidth = ImGui.GetWindowContentRegionMax().get_x() - ImGui.GetWindowContentRegionMin().get_x();
             windowWidth = (int)GetWindowContentRegionWidth;
@@ -100,7 +100,7 @@ public class ImGuiGdxFrameWindow {
             curFrameFocus = ImGui.IsWindowFocused();
             isWindowHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.ImGuiHoveredFlags_AllowWhenBlockedByActiveItem);
 
-            if(ImGui.InvisibleButton(btnId, ImVec2.TMP.set(windowWidth, windowHeight)))
+            if(ImGui.InvisibleButton(btnId, ImVec2.TMP_1.set(windowWidth, windowHeight)))
                 curFrameFocus = true;
 
             emuWindow.begin(curFrameFocus, isWindowHovered, windowX, windowY, windowWidth, windowHeight);
@@ -111,7 +111,7 @@ public class ImGuiGdxFrameWindow {
 
             emuWindow.end();
 
-            ImGui.GetWindowDrawList().AddImage(emuWindow.getTextureID(), ImVec2.TMP.set(windowX, windowY), ImVec2.TMP_2.set(windowX + windowWidth, windowY + windowHeight), ImVec2.TMP_3.set(emuWindow.u, emuWindow.v), ImVec2.TMP_4.set(emuWindow.u2, emuWindow.v2));
+            ImGui.GetWindowDrawList().AddImage(emuWindow.getTextureID(), ImVec2.TMP_1.set(windowX, windowY), ImVec2.TMP_2.set(windowX + windowWidth, windowY + windowHeight), ImVec2.TMP_3.set(emuWindow.u, emuWindow.v), ImVec2.TMP_4.set(emuWindow.u2, emuWindow.v2));
         }
 
         ImGui.EndChild();

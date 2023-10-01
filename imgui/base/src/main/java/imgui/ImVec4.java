@@ -2,7 +2,7 @@ package imgui;
 
 public class ImVec4 {
 
-    public static ImVec4 TMP = new ImVec4();
+    public static ImVec4 TMP_1 = new ImVec4();
     public static ImVec4 TMP_2 = new ImVec4();
     public static ImVec4 TMP_3 = new ImVec4();
     public static ImVec4 TMP_4 = new ImVec4();

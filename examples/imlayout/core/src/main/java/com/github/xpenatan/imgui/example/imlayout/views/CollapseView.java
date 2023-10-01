@@ -102,8 +102,8 @@ public class CollapseView {
                 ImLayout.ShowLayoutDebug();
             }
 
-            ImGui.Image(buttonTexture.getTextureObjectHandle(), ImVec2.TMP.set(32, 32));
-            ImGui.ImageButton("##textId", buttonTexture.getTextureObjectHandle(), ImVec2.TMP.set(42, 42));
+            ImGui.Image(buttonTexture.getTextureObjectHandle(), ImVec2.TMP_1.set(32, 32));
+            ImGui.ImageButton("##textId", buttonTexture.getTextureObjectHandle(), ImVec2.TMP_1.set(42, 42));
 
             ImLayout.EndAlign();
         }
