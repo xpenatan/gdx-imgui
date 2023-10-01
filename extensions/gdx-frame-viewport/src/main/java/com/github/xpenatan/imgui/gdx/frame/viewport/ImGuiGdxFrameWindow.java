@@ -111,7 +111,7 @@ public class ImGuiGdxFrameWindow {
 
             emuWindow.end();
 
-            ImGui.GetWindowDrawList().AddImage(emuWindow.getTextureID(), windowX, windowY, windowX + windowWidth, windowY + windowHeight, emuWindow.u, emuWindow.v, emuWindow.u2, emuWindow.v2);
+            ImGui.GetWindowDrawList().AddImage(emuWindow.getTextureID(), ImVec2.TMP.set(windowX, windowY), ImVec2.TMP_2.set(windowX + windowWidth, windowY + windowHeight), ImVec2.TMP_3.set(emuWindow.u, emuWindow.v), ImVec2.TMP_4.set(emuWindow.u2, emuWindow.v2));
         }
 
         ImGui.EndChild();

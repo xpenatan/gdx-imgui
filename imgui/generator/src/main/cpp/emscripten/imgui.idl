@@ -574,7 +574,30 @@ interface ImDrawList {
     [Value]attribute VecCmdBuffer CmdBuffer;
     [Value]attribute VecIdxBuffer IdxBuffer;
     [Value]attribute VecVtxBuffer VtxBuffer;
+    void AddLine([Const, Ref] ImVec2 p1, [Const, Ref] ImVec2 p2, long col, optional float thickness);
+    void AddRect([Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, long col, optional float rounding, optional ImDrawFlags flags, optional float thickness);
+    void AddRectFilled([Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, long col, optional float rounding, optional ImDrawFlags flags);
+    void AddRectFilledMultiColor([Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, long col_upr_left, long col_upr_right, long col_bot_right, long col_bot_left);
+    void AddQuad([Const, Ref] ImVec2 p1, [Const, Ref] ImVec2 p2, [Const, Ref] ImVec2 p3, [Const, Ref] ImVec2 p4, long col, optional float thickness);
+    void AddQuadFilled([Const, Ref] ImVec2 p1, [Const, Ref] ImVec2 p2, [Const, Ref] ImVec2 p3, [Const, Ref] ImVec2 p4, long col);
+    void AddTriangle([Const, Ref] ImVec2 p1, [Const, Ref] ImVec2 p2, [Const, Ref] ImVec2 p3, long col, optional float thickness);
+    void AddTriangleFilled([Const, Ref] ImVec2 p1, [Const, Ref] ImVec2 p2, [Const, Ref] ImVec2 p3, long col);
+    void AddCircle([Const, Ref] ImVec2 center, float radius, long col, optional long num_segments, optional float thickness);
+    void AddCircleFilled([Const, Ref] ImVec2 center, float radius, long col, optional long num_segments);
+    void AddNgon([Const, Ref] ImVec2 center, float radius, long col, long num_segments, optional float thickness);
+    void AddNgonFilled([Const, Ref] ImVec2 center, float radius, long col, long num_segments);
+    void AddEllipse([Const, Ref] ImVec2 center, float radius_x, float radius_y, long col, optional float rot, optional long num_segments, optional float thickness);
+    void AddEllipseFilled([Const, Ref] ImVec2 center, float radius_x, float radius_y, long col, optional float rot, optional long num_segments);
+
     void AddImage(any user_texture_id, [Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, [Const, Ref]optional ImVec2 uv_min, [Const, Ref]optional ImVec2 uv_max, optional unsigned long col);
+    void PathClear();
+    void PathLineTo([Const, Ref] ImVec2 pos);
+    void PathLineToMergeDuplicate([Const, Ref] ImVec2 pos);
+    void PathFillConvex(long col);
+
+    void ChannelsSplit(long count);
+    void ChannelsMerge();
+    void ChannelsSetCurrent(long n);
 };
 
 interface ImGuiIO {
@@ -665,6 +688,7 @@ interface ImGuiWindow {
     attribute boolean IsFallbackWindow;
     attribute boolean IsExplicitChild;
     attribute boolean HasCloseButton;
+    attribute ImDrawList DrawList;
 };
 
 [NoDelete]
@@ -987,6 +1011,23 @@ enum ImGuiMouseButton {
     "ImGuiMouseButton_Left",
     "ImGuiMouseButton_Right",
     "ImGuiMouseButton_Middle"
+};
+
+enum ImDrawFlags {
+    "ImDrawFlags_None",
+    "ImDrawFlags_Closed",
+    "ImDrawFlags_RoundCornersTopLeft",
+    "ImDrawFlags_RoundCornersTopRight",
+    "ImDrawFlags_RoundCornersBottomLeft",
+    "ImDrawFlags_RoundCornersBottomRight",
+    "ImDrawFlags_RoundCornersNone",
+    "ImDrawFlags_RoundCornersTop",
+    "ImDrawFlags_RoundCornersBottom",
+    "ImDrawFlags_RoundCornersLeft",
+    "ImDrawFlags_RoundCornersRight",
+    "ImDrawFlags_RoundCornersAll",
+    "ImDrawFlags_RoundCornersDefault_",
+    "ImDrawFlags_RoundCornersMask_"
 };
 
 enum ImGuiItemFlags {
