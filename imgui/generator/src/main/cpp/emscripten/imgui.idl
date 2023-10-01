@@ -9,6 +9,8 @@ interface ImGuiInternal {
     static void                    PushItemFlag(ImGuiItemFlags option, boolean enabled);
     static void                    PopItemFlag();
 
+    static boolean                 ItemAdd([Const, Ref] ImRect bb, long id, [Const]optional ImRect nav_bb, optional ImGuiItemFlags extra_flags);
+
 };
 
 [NoDelete, Prefix="ImGuiWrapper::"]
@@ -594,6 +596,7 @@ interface ImDrawList {
     void PathLineTo([Const, Ref] ImVec2 pos);
     void PathLineToMergeDuplicate([Const, Ref] ImVec2 pos);
     void PathFillConvex(long col);
+    void PathStroke(long col, optional ImDrawFlags flags, optional float thickness);
 
     void ChannelsSplit(long count);
     void ChannelsMerge();
@@ -628,6 +631,57 @@ interface ImFont {
 };
 
 interface ImGuiStyle {
+    attribute float             Alpha;
+    attribute float             DisabledAlpha;
+    [Value] attribute ImVec2    WindowPadding;
+    attribute float             WindowRounding;
+    attribute float             WindowBorderSize;
+    [Value] attribute ImVec2    WindowMinSize;
+    [Value] attribute ImVec2    WindowTitleAlign;
+    attribute long              WindowMenuButtonPosition;
+    attribute float             ChildRounding;
+    attribute float             ChildBorderSize;
+    attribute float             PopupRounding;
+    attribute float             PopupBorderSize;
+    [Value] attribute ImVec2    FramePadding;
+    attribute float             FrameRounding;
+    attribute float             FrameBorderSize;
+    [Value] attribute ImVec2    ItemSpacing;
+    [Value] attribute ImVec2    ItemInnerSpacing;
+    [Value] attribute ImVec2    CellPadding;
+    [Value] attribute ImVec2    TouchExtraPadding;
+    attribute float             IndentSpacing;
+    attribute float             ColumnsMinSpacing;
+    attribute float             ScrollbarSize;
+    attribute float             ScrollbarRounding;
+    attribute float             GrabMinSize;
+    attribute float             GrabRounding;
+    attribute float             LogSliderDeadzone;
+    attribute float             TabRounding;
+    attribute float             TabBorderSize;
+    attribute float             TabMinWidthForCloseButton;
+    attribute float             TabBarBorderSize;
+    attribute long              ColorButtonPosition;
+    [Value] attribute ImVec2    ButtonTextAlign;
+    [Value] attribute ImVec2    SelectableTextAlign;
+    attribute float             SeparatorTextBorderSize;
+    [Value] attribute ImVec2    SeparatorTextAlign;
+    [Value] attribute ImVec2    SeparatorTextPadding;
+    [Value] attribute ImVec2    DisplayWindowPadding;
+    [Value] attribute ImVec2    DisplaySafeAreaPadding;
+    attribute float             DockingSeparatorSize;
+    attribute float             MouseCursorScale;
+    attribute boolean           AntiAliasedLines;
+    attribute boolean           AntiAliasedLinesUseTex;
+    attribute boolean           AntiAliasedFill;
+    attribute float             CurveTessellationTol;
+    attribute float             CircleTessellationMaxError;
+
+    attribute float             HoverStationaryDelay;
+    attribute float             HoverDelayShort;
+    attribute float             HoverDelayNormal;
+    attribute long              HoverFlagsForTooltipMouse;
+    attribute long              HoverFlagsForTooltipNav;
     void ScaleAllSizes(float scale_factor);
 };
 

@@ -17,6 +17,7 @@ class ImGuiInternal {
         static void ItemSize_2(const ImRect& bb, float text_baseline_y = -1.0f) { im::ItemSize(bb, text_baseline_y); }
         static void PushItemFlag(ImGuiItemFlags option, bool enabled) { im::PushItemFlag(option, enabled); }
         static void PopItemFlag() { im::PopItemFlag(); }
+        static bool ItemAdd(const ImRect& bb, ImGuiID id, const ImRect* nav_bb = NULL, ImGuiItemFlags extra_flags = 0) { return im::ItemAdd(bb, id, nav_bb, extra_flags); }
 };
 
 class ImGui {

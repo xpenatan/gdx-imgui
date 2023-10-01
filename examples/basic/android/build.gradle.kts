@@ -3,6 +3,8 @@ plugins {
     id("kotlin-android")
 }
 
+group = "imgui.example.basic.android"
+
 android {
     namespace = "imgui.basic"
     compileSdk = 33
