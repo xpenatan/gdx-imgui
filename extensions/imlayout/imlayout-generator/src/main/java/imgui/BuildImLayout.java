@@ -66,7 +66,9 @@ public class BuildImLayout {
         String cppDestinationPath = libBuildPath + "/src";
         String libDestinationPath = cppDestinationPath + "/imlayout";
 
-        CppGenerator cppGenerator = new NativeCPPGenerator(cppSourceDir, libDestinationPath);
+        FileHelper.copyDir(cppSourceDir, libDestinationPath);
+
+        CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath);
         CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage);
         cppParser.generateClass = true;
         JParser.generate(cppParser, baseJavaDir, genDir);

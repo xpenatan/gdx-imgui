@@ -62,7 +62,9 @@ public class Main {
         String cppDestinationPath = libBuildPath + "/src";
         String libDestinationPath = cppDestinationPath + "/imgui";
 
-        CppGenerator cppGenerator = new NativeCPPGenerator(cppSourceDir, libDestinationPath, false);
+        FileHelper.copyDir(cppSourceDir, libDestinationPath);
+
+        CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath, false);
         CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage);
         cppParser.generateClass = true;
         JParser.generate(cppParser, baseJavaDir, genDir);
