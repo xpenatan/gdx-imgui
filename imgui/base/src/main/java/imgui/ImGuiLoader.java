@@ -7,6 +7,10 @@ import com.github.xpenatan.jparser.loader.JParserLibraryLoader;
  */
 public class ImGuiLoader {
 
+    /*[-C++;-NATIVE]
+        #include "ImGuiWrapper.h"
+    */
+
     /*[-teaVM;-ADD]
         @org.teavm.jso.JSFunctor
         public interface OnInitFunction extends org.teavm.jso.JSObject {

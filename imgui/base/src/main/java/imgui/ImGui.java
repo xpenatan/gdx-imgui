@@ -5,10 +5,6 @@ package imgui;
  */
 public class ImGui {
 
-    /*[-C++;-NATIVE]
-        #include "ImGuiWrapper.h"
-    */
-
     public static void UpdateDisplayAndInputAndFrame(float deltaTime, int width, int height, int backBufferWidth, int backBufferHeight) {
         UpdateDisplayAndInputAndFrameNative(deltaTime, width, height, backBufferWidth, backBufferHeight);
     }
