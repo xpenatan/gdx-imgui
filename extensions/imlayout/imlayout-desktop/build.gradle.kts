@@ -1,6 +1,6 @@
 val moduleName = "imlayout-desktop"
 
-val windowsFile = "$projectDir/../imlayout-generator/build/c++/libs/imlayout64.dll"
+val windowsFile = "$projectDir/../imlayout-generator/build/c++/libs/windows/imlayout64.dll"
 
 tasks.jar {
     from(windowsFile)

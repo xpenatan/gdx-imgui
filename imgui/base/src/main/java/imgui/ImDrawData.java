@@ -5,10 +5,6 @@ import idl.IDLBase;
 /*[-IDL_SKIP]*/
 public final class ImDrawData extends IDLBase {
 
-    /*[-C++;-NATIVE]
-        #include "imgui.h"
-    */
-
     private ImDrawList imDrawList = new ImDrawList(false);
 
     public ImDrawData(boolean cMemoryOwn) {

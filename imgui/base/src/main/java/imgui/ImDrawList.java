@@ -8,11 +8,6 @@ import java.nio.ByteOrder;
 public class ImDrawList extends IDLBase {
 
     /*[-C++;-NATIVE]
-        #include "imgui.h"
-        #include "imgui_custom.h"
-    */
-
-    /*[-C++;-NATIVE]
         static int DRAWLIST_TYPE_DEFAULT = 0;
         static int DRAWLIST_TYPE_BACKGROUND = 1;
         static int DRAWLIST_TYPE_FOREGROUND = 2;

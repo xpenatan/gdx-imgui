@@ -4,7 +4,6 @@ package imgui;
 import com.github.xpenatan.jparser.builder.BuildConfig;
 import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.JBuilder;
-import com.github.xpenatan.jparser.builder.targets.AndroidTarget;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
 import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
 import com.github.xpenatan.jparser.core.JParser;
@@ -17,7 +16,6 @@ import com.github.xpenatan.jparser.idl.parser.IDLDefaultCodeParser;
 import com.github.xpenatan.jparser.teavm.TeaVMCodeParser;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class BuildImLayout {
@@ -58,15 +56,18 @@ public class BuildImLayout {
 
         JParser.CREATE_IDL_HELPER = false;
         String libName = "imlayout";
-        String emscriptenCustomCodePath = new File("src/main/cpp/emscripten").getCanonicalPath();
 
         String libsDir = new File("./build/c++/libs/").getCanonicalPath();
         String genDir = "../imlayout-core/src/main/java";
         String libBuildPath = new File("./build/c++/").getCanonicalPath();
         String cppDestinationPath = libBuildPath + "/src";
         String libDestinationPath = cppDestinationPath + "/imlayout";
+        String customSourceDir = new File("./src/main/cpp/custom/").getCanonicalPath();
 
         FileHelper.copyDir(cppSourceDir, libDestinationPath);
+
+        // Move custom code to destination build directory
+        FileHelper.copyDir(customSourceDir, libDestinationPath);
 
         CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath);
         CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage);
@@ -77,8 +78,7 @@ public class BuildImLayout {
                 cppDestinationPath,
                 libBuildPath,
                 libsDir,
-                libName,
-                emscriptenCustomCodePath
+                libName
         );
 
         String teaVMgenDir = "../imlayout-teavm/src/main/java/";
@@ -98,7 +98,7 @@ public class BuildImLayout {
 
     private static BuildTarget getWindowBuildTarget() throws IOException {
         String imguiPath = new File("../../../imgui/generator/build/c++/src/imgui").getCanonicalPath();
-        String imguiPath2 = new File("../../../imgui/generator/build/c++/libs/").getCanonicalPath();
+        String imguiPath2 = new File("../../../imgui/generator/build/c++/libs/windows").getCanonicalPath();
 
         WindowsTarget windowsTarget = new WindowsTarget();
         windowsTarget.headerDirs.add("-I" + imguiPath);
@@ -117,7 +117,7 @@ public class BuildImLayout {
         EmscriptenTarget teaVMTarget = new EmscriptenTarget(idlPath);
         teaVMTarget.headerDirs.add("-I" + imguiPath);
         teaVMTarget.headerDirs.add("-Isrc/imlayout");
-        teaVMTarget.headerDirs.add("-includesrc/jsglue/ImLayout_lib.h");
+        teaVMTarget.headerDirs.add("-includesrc/imlayout/ImLayoutCustom.h");
         teaVMTarget.cppIncludes.add("**/imlayout/*.cpp");
         teaVMTarget.cppFlags.add("-fPIC");
 

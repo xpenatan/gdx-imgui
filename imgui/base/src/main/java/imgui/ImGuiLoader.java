@@ -8,7 +8,7 @@ import com.github.xpenatan.jparser.loader.JParserLibraryLoader;
 public class ImGuiLoader {
 
     /*[-C++;-NATIVE]
-        #include "ImGuiWrapper.h"
+        #include "ImGuiCustom.h"
     */
 
     /*[-teaVM;-ADD]

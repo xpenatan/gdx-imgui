@@ -6,11 +6,6 @@ import idl.helper.ByteArray;
 /*[-IDL_SKIP]*/
 public class ImGuiIO extends IDLBase {
 
-    /*[-C++;-NATIVE]
-        #include "imgui.h"
-        #include "imgui_custom.h"
-    */
-
     public static ImGuiIO TMP_EMPTY = new ImGuiIO(false);
 
     public ImGuiIO(boolean cMemoryOwn) {

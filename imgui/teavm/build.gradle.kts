@@ -1,6 +1,6 @@
 val moduleName = "imgui-teavm"
 
-val emscriptenFile = "$projectDir/../generator/build/c++/libs/imgui.wasm.js"
+val emscriptenFile = "$projectDir/../generator/build/c++/libs/emscripten/imgui.wasm.js"
 
 tasks.jar {
     from(emscriptenFile)

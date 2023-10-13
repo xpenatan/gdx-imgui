@@ -1,6 +1,6 @@
 val moduleName = "imlayout-teavm"
 
-val emscriptenFile = "$projectDir/../imlayout-generator/build/c++/libs/imlayout.wasm.js"
+val emscriptenFile = "$projectDir/../imlayout-generator/build/c++/libs/emscripten/imlayout.wasm.js"
 
 tasks.jar {
     from(emscriptenFile)

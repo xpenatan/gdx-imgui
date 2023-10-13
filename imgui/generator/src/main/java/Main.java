@@ -24,8 +24,7 @@ public class Main {
 
     public static void generate() throws Exception {
         String basePackage = "imgui";
-        String emscriptenCustomCodePath = new File("src/main/cpp/emscripten").getCanonicalPath();
-        String idlPath = new File(emscriptenCustomCodePath + "/imgui.idl").getCanonicalPath();
+        String idlPath = new File("src/main/cpp/imgui.idl").getCanonicalPath();
         String cppSourceDir = new File("./build/imgui/").getCanonicalPath();
         String baseJavaDir = new File(".").getAbsolutePath() + "./base/src/main/java";
         IDLReader idlReader = IDLReader.readIDL(idlPath, cppSourceDir);
@@ -54,8 +53,6 @@ public class Main {
     ) throws Exception {
         String libName = "imgui";
 
-        String emscriptenCustomCodePath = new File("src/main/cpp/emscripten").getCanonicalPath();
-
         String libsDir = new File("./build/c++/libs/").getCanonicalPath();
         String genDir = "../core/src/main/java";
         String libBuildPath = new File("./build/c++/").getCanonicalPath();
@@ -73,8 +70,7 @@ public class Main {
                 cppDestinationPath,
                 libBuildPath,
                 libsDir,
-                libName,
-                emscriptenCustomCodePath
+                libName
         );
 
         String teaVMgenDir = "../teavm/src/main/java/";
@@ -107,7 +103,7 @@ public class Main {
     private static BuildTarget getEmscriptenBuildTarget(String idlPath) {
         EmscriptenTarget teaVMTarget = new EmscriptenTarget(idlPath);
         teaVMTarget.headerDirs.add("-Isrc/imgui");
-        teaVMTarget.headerDirs.add("-includesrc/jsglue/Imgui_lib.h");
+        teaVMTarget.headerDirs.add("-includesrc/imgui/ImGuiCustom.h");
         teaVMTarget.cppIncludes.add("**/imgui/*.cpp");
         teaVMTarget.cppFlags.add("-DIMGUI_DISABLE_FILE_FUNCTIONS");
         teaVMTarget.cppFlags.add("-DIMGUI_DEFINE_MATH_OPERATORS");
