@@ -9,6 +9,10 @@ public class ImVec2 extends IDLBase {
     public static ImVec2 TMP_3 = new ImVec2();
     public static ImVec2 TMP_4 = new ImVec2();
 
+    public ImVec2() {}
+
+    public ImVec2(byte t) {}
+
     public native float get_x();
     public native float get_y();
     public native void set_x(float x);

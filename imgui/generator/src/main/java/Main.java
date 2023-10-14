@@ -1,4 +1,5 @@
 import com.github.xpenatan.jparser.builder.BuildConfig;
+import com.github.xpenatan.jparser.builder.BuildMultiTarget;
 import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.JBuilder;
 import com.github.xpenatan.jparser.builder.targets.AndroidTarget;
@@ -82,7 +83,7 @@ public class Main {
         FileHelper.copyDir(new File("src/main/cpp/cpp-source/custom").toPath(), copyOut);
         FileHelper.copyDir(new File("src/main/cpp/cpp-source/jni").toPath(), copyJNIOut);
 
-        ArrayList<BuildTarget> targets = new ArrayList<>();
+        ArrayList<BuildMultiTarget> targets = new ArrayList<>();
 
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
             targets.add(getWindowBuildTarget());
@@ -93,14 +94,27 @@ public class Main {
         JBuilder.build(buildConfig, targets);
     }
 
-    private static BuildTarget getWindowBuildTarget() {
+    private static BuildMultiTarget getWindowBuildTarget() {
+        BuildMultiTarget multiTarget = new BuildMultiTarget();
+
         WindowsTarget windowsTarget = new WindowsTarget();
+        windowsTarget.isStatic = true;
+        windowsTarget.addJNI = false;
         windowsTarget.headerDirs.add("-Isrc/imgui/");
         windowsTarget.cppIncludes.add("**/imgui/*.cpp");
-        return windowsTarget;
+        multiTarget.add(windowsTarget);
+
+        WindowsTarget glueTarget = new WindowsTarget();
+        glueTarget.headerDirs.add("-Isrc/imgui/");
+        glueTarget.linkerFlags.add("../../libs/windows/imgui64.a");
+        multiTarget.add(glueTarget);
+
+        return multiTarget;
     }
 
-    private static BuildTarget getEmscriptenBuildTarget(String idlPath) {
+    private static BuildMultiTarget getEmscriptenBuildTarget(String idlPath) {
+        BuildMultiTarget multiTarget = new BuildMultiTarget();
+
         EmscriptenTarget teaVMTarget = new EmscriptenTarget(idlPath);
         teaVMTarget.headerDirs.add("-Isrc/imgui");
         teaVMTarget.headerDirs.add("-includesrc/imgui/ImGuiCustom.h");
@@ -111,14 +125,18 @@ public class Main {
 //        teaVMTarget.linkerFlags.add("-s MAIN_MODULE=1");
 //        teaVMTarget.linkerFlags.add("-s SIDE_MODULE=1");
 //        teaVMTarget.linkerFlags.add("-shared");
-        return teaVMTarget;
+        multiTarget.add(teaVMTarget);
+        return multiTarget;
     }
 
-    private static BuildTarget getAndroidBuildTarget() {
+    private static BuildMultiTarget getAndroidBuildTarget() {
+        BuildMultiTarget multiTarget = new BuildMultiTarget();
+
         AndroidTarget androidTarget = new AndroidTarget();
         androidTarget.headerDirs.add("src/imgui");
         androidTarget.cppIncludes.add("**/imgui/*.cpp");
         androidTarget.cppFlags.add("-Wno-error=format-security");
-        return androidTarget;
+        multiTarget.add(androidTarget);
+        return multiTarget;
     }
 }

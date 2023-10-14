@@ -2,6 +2,7 @@ package imgui;
 
 
 import com.github.xpenatan.jparser.builder.BuildConfig;
+import com.github.xpenatan.jparser.builder.BuildMultiTarget;
 import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.JBuilder;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
@@ -85,7 +86,7 @@ public class BuildImLayout {
         TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, libName, basePackage);
         JParser.generate(teavmParser, baseJavaDir, teaVMgenDir);
 
-        ArrayList<BuildTarget> targets = new ArrayList<>();
+        ArrayList<BuildMultiTarget> targets = new ArrayList<>();
 
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
             targets.add(getWindowBuildTarget());
@@ -96,7 +97,9 @@ public class BuildImLayout {
         JBuilder.build(buildConfig, targets);
     }
 
-    private static BuildTarget getWindowBuildTarget() throws IOException {
+    private static BuildMultiTarget getWindowBuildTarget() throws IOException {
+        BuildMultiTarget multiTarget = new BuildMultiTarget();
+
         String imguiPath = new File("../../../imgui/generator/build/c++/src/imgui").getCanonicalPath();
         String imguiPath2 = new File("../../../imgui/generator/build/c++/libs/windows").getCanonicalPath();
 
@@ -107,7 +110,9 @@ public class BuildImLayout {
 //        windowsTarget.linkerFlags.add("-Wl,-rpath=. -L" + imguiPath2.replace("\\" ,"/"));
         windowsTarget.linkerFlags.add("-L" + imguiPath2.replace("\\" ,"/"));
         windowsTarget.linkerFlags.add("-l:imgui64.dll");
-        return windowsTarget;
+        multiTarget.add(windowsTarget);
+
+        return multiTarget;
     }
 
     private static BuildTarget getEmscriptenBuildTarget(String idlPath) throws IOException {
