@@ -28,18 +28,19 @@ public class Main {
         String idlPath = new File("src/main/cpp/imgui.idl").getCanonicalPath();
         String cppSourceDir = new File("./build/imgui/").getCanonicalPath();
         String baseJavaDir = new File(".").getAbsolutePath() + "./base/src/main/java";
-        IDLReader idlReader = IDLReader.readIDL(idlPath, cppSourceDir);
+        IDLReader idlReader = IDLReader.readIDL(idlPath);
 
-//        generateClassOnly(idlReader, basePackage, baseJavaDir);
+//        generateClassOnly(idlReader, basePackage, baseJavaDir, cppSourceDir);
         generateAndBuild(idlReader, basePackage, baseJavaDir, cppSourceDir, idlPath);
     }
 
     private static void generateClassOnly(
             IDLReader idlReader,
             String basePackage,
-            String baseJavaDir
+            String baseJavaDir,
+            String cppSourceDir
     ) throws Exception {
-        IDLDefaultCodeParser idlParser = new IDLDefaultCodeParser(basePackage, "C++", idlReader);
+        IDLDefaultCodeParser idlParser = new IDLDefaultCodeParser(basePackage, "C++", idlReader, cppSourceDir);
         idlParser.generateClass = true;
         String genDir = "../core/src/main/java";
         JParser.generate(idlParser, baseJavaDir, genDir);
@@ -63,7 +64,7 @@ public class Main {
         FileHelper.copyDir(cppSourceDir, libDestinationPath);
 
         CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath, false);
-        CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage);
+        CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage, cppSourceDir);
         cppParser.generateClass = true;
         JParser.generate(cppParser, baseJavaDir, genDir);
 
@@ -75,7 +76,7 @@ public class Main {
         );
 
         String teaVMgenDir = "../teavm/src/main/java/";
-        TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, libName, basePackage);
+        TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, libName, basePackage, cppSourceDir);
         JParser.generate(teavmParser, baseJavaDir, teaVMgenDir);
 
         Path copyOut = new File(libDestinationPath).toPath();
@@ -86,10 +87,10 @@ public class Main {
         ArrayList<BuildMultiTarget> targets = new ArrayList<>();
 
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
-            targets.add(getWindowBuildTarget());
+//            targets.add(getWindowBuildTarget());
 //            targets.add(getAndroidBuildTarget());
         }
-        targets.add(getEmscriptenBuildTarget(idlPath));
+        targets.add(getEmscriptenBuildTarget(idlReader));
 
         JBuilder.build(buildConfig, targets);
     }
@@ -112,20 +113,25 @@ public class Main {
         return multiTarget;
     }
 
-    private static BuildMultiTarget getEmscriptenBuildTarget(String idlPath) {
+    private static BuildMultiTarget getEmscriptenBuildTarget(IDLReader idlReader) {
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
-        EmscriptenTarget teaVMTarget = new EmscriptenTarget(idlPath);
-        teaVMTarget.headerDirs.add("-Isrc/imgui");
-        teaVMTarget.headerDirs.add("-includesrc/imgui/ImGuiCustom.h");
-        teaVMTarget.cppIncludes.add("**/imgui/*.cpp");
-        teaVMTarget.cppFlags.add("-DIMGUI_DISABLE_FILE_FUNCTIONS");
-        teaVMTarget.cppFlags.add("-DIMGUI_DEFINE_MATH_OPERATORS");
-        teaVMTarget.cppFlags.add("-fPIC");
-//        teaVMTarget.linkerFlags.add("-s MAIN_MODULE=1");
-//        teaVMTarget.linkerFlags.add("-s SIDE_MODULE=1");
-//        teaVMTarget.linkerFlags.add("-shared");
-        multiTarget.add(teaVMTarget);
+        // Make a static library
+        EmscriptenTarget libTarget = new EmscriptenTarget(idlReader);
+        libTarget.isStatic = true;
+        libTarget.compileGlueCode = false;
+        libTarget.headerDirs.add("-Isrc/imgui");
+        libTarget.cppIncludes.add("**/imgui/*.cpp");
+        libTarget.cppFlags.add("-DIMGUI_DISABLE_FILE_FUNCTIONS");
+        libTarget.cppFlags.add("-DIMGUI_DEFINE_MATH_OPERATORS");
+        multiTarget.add(libTarget);
+
+        // Compile glue code and link to make js file
+        EmscriptenTarget linkTarget = new EmscriptenTarget(idlReader);
+        linkTarget.headerDirs.add("-includesrc/imgui/ImGuiCustom.h");
+        linkTarget.linkerFlags.add("../../libs/emscripten/imgui.a");
+        multiTarget.add(linkTarget);
+
         return multiTarget;
     }
 

@@ -13,7 +13,8 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
     implementation("com.github.xpenatan.gdx-teavm:backend-teavm:1.0.0-SNAPSHOT")
 
-    implementation(project(":imgui:teavm"))
+//    implementation(project(":imgui:teavm"))
+    implementation(project(":extensions:imlayout:imlayout-teavm"))
     implementation(project(":examples:imlayout:core"))
 
 }

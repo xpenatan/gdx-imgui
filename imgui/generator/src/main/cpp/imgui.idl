@@ -81,7 +81,7 @@ interface ImGui {
     static void                    SetWindowSize_2([Const] DOMString name, [Const, Ref]ImVec2 size, optional ImGuiCond cond);
     static void                    SetWindowCollapsed_2([Const] DOMString name, boolean collapsed, optional ImGuiCond cond);
     static void                    SetWindowFocus([Const] DOMString name);
-//
+
     [Value] static ImVec2          GetContentRegionAvail();
     [Value] static ImVec2          GetContentRegionMax();
     [Value] static ImVec2          GetWindowContentRegionMin();

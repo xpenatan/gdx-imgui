@@ -141,15 +141,15 @@ public:
     static bool BeginCollapseLayoutEx_2(int id, const char* title, float sizeX, float sizeY);
     static bool BeginCollapseLayoutEx_2(int id, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions & options);
 
-    static void BeginCollapseLayoutEx(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY);
-    static void BeginCollapseLayoutEx(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions & options);
+    static void BeginCollapseLayoutEx_3(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY);
+    static void BeginCollapseLayoutEx_3(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions & options);
     static bool PrepareCollapseLayout(const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions options = ImGuiCollapseLayoutOptions());
 
     static bool BeginCollapseLayout(const char* id, const char* title, float sizeX, float sizeY);
     static bool BeginCollapseLayout(const char* id, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions & options);
 
-    static void BeginCollapseLayout(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY);
-    static void BeginCollapseLayout(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions & options);
+    static void BeginCollapseLayout_2(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY);
+    static void BeginCollapseLayout_2(const char* id, bool* isOpen, const char* title, float sizeX, float sizeY, ImGuiCollapseLayoutOptions & options);
 
     static void EndCollapseFrameLayout();
     static void EndCollapseLayout();

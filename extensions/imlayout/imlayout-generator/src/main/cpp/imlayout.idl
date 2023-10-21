@@ -10,8 +10,8 @@ interface ImLayout {
     static boolean BeginCollapseLayout([Const]DOMString id, [Const]DOMString title, float sizeX, float sizeY);
     static boolean BeginCollapseLayout([Const]DOMString id, [Const]DOMString title, float sizeX, float sizeY, [Ref] ImGuiCollapseLayoutOptions option);
 
-    static void BeginCollapseLayout([Const]DOMString id, boolean[] isOpen, [Const]DOMString title, float sizeX, float sizeY);
-    static void BeginCollapseLayout([Const]DOMString id, boolean[] isOpen, [Const]DOMString title, float sizeX, float sizeY, [Ref] ImGuiCollapseLayoutOptions option);
+    static void BeginCollapseLayout_2([Const]DOMString id, boolean[] isOpen, [Const]DOMString title, float sizeX, float sizeY);
+    static void BeginCollapseLayout_2([Const]DOMString id, boolean[] isOpen, [Const]DOMString title, float sizeX, float sizeY, [Ref] ImGuiCollapseLayoutOptions option);
 
     static void EndCollapseFrameLayout();
     static void EndCollapseLayout();
@@ -22,8 +22,8 @@ interface ImLayout {
     static boolean BeginCollapseLayoutEx_2(long id, [Const]DOMString title, float sizeX, float sizeY);
     static boolean BeginCollapseLayoutEx_2(long id, [Const]DOMString title, float sizeX, float sizeY, [Ref] ImGuiCollapseLayoutOptions option);
 
-    static void BeginCollapseLayoutEx([Const]DOMString id, boolean[] isOpen, [Const]DOMString title, float sizeX, float sizeY);
-    static void BeginCollapseLayoutEx([Const]DOMString id, boolean[] isOpen, [Const]DOMString title, float sizeX, float sizeY, [Ref] ImGuiCollapseLayoutOptions option);
+    static void BeginCollapseLayoutEx_3([Const]DOMString id, boolean[] isOpen, [Const]DOMString title, float sizeX, float sizeY);
+    static void BeginCollapseLayoutEx_3([Const]DOMString id, boolean[] isOpen, [Const]DOMString title, float sizeX, float sizeY, [Ref] ImGuiCollapseLayoutOptions option);
 
     static void BeginAlign([Const]DOMString id, float sizeX, float sizeY, optional float alignX, optional float alignY, optional float offsetX, optional float offsetY);
     static void AlignLayout(optional float alignX, optional float alignY, optional float offsetX, optional float offsetY);
