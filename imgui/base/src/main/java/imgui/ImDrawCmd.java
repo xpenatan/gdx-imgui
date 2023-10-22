@@ -20,8 +20,8 @@ public class ImDrawCmd extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawCmd);
-        var textureId = imgui.ImHelper.prototype.getTextureId(nativeObject);
+        var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawCmd);
+        var textureId = [MODULE].ImHelper.prototype.getTextureId(nativeObject);
         return textureId;
     */
     /*[-C++;-NATIVE]
@@ -36,7 +36,7 @@ public class ImDrawCmd extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawCmd);
+        var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawCmd);
         var jsObj = nativeObject.get_IdxOffset();
         return jsObj;
     */
@@ -51,7 +51,7 @@ public class ImDrawCmd extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawCmd);
+        var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawCmd);
         var jsObj = nativeObject.get_VtxOffset();
         return jsObj;
     */
@@ -66,7 +66,7 @@ public class ImDrawCmd extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawCmd);
+        var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawCmd);
         var jsObj = nativeObject.get_ElemCount();
         return jsObj;
     */

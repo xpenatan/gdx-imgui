@@ -31,7 +31,7 @@ public class BuildImLayout {
         String cppSourceDir = new File("./src/main/cpp/source/").getCanonicalPath();
         String baseJavaDir = new File(".").getAbsolutePath() + "./imlayout-base/src/main/java";
 
-//        JParser.CREATE_IDL_HELPER = false;
+        JParser.CREATE_IDL_HELPER = false;
         IDLReader idlReader = IDLReader.readIDL(idlPath);
 
         String s = idlReader.mergeIDLFiles();
@@ -62,6 +62,7 @@ public class BuildImLayout {
 
         String libName = "imlayout";
 
+        String imguiPath = new File("../../../imgui").getCanonicalPath().replace("\\", "/");
         String libsDir = new File("./build/c++/libs/").getCanonicalPath();
         String genDir = "../imlayout-core/src/main/java";
         String libBuildPath = new File("./build/c++/").getCanonicalPath();
@@ -85,46 +86,62 @@ public class BuildImLayout {
                 libsDir,
                 libName
         );
-
         String teaVMgenDir = "../imlayout-teavm/src/main/java/";
+
+        JParser.CREATE_IDL_HELPER = true;
+        IDLReader idlReaderCombined = IDLReader.readIDL(idlPath);
+        {
+            //Generate ImGui classes
+            String imguiIDLPath = imguiPath + "/generator/src/main/cpp/imgui.idl";
+            IDLReader.addIDL(idlReaderCombined, imguiIDLPath);
+            String imguibaseJavaDir = imguiPath + "/base/src/main/java";
+            IDLReader imguiidlReader = IDLReader.readIDL(imguiIDLPath);
+            String imguilibName = "imlayout";
+            String imguiBasePackage = "imgui";
+            String imguicppSourceDir = new File("./src/main/cpp/source/").getCanonicalPath();
+            TeaVMCodeParser imguiteavmParser = new TeaVMCodeParser(imguiidlReader, imguilibName, imguiBasePackage, imguicppSourceDir);
+            JParser.generate(imguiteavmParser, imguibaseJavaDir, teaVMgenDir);
+        }
+        JParser.CREATE_IDL_HELPER = false;
+
+        // Generate ImLayout classes
         TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, libName, basePackage, cppSourceDir);
         JParser.generate(teavmParser, baseJavaDir, teaVMgenDir);
 
         ArrayList<BuildMultiTarget> targets = new ArrayList<>();
 
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
-            targets.add(getWindowBuildTarget());
+            targets.add(getWindowBuildTarget(imguiPath));
 //            targets.add(getAndroidBuildTarget());
         }
-        targets.add(getEmscriptenBuildTarget(idlReader));
+        targets.add(getEmscriptenBuildTarget(idlReaderCombined, imguiPath));
 
         JBuilder.build(buildConfig, targets);
     }
 
-    private static BuildMultiTarget getWindowBuildTarget() throws IOException {
+    private static BuildMultiTarget getWindowBuildTarget(String imguiCppPath) throws IOException {
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
-        String imguiPath = new File("../../../imgui/generator/build/c++/src/imgui").getCanonicalPath();
-        String imguiPath2 = new File("../../../imgui/generator/build/c++/libs/windows").getCanonicalPath();
+        imguiCppPath += "/generator/build/c++";
+
+        String imguiPath2 = imguiCppPath + "/libs/windows";
 
         WindowsTarget windowsTarget = new WindowsTarget();
-        windowsTarget.headerDirs.add("-I" + imguiPath);
+        windowsTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui");
         windowsTarget.headerDirs.add("-Isrc/imlayout/");
         windowsTarget.cppIncludes.add("**/imlayout/*.cpp");
 //        windowsTarget.linkerFlags.add("-Wl,-rpath=. -L" + imguiPath2.replace("\\" ,"/"));
-        windowsTarget.linkerFlags.add("-L" + imguiPath2.replace("\\" ,"/"));
+        windowsTarget.linkerFlags.add("-L" + imguiPath2);
         windowsTarget.linkerFlags.add("-l:imgui64.dll");
         multiTarget.add(windowsTarget);
 
         return multiTarget;
     }
 
-    private static BuildMultiTarget getEmscriptenBuildTarget(IDLReader idlReader) throws IOException {
+    private static BuildMultiTarget getEmscriptenBuildTarget(IDLReader idlReader, String imguiCppPath) throws IOException {
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
-        String imguiCppPath = new File("../../../imgui/generator/build/c++").getCanonicalPath();
-        String idlPath = new File("../../../imgui/generator/src/main/cpp/imgui.idl").getCanonicalPath();
-        IDLReader.addIDL(idlReader, idlPath);
+        imguiCppPath += "/generator/build/c++";
 
         // Make a static library
         EmscriptenTarget libTarget = new EmscriptenTarget(idlReader);

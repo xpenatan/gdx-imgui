@@ -28,7 +28,7 @@ public class ImGuiLoader {
             }
         };
         setOnLoadInit(onInitFunction);
-        libraryLoader.load("imgui.wasm");
+        libraryLoader.load("[MODULE].wasm");
     }
     */
     public static void init(Runnable run) {
@@ -38,7 +38,7 @@ public class ImGuiLoader {
     }
 
     /*[-teaVM;-REPLACE]
-        @org.teavm.jso.JSBody(params = { "onInitFunction" }, script = "window.imguiOnInit = onInitFunction;")
+        @org.teavm.jso.JSBody(params = { "onInitFunction" }, script = "window.[MODULE]OnInit = onInitFunction;")
         private static native void setOnLoadInit(OnInitFunction onInitFunction);
     */
     /*[-C++;-REMOVE] */

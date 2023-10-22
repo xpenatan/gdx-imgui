@@ -15,16 +15,17 @@ public class ImLayoutLoader {
     */
 
     /*[-teaVM;-REPLACE]
-     public static void init(Runnable run) {
-        JParserLibraryLoader libraryLoader = new JParserLibraryLoader();
-        OnInitFunction onInitFunction = new OnInitFunction() {
-            @Override
-            public void onInit() {
-                run.run();
-            }
-        };
-        setOnLoadInit(onInitFunction);
-        libraryLoader.load("imlayout.wasm");
+    public static void init(Runnable run) {
+        run.run();
+//        JParserLibraryLoader libraryLoader = new JParserLibraryLoader();
+//        OnInitFunction onInitFunction = new OnInitFunction() {
+//            @Override
+//            public void onInit() {
+//                run.run();
+//            }
+//        };
+//        setOnLoadInit(onInitFunction);
+//        libraryLoader.load("imlayout.wasm");
     }
     */
     public static void init(Runnable run) {

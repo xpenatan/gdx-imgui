@@ -18,7 +18,7 @@ public final class ImDrawData extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawData);
+        var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawData);
         return nativeObject.get_CmdListsCount();
     */
     /*[-C++;-NATIVE]
@@ -34,9 +34,9 @@ public final class ImDrawData extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawData);
+        var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawData);
         var cmdList = nativeObject.get_CmdLists(index);
-        return imgui.getPointer(cmdList);
+        return [MODULE].getPointer(cmdList);
     */
     /*[-C++;-NATIVE]
         ImDrawData* nativeObject = (ImDrawData*)addr;
@@ -49,7 +49,7 @@ public final class ImDrawData extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawData);
+        var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawData);
         return nativeObject.DisplayPos.get_x();
     */
     /*[-C++;-NATIVE]
@@ -63,7 +63,7 @@ public final class ImDrawData extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawData);
+        var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawData);
         return nativeObject.DisplayPos.get_y();
     */
     /*[-C++;-NATIVE]
@@ -77,7 +77,7 @@ public final class ImDrawData extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawData);
+        var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawData);
         return nativeObject.DisplaySize.get_x();
     */
     /*[-C++;-NATIVE]
@@ -91,7 +91,7 @@ public final class ImDrawData extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawData);
+        var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawData);
         return nativeObject.DisplaySize.get_y();
     */
     /*[-C++;-NATIVE]
@@ -105,7 +105,7 @@ public final class ImDrawData extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawData);
+        var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawData);
         return nativeObject.FramebufferScale.get_x();
     */
     /*[-C++;-NATIVE]
@@ -119,7 +119,7 @@ public final class ImDrawData extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = imgui.wrapPointer(addr, imgui.ImDrawData);
+        var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawData);
         return nativeObject.FramebufferScale.get_y();
     */
     /*[-C++;-NATIVE]

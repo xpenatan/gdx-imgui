@@ -9,8 +9,8 @@ public class ImGuiPayload extends IDLBase {
     }
 
     /*[-teaVM;-NATIVE]
-        var nativeObject = imgui.wrapPointer(addr, imgui.ImGuiPayload);
-        return imgui.ImHelper.prototype.getImGuiPayloadData(nativeObject);
+        var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImGuiPayload);
+        return [MODULE].ImHelper.prototype.getImGuiPayloadData(nativeObject);
     */
     /*[-C++;-NATIVE]
         ImGuiPayload* nativeObject = (ImGuiPayload*)addr;

@@ -10,7 +10,7 @@ public class ImGui {
     }
 
     /*[-teaVM;-NATIVE]
-        var io = imgui.ImGui.prototype.GetIO();
+        var io = [MODULE].ImGui.prototype.GetIO();
         io.get_DisplaySize().set_x(width);
         io.get_DisplaySize().set_y(height);
         if (width > 0 && height > 0) {
@@ -18,7 +18,7 @@ public class ImGui {
             io.get_DisplayFramebufferScale().set_y(display_h / height);
         }
         io.set_DeltaTime = deltaTime;
-        imgui.ImGui.prototype.NewFrame();
+        [MODULE].ImGui.prototype.NewFrame();
     */
     /*[-C++;-NATIVE]
         ImGuiIO * io = &ImGui::GetIO();
@@ -38,7 +38,7 @@ public class ImGui {
     }
 
     /*[-teaVM;-NATIVE]
-        imgui.ImGui.prototype.CreateContext();
+        [MODULE].ImGui.prototype.CreateContext();
     */
     /*[-C++;-NATIVE]
         ImGui::CreateContext();
