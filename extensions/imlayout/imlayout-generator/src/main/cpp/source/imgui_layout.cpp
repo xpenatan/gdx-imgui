@@ -15,7 +15,6 @@ ImGuiLayout::ImGuiLayout(ImGuiID id) {
     debugClipping = false;
     debug = false;
     error = false;
-    AutoFitChildAxises = 0;
     skipping = false;
     isWrapParentX = false;
     isMatchParentX = false;
@@ -256,7 +255,6 @@ bool ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
     curLayout->DC = window->DC;
     curLayout->WorkRect = window->WorkRect;
     curLayout->skipping = window->SkipItems;
-    curLayout->AutoFitChildAxises = window->AutoFitChildAxises;
     curLayout->Pos = window->Pos;
     curLayout->ContentsRegionRect = window->ContentRegionRect;
     // ******** End Backup windows data
@@ -382,7 +380,6 @@ void ImLayout::EndLayout()
     window->DC = curLayout->DC;
     window->WorkRect = curLayout->WorkRect;
     window->SkipItems = curLayout->skipping;
-    window->AutoFitChildAxises = curLayout->AutoFitChildAxises;
     window->Pos = curLayout->Pos;
     window->ContentRegionRect = curLayout->ContentsRegionRect;
     // ********************

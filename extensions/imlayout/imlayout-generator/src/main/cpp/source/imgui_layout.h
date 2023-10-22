@@ -56,7 +56,6 @@ public:
     ImGuiWindowTempData DC;
     ImRect WorkRect;
     bool skipping;
-    int AutoFitChildAxises;
     ImVec2 Pos;
     ImRect ContentsRegionRect;
 
