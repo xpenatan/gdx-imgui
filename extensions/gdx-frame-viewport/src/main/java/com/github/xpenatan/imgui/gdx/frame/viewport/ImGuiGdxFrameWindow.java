@@ -79,7 +79,7 @@ public class ImGuiGdxFrameWindow {
         if(curFrameFocus)
             ImGui.PushStyleColor(ImGuiCol.ImGuiCol_Text, activeColor);
 
-        EmuInput input = emuWindow.getInput();
+        EmuInput input = emuWindow.getEmuInput();
 
         ImGui.Begin(name);
         if(curFrameFocus)
@@ -136,6 +136,6 @@ public class ImGuiGdxFrameWindow {
     }
 
     public InputProcessor getInput() {
-        return emuWindow.getInput();
+        return emuWindow.getEmuInput();
     }
 }
