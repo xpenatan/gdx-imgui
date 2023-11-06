@@ -60,6 +60,6 @@ dependencies {
     implementation "com.github.xpenatan.gdx-imgui:imlayout-desktop:$project.imlayoutVersion"
 
     // Optional
-    implementation "com.github.xpenatan.gdx-imgui:gdx-frame-viewport:$project.gdxImguiVersion"
+    implementation "com.github.xpenatan.gdx-imgui:gdx-multi-view:$project.gdxImguiVersion"
 }
 ```

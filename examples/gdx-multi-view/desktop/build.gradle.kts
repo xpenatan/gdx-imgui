@@ -1,5 +1,5 @@
 dependencies {
-    implementation(project(":examples:gdx-frame-viewport:core"))
+    implementation(project(":examples:gdx-multi-view:core"))
     implementation("com.badlogicgames.gdx:gdx-backend-lwjgl3:${LibExt.gdxVersion}")
     implementation("com.badlogicgames.gdx:gdx-platform:${LibExt.gdxVersion}:natives-desktop")
 

@@ -11,7 +11,7 @@ dependencies {
 
     // Optional
     implementation project(":imgui:imgui-extensions:imgui-gdx-frame-viewport")
-    implementation "com.github.xpenatan:gdx-frame-viewport:$project.gdxFrameViewportVersion"
+    implementation "com.github.xpenatan:gdx-multi-view:$project.gdxFrameViewportVersion"
 
     implementation "com.badlogicgames.gdx:gdx-tests"
 

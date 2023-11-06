@@ -11,6 +11,6 @@ dependencies {
 //    implementation(project(":extensions:lwjgl3"))
 
     // Optional
-    implementation(project(":extensions:gdx-frame-viewport"))
-    implementation("com.github.xpenatan:gdx-frame-viewport:${LibExt.gdxFrameViewportVersion}")
+    implementation(project(":extensions:gdx-multi-view"))
+    implementation("com.github.xpenatan:gdx-multi-view:${LibExt.gdxFrameViewportVersion}")
 }
