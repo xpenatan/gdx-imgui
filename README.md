@@ -43,23 +43,17 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
 
     // Required
-    implementation "com.github.xpenatan.gdx-imgui:imgui-core:$project.gdxImguiVersion"
+    implementation "com.github.xpenatan.gdx-imgui:imgui:$project.gdxImguiVersion"
     implementation "com.github.xpenatan.gdx-imgui:gdx:$project.gdxImguiVersion"
 
     // Required Platform Natives
-    implementation "com.github.xpenatan.gdx-imgui:imgui-desktop:$project.gdxImguiVersion"
-    //implementation "com.github.xpenatan.gdx-imgui:imgui-android:$project.gdxImguiVersion"
-    //implementation "com.github.xpenatan.gdx-imgui:imgui-ios:$project.gdxImguiVersion"
-    implementation "com.github.xpenatan.gdx-imgui:imgui-teavm:$project.gdxImguiVersion"
-
-    // Optional
-//    implementation "com.github.xpenatan.gdx-imgui:lwjgl3:$project.gdxImguiVersion"
+    implementation "com.github.xpenatan.gdx-imgui:desktop:$project.gdxImguiVersion"
+    //implementation "com.github.xpenatan.gdx-imgui:android:$project.gdxImguiVersion"
+    //implementation "com.github.xpenatan.gdx-imgui:ios:$project.gdxImguiVersion"
+    implementation "com.github.xpenatan.gdx-imgui:teavm:$project.gdxImguiVersion"
 
     // Optional - ImLayout extension
     implementation "com.github.xpenatan.gdx-imgui:imlayout-core:$project.imlayoutVersion"
     implementation "com.github.xpenatan.gdx-imgui:imlayout-desktop:$project.imlayoutVersion"
-
-    // Optional
-    implementation "com.github.xpenatan.gdx-imgui:gdx-multi-view:$project.gdxImguiVersion"
 }
 ```

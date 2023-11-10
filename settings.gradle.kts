@@ -9,7 +9,6 @@ include(":imgui:android")
 // Extensions
 include(":extensions:gdx")
 //include(":extensions:lwjgl3")
-include(":extensions:gdx-multi-view")
 
 // Extension ImLayout
 include(":extensions:imlayout:imlayout-base")
@@ -26,9 +25,6 @@ include(":extensions:imlayout:imlayout-teavm")
 //include(":extensions:node-editor:editor-teavm")
 
 // Examples
-include(":examples:gdx-multi-view:core")
-include(":examples:gdx-multi-view:desktop")
-
 include(":examples:basic:base")
 include(":examples:basic:core")
 include(":examples:basic:desktop")

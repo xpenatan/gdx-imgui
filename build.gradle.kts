@@ -53,7 +53,6 @@ var libProjects = mutableSetOf(
     project(":imgui:teavm"),
     project(":extensions:gdx"),
 //        project(":extensions:lwjgl3"),
-    project(":extensions:gdx-multi-view")
 )
 
 var libProjects2 = mutableSetOf(

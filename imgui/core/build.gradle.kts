@@ -1,4 +1,4 @@
-val moduleName = "imgui-core"
+val moduleName = "core"
 
 dependencies {
     implementation("com.github.xpenatan.jParser:loader-core:${LibExt.jParserVersion}")
