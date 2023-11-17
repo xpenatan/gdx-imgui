@@ -11,6 +11,20 @@ interface ImGuiInternal {
 
     static boolean                 ItemAdd([Const, Ref] ImRect bb, long id, [Const]optional ImRect nav_bb, optional ImGuiItemFlags extra_flags);
 
+    static void                    DockBuilderDockWindow([Const]DOMString window_name, long node_id);
+    static ImGuiDockNode           DockBuilderGetNode(long node_id);
+    static ImGuiDockNode           DockBuilderGetCentralNode(long node_id);
+    static long                    DockBuilderAddNode(optional long node_id, optional ImGuiDockNodeFlags flags);
+    static void                    DockBuilderRemoveNode(long node_id);
+    static void                    DockBuilderRemoveNodeDockedWindows(long node_id, optional boolean clear_settings_refs);
+    static void                    DockBuilderRemoveNodeChildNodes(long node_id);
+    static void                    DockBuilderSetNodePos(long node_id, [Ref] ImVec2 pos);
+    static void                    DockBuilderSetNodeSize(long node_id, [Ref] ImVec2 size);
+    static long                    DockBuilderSplitNode(long node_id, ImGuiDir split_dir, float size_ratio_for_node_at_dir, long[] out_id_at_dir, long[] out_id_at_opposite_dir);
+//    static void                    DockBuilderCopyDockSpace(long src_dockspace_id, long dst_dockspace_id, ImVector<const char*>* in_window_remap_pairs);
+//    static void                    DockBuilderCopyNode(long src_node_id, long dst_node_id, ImVector<long>* out_node_remap_pairs);
+    static void                    DockBuilderCopyWindowSettings([Const]DOMString src_name, [Const]DOMString dst_name);
+    static void                    DockBuilderFinish(long node_id);
 };
 
 [NoDelete, Prefix="ImGuiWrapper::"]
@@ -62,7 +76,7 @@ interface ImGui {
     static float                   GetWindowWidth();
     static float                   GetWindowHeight();
     static ImGuiViewport           GetWindowViewport();
-//
+
     static void                    SetNextWindowPos([Const, Ref]ImVec2 pos, optional ImGuiCond cond, [Const, Ref]optional ImVec2 pivot);
     static void                    SetNextWindowSize([Const, Ref]ImVec2 size, optional ImGuiCond cond);
     static void                    SetNextWindowSizeConstraints([Const, Ref]ImVec2 size_min, [Const, Ref]ImVec2 size_max); //, optional CustomImGuiSizeCallback custom_callback, any custom_callback_data);
@@ -766,6 +780,9 @@ interface ImGuiPlatformIO {
 [NoDelete]
 interface ImGuiContext {
     attribute double Time;
+};
+
+interface ImGuiDockNode {
 };
 
 enum ImGuiFocusedFlags {

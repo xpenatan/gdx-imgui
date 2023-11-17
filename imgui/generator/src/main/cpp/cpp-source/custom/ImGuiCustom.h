@@ -20,12 +20,27 @@ namespace ImGuiWrapper {
 class ImGuiInternal {
     // Emscripten webidl don't support binding methods without a class so we need to create a wrapper
     public:
-        static ImGuiWindow* GetCurrentWindow() { return im::GetCurrentWindow(); }
-        static void ItemSize(const ImVec2& size, float text_baseline_y = -1.0f) { im::ItemSize(size, text_baseline_y); }
-        static void ItemSize_2(const ImRect& bb, float text_baseline_y = -1.0f) { im::ItemSize(bb, text_baseline_y); }
-        static void PushItemFlag(ImGuiItemFlags option, bool enabled) { im::PushItemFlag(option, enabled); }
-        static void PopItemFlag() { im::PopItemFlag(); }
-        static bool ItemAdd(const ImRect& bb, ImGuiID id, const ImRect* nav_bb = NULL, ImGuiItemFlags extra_flags = 0) { return im::ItemAdd(bb, id, nav_bb, extra_flags); }
+        static ImGuiWindow*      GetCurrentWindow() { return im::GetCurrentWindow(); }
+        static void              ItemSize(const ImVec2& size, float text_baseline_y = -1.0f) { im::ItemSize(size, text_baseline_y); }
+        static void              ItemSize_2(const ImRect& bb, float text_baseline_y = -1.0f) { im::ItemSize(bb, text_baseline_y); }
+        static void              PushItemFlag(ImGuiItemFlags option, bool enabled) { im::PushItemFlag(option, enabled); }
+        static void              PopItemFlag() { im::PopItemFlag(); }
+        static bool              ItemAdd(const ImRect& bb, ImGuiID id, const ImRect* nav_bb = NULL, ImGuiItemFlags extra_flags = 0) { return im::ItemAdd(bb, id, nav_bb, extra_flags); }
+
+        static void              DockBuilderDockWindow(const char* window_name, ImGuiID node_id) { im::DockBuilderDockWindow(window_name, node_id); }
+        static ImGuiDockNode*    DockBuilderGetNode(ImGuiID node_id) { return im::DockBuilderGetNode(node_id); }
+        static ImGuiDockNode*    DockBuilderGetCentralNode(ImGuiID node_id) { return im::DockBuilderGetCentralNode(node_id); }
+        static ImGuiID           DockBuilderAddNode(ImGuiID node_id = 0, ImGuiDockNodeFlags flags = 0) { return im::DockBuilderAddNode(node_id, flags); }
+        static void              DockBuilderRemoveNode(ImGuiID node_id) { im::DockBuilderRemoveNode(node_id); }
+        static void              DockBuilderRemoveNodeDockedWindows(ImGuiID node_id, bool clear_settings_refs = true) { im::DockBuilderRemoveNodeDockedWindows(node_id, clear_settings_refs); }
+        static void              DockBuilderRemoveNodeChildNodes(ImGuiID node_id) { im::DockBuilderRemoveNodeChildNodes(node_id); }
+        static void              DockBuilderSetNodePos(ImGuiID node_id, ImVec2& pos) { im::DockBuilderSetNodePos(node_id, pos); }
+        static void              DockBuilderSetNodeSize(ImGuiID node_id, ImVec2& size) { im::DockBuilderSetNodeSize(node_id, size); }
+        static ImGuiID           DockBuilderSplitNode(ImGuiID node_id, ImGuiDir split_dir, float size_ratio_for_node_at_dir, int* out_id_at_dir, int* out_id_at_opposite_dir) { return im::DockBuilderSplitNode(node_id, split_dir, size_ratio_for_node_at_dir, (ImGuiID*)out_id_at_dir, (ImGuiID*)out_id_at_opposite_dir); }
+        static void              DockBuilderCopyDockSpace(ImGuiID src_dockspace_id, ImGuiID dst_dockspace_id, ImVector<const char*>* in_window_remap_pairs) { im::DockBuilderCopyDockSpace(src_dockspace_id, dst_dockspace_id, in_window_remap_pairs); }
+        static void              DockBuilderCopyNode(ImGuiID src_node_id, ImGuiID dst_node_id, ImVector<ImGuiID>* out_node_remap_pairs) { im::DockBuilderCopyNode(src_node_id, dst_node_id, out_node_remap_pairs); }
+        static void              DockBuilderCopyWindowSettings(const char* src_name, const char* dst_name) { im::DockBuilderCopyWindowSettings(src_name, dst_name); }
+        static void              DockBuilderFinish(ImGuiID node_id) { im::DockBuilderFinish(node_id); }
 };
 
 class ImGui {
