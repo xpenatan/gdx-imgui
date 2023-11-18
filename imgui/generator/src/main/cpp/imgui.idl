@@ -700,6 +700,15 @@ interface ImGuiStyle {
 };
 
 interface ImGuiViewport {
+    attribute long ID;
+    attribute long Flags;
+    [Value] attribute ImVec2 Pos;
+    [Value] attribute ImVec2 Size;
+    [Value] attribute ImVec2 WorkPos;
+    [Value] attribute ImVec2 WorkSize;
+    attribute float DpiScale;
+    attribute long ParentViewportId;
+    attribute ImDrawData DrawData;
 };
 
 interface ImGuiTableSortSpecs {
