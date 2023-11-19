@@ -1,7 +1,7 @@
 package imgui;
 
 import idl.IDLBase;
-import idl.helper.ByteArray;
+import idl.helper.IDLByteArray;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -35,8 +35,8 @@ public class ImDrawList extends IDLBase {
 
     private int type = TYPE_DEFAULT;
 
-    ByteArray vtxBuffer;
-    ByteArray idxBuffer;
+    IDLByteArray vtxBuffer;
+    IDLByteArray idxBuffer;
 
     public ByteBuffer vtxByteBuffer;
     public ByteBuffer idxByteBuffer;
@@ -107,7 +107,7 @@ public class ImDrawList extends IDLBase {
             if(idxBuffer != null) {
                 idxBuffer.dispose();
             }
-            idxBuffer = new ByteArray(idxBufferCapacity + RESIZE_FACTOR);
+            idxBuffer = new IDLByteArray(idxBufferCapacity + RESIZE_FACTOR);
             idxByteBuffer = ByteBuffer.allocateDirect(idxBufferCapacity + RESIZE_FACTOR).order(ByteOrder.nativeOrder());
         }
         getIdxBufferDataNATIVE(getCPointer(), idxBuffer.getCPointer(), idxBufferCapacity);
@@ -123,13 +123,13 @@ public class ImDrawList extends IDLBase {
 
     /*[-teaVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawList);
-        var charArray = [MODULE].wrapPointer(bufferAddr, [MODULE].ByteArray);
+        var charArray = [MODULE].wrapPointer(bufferAddr, [MODULE].IDLByteArray);
         var charArrayPtr = charArray.getPointer();
         [MODULE].ImHelper.prototype.memcpyIdx(charArrayPtr, nativeObject, bufferCapacity);
     */
     /*[-C++;-NATIVE]
         ImDrawList* nativeObject = (ImDrawList*)addr;
-        ByteArray* charArray = (ByteArray*)bufferAddr;
+        IDLByteArray* charArray = (IDLByteArray*)bufferAddr;
         ImHelper::memcpyIdx(charArray->getPointer(), nativeObject, bufferCapacity);
     */
     private static native void getIdxBufferDataNATIVE(long addr, long bufferAddr, int bufferCapacity);
@@ -154,7 +154,7 @@ public class ImDrawList extends IDLBase {
             if(vtxBuffer != null) {
                 vtxBuffer.dispose();
             }
-            vtxBuffer = new ByteArray(vtxBufferCapacity + RESIZE_FACTOR);
+            vtxBuffer = new IDLByteArray(vtxBufferCapacity + RESIZE_FACTOR);
             vtxByteBuffer = ByteBuffer.allocateDirect(vtxBufferCapacity + RESIZE_FACTOR).order(ByteOrder.nativeOrder());
         }
         // TODO find a better way to get native byte buffer for c++ and teavm
@@ -171,13 +171,13 @@ public class ImDrawList extends IDLBase {
 
     /*[-teaVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawList);
-        var charArray = [MODULE].wrapPointer(bufferAddr, [MODULE].ByteArray);
+        var charArray = [MODULE].wrapPointer(bufferAddr, [MODULE].IDLByteArray);
         var charArrayPtr = charArray.getPointer();
         [MODULE].ImHelper.prototype.memcpyVtx(charArrayPtr, nativeObject, bufferCapacity);
     */
     /*[-C++;-NATIVE]
         ImDrawList* nativeObject = (ImDrawList*)addr;
-        ByteArray* charArray = (ByteArray*)bufferAddr;
+        IDLByteArray* charArray = (IDLByteArray*)bufferAddr;
         ImHelper::memcpyVtx(charArray->getPointer(), nativeObject, bufferCapacity);
     */
     private static native void getVtxBufferDataNATIVE(long addr, long bufferAddr, int bufferCapacity);

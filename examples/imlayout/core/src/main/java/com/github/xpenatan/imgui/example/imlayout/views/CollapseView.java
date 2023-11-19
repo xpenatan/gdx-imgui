@@ -3,32 +3,36 @@ package com.github.xpenatan.imgui.example.imlayout.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import imgui.ImGui;
-import imgui.ImGuiBoolean;
 import imgui.ImGuiDir;
-import imgui.ImGuiFloat;
-import imgui.ImGuiInt;
 import imgui.ImVec2;
+import imgui.idl.helper.IDLBoolArray;
+import imgui.idl.helper.IDLFloatArray;
+import imgui.idl.helper.IDLIntArray;
 import imgui.imlayout.ImLayout;
 
 public class CollapseView {
 
     private Texture buttonTexture;
 
-    private ImGuiBoolean isDebug = new ImGuiBoolean();
+    private IDLBoolArray isDebug = new IDLBoolArray(1);
 
-    private ImGuiBoolean dummyCheckbox = new ImGuiBoolean();
+    private IDLBoolArray dummyCheckbox = new IDLBoolArray(1);
 
-    private ImGuiBoolean isCollapseOpen = new ImGuiBoolean();
-    private ImGuiBoolean isCollapseOpen2 = new ImGuiBoolean();
+    private IDLBoolArray isCollapseOpen = new IDLBoolArray(1);
+    private IDLBoolArray isCollapseOpen2 = new IDLBoolArray(1);
 
-    private ImGuiFloat alignX = new ImGuiFloat(0.5f);
-    private ImGuiFloat offsetX = new ImGuiFloat(0.0f);
-    private ImGuiFloat alignY = new ImGuiFloat(0.5f);
-    private ImGuiFloat offsetY = new ImGuiFloat(0.0f);
+    private IDLFloatArray alignX = new IDLFloatArray(1);
+    private IDLFloatArray offsetX = new IDLFloatArray(1);
+    private IDLFloatArray alignY = new IDLFloatArray(1);
+    private IDLFloatArray offsetY = new IDLFloatArray(1);
 
-    private ImGuiInt guiInt = new ImGuiInt();
+    private IDLIntArray guiInt = new IDLIntArray(1);
 
     public void init() {
+        alignX.setValue(0, 0.5f);
+        offsetX.setValue(0, 0.0f);
+        alignY.setValue(0, 0.5f);
+        offsetY.setValue(0, 0.0f);
         buttonTexture = new Texture(Gdx.files.internal("data/badlogicsmall.jpg"));
     }
 
@@ -47,7 +51,7 @@ public class CollapseView {
 
         ImLayout.BeginCollapseLayoutEx_3("##ID1", isCollapseOpen, "Stuff", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
 
-        if(isDebug.getValue()) {
+        if(isDebug.getValue(0)) {
             ImLayout.ShowLayoutDebug();
         }
 
@@ -63,12 +67,12 @@ public class CollapseView {
 
         ImLayout.EndCollapseFrameLayout();
 
-        if(isCollapseOpen.getValue()) {
+        if(isCollapseOpen.getValue(0)) {
 
             ImGui.Checkbox("LayoutDebug", isDebug);
 
             ImLayout.BeginCollapseLayout_2("##ID3", isCollapseOpen2, "Alignment options", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
-            if(isCollapseOpen2.getValue()) {
+            if(isCollapseOpen2.getValue(0)) {
                 ImGui.SliderFloat("AlignX", alignX, 0.0f, 1.0f, "%.2f");
                 ImGui.SliderFloat("OffsetX", offsetX, -10.0f, 10.0f, "%.2f");
                 ImGui.SliderFloat("AlignY", alignY, 0.0f, 1.0f, "%.2f");
@@ -96,9 +100,9 @@ public class CollapseView {
             ImGui.SameLine();
             ImGui.Text("Bullet text");
 
-            ImLayout.BeginAlign("##ID4", ImLayout.MATCH_PARENT, 200, alignX.getValue(), alignY.getValue(), offsetX.getValue(), offsetY.getValue());
+            ImLayout.BeginAlign("##ID4", ImLayout.MATCH_PARENT, 200, alignX.getValue(0), alignY.getValue(0), offsetX.getValue(0), offsetY.getValue(0));
 
-            if(isDebug.getValue()) {
+            if(isDebug.getValue(0)) {
                 ImLayout.ShowLayoutDebug();
             }
 

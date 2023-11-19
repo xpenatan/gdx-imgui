@@ -21,7 +21,7 @@ public class DragAndDropRenderer implements UIRenderer {
             ImGui.EndDragDropSource();
         }
 
-        ImGui.Text("dadsada");
+        ImGui.Text("Drag here");
         if(ImGui.BeginDragDropTarget()) {
             ImGuiPayload dragDropPayload = ImGui.AcceptDragDropPayload("DRAG_ENTITY_ID");
             if(dragDropPayload != null) {

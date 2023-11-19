@@ -12,9 +12,9 @@ import imgui.ImDrawData;
 import imgui.ImDrawList;
 import imgui.ImGui;
 import imgui.ImGuiIO;
-import imgui.ImGuiInt;
 import imgui.ImVec4;
-import imgui.idl.helper.ByteArray;
+import imgui.idl.helper.IDLByteArray;
+import imgui.idl.helper.IDLIntArray;
 import java.nio.ByteBuffer;
 
 /**
@@ -58,20 +58,17 @@ public class ImGuiGdxImpl {
     private void prepareFont() {
         int pixelMax = 131072; // 131072
         ByteBuffer buffer = ByteBuffer.allocateDirect(pixelMax);
-        ImGuiInt width = new ImGuiInt();
-        ImGuiInt height = new ImGuiInt();
-        ImGuiInt bytesPerPixel = new ImGuiInt();
-        ByteArray bytesArray = new ByteArray(pixelMax);
-
-        width.setValue(4);
-        height.setValue(3);
+        IDLIntArray width = new IDLIntArray(1);
+        IDLIntArray height = new IDLIntArray(1);
+        IDLIntArray bytesPerPixel = new IDLIntArray(1);
+        IDLByteArray bytesArray = new IDLByteArray(pixelMax);
 
         ImGuiIO io = ImGui.GetIO();
 
         io.GetTexDataAsRGBA32(bytesArray, width, height, bytesPerPixel);
-        int widthValue = width.getValue();
-        int heightValue = height.getValue();
-        int bytesPerPixelValue = bytesPerPixel.getValue();
+        int widthValue = width.getValue(0);
+        int heightValue = height.getValue(0);
+        int bytesPerPixelValue = bytesPerPixel.getValue(0);
 
         int size = widthValue * heightValue * 4;
 

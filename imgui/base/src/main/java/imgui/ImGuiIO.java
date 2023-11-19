@@ -1,7 +1,8 @@
 package imgui;
 
 import idl.IDLBase;
-import idl.helper.ByteArray;
+import idl.helper.IDLByteArray;
+import idl.helper.IDLIntArray;
 
 /*[-IDL_SKIP]*/
 public class ImGuiIO extends IDLBase {
@@ -147,16 +148,16 @@ public class ImGuiIO extends IDLBase {
     */
     private static native boolean containsIniFilenameNATIVE(long addr);
 
-    public void GetTexDataAsRGBA32(ByteArray pixelBuffer, ImGuiInt outWidth, ImGuiInt outHeight, ImGuiInt outBytesPerPixel) {
+    public void GetTexDataAsRGBA32(IDLByteArray pixelBuffer, IDLIntArray outWidth, IDLIntArray outHeight, IDLIntArray outBytesPerPixel) {
         GetTexDataAsRGBA32NATIVE(getCPointer(), pixelBuffer.getCPointer(), outWidth.getCPointer(), outHeight.getCPointer(), outBytesPerPixel.getCPointer());
     }
 
     /*[-teaVM;-NATIVE]
-        var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
-        var widthIntArray = [MODULE].wrapPointer(widthAddr, [MODULE].IntArray);
-        var heightIntArray = [MODULE].wrapPointer(heightAddr, [MODULE].IntArray);
-        var bytesPerPixelArray = [MODULE].wrapPointer(bytesPerPixelAddr, [MODULE].IntArray);
-        var pixelBufferArray = [MODULE].wrapPointer(pixelBufferAddr, [MODULE].ByteArray);
+        var io = [MODULE].wrapPointer(addr, [MODULE].IDLImGuiIO);
+        var widthIntArray = [MODULE].wrapPointer(widthAddr, [MODULE].IDLIntArray);
+        var heightIntArray = [MODULE].wrapPointer(heightAddr, [MODULE].IDLIntArray);
+        var bytesPerPixelArray = [MODULE].wrapPointer(bytesPerPixelAddr, [MODULE].IDLIntArray);
+        var pixelBufferArray = [MODULE].wrapPointer(pixelBufferAddr, [MODULE].IDLByteArray);
         var widthArr = widthIntArray.getPointer();
         var heightArr = heightIntArray.getPointer();
         var bytesPerPixelArr = bytesPerPixelArray.getPointer();
@@ -165,10 +166,10 @@ public class ImGuiIO extends IDLBase {
     */
     /*[-C++;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
-        IntArray* widthIntArray = (IntArray*)widthAddr;
-        IntArray* heightIntArray = (IntArray*)heightAddr;
-        IntArray* bytesPerPixel = (IntArray*)bytesPerPixelAddr;
-        ByteArray* pixelBuffer = (ByteArray*)pixelBufferAddr;
+        IDLIntArray* widthIntArray = (IDLIntArray*)widthAddr;
+        IDLIntArray* heightIntArray = (IDLIntArray*)heightAddr;
+        IDLIntArray* bytesPerPixel = (IDLIntArray*)bytesPerPixelAddr;
+        IDLByteArray* pixelBuffer = (IDLByteArray*)pixelBufferAddr;
         ImHelper::memcpyFont(io, pixelBuffer->getPointer(), (int*)widthIntArray->data, (int*)heightIntArray->data, (int*)bytesPerPixel->data);
     */
     private static native void GetTexDataAsRGBA32NATIVE(long addr, long pixelBufferAddr, long widthAddr, long heightAddr, long bytesPerPixelAddr);

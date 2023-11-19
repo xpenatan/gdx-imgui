@@ -1,8 +1,8 @@
 package imgui;
 
-import idl.helper.ByteArray;
+import idl.helper.IDLByteArray;
 
-public class ImGuiString extends ByteArray {
+public class ImGuiString extends IDLByteArray {
 
     private static byte[] tempBytes = new byte[1000];
 

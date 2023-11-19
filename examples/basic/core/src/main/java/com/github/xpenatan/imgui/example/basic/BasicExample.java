@@ -9,7 +9,6 @@ import com.github.xpenatan.imgui.example.basic.renderer.EditTextRenderer;
 import com.github.xpenatan.imgui.example.basic.renderer.SelectListRenderer;
 import com.github.xpenatan.imgui.example.basic.renderer.UIRenderer;
 import imgui.ImGui;
-import imgui.ImGuiBoolean;
 import imgui.ImGuiTabBarFlags;
 import imgui.ImVec2;
 
