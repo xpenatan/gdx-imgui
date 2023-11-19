@@ -42,6 +42,14 @@ val natives: Configuration by configurations.creating
 
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+
+    if(LibExt.exampleUseRepoLibs) {
+        implementation("com.github.xpenatan.gdx-imgui:android:1.0.0-SNAPSHOT")
+    }
+    else {
+        implementation(project(":imgui:android"))
+    }
+
     implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
     implementation("com.badlogicgames.gdx:gdx-backend-android:${LibExt.gdxVersion}")
     natives("com.badlogicgames.gdx:gdx-platform:${LibExt.gdxVersion}:natives-armeabi-v7a")
@@ -50,7 +58,6 @@ dependencies {
     natives("com.badlogicgames.gdx:gdx-platform:${LibExt.gdxVersion}:natives-x86")
 
     implementation(project(":examples:basic:core"))
-    implementation(project(":imgui:android"))
 }
 
 

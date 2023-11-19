@@ -10,13 +10,17 @@ gretty {
 val mainClassName = "com.github.xpenatan.gdx.example.imlayout.Build"
 
 dependencies {
-    implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
-    implementation("com.github.xpenatan.gdx-teavm:backend-teavm:1.0.0-SNAPSHOT")
-
-//    implementation(project(":imgui:teavm"))
-    implementation(project(":extensions:imlayout:imlayout-teavm"))
     implementation(project(":examples:imlayout:core"))
 
+    if(LibExt.exampleUseRepoLibs) {
+        implementation("com.github.xpenatan.gdx-imgui:imlayout-teavm:1.0.0-SNAPSHOT")
+    }
+    else {
+        implementation(project(":extensions:imlayout:imlayout-teavm"))
+    }
+
+    implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
+    implementation("com.github.xpenatan.gdx-teavm:backend-teavm:${LibExt.gdxTeaVMVersion}")
 }
 
 tasks.register<JavaExec>("imlayout-build") {

@@ -12,6 +12,8 @@ object LibExt {
     const val gdxFrameViewportVersion = "1.0.0-SNAPSHOT"
     const val jUnitVersion = "4.12"
     const val jParserVersion = "1.0.0-SNAPSHOT"
+
+    const val exampleUseRepoLibs = true
 }
 
 private fun getVersion(releaseVersion: String, suffix: String = ""): String {

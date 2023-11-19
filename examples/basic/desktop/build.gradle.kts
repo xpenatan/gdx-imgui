@@ -1,9 +1,15 @@
 dependencies {
     implementation(project(":examples:basic:core"))
+
+    if(LibExt.exampleUseRepoLibs) {
+        implementation("com.github.xpenatan.gdx-imgui:desktop:1.0.0-SNAPSHOT")
+    }
+    else {
+        implementation(project(":imgui:desktop"))
+    }
+
     implementation("com.badlogicgames.gdx:gdx-backend-lwjgl3:${LibExt.gdxVersion}")
     implementation("com.badlogicgames.gdx:gdx-platform:${LibExt.gdxVersion}:natives-desktop")
-
-    implementation(project(":imgui:desktop"))
 }
 
 val mainClassName = "com.github.xpenatan.imgui.example.basic.Main"
