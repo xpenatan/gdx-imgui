@@ -14,11 +14,7 @@ It's meant to be small and close 1-1 to C++.
 
 ## Build
 
-To build from source you need mingw-w64 and maven ant. Emscripten if you want to build javascript file.
-
-When project is ready, run ```./gradlew buildImGuiNatives``` and test the examples.
-
-
+TODO
 
 ### Gradle
 
