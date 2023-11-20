@@ -781,6 +781,16 @@ interface ImGuiWindow {
     attribute boolean IsExplicitChild;
     attribute boolean HasCloseButton;
     attribute ImDrawList DrawList;
+
+    attribute boolean DockIsActive;
+    attribute boolean DockNodeIsVisible;
+    attribute boolean DockTabIsVisible;
+    attribute boolean DockTabWantClose;
+    attribute ImGuiDockNode DockNode;
+    attribute ImGuiDockNode DockNodeAsHost;
+    attribute long DockId;
+    attribute long DockTabItemStatusFlags;
+    [Value] attribute ImRect DockTabItemRect;
 };
 
 [NoDelete]
@@ -813,6 +823,8 @@ interface ImGuiDockNode {
 };
 
 interface ImGuiTabBar {
+    attribute long SelectedTabId;
+    attribute long NextSelectedTabId;
 };
 
 interface ImGuiTabItem {
