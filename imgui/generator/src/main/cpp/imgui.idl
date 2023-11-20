@@ -3,8 +3,8 @@
 interface ImGuiInternal {
     //Note: method overloading don't work with webidl
 
-    static long                    ImHashData([Const] DOMString data, long data_size, optional long seed);
-    static long                    ImHashStr([Const] DOMString data, optional long data_size, optional long seed);
+    static long                    ImHashData_1([Const] DOMString data, long data_size, optional long seed);
+    static long                    ImHashStr_1([Const] DOMString data, optional long data_size, optional long seed);
 
     static ImGuiWindow             GetCurrentWindow();
     static void                    ItemSize([Const, Ref] ImVec2 size, optional float text_baseline_y);

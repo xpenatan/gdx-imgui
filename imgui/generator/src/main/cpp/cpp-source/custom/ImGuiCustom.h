@@ -20,8 +20,8 @@ namespace ImGuiWrapper {
 class ImGuiInternal {
     // Emscripten webidl don't support binding methods without a class so we need to create a wrapper
     public:
-        static ImGuiID                  ImHashData(const void* data, size_t data_size, ImGuiID seed = 0) { return ImHashData(data, data_size, seed); }
-        static ImGuiID                  ImHashStr(const char* data, size_t data_size = 0, ImGuiID seed = 0) { return ImHashStr(data, data_size, seed); }
+        static ImGuiID                  ImHashData_1(const void* data, size_t data_size, ImGuiID seed = 0) { return ImHashData(data, data_size, seed); }
+        static ImGuiID                  ImHashStr_1(const char* data, size_t data_size = 0, ImGuiID seed = 0) { return ImHashStr(data, data_size, seed); }
 
         static ImGuiWindow*             GetCurrentWindow() { return im::GetCurrentWindow(); }
         static void                     ItemSize(const ImVec2& size, float text_baseline_y = -1.0f) { im::ItemSize(size, text_baseline_y); }
