@@ -48,6 +48,13 @@ class ImGuiInternal {
         static void                     DockBuilderCopyNode(ImGuiID src_node_id, ImGuiID dst_node_id, ImVector<ImGuiID>* out_node_remap_pairs) { im::DockBuilderCopyNode(src_node_id, dst_node_id, out_node_remap_pairs); }
         static void                     DockBuilderCopyWindowSettings(const char* src_name, const char* dst_name) { im::DockBuilderCopyWindowSettings(src_name, dst_name); }
         static void                     DockBuilderFinish(ImGuiID node_id) { im::DockBuilderFinish(node_id); }
+
+        static ImGuiTabBar*             GetCurrentTabBar() { return im::GetCurrentTabBar(); }
+        static ImGuiTabItem*            TabBarFindTabByID(ImGuiTabBar* tab_bar, ImGuiID tab_id) { return im::TabBarFindTabByID(tab_bar, tab_id); }
+        static ImGuiTabItem*            TabBarFindTabByOrder(ImGuiTabBar* tab_bar, int order) { return im::TabBarFindTabByOrder(tab_bar, order); }
+        static void                     TabBarCloseTab(ImGuiTabBar* tab_bar, ImGuiTabItem* tab) { im::TabBarCloseTab(tab_bar, tab); }
+        static void                     TabBarQueueFocus(ImGuiTabBar* tab_bar, ImGuiTabItem* tab) { im::TabBarQueueFocus(tab_bar, tab); }
+        static void                     TabBarQueueReorder(ImGuiTabBar* tab_bar, ImGuiTabItem* tab, int offset) { im::TabBarQueueReorder(tab_bar, tab, offset); }
 };
 
 class ImGui {
@@ -302,7 +309,7 @@ class ImGui {
         static bool                     Selectable_2(const char* label, bool* p_selected, ImGuiSelectableFlags flags = 0, const ImVec2& size = ImVec2(0, 0)) { return im::Selectable(label, p_selected, flags, size); }
 
         static bool                     BeginListBox(const char* label, const ImVec2& size = ImVec2(0, 0)) { return im::BeginListBox(label, size); }
-        static void                     EndListBox() { ImGui:EndListBox(); }
+        static void                     EndListBox() { im:EndListBox(); }
 //        static bool                     ListBox(const char* label, int* current_item, const char* const items[], int items_count, int height_in_items = -1) { return im::ListBox(label, current_item, items, items_count, height_in_items); }
 //        static bool                     ListBox(const char* label, int* current_item, bool (*items_getter)(void* data, int idx, const char** out_text), void* data, int items_count, int height_in_items = -1) { return im::ListBox(label, current_item, items_getter, data, items_count, height_in_items); }
 
@@ -349,7 +356,7 @@ class ImGui {
         static void                     TableHeadersRow() { im::TableHeadersRow(); }
         static void                     TableHeader(const char* label) { im::TableHeader(label); }
 
-        static ImGuiTableSortSpecs*     TableGetSortSpecs() { im::TableGetSortSpecs(); }
+        static ImGuiTableSortSpecs*     TableGetSortSpecs() { return im::TableGetSortSpecs(); }
         static int                      TableGetColumnCount() { return im::TableGetColumnCount(); }
         static int                      TableGetColumnIndex() { return im::TableGetColumnIndex(); }
         static int                      TableGetRowIndex() { return im::TableGetRowIndex(); }

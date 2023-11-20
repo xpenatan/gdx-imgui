@@ -33,6 +33,13 @@ interface ImGuiInternal {
 //    static void                    DockBuilderCopyNode(long src_node_id, long dst_node_id, ImVector<long>* out_node_remap_pairs);
     static void                    DockBuilderCopyWindowSettings([Const] DOMString src_name, [Const] DOMString dst_name);
     static void                    DockBuilderFinish(long node_id);
+
+    static ImGuiTabBar             GetCurrentTabBar();
+    static ImGuiTabItem            TabBarFindTabByID(ImGuiTabBar tab_bar, long tab_id);
+    static ImGuiTabItem            TabBarFindTabByOrder(ImGuiTabBar tab_bar, long order);
+    static void                    TabBarCloseTab(ImGuiTabBar tab_bar, ImGuiTabItem tab);
+    static void                    TabBarQueueFocus(ImGuiTabBar tab_bar, ImGuiTabItem tab);
+    static void                    TabBarQueueReorder(ImGuiTabBar tab_bar, ImGuiTabItem tab, long offset);
 };
 
 [NoDelete, Prefix="ImGuiWrapper::"]
@@ -802,6 +809,13 @@ interface ImGuiContext {
 interface ImGuiDockNode {
     attribute long LocalFlags;
     attribute long SelectedTabId;
+    attribute ImGuiTabBar TabBar;
+};
+
+interface ImGuiTabBar {
+};
+
+interface ImGuiTabItem {
 };
 
 enum ImGuiFocusedFlags {
