@@ -1,5 +1,10 @@
 package imgui;
 
+import idl.helper.IDLBool;
+import idl.helper.IDLDouble;
+import idl.helper.IDLFloat;
+import idl.helper.IDLInt;
+
 /**
  * @author xpenatan
  */
@@ -49,7 +54,13 @@ public class ImGui {
     */
     public static native void CreateContext(boolean saveIni);
 
+    /**
+     * Dispose temp objects.
+     */
     public static void disposeStatic() {
-        //TODO impl
+        IDLFloat.disposeTEMP();
+        IDLDouble.disposeTEMP();
+        IDLInt.disposeTEMP();
+        IDLBool.disposeTEMP();
     }
 }

@@ -19,13 +19,15 @@ public abstract class ImGuiRenderer extends ScreenAdapter {
 
     @Override
     public void show() {
-        ImGui.CreateContext(false);
-        ImGuiIO io = ImGui.GetIO();
         if(Gdx.app.getType() == Application.ApplicationType.WebGL) {
             // Not possible to have ini filename with webgl
-//            ImGui.GetIO().setIniFilename(null);
+            ImGui.CreateContext(false);
+        }
+        else {
+            ImGui.CreateContext(true);
         }
 
+        ImGuiIO io = ImGui.GetIO();
         io.set_ConfigFlags(ImGuiConfigFlags.ImGuiConfigFlags_DockingEnable);
 
         input = new ImGuiGdxInputMultiplexer();
@@ -62,8 +64,8 @@ public abstract class ImGuiRenderer extends ScreenAdapter {
     }
 
     @Override
-    public void dispose() {
+    public void hide() {
         ImGui.disposeStatic();
+        ImGui.DestroyContext();
     }
-
 }

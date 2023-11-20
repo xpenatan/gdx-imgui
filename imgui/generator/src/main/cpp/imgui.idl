@@ -1,7 +1,7 @@
 
 [NoDelete, Prefix="ImGuiWrapper::"]
 interface ImGuiInternal {
-    //Note: method overloading don't work with webidl
+    // Note: method overloading don't work with emscripten so we use _2, _3 and so on
 
     static long                    ImHashData_1([Const] DOMString data, long data_size, optional long seed);
     static long                    ImHashStr_1([Const] DOMString data, optional long data_size, optional long seed);
@@ -40,11 +40,15 @@ interface ImGuiInternal {
     static void                    TabBarCloseTab(ImGuiTabBar tab_bar, ImGuiTabItem tab);
     static void                    TabBarQueueFocus(ImGuiTabBar tab_bar, ImGuiTabItem tab);
     static void                    TabBarQueueReorder(ImGuiTabBar tab_bar, ImGuiTabItem tab, long offset);
+
+    static void                    SetActiveID(long id, ImGuiWindow window);
+    static void                    SetFocusID(long id, ImGuiWindow window);
+    static void                    ClearActiveID();
 };
 
 [NoDelete, Prefix="ImGuiWrapper::"]
 interface ImGui {
-    //Note: method overloading don't work with webidl
+    // Note: method overloading don't work with emscripten so we use _2, _3 and so on
 
     static ImGuiContext            CreateContext();
     static void                    DestroyContext(optional ImGuiContext ctx);
