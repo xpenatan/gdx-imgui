@@ -17,7 +17,7 @@ interface ImGuiInternal {
     static ImGuiWindow             FindWindowByID(long id);
     static ImGuiWindow             FindWindowByName([Const] DOMString name);
 
-    void                           FocusWindow(ImGuiWindow window, optional ImGuiFocusRequestFlags flags);
+    static void                    FocusWindow(ImGuiWindow window, optional ImGuiFocusRequestFlags flags);
 
     static void                    DockBuilderDockWindow([Const] DOMString window_name, long node_id);
     static ImGuiDockNode           DockBuilderGetNode(long node_id);
