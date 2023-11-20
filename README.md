@@ -9,6 +9,9 @@ It's meant to be small and close 1-1 to C++.
 
 <p align="center"><img src="https://i.imgur.com/rXk4Aq0.gif"/></p>
 
+## Examples
+* [basic](https://xpenatan.github.io/gdx-imgui/basic/)
+
 ## Build
 
 To build from source you need mingw-w64 and maven ant. Emscripten if you want to build javascript file.
