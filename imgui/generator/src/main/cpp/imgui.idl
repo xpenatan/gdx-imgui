@@ -810,6 +810,13 @@ interface ImDrawListSharedData {
 };
 
 interface ImGuiStorage {
+    void Clear();
+    long GetInt(long key, optional long default_val);
+    void SetInt(long key, long val);
+    boolean GetBool(long key, optional boolean default_val);
+    void SetBool(long key, boolean val);
+    boolean GetFloat(long key, optional float default_val);
+    void SetFloat(long key, float val);
 };
 
 interface ImGuiPlatformIO {
