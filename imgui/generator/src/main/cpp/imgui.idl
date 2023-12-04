@@ -661,6 +661,7 @@ interface ImFontAtlas {
 };
 
 interface ImFont {
+    attribute float             FontSize;
 };
 
 interface ImGuiStyle {
