@@ -37,6 +37,9 @@ public class ImGuiStyle extends IDLBase {
     private static native void set_ColorsNATIVE(long addr, int index, long vec4Addr);
 
 
+    /**
+     * Return a temp ImVec4 object. Don't keep reference.
+     */
     public ImVec4 get_Colors(int index) {
         tmp.setPointer(get_ColorsNATIVE(getCPointer(), index));
         return tmp;
