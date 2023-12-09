@@ -44,6 +44,17 @@ interface ImGuiInternal {
     static void                    SetActiveID(long id, ImGuiWindow window);
     static void                    SetFocusID(long id, ImGuiWindow window);
     static void                    ClearActiveID();
+
+    // Widgets low-level behaviors
+    static boolean                 ButtonBehavior([Const, Ref] ImRect bb, long id, boolean[] out_hovered, boolean[] out_held, optional ImGuiButtonFlags flags);
+//    static boolean                 DragBehavior(long id, ImGuiDataType data_type, void* p_v, float v_speed, const void* p_min, const void* p_max, const char* format, ImGuiSliderFlags flags);
+//    static boolean                 SliderBehavior(const ImRect& bb, ImGuiID id, ImGuiDataType data_type, void* p_v, const void* p_min, const void* p_max, const char* format, ImGuiSliderFlags flags, ImRect* out_grab_bb);
+    static boolean                 SplitterBehavior([Const, Ref] ImRect bb, long id, ImGuiAxis axis, float[] size1, float[] size2, float min_size1, float min_size2, optional float hover_extend, optional float hover_visibility_delay, optional long bg_col);
+    static boolean                 TreeNodeBehavior(long id, ImGuiTreeNodeFlags flags, [Const] DOMString label, [Const] optional DOMString label_end);
+    static void                    TreePushOverrideID(long id);
+    static void                    TreeNodeSetOpen(long id, boolean open);
+    static boolean                 TreeNodeUpdateNextOpen(long id, ImGuiTreeNodeFlags flags);
+    static void                    SetNextItemSelectionUserData(long selection_user_data);
 };
 
 [NoDelete, Prefix="ImGuiWrapper::"]
@@ -1394,4 +1405,12 @@ enum ImGuiInputTextFlags {
     "ImGuiInputTextFlags_CallbackResize",
     "ImGuiInputTextFlags_CallbackEdit",
     "ImGuiInputTextFlags_EscapeClearsAll"
+};
+
+// ImGui Internal
+
+enum ImGuiAxis {
+    "ImGuiAxis_None",
+    "ImGuiAxis_X",
+    "ImGuiAxis_Y"
 };

@@ -59,6 +59,17 @@ class ImGuiInternal {
         static void                     SetActiveID(ImGuiID id, ImGuiWindow* window) { im::SetActiveID(id, window); }
         static void                     SetFocusID(ImGuiID id, ImGuiWindow* window) { im::SetFocusID(id, window); }
         static void                     ClearActiveID() { im::ClearActiveID(); }
+
+        // Widgets low-level behaviors
+        static bool                     ButtonBehavior(const ImRect& bb, ImGuiID id, bool* out_hovered, bool* out_held, ImGuiButtonFlags flags = 0) { return im::ButtonBehavior(bb, id, out_hovered, out_held, flags); }
+        static bool                     DragBehavior(ImGuiID id, ImGuiDataType data_type, void* p_v, float v_speed, const void* p_min, const void* p_max, const char* format, ImGuiSliderFlags flags) { return im::DragBehavior(id, data_type, p_v, v_speed, p_min, p_max, format, flags); }
+        static bool                     SliderBehavior(const ImRect& bb, ImGuiID id, ImGuiDataType data_type, void* p_v, const void* p_min, const void* p_max, const char* format, ImGuiSliderFlags flags, ImRect* out_grab_bb) { return im::SliderBehavior(bb, id, data_type, p_v, p_min, p_max, format, flags, out_grab_bb); }
+        static bool                     SplitterBehavior(const ImRect& bb, ImGuiID id, ImGuiAxis axis, float* size1, float* size2, float min_size1, float min_size2, float hover_extend = 0.0f, float hover_visibility_delay = 0.0f, ImU32 bg_col = 0) { return im::SplitterBehavior(bb, id, axis, size1, size2, min_size1, min_size2, hover_extend, hover_visibility_delay, bg_col); }
+        static bool                     TreeNodeBehavior(ImGuiID id, ImGuiTreeNodeFlags flags, const char* label, const char* label_end = NULL) { return im::TreeNodeBehavior(id, flags, label_end); }
+        static void                     TreePushOverrideID(ImGuiID id) { im::TreePushOverrideID(id); }
+        static void                     TreeNodeSetOpen(ImGuiID id, bool open) { im::TreeNodeSetOpen(id, open); }
+        static bool                     TreeNodeUpdateNextOpen(ImGuiID id, ImGuiTreeNodeFlags flags) { return im::TreeNodeUpdateNextOpen(id, flags); }
+        static void                     SetNextItemSelectionUserData(ImGuiSelectionUserData selection_user_data) { im::SetNextItemSelectionUserData(selection_user_data); }
 };
 
 class ImGui {
