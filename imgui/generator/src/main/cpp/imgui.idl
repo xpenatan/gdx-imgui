@@ -796,6 +796,9 @@ interface ImGuiWindow {
     attribute boolean IsFallbackWindow;
     attribute boolean IsExplicitChild;
     attribute boolean HasCloseButton;
+
+    [Value] attribute ImGuiStorage  StateStorage;
+
     attribute ImDrawList DrawList;
 
     attribute boolean DockIsActive;
