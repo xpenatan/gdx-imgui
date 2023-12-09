@@ -15,4 +15,10 @@ public class ImRect {
         set_Max(ImVec2.TMP_2.set(x2, y2));
         return this;
     }
+
+    public ImRect set(ImVec2 min, ImVec2 max) {
+        set_Min(min);
+        set_Max(max);
+        return this;
+    }
 }

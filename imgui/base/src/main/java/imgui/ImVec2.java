@@ -23,4 +23,12 @@ public class ImVec2 extends IDLBase {
         set_y(y);
         return this;
     }
+
+    public ImVec2 set(ImVec2 vec) {
+        float x = vec.get_x();
+        float y = vec.get_y();
+        set_x(x);
+        set_y(y);
+        return this;
+    }
 }

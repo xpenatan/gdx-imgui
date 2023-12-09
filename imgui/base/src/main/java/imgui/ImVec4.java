@@ -23,4 +23,16 @@ public class ImVec4 {
         set_w(w);
         return this;
     }
+
+    public ImVec4 set(ImVec4 vec) {
+        float x = vec.get_x();
+        float y = vec.get_y();
+        float z = vec.get_z();
+        float w = vec.get_w();
+        set_x(x);
+        set_y(y);
+        set_z(z);
+        set_w(w);
+        return this;
+    }
 }
