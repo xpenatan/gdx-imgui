@@ -11,12 +11,13 @@ import com.github.xpenatan.imgui.example.basic.renderer.UIRenderer;
 import imgui.ImGui;
 import imgui.ImGuiDockNode;
 import imgui.ImGuiInternal;
-import imgui.ImGuiLoader;
+import imgui.ImGuiStyle;
 import imgui.ImGuiTabBarFlags;
 import imgui.ImGuiViewport;
-import imgui.ImGuiWindow;
 import imgui.ImVec2;
+import imgui.ImVec4;
 import imgui.idl.helper.IDLInt;
+import static imgui.ImGuiCol.ImGuiCol_Header;
 import static imgui.ImGuiDir.ImGuiDir_Down;
 import static imgui.ImGuiDir.ImGuiDir_Left;
 import static imgui.ImGuiDir.ImGuiDir_Right;
@@ -56,6 +57,14 @@ public class BasicExample extends ImGuiRenderer {
         uiCam = new OrthographicCamera();
         uiCam.setToOrtho(true);
         batch = new SpriteBatch();
+
+        ImGuiStyle style = ImGui.GetStyle();
+
+        ImVec4 colors = style.get_Colors(ImGuiCol_Header);
+
+        System.out.println("Color before: R: " + colors.get_x() + " G: " + colors.get_y() + " B: " + colors.get_z() + " A: " + colors.get_w());
+        style.set_Colors(ImGuiCol_Header, 255, 0, 0, 255);
+        System.out.println("Color adter: R: " + colors.get_x() + " G: " + colors.get_y() + " B: " + colors.get_z() + " A: " + colors.get_w());
     }
 
     @Override

@@ -1,11 +1,22 @@
 package imgui;
 
-public class ImVec4 {
+import idl.IDLBase;
+
+public class ImVec4 extends IDLBase {
 
     public static ImVec4 TMP_1 = new ImVec4();
     public static ImVec4 TMP_2 = new ImVec4();
     public static ImVec4 TMP_3 = new ImVec4();
     public static ImVec4 TMP_4 = new ImVec4();
+
+    public static ImVec4 TMP_INTERNAL_1 = new ImVec4();
+    public static ImVec4 TMP_INTERNAL_2 = new ImVec4();
+
+    public ImVec4() {
+    }
+
+    public ImVec4(boolean cMemoryOwn) {
+    }
 
     public native float get_x();
     public native float get_y();
