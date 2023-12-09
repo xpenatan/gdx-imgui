@@ -796,6 +796,17 @@ interface ImGuiWindow {
     attribute long DockId;
     attribute long DockTabItemStatusFlags;
     [Value] attribute ImRect DockTabItemRect;
+
+    long GetID([Const] DOMString str);
+//    long GetID(long n); // Method overloading issue
+    long GetIDFromRectangle([Const, Ref] ImRect r_abs);
+
+    [Const, Value] ImRect Rect();
+    float CalcFontSize();
+    float TitleBarHeight();
+    [Const, Value] ImRect TitleBarRect();
+    float MenuBarHeight();
+    [Const, Value] ImRect MenuBarRect();
 };
 
 [NoDelete]
