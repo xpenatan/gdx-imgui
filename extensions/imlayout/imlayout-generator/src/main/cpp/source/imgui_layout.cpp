@@ -131,6 +131,9 @@ static ImGuiLayout* pushLayout(ImGuiID id) {
     ImGuiLayout* parentLayout = NULL;
     if (!layoutStack.empty())
         parentLayout = layoutStack.back();
+
+    ImGui::PushID(id);
+
     ImGuiLayout* childLayout = createOrFind(id);
     childLayout->parentLayout = parentLayout;
     childLayout->childsLayout.clear();
@@ -148,6 +151,7 @@ ImGuiLayout* ImLayout::GetCurrentLayout() {
 
 static void popLayout() {
     layoutStack.pop_back();
+    ImGui::PopID();
 }
 
 void ImLayout::DrawBoundingBox(float x1, float y1, float x2, float y2, int r, int g, int b, int a, bool clipping) {
@@ -202,19 +206,12 @@ ImVec2 ImLayout::GetLayoutSize() {
 
 void ImLayout::BeginLayoutEx(ImGuiID id)
 {
-    ImGuiLayout* parentLayout = ImLayout::GetCurrentLayout();
-    char title[256];
-    if (parentLayout)
-        ImFormatString(title, IM_ARRAYSIZE(title), "%08X/%08X", parentLayout->id, id);
-    else
-        ImFormatString(title, IM_ARRAYSIZE(title), "%08X", id);
-
-    pushLayout(ImHashStr(title));
+    pushLayout(id);
 }
 
 void ImLayout::BeginLayoutEx(const char* strID)
 {
-    BeginLayoutEx(ImHashStr(strID));
+    BeginLayoutEx(ImGui::GetID(strID));
 }
 
 void ImLayout::PrepareLayoutType(float sizeX, float sizeY)
