@@ -319,7 +319,7 @@ interface ImGui {
 ////    static boolean                 TreeNodeExV([Const] DOMString str_id, ImGuiTreeNodeFlags flags, [Const] DOMString fmt, DOMString args);
 ////    static boolean                 TreeNodeExV_2([Const] any ptr_id, ImGuiTreeNodeFlags flags, [Const] DOMString fmt, DOMString args);
     static void                    TreePush([Const] DOMString str_id);
-    static void                    TreePush_2(long id);
+//    static void                    TreePush_2([Const] any ptr_id);
     static void                    TreePop();
     static float                   GetTreeNodeToLabelSpacing();
     static boolean                 CollapsingHeader([Const] DOMString label, optional ImGuiTreeNodeFlags flags);
