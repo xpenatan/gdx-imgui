@@ -45,6 +45,16 @@ interface ImGuiInternal {
     static void                    SetFocusID(long id, ImGuiWindow window);
     static void                    ClearActiveID();
 
+    // Render helpers (those functions don't access any ImGui state!)
+    static void                    RenderArrow(ImDrawList draw_list, [Ref] ImVec2 pos, long col, ImGuiDir dir, optional float scale);
+    static void                    RenderBullet(ImDrawList draw_list, [Ref] ImVec2 pos, long col);
+    static void                    RenderCheckMark(ImDrawList draw_list, [Ref] ImVec2 pos, long col, float sz);
+    static void                    RenderArrowPointingAt(ImDrawList draw_list, [Ref] ImVec2 pos, [Ref] ImVec2 half_sz, ImGuiDir direction, long col);
+    static void                    RenderArrowDockMenu(ImDrawList draw_list, [Ref] ImVec2 p_min, float sz, long col);
+    static void                    RenderRectFilledRangeH(ImDrawList draw_list, [Const, Ref] ImRect rect, long col, float x_start_norm, float x_end_norm, float rounding);
+    static void                    RenderRectFilledWithHole(ImDrawList draw_list, [Const, Ref] ImRect outer, [Const, Ref] ImRect inner, long col, float rounding);
+    static ImDrawFlags             CalcRoundingFlagsForRectInRect([Const, Ref] ImRect r_in, [Const, Ref] ImRect r_outer, float threshold);
+
     // Widgets low-level behaviors
     static boolean                 ButtonBehavior([Const, Ref] ImRect bb, long id, boolean[] out_hovered, boolean[] out_held, optional ImGuiButtonFlags flags);
 //    static boolean                 DragBehavior(long id, ImGuiDataType data_type, void* p_v, float v_speed, const void* p_min, const void* p_max, const char* format, ImGuiSliderFlags flags);
