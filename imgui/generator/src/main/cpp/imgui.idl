@@ -863,7 +863,7 @@ interface ImGuiStorage {
     void SetInt(long key, long val);
     boolean GetBool(long key, optional boolean default_val);
     void SetBool(long key, boolean val);
-    boolean GetFloat(long key, optional float default_val);
+    float GetFloat(long key, optional float default_val);
     void SetFloat(long key, float val);
 };
 
