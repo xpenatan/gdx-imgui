@@ -29,7 +29,7 @@ static void paintLayout(ImU32 bgColor, ImVec2 size = ImVec2(0, 0)) {
 	ImVec2 regionMax = ImGui::GetContentRegionAvail();
 
 	float height = regionMax.y;
-	float width = ImGui::GetContentRegionAvail().y;
+	float width = ImGui::GetContentRegionAvail().x;
 
 	ImVec2 cursorPos = ImGui::GetCursorScreenPos();
 
