@@ -55,6 +55,16 @@ interface ImGuiInternal {
     static void                    RenderRectFilledWithHole(ImDrawList draw_list, [Const, Ref] ImRect outer, [Const, Ref] ImRect inner, long col, float rounding);
     static ImDrawFlags             CalcRoundingFlagsForRectInRect([Const, Ref] ImRect r_in, [Const, Ref] ImRect r_outer, float threshold);
 
+    // Widgets
+//    static void                    TextEx(const char* text, const char* text_end = NULL, ImGuiTextFlags flags = 0);
+//    static boolean                 ButtonEx(const char* label, const ImVec2& size_arg = ImVec2(0, 0), ImGuiButtonFlags flags = 0);
+    static boolean                 ArrowButtonEx([Const] DOMString str_id, ImGuiDir dir, [Ref] ImVec2 size_arg, optional ImGuiButtonFlags flags);
+//    static boolean                 ImageButtonEx(long id, ImTextureID texture_id, const ImVec2& image_size, const ImVec2& uv0, const ImVec2& uv1, const ImVec4& bg_col, const ImVec4& tint_col, ImGuiButtonFlags flags = 0);
+//    static void                    SeparatorEx(ImGuiSeparatorFlags flags, float thickness = 1.0f);
+//    static void                    SeparatorTextEx(long id, const char* label, const char* label_end, float extra_width);
+//    static boolean                 CheckboxFlags(const char* label, ImS64* flags, ImS64 flags_value);
+//    static boolean                 CheckboxFlags(const char* label, ImU64* flags, ImU64 flags_value);
+
     // Widgets low-level behaviors
     static boolean                 ButtonBehavior([Const, Ref] ImRect bb, long id, boolean[] out_hovered, boolean[] out_held, optional ImGuiButtonFlags flags);
 //    static boolean                 DragBehavior(long id, ImGuiDataType data_type, void* p_v, float v_speed, const void* p_min, const void* p_max, const char* format, ImGuiSliderFlags flags);

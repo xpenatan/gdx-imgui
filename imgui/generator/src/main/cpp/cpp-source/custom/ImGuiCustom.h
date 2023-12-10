@@ -61,14 +61,24 @@ class ImGuiInternal {
         static void                     ClearActiveID() { im::ClearActiveID(); }
 
         // Render helpers (those functions don't access any ImGui state!)
-        static void                      RenderArrow(ImDrawList* draw_list, ImVec2& pos, ImU32 col, ImGuiDir dir, float scale = 1.0f) { im::RenderArrow(draw_list, pos, col, dir, scale); }
-        static void                      RenderBullet(ImDrawList* draw_list, ImVec2& pos, ImU32 col) { im::RenderBullet(draw_list, pos, col); }
-        static void                      RenderCheckMark(ImDrawList* draw_list, ImVec2& pos, ImU32 col, float sz) { im::RenderCheckMark(draw_list, pos, col, sz); }
-        static void                      RenderArrowPointingAt(ImDrawList* draw_list, ImVec2& pos, ImVec2& half_sz, ImGuiDir direction, ImU32 col) { im::RenderArrowPointingAt(draw_list, pos, half_sz, direction, col); }
-        static void                      RenderArrowDockMenu(ImDrawList* draw_list, ImVec2& p_min, float sz, ImU32 col) { im::RenderArrowDockMenu(draw_list, p_min, sz, col); }
-        static void                      RenderRectFilledRangeH(ImDrawList* draw_list, const ImRect& rect, ImU32 col, float x_start_norm, float x_end_norm, float rounding) { im::RenderRectFilledRangeH(draw_list, rect, col, x_start_norm, x_end_norm, rounding); }
-        static void                      RenderRectFilledWithHole(ImDrawList* draw_list, const ImRect& outer, const ImRect& inner, ImU32 col, float rounding) { im::RenderRectFilledWithHole(draw_list, outer, inner, col, rounding); }
-        static ImDrawFlags               CalcRoundingFlagsForRectInRect(const ImRect& r_in, const ImRect& r_outer, float threshold) { return im::CalcRoundingFlagsForRectInRect(r_in, r_outer, threshold); }
+        static void                     RenderArrow(ImDrawList* draw_list, ImVec2& pos, ImU32 col, ImGuiDir dir, float scale = 1.0f) { im::RenderArrow(draw_list, pos, col, dir, scale); }
+        static void                     RenderBullet(ImDrawList* draw_list, ImVec2& pos, ImU32 col) { im::RenderBullet(draw_list, pos, col); }
+        static void                     RenderCheckMark(ImDrawList* draw_list, ImVec2& pos, ImU32 col, float sz) { im::RenderCheckMark(draw_list, pos, col, sz); }
+        static void                     RenderArrowPointingAt(ImDrawList* draw_list, ImVec2& pos, ImVec2& half_sz, ImGuiDir direction, ImU32 col) { im::RenderArrowPointingAt(draw_list, pos, half_sz, direction, col); }
+        static void                     RenderArrowDockMenu(ImDrawList* draw_list, ImVec2& p_min, float sz, ImU32 col) { im::RenderArrowDockMenu(draw_list, p_min, sz, col); }
+        static void                     RenderRectFilledRangeH(ImDrawList* draw_list, const ImRect& rect, ImU32 col, float x_start_norm, float x_end_norm, float rounding) { im::RenderRectFilledRangeH(draw_list, rect, col, x_start_norm, x_end_norm, rounding); }
+        static void                     RenderRectFilledWithHole(ImDrawList* draw_list, const ImRect& outer, const ImRect& inner, ImU32 col, float rounding) { im::RenderRectFilledWithHole(draw_list, outer, inner, col, rounding); }
+        static ImDrawFlags              CalcRoundingFlagsForRectInRect(const ImRect& r_in, const ImRect& r_outer, float threshold) { return im::CalcRoundingFlagsForRectInRect(r_in, r_outer, threshold); }
+
+        // Widgets
+        static void                     TextEx(const char* text, const char* text_end = NULL, ImGuiTextFlags flags = 0) { im::TextEx(text, text_end, flags); }
+        static bool                     ButtonEx(const char* label, const ImVec2& size_arg = ImVec2(0, 0), ImGuiButtonFlags flags = 0) { return im::ButtonEx(label, size_arg, flags); }
+        static bool                     ArrowButtonEx(const char* str_id, ImGuiDir dir, ImVec2& size_arg, ImGuiButtonFlags flags = 0) { return im::ArrowButtonEx(str_id, dir, size_arg, flags); }
+        static bool                     ImageButtonEx(ImGuiID id, ImTextureID texture_id, const ImVec2& image_size, const ImVec2& uv0, const ImVec2& uv1, const ImVec4& bg_col, const ImVec4& tint_col, ImGuiButtonFlags flags = 0);
+        static void                     SeparatorEx(ImGuiSeparatorFlags flags, float thickness = 1.0f) { im::SeparatorEx(flags, thickness); }
+        static void                     SeparatorTextEx(ImGuiID id, const char* label, const char* label_end, float extra_width) { im::SeparatorTextEx(id, label, label_end, extra_width); }
+        static bool                     CheckboxFlags(const char* label, ImS64* flags, ImS64 flags_value) { return im::CheckboxFlags(label, flags, flags_value); }
+        static bool                     CheckboxFlags(const char* label, ImU64* flags, ImU64 flags_value) { return im::CheckboxFlags(label, flags, flags_value); }
 
         // Widgets low-level behaviors
         static bool                     ButtonBehavior(const ImRect& bb, ImGuiID id, bool* out_hovered, bool* out_held, ImGuiButtonFlags flags = 0) { return im::ButtonBehavior(bb, id, out_hovered, out_held, flags); }
