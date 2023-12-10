@@ -333,7 +333,7 @@ class ImGui {
         static bool                     TreeNodeExV(const char* str_id, ImGuiTreeNodeFlags flags, const char* fmt, va_list args) { return im::TreeNodeExV(str_id, flags, fmt, args); }
         static bool                     TreeNodeExV_2(const void* ptr_id, ImGuiTreeNodeFlags flags, const char* fmt, va_list args) { return im::TreeNodeExV(ptr_id, flags, fmt, args); }
         static void                     TreePush(const char* str_id) { im::TreePush(str_id); }
-//        static void                     TreePush_2(const void* ptr_id) { im::TreePush(ptr_id); }
+        static void                     TreePush_2(int id) { im::TreePush(&id); }
         static void                     TreePop() { im::TreePop(); }
         static float                    GetTreeNodeToLabelSpacing() { return im::GetTreeNodeToLabelSpacing(); }
         static bool                     CollapsingHeader(const char* label, ImGuiTreeNodeFlags flags = 0) { return im::CollapsingHeader(label, flags); }
