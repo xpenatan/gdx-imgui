@@ -641,7 +641,7 @@ interface ImDrawList {
     [Value]attribute VecIdxBuffer IdxBuffer;
     [Value]attribute VecVtxBuffer VtxBuffer;
 
-    void PushClipRect([Const, Ref] ImVec2 cr_min, [Const, Ref] ImVec2 cr_max, boolean intersect_with_current_clip_rect);
+    void PushClipRect([Const, Ref] ImVec2 cr_min, [Const, Ref] ImVec2 cr_max, optional boolean intersect_with_current_clip_rect);
     void PushClipRectFullScreen();
     void PopClipRect();
     void PushTextureID(any user_texture_id);
