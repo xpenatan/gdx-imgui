@@ -640,6 +640,15 @@ interface ImDrawList {
     [Value]attribute VecCmdBuffer CmdBuffer;
     [Value]attribute VecIdxBuffer IdxBuffer;
     [Value]attribute VecVtxBuffer VtxBuffer;
+
+    void PushClipRect([Const, Ref] ImVec2 cr_min, [Const, Ref] ImVec2 cr_max, boolean intersect_with_current_clip_rect);
+    void PushClipRectFullScreen();
+    void PopClipRect();
+    void PushTextureID(any user_texture_id);
+    void PopTextureID();
+    [Value] ImVec2 GetClipRectMin();
+    [Value] ImVec2 GetClipRectMax();
+
     void AddLine([Const, Ref] ImVec2 p1, [Const, Ref] ImVec2 p2, long col, optional float thickness);
     void AddRect([Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, long col, optional float rounding, optional ImDrawFlags flags, optional float thickness);
     void AddRectFilled([Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, long col, optional float rounding, optional ImDrawFlags flags);
