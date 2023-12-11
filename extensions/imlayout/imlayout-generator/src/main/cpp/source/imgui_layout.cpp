@@ -669,7 +669,7 @@ void ImLayout::AlignLayout(float alignX, float alignY, float offsetX, float offs
     ImVec2 posPad = curLayout->getPositionPadding();
     ImVec2 absSizePad = curLayout->getAbsoluteSizePadding();
 
-    if (alignX >= 0.0f && curLayout->isWrapParentX == false) {
+    if (alignX > 0.0f && curLayout->isWrapParentX == false) {
 
         float addX = ImFloor((totalX - curLayout->contentSize.x) * alignX);
         float newX = posPad.x + addX + offsetX;
@@ -684,7 +684,7 @@ void ImLayout::AlignLayout(float alignX, float alignY, float offsetX, float offs
         curLayout->positionContents.x = newX;
     }
 
-    if (alignY >= 0.0f && curLayout->isWrapParentY == false) {
+    if (alignY > 0.0f && curLayout->isWrapParentY == false) {
         float addY = ImFloor((totalY - curLayout->contentSize.y) * alignY);
         float newY = posPad.y + addY + offsetY;
         if (newY < posPad.y) {

@@ -973,6 +973,46 @@ namespace ImGuiExt
 
 			ImGui::EndTable();
 		}
+
+		ImGui::Indent();
+		ImGui::Indent();
+		ImGui::Indent();
+
+		ImLayout::BeginLayout("rootLayout", ImLayout::MATCH_PARENT, 20);
+		ImLayout::AlignLayout(0, 0.5f);
+		ImGui::Text("1 - Test");
+		ImLayout::EndLayout();
+		ImGui::Indent();
+
+		ImLayout::BeginLayout("fullLayoutttt", ImLayout::MATCH_PARENT, 20);
+		{
+			ImLayout::AlignLayout(0.5, 0.5);
+
+			ImLayout::ShowLayoutDebug();
+			ImLayout::ShowLayoutDebugClipping();
+
+
+			ImLayout::BeginAlign("imlayout", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0.0, 0.5);
+				{
+
+					ImLayout::ShowLayoutDebug();
+				ImLayout::ShowLayoutDebugClipping();
+
+				ImGui::ArrowButton("Arrow", ImGuiDir_Right);
+				ImGui::SameLine();
+				ImGui::Text("2 - Test");
+			}
+			ImLayout::EndAlign();
+
+			ImGui::SameLine();
+
+			ImLayout::BeginLayout("algin02", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT);
+			{
+				ImGui::Button("TEST");
+			}
+			ImLayout::EndLayout();
+		}
+		ImLayout::EndLayout();
 	}
 
 	inline void testFail01(const char* name, bool debug) {
