@@ -14,18 +14,28 @@ It's meant to be small and close 1-1 to C++.
 
 ## Build
 
-TODO
+#### WINDOWS:
+    // ImGui
+    // Requirements: Java 11, mingw64 and emscripten
+    ./gradlew :imgui:generator:download_source
+    ./gradlew :imgui:generator:build_project
+
+    // ImLayout
+    ./gradlew :extensions:imlayout:imlayout-generator:build_project_imlayout
+
+#### LINUX:
+    TODO
+
+#### MAC:
+    TODO
 
 ### Gradle
 
 Only SNAPSHOTS are currently available. Release will be ready when ImGui docking api goes to master.
 
-    gdxVersion = "1.11.0"
+    gdxVersion = "1.12.1"
     gdxImguiVersion = "1.0.0-SNAPSHOT"
-    imlayoutVersion = "1.0.0-SNAPSHOT"
 
-
-# Repo libs Deprecated. Will update it later.
 
 ```groovy
 
@@ -52,7 +62,8 @@ dependencies {
     implementation "com.github.xpenatan.gdx-imgui:teavm:$project.gdxImguiVersion"
 
     // Optional - ImLayout extension
-    implementation "com.github.xpenatan.gdx-imgui:imlayout-core:$project.imlayoutVersion"
-    implementation "com.github.xpenatan.gdx-imgui:imlayout-desktop:$project.imlayoutVersion"
+    implementation "com.github.xpenatan.gdx-imgui:imlayout-core:$project.gdxImguiVersion"
+    implementation "com.github.xpenatan.gdx-imgui:imlayout-desktop:$project.gdxImguiVersion"
+    implementation "com.github.xpenatan.gdx-imgui:imlayout-teavm:$project.gdxImguiVersion"
 }
 ```
