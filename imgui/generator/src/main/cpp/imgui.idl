@@ -615,6 +615,8 @@ interface VecVtxBuffer {
 interface ImVectorInt {
     [Operator="[]"] unsigned long getData(long index);
     long size();
+    unsigned long front();
+    unsigned long back();
 };
 
 interface ImDrawCmd {
