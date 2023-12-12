@@ -12,6 +12,7 @@
 typedef ImVector<ImDrawCmd> VecCmdBuffer;
 typedef ImVector<ImDrawIdx> VecIdxBuffer;
 typedef ImVector<ImDrawVert> VecVtxBuffer;
+typedef ImVector<unsigned int> ImVectorInt;
 
 namespace im = ImGui;
 

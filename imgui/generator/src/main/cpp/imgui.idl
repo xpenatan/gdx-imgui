@@ -612,6 +612,11 @@ interface VecVtxBuffer {
     long size();
 };
 
+interface ImVectorInt {
+    [Operator="[]"] unsigned long getData(long index);
+    long size();
+};
+
 interface ImDrawCmd {
     [Value]attribute ImVec4 ClipRect;
     attribute long VtxOffset;
@@ -781,6 +786,7 @@ interface ImGuiWindowClass {
 
 [NoDelete]
 interface ImGuiWindow {
+    [Value] readonly attribute ImVectorInt IDStack;
     [Value] readonly attribute ImGuiWindowTempData DC;
     attribute long ID;
     attribute long Flags;
