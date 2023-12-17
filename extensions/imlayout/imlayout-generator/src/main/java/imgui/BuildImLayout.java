@@ -129,7 +129,7 @@ public class BuildImLayout {
         WindowsTarget windowsTarget = new WindowsTarget();
         windowsTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui");
         windowsTarget.headerDirs.add("-Isrc/imlayout/");
-        windowsTarget.cppIncludes.add("**/imlayout/*.cpp");
+        windowsTarget.cppInclude.add("**/imlayout/*.cpp");
 //        windowsTarget.linkerFlags.add("-Wl,-rpath=. -L" + imguiPath2.replace("\\" ,"/"));
         windowsTarget.linkerFlags.add("-L" + imguiPath2);
         windowsTarget.linkerFlags.add("-l:imgui64.dll");
@@ -149,7 +149,7 @@ public class BuildImLayout {
         libTarget.compileGlueCode = false;
         libTarget.headerDirs.add("-Isrc/imlayout");
         libTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui");
-        libTarget.cppIncludes.add("**/imlayout/*.cpp");
+        libTarget.cppInclude.add("**/imlayout/*.cpp");
         multiTarget.add(libTarget);
 
         // Compile glue code and link to make js file

@@ -121,7 +121,7 @@ public class Main {
         libTarget.isStatic = true;
         libTarget.compileGlueCode = false;
         libTarget.headerDirs.add("-Isrc/imgui");
-        libTarget.cppIncludes.add("**/imgui/*.cpp");
+        libTarget.cppInclude.add("**/imgui/*.cpp");
         libTarget.cppFlags.add("-DIMGUI_DISABLE_FILE_FUNCTIONS");
         libTarget.cppFlags.add("-DIMGUI_DEFINE_MATH_OPERATORS");
         multiTarget.add(libTarget);
@@ -140,7 +140,7 @@ public class Main {
 
         AndroidTarget androidTarget = new AndroidTarget();
         androidTarget.headerDirs.add("src/imgui");
-        androidTarget.cppIncludes.add("**/imgui/*.cpp");
+        androidTarget.cppInclude.add("**/imgui/*.cpp");
         androidTarget.cppFlags.add("-Wno-error=format-security");
         multiTarget.add(androidTarget);
         return multiTarget;
