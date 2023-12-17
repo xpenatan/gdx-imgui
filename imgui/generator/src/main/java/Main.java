@@ -102,7 +102,7 @@ public class Main {
         windowsTarget.isStatic = true;
         windowsTarget.addJNI = false;
         windowsTarget.headerDirs.add("-Isrc/imgui/");
-        windowsTarget.cppIncludes.add("**/imgui/*.cpp");
+        windowsTarget.cppInclude.add("**/imgui/*.cpp");
         multiTarget.add(windowsTarget);
 
         WindowsTarget glueTarget = new WindowsTarget();
