@@ -58,10 +58,7 @@ var libProjects = mutableSetOf(
 var libProjects2 = mutableSetOf(
     project(":imgui-ext:ext-core"),
     project(":imgui-ext:ext-desktop"),
-    project(":imgui-ext:ext-teavm"),
-    project(":extensions:imlayout:imlayout-core"),
-    project(":extensions:imlayout:imlayout-desktop"),
-    project(":extensions:imlayout:imlayout-teavm"),
+    project(":imgui-ext:ext-teavm")
 )
 
 configure(libProjects) {
@@ -73,7 +70,7 @@ configure(libProjects) {
 configure(libProjects2) {
     apply(plugin = "maven-publish")
     group = LibExt.groupId
-    version = LibExt.imlayoutVersion
+    version = LibExt.libVersion
 }
 
 configure(libProjects + libProjects2) {

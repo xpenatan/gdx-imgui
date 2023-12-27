@@ -2,7 +2,6 @@ object LibExt {
     const val groupId = "com.github.xpenatan.gdx-imgui"
     val libVersion: String = getVersion("1.0.0", "b1")
 
-    val imlayoutVersion = libVersion
     val gdxImguiVersion = libVersion
 
     const val teaVMVersion = "0.10.0-dev-2"

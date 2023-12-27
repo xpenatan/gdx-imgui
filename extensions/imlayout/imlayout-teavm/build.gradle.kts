@@ -1,11 +1,3 @@
-val moduleName = "imlayout-teavm"
-
-val emscriptenFile = "$projectDir/../imlayout-generator/build/c++/libs/emscripten/imlayout.wasm.js"
-
-tasks.jar {
-    from(emscriptenFile)
-}
-
 dependencies {
     implementation(project(":imgui:imgui-core"))
     implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
@@ -19,14 +11,5 @@ tasks.named("clean") {
         val srcPath = "$projectDir/src/main/java"
         val jsPath = "$projectDir/src/main/resources/imlayout.wasm.js"
         project.delete(files(srcPath, jsPath))
-    }
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            artifactId = moduleName
-            from(components["java"])
-        }
     }
 }

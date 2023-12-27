@@ -1,6 +1,6 @@
 // Core
-include(":imgui:imgui-base")
 include(":imgui:imgui-build")
+include(":imgui:imgui-base")
 include(":imgui:imgui-core")
 include(":imgui:imgui-desktop")
 include(":imgui:imgui-teavm")
@@ -16,18 +16,11 @@ include(":gdx:gdx-impl")
 //include(":gdx:lwjgl3-impl")
 
 // Extension ImLayout
+include(":extensions:imlayout:imlayout-build")
 include(":extensions:imlayout:imlayout-base")
-include(":extensions:imlayout:imlayout-generator")
 include(":extensions:imlayout:imlayout-core")
 include(":extensions:imlayout:imlayout-desktop")
 include(":extensions:imlayout:imlayout-teavm")
-
-// Extension imgui-node-editor
-//include(":extensions:node-editor:editor-build")
-//include(":extensions:node-editor:editor-base")
-//include(":extensions:node-editor:editor-core")
-//include(":extensions:node-editor:editor-desktop")
-//include(":extensions:node-editor:editor-teavm")
 
 // Extension ImGuiColorTextEdit
 include(":extensions:ImGuiColorTextEdit:textedit-build")
@@ -35,6 +28,13 @@ include(":extensions:ImGuiColorTextEdit:textedit-base")
 include(":extensions:ImGuiColorTextEdit:textedit-core")
 include(":extensions:ImGuiColorTextEdit:textedit-desktop")
 include(":extensions:ImGuiColorTextEdit:textedit-teavm")
+
+// Extension imgui-node-editor
+//include(":extensions:node-editor:editor-build")
+//include(":extensions:node-editor:editor-base")
+//include(":extensions:node-editor:editor-core")
+//include(":extensions:node-editor:editor-desktop")
+//include(":extensions:node-editor:editor-teavm")
 
 // Examples
 include(":examples:basic:base")
