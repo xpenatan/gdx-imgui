@@ -19,7 +19,7 @@ public class MainExtensions {
         }
 //        targets.add(getEmscriptenBuildTarget(idlReader));
 //
-        Main.generateAndBuild(idlReader, targets, false);
+//        Main.generateAndBuild(idlReader, targets, false);
     }
 
     private static BuildMultiTarget getWindowBuildTarget() throws IOException {

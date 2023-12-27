@@ -25,14 +25,6 @@ tasks.register<JavaExec>("build_project") {
     classpath = sourceSets["main"].runtimeClasspath
 }
 
-tasks.register<JavaExec>("build_project_ext") {
-    dependsOn("classes")
-    group = "imgui"
-    description = "Generate ImGui with extensions"
-    mainClass.set(mainExtensionsClassName)
-    classpath = sourceSets["main"].runtimeClasspath
-}
-
 val zippedPath = "$buildDir/imgui-source.zip"
 val sourcePath = "$buildDir/imgui-source"
 val sourceDestination = "$buildDir/imgui/"

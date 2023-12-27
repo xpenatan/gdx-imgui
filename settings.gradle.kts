@@ -6,7 +6,10 @@ include(":imgui:desktop")
 include(":imgui:teavm")
 include(":imgui:android")
 
+include(":imgui-ext:ext-build")
 include(":imgui-ext:ext-core")
+include(":imgui-ext:ext-desktop")
+include(":imgui-ext:ext-teavm")
 
 // Implementation
 include(":gdx:gdx-impl")
