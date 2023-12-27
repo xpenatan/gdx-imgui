@@ -5,7 +5,7 @@ dependencies {
         implementation("com.github.xpenatan.gdx-imgui:imgui-desktop:1.0.0-SNAPSHOT")
     }
     else {
-        implementation(project(":imgui:desktop"))
+        implementation(project(":imgui:imgui-desktop"))
     }
 
     implementation("com.badlogicgames.gdx:gdx-backend-lwjgl3:${LibExt.gdxVersion}")

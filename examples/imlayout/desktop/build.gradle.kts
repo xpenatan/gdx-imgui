@@ -6,7 +6,7 @@ dependencies {
         implementation("com.github.xpenatan.gdx-imgui:imlayout-desktop:1.0.0-SNAPSHOT")
     }
     else {
-        implementation(project(":imgui:desktop"))
+        implementation(project(":imgui:imgui-desktop"))
         implementation(project(":extensions:imlayout:imlayout-desktop"))
     }
 

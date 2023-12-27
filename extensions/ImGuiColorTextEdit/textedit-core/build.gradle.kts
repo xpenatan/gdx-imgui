@@ -1,5 +1,5 @@
 dependencies {
-    implementation(project(":imgui:core"))
+    implementation(project(":imgui:imgui-core"))
 }
 
 tasks.named("clean") {

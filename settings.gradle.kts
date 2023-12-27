@@ -1,10 +1,10 @@
 // Core
-include(":imgui:base")
-include(":imgui:generator")
-include(":imgui:core")
-include(":imgui:desktop")
-include(":imgui:teavm")
-include(":imgui:android")
+include(":imgui:imgui-base")
+include(":imgui:imgui-build")
+include(":imgui:imgui-core")
+include(":imgui:imgui-desktop")
+include(":imgui:imgui-teavm")
+include(":imgui:imgui-android")
 
 include(":imgui-ext:ext-build")
 include(":imgui-ext:ext-core")

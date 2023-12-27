@@ -39,7 +39,7 @@ allprojects  {
     }
 }
 
-configure(allprojects - project(":imgui:android") - project(":examples:basic:android")) {
+configure(allprojects - project(":imgui:imgui-android") - project(":examples:basic:android")) {
     apply {
         plugin("java")
     }
@@ -48,9 +48,9 @@ configure(allprojects - project(":imgui:android") - project(":examples:basic:and
 }
 
 var libProjects = mutableSetOf(
-    project(":imgui:core"),
-    project(":imgui:desktop"),
-    project(":imgui:teavm"),
+    project(":imgui:imgui-core"),
+    project(":imgui:imgui-desktop"),
+    project(":imgui:imgui-teavm"),
     project(":gdx:gdx-impl"),
 //        project(":gdx:lwjgl3-impl"),
 )

@@ -10,7 +10,7 @@ java {
 }
 
 dependencies {
-    api(project(":imgui:core"))
+    api(project(":imgui:imgui-core"))
     api(project(":extensions:ImGuiColorTextEdit:textedit-core"))
 }
 

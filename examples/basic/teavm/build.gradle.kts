@@ -14,7 +14,7 @@ dependencies {
         implementation("com.github.xpenatan.gdx-imgui:imgui-teavm:1.0.0-SNAPSHOT")
     }
     else {
-        implementation(project(":imgui:teavm"))
+        implementation(project(":imgui:imgui-teavm"))
     }
 
     implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")

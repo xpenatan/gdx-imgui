@@ -9,7 +9,7 @@ val mainClassName = "Main"
 val mainExtensionsClassName = "MainExtensions"
 
 dependencies {
-    implementation(project(":imgui:base"))
+    implementation(project(":imgui:imgui-base"))
     implementation("com.github.xpenatan.jParser:core:${LibExt.jParserVersion}")
     implementation("com.github.xpenatan.jParser:builder:${LibExt.jParserVersion}")
     implementation("com.github.xpenatan.jParser:teavm:${LibExt.jParserVersion}")

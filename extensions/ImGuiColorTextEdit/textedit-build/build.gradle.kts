@@ -8,7 +8,7 @@ plugins {
 val mainClassName = "imgui.extension.textedit.Main"
 
 dependencies {
-    implementation(project(":imgui:core"))
+    implementation(project(":imgui:imgui-core"))
     implementation("com.github.xpenatan.jParser:core:${LibExt.jParserVersion}")
     implementation("com.github.xpenatan.jParser:builder:${LibExt.jParserVersion}")
     implementation("com.github.xpenatan.jParser:teavm:${LibExt.jParserVersion}")

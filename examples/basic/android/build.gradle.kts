@@ -47,7 +47,7 @@ dependencies {
         implementation("com.github.xpenatan.gdx-imgui:android:1.0.0-SNAPSHOT")
     }
     else {
-        implementation(project(":imgui:android"))
+        implementation(project(":imgui:imgui-android"))
     }
 
     implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
