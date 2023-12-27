@@ -1,0 +1,10 @@
+
+interface TextEditor {
+    void TextEditor();
+
+    void SetReadOnly(boolean aValue);
+};
+
+interface CustomTextEdit {
+    static void print();
+};

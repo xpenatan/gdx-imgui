@@ -16,6 +16,8 @@ import imgui.ImGuiTabBarFlags;
 import imgui.ImGuiViewport;
 import imgui.ImVec2;
 import imgui.ImVec4;
+import imgui.extension.textedit.CustomTextEdit;
+import imgui.extension.textedit.TextEditor;
 import imgui.idl.helper.IDLInt;
 import static imgui.ImGuiCol.ImGuiCol_Header;
 import static imgui.ImGuiDir.ImGuiDir_Down;
@@ -65,6 +67,12 @@ public class BasicExample extends ImGuiRenderer {
         System.out.println("Color before: R: " + colors.get_x() + " G: " + colors.get_y() + " B: " + colors.get_z() + " A: " + colors.get_w());
         style.set_Colors(ImGuiCol_Header, 255, 0, 0, 255);
         System.out.println("Color adter: R: " + colors.get_x() + " G: " + colors.get_y() + " B: " + colors.get_z() + " A: " + colors.get_w());
+
+
+        CustomTextEdit.print();
+
+        TextEditor a = new TextEditor();
+        a.SetReadOnly(true);
     }
 
     @Override

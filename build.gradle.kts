@@ -51,6 +51,8 @@ var libProjects = mutableSetOf(
     project(":imgui:core"),
     project(":imgui:desktop"),
     project(":imgui:teavm"),
+    project(":imgui-ext:ext-core"),
+
     project(":extensions:gdx"),
 //        project(":extensions:lwjgl3"),
 )
@@ -58,7 +60,10 @@ var libProjects = mutableSetOf(
 var libProjects2 = mutableSetOf(
     project(":extensions:imlayout:imlayout-core"),
     project(":extensions:imlayout:imlayout-desktop"),
-    project(":extensions:imlayout:imlayout-teavm")
+    project(":extensions:imlayout:imlayout-teavm"),
+    project(":extensions:ImGuiColorTextEdit:textedit-core"),
+    project(":extensions:ImGuiColorTextEdit:textedit-desktop"),
+    project(":extensions:ImGuiColorTextEdit:textedit-teavm")
 )
 
 configure(libProjects) {

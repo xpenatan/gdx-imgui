@@ -34,7 +34,10 @@ libs/
 
 **/imgui/core/src/main/java/**
 **/imgui/teavm/src/main/java/**
-**/extensions/imlayout/imlayout-core/src/main/java/**
-**/node-editor/editor-core/src/main/java/**
-**/node-editor/editor-teavm/src/main/java/**
 **/webapp/**
+
+**/extensions/imlayout/imlayout-core/src/main/java/**
+**/extensions/node-editor/editor-core/src/main/java/**
+**/extensions/node-editor/editor-teavm/src/main/java/**
+**/extensions/ImGuiColorTextEdit/textedit-teavm/src/main/java/**
+**/extensions/ImGuiColorTextEdit/textedit-core/src/main/java/**

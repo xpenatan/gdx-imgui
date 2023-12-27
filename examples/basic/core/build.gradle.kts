@@ -5,7 +5,7 @@ dependencies {
         implementation("com.github.xpenatan.gdx-imgui:core:1.0.0-SNAPSHOT")
     }
     else {
-        implementation(project(":imgui:core"))
+        implementation(project(":imgui-ext:ext-core"))
     }
 
     implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
