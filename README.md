@@ -55,13 +55,14 @@ dependencies {
 * Requirements: Java 11, mingw64 and emscripten
 * Windows only for now.
 
+```
+##### ImGui
+./gradlew :imgui:imgui-build:download_source
+./gradlew :imgui:imgui-build:build_project
 
-    ##### ImGui
-    ./gradlew :imgui:imgui-build:download_source
-    ./gradlew :imgui:imgui-build:build_project
-
-    ##### ImGui with extensions
-    ./gradlew :extensions:ImGuiColorTextEdit:textedit-build:download_source
-    ./gradlew :extensions:ImGuiColorTextEdit:textedit-build:build_project
-    ./gradlew :extensions:imlayout:imlayout-build:build_project
-    ./gradlew :imgui:imgui-ext-build:build_project
+##### ImGui with extensions
+./gradlew :extensions:ImGuiColorTextEdit:textedit-build:download_source
+./gradlew :extensions:ImGuiColorTextEdit:textedit-build:build_project
+./gradlew :extensions:imlayout:imlayout-build:build_project
+./gradlew :imgui:imgui-ext-build:build_project
+```
