@@ -1,4 +1,4 @@
-val moduleName = "teavm"
+val moduleName = "imgui-teavm"
 
 val emscriptenFile = "$projectDir/../generator/build/c++/libs/emscripten/imgui.wasm.js"
 

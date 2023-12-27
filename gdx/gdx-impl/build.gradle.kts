@@ -1,4 +1,4 @@
-val moduleName = "gdx"
+val moduleName = "gdx-impl"
 
 dependencies {
     implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")

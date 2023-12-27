@@ -8,9 +8,9 @@ include(":imgui:android")
 
 include(":imgui-ext:ext-core")
 
-// Extensions
-include(":extensions:gdx")
-//include(":extensions:lwjgl3")
+// Implementation
+include(":gdx:gdx-impl")
+//include(":gdx:lwjgl3-impl")
 
 // Extension ImLayout
 include(":extensions:imlayout:imlayout-base")
@@ -32,7 +32,6 @@ include(":extensions:ImGuiColorTextEdit:textedit-base")
 include(":extensions:ImGuiColorTextEdit:textedit-core")
 include(":extensions:ImGuiColorTextEdit:textedit-desktop")
 include(":extensions:ImGuiColorTextEdit:textedit-teavm")
-
 
 // Examples
 include(":examples:basic:base")

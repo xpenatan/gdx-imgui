@@ -48,22 +48,25 @@ repositories {
 }
 
 dependencies {
-    implementation "com.badlogicgames.gdx:gdx-platform:$project.gdxVersion:natives-desktop"
-    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$project.gdxVersion"
+    // Required implementation
+    implementation "com.github.xpenatan.gdx-imgui:gdx-impl:$project.gdxImguiVersion"
+    
+    // ImGui only
+    implementation "com.github.xpenatan.gdx-imgui:imgui-core:$project.gdxImguiVersion"
+    
+    // ImGui only platform natives
+    implementation "com.github.xpenatan.gdx-imgui:imgui-desktop:$project.gdxImguiVersion"
+    //implementation "com.github.xpenatan.gdx-imgui:imgui-android:$project.gdxImguiVersion"
+    //implementation "com.github.xpenatan.gdx-imgui:imgui-ios:$project.gdxImguiVersion"
+    implementation "com.github.xpenatan.gdx-imgui:imgui-teavm:$project.gdxImguiVersion"
 
-    // Required
-    implementation "com.github.xpenatan.gdx-imgui:imgui:$project.gdxImguiVersion"
-    implementation "com.github.xpenatan.gdx-imgui:gdx:$project.gdxImguiVersion"
-
-    // Required Platform Natives
-    implementation "com.github.xpenatan.gdx-imgui:desktop:$project.gdxImguiVersion"
-    //implementation "com.github.xpenatan.gdx-imgui:android:$project.gdxImguiVersion"
-    //implementation "com.github.xpenatan.gdx-imgui:ios:$project.gdxImguiVersion"
-    implementation "com.github.xpenatan.gdx-imgui:teavm:$project.gdxImguiVersion"
-
-    // Optional - ImLayout extension
-    implementation "com.github.xpenatan.gdx-imgui:imlayout-core:$project.gdxImguiVersion"
-    implementation "com.github.xpenatan.gdx-imgui:imlayout-desktop:$project.gdxImguiVersion"
-    implementation "com.github.xpenatan.gdx-imgui:imlayout-teavm:$project.gdxImguiVersion"
+    // ImGui with extensions
+    implementation "com.github.xpenatan.gdx-imgui:imgui-ext-core:$project.gdxImguiVersion"
+    
+    // ImGui with extensions platform natives
+    implementation "com.github.xpenatan.gdx-imgui:imgui-ext-desktop:$project.gdxImguiVersion"
+    //implementation "com.github.xpenatan.gdx-imgui:imgui-ext-android:$project.gdxImguiVersion"
+    //implementation "com.github.xpenatan.gdx-imgui:imgui-ext-ios:$project.gdxImguiVersion"
+    implementation "com.github.xpenatan.gdx-imgui:imgui-ext-teavm:$project.gdxImguiVersion"
 }
 ```
