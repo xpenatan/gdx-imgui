@@ -1,6 +1,6 @@
 val moduleName = "imgui-desktop"
 
-val windowsFile = "$projectDir/../generator/build/c++/libs/windows/ext/imgui64.dll"
+val windowsFile = "$projectDir/../generator/build/c++/libs/windows/imgui64.dll"
 
 tasks.jar {
     from(windowsFile)
