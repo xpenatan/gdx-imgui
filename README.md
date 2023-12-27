@@ -12,33 +12,12 @@ It's meant to be small and close 1-1 to C++.
 ## Examples
 * [basic](https://xpenatan.github.io/gdx-imgui/basic/)
 
-## Build
-
-#### WINDOWS:
-    // ImGui
-    // Requirements: Java 11, mingw64 and emscripten
-    ./gradlew :imgui:generator:download_source
-    ./gradlew :imgui:generator:build_project
-
-    // ImLayout
-    ./gradlew :extensions:imlayout:imlayout-generator:build_project_imlayout
-
-#### LINUX:
-    TODO
-
-#### MAC:
-    TODO
-
-### Gradle
-
-Only SNAPSHOTS are currently available. Release will be ready when ImGui docking api goes to master.
+## Setup
 
     gdxVersion = "1.12.1"
     gdxImguiVersion = "1.0.0-SNAPSHOT"
 
-
 ```groovy
-
 // Add repository to Root gradle
 repositories {
     mavenLocal()
@@ -70,3 +49,25 @@ dependencies {
     implementation "com.github.xpenatan.gdx-imgui:imgui-ext-teavm:$project.gdxImguiVersion"
 }
 ```
+
+## Build source
+
+* Requirements: Java 11, mingw64 and emscripten
+
+#### WINDOWS:
+    ##### ImGui
+    ./gradlew :imgui:imgui-build:download_source
+    ./gradlew :imgui:imgui-build:build_project
+
+    ##### ImGui with extensions
+    ./gradlew :extensions:ImGuiColorTextEdit:textedit-build:download_source
+    ./gradlew :extensions:ImGuiColorTextEdit:textedit-build:build_project
+    ./gradlew :extensions:imlayout:imlayout-build:build_project
+    ./gradlew :imgui:imgui-ext-build:build_project
+#### LINUX:
+    TODO
+
+#### MAC:
+    TODO
+
+### Gradle

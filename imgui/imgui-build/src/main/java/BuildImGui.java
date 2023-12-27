@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-public class Main {
+public class BuildImGui {
 
     public static void main(String[] args) throws Exception {
         String idlPath = new File("src/main/cpp/imgui.idl").getCanonicalPath();

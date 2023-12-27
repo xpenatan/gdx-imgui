@@ -5,8 +5,7 @@ plugins {
     id("de.undercouch.download") version("5.4.0")
 }
 
-val mainClassName = "Main"
-val mainExtensionsClassName = "MainExtensions"
+val mainClassName = "BuildImGui"
 
 dependencies {
     implementation(project(":imgui:imgui-base"))
