@@ -9,9 +9,9 @@ dependencies {
     implementation("com.github.xpenatan.jParser:idl:${LibExt.jParserVersion}")
 }
 
-tasks.register<JavaExec>("build_project_ext") {
+tasks.register<JavaExec>("build_project") {
     dependsOn("classes")
-    group = "imgui"
+    group = "imgui-ext"
     description = "Generate ImGui with extensions"
     mainClass.set(mainExtensionsClassName)
     classpath = sourceSets["main"].runtimeClasspath
