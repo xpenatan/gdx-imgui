@@ -1,4 +1,4 @@
-val mainExtensionsClassName = "MainExtensions"
+val mainExtensionsClassName = "imgui.BuildImGuiExtensions"
 
 dependencies {
     implementation(project(":imgui:imgui-build"))

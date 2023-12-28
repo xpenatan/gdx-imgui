@@ -1,3 +1,5 @@
+package imgui;
+
 import com.github.xpenatan.jparser.builder.BuildMultiTarget;
 import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
@@ -6,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainExtensions {
+public class BuildImGuiExtensions {
 
     public static void main(String[] args) throws Exception {
         String idlPath = new File("src/main/cpp/imgui.idl").getCanonicalPath();

@@ -1,3 +1,7 @@
+plugins {
+    id("java-library")
+}
+
 val moduleName = "imgui-ext-teavm"
 
 val emscriptenFile = "$projectDir/../generator/build/c++/libs/emscripten/ext/imgui.wasm.js"
@@ -7,6 +11,9 @@ tasks.jar {
 }
 
 dependencies {
+    api(project(":extensions:imlayout:imlayout-teavm"))
+//    api(project(":extensions:ImGuiColorTextEdit:textedit-teavm"))
+
     implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
     implementation("com.github.xpenatan.jParser:loader-core:${LibExt.jParserVersion}")
     implementation("com.github.xpenatan.jParser:loader-teavm:${LibExt.jParserVersion}")
