@@ -4,6 +4,7 @@ import com.github.xpenatan.jparser.builder.BuildConfig;
 import com.github.xpenatan.jparser.builder.BuildMultiTarget;
 import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.JBuilder;
+import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
 import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
 import com.github.xpenatan.jparser.idl.IDLReader;
 import java.io.File;
@@ -20,11 +21,12 @@ public class BuildImGuiExtensions {
         String imguiPath = new File("./../../imgui").getCanonicalPath().replace("\\", "/");
         String extensionsPath = new File("./../../extensions").getCanonicalPath().replace("\\", "/");
         String idlPath = imguiPath + "/imgui-build/src/main/cpp/imgui.idl";
-        IDLReader idlReader = IDLReader.readIDL(idlPath);
+        IDLReader imguiIDLReader = IDLReader.readIDL(idlPath);
         ArrayList<BuildMultiTarget> targets = new ArrayList<>();
 
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
             targets.add(getWindowBuildTarget(imguiPath, extensionsPath));
+            targets.add(getEmscriptenBuildTarget(imguiPath, extensionsPath, idlPath));
 //            targets.add(getAndroidBuildTarget());
         }
 
@@ -49,15 +51,15 @@ public class BuildImGuiExtensions {
 
     private static BuildMultiTarget getWindowBuildTarget(String imguiPath, String extensionsPath) throws IOException {
         BuildMultiTarget multiTarget = new BuildMultiTarget();
-        String libBuildPath = imguiPath + "/imgui-build/build/c++";
+        String imguiCppPath = imguiPath + "/imgui-build/build/c++";
 
         WindowsTarget glueTarget = new WindowsTarget();
         glueTarget.libDirSuffix += "ext/";
         glueTarget.addJNIHeaders();
-        glueTarget.headerDirs.add("-I" + libBuildPath + "/src/imgui/");
-        glueTarget.headerDirs.add("-I" + libBuildPath + "/src/jniglue");
-        glueTarget.linkerFlags.add(libBuildPath + "/libs/windows/imgui64.a");
-        glueTarget.cppInclude.add(libBuildPath + "/src/jniglue/JNIGlue.cpp");
+        glueTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui/");
+        glueTarget.headerDirs.add("-I" + imguiCppPath + "/src/jniglue");
+        glueTarget.linkerFlags.add(imguiCppPath + "/libs/windows/imgui64.a");
+        glueTarget.cppInclude.add(imguiCppPath + "/src/jniglue/JNIGlue.cpp");
 
         {
             String imlayoutCPPPath = extensionsPath + "/imlayout/imlayout-build/build/c++";
@@ -77,6 +79,31 @@ public class BuildImGuiExtensions {
 //        }
 
         multiTarget.add(glueTarget);
+        return multiTarget;
+    }
+
+    private static BuildMultiTarget getEmscriptenBuildTarget(String imguiPath, String extensionsPath, String imguiIDLReaderPath) {
+        BuildMultiTarget multiTarget = new BuildMultiTarget();
+        String imguiCppPath = imguiPath + "/imgui-build/build/c++";
+        IDLReader idlReaderCombined = IDLReader.readIDL(imguiIDLReaderPath);
+
+        // Compile glue code and link to make js file
+        EmscriptenTarget linkTarget = new EmscriptenTarget(idlReaderCombined);
+        linkTarget.libDirSuffix += "ext/";
+        linkTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui");
+        linkTarget.headerDirs.add("-include" + imguiCppPath + "/src/imgui/ImGuiCustom.h");
+        linkTarget.linkerFlags.add(imguiCppPath + "/libs/emscripten/imgui.a");
+
+        {
+            String imlayoutCppPath = extensionsPath + "/imlayout/imlayout-build/build/c++";
+            String imlayoutIdlPath = extensionsPath + "/imlayout/imlayout-build/src/main/cpp/imlayout.idl";
+            IDLReader.addIDL(idlReaderCombined, imlayoutIdlPath);
+            linkTarget.headerDirs.add("-I" + imlayoutCppPath + "/src/imlayout");
+            linkTarget.headerDirs.add("-include" + imlayoutCppPath + "/src/imlayout/ImLayoutCustom.h");
+            linkTarget.linkerFlags.add(imlayoutCppPath + "/libs/emscripten/imlayout.a");
+        }
+        multiTarget.add(linkTarget);
+
         return multiTarget;
     }
 }

@@ -77,8 +77,8 @@ public class BuildImLayout {
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
             targets.add(getWindowBuildTarget(imguiPath, imLayoutCPPPath));
 //            targets.add(getAndroidBuildTarget());
+            targets.add(getEmscriptenBuildTarget(imguiPath, imLayoutCPPPath));
         }
-//        targets.add(getEmscriptenBuildTarget(idlReaderCombined, imguiPath));
 
         BuildConfig buildConfig = new BuildConfig(cppDestinationPath, imLayoutCPPPath, libsDir, libName);
         JBuilder.build(buildConfig, targets);
@@ -99,28 +99,19 @@ public class BuildImLayout {
         return multiTarget;
     }
 
-    private static BuildMultiTarget getEmscriptenBuildTarget(IDLReader idlReader, String imguiCppPath) {
+    private static BuildMultiTarget getEmscriptenBuildTarget(String imguiPath, String imLayoutCPPPath) {
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
-        imguiCppPath += "/generator/build/c++";
+        String imguiCppPath = imguiPath + "/imgui-build/build/c++";
 
         // Make a static library
-        EmscriptenTarget libTarget = new EmscriptenTarget(idlReader);
+        EmscriptenTarget libTarget = new EmscriptenTarget(null);
         libTarget.isStatic = true;
         libTarget.compileGlueCode = false;
-        libTarget.headerDirs.add("-Isrc/imlayout");
         libTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui");
-        libTarget.cppInclude.add("**/imlayout/*.cpp");
+        libTarget.headerDirs.add("-I" + imLayoutCPPPath + "/src/imlayout");
+        libTarget.cppInclude.add(imLayoutCPPPath + "/src/imlayout/*.cpp");
         multiTarget.add(libTarget);
-
-//        // Compile glue code and link to make js file
-//        EmscriptenTarget linkTarget = new EmscriptenTarget(idlReader);
-//        linkTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui");
-//        linkTarget.headerDirs.add("-includesrc/imlayout/ImLayoutCustom.h");
-//        linkTarget.headerDirs.add("-include" + imguiCppPath + "/src/imgui/ImGuiCustom.h");
-//        linkTarget.linkerFlags.add("../../libs/emscripten/imlayout.a");
-//        linkTarget.linkerFlags.add(imguiCppPath + "/libs/emscripten/imgui.a");
-//        multiTarget.add(linkTarget);
 
         return multiTarget;
     }
