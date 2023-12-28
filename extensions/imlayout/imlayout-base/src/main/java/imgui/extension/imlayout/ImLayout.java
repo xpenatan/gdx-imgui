@@ -1,4 +1,4 @@
-package imgui.imlayout;
+package imgui.extension.imlayout;
 
 public class ImLayout {
     /*[-C++;-NATIVE]

@@ -22,123 +22,84 @@ import java.util.ArrayList;
 public class BuildImLayout {
 
     public static void main(String[] args) throws Exception {
-        generate();
+        build();
     }
 
-    public static void generate() throws Exception {
-        String basePackage = "imgui.imlayout";
-        String idlPath = new File("src/main/cpp/imlayout.idl").getCanonicalPath();
-        String cppSourceDir = new File("./src/main/cpp/source/").getCanonicalPath();
-        String baseJavaDir = new File(".").getAbsolutePath() + "./imlayout-base/src/main/java";
-
+    private static void build() throws Exception {
+        boolean idlFlag = JParser.CREATE_IDL_HELPER;
         JParser.CREATE_IDL_HELPER = false;
-        IDLReader idlReader = IDLReader.readIDL(idlPath);
-
-        String s = idlReader.mergeIDLFiles();
-
-//        generateClassOnly(idlReader, basePackage, baseJavaDir, cppSourceDir);
-        generateAndBuild(idlReader, basePackage, baseJavaDir, cppSourceDir, idlPath);
-    }
-
-    private static void generateClassOnly(
-            IDLReader idlReader,
-            String basePackage,
-            String baseJavaDir,
-            String cppSourceDir
-    ) throws Exception {
-        IDLDefaultCodeParser idlParser = new IDLDefaultCodeParser(basePackage, "C++", idlReader, cppSourceDir);
-        idlParser.generateClass = true;
-        String genDir = "../imlayout-core/src/main/java";
-        JParser.generate(idlParser, baseJavaDir, genDir);
-    }
-
-    private static void generateAndBuild(
-            IDLReader idlReader,
-            String basePackage,
-            String baseJavaDir,
-            String cppSourceDir,
-            String idlPath
-    ) throws Exception {
 
         String libName = "imlayout";
+        String basePackage = "imgui.extension.imlayout";
 
-        String imguiPath = new File("../../../imgui").getCanonicalPath().replace("\\", "/");
-        String libsDir = new File("./build/c++/libs/").getCanonicalPath();
-        String genDir = "../imlayout-core/src/main/java";
-        String libBuildPath = new File("./build/c++/").getCanonicalPath();
-        String cppDestinationPath = libBuildPath + "/src";
+        String imguiPath = new File("./../../../imgui/").getCanonicalPath().replace("\\", "/");
+        String imlayoutPath = new File("./../").getCanonicalPath().replace("\\", "/");
+
+        String imguiBasePath = imguiPath + "/imgui-base";
+        String imguiBuildPath = imguiPath + "/imgui-build";
+        String imguiCorePath = imguiPath + "/imgui-core";
+        String imguiTeavmPath = imguiPath + "/imgui-teavm";
+
+        String imLayoutBasePath = imlayoutPath + "/imlayout-base";
+        String imLayoutBuildPath = imlayoutPath + "/imlayout-build";
+        String imLayoutCorePath = imlayoutPath + "/imlayout-core";
+        String imLayoutTeavmPath = imlayoutPath + "/imlayout-teavm";
+
+        String imLayoutCPPPath = imLayoutBuildPath + "/build/c++";
+
+        String idlPath = imLayoutBuildPath + "/src/main/cpp/imlayout.idl";
+        String cppSourceDir = imLayoutBuildPath + "/src/main/cpp/source/";
+        String baseJavaDir = imLayoutBasePath + "/src/main/java";
+
+        IDLReader idlReader = IDLReader.readIDL(idlPath);
+
+        String libsDir = imLayoutCPPPath + "/libs/";
+        String cppDestinationPath = imLayoutCPPPath + "/src";
+
         String libDestinationPath = cppDestinationPath + "/imlayout";
-        String customSourceDir = new File("./src/main/cpp/custom/").getCanonicalPath();
-
+        String customSourceDir = imLayoutBuildPath + "/src/main/cpp/custom/";
         FileHelper.copyDir(cppSourceDir, libDestinationPath);
-
         // Move custom code to destination build directory
         FileHelper.copyDir(customSourceDir, libDestinationPath);
 
         CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath);
         CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage, cppSourceDir);
         cppParser.generateClass = true;
-        JParser.generate(cppParser, baseJavaDir, genDir);
-
-        BuildConfig buildConfig = new BuildConfig(
-                cppDestinationPath,
-                libBuildPath,
-                libsDir,
-                libName
-        );
-        String teaVMgenDir = "../imlayout-teavm/src/main/java/";
-
-        JParser.CREATE_IDL_HELPER = true;
-        IDLReader idlReaderCombined = IDLReader.readIDL(idlPath);
-        {
-            //Generate ImGui classes
-            String imguiIDLPath = imguiPath + "/generator/src/main/cpp/imgui.idl";
-            IDLReader.addIDL(idlReaderCombined, imguiIDLPath);
-            String imguibaseJavaDir = imguiPath + "/base/src/main/java";
-            IDLReader imguiidlReader = IDLReader.readIDL(imguiIDLPath);
-            String imguilibName = "imlayout";
-            String imguiBasePackage = "imgui";
-            String imguicppSourceDir = new File("./src/main/cpp/source/").getCanonicalPath();
-            TeaVMCodeParser imguiteavmParser = new TeaVMCodeParser(imguiidlReader, imguilibName, imguiBasePackage, imguicppSourceDir);
-            JParser.generate(imguiteavmParser, imguibaseJavaDir, teaVMgenDir);
-        }
-        JParser.CREATE_IDL_HELPER = false;
+        JParser.generate(cppParser, baseJavaDir, imLayoutCorePath + "/src/main/java");
 
         // Generate ImLayout classes
-        TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, libName, basePackage, cppSourceDir);
-        JParser.generate(teavmParser, baseJavaDir, teaVMgenDir);
+        String teavmLibname = "imgui";
+        TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, teavmLibname, basePackage, cppSourceDir);
+        JParser.generate(teavmParser, baseJavaDir, imLayoutTeavmPath + "/src/main/java/");
 
         ArrayList<BuildMultiTarget> targets = new ArrayList<>();
 
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
-            targets.add(getWindowBuildTarget(imguiPath));
+            targets.add(getWindowBuildTarget(imguiPath, imLayoutCPPPath));
 //            targets.add(getAndroidBuildTarget());
         }
-        targets.add(getEmscriptenBuildTarget(idlReaderCombined, imguiPath));
+//        targets.add(getEmscriptenBuildTarget(idlReaderCombined, imguiPath));
 
+        BuildConfig buildConfig = new BuildConfig(cppDestinationPath, imLayoutCPPPath, libsDir, libName);
         JBuilder.build(buildConfig, targets);
     }
 
-    private static BuildMultiTarget getWindowBuildTarget(String imguiCppPath) throws IOException {
+    private static BuildMultiTarget getWindowBuildTarget(String imguiPath, String imLayoutCPPPath) {
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
-        imguiCppPath += "/generator/build/c++";
-
-        String imguiPath2 = imguiCppPath + "/libs/windows";
+        String imguiCppPath = imguiPath + "/imgui-build/build/c++";
 
         WindowsTarget windowsTarget = new WindowsTarget();
+        windowsTarget.isStatic = true;
         windowsTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui");
-        windowsTarget.headerDirs.add("-Isrc/imlayout/");
-        windowsTarget.cppInclude.add("**/imlayout/*.cpp");
-//        windowsTarget.linkerFlags.add("-Wl,-rpath=. -L" + imguiPath2.replace("\\" ,"/"));
-        windowsTarget.linkerFlags.add("-L" + imguiPath2);
-        windowsTarget.linkerFlags.add("-l:imgui64.dll");
+        windowsTarget.headerDirs.add("-I" + imLayoutCPPPath + "/src/imlayout/");
+        windowsTarget.cppInclude.add(imLayoutCPPPath + "/**/imlayout/*.cpp");
         multiTarget.add(windowsTarget);
 
         return multiTarget;
     }
 
-    private static BuildMultiTarget getEmscriptenBuildTarget(IDLReader idlReader, String imguiCppPath) throws IOException {
+    private static BuildMultiTarget getEmscriptenBuildTarget(IDLReader idlReader, String imguiCppPath) {
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
         imguiCppPath += "/generator/build/c++";
@@ -152,14 +113,14 @@ public class BuildImLayout {
         libTarget.cppInclude.add("**/imlayout/*.cpp");
         multiTarget.add(libTarget);
 
-        // Compile glue code and link to make js file
-        EmscriptenTarget linkTarget = new EmscriptenTarget(idlReader);
-        linkTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui");
-        linkTarget.headerDirs.add("-includesrc/imlayout/ImLayoutCustom.h");
-        linkTarget.headerDirs.add("-include" + imguiCppPath + "/src/imgui/ImGuiCustom.h");
-        linkTarget.linkerFlags.add("../../libs/emscripten/imlayout.a");
-        linkTarget.linkerFlags.add(imguiCppPath + "/libs/emscripten/imgui.a");
-        multiTarget.add(linkTarget);
+//        // Compile glue code and link to make js file
+//        EmscriptenTarget linkTarget = new EmscriptenTarget(idlReader);
+//        linkTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui");
+//        linkTarget.headerDirs.add("-includesrc/imlayout/ImLayoutCustom.h");
+//        linkTarget.headerDirs.add("-include" + imguiCppPath + "/src/imgui/ImGuiCustom.h");
+//        linkTarget.linkerFlags.add("../../libs/emscripten/imlayout.a");
+//        linkTarget.linkerFlags.add(imguiCppPath + "/libs/emscripten/imgui.a");
+//        multiTarget.add(linkTarget);
 
         return multiTarget;
     }

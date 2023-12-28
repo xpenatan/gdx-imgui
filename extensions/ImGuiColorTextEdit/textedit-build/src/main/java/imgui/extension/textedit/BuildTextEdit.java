@@ -66,7 +66,6 @@ public class BuildTextEdit {
 
         WindowsTarget windowsTarget = new WindowsTarget();
         windowsTarget.isStatic = true;
-        windowsTarget.addJNIHeaders();
         windowsTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
         windowsTarget.headerDirs.add("-I" + imguiBuildPath + "/src/jniglue");
         windowsTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
