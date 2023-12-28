@@ -1,5 +1,3 @@
-version = project.gdxImguiVersion
-
 def module_name = "lwjgl3"
 
 dependencies {

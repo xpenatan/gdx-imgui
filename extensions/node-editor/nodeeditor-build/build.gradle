@@ -14,14 +14,13 @@ dependencies {
     implementation "com.github.xpenatan.jParser:jParser-cpp:$project.jParserVersion"
     implementation "com.github.xpenatan.jParser:jParser-teavm:$project.jParserVersion"
 
-    implementation "com.badlogicgames.gdx:gdx-jnigen:$project.jniGenVersion"
     implementation "com.github.xpenatan.jParser:jParser-loader:$project.jParserVersion"
 }
 
 tasks.register('downloadZipFile', Download) {
 //    src 'https://github.com/thedmd/imgui-node-editor/archive/refs/heads/master.zip'
     src 'https://github.com/xpenatan/imgui-node-editor/archive/refs/heads/develop2.zip'
-    dest new File(buildDir, '1.0.zip')
+    dest new File(layout.getBuildDirectory().get().asFile, '1.0.zip')
 }
 
 tasks.register('downloadAndUnzipFile', Copy) {

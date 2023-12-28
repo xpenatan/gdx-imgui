@@ -23,10 +23,10 @@ tasks.register<JavaExec>("build_project") {
     mainClass.set(mainClassName)
     classpath = sourceSets["main"].runtimeClasspath
 }
-
-val zippedPath = "$buildDir/text-edit.zip"
-val sourcePath = "$buildDir/text-edit/"
-val sourceDestination = "$buildDir/ImGuiColorTextEdit/"
+val buildDir = layout.buildDirectory.get().asFile
+val zippedPath = "${buildDir}/text-edit.zip"
+val sourcePath = "${buildDir}/text-edit/"
+val sourceDestination = "${buildDir}/ImGuiColorTextEdit/"
 
 tasks.register<Download>("download_source") {
     group = "color_textedit"

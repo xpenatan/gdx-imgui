@@ -24,9 +24,10 @@ tasks.register<JavaExec>("build_project") {
     classpath = sourceSets["main"].runtimeClasspath
 }
 
-val zippedPath = "$buildDir/imgui-source.zip"
-val sourcePath = "$buildDir/imgui-source"
-val sourceDestination = "$buildDir/imgui/"
+val buildDir = layout.buildDirectory.get().asFile
+val zippedPath = "${buildDir}/imgui-source.zip"
+val sourcePath = "${buildDir}/imgui-source"
+val sourceDestination = "${buildDir}/imgui/"
 
 tasks.register<Download>("download_source") {
     group = "imgui"
