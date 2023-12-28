@@ -69,6 +69,11 @@ jobs:
         env:
           NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
+      - name: Build ImGui Extensions
+        run: ./gradlew :imgui-ext:ext-build:build_project
+        env:
+          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
 #      - name: Test ImGui Core Native
 #        run: ./gradlew :imgui:core:core:test
 
