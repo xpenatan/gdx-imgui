@@ -62,20 +62,10 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Download ImGui source
-        run: ./gradlew :imgui:generator:download_source
+        run: ./gradlew :imgui:imgui-build:download_source
 
       - name: Build ImGui
-        run: ./gradlew :imgui:generator:build_project
-        env:
-          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-
-      - name: Generate ImLayout
-        run: ./gradlew :extensions:imlayout:imlayout-generator:build_project_imlayout
-        env:
-          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-
-      - name: Build ImLayout
-        run: ./gradlew :extensions:imlayout:imlayout-desktop:assemble :extensions:imlayout:imlayout-core:assemble
+        run: ./gradlew :imgui:imgui-build:build_project
         env:
           NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
@@ -96,20 +86,6 @@ jobs:
           PASSWORD: ${{ secrets.PASSWORD }}
           SIGNING_KEY: ${{ secrets.PGP_SECRET }}
           SIGNING_PASSWORD: ${{ secrets.PGP_PASSPHRASE }}
-
-
-#      - name: Upload compiled core natives
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: coreNativeFiles
-#          path: ./imgui/core/core/build/c++/libs/
-#
-#      - name: Upload extension ImLayout natives
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: imlayoutNativeFiles
-#          path: ./imgui/extensions/imlayout/imlayout-core/build/c++/libs/
-
 #  build_Mac:
 #    name: Build Mac OS
 #    runs-on: macos-11
