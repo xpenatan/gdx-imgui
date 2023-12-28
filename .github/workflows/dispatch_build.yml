@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       isRelease:
+        description: "Release to maven"
         required: true
         type: boolean
 jobs:
