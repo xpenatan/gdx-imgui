@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 import imgui.ImGui;
 import imgui.ImGuiDir;
 import imgui.ImVec2;
+import imgui.extension.imlayout.ImLayout;
 import imgui.idl.helper.IDLBoolArray;
 import imgui.idl.helper.IDLFloatArray;
 import imgui.idl.helper.IDLIntArray;
-import imgui.imlayout.ImLayout;
 
 public class CollapseView {
 

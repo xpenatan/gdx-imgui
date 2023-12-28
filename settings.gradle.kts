@@ -19,7 +19,6 @@ include(":gdx:gdx-impl")
 include(":extensions:imlayout:imlayout-build")
 include(":extensions:imlayout:imlayout-base")
 include(":extensions:imlayout:imlayout-core")
-include(":extensions:imlayout:imlayout-desktop")
 include(":extensions:imlayout:imlayout-teavm")
 
 // Extension ImGuiColorTextEdit

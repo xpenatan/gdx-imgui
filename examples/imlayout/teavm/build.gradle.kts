@@ -13,10 +13,10 @@ dependencies {
     implementation(project(":examples:imlayout:core"))
 
     if(LibExt.exampleUseRepoLibs) {
-        implementation("com.github.xpenatan.gdx-imgui:imlayout-teavm:1.0.0-SNAPSHOT")
+        implementation("com.github.xpenatan.gdx-imgui:imgui-ext-teavm:1.0.0-SNAPSHOT")
     }
     else {
-        implementation(project(":extensions:imlayout:imlayout-teavm"))
+        implementation(project(":imgui-ext:ext-teavm"))
     }
 
     implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")

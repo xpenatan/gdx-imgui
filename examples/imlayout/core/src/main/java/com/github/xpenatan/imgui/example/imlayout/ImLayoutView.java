@@ -1,12 +1,9 @@
 package com.github.xpenatan.imgui.example.imlayout;
 
 import com.github.xpenatan.imgui.example.imlayout.views.CollapseView;
-import com.github.xpenatan.imgui.example.imlayout.views.EditTextView;
 import com.github.xpenatan.imgui.example.imlayout.views.LayoutTestView;
 
 public class ImLayoutView {
-
-    private EditTextView editTextView = new EditTextView();
 
     private CollapseView collapseView = new CollapseView();
 
@@ -14,7 +11,6 @@ public class ImLayoutView {
 
 
     public void init() {
-//        ImLayout.init();
         collapseView.init();;
     }
 
@@ -25,8 +21,6 @@ public class ImLayoutView {
     public void renderTabImGuiExtViews() {
 
         testContentSize();
-
-        editTextView.render();
 
         collapseView.render();
 

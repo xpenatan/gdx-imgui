@@ -2,12 +2,10 @@ dependencies {
     implementation(project(":examples:imlayout:core"))
 
     if(LibExt.exampleUseRepoLibs) {
-        implementation("com.github.xpenatan.gdx-imgui:desktop:1.0.0-SNAPSHOT")
-        implementation("com.github.xpenatan.gdx-imgui:imlayout-desktop:1.0.0-SNAPSHOT")
+        implementation("com.github.xpenatan.gdx-imgui:imgui-ext-desktop:1.0.0-SNAPSHOT")
     }
     else {
-        implementation(project(":imgui:imgui-desktop"))
-        implementation(project(":extensions:imlayout:imlayout-desktop"))
+        implementation(project(":imgui-ext:ext-desktop"))
     }
 
     implementation("com.badlogicgames.gdx:gdx-backend-lwjgl3:${LibExt.gdxVersion}")

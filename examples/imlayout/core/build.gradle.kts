@@ -6,8 +6,7 @@ dependencies {
         implementation("com.github.xpenatan.gdx-imgui:gdx-impl:1.0.0-SNAPSHOT")
     }
     else {
-        implementation(project(":imgui:imgui-core"))
-        implementation(project(":extensions:imlayout:imlayout-core"))
+        implementation(project(":imgui-ext:ext-core"))
         implementation(project(":gdx:gdx-impl"))
     }
 

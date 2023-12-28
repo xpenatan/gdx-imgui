@@ -19,7 +19,6 @@ public class ImLayoutExample extends ImGuiRenderer {
 
     @Override
     public void renderImGui() {
-
         if(init == false) {
             init = true;
             ImGui.SetNextWindowSize(new ImVec2(400, 400));

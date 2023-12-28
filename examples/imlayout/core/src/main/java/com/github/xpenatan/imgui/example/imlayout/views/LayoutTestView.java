@@ -3,8 +3,8 @@ package com.github.xpenatan.imgui.example.imlayout.views;
 import com.badlogic.gdx.Gdx;
 import imgui.ImGui;
 import imgui.ImVec2;
-import imgui.imlayout.ImGuiLayout;
-import imgui.imlayout.ImLayout;
+import imgui.extension.imlayout.ImGuiLayout;
+import imgui.extension.imlayout.ImLayout;
 
 public class LayoutTestView {
 
