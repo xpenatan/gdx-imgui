@@ -20,110 +20,116 @@ import java.util.ArrayList;
 public class BuildImGui {
 
     public static void main(String[] args) throws Exception {
+        String imguiPath = new File("./../").getCanonicalPath().replace("\\", "/");
+
         String idlPath = new File("src/main/cpp/imgui.idl").getCanonicalPath();
         IDLReader idlReader = IDLReader.readIDL(idlPath);
         ArrayList<BuildMultiTarget> targets = new ArrayList<>();
 
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
-            targets.add(getWindowBuildTarget());
-//            targets.add(getAndroidBuildTarget());
+            targets.add(getWindowBuildTarget(imguiPath));
+            targets.add(getAndroidBuildTarget(imguiPath));
         }
-        targets.add(getEmscriptenBuildTarget(idlReader));
+        targets.add(getEmscriptenBuildTarget(imguiPath, idlReader));
 
-        generateAndBuild(idlReader, targets, true);
+        generateAndBuild(imguiPath, idlReader, targets, true);
     }
 
-    public static void generateAndBuild(IDLReader idlReader, ArrayList<BuildMultiTarget> targets, boolean generate) throws Exception {
+    public static void generateAndBuild(String imguiPath, IDLReader idlReader, ArrayList<BuildMultiTarget> targets, boolean generate) throws Exception {
         String libName = "imgui";
-
         String basePackage = "imgui";
-        String cppSourceDir = new File("./build/imgui/").getCanonicalPath();
-        String baseJavaDir = new File(".").getAbsolutePath() + "./base/src/main/java";
 
-        String libsDir = new File("./build/c++/libs/").getCanonicalPath();
-        String genDir = "../core/src/main/java";
-        String libBuildPath = new File("./build/c++/").getCanonicalPath();
-        String cppDestinationPath = libBuildPath + "/src";
+        String imguiBasePath = imguiPath + "/imgui-base";
+        String imguiBuildPath = imguiPath + "/imgui-build";
+        String imguiCorePath = imguiPath + "/imgui-core";
+        String imguiTeavmPath = imguiPath + "/imgui-teavm";
+
+        String buildCPPPath = imguiBuildPath + "/build/c++";
+        String cppSourceDir = imguiBuildPath + "/build/imgui";
+        String baseJavaDir = imguiBasePath + "/src/main/java";
+        String libsDir = buildCPPPath + "/libs/";
+        String cppDestinationPath = buildCPPPath + "/src";
         String libDestinationPath = cppDestinationPath + "/imgui";
 
-        BuildConfig buildConfig = new BuildConfig(
-                cppDestinationPath,
-                libBuildPath,
-                libsDir,
-                libName
-        );
+        BuildConfig buildConfig = new BuildConfig(cppDestinationPath, buildCPPPath, libsDir, libName);
 
         if(generate) {
             FileHelper.copyDir(cppSourceDir, libDestinationPath);
-            CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath, false);
+            CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath, true);
             CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage, cppSourceDir);
             cppParser.generateClass = true;
-            JParser.generate(cppParser, baseJavaDir, genDir);
+            JParser.generate(cppParser, baseJavaDir, imguiCorePath + "/src/main/java");
 
-            String teaVMgenDir = "../teavm/src/main/java/";
             TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, libName, basePackage, cppSourceDir);
-            JParser.generate(teavmParser, baseJavaDir, teaVMgenDir);
+            JParser.generate(teavmParser, baseJavaDir, imguiTeavmPath + "/src/main/java/");
 
             Path copyOut = new File(libDestinationPath).toPath();
             Path copyJNIOut = new File(cppDestinationPath + "/jniglue").toPath();
-            FileHelper.copyDir(new File("src/main/cpp/cpp-source/custom").toPath(), copyOut);
-            FileHelper.copyDir(new File("src/main/cpp/cpp-source/jni").toPath(), copyJNIOut);
+            FileHelper.copyDir(new File(imguiBuildPath + "/src/main/cpp/cpp-source/custom").toPath(), copyOut);
+            FileHelper.copyDir(new File(imguiBuildPath + "/src/main/cpp/cpp-source/jni").toPath(), copyJNIOut);
         }
         JBuilder.build(buildConfig, targets);
     }
 
-    private static BuildMultiTarget getWindowBuildTarget() throws IOException {
+    private static BuildMultiTarget getWindowBuildTarget(String imguiPath) throws IOException {
+        String libBuildPath = imguiPath + "/imgui-build/build/c++";
+
         BuildMultiTarget multiTarget = new BuildMultiTarget();
-        String libBuildPath = new File("./build/c++/").getCanonicalPath().replace("\\", "/");
 
         // Make a static library
         WindowsTarget windowsTarget = new WindowsTarget();
         windowsTarget.isStatic = true;
-        windowsTarget.headerDirs.add("-Isrc/imgui/");
-        windowsTarget.cppInclude.add("**/imgui/*.cpp");
+        windowsTarget.headerDirs.add("-I" + libBuildPath + "/src/imgui/");
+        windowsTarget.cppInclude.add(libBuildPath + "/**/imgui/*.cpp");
         multiTarget.add(windowsTarget);
 
         // Compile glue code and link
         WindowsTarget glueTarget = new WindowsTarget();
         glueTarget.addJNIHeaders();
-        glueTarget.headerDirs.add("-Isrc/imgui/");
-        glueTarget.linkerFlags.add("../../libs/windows/imgui64.a");
+        glueTarget.headerDirs.add("-I" + libBuildPath + "/src/imgui/");
+        glueTarget.linkerFlags.add(libBuildPath + "/libs/windows/imgui64.a");
         glueTarget.cppInclude.add(libBuildPath + "/src/jniglue/JNIGlue.cpp");
         multiTarget.add(glueTarget);
 
         return multiTarget;
     }
 
-    private static BuildMultiTarget getEmscriptenBuildTarget(IDLReader idlReader) {
+    private static BuildMultiTarget getEmscriptenBuildTarget(String imguiPath, IDLReader idlReader) {
+        String libBuildPath = imguiPath + "/imgui-build/build/c++";
+
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
         // Make a static library
         EmscriptenTarget libTarget = new EmscriptenTarget(idlReader);
         libTarget.isStatic = true;
         libTarget.compileGlueCode = false;
-        libTarget.headerDirs.add("-Isrc/imgui");
-        libTarget.cppInclude.add("**/imgui/*.cpp");
+        libTarget.headerDirs.add("-I" + libBuildPath + "/src/imgui");
+        libTarget.cppInclude.add(libBuildPath + "/**/imgui/*.cpp");
         libTarget.cppFlags.add("-DIMGUI_DISABLE_FILE_FUNCTIONS");
         libTarget.cppFlags.add("-DIMGUI_DEFINE_MATH_OPERATORS");
         multiTarget.add(libTarget);
 
         // Compile glue code and link
         EmscriptenTarget linkTarget = new EmscriptenTarget(idlReader);
-        linkTarget.headerDirs.add("-includesrc/imgui/ImGuiCustom.h");
-        linkTarget.linkerFlags.add("../../libs/emscripten/imgui.a");
+        linkTarget.headerDirs.add("-include" + libBuildPath + "/src/imgui/ImGuiCustom.h");
+        linkTarget.linkerFlags.add(libBuildPath + "/libs/emscripten/imgui.a");
         multiTarget.add(linkTarget);
 
         return multiTarget;
     }
 
-    private static BuildMultiTarget getAndroidBuildTarget() {
+    private static BuildMultiTarget getAndroidBuildTarget(String imguiPath) {
+        String libBuildPath = imguiPath + "/imgui-build/build/c++";
+
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
         AndroidTarget androidTarget = new AndroidTarget();
         androidTarget.addJNIHeaders();
-        androidTarget.headerDirs.add("src/imgui");
-        androidTarget.cppInclude.add("**/imgui/*.cpp");
+        androidTarget.headerDirs.add(libBuildPath + "/src/imgui");
+        androidTarget.cppInclude.add(libBuildPath + "/**/imgui/*.cpp");
         androidTarget.cppFlags.add("-Wno-error=format-security");
+        androidTarget.cppFlags.add("-DIMGUI_DISABLE_FILE_FUNCTIONS");
+        androidTarget.cppFlags.add("-DIMGUI_DEFINE_MATH_OPERATORS");
         multiTarget.add(androidTarget);
         return multiTarget;
     }

@@ -51,6 +51,7 @@ var libProjects = mutableSetOf(
     project(":imgui:imgui-core"),
     project(":imgui:imgui-desktop"),
     project(":imgui:imgui-teavm"),
+    project(":imgui:imgui-android"),
     project(":gdx:gdx-impl"),
 //        project(":gdx:lwjgl3-impl"),
 )
@@ -100,10 +101,10 @@ configure(libProjects + libProjects2) {
         (options as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet")
     }
 
-    java {
-        withJavadocJar()
-        withSourcesJar()
-    }
+//    java {
+//        withJavadocJar()
+//        withSourcesJar()
+//    }
 
     publishing.publications.configureEach {
         if (this is MavenPublication) {

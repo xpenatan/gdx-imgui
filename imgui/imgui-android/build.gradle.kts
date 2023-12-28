@@ -3,6 +3,8 @@ plugins {
     kotlin("android")
 }
 
+val moduleName = "imgui-android"
+
 android {
     namespace = "imgui"
     compileSdk = 33
@@ -13,7 +15,7 @@ android {
 
     sourceSets {
         named("main") {
-            jniLibs.srcDirs("$projectDir/../generator/build/c++/libs/android")
+            jniLibs.srcDirs("$projectDir/../imgui-build/build/c++/libs/android")
         }
     }
     compileOptions {
@@ -26,4 +28,15 @@ android {
 }
 
 dependencies {
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            artifactId = moduleName
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
 }

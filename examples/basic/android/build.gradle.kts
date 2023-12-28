@@ -62,6 +62,7 @@ dependencies {
 
 
 tasks.register("copyAndroidNatives") {
+    group = "basic-android"
     doFirst {
         natives.files.forEach { jar ->
             val outputDir = file("libs/" + jar.nameWithoutExtension.substringAfterLast("natives-"))
