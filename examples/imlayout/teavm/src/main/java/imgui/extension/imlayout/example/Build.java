@@ -1,8 +1,8 @@
-package com.github.xpenatan.gdx.example.imlayout;
+package imgui.extension.imlayout.example;
 
 import com.github.xpenatan.gdx.backends.teavm.config.TeaBuildConfiguration;
 import com.github.xpenatan.gdx.backends.teavm.config.TeaBuilder;
-import com.github.xpenatan.gdx.example.imlayout.launcher.Launcher;
+import imgui.extension.imlayout.example.launcher.Launcher;
 import java.io.File;
 import java.io.IOException;
 import org.teavm.tooling.TeaVMTool;

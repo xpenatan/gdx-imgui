@@ -1,7 +1,7 @@
-package com.github.xpenatan.imgui.example.imlayout;
+package imgui.extension.imlayout.example;
 
-import com.github.xpenatan.imgui.example.imlayout.views.CollapseView;
-import com.github.xpenatan.imgui.example.imlayout.views.LayoutTestView;
+import imgui.extension.imlayout.example.views.CollapseView;
+import imgui.extension.imlayout.example.views.LayoutTestView;
 
 public class ImLayoutView {
 

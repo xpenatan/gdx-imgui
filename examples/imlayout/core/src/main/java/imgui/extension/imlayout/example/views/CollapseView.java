@@ -1,4 +1,4 @@
-package com.github.xpenatan.imgui.example.imlayout.views;
+package imgui.extension.imlayout.example.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

@@ -12,7 +12,7 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx-platform:${LibExt.gdxVersion}:natives-desktop")
 }
 
-val mainClassName = "com.github.xpenatan.imgui.example.imlayout.Main"
+val mainClassName = "imgui.extension.imlayout.example.Main"
 val assetsDir = File("../assets");
 
 tasks.register<JavaExec>("imlayout-run-desktop") {
