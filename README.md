@@ -12,6 +12,12 @@ It's meant to be small and close 1-1 to C++.
 ## Examples
 * [basic](https://xpenatan.github.io/gdx-imgui/basic/)
 
+## How to run examples
+There are two ways to run examples. 
+* Build the source for your platform and run:
+``` ./gradlew :examples:basic:desktop:basic-run-desktop```
+* Change LibExt.exampleUseRepoLibs to true so all examples will run snapshot from repository
+
 ## Setup
 
     gdxVersion = "1.12.1"
@@ -59,10 +65,13 @@ dependencies {
 ##### ImGui
 ./gradlew :imgui:imgui-build:download_source
 ./gradlew :imgui:imgui-build:build_project
-
-##### ImGui with extensions
+```
+```
+##### ImGui with extensions. Need to build ImGui first
+./gradlew :extensions:imlayout:imlayout-build:build_project
 ./gradlew :extensions:ImGuiColorTextEdit:textedit-build:download_source
 ./gradlew :extensions:ImGuiColorTextEdit:textedit-build:build_project
-./gradlew :extensions:imlayout:imlayout-build:build_project
+./gradlew :extensions:imgui-node-editor:nodeeditor-build:download_source
+./gradlew :extensions:imgui-node-editor:nodeeditor-build:build_project
 ./gradlew :imgui:imgui-ext-build:build_project
 ```
