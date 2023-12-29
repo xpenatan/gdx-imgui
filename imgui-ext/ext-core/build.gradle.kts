@@ -2,7 +2,7 @@ plugins {
     id("java-library")
 }
 
-val moduleName = "core-ext"
+val moduleName = "imgui-ext-core"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
