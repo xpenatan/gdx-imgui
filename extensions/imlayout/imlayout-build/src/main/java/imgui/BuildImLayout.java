@@ -76,8 +76,8 @@ public class BuildImLayout {
 
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
             targets.add(getWindowBuildTarget(imguiPath, imLayoutCPPPath));
-//            targets.add(getAndroidBuildTarget());
             targets.add(getEmscriptenBuildTarget(imguiPath, imLayoutCPPPath));
+//            targets.add(getAndroidBuildTarget());
         }
 
         BuildConfig buildConfig = new BuildConfig(cppDestinationPath, imLayoutCPPPath, libsDir, libName);

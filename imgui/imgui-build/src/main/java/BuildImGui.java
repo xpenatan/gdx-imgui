@@ -29,8 +29,8 @@ public class BuildImGui {
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
             targets.add(getWindowBuildTarget(imguiPath));
             targets.add(getAndroidBuildTarget(imguiPath));
+            targets.add(getEmscriptenBuildTarget(imguiPath, idlReader));
         }
-        targets.add(getEmscriptenBuildTarget(imguiPath, idlReader));
 
         generateAndBuild(imguiPath, idlReader, targets, true);
     }
