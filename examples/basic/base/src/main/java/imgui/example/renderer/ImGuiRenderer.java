@@ -1,4 +1,4 @@
-package com.github.xpenatan.imgui.example.basic;
+package imgui.example.renderer;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;

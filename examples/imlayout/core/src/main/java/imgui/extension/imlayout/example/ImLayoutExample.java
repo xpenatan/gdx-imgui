@@ -1,6 +1,6 @@
 package imgui.extension.imlayout.example;
 
-import com.github.xpenatan.imgui.example.basic.ImGuiRenderer;
+import imgui.example.renderer.ImGuiRenderer;
 import imgui.ImGui;
 import imgui.ImVec2;
 

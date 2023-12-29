@@ -21,7 +21,7 @@ dependencies {
     implementation("com.github.xpenatan.gdx-teavm:backend-teavm:${LibExt.gdxTeaVMVersion}")
 }
 
-val mainClassName = "com.github.xpenatan.gdx.example.basic.Build"
+val mainClassName = "imgui.example.basic.Build"
 
 tasks.register<JavaExec>("basic-build") {
     group = "example-teavm"

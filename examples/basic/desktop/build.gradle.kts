@@ -12,7 +12,7 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx-platform:${LibExt.gdxVersion}:natives-desktop")
 }
 
-val mainClassName = "com.github.xpenatan.imgui.example.basic.Main"
+val mainClassName = "imgui.example.basic.Main"
 val assetsDir = File("../assets");
 
 tasks.register<JavaExec>("basic-run-desktop") {

@@ -1,11 +1,7 @@
-package com.github.xpenatan.imgui.example.basic.renderer;
+package imgui.example.basic.renderer;
 
 import imgui.ImGui;
-import imgui.ImGuiInternal;
 import imgui.ImGuiString;
-import imgui.ImGuiWindow;
-import imgui.ImGuiWindowTempData;
-import imgui.ImVec2;
 import imgui.idl.helper.IDLFloatArray;
 
 public class EditTextRenderer implements UIRenderer {

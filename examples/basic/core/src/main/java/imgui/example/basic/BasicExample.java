@@ -1,13 +1,14 @@
-package com.github.xpenatan.imgui.example.basic;
+package imgui.example.basic;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.github.xpenatan.imgui.example.basic.renderer.ColorRenderer;
-import com.github.xpenatan.imgui.example.basic.renderer.DragAndDropRenderer;
-import com.github.xpenatan.imgui.example.basic.renderer.EditTextRenderer;
-import com.github.xpenatan.imgui.example.basic.renderer.SelectListRenderer;
-import com.github.xpenatan.imgui.example.basic.renderer.UIRenderer;
+import imgui.example.renderer.ImGuiRenderer;
+import imgui.example.basic.renderer.ColorRenderer;
+import imgui.example.basic.renderer.DragAndDropRenderer;
+import imgui.example.basic.renderer.EditTextRenderer;
+import imgui.example.basic.renderer.SelectListRenderer;
+import imgui.example.basic.renderer.UIRenderer;
 import imgui.ImGui;
 import imgui.ImGuiDockNode;
 import imgui.ImGuiInternal;

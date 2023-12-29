@@ -1,4 +1,4 @@
-package com.github.xpenatan.imgui.example.basic.renderer;
+package imgui.example.basic.renderer;
 
 import imgui.ImGui;
 import imgui.ImGuiPayload;

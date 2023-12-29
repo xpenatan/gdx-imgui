@@ -1,6 +1,6 @@
 package imgui.extension.textedit.example;
 
-import com.github.xpenatan.imgui.example.basic.ImGuiRenderer;
+import imgui.example.renderer.ImGuiRenderer;
 
 public class TextEditExample extends ImGuiRenderer {
 

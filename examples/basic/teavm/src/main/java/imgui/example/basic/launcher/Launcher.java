@@ -1,8 +1,8 @@
-package com.github.xpenatan.gdx.example.basic.launcher;
+package imgui.example.basic.launcher;
 
 import com.github.xpenatan.gdx.backends.teavm.TeaApplication;
 import com.github.xpenatan.gdx.backends.teavm.TeaApplicationConfiguration;
-import com.github.xpenatan.imgui.example.basic.ImGuiGame;
+import imgui.example.basic.ImGuiGame;
 
 public class Launcher {
 
