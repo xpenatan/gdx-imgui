@@ -5,3 +5,10 @@ dependencies {
     implementation("com.github.xpenatan.jParser:loader-teavm:${LibExt.jParserVersion}")
     implementation("org.teavm:teavm-jso:${LibExt.teaVMVersion}")
 }
+
+tasks.named("clean") {
+    doFirst {
+        val srcPath = "$projectDir/src/main/java"
+        project.delete(files(srcPath))
+    }
+}

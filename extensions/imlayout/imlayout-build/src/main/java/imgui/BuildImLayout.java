@@ -1,6 +1,5 @@
 package imgui;
 
-
 import com.github.xpenatan.jparser.builder.BuildConfig;
 import com.github.xpenatan.jparser.builder.BuildMultiTarget;
 import com.github.xpenatan.jparser.builder.BuildTarget;
@@ -13,10 +12,8 @@ import com.github.xpenatan.jparser.cpp.CppCodeParser;
 import com.github.xpenatan.jparser.cpp.CppGenerator;
 import com.github.xpenatan.jparser.cpp.NativeCPPGenerator;
 import com.github.xpenatan.jparser.idl.IDLReader;
-import com.github.xpenatan.jparser.idl.parser.IDLDefaultCodeParser;
 import com.github.xpenatan.jparser.teavm.TeaVMCodeParser;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class BuildImLayout {
@@ -34,11 +31,6 @@ public class BuildImLayout {
 
         String imguiPath = new File("./../../../imgui/").getCanonicalPath().replace("\\", "/");
         String imlayoutPath = new File("./../").getCanonicalPath().replace("\\", "/");
-
-        String imguiBasePath = imguiPath + "/imgui-base";
-        String imguiBuildPath = imguiPath + "/imgui-build";
-        String imguiCorePath = imguiPath + "/imgui-core";
-        String imguiTeavmPath = imguiPath + "/imgui-teavm";
 
         String imLayoutBasePath = imlayoutPath + "/imlayout-base";
         String imLayoutBuildPath = imlayoutPath + "/imlayout-build";
@@ -62,18 +54,21 @@ public class BuildImLayout {
         // Move custom code to destination build directory
         FileHelper.copyDir(customSourceDir, libDestinationPath);
 
-        CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath);
-        CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage, cppSourceDir);
-        cppParser.generateClass = true;
-        JParser.generate(cppParser, baseJavaDir, imLayoutCorePath + "/src/main/java");
-
-        // Generate ImLayout classes
-        String teavmLibname = "imgui";
-        TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, teavmLibname, basePackage, cppSourceDir);
-        JParser.generate(teavmParser, baseJavaDir, imLayoutTeavmPath + "/src/main/java/");
+        {
+            // Generate C++ classes
+            CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath);
+            CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage, cppSourceDir);
+            cppParser.generateClass = true;
+            JParser.generate(cppParser, baseJavaDir, imLayoutCorePath + "/src/main/java");
+        }
+        {
+            // Generate TeaVM classes
+            String teavmLibname = "imgui";
+            TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, teavmLibname, basePackage, cppSourceDir);
+            JParser.generate(teavmParser, baseJavaDir, imLayoutTeavmPath + "/src/main/java/");
+        }
 
         ArrayList<BuildMultiTarget> targets = new ArrayList<>();
-
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
             targets.add(getWindowBuildTarget(imguiPath, imLayoutCPPPath));
             targets.add(getEmscriptenBuildTarget(imguiPath, imLayoutCPPPath));
@@ -82,6 +77,8 @@ public class BuildImLayout {
 
         BuildConfig buildConfig = new BuildConfig(cppDestinationPath, imLayoutCPPPath, libsDir, libName);
         JBuilder.build(buildConfig, targets);
+
+        JParser.CREATE_IDL_HELPER = idlFlag;
     }
 
     private static BuildMultiTarget getWindowBuildTarget(String imguiPath, String imLayoutCPPPath) {

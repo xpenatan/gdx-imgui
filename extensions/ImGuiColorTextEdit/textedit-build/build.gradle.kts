@@ -5,7 +5,7 @@ plugins {
     id("de.undercouch.download") version("5.5.0")
 }
 
-val mainClassName = "imgui.extension.textedit.Main"
+val mainClassName = "imgui.BuildTextEdit"
 
 dependencies {
     implementation(project(":imgui:imgui-core"))
@@ -18,7 +18,7 @@ dependencies {
 
 tasks.register<JavaExec>("build_project") {
     dependsOn("classes")
-    group = "color_textedit"
+    group = "textedit"
     description = "Generate and build native project"
     mainClass.set(mainClassName)
     classpath = sourceSets["main"].runtimeClasspath
@@ -29,7 +29,7 @@ val sourcePath = "${buildDir}/text-edit/"
 val sourceDestination = "${buildDir}/ImGuiColorTextEdit/"
 
 tasks.register<Download>("download_source") {
-    group = "color_textedit"
+    group = "textedit"
     description = "Download source"
     src("https://github.com/BalazsJako/ImGuiColorTextEdit/archive/master.zip")
     dest(File(zippedPath))

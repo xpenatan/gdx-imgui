@@ -71,6 +71,14 @@ jobs:
         env:
           NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
+      - name: Download ImGuiColorTextEdit source
+        run: ./gradlew :extensions:ImGuiColorTextEdit:textedit-build:download_source
+
+      - name: Build ImGuiColorTextEdit library
+        run: ./gradlew :extensions:ImGuiColorTextEdit:textedit-build:build_project
+        env:
+          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
       - name: Build ImGui Extensions
         run: ./gradlew :imgui-ext:ext-build:build_project
         env:
@@ -113,6 +121,12 @@ jobs:
 
       - name: Build ImLayout library
         run: ./gradlew :extensions:imlayout:imlayout-build:build_project
+
+      - name: Download ImGuiColorTextEdit source
+        run: ./gradlew :extensions:ImGuiColorTextEdit:textedit-build:download_source
+
+      - name: Build ImGuiColorTextEdit library
+        run: ./gradlew :extensions:ImGuiColorTextEdit:textedit-build:build_project
 
       - name: Build ImGui Extensions
         run: ./gradlew :imgui-ext:ext-build:build_project
