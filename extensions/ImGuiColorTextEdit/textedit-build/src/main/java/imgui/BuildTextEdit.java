@@ -59,7 +59,7 @@ public class BuildTextEdit {
 
         {
             // Generate C++ classes
-            CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath, false);
+            CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath, true);
             CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage, cppSourceDir);
             cppParser.generateClass = true;
             JParser.generate(cppParser, baseJavaDir, textEditPath + "/textedit-core/src/main/java");
