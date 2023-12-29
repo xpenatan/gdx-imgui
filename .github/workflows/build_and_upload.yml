@@ -57,6 +57,8 @@ jobs:
         with:
           ndk-version: r25c
           add-to-path: false
+        env:
+          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
@@ -66,13 +68,12 @@ jobs:
 
       - name: Build ImGui
         run: ./gradlew :imgui:imgui-build:build_project
-        env:
-          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+      - name: Build ImLayout library
+        run: ./gradlew :extensions:imlayout:imlayout-build:build_project
 
       - name: Build ImGui Extensions
         run: ./gradlew :imgui-ext:ext-build:build_project
-        env:
-          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
 #      - name: Test ImGui Core Native
 #        run: ./gradlew :imgui:core:core:test
