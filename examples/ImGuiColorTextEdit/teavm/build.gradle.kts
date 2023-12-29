@@ -7,7 +7,7 @@ gretty {
     extraResourceBase("build/dist/webapp")
 }
 
-val mainClassName = "imgui.extension.textedit.example.Build"
+val mainClassName = "imgui.example.textedit.Build"
 
 dependencies {
     implementation(project(":examples:ImGuiColorTextEdit:core"))

@@ -12,7 +12,7 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx-platform:${LibExt.gdxVersion}:natives-desktop")
 }
 
-val mainClassName = "imgui.extension.textedit.example.Main"
+val mainClassName = "imgui.example.textedit.Main"
 val assetsDir = File("../assets");
 
 tasks.register<JavaExec>("textedit-run-desktop") {
