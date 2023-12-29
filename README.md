@@ -25,7 +25,7 @@ It's meant to be small and close 1-1 to C++. It uses webidl file to generate jav
 ## How to run examples
 There are two ways to run examples. 
 * Build the source for your platform and run:
-``` ./gradlew :examples:basic:desktop:basic-run-desktop```
+```./gradlew :examples:basic:desktop:basic-run-desktop```
 * Change LibExt.exampleUseRepoLibs to true in Dependencies.kt and that will make all examples use snapshot from repository
 
 ## Setup
