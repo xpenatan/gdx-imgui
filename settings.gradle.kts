@@ -45,6 +45,11 @@ include(":examples:basic:android")
 include(":examples:imlayout:core")
 include(":examples:imlayout:desktop")
 include(":examples:imlayout:teavm")
+
+include(":examples:ImGuiColorTextEdit:core")
+include(":examples:ImGuiColorTextEdit:desktop")
+include(":examples:ImGuiColorTextEdit:teavm")
+
 //
 //include(":examples:node-editor:core")
 //include(":examples:node-editor:desktop")
