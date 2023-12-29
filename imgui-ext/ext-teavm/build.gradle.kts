@@ -14,6 +14,7 @@ dependencies {
     api(project(":imgui:imgui-teavm"))
     api(project(":extensions:imlayout:imlayout-teavm"))
     api(project(":extensions:ImGuiColorTextEdit:textedit-teavm"))
+    api(project(":extensions:imgui-node-editor:nodeeditor-teavm"))
 
     implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
     implementation("com.github.xpenatan.jParser:loader-core:${LibExt.jParserVersion}")

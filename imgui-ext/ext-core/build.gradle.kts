@@ -8,6 +8,7 @@ dependencies {
     api(project(":imgui:imgui-core"))
     api(project(":extensions:imlayout:imlayout-core"))
     api(project(":extensions:ImGuiColorTextEdit:textedit-core"))
+    api(project(":extensions:imgui-node-editor:nodeeditor-core"))
 }
 
 java {

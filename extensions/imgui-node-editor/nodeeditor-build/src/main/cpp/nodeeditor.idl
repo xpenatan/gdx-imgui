@@ -1,0 +1,4 @@
+
+interface CustomNodeEditor {
+    static void print();
+};

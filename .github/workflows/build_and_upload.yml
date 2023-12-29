@@ -79,6 +79,15 @@ jobs:
         env:
           NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
+      - name: Download imgui-node-editor source
+        run: ./gradlew :extensions:imgui-node-editor:nodeeditor-build:download_source
+
+      - name: Build imgui-node-editor library
+        run: ./gradlew :extensions:imgui-node-editor:nodeeditor-build:build_project
+        env:
+          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+      # With all extensions library set we do the final bind that glue them all
       - name: Build ImGui Extensions
         run: ./gradlew :imgui-ext:ext-build:build_project
         env:
@@ -128,6 +137,13 @@ jobs:
       - name: Build ImGuiColorTextEdit library
         run: ./gradlew :extensions:ImGuiColorTextEdit:textedit-build:build_project
 
+      - name: Download imgui-node-editor source
+        run: ./gradlew :extensions:imgui-node-editor:nodeeditor-build:download_source
+
+      - name: Build imgui-node-editor library
+        run: ./gradlew :extensions:imgui-node-editor:nodeeditor-build:build_project
+
+      # With all extensions library set we do the final bind that glue them all
       - name: Build ImGui Extensions
         run: ./gradlew :imgui-ext:ext-build:build_project
 
