@@ -19,7 +19,7 @@ It's meant to be small and close 1-1 to C++. It uses webidl file to generate jav
 |     ✅      | ✅ | ❌ | ❌ | ⚠️ | ❌ |
 
 * ✅: Have a working build.
-* ⚠️: Have a working build but contains a bug.
+* ⚠️: Have a working build, but it's not ready yet.
 * ❌: Build not ready.
 
 ## How to run examples
