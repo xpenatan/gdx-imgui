@@ -5,12 +5,22 @@
 
 
 gdx-imgui is a java binding for C++ [dear-imgui](https://github.com/ocornut/imgui). <br>
-It's meant to be small and close 1-1 to C++. 
+It's meant to be small and close 1-1 to C++. It uses webidl file to generate java methods with the help of [jParser](https://github.com/xpenatan/jParser).
 
 <p align="center"><img src="https://i.imgur.com/rXk4Aq0.gif"/></p>
 
 ## Examples
 * [basic](https://xpenatan.github.io/gdx-imgui/basic/)
+
+### ImGui Current state:
+
+| Emscripten | Windows | Linux | Mac | Android | iOS |
+|:----------:|:-------:|:-----:|:---:|:-------:|:---:|
+|     ✅      | ✅ | ❌ | ❌ | ⚠️ | ❌ |
+
+* ✅: Have a working build.
+* ⚠️: Have a working build but contains a bug.
+* ❌: Build not ready.
 
 ## How to run examples
 There are two ways to run examples. 
