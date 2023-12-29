@@ -16,7 +16,7 @@ It's meant to be small and close 1-1 to C++.
 There are two ways to run examples. 
 * Build the source for your platform and run:
 ``` ./gradlew :examples:basic:desktop:basic-run-desktop```
-* Change LibExt.exampleUseRepoLibs to true in Dependencies.kt and that will make all examples will run snapshot from repository
+* Change LibExt.exampleUseRepoLibs to true in Dependencies.kt and that will make all examples run snapshot from repository
 
 ## Setup
 
