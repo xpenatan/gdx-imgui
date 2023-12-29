@@ -6,6 +6,16 @@ tasks.jar {
     from(windowsFile)
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven") {

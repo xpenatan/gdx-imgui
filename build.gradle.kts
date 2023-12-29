@@ -101,11 +101,6 @@ configure(libProjects + libProjects2) {
         (options as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet")
     }
 
-//    java {
-//        withJavadocJar()
-//        withSourcesJar()
-//    }
-
     publishing.publications.configureEach {
         if (this is MavenPublication) {
             pom {
