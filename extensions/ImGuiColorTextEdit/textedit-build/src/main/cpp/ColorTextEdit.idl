@@ -86,6 +86,8 @@ interface LanguageDefinition {
 
 [Prefix = "TextEditor::"]
 interface Coordinates {
+    attribute long mLine;
+    attribute long mColumn;
 };
 
 [Prefix = "TextEditor::"]
