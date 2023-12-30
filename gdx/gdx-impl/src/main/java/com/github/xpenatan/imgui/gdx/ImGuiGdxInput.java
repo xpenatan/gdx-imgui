@@ -16,6 +16,7 @@ import imgui.ImGuiKey;
 public class ImGuiGdxInput extends InputAdapter {
 
     static private final char DELETE = 127;
+    static private final char ENTER = 10;
 
     boolean mouseDown0;
     boolean mouseDown1;
@@ -76,7 +77,7 @@ public class ImGuiGdxInput extends InputAdapter {
     public boolean keyTyped(char character) {
         ImGuiIO io = ImGui.GetIO();
         int charr = character;
-        if(charr != DELETE) // Ignore if char is delete key
+        if((charr != DELETE && charr != ENTER)) // Ignore if char is delete key
             io.UpdateKeyTyped(character);
         if(ImGui.IsWindowFocused(ImGuiFocusedFlags.ImGuiFocusedFlags_AnyWindow))
             return true;
