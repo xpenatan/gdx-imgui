@@ -2,7 +2,24 @@
 interface TextEditor {
     void TextEditor();
 
+    void SetLanguageDefinition([Const, Ref] LanguageDefinition aLanguageDef);
+    [Const, Ref] LanguageDefinition GetLanguageDefinition();
+
+//    [Const, Ref] Palette GetPalette();
+//    void SetPalette([Const, Ref] Palette aValue);
+
+//    void SetErrorMarkers([Const, Ref] ErrorMarkers aMarkers);
+//    void SetBreakpoints([Const, Ref] Breakpoints aMarkers);
+
     void Render([Const] DOMString aTitle, [Const, Ref] optional ImVec2 aSize, optional boolean aBorder);
+//    void SetText(const std::string& aText);
+//    std::string GetText() const;
+//
+//    void SetTextLines(const std::vector<std::string>& aLines);
+//    std::vector<std::string> GetTextLines() const;
+//
+//    std::string GetSelectedText() const;
+//    std::string GetCurrentLineText()const;
 
     [Const] long GetTotalLines();
     [Const] boolean IsOverwrite();
@@ -15,8 +32,8 @@ interface TextEditor {
     [Const] boolean IsColorizerEnabled();
     void SetColorizerEnable(boolean aValue);
 
-//    [Const] Coordinates GetCursorPosition();
-//    void SetCursorPosition([Const, Ref] Coordinates aPosition);
+    [Const, Value] Coordinates GetCursorPosition();
+    void SetCursorPosition([Const, Ref] Coordinates aPosition);
 
     void SetHandleMouseInputs(boolean aValue);
     [Const] boolean IsHandleMouseInputsEnabled();
@@ -44,9 +61,9 @@ interface TextEditor {
     void MoveHome(optional boolean aSelect);
     void MoveEnd(optional boolean aSelect);
 
-//    void SetSelectionStart([Const, Ref] Coordinates aPosition);
-//    void SetSelectionEnd([Const, Ref] Coordinates aPosition);
-//    void SetSelection([Const, Ref] Coordinates aStart, [Const, Ref] Coordinates aEnd, optional SelectionMode aMode);
+    void SetSelectionStart([Const, Ref] Coordinates aPosition);
+    void SetSelectionEnd([Const, Ref] Coordinates aPosition);
+    void SetSelection([Const, Ref] Coordinates aStart, [Const, Ref] Coordinates aEnd, optional SelectionMode aMode);
 
     void SelectWordUnderCursor();
     void SelectAll();
@@ -73,6 +90,10 @@ interface Coordinates {
 
 [Prefix = "TextEditor::"]
 interface Breakpoint {
+};
+
+[Prefix = "TextEditor::"]
+interface Identifier {
 };
 
 interface CustomTextEdit {
@@ -103,8 +124,8 @@ enum PaletteIndex {
     "PaletteIndex::Max"
 };
 
-enum SelectMode {
-    "SelectMode::Normal",
-    "SelectMode::Word",
-    "SelectMode::Line"
+enum SelectionMode {
+    "SelectionMode::Normal",
+    "SelectionMode::Word",
+    "SelectionMode::Line"
 };

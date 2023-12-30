@@ -4,7 +4,7 @@
 #include "imgui.h"
 
 typedef TextEditor::PaletteIndex PaletteIndex;
-typedef TextEditor::SelectionMode SelectMode;
+typedef TextEditor::SelectionMode SelectionMode;
 
 class CustomTextEdit {
 
