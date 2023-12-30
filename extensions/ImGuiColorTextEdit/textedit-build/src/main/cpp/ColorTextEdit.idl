@@ -2,9 +2,109 @@
 interface TextEditor {
     void TextEditor();
 
+    void Render([Const] DOMString aTitle, [Const, Ref] optional ImVec2 aSize, optional boolean aBorder);
+
+    [Const] long GetTotalLines();
+    [Const] boolean IsOverwrite();
+
     void SetReadOnly(boolean aValue);
+    [Const] boolean IsReadOnly();
+    [Const] boolean IsTextChanged();
+    [Const] boolean IsCursorPositionChanged();
+
+    [Const] boolean IsColorizerEnabled();
+    void SetColorizerEnable(boolean aValue);
+
+//    [Const] Coordinates GetCursorPosition();
+//    void SetCursorPosition([Const, Ref] Coordinates aPosition);
+
+    void SetHandleMouseInputs(boolean aValue);
+    [Const] boolean IsHandleMouseInputsEnabled();
+
+    void SetHandleKeyboardInputs (boolean aValue);
+    [Const] boolean IsHandleKeyboardInputsEnabled();
+
+    void SetImGuiChildIgnored(boolean aValue);
+    [Const] boolean IsImGuiChildIgnored();
+
+    void SetShowWhitespaces(boolean aValue);
+    [Const] boolean IsShowingWhitespaces();
+
+    void SetTabSize(long aValue);
+    [Const] long GetTabSize();
+
+    void InsertText([Const] DOMString aValue);
+
+    void MoveUp(optional long aAmount, optional boolean aSelect);
+    void MoveDown(optional long aAmount, optional boolean aSelect);
+    void MoveLeft(optional long aAmount, optional boolean aSelect, optional boolean aWordMode);
+    void MoveRight(optional long aAmount, optional boolean aSelect, optional boolean aWordMode);
+    void MoveTop(optional boolean aSelect);
+    void MoveBottom(optional boolean aSelect);
+    void MoveHome(optional boolean aSelect);
+    void MoveEnd(optional boolean aSelect);
+
+//    void SetSelectionStart([Const, Ref] Coordinates aPosition);
+//    void SetSelectionEnd([Const, Ref] Coordinates aPosition);
+//    void SetSelection([Const, Ref] Coordinates aStart, [Const, Ref] Coordinates aEnd, optional SelectionMode aMode);
+
+    void SelectWordUnderCursor();
+    void SelectAll();
+    [Const] boolean HasSelection();
+
+    void Copy();
+    void Cut();
+    void Paste();
+    void Delete();
+
+    [Const] boolean CanUndo();
+    [Const] boolean CanRedo();
+    void Undo(optional long aSteps);
+    void Redo(optional long aSteps);
+};
+
+[Prefix = "TextEditor::"]
+interface LanguageDefinition {
+};
+
+[Prefix = "TextEditor::"]
+interface Coordinates {
+};
+
+[Prefix = "TextEditor::"]
+interface Breakpoint {
 };
 
 interface CustomTextEdit {
-    static void print();
+};
+
+enum PaletteIndex {
+    "PaletteIndex::Default",
+    "PaletteIndex::Keyword",
+    "PaletteIndex::Number",
+    "PaletteIndex::String",
+    "PaletteIndex::CharLiteral",
+    "PaletteIndex::Punctuation",
+    "PaletteIndex::Preprocessor",
+    "PaletteIndex::Identifier",
+    "PaletteIndex::KnownIdentifier",
+    "PaletteIndex::PreprocIdentifier",
+    "PaletteIndex::Comment",
+    "PaletteIndex::MultiLineComment",
+    "PaletteIndex::Background",
+    "PaletteIndex::Cursor",
+    "PaletteIndex::Selection",
+    "PaletteIndex::ErrorMarker",
+    "PaletteIndex::Breakpoint",
+    "PaletteIndex::LineNumber",
+    "PaletteIndex::CurrentLineFill",
+    "PaletteIndex::CurrentLineFillInactive",
+    "PaletteIndex::CurrentLineEdge",
+    "PaletteIndex::Max"
+};
+
+enum SelectMode {
+    "SelectMode::Normal",
+    "SelectMode::Word",
+    "SelectMode::Line"
 };
