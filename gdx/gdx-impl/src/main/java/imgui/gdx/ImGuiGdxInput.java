@@ -1,4 +1,4 @@
-package com.github.xpenatan.imgui.gdx;
+package imgui.gdx;
 
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;

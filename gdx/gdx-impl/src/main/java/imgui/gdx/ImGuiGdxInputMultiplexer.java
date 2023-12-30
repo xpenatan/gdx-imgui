@@ -1,4 +1,4 @@
-package com.github.xpenatan.imgui.gdx;
+package imgui.gdx;
 
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.utils.IntArray;

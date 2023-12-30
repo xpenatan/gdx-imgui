@@ -1,4 +1,4 @@
-package com.github.xpenatan.imgui.gdx;
+package imgui.gdx;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
