@@ -16,16 +16,34 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-java {
-    withJavadocJar()
-    withSourcesJar()
+val fromClasses = tasks.register<Jar>("fromClasses") {
+    val dependencies = configurations
+        .compileClasspath
+        .get()
+    from((dependencies).map(::zipTree))
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    dependsOn("assemble")
 }
+
+val sourcesJar = tasks.register<Jar>("sourcesJar") {
+    archiveClassifier.set("sources")
+    from(sourceSets["main"].allSource) {
+    }
+}
+
+val javadocJar = tasks.register<Jar>("javadocJar") {
+    archiveClassifier.set("javadoc")
+    from(tasks.javadoc)
+}
+
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
             artifactId = moduleName
-            from(components["java"])
+            artifact(fromClasses)
+            artifact(sourcesJar)
+            artifact(javadocJar)
         }
     }
 }
