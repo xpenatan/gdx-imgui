@@ -1,6 +1,9 @@
+import java.io.File
+import java.util.*
+
 object LibExt {
     const val groupId = "com.github.xpenatan.gdx-imgui"
-    val libVersion: String = getVersion("1.0.0", "b1")
+    val libVersion: String = getVersion()
 
     const val gdxVersion = "1.12.1"
     const val teaVMVersion = "0.9.2"
@@ -11,12 +14,24 @@ object LibExt {
     const val exampleUseRepoLibs = false
 }
 
-private fun getVersion(releaseVersion: String, suffix: String = ""): String {
-    val isRelease = System.getenv("RELEASE")
-    var libVersion = "${releaseVersion}-SNAPSHOT"
-    if(isRelease != null && isRelease.toBoolean()) {
-        libVersion = releaseVersion + if(suffix.isNotEmpty()) "-${suffix}" else ""
+private fun getVersion(): String {
+    val isReleaseStr = System.getenv("RELEASE")
+    val isRelease = isReleaseStr != null && isReleaseStr.toBoolean()
+    var libVersion = "-SNAPSHOT"
+    val file = File("gradle.properties")
+    if(file.exists()) {
+        val properties = Properties()
+        properties.load(file.inputStream())
+        val version = properties.getProperty("version")
+        if(isRelease) {
+            libVersion = version
+        }
     }
-    System.out.println("Lib Version: " + libVersion)
+    else {
+        if(isRelease) {
+            throw RuntimeException("properties should exist")
+        }
+    }
+    println("Lib Version: $libVersion")
     return libVersion
 }
