@@ -27,10 +27,6 @@ allprojects  {
         mavenCentral()
         maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots/") }
         maven { url = uri("https://oss.sonatype.org/content/repositories/releases/") }
-        maven {
-            url = uri("http://teavm.org/maven/repository/")
-            isAllowInsecureProtocol = true
-        }
     }
 
     configurations.configureEach {
