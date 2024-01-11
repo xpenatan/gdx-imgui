@@ -31,7 +31,7 @@ There are two ways to run examples.
 ## Setup
 
     gdxVersion = "1.12.1"
-    gdxImguiVersion = "1.0.0-SNAPSHOT"
+    gdxImguiVersion = "-SNAPSHOT"
 
 ```groovy
 // Add repository to Root gradle
