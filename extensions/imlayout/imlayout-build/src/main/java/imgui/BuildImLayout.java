@@ -5,6 +5,7 @@ import com.github.xpenatan.jparser.builder.BuildMultiTarget;
 import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.JBuilder;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
+import com.github.xpenatan.jparser.builder.targets.LinuxTarget;
 import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
 import com.github.xpenatan.jparser.core.JParser;
 import com.github.xpenatan.jparser.core.util.FileHelper;
@@ -74,6 +75,9 @@ public class BuildImLayout {
             targets.add(getEmscriptenBuildTarget(imguiPath, imLayoutCPPPath));
 //            targets.add(getAndroidBuildTarget());
         }
+        if(BuildTarget.isUnix()) {
+            targets.add(getLinuxBuildTarget(imguiPath, imLayoutCPPPath));
+        }
 
         BuildConfig buildConfig = new BuildConfig(cppDestinationPath, imLayoutCPPPath, libsDir, libName);
         JBuilder.build(buildConfig, targets);
@@ -109,6 +113,21 @@ public class BuildImLayout {
         libTarget.headerDirs.add("-I" + imLayoutCPPPath + "/src/imlayout");
         libTarget.cppInclude.add(imLayoutCPPPath + "/src/imlayout/*.cpp");
         multiTarget.add(libTarget);
+
+        return multiTarget;
+    }
+
+    private static BuildMultiTarget getLinuxBuildTarget(String imguiPath, String imLayoutCPPPath) {
+        BuildMultiTarget multiTarget = new BuildMultiTarget();
+
+        String imguiCppPath = imguiPath + "/imgui-build/build/c++";
+
+        LinuxTarget linuxTarget = new LinuxTarget();
+        linuxTarget.isStatic = true;
+        linuxTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui");
+        linuxTarget.headerDirs.add("-I" + imLayoutCPPPath + "/src/imlayout/");
+        linuxTarget.cppInclude.add(imLayoutCPPPath + "/**/imlayout/*.cpp");
+        multiTarget.add(linuxTarget);
 
         return multiTarget;
     }

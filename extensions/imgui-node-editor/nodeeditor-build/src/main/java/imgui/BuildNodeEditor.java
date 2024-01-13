@@ -5,6 +5,7 @@ import com.github.xpenatan.jparser.builder.BuildMultiTarget;
 import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.JBuilder;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
+import com.github.xpenatan.jparser.builder.targets.LinuxTarget;
 import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
 import com.github.xpenatan.jparser.core.JParser;
 import com.github.xpenatan.jparser.core.util.FileHelper;
@@ -38,7 +39,7 @@ public class BuildNodeEditor {
         String nodeeditorCorePath = nodeeditorPath + "/nodeeditor-core";
         String nodeeditorTeavmPath = nodeeditorPath + "/nodeeditor-teavm";
 
-        String textEditCPPPath = nodeeditorBuildPath + "/build/c++";
+        String nodeEditorCPPPath = nodeeditorBuildPath + "/build/c++";
 
         String idlPath = nodeeditorBuildPath + "/src/main/cpp/nodeeditor.idl";
         String cppSourceDir = nodeeditorBuildPath + "/build/imgui-node-editor";
@@ -46,8 +47,8 @@ public class BuildNodeEditor {
 
         IDLReader idlReader = IDLReader.readIDL(idlPath);
 
-        String libsDir = textEditCPPPath + "/libs/";
-        String cppDestinationPath = textEditCPPPath + "/src";
+        String libsDir = nodeEditorCPPPath + "/libs/";
+        String cppDestinationPath = nodeEditorCPPPath + "/src";
 
         String libDestinationPath = cppDestinationPath + "/nodeeditor";
         String customSourceDir = nodeeditorBuildPath + "/src/main/cpp/custom/";
@@ -73,11 +74,14 @@ public class BuildNodeEditor {
 
         ArrayList<BuildMultiTarget> targets = new ArrayList<>();
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
-            targets.add(getWindowBuildTarget(imguiPath, textEditCPPPath));
-            targets.add(getEmscriptenBuildTarget(imguiPath, textEditCPPPath));
+            targets.add(getWindowBuildTarget(imguiPath, nodeEditorCPPPath));
+            targets.add(getEmscriptenBuildTarget(imguiPath, nodeEditorCPPPath));
+        }
+        if(BuildTarget.isUnix()) {
+            targets.add(getLinuxBuildTarget(imguiPath, nodeEditorCPPPath));
         }
 
-        BuildConfig buildConfig = new BuildConfig(cppDestinationPath, textEditCPPPath, libsDir, libName);
+        BuildConfig buildConfig = new BuildConfig(cppDestinationPath, nodeEditorCPPPath, libsDir, libName);
         JBuilder.build(buildConfig, targets);
 
         JParser.CREATE_IDL_HELPER = idlFlag;
@@ -111,6 +115,21 @@ public class BuildNodeEditor {
         libTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/nodeeditor");
         libTarget.cppInclude.add(nodeeditorCPPPath + "/src/nodeeditor/*.cpp");
         multiTarget.add(libTarget);
+
+        return multiTarget;
+    }
+
+    private static BuildMultiTarget getLinuxBuildTarget(String imguiPath, String nodeeditorCPPPath) {
+        BuildMultiTarget multiTarget = new BuildMultiTarget();
+
+        String imguiBuildPath = imguiPath + "/imgui-build/build/c++";
+
+        LinuxTarget linuxTarget = new LinuxTarget();
+        linuxTarget.isStatic = true;
+        linuxTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
+        linuxTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/nodeeditor/");
+        linuxTarget.cppInclude.add(nodeeditorCPPPath + "/**/nodeeditor/*.cpp");
+        multiTarget.add(linuxTarget);
 
         return multiTarget;
     }

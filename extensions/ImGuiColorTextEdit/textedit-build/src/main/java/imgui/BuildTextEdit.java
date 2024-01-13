@@ -5,6 +5,7 @@ import com.github.xpenatan.jparser.builder.BuildMultiTarget;
 import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.JBuilder;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
+import com.github.xpenatan.jparser.builder.targets.LinuxTarget;
 import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
 import com.github.xpenatan.jparser.core.JParser;
 import com.github.xpenatan.jparser.core.util.FileHelper;
@@ -76,6 +77,9 @@ public class BuildTextEdit {
             targets.add(getWindowBuildTarget(imguiPath, textEditCPPPath));
             targets.add(getEmscriptenBuildTarget(imguiPath, textEditCPPPath));
         }
+        if(BuildTarget.isUnix()) {
+            targets.add(getLinuxBuildTarget(imguiPath, textEditCPPPath));
+        }
 
         BuildConfig buildConfig = new BuildConfig(cppDestinationPath, textEditCPPPath, libsDir, libName);
         JBuilder.build(buildConfig, targets);
@@ -111,6 +115,21 @@ public class BuildTextEdit {
         libTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit");
         libTarget.cppInclude.add(textEditCPPPath + "/src/textedit/*.cpp");
         multiTarget.add(libTarget);
+
+        return multiTarget;
+    }
+
+    private static BuildMultiTarget getLinuxBuildTarget(String imguiPath, String textEditCPPPath) {
+        BuildMultiTarget multiTarget = new BuildMultiTarget();
+
+        String imguiBuildPath = imguiPath + "/imgui-build/build/c++";
+
+        LinuxTarget linuxTarget = new LinuxTarget();
+        linuxTarget.isStatic = true;
+        linuxTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
+        linuxTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
+        linuxTarget.cppInclude.add(textEditCPPPath + "/**/textedit/*.cpp");
+        multiTarget.add(linuxTarget);
 
         return multiTarget;
     }

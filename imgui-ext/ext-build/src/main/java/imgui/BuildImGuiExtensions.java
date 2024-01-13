@@ -5,6 +5,7 @@ import com.github.xpenatan.jparser.builder.BuildMultiTarget;
 import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.JBuilder;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
+import com.github.xpenatan.jparser.builder.targets.LinuxTarget;
 import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
 import com.github.xpenatan.jparser.idl.IDLReader;
 import java.io.File;
@@ -28,6 +29,9 @@ public class BuildImGuiExtensions {
             targets.add(getWindowBuildTarget(imguiPath, extensionsPath));
             targets.add(getEmscriptenBuildTarget(imguiPath, extensionsPath, idlPath));
 //            targets.add(getAndroidBuildTarget());
+        }
+        if(BuildTarget.isUnix()) {
+            targets.add(getLinuxBuildTarget(imguiPath, extensionsPath));
         }
 
         String libName = "imgui";
@@ -133,4 +137,46 @@ public class BuildImGuiExtensions {
 
         return multiTarget;
     }
+
+    private static BuildMultiTarget getLinuxBuildTarget(String imguiPath, String extensionsPath) {
+        BuildMultiTarget multiTarget = new BuildMultiTarget();
+        String imguiCppPath = imguiPath + "/imgui-build/build/c++";
+
+        LinuxTarget glueTarget = new LinuxTarget();
+        glueTarget.libDirSuffix += "ext/";
+        glueTarget.addJNIHeaders();
+        glueTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui/");
+        glueTarget.headerDirs.add("-I" + imguiCppPath + "/src/jniglue");
+        glueTarget.linkerFlags.add(imguiCppPath + "/libs/linux/libimgui64.a");
+        glueTarget.cppInclude.add(imguiCppPath + "/src/jniglue/JNIGlue.cpp");
+
+        {
+            // ImLayout extension
+            String imlayoutCPPPath = extensionsPath + "/imlayout/imlayout-build/build/c++";
+            glueTarget.headerDirs.add("-I" + imlayoutCPPPath + "/src/imlayout/");
+            glueTarget.headerDirs.add("-I" + imlayoutCPPPath + "/src/jniglue");
+            glueTarget.linkerFlags.add(imlayoutCPPPath + "/libs/linux/libimlayout64.a");
+            glueTarget.headerDirs.add("-include" + imlayoutCPPPath + "/src/jniglue/JNIGlue.h");
+        }
+        {
+            // ImGuiColorTextEdit extension
+            String textEditCPPPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/c++";
+            glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
+            glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/jniglue");
+            glueTarget.linkerFlags.add(textEditCPPPath + "/libs/linux/libtextedit64.a");
+            glueTarget.headerDirs.add("-include" + textEditCPPPath + "/src/jniglue/JNIGlue.h");
+        }
+        {
+            // imgui-node-editor extension
+            String nodeeditorCPPPath = extensionsPath + "/imgui-node-editor/nodeeditor-build/build/c++";
+            glueTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/nodeeditor/");
+            glueTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/jniglue");
+            glueTarget.linkerFlags.add(nodeeditorCPPPath + "/libs/linux/libnodeeditor64.a");
+            glueTarget.headerDirs.add("-include" + nodeeditorCPPPath + "/src/jniglue/JNIGlue.h");
+        }
+
+        multiTarget.add(glueTarget);
+        return multiTarget;
+    }
+
 }

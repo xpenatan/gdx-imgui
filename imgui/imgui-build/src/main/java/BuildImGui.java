@@ -138,7 +138,7 @@ public class BuildImGui {
         return multiTarget;
     }
 
-    private static BuildMultiTarget getLinuxBuildTarget(String imguiPath) throws IOException {
+    private static BuildMultiTarget getLinuxBuildTarget(String imguiPath) {
         String libBuildPath = imguiPath + "/imgui-build/build/c++";
 
         BuildMultiTarget multiTarget = new BuildMultiTarget();
