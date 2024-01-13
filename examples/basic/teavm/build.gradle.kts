@@ -11,7 +11,7 @@ dependencies {
     implementation(project(":examples:basic:core"))
 
     if(LibExt.exampleUseRepoLibs) {
-        implementation("com.github.xpenatan.gdx-imgui:imgui-teavm:1.0.0-SNAPSHOT")
+        implementation("com.github.xpenatan.gdx-imgui:imgui-teavm:-SNAPSHOT")
     }
     else {
         implementation(project(":imgui:imgui-teavm"))

@@ -13,7 +13,7 @@ dependencies {
     implementation(project(":examples:imgui-node-editor:core"))
 
     if(LibExt.exampleUseRepoLibs) {
-        implementation("com.github.xpenatan.gdx-imgui:imgui-ext-teavm:1.0.0-SNAPSHOT")
+        implementation("com.github.xpenatan.gdx-imgui:imgui-ext-teavm:-SNAPSHOT")
     }
     else {
         implementation(project(":imgui-ext:ext-teavm"))

@@ -44,7 +44,7 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 
     if(LibExt.exampleUseRepoLibs) {
-        implementation("com.github.xpenatan.gdx-imgui:imgui-android:1.0.0-SNAPSHOT")
+        implementation("com.github.xpenatan.gdx-imgui:imgui-android:-SNAPSHOT")
     }
     else {
         implementation(project(":imgui:imgui-android"))

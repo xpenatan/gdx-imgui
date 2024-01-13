@@ -2,7 +2,7 @@ dependencies {
     implementation(project(":examples:ImGuiColorTextEdit:core"))
 
     if(LibExt.exampleUseRepoLibs) {
-        implementation("com.github.xpenatan.gdx-imgui:imgui-ext-desktop:1.0.0-SNAPSHOT")
+        implementation("com.github.xpenatan.gdx-imgui:imgui-ext-desktop:-SNAPSHOT")
     }
     else {
         implementation(project(":imgui-ext:ext-desktop"))
