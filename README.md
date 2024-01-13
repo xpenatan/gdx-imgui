@@ -12,11 +12,11 @@ It's meant to be small and close 1-1 to C++. It uses webidl file to generate jav
 ## Examples
 * [basic](https://xpenatan.github.io/gdx-imgui/basic/)
 
-### ImGui Current state:
+### ImGui current state:
 
 | Emscripten | Windows | Linux | Mac | Android | iOS |
 |:----------:|:-------:|:-----:|:---:|:-------:|:---:|
-|     ✅      | ✅ | ❌ | ❌ | ⚠️ | ❌ |
+|     ✅      | ✅ | ✅ | ❌ | ⚠️ | ❌ |
 
 * ✅: Have a working build.
 * ⚠️: Have a working build, but it's not ready yet.
