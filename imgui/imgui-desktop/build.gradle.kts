@@ -2,10 +2,12 @@ val moduleName = "imgui-desktop"
 
 val windowsFile = "$projectDir/../imgui-build/build/c++/libs/windows/imgui64.dll"
 val linuxFile = "$projectDir/../imgui-build/build/c++/libs/linux/libimgui64.so"
+val macFile = "$projectDir/../imgui-build/build/c++/libs/linux/libimgui64.dylib"
 
 tasks.jar {
     from(windowsFile)
     from(linuxFile)
+    from(macFile)
 }
 
 java {
