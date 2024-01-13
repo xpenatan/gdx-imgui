@@ -149,7 +149,7 @@ public class BuildImGuiExtensions {
         glueTarget.headerDirs.add("-I" + imguiCppPath + "/src/jniglue");
         glueTarget.linkerFlags.add(imguiCppPath + "/libs/linux/libimgui64.a");
         glueTarget.linkerFlags.add("-fPIC");
-        glueTarget.linkerFlags.add("-static");
+        glueTarget.linkerFlags.add("-Wc,-static");
         glueTarget.linkerFlags.add("-static-libgcc");
         glueTarget.linkerFlags.add("-static-libstdc++");
 
