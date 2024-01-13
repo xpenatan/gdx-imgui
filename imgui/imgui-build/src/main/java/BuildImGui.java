@@ -154,7 +154,7 @@ public class BuildImGui {
         LinuxTarget glueTarget = new LinuxTarget();
         glueTarget.addJNIHeaders();
         glueTarget.headerDirs.add("-I" + libBuildPath + "/src/imgui/");
-        glueTarget.linkerFlags.add(libBuildPath + "/libs/windows/libimgui64.a");
+        glueTarget.linkerFlags.add(libBuildPath + "/libs/linux/libimgui64.a");
         glueTarget.cppInclude.add(libBuildPath + "/src/jniglue/JNIGlue.cpp");
         multiTarget.add(glueTarget);
 
