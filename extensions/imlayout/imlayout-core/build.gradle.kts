@@ -1,6 +1,6 @@
 dependencies {
     implementation(project(":imgui:imgui-core"))
-    implementation("com.github.xpenatan.jParser:jParser-loader:${LibExt.jParserVersion}")
+    implementation("com.github.xpenatan.jParser:loader-core:${LibExt.jParserVersion}")
 }
 
 tasks.named("clean") {
