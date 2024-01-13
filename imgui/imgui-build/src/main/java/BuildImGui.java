@@ -4,6 +4,7 @@ import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.JBuilder;
 import com.github.xpenatan.jparser.builder.targets.AndroidTarget;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
+import com.github.xpenatan.jparser.builder.targets.LinuxTarget;
 import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
 import com.github.xpenatan.jparser.core.JParser;
 import com.github.xpenatan.jparser.core.util.FileHelper;
@@ -30,6 +31,9 @@ public class BuildImGui {
             targets.add(getWindowBuildTarget(imguiPath));
             targets.add(getAndroidBuildTarget(imguiPath));
             targets.add(getEmscriptenBuildTarget(imguiPath, idlReader));
+        }
+        if(BuildTarget.isUnix()) {
+            targets.add(getLinuxBuildTarget(imguiPath));
         }
 
         generateAndBuild(imguiPath, idlReader, targets, true);
@@ -131,6 +135,29 @@ public class BuildImGui {
         androidTarget.cppFlags.add("-DIMGUI_DISABLE_FILE_FUNCTIONS");
         androidTarget.cppFlags.add("-DIMGUI_DEFINE_MATH_OPERATORS");
         multiTarget.add(androidTarget);
+        return multiTarget;
+    }
+
+    private static BuildMultiTarget getLinuxBuildTarget(String imguiPath) throws IOException {
+        String libBuildPath = imguiPath + "/imgui-build/build/c++";
+
+        BuildMultiTarget multiTarget = new BuildMultiTarget();
+
+        // Make a static library
+        LinuxTarget linuxTarget = new LinuxTarget();
+        linuxTarget.isStatic = true;
+        linuxTarget.headerDirs.add("-I" + libBuildPath + "/src/imgui/");
+        linuxTarget.cppInclude.add(libBuildPath + "/**/imgui/*.cpp");
+        multiTarget.add(linuxTarget);
+
+        // Compile glue code and link
+        LinuxTarget glueTarget = new LinuxTarget();
+        glueTarget.addJNIHeaders();
+        glueTarget.headerDirs.add("-I" + libBuildPath + "/src/imgui/");
+        glueTarget.linkerFlags.add(libBuildPath + "/libs/windows/libimgui64.a");
+        glueTarget.cppInclude.add(libBuildPath + "/src/jniglue/JNIGlue.cpp");
+        multiTarget.add(glueTarget);
+
         return multiTarget;
     }
 }
