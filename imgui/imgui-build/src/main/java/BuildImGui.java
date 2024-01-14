@@ -37,7 +37,7 @@ public class BuildImGui {
             targets.add(getLinuxBuildTarget(imguiPath));
         }
         if(BuildTarget.isMac()) {
-//            targets.add(getMacBuildTarget(imguiPath));
+            targets.add(getMacBuildTarget(imguiPath));
         }
 
         generateAndBuild(imguiPath, idlReader, targets, true);
