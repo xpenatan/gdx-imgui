@@ -1,3 +1,5 @@
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+
 dependencies {
     implementation(project(":examples:basic:core"))
 
@@ -21,4 +23,8 @@ tasks.register<JavaExec>("basic-run-desktop") {
     mainClass.set(mainClassName)
     classpath = sourceSets["main"].runtimeClasspath
     workingDir = assetsDir
+
+    if(DefaultNativePlatform.getCurrentOperatingSystem().isMacOsX) {
+        jvmArgs("-XstartOnFirstThread")
+    }
 }
