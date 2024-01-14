@@ -185,6 +185,21 @@ public class BuildImGui {
         glueTarget.cppInclude.add(libBuildPath + "/src/jniglue/JNIGlue.cpp");
         multiTarget.add(glueTarget);
 
+        // Make a static library
+        MacTarget macArmTarget = new MacTarget(true);
+        macArmTarget.isStatic = true;
+        macArmTarget.headerDirs.add("-I" + libBuildPath + "/src/imgui/");
+        macArmTarget.cppInclude.add(libBuildPath + "/**/imgui/*.cpp");
+        multiTarget.add(macArmTarget);
+
+        // Compile glue code and link
+        MacTarget glueArmTarget = new MacTarget(true);
+        glueArmTarget.addJNIHeaders();
+        glueArmTarget.headerDirs.add("-I" + libBuildPath + "/src/imgui/");
+        glueArmTarget.linkerFlags.add(libBuildPath + "/libs/mac/arm/libimgui64.a");
+        glueArmTarget.cppInclude.add(libBuildPath + "/src/jniglue/JNIGlue.cpp");
+        multiTarget.add(glueArmTarget);
+
         return multiTarget;
     }
 }
