@@ -6,6 +6,7 @@ import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.JBuilder;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
 import com.github.xpenatan.jparser.builder.targets.LinuxTarget;
+import com.github.xpenatan.jparser.builder.targets.MacTarget;
 import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
 import com.github.xpenatan.jparser.idl.IDLReader;
 import java.io.File;
@@ -32,6 +33,9 @@ public class BuildImGuiExtensions {
         }
         if(BuildTarget.isUnix()) {
             targets.add(getLinuxBuildTarget(imguiPath, extensionsPath));
+        }
+        if(BuildTarget.isMac()) {
+            targets.add(getMacBuildTarget(imguiPath, extensionsPath));
         }
 
         String libName = "imgui";
@@ -177,6 +181,85 @@ public class BuildImGuiExtensions {
         }
 
         multiTarget.add(glueTarget);
+        return multiTarget;
+    }
+
+    private static BuildMultiTarget getMacBuildTarget(String imguiPath, String extensionsPath) {
+        BuildMultiTarget multiTarget = new BuildMultiTarget();
+        String imguiCppPath = imguiPath + "/imgui-build/build/c++";
+
+        MacTarget macGlueTarget = new MacTarget();
+        macGlueTarget.libDirSuffix += "ext/";
+        macGlueTarget.addJNIHeaders();
+        macGlueTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui/");
+        macGlueTarget.headerDirs.add("-I" + imguiCppPath + "/src/jniglue");
+        macGlueTarget.linkerFlags.add(imguiCppPath + "/libs/mac/libimgui64.a");
+
+        macGlueTarget.cppInclude.add(imguiCppPath + "/src/jniglue/JNIGlue.cpp");
+
+        {
+            // ImLayout extension
+            String imlayoutCPPPath = extensionsPath + "/imlayout/imlayout-build/build/c++";
+            macGlueTarget.headerDirs.add("-I" + imlayoutCPPPath + "/src/imlayout/");
+            macGlueTarget.headerDirs.add("-I" + imlayoutCPPPath + "/src/jniglue");
+            macGlueTarget.linkerFlags.add(imlayoutCPPPath + "/libs/mac/libimlayout64.a");
+            macGlueTarget.headerDirs.add("-include" + imlayoutCPPPath + "/src/jniglue/JNIGlue.h");
+        }
+        {
+            // ImGuiColorTextEdit extension
+            String textEditCPPPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/c++";
+            macGlueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
+            macGlueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/jniglue");
+            macGlueTarget.linkerFlags.add(textEditCPPPath + "/libs/mac/libtextedit64.a");
+            macGlueTarget.headerDirs.add("-include" + textEditCPPPath + "/src/jniglue/JNIGlue.h");
+        }
+        {
+            // imgui-node-editor extension
+            String nodeeditorCPPPath = extensionsPath + "/imgui-node-editor/nodeeditor-build/build/c++";
+            macGlueTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/nodeeditor/");
+            macGlueTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/jniglue");
+            macGlueTarget.linkerFlags.add(nodeeditorCPPPath + "/libs/mac/libnodeeditor64.a");
+            macGlueTarget.headerDirs.add("-include" + nodeeditorCPPPath + "/src/jniglue/JNIGlue.h");
+        }
+
+        multiTarget.add(macGlueTarget);
+
+        MacTarget macArmGlueTarget = new MacTarget(true);
+        macArmGlueTarget.libDirSuffix += "ext/";
+        macArmGlueTarget.addJNIHeaders();
+        macArmGlueTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui/");
+        macArmGlueTarget.headerDirs.add("-I" + imguiCppPath + "/src/jniglue");
+        macArmGlueTarget.linkerFlags.add(imguiCppPath + "/libs/mac/arm/libimgui64.a");
+
+        macArmGlueTarget.cppInclude.add(imguiCppPath + "/src/jniglue/JNIGlue.cpp");
+
+        {
+            // ImLayout extension
+            String imlayoutCPPPath = extensionsPath + "/imlayout/imlayout-build/build/c++";
+            macArmGlueTarget.headerDirs.add("-I" + imlayoutCPPPath + "/src/imlayout/");
+            macArmGlueTarget.headerDirs.add("-I" + imlayoutCPPPath + "/src/jniglue");
+            macArmGlueTarget.linkerFlags.add(imlayoutCPPPath + "/libs/mac/arm/libimlayout64.a");
+            macArmGlueTarget.headerDirs.add("-include" + imlayoutCPPPath + "/src/jniglue/JNIGlue.h");
+        }
+        {
+            // ImGuiColorTextEdit extension
+            String textEditCPPPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/c++";
+            macArmGlueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
+            macArmGlueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/jniglue");
+            macArmGlueTarget.linkerFlags.add(textEditCPPPath + "/libs/mac/arm/libtextedit64.a");
+            macArmGlueTarget.headerDirs.add("-include" + textEditCPPPath + "/src/jniglue/JNIGlue.h");
+        }
+        {
+            // imgui-node-editor extension
+            String nodeeditorCPPPath = extensionsPath + "/imgui-node-editor/nodeeditor-build/build/c++";
+            macArmGlueTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/nodeeditor/");
+            macArmGlueTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/jniglue");
+            macArmGlueTarget.linkerFlags.add(nodeeditorCPPPath + "/libs/mac/arm/libnodeeditor64.a");
+            macArmGlueTarget.headerDirs.add("-include" + nodeeditorCPPPath + "/src/jniglue/JNIGlue.h");
+        }
+
+        multiTarget.add(macArmGlueTarget);
+
         return multiTarget;
     }
 

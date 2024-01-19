@@ -6,6 +6,7 @@ import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.JBuilder;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
 import com.github.xpenatan.jparser.builder.targets.LinuxTarget;
+import com.github.xpenatan.jparser.builder.targets.MacTarget;
 import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
 import com.github.xpenatan.jparser.core.JParser;
 import com.github.xpenatan.jparser.core.util.FileHelper;
@@ -80,6 +81,9 @@ public class BuildTextEdit {
         if(BuildTarget.isUnix()) {
             targets.add(getLinuxBuildTarget(imguiPath, textEditCPPPath));
         }
+        if(BuildTarget.isMac()) {
+            targets.add(getMacBuildTarget(imguiPath, textEditCPPPath));
+        }
 
         BuildConfig buildConfig = new BuildConfig(cppDestinationPath, textEditCPPPath, libsDir, libName);
         JBuilder.build(buildConfig, targets);
@@ -130,6 +134,28 @@ public class BuildTextEdit {
         linuxTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
         linuxTarget.cppInclude.add(textEditCPPPath + "/**/textedit/*.cpp");
         multiTarget.add(linuxTarget);
+
+        return multiTarget;
+    }
+
+    private static BuildMultiTarget getMacBuildTarget(String imguiPath, String textEditCPPPath) {
+        BuildMultiTarget multiTarget = new BuildMultiTarget();
+
+        String imguiBuildPath = imguiPath + "/imgui-build/build/c++";
+
+        MacTarget macTarget = new MacTarget();
+        macTarget.isStatic = true;
+        macTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
+        macTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
+        macTarget.cppInclude.add(textEditCPPPath + "/**/textedit/*.cpp");
+        multiTarget.add(macTarget);
+
+        MacTarget macArmTarget = new MacTarget(true);
+        macArmTarget.isStatic = true;
+        macArmTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
+        macArmTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
+        macArmTarget.cppInclude.add(textEditCPPPath + "/**/textedit/*.cpp");
+        multiTarget.add(macArmTarget);
 
         return multiTarget;
     }

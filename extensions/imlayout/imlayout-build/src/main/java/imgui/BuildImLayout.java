@@ -6,6 +6,7 @@ import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.JBuilder;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
 import com.github.xpenatan.jparser.builder.targets.LinuxTarget;
+import com.github.xpenatan.jparser.builder.targets.MacTarget;
 import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
 import com.github.xpenatan.jparser.core.JParser;
 import com.github.xpenatan.jparser.core.util.FileHelper;
@@ -78,6 +79,9 @@ public class BuildImLayout {
         if(BuildTarget.isUnix()) {
             targets.add(getLinuxBuildTarget(imguiPath, imLayoutCPPPath));
         }
+        if(BuildTarget.isMac()) {
+            targets.add(getMacBuildTarget(imguiPath, imLayoutCPPPath));
+        }
 
         BuildConfig buildConfig = new BuildConfig(cppDestinationPath, imLayoutCPPPath, libsDir, libName);
         JBuilder.build(buildConfig, targets);
@@ -128,6 +132,28 @@ public class BuildImLayout {
         linuxTarget.headerDirs.add("-I" + imLayoutCPPPath + "/src/imlayout/");
         linuxTarget.cppInclude.add(imLayoutCPPPath + "/**/imlayout/*.cpp");
         multiTarget.add(linuxTarget);
+
+        return multiTarget;
+    }
+
+    private static BuildMultiTarget getMacBuildTarget(String imguiPath, String imLayoutCPPPath) {
+        BuildMultiTarget multiTarget = new BuildMultiTarget();
+
+        String imguiCppPath = imguiPath + "/imgui-build/build/c++";
+
+        MacTarget macTarget = new MacTarget();
+        macTarget.isStatic = true;
+        macTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui");
+        macTarget.headerDirs.add("-I" + imLayoutCPPPath + "/src/imlayout/");
+        macTarget.cppInclude.add(imLayoutCPPPath + "/**/imlayout/*.cpp");
+        multiTarget.add(macTarget);
+
+        MacTarget macArmTarget = new MacTarget(true);
+        macArmTarget.isStatic = true;
+        macArmTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui");
+        macArmTarget.headerDirs.add("-I" + imLayoutCPPPath + "/src/imlayout/");
+        macArmTarget.cppInclude.add(imLayoutCPPPath + "/**/imlayout/*.cpp");
+        multiTarget.add(macArmTarget);
 
         return multiTarget;
     }

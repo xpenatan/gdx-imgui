@@ -6,6 +6,7 @@ import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.JBuilder;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
 import com.github.xpenatan.jparser.builder.targets.LinuxTarget;
+import com.github.xpenatan.jparser.builder.targets.MacTarget;
 import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
 import com.github.xpenatan.jparser.core.JParser;
 import com.github.xpenatan.jparser.core.util.FileHelper;
@@ -80,6 +81,9 @@ public class BuildNodeEditor {
         if(BuildTarget.isUnix()) {
             targets.add(getLinuxBuildTarget(imguiPath, nodeEditorCPPPath));
         }
+        if(BuildTarget.isMac()) {
+            targets.add(getMacBuildTarget(imguiPath, nodeEditorCPPPath));
+        }
 
         BuildConfig buildConfig = new BuildConfig(cppDestinationPath, nodeEditorCPPPath, libsDir, libName);
         JBuilder.build(buildConfig, targets);
@@ -130,6 +134,28 @@ public class BuildNodeEditor {
         linuxTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/nodeeditor/");
         linuxTarget.cppInclude.add(nodeeditorCPPPath + "/**/nodeeditor/*.cpp");
         multiTarget.add(linuxTarget);
+
+        return multiTarget;
+    }
+
+    private static BuildMultiTarget getMacBuildTarget(String imguiPath, String nodeeditorCPPPath) {
+        BuildMultiTarget multiTarget = new BuildMultiTarget();
+
+        String imguiBuildPath = imguiPath + "/imgui-build/build/c++";
+
+        MacTarget macTarget = new MacTarget();
+        macTarget.isStatic = true;
+        macTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
+        macTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/nodeeditor/");
+        macTarget.cppInclude.add(nodeeditorCPPPath + "/**/nodeeditor/*.cpp");
+        multiTarget.add(macTarget);
+
+        MacTarget macArmTarget = new MacTarget(true);
+        macArmTarget.isStatic = true;
+        macArmTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
+        macArmTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/nodeeditor/");
+        macArmTarget.cppInclude.add(nodeeditorCPPPath + "/**/nodeeditor/*.cpp");
+        multiTarget.add(macArmTarget);
 
         return multiTarget;
     }
