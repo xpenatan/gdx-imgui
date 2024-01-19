@@ -16,11 +16,13 @@ It's meant to be small and close 1-1 to C++. It uses webidl file to generate jav
 
 | Emscripten | Windows | Linux | Mac | Android | iOS |
 |:----------:|:-------:|:-----:|:---:|:-------:|:---:|
-|     ✅      | ✅ | ✅ | ❌ | ⚠️ | ❌ |
+|     ✅      | ✅ | ✅ | ✅¹  | ⚠️ | ❌ |
 
 * ✅: Have a working build.
 * ⚠️: Have a working build, but it's not ready yet.
 * ❌: Build not ready.
+
+¹ arm build not working
 
 ## How to run examples
 There are two ways to run examples. 
