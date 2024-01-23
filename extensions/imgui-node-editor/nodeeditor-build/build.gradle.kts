@@ -9,11 +9,11 @@ val mainClassName = "imgui.BuildNodeEditor"
 
 dependencies {
     implementation(project(":imgui:imgui-core"))
-    implementation("com.github.xpenatan.jParser:core:${LibExt.jParserVersion}")
-    implementation("com.github.xpenatan.jParser:builder:${LibExt.jParserVersion}")
-    implementation("com.github.xpenatan.jParser:teavm:${LibExt.jParserVersion}")
-    implementation("com.github.xpenatan.jParser:cpp:${LibExt.jParserVersion}")
-    implementation("com.github.xpenatan.jParser:idl:${LibExt.jParserVersion}")
+    implementation("com.github.xpenatan.jParser:jParser-core:${LibExt.jParserVersion}")
+    implementation("com.github.xpenatan.jParser:jParser-build:${LibExt.jParserVersion}")
+    implementation("com.github.xpenatan.jParser:jParser-teavm:${LibExt.jParserVersion}")
+    implementation("com.github.xpenatan.jParser:jParser-cpp:${LibExt.jParserVersion}")
+    implementation("com.github.xpenatan.jParser:jParser-idl:${LibExt.jParserVersion}")
 }
 
 tasks.register<JavaExec>("build_project") {
