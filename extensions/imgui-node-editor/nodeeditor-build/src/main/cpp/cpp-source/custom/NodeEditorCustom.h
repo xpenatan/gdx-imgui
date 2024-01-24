@@ -110,10 +110,10 @@ public:
     static bool DeleteNode(NodeId nodeId) { return n::DeleteNode(nodeId); }
     static bool DeleteLink(LinkId linkId) { return n::DeleteLink(linkId); }
 
-    static bool HasAnyLinks(NodeId nodeId) { return n::HasAnyLinks(nodeId); }
-    static bool HasAnyLinks(PinId pinId) { return n::HasAnyLinks(pinId); }
-    static int BreakLinks(NodeId nodeId) { return n::BreakLinks(nodeId); }
-    static int BreakLinks(PinId pinId) { return n::BreakLinks(pinId); }
+    static bool HasAnyLinks_1(NodeId nodeId) { return n::HasAnyLinks(nodeId); }
+    static bool HasAnyLinks_2(PinId pinId) { return n::HasAnyLinks(pinId); }
+    static int BreakLinks_1(NodeId nodeId) { return n::BreakLinks(nodeId); }
+    static int BreakLinks_2(PinId pinId) { return n::BreakLinks(pinId); }
 
     static void NavigateToContent(float duration = -1) { n::NavigateToContent(duration); }
     static void NavigateToSelection(bool zoomIn = false, float duration = -1) { n::NavigateToSelection(zoomIn, duration); }
