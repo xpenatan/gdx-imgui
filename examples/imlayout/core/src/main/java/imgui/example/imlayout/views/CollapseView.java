@@ -49,7 +49,7 @@ public class CollapseView {
         }
         ImLayout.EndCollapseLayout();
 
-        ImLayout.BeginCollapseLayoutEx_3("##ID1", isCollapseOpen, "Stuff", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
+        ImLayout.BeginCollapseLayoutEx("##ID1", isCollapseOpen, "Stuff", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
 
         if(isDebug.getValue(0)) {
             ImLayout.ShowLayoutDebug();
@@ -71,7 +71,7 @@ public class CollapseView {
 
             ImGui.Checkbox("LayoutDebug", isDebug);
 
-            ImLayout.BeginCollapseLayout_2("##ID3", isCollapseOpen2, "Alignment options", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
+            ImLayout.BeginCollapseLayout("##ID3", isCollapseOpen2, "Alignment options", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT);
             if(isCollapseOpen2.getValue(0)) {
                 ImGui.SliderFloat("AlignX", alignX, 0.0f, 1.0f, "%.2f");
                 ImGui.SliderFloat("OffsetX", offsetX, -10.0f, 10.0f, "%.2f");
@@ -88,11 +88,11 @@ public class CollapseView {
             ImGui.SameLine();
             ImGui.ArrowButton("##Down", ImGuiDir.ImGuiDir_Down);
 
-            ImGui.RadioButton_2("radio a", guiInt, 0);
+            ImGui.RadioButton("radio a", guiInt, 0);
             ImGui.SameLine();
-            ImGui.RadioButton_2("radio b", guiInt, 1);
+            ImGui.RadioButton("radio b", guiInt, 1);
             ImGui.SameLine();
-            ImGui.RadioButton_2("radio c", guiInt, 2);
+            ImGui.RadioButton("radio c", guiInt, 2);
             ImGui.SameLine();
             ImGui.RadioButton("radio true", true);
 

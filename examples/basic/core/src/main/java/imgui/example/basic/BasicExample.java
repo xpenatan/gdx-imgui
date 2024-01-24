@@ -124,7 +124,7 @@ public class BasicExample extends ImGuiRenderer {
         ImGui.SetNextWindowSize(imGuiViewport.get_Size());
 
         // Create docking space
-        ImGui.PushStyleVar_2(ImGuiStyleVar_WindowPadding, ImVec2.TMP_1.set(0.0f, 0.0f));
+        ImGui.PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2.TMP_1.set(0.0f, 0.0f));
         ImGui.Begin("DockSpace111", null, window_flags);
         ImGui.PopStyleVar();
 
@@ -225,7 +225,7 @@ public class BasicExample extends ImGuiRenderer {
 
         ImGuiDockNode node = ImGuiInternal.DockBuilderGetNode(centralID);
         // Select Game editor tab
-        int id = ImGuiInternal.ImHashStr_1("#TAB", 0, ImGuiInternal.ImHashStr_1("Game Editor", 0, 0));
+        int id = ImGuiInternal.ImHashStr("#TAB", 0, ImGuiInternal.ImHashStr("Game Editor", 0, 0));
         node.set_SelectedTabId(id);
 
         ImGuiInternal.DockBuilderFinish(dockspace_id);
