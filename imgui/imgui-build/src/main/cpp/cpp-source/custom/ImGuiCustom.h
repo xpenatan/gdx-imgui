@@ -200,7 +200,7 @@ class ImGui {
         static ImFont*                  GetFont() { return im::GetFont(); }
         static float                    GetFontSize() { return im::GetFontSize(); }
         static ImVec2                   GetFontTexUvWhitePixel() { return im::GetFontTexUvWhitePixel(); }
-        static ImU32                    GetColorU32(ImGuiCol idx, float alpha_mul = 1.0f) { return im::GetColorU32(idx, alpha_mul); }
+        static ImU32                    GetColorU32Style(ImGuiCol idx, float alpha_mul = 1.0f) { return im::GetColorU32(idx, alpha_mul); }
         static ImU32                    GetColorU32_2(const ImVec4& col) { return im::GetColorU32(col); }
         static ImU32                    GetColorU32_3(ImU32 col) { return im::GetColorU32(col); }
         static const                    ImVec4& GetStyleColorVec4(ImGuiCol idx) { return im::GetStyleColorVec4(idx); }

@@ -185,7 +185,7 @@ interface ImGui {
     static ImFont                  GetFont();
     static float                   GetFontSize();
     [Value] static ImVec2          GetFontTexUvWhitePixel();
-    static unsigned long           GetColorU32(long idx, optional float alpha_mul);
+    static unsigned long           GetColorU32Style(long idx, optional float alpha_mul);
     static unsigned long           GetColorU32_2([Const, Ref]ImVec4 col);
     static unsigned long           GetColorU32_3(unsigned long col);
     [Const, Ref] static ImVec4     GetStyleColorVec4(long idx);
@@ -341,7 +341,6 @@ interface ImGui {
 
     static void                    Value([Const] DOMString prefix, boolean b);
     static void                    Value_2([Const] DOMString prefix, long v);
-    static void                    Value_3([Const] DOMString prefix, unsigned long v);
     static void                    Value_4([Const] DOMString prefix, float v, [Const] optional DOMString float_format);
 
     static boolean                 BeginMenuBar();
