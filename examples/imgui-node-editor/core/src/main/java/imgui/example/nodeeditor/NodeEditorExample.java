@@ -2,14 +2,13 @@ package imgui.example.nodeeditor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import imgui.ImGui;
-import imgui.ImVec2;
+import imgui.example.nodeeditor.demo.BlueprintExample;
+import imgui.example.nodeeditor.demo.SimpleExample;
 import imgui.example.renderer.ImGuiRenderer;
 import imgui.extension.nodeeditor.Config;
 import imgui.extension.nodeeditor.EditorContext;
 import imgui.extension.nodeeditor.LoadSaveSettingsListener;
 import imgui.extension.nodeeditor.NodeEditor;
-import imgui.extension.nodeeditor.PinKind;
 import imgui.idl.helper.IDLString;
 
 public class NodeEditorExample extends ImGuiRenderer {
@@ -42,6 +41,7 @@ public class NodeEditorExample extends ImGuiRenderer {
     @Override
     public void renderImGui() {
         SimpleExample.render(editorContext);
+        BlueprintExample.render(editorContext);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package imgui.example.nodeeditor;
+package imgui.example.nodeeditor.demo;
 
 import imgui.ImGui;
 import imgui.ImVec2;
