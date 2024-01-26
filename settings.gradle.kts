@@ -31,6 +31,7 @@ include(":extensions:ImGuiColorTextEdit:textedit-teavm")
 // Extension imgui-node-editor
 include(":extensions:imgui-node-editor:nodeeditor-build")
 include(":extensions:imgui-node-editor:nodeeditor-base")
+include(":extensions:imgui-node-editor:nodeeditor-cpp")
 include(":extensions:imgui-node-editor:nodeeditor-core")
 include(":extensions:imgui-node-editor:nodeeditor-teavm")
 

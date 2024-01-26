@@ -37,7 +37,7 @@ public class BuildNodeEditor {
 
         String nodeeditorBasePath = nodeeditorPath + "/nodeeditor-base";
         String nodeeditorBuildPath = nodeeditorPath + "/nodeeditor-build";
-        String nodeeditorCorePath = nodeeditorPath + "/nodeeditor-core";
+        String nodeeditorCppPath = nodeeditorPath + "/nodeeditor-cpp";
         String nodeeditorTeavmPath = nodeeditorPath + "/nodeeditor-teavm";
 
         String nodeEditorCPPPath = nodeeditorBuildPath + "/build/c++";
@@ -64,7 +64,7 @@ public class BuildNodeEditor {
             CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath, true);
             CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage, cppSourceDir);
             cppParser.generateClass = true;
-            JParser.generate(cppParser, baseJavaDir, nodeeditorCorePath + "/src/main/java");
+            JParser.generate(cppParser, baseJavaDir, nodeeditorCppPath + "/src/main/java");
         }
         {
             // Generate TeaVM classes

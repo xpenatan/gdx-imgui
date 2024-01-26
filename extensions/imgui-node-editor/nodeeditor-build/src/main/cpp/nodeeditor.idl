@@ -2,7 +2,7 @@
 interface NodeEditor {
     static void SetCurrentEditor(EditorContext ctx);
     static EditorContext GetCurrentEditor();
-    static EditorContext CreateEditor([Const] optional Config config);
+    static EditorContext CreateEditor(optional LoadSaveSettingsListener listener);
     static void DestroyEditor(EditorContext ctx);
     [Const, Ref] static Config GetConfig(optional EditorContext ctx);
 
@@ -20,8 +20,8 @@ interface NodeEditor {
     static void Begin([Const] DOMString id, [Const, Ref] optional ImVec2 size);
     static void End();
 
-    static void BeginNode([Ref] NodeId id);
-    static void BeginPin([Ref] PinId id, PinKind kind);
+    static void BeginNode(long id);
+    static void BeginPin(long id, PinKind kind);
     static void PinRect([Const, Ref] ImVec2 a, [Const, Ref] ImVec2 b);
     static void PinPivotRect([Const, Ref] ImVec2 a, [Const, Ref] ImVec2 b);
     static void PinPivotSize([Const, Ref] ImVec2 size);
@@ -31,24 +31,24 @@ interface NodeEditor {
     static void Group([Const, Ref] ImVec2 size);
     static void EndNode();
 
-    static boolean BeginGroupHint([Ref] NodeId nodeId);
+    static boolean BeginGroupHint(long nodeId);
     [Value] static ImVec2 GetGroupMin();
     [Value] static ImVec2 GetGroupMax();
     static ImDrawList GetHintForegroundDrawList();
     static ImDrawList GetHintBackgroundDrawList();
     static void EndGroupHint();
 
-    static ImDrawList GetNodeBackgroundDrawList([Ref] NodeId nodeId);
+    static ImDrawList GetNodeBackgroundDrawList(long nodeId);
 
-    static boolean Link([Ref] LinkId id, [Ref] PinId startPinId, [Ref] PinId endPinId, [Const, Ref] optional ImVec4 color, optional float thickness);
+    static boolean Link(long id, long startPinId, long endPinId, [Const, Ref] optional ImVec4 color, optional float thickness);
 
-    static void Flow([Ref] LinkId linkId, optional FlowDirection direction);
+    static void Flow(long linkId, optional FlowDirection direction);
 
     static boolean BeginCreate([Const, Ref] optional ImVec4 color, optional float thickness);
-    static boolean QueryNewLink(PinId startId, PinId endId);
-    static boolean QueryNewLink(PinId startId, PinId endId, [Const, Ref] ImVec4 color, optional float thickness);
-    static boolean QueryNewNode(PinId pinId);
-    static boolean QueryNewNode(PinId pinId, [Const, Ref] ImVec4 color, optional float thickness);
+    static boolean QueryNewLink(long[] startId, long[] endId);
+    static boolean QueryNewLink(long[] startId, long[] endId, [Const, Ref] ImVec4 color, optional float thickness);
+    static boolean QueryNewNode(long[] pinId);
+    static boolean QueryNewNode(long[] pinId, [Const, Ref] ImVec4 color, optional float thickness);
     static boolean AcceptNewItem();
     static boolean AcceptNewItem([Const, Ref] ImVec4 color, optional float thickness);
     static void RejectNewItem();
@@ -56,21 +56,21 @@ interface NodeEditor {
     static void EndCreate();
 
     static boolean BeginDelete();
-    static boolean QueryDeletedLink(LinkId linkId, optional PinId startId, optional PinId endId);
-    static boolean QueryDeletedNode(NodeId nodeId);
+    static boolean QueryDeletedLink(long[] linkId, optional long[] startId, optional long[] endId);
+    static boolean QueryDeletedNode(long[] nodeId);
     static boolean AcceptDeletedItem(optional boolean deleteDependencies);
     static void RejectDeletedItem();
     static void EndDelete();
 
-    static void SetNodePosition([Ref] NodeId nodeId, [Const, Ref] ImVec2 editorPosition);
-    static void SetGroupSize([Ref] NodeId nodeId, [Const, Ref] ImVec2 size);
-    [Value] static ImVec2 GetNodePosition([Ref] NodeId nodeId);
-    [Value] static ImVec2 GetNodeSize([Ref] NodeId nodeId);
-    static void CenterNodeOnScreen([Ref] NodeId nodeId);
-    static void SetNodeZPosition([Ref] NodeId nodeId, float z);
-    static float GetNodeZPosition([Ref] NodeId nodeId);
+    static void SetNodePosition(long nodeId, [Const, Ref] ImVec2 editorPosition);
+    static void SetGroupSize(long nodeId, [Const, Ref] ImVec2 size);
+    [Value] static ImVec2 GetNodePosition(long nodeId);
+    [Value] static ImVec2 GetNodeSize(long nodeId);
+    static void CenterNodeOnScreen(long nodeId);
+    static void SetNodeZPosition(long nodeId, float z);
+    static float GetNodeZPosition(long nodeId);
 
-    static void RestoreNodeState([Ref] NodeId nodeId);
+    static void RestoreNodeState(long nodeId);
 
     static void Suspend();
     static void Resume();
@@ -80,30 +80,30 @@ interface NodeEditor {
 
     static boolean HasSelectionChanged();
     static long  GetSelectedObjectCount();
-    static long  GetSelectedNodes(NodeId nodes, long size);
-    static long  GetSelectedLinks(LinkId links, long size);
-    static boolean IsNodeSelected([Ref] NodeId nodeId);
-    static boolean IsLinkSelected([Ref] LinkId linkId);
+    static long  GetSelectedNodes(long[] nodes, long size);
+    static long  GetSelectedLinks(long[] links, long size);
+    static boolean IsNodeSelected(long nodeId);
+    static boolean IsLinkSelected(long linkId);
     static void ClearSelection();
-    static void SelectNode([Ref] NodeId nodeId, optional boolean append);
-    static void SelectLink([Ref] LinkId linkId, optional boolean append);
-    static void DeselectNode([Ref] NodeId nodeId);
-    static void DeselectLink([Ref] LinkId linkId);
+    static void SelectNode(long nodeId, optional boolean append);
+    static void SelectLink(long linkId, optional boolean append);
+    static void DeselectNode(long nodeId);
+    static void DeselectLink(long linkId);
 
-    static boolean DeleteNode([Ref] NodeId nodeId);
-    static boolean DeleteLink([Ref] LinkId linkId);
+    static boolean DeleteNode(long nodeId);
+    static boolean DeleteLink(long linkId);
 
-    static boolean HasAnyLinks_1([Ref] NodeId nodeId);
-    static boolean HasAnyLinks_2([Ref] PinId pinId);
-    static long BreakLinks_1([Ref] NodeId nodeId);
-    static long BreakLinks_2([Ref] PinId pinId);
+    static boolean HasAnyLinksNode(long nodeId);
+    static boolean HasAnyLinksPin(long pinId);
+    static long BreakLinksNode(long nodeId);
+    static long BreakLinksPin(long pinId);
 
     static void NavigateToContent(optional float duration);
     static void NavigateToSelection(optional boolean zoomIn, optional float duration);
 
-    static boolean ShowNodeContextMenu(NodeId nodeId);
-    static boolean ShowPinContextMenu(PinId pinId);
-    static boolean ShowLinkContextMenu(LinkId linkId);
+    static boolean ShowNodeContextMenu(long[] nodeId);
+    static boolean ShowPinContextMenu(long[] pinId);
+    static boolean ShowLinkContextMenu(long[] linkId);
     static boolean ShowBackgroundContextMenu();
 
     static void EnableShortcuts(boolean enable);
@@ -116,33 +116,45 @@ interface NodeEditor {
     static boolean AcceptDuplicate();
     static boolean AcceptCreateNode();
     static long  GetActionContextSize();
-    static long  GetActionContextNodes(NodeId nodes, long size);
-    static long  GetActionContextLinks(LinkId links, long size);
+    static long  GetActionContextNodes(long[] nodes, long size);
+    static long  GetActionContextLinks(long[] links, long size);
     static void EndShortcut();
 
     static float GetCurrentZoom();
 
-    [Value] static NodeId GetHoveredNode();
-    [Value] static PinId GetHoveredPin();
-    [Value] static LinkId GetHoveredLink();
-    [Value] static NodeId GetDoubleClickedNode();
-    [Value] static PinId GetDoubleClickedPin();
-    [Value] static LinkId GetDoubleClickedLink();
+    static long GetHoveredNode();
+    static long GetHoveredPin();
+    static long GetHoveredLink();
+    static long GetDoubleClickedNode();
+    static long GetDoubleClickedPin();
+    static long GetDoubleClickedLink();
     static boolean IsBackgroundClicked();
     static boolean IsBackgroundDoubleClicked();
     static long GetBackgroundClickButtonIndex();
     static long GetBackgroundDoubleClickButtonIndex();
 
-    static boolean GetLinkPins([Ref] LinkId linkId, PinId startPinId, PinId endPinId);
+    static boolean GetLinkPins(long linkId, long[] startPinId, long[] endPinId);
 
-    static boolean PinHadAnyLinks([Ref] PinId pinId);
+    static boolean PinHadAnyLinks(long pinId);
 
     [Value] static ImVec2 GetScreenSize();
     [Value] static ImVec2 ScreenToCanvas([Const, Ref] ImVec2 pos);
     [Value] static ImVec2 CanvasToScreen([Const, Ref] ImVec2 pos);
 
     static long GetNodeCount();
-    static long GetOrderedNodeIds(NodeId nodes, long size);
+    static long GetOrderedNodeIds(long[] nodes, long size);
+};
+
+interface LoadSaveSettingsListener {
+    void onLoad(IDLString data);
+    boolean onSave(IDLString data, SaveReasonFlags reason);
+};
+
+[JSImplementation="LoadSaveSettingsListener"]
+interface LoadSaveSettingsListenerImpl {
+    void LoadSaveSettingsListenerImpl();
+    void onLoad(IDLString data);
+    boolean onSave(IDLString data, SaveReasonFlags reason);
 };
 
 interface Style {
@@ -152,15 +164,19 @@ interface EditorContext {
 };
 
 interface Config {
+    void Config();
 };
 
-interface LinkId {
-};
-
-interface NodeId {
-};
-
-interface PinId {
+enum SaveReasonFlags {
+// [-NAMESPACE]
+    "SaveReasonFlags::None",
+    "SaveReasonFlags::Navigation",
+    "SaveReasonFlags::Position",
+    "SaveReasonFlags::Size",
+    "SaveReasonFlags::Selection",
+    "SaveReasonFlags::AddNode",
+    "SaveReasonFlags::RemoveNode",
+    "SaveReasonFlags::User"
 };
 
 enum PinKind {
