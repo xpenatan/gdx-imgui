@@ -7,20 +7,20 @@ public class ImGuiStyle extends IDLBase {
     private static ImVec4 tmp = new ImVec4(false);
 
     /*[-IDL_SKIP]*/
-    public native void set_Colors(ImVec4[] Colors);
+    public native void Colors(ImVec4[] Colors);
 
     /*[-IDL_SKIP]*/
-    public native ImVec4[] get_Colors();
+    public native ImVec4[] Colors();
 
-    public void set_Colors(int index, float r, float g, float b, float a) {
-        set_Colors(index, ImVec4.TMP_INTERNAL_1.set(r, g, b, a));
+    public void Colors(int index, float r, float g, float b, float a) {
+        Colors(index, ImVec4.TMP_INTERNAL_1.set(r, g, b, a));
     }
 
-    public void set_Colors(int index, int r, int g, int b, int a) {
-        set_Colors(index, ImVec4.TMP_INTERNAL_1.set(r / 255f, g / 255f, b / 255f, a / 255f));
+    public void Colors(int index, int r, int g, int b, int a) {
+        Colors(index, ImVec4.TMP_INTERNAL_1.set(r / 255f, g / 255f, b / 255f, a / 255f));
     }
 
-    public void set_Colors(int index, ImVec4 color) {
+    public void Colors(int index, ImVec4 color) {
         set_ColorsNATIVE(getCPointer(), index, color.getCPointer());
     }
 
@@ -36,11 +36,10 @@ public class ImGuiStyle extends IDLBase {
     */
     private static native void set_ColorsNATIVE(long addr, int index, long vec4Addr);
 
-
     /**
      * Return a temp ImVec4 object. Don't keep reference.
      */
-    public ImVec4 get_Colors(int index) {
+    public ImVec4 Colors(int index) {
         tmp.setPointer(get_ColorsNATIVE(getCPointer(), index));
         return tmp;
     }

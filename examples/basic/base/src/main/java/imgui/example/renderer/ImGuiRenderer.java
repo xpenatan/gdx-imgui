@@ -28,7 +28,7 @@ public abstract class ImGuiRenderer extends ScreenAdapter {
         }
 
         ImGuiIO io = ImGui.GetIO();
-        io.set_ConfigFlags(ImGuiConfigFlags.ImGuiConfigFlags_DockingEnable);
+        io.ConfigFlags(ImGuiConfigFlags.ImGuiConfigFlags_DockingEnable);
 
         input = new ImGuiGdxInputMultiplexer();
         impl = new ImGuiGdxImpl();

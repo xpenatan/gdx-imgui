@@ -15,7 +15,7 @@ public class ImGuiIO extends IDLBase {
     public ImGuiIO(byte value) {
     }
 
-    public void set_ConfigFlags(int flags) {
+    public void ConfigFlags(int flags) {
         SetConfigFlagsNATIVE(getCPointer(), flags);
     }
 

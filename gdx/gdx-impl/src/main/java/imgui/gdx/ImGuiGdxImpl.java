@@ -148,11 +148,11 @@ public class ImGuiGdxImpl {
                 int cmdBufferSize = imDrawList.getCmdBufferSize();
                 for(int j = 0; j < cmdBufferSize; j++) {
                     ImDrawCmd cmdBuffer = imDrawList.getCmdBuffer(j);
-                    ImVec4 clipRect = cmdBuffer.get_ClipRect();
-                    float clipRectX = clipRect.get_x();
-                    float clipRectY = clipRect.get_y();
-                    float clipRectZ = clipRect.get_z();
-                    float clipRectW = clipRect.get_w();
+                    ImVec4 clipRect = cmdBuffer.ClipRect();
+                    float clipRectX = clipRect.x();
+                    float clipRectY = clipRect.y();
+                    float clipRectZ = clipRect.z();
+                    float clipRectW = clipRect.w();
                     float clip_minX = (clipRectX - clip_offX) * clip_scaleX;
                     float clip_minY = (clipRectY - clip_offY) * clip_scaleY;
                     float clip_maxX = (clipRectZ - clip_offX) * clip_scaleX;

@@ -15,6 +15,8 @@ public class NodeEditorExample extends ImGuiRenderer {
 
     private EditorContext editorContext;
 
+    private BlueprintExample blueprintExample;
+
     @Override
     public void show() {
         super.show();
@@ -22,9 +24,9 @@ public class NodeEditorExample extends ImGuiRenderer {
         editorContext = NodeEditor.CreateEditor(new LoadSaveSettingsListener() {
             @Override
             public void onLoad(IDLString data) {
-                Preferences preferences = Gdx.app.getPreferences("NodeEditorData");
-                String jsonData = preferences.getString("jsonData", "");
-                data.append(jsonData);
+//                Preferences preferences = Gdx.app.getPreferences("NodeEditorData");
+//                String jsonData = preferences.getString("jsonData", "");
+//                data.append(jsonData);
             }
 
             @Override
@@ -36,12 +38,14 @@ public class NodeEditorExample extends ImGuiRenderer {
                 return true;
             }
         });
+
+        blueprintExample = new BlueprintExample();
     }
 
     @Override
     public void renderImGui() {
         SimpleExample.render(editorContext);
-        BlueprintExample.render(editorContext);
+//        blueprintExample.render(editorContext);
     }
 
     @Override

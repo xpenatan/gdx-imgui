@@ -30,14 +30,14 @@ public class BuildImGui {
 
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
             targets.add(getWindowBuildTarget(imguiPath));
-            targets.add(getAndroidBuildTarget(imguiPath));
-            targets.add(getEmscriptenBuildTarget(imguiPath, idlReader));
+//            targets.add(getAndroidBuildTarget(imguiPath));
+//            targets.add(getEmscriptenBuildTarget(imguiPath, idlReader));
         }
         if(BuildTarget.isUnix()) {
-            targets.add(getLinuxBuildTarget(imguiPath));
+//            targets.add(getLinuxBuildTarget(imguiPath));
         }
         if(BuildTarget.isMac()) {
-            targets.add(getMacBuildTarget(imguiPath));
+//            targets.add(getMacBuildTarget(imguiPath));
         }
 
         generateAndBuild(imguiPath, idlReader, targets, true);

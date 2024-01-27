@@ -40,7 +40,7 @@ public class TextEditExample extends ImGuiRenderer {
 
         ImGui.Begin("Editor");
 
-        String text = "\t" + (coordinates.get_mLine() + 1) + "/" + (coordinates.get_mColumn() + 1) + " " + editor.GetTotalLines() + " lines | " + (editor.IsOverwrite() ? "Ovr" : "Ins") + " | " + (editor.CanUndo() ? "*" : " ") + " | " + editor.GetLanguageDefinition().get_mName().c_str();
+        String text = "\t" + (coordinates.mLine() + 1) + "/" + (coordinates.mColumn() + 1) + " " + editor.GetTotalLines() + " lines | " + (editor.IsOverwrite() ? "Ovr" : "Ins") + " | " + (editor.CanUndo() ? "*" : " ") + " | " + editor.GetLanguageDefinition().mName().c_str();
         ImGui.Text(text);
 
         editor.Render("Title");

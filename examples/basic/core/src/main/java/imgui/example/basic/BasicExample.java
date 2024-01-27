@@ -61,11 +61,11 @@ public class BasicExample extends ImGuiRenderer {
 
         ImGuiStyle style = ImGui.GetStyle();
 
-        ImVec4 colors = style.get_Colors(ImGuiCol_Header);
+        ImVec4 colors = style.Colors(ImGuiCol_Header);
 
-        System.out.println("Color before: R: " + colors.get_x() + " G: " + colors.get_y() + " B: " + colors.get_z() + " A: " + colors.get_w());
-        style.set_Colors(ImGuiCol_Header, 255, 0, 0, 255);
-        System.out.println("Color adter: R: " + colors.get_x() + " G: " + colors.get_y() + " B: " + colors.get_z() + " A: " + colors.get_w());
+        System.out.println("Color before: R: " + colors.x() + " G: " + colors.y() + " B: " + colors.z() + " A: " + colors.w());
+        style.Colors(ImGuiCol_Header, 255, 0, 0, 255);
+        System.out.println("Color adter: R: " + colors.x() + " G: " + colors.y() + " B: " + colors.z() + " A: " + colors.w());
     }
 
     @Override
@@ -120,8 +120,8 @@ public class BasicExample extends ImGuiRenderer {
             window_flags |= ImGuiWindowFlags_NoBackground;
         ImGuiViewport imGuiViewport = ImGui.GetMainViewport();
 
-        ImGui.SetNextWindowPos(imGuiViewport.get_Pos());
-        ImGui.SetNextWindowSize(imGuiViewport.get_Size());
+        ImGui.SetNextWindowPos(imGuiViewport.Pos());
+        ImGui.SetNextWindowSize(imGuiViewport.Size());
 
         // Create docking space
         ImGui.PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2.TMP_1.set(0.0f, 0.0f));
@@ -169,7 +169,7 @@ public class BasicExample extends ImGuiRenderer {
         ImGui.SetWindowFocus(null);
         ImGuiInternal.DockBuilderRemoveNode(dockspace_id); // clear any previous layout
         ImGuiInternal.DockBuilderAddNode(dockspace_id, dockspace_flags | 1 << 10);
-        ImGuiInternal.DockBuilderSetNodeSize(dockspace_id, imGuiViewport.get_Size());
+        ImGuiInternal.DockBuilderSetNodeSize(dockspace_id, imGuiViewport.Size());
 
         int centralID = 0;
 
@@ -226,7 +226,7 @@ public class BasicExample extends ImGuiRenderer {
         ImGuiDockNode node = ImGuiInternal.DockBuilderGetNode(centralID);
         // Select Game editor tab
         int id = ImGuiInternal.ImHashStr("#TAB", 0, ImGuiInternal.ImHashStr("Game Editor", 0, 0));
-        node.set_SelectedTabId(id);
+        node.SelectedTabId(id);
 
         ImGuiInternal.DockBuilderFinish(dockspace_id);
     }
