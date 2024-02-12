@@ -10,7 +10,7 @@ public final class ImDrawData extends IDLBase {
     public ImDrawData(boolean cMemoryOwn) {
     }
 
-    public ImDrawData(byte value) {
+    public ImDrawData(byte b, char c) {
     }
 
     public int getCmdListsCount() {

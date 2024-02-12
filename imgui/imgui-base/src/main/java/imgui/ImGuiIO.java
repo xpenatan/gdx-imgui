@@ -12,7 +12,7 @@ public class ImGuiIO extends IDLBase {
     public ImGuiIO(boolean cMemoryOwn) {
     }
 
-    public ImGuiIO(byte value) {
+    public ImGuiIO(byte v, char c) {
     }
 
     public void ConfigFlags(int flags) {
