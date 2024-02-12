@@ -587,11 +587,11 @@ interface ImRect {
     [Value]attribute ImVec2 Min;
     [Value]attribute ImVec2 Max;
 
-//    ImVec2 GetCenter() const
-//    ImVec2 GetSize() const
-//    float GetWidth() const
-//    float GetHeight() const
-//    float GetArea() const
+    [Value, Const] ImVec2 GetCenter();
+    [Value, Const] ImVec2 GetSize();
+    float GetWidth();
+    float GetHeight();
+    float GetArea();
 //    ImVec2 GetTL() const
 //    ImVec2 GetTR() const
 //    ImVec2 GetBL() const
