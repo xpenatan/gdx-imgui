@@ -358,7 +358,7 @@ interface ImGui {
 ////    static void                    SetTooltipV([Const] DOMString fmt, DOMString args);
 
     static boolean                 BeginItemTooltip();
-    static void                    SetItemTooltip([Const] DOMString fmt)
+    static void                    SetItemTooltip([Const] DOMString fmt);
 
     static boolean                 BeginPopup([Const] DOMString str_id, optional ImGuiWindowFlags flags);
     static boolean                 BeginPopupModal([Const] DOMString name, optional boolean[] p_open, optional ImGuiWindowFlags flags);
