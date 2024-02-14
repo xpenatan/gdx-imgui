@@ -369,6 +369,10 @@ class ImGui {
         static void                     EndTooltip() { im::EndTooltip(); }
         static void                     SetTooltip(const char* fmt) { im::SetTooltip(fmt); }
         static void                     SetTooltipV(const char* fmt, va_list args) { im::SetTooltipV(fmt, args); }
+
+        static bool                     BeginItemTooltip() { return im::BeginItemTooltip(); }
+        static void                     SetItemTooltip(const char* fmt) { im::SetItemTooltip(fmt); }
+
         static bool                     BeginPopup(const char* str_id, ImGuiWindowFlags flags = 0) { return im::BeginPopup(str_id, flags); }
         static bool                     BeginPopupModal(const char* name, bool* p_open = NULL, ImGuiWindowFlags flags = 0) { return im::BeginPopupModal(name, p_open, flags); }
         //Custom me
