@@ -58,6 +58,7 @@ interface ImGuiCollapseLayoutOptions {
     attribute long roundingCorners;
     attribute boolean openDefault;
 };
+ImGuiCollapseLayoutOptions implements ImGuiLayoutOptions;
 
 interface ImGuiLayout {
     [Value]attribute ImVec2 position;
