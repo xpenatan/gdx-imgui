@@ -157,4 +157,5 @@ public:
     static void BeginBoundingBox();  // Its the same as using Begin/End group and getting the LastItemRect values
     static ImRect& EndBoundingBox();  // Its the same as using Begin/End group and getting the LastItemRect values
 
+    static float GetTableContentHeight();  // call before moving to the next cell/row
 };

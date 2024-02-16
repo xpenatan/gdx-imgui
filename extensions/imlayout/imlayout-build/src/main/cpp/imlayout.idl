@@ -36,6 +36,8 @@ interface ImLayout {
 
     static void BeginBoundingBox();
     [Ref] static ImRect EndBoundingBox();
+
+    static float GetTableContentHeight();
 };
 
 interface ImGuiLayoutOptions {

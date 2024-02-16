@@ -726,3 +726,18 @@ ImRect& ImLayout::EndBoundingBox() {
     ImGui::EndGroup();
     return g.LastItemData.Rect;
 }
+
+float ImLayout::GetTableContentHeight() {
+	ImGuiContext& g = *GImGui;
+	ImGuiTable* table = g.CurrentTable;
+	if (table != NULL) {
+		ImGuiWindow* window = table->InnerWindow;
+		float y = window->DC.CursorPos.y;
+		float itemSpacingY = g.Style.ItemSpacing.y;
+
+		float height = y - table->RowPosY1 - table->RowCellPaddingY - itemSpacingY;
+
+		return height;
+	}
+	return 0;
+}
