@@ -1365,7 +1365,13 @@ enum ImGuiHoveredFlags {
     "ImGuiHoveredFlags_NoNavOverride",
     "ImGuiHoveredFlags_AllowWhenOverlapped",
     "ImGuiHoveredFlags_RectOnly",
-    "ImGuiHoveredFlags_RootAndChildWindows"
+    "ImGuiHoveredFlags_RootAndChildWindows",
+    "ImGuiHoveredFlags_ForTooltip",
+    "ImGuiHoveredFlags_Stationary",
+    "ImGuiHoveredFlags_DelayNone",
+    "ImGuiHoveredFlags_DelayShort",
+    "ImGuiHoveredFlags_DelayNormal",
+    "ImGuiHoveredFlags_NoSharedDelay"
 };
 
 enum ImGuiCol {
