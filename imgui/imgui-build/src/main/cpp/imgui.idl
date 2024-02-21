@@ -96,7 +96,6 @@ interface ImGui {
     static void                    ShowDemoWindow(optional boolean[] p_open);
     static void                    ShowMetricsWindow(optional boolean[] p_open);
     static void                    ShowDebugLogWindow(optional boolean[] p_open);
-    static void                    ShowStackToolWindow(optional boolean[] p_open);
     static void                    ShowAboutWindow(optional boolean[] p_open);
     static void                    ShowStyleEditor(optional ImGuiStyle ref);
     static void                    ShowStyleSelector([Const] DOMString label);
@@ -461,7 +460,6 @@ interface ImGui {
     [Value] static ImVec2          GetItemRectMin();
     [Value] static ImVec2          GetItemRectMax();
     [Value] static ImVec2          GetItemRectSize();
-    static void                    SetItemAllowOverlap();
 
     static ImGuiViewport           GetMainViewport();
 
@@ -478,8 +476,6 @@ interface ImGui {
 ////    [Const] DOMString        GetStyleColorName(long idx);
     static void                    SetStateStorage(ImGuiStorage storage);
     static ImGuiStorage            GetStateStorage();
-    static boolean                 BeginChildFrame(long id, [Const, Ref]ImVec2 size, optional ImGuiWindowFlags flags);
-    static void                    EndChildFrame();
 
     [Value] static ImVec2          CalcTextSize([Const] DOMString text, [Const] optional DOMString text_end, optional boolean hide_text_after_double_hash, optional float wrap_width);
 //
