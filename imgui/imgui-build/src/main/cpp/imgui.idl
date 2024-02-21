@@ -34,6 +34,8 @@ interface ImGuiInternal {
     static void                    DockBuilderCopyWindowSettings([Const] DOMString src_name, [Const] DOMString dst_name);
     static void                    DockBuilderFinish(long node_id);
 
+    static boolean                 BeginTableEx([Const] DOMString str_id, long id, long column, optional ImGuiTableFlags flags, [Const, Ref] optional ImVec2 outer_size, optional float inner_width);
+
     static ImGuiTabBar             GetCurrentTabBar();
     static ImGuiTabItem            TabBarFindTabByID(ImGuiTabBar tab_bar, long tab_id);
     static ImGuiTabItem            TabBarFindTabByOrder(ImGuiTabBar tab_bar, long order);

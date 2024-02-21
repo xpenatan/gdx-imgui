@@ -50,6 +50,8 @@ class ImGuiInternal {
         static void                     DockBuilderCopyWindowSettings(const char* src_name, const char* dst_name) { im::DockBuilderCopyWindowSettings(src_name, dst_name); }
         static void                     DockBuilderFinish(ImGuiID node_id) { im::DockBuilderFinish(node_id); }
 
+        static bool                     BeginTableEx(const char* name, ImGuiID id, int columns_count, ImGuiTableFlags flags = 0, const ImVec2& outer_size = ImVec2(0, 0), float inner_width = 0.0f) { return im::BeginTableEx(name, id, columns_count, flags, outer_size, inner_width); }
+
         static ImGuiTabBar*             GetCurrentTabBar() { return im::GetCurrentTabBar(); }
         static ImGuiTabItem*            TabBarFindTabByID(ImGuiTabBar* tab_bar, ImGuiID tab_id) { return im::TabBarFindTabByID(tab_bar, tab_id); }
         static ImGuiTabItem*            TabBarFindTabByOrder(ImGuiTabBar* tab_bar, int order) { return im::TabBarFindTabByOrder(tab_bar, order); }
