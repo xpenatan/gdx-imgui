@@ -111,7 +111,6 @@ class ImGui {
         static void                     ShowDemoWindow(bool* p_open = NULL) { im::ShowDemoWindow(p_open); }
         static void                     ShowMetricsWindow(bool* p_open = NULL) { im::ShowMetricsWindow(p_open); }
         static void                     ShowDebugLogWindow(bool* p_open = NULL) { im::ShowDebugLogWindow(p_open); }
-        static void                     ShowStackToolWindow(bool* p_open = NULL) { im::ShowStackToolWindow(p_open); }
         static void                     ShowAboutWindow(bool* p_open = NULL) { im::ShowAboutWindow(p_open); }
         static void                     ShowStyleEditor(ImGuiStyle* ref = NULL) { im::ShowStyleEditor(ref); }
         static void                     ShowStyleSelector(const char* label) { im::ShowStyleSelector(label); }
@@ -126,8 +125,8 @@ class ImGui {
         static bool                     Begin(const char* name, bool* p_open = NULL, ImGuiWindowFlags flags = 0) { return im::Begin(name, p_open, flags); }
         static void                     End() { im::End(); }
 
-        static bool                     BeginChild(const char* str_id, const ImVec2& size = ImVec2(0, 0), bool border = false, ImGuiWindowFlags flags = 0) { return im::BeginChild(str_id, size, border, flags); }
-        static bool                     BeginChild_2(ImGuiID id, const ImVec2& size = ImVec2(0, 0), bool border = false, ImGuiWindowFlags flags = 0) { return im::BeginChild(id, size, border, flags); }
+        static bool                     BeginChild(const char* str_id, const ImVec2& size = ImVec2(0, 0), ImGuiChildFlags child_flags = 0, ImGuiWindowFlags window_flags = 0) { return im::BeginChild(str_id, size, child_flags, window_flags); }
+        static bool                     BeginChild_2(ImGuiID id, const ImVec2& size = ImVec2(0, 0), ImGuiChildFlags child_flags = 0, ImGuiWindowFlags window_flags = 0) { return im::BeginChild(id, size, child_flags, window_flags); }
         static void                     EndChild() { im::EndChild(); }
 
         static bool                     IsWindowAppearing() { return im::IsWindowAppearing(); }
@@ -471,7 +470,6 @@ class ImGui {
         static ImVec2                   GetItemRectMin() { return im::GetItemRectMin(); }
         static ImVec2                   GetItemRectMax() { return im::GetItemRectMax(); }
         static ImVec2                   GetItemRectSize() { return im::GetItemRectSize(); }
-        static void                     SetItemAllowOverlap() { im::SetItemAllowOverlap(); }
 
         static ImGuiViewport*           GetMainViewport() { return im::GetMainViewport(); }
 
@@ -488,8 +486,6 @@ class ImGui {
 //        static const char*              GetStyleColorName(ImGuiCol idx) { return im::GetStyleColorName(idx); }
         static void                     SetStateStorage(ImGuiStorage* storage) { im::SetStateStorage(storage); }
         static ImGuiStorage*            GetStateStorage() { return im::GetStateStorage(); }
-        static bool                     BeginChildFrame(ImGuiID id, const ImVec2& size, ImGuiWindowFlags flags = 0) { return im::BeginChildFrame(id, size, flags); }
-        static void                     EndChildFrame() { im::EndChildFrame(); }
 
         static ImVec2                   CalcTextSize(const char* text, const char* text_end = NULL, bool hide_text_after_double_hash = false, float wrap_width = -1.0f) { return im::CalcTextSize(text, text_end, hide_text_after_double_hash, wrap_width); }
 

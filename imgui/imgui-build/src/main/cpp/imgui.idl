@@ -110,8 +110,8 @@ interface ImGui {
     static boolean                 Begin([Const] DOMString name, optional boolean[] p_open, optional ImGuiWindowFlags flags);
     static void                    End();
 
-    static boolean                 BeginChild([Const] DOMString str_id, [Const,Ref] optional ImVec2 size, optional boolean border, optional ImGuiWindowFlags flags);
-    static boolean                 BeginChild_2(long id, [Const,Ref] optional ImVec2 size, optional boolean border, optional ImGuiWindowFlags flags);
+    static boolean                 BeginChild([Const] DOMString str_id, [Const,Ref] optional ImVec2 size, optional ImGuiChildFlags child_flags, optional ImGuiWindowFlags flags);
+    static boolean                 BeginChild_2(long id, [Const,Ref] optional ImVec2 size, optional ImGuiChildFlags child_flags, optional ImGuiWindowFlags flags);
     static void                    EndChild();
 
     static boolean                 IsWindowAppearing();
@@ -1208,6 +1208,18 @@ enum ImGuiFocusRequestFlags {
     "ImGuiFocusRequestFlags_None",
     "ImGuiFocusRequestFlags_RestoreFocusedChild",
     "ImGuiFocusRequestFlags_UnlessBelowModal"
+};
+
+enum ImGuiChildFlags {
+    "ImGuiChildFlags_None",
+    "ImGuiChildFlags_Border",
+    "ImGuiChildFlags_AlwaysUseWindowPadding",
+    "ImGuiChildFlags_ResizeX",
+    "ImGuiChildFlags_ResizeY",
+    "ImGuiChildFlags_AutoResizeX",
+    "ImGuiChildFlags_AutoResizeY",
+    "ImGuiChildFlags_AlwaysAutoResize",
+    "ImGuiChildFlags_FrameStyle"
 };
 
 enum ImDrawFlags {
