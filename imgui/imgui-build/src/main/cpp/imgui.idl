@@ -323,8 +323,8 @@ interface ImGui {
 //    static void                    TreePush_2([Const] any ptr_id);
     static void                    TreePop();
     static float                   GetTreeNodeToLabelSpacing();
-    static boolean                 CollapsingHeader([Const] DOMString label, optional ImGuiTreeNodeFlags flags);
-    static boolean                 CollapsingHeader_2([Const] DOMString label, boolean[] p_visible, optional ImGuiTreeNodeFlags flags);
+    static boolean                 CollapsingHeader([Const] DOMString label, optional ImGuiTreeNodeFlags ImGuiTreeNodeFlags);
+    static boolean                 CollapsingHeader_2([Const] DOMString label, boolean[] p_visible, optional ImGuiTreeNodeFlags ImGuiTreeNodeFlags);
     static void                    SetNextItemOpen(boolean is_open, optional ImGuiCond cond);
 
     static boolean                 Selectable([Const] DOMString label, optional boolean selected, optional ImGuiSelectableFlags flags, [Const, Ref] optional ImVec2 size);
