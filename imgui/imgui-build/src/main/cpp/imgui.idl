@@ -69,8 +69,8 @@ interface ImGuiInternal {
 
     // Widgets low-level behaviors
     static boolean                 ButtonBehavior([Const, Ref] ImRect bb, long id, boolean[] out_hovered, boolean[] out_held, optional ImGuiButtonFlags flags);
-//    static boolean                 DragBehavior(long id, ImGuiDataType data_type, void* p_v, float v_speed, const void* p_min, const void* p_max, const char* format, ImGuiSliderFlags flags);
-//    static boolean                 SliderBehavior(const ImRect& bb, ImGuiID id, ImGuiDataType data_type, void* p_v, const void* p_min, const void* p_max, const char* format, ImGuiSliderFlags flags, ImRect* out_grab_bb);
+    static boolean                 DragBehavior(long id, ImGuiDataType data_type, any p_v, float v_speed, [Const] any p_min, [Const] any p_max, [Const] DOMString format, ImGuiSliderFlags flags);
+    static boolean                 SliderBehavior([Const, Ref] ImRect bb, long id, ImGuiDataType data_type, any p_v, [Const] any p_min, [Const] any p_max, [Const] DOMString format, ImGuiSliderFlags flags, ImRect out_grab_bb);
     static boolean                 SplitterBehavior([Const, Ref] ImRect bb, long id, ImGuiAxis axis, float[] size1, float[] size2, float min_size1, float min_size2, optional float hover_extend, optional float hover_visibility_delay, optional long bg_col);
     static boolean                 TreeNodeBehavior(long id, ImGuiTreeNodeFlags flags, [Const] DOMString label, [Const] optional DOMString label_end);
     static void                    TreePushOverrideID(long id);
@@ -1473,4 +1473,17 @@ enum ImGuiAxis {
     "ImGuiAxis_None",
     "ImGuiAxis_X",
     "ImGuiAxis_Y"
+};
+
+enum ImGuiDataType {
+    "ImGuiDataType_S8",
+    "ImGuiDataType_U8",
+    "ImGuiDataType_S16",
+    "ImGuiDataType_U16",
+    "ImGuiDataType_S32",
+    "ImGuiDataType_U32",
+    "ImGuiDataType_S64",
+    "ImGuiDataType_U64",
+    "ImGuiDataType_Float",
+    "ImGuiDataType_Double"
 };
