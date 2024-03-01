@@ -7,12 +7,26 @@ interface ImGuiInternal {
     static long                    ImHashStr_1([Const] DOMString data, optional long data_size, optional long seed);
 
     static ImGuiWindow             GetCurrentWindow();
+
+    // Basic Helpers for widget code
     static void                    ItemSize([Const, Ref] ImVec2 size, optional float text_baseline_y);
     static void                    ItemSize_2([Const, Ref] ImRect bb, optional float text_baseline_y);
+    static boolean                 ItemAdd([Const, Ref] ImRect bb, long id, [Const] optional ImRect nav_bb, optional ImGuiItemFlags ImGuiItemFlags);
+    static boolean                 ItemHoverable([Const, Ref] ImRect bb, long id, ImGuiItemFlags ImGuiItemFlags);
+    static boolean                 IsWindowContentHoverable(ImGuiWindow window, optional ImGuiHoveredFlags ImGuiHoveredFlags);
+    static boolean                 IsClippedEx([Const, Ref] ImRect bb, long id);
+    static void                    SetLastItemData(long item_id, ImGuiItemFlags ImGuiItemFlags, ImGuiItemStatusFlags ImGuiItemStatusFlags, [Const, Ref] ImRect item_rect);
+    [Value] static ImVec2          CalcItemSize([Ref] ImVec2 size, float default_w, float default_h);
+    static float                   CalcWrapWidthForPos([Const, Ref] ImVec2 pos, float wrap_pos_x);
+    static void                    PushMultiItemsWidths(long components, float width_full);
+    static boolean                 IsItemToggledSelection();
+    [Value] static ImVec2          GetContentRegionMaxAbs();
+    static void                    ShrinkWidths(ImGuiShrinkWidthItem items, long count, float width_excess);
+
+    // Parameter stacks (shared)
     static void                    PushItemFlag(ImGuiItemFlags ImGuiItemFlags, boolean enabled);
     static void                    PopItemFlag();
 
-    static boolean                 ItemAdd([Const, Ref] ImRect bb, long id, [Const] optional ImRect nav_bb, optional ImGuiItemFlags ImGuiItemFlags);
 
     static ImGuiWindow             FindWindowByID(long id);
     static ImGuiWindow             FindWindowByName([Const] DOMString name);
@@ -906,6 +920,12 @@ interface ImGuiTabBar {
 interface ImGuiTabItem {
 };
 
+interface ImGuiShrinkWidthItem {
+    attribute long Index;
+    attribute float Width;
+    attribute float InitialWidth;
+};
+
 enum ImGuiFocusedFlags {
     "ImGuiFocusedFlags_None",
     "ImGuiFocusedFlags_ChildWindows",
@@ -1486,4 +1506,18 @@ enum ImGuiDataType {
     "ImGuiDataType_U64",
     "ImGuiDataType_Float",
     "ImGuiDataType_Double"
+};
+
+enum ImGuiItemStatusFlags {
+    "ImGuiItemStatusFlags_None",
+    "ImGuiItemStatusFlags_HoveredRect",
+    "ImGuiItemStatusFlags_HasDisplayRect",
+    "ImGuiItemStatusFlags_Edited",
+    "ImGuiItemStatusFlags_ToggledSelection",
+    "ImGuiItemStatusFlags_ToggledOpen",
+    "ImGuiItemStatusFlags_HasDeactivated",
+    "ImGuiItemStatusFlags_Deactivated",
+    "ImGuiItemStatusFlags_HoveredWindow",
+    "ImGuiItemStatusFlags_Visible",
+    "ImGuiItemStatusFlags_HasClipRect"
 };
