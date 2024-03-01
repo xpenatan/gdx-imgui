@@ -25,11 +25,25 @@ class ImGuiInternal {
         static ImGuiID                  ImHashStr_1(const char* data, size_t data_size = 0, ImGuiID seed = 0) { return ImHashStr(data, data_size, seed); }
 
         static ImGuiWindow*             GetCurrentWindow() { return im::GetCurrentWindow(); }
+
+        // Basic Helpers for widget code
         static void                     ItemSize(const ImVec2& size, float text_baseline_y = -1.0f) { im::ItemSize(size, text_baseline_y); }
         static void                     ItemSize_2(const ImRect& bb, float text_baseline_y = -1.0f) { im::ItemSize(bb, text_baseline_y); }
+        static bool                     ItemAdd(const ImRect& bb, ImGuiID id, const ImRect* nav_bb = NULL, ImGuiItemFlags extra_flags = 0) { return im::ItemAdd(bb, id, nav_bb, extra_flags); }
+        static bool                     ItemHoverable(const ImRect& bb, ImGuiID id, ImGuiItemFlags item_flags) { return im::ItemHoverable(bb, id, item_flags); }
+        static bool                     IsWindowContentHoverable(ImGuiWindow* window, ImGuiHoveredFlags flags = 0) { return im::IsWindowContentHoverable(window, flags); }
+        static bool                     IsClippedEx(const ImRect& bb, ImGuiID id) { return im::IsClippedEx(bb, id); }
+        static void                     SetLastItemData(ImGuiID item_id, ImGuiItemFlags in_flags, ImGuiItemStatusFlags status_flags, const ImRect& item_rect) { im::SetLastItemData(item_id, in_flags, status_flags, item_rect); }
+        static ImVec2                   CalcItemSize(ImVec2 size, float default_w, float default_h) { return im::CalcItemSize(size, default_w, default_h); }
+        static float                    CalcWrapWidthForPos(const ImVec2& pos, float wrap_pos_x) { return im::CalcWrapWidthForPos(pos, wrap_pos_x); }
+        static void                     PushMultiItemsWidths(int components, float width_full) { im::PushMultiItemsWidths(components, width_full); }
+        static bool                     IsItemToggledSelection() { return im::IsItemToggledSelection(); }
+        static ImVec2                   GetContentRegionMaxAbs() { return im::GetContentRegionMaxAbs(); }
+        static void                     ShrinkWidths(ImGuiShrinkWidthItem* items, int count, float width_excess) { im::ShrinkWidths(items, count, width_excess); }
+
+        // Parameter stacks (shared)
         static void                     PushItemFlag(ImGuiItemFlags option, bool enabled) { im::PushItemFlag(option, enabled); }
         static void                     PopItemFlag() { im::PopItemFlag(); }
-        static bool                     ItemAdd(const ImRect& bb, ImGuiID id, const ImRect* nav_bb = NULL, ImGuiItemFlags extra_flags = 0) { return im::ItemAdd(bb, id, nav_bb, extra_flags); }
 
         static ImGuiWindow*             FindWindowByID(ImGuiID id) { return im::FindWindowByID(id); }
         static ImGuiWindow*             FindWindowByName(const char* name) { return im::FindWindowByName(name); }
