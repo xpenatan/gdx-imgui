@@ -361,29 +361,29 @@ interface ImGui {
     static boolean                 BeginItemTooltip();
     static void                    SetItemTooltip([Const] DOMString fmt);
 
-    static boolean                 BeginPopup([Const] DOMString str_id, optional ImGuiWindowFlags flags);
-    static boolean                 BeginPopupModal([Const] DOMString name, optional boolean[] p_open, optional ImGuiWindowFlags flags);
-    static boolean                 BeginPopupModal2([Const] DOMString name, ImGuiWindowFlags flags);
+    static boolean                 BeginPopup([Const] DOMString str_id, optional ImGuiWindowFlagsImGuiWindowFlagsflags);
+    static boolean                 BeginPopupModal([Const] DOMString name, optional boolean[] p_open, optional ImGuiWindowFlags ImGuiWindowFlags);
+    static boolean                 BeginPopupModal2([Const] DOMString name, ImGuiWindowFlags ImGuiWindowFlags);
     static void                    EndPopup();
 //
-    static void                    OpenPopup([Const] DOMString str_id, optional ImGuiPopupFlags popup_flags);
-    static void                    OpenPopup_2(long id, optional ImGuiPopupFlags popup_flags);
-    static void                    OpenPopupOnItemClick([Const] optional DOMString str_id, optional ImGuiPopupFlags popup_flags);
+    static void                    OpenPopup([Const] DOMString str_id, optional ImGuiPopupFlags ImGuiPopupFlags);
+    static void                    OpenPopup_2(long id, optional ImGuiPopupFlags ImGuiPopupFlags);
+    static void                    OpenPopupOnItemClick([Const] optional DOMString str_id, optional ImGuiPopupFlags ImGuiPopupFlags);
     static void                    CloseCurrentPopup();
 //
-    static boolean                 BeginPopupContextItem([Const] optional DOMString str_id, optional ImGuiPopupFlags popup_flags);
-    static boolean                 BeginPopupContextWindow([Const] optional DOMString str_id, optional ImGuiPopupFlags popup_flags);
-    static boolean                 BeginPopupContextVoid([Const] optional DOMString str_id, optional ImGuiPopupFlags popup_flags);
+    static boolean                 BeginPopupContextItem([Const] optional DOMString str_id, optional ImGuiPopupFlags ImGuiPopupFlags);
+    static boolean                 BeginPopupContextWindow([Const] optional DOMString str_id, optional ImGuiPopupFlags ImGuiPopupFlags);
+    static boolean                 BeginPopupContextVoid([Const] optional DOMString str_id, optional ImGuiPopupFlags ImGuiPopupFlags);
 //
-    static boolean                 IsPopupOpen([Const] DOMString str_id, optional ImGuiPopupFlags flags);
+    static boolean                 IsPopupOpen([Const] DOMString str_id, optional ImGuiPopupFlags ImGuiPopupFlags);
 //
-    static boolean                 BeginTable([Const] DOMString str_id, long column, optional ImGuiTableFlags flags, [Const, Ref] optional ImVec2 outer_size, optional float inner_width);
+    static boolean                 BeginTable([Const] DOMString str_id, long column, optional ImGuiTableFlags ImGuiTableFlags, [Const, Ref] optional ImVec2 outer_size, optional float inner_width);
     static void                    EndTable();
     static void                    TableNextRow(optional long row_flags, optional float min_row_height);
     static boolean                 TableNextColumn();
     static boolean                 TableSetColumnIndex(long column_n);
 
-    static void                    TableSetupColumn([Const] DOMString label, optional ImGuiTableColumnFlags flags, optional float init_width_or_weight, optional long user_id);
+    static void                    TableSetupColumn([Const] DOMString label, optional ImGuiTableColumnFlags ImGuiTableColumnFlags, optional float init_width_or_weight, optional long user_id);
     static void                    TableSetupScrollFreeze(long cols, long rows);
     static void                    TableHeadersRow();
     static void                    TableHeader([Const] DOMString label);
@@ -406,15 +406,15 @@ interface ImGui {
     static void                    SetColumnOffset(long column_index, float offset_x);
     static long                    GetColumnsCount();
 
-    static boolean                 BeginTabBar([Const] DOMString str_id, optional ImGuiTabBarFlags flags);
+    static boolean                 BeginTabBar([Const] DOMString str_id, optional ImGuiTabBarFlags ImGuiTabBarFlags);
     static void                    EndTabBar();
-    static boolean                 BeginTabItem([Const] DOMString label, optional boolean[] p_open, optional ImGuiTabItemFlags flags);
+    static boolean                 BeginTabItem([Const] DOMString label, optional boolean[] p_open, optional ImGuiTabItemFlags ImGuiTabItemFlags);
     static void                    EndTabItem();
-    static boolean                 TabItemButton([Const] DOMString label, ImGuiTabItemFlags flags);
+    static boolean                 TabItemButton([Const] DOMString label, ImGuiTabItemFlags ImGuiTabItemFlags);
     static void                    SetTabItemClosed([Const] DOMString tab_or_docked_window_label);
 
-    static long                    DockSpace(long id, [Const, Ref] optional ImVec2 size, optional ImGuiDockNodeFlags flags, [Const] optional ImGuiWindowClass window_class);
-    static long                    DockSpaceOverViewport([Const] optional ImGuiViewport viewport, optional ImGuiDockNodeFlags flags, [Const] optional ImGuiWindowClass window_class);
+    static long                    DockSpace(long id, [Const, Ref] optional ImVec2 size, optional ImGuiDockNodeFlags ImGuiDockNodeFlags, [Const] optional ImGuiWindowClass window_class);
+    static long                    DockSpaceOverViewport([Const] optional ImGuiViewport viewport, optional ImGuiDockNodeFlags ImGuiDockNodeFlags, [Const] optional ImGuiWindowClass window_class);
     static void                    SetNextWindowDockID(long dock_id, optional ImGuiCond cond);
     static void                    SetNextWindowClass([Const]ImGuiWindowClass window_class);
     static long                    GetWindowDockID();
@@ -428,11 +428,11 @@ interface ImGui {
 //    static void                    LogText([Const] DOMString fmt);
 ////    static void                    LogTextV([Const] DOMString fmt, DOMString args);
 
-    static boolean                 BeginDragDropSource(optional ImGuiDragDropFlags flags);
-    static boolean                 SetDragDropPayload([Const] DOMString type, long data, optional ImGuiCond cond);
+    static boolean                 BeginDragDropSource(optional ImGuiDragDropFlags ImGuiDragDropFlags);
+    static boolean                 SetDragDropPayload([Const] DOMString type, long data, optional ImGuiCond ImGuiCond);
     static void                    EndDragDropSource();
     static boolean                 BeginDragDropTarget();
-    [Const] static ImGuiPayload    AcceptDragDropPayload([Const] DOMString type, optional ImGuiDragDropFlags flags);
+    [Const] static ImGuiPayload    AcceptDragDropPayload([Const] DOMString type, optional ImGuiDragDropFlags ImGuiDragDropFlags);
     static void                    EndDragDropTarget();
     [Const] static ImGuiPayload    GetDragDropPayload();
 
@@ -445,10 +445,10 @@ interface ImGui {
     static void                    SetItemDefaultFocus();
     static void                    SetKeyboardFocusHere(optional long offset);
 
-    static boolean                 IsItemHovered(optional ImGuiHoveredFlags flags);
+    static boolean                 IsItemHovered(optional ImGuiHoveredFlags ImGuiHoveredFlags);
     static boolean                 IsItemActive();
     static boolean                 IsItemFocused();
-    static boolean                 IsItemClicked(optional ImGuiMouseButton mouse_button);
+    static boolean                 IsItemClicked(optional ImGuiMouseButton ImGuiMouseButton);
     static boolean                 IsItemVisible();
     static boolean                 IsItemEdited();
     static boolean                 IsItemActivated();
@@ -657,8 +657,8 @@ interface ImDrawList {
     [Value] ImVec2 GetClipRectMax();
 
     void AddLine([Const, Ref] ImVec2 p1, [Const, Ref] ImVec2 p2, long col, optional float thickness);
-    void AddRect([Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, long col, optional float rounding, optional ImDrawFlags flags, optional float thickness);
-    void AddRectFilled([Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, long col, optional float rounding, optional ImDrawFlags flags);
+    void AddRect([Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, long col, optional float rounding, optional ImDrawFlags ImDrawFlags, optional float thickness);
+    void AddRectFilled([Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, long col, optional float rounding, optional ImDrawFlags ImDrawFlags);
     void AddRectFilledMultiColor([Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, long col_upr_left, long col_upr_right, long col_bot_right, long col_bot_left);
     void AddQuad([Const, Ref] ImVec2 p1, [Const, Ref] ImVec2 p2, [Const, Ref] ImVec2 p3, [Const, Ref] ImVec2 p4, long col, optional float thickness);
     void AddQuadFilled([Const, Ref] ImVec2 p1, [Const, Ref] ImVec2 p2, [Const, Ref] ImVec2 p3, [Const, Ref] ImVec2 p4, long col);
@@ -676,7 +676,7 @@ interface ImDrawList {
     void PathLineTo([Const, Ref] ImVec2 pos);
     void PathLineToMergeDuplicate([Const, Ref] ImVec2 pos);
     void PathFillConvex(long col);
-    void PathStroke(long col, optional ImDrawFlags flags, optional float thickness);
+    void PathStroke(long col, optional ImDrawFlags ImDrawFlags, optional float thickness);
 
     void ChannelsSplit(long count);
     void ChannelsMerge();
