@@ -9,20 +9,20 @@ interface ImGuiInternal {
     static ImGuiWindow             GetCurrentWindow();
     static void                    ItemSize([Const, Ref] ImVec2 size, optional float text_baseline_y);
     static void                    ItemSize_2([Const, Ref] ImRect bb, optional float text_baseline_y);
-    static void                    PushItemFlag(ImGuiItemFlags option, boolean enabled);
+    static void                    PushItemFlag(ImGuiItemFlags ImGuiItemFlags, boolean enabled);
     static void                    PopItemFlag();
 
-    static boolean                 ItemAdd([Const, Ref] ImRect bb, long id, [Const] optional ImRect nav_bb, optional ImGuiItemFlags extra_flags);
+    static boolean                 ItemAdd([Const, Ref] ImRect bb, long id, [Const] optional ImRect nav_bb, optional ImGuiItemFlags ImGuiItemFlags);
 
     static ImGuiWindow             FindWindowByID(long id);
     static ImGuiWindow             FindWindowByName([Const] DOMString name);
 
-    static void                    FocusWindow(ImGuiWindow window, optional ImGuiFocusRequestFlags flags);
+    static void                    FocusWindow(ImGuiWindow window, optional ImGuiFocusRequestFlags ImGuiFocusRequestFlags);
 
     static void                    DockBuilderDockWindow([Const] DOMString window_name, long node_id);
     static ImGuiDockNode           DockBuilderGetNode(long node_id);
     static ImGuiDockNode           DockBuilderGetCentralNode(long node_id);
-    static long                    DockBuilderAddNode(optional long node_id, optional ImGuiDockNodeFlags flags);
+    static long                    DockBuilderAddNode(optional long node_id, optional ImGuiDockNodeFlags ImGuiDockNodeFlags);
     static void                    DockBuilderRemoveNode(long node_id);
     static void                    DockBuilderRemoveNodeDockedWindows(long node_id, optional boolean clear_settings_refs);
     static void                    DockBuilderRemoveNodeChildNodes(long node_id);
@@ -34,7 +34,7 @@ interface ImGuiInternal {
     static void                    DockBuilderCopyWindowSettings([Const] DOMString src_name, [Const] DOMString dst_name);
     static void                    DockBuilderFinish(long node_id);
 
-    static boolean                 BeginTableEx([Const] DOMString str_id, long id, long column, optional ImGuiTableFlags flags, [Const, Ref] optional ImVec2 outer_size, optional float inner_width);
+    static boolean                 BeginTableEx([Const] DOMString str_id, long id, long column, optional ImGuiTableFlags ImGuiTableFlags, [Const, Ref] optional ImVec2 outer_size, optional float inner_width);
 
     static ImGuiTabBar             GetCurrentTabBar();
     static ImGuiTabItem            TabBarFindTabByID(ImGuiTabBar tab_bar, long tab_id);
@@ -60,7 +60,7 @@ interface ImGuiInternal {
     // Widgets
 //    static void                    TextEx(const char* text, const char* text_end = NULL, ImGuiTextFlags flags = 0);
 //    static boolean                 ButtonEx(const char* label, const ImVec2& size_arg = ImVec2(0, 0), ImGuiButtonFlags flags = 0);
-    static boolean                 ArrowButtonEx([Const] DOMString str_id, ImGuiDir dir, [Ref] ImVec2 size_arg, optional ImGuiButtonFlags flags);
+    static boolean                 ArrowButtonEx([Const] DOMString str_id, ImGuiDir dir, [Ref] ImVec2 size_arg, optional ImGuiButtonFlags ImGuiButtonFlags);
 //    static boolean                 ImageButtonEx(long id, ImTextureID texture_id, const ImVec2& image_size, const ImVec2& uv0, const ImVec2& uv1, const ImVec4& bg_col, const ImVec4& tint_col, ImGuiButtonFlags flags = 0);
 //    static void                    SeparatorEx(ImGuiSeparatorFlags flags, float thickness = 1.0f);
 //    static void                    SeparatorTextEx(long id, const char* label, const char* label_end, float extra_width);
@@ -68,14 +68,14 @@ interface ImGuiInternal {
 //    static boolean                 CheckboxFlags(const char* label, ImU64* flags, ImU64 flags_value);
 
     // Widgets low-level behaviors
-    static boolean                 ButtonBehavior([Const, Ref] ImRect bb, long id, boolean[] out_hovered, boolean[] out_held, optional ImGuiButtonFlags flags);
-    static boolean                 DragBehavior(long id, ImGuiDataType ImGuiDataType, any p_v, float v_speed, [Const] any p_min, [Const] any p_max, [Const] DOMString format, ImGuiSliderFlags flags);
+    static boolean                 ButtonBehavior([Const, Ref] ImRect bb, long id, boolean[] out_hovered, boolean[] out_held, optional ImGuiButtonFlags ImGuiButtonFlags);
+    static boolean                 DragBehavior(long id, ImGuiDataType ImGuiDataType, any p_v, float v_speed, [Const] any p_min, [Const] any p_max, [Const] DOMString format, ImGuiSliderFlags ImGuiSliderFlags);
     static boolean                 SliderBehavior([Const, Ref] ImRect bb, long id, ImGuiDataType ImGuiDataType, any p_v, [Const] any p_min, [Const] any p_max, [Const] DOMString format, ImGuiSliderFlags ImGuiSliderFlags, ImRect out_grab_bb);
     static boolean                 SplitterBehavior([Const, Ref] ImRect bb, long id, ImGuiAxis axis, float[] size1, float[] size2, float min_size1, float min_size2, optional float hover_extend, optional float hover_visibility_delay, optional long bg_col);
-    static boolean                 TreeNodeBehavior(long id, ImGuiTreeNodeFlags flags, [Const] DOMString label, [Const] optional DOMString label_end);
+    static boolean                 TreeNodeBehavior(long id, ImGuiTreeNodeFlags ImGuiTreeNodeFlags, [Const] DOMString label, [Const] optional DOMString label_end);
     static void                    TreePushOverrideID(long id);
     static void                    TreeNodeSetOpen(long id, boolean open);
-    static boolean                 TreeNodeUpdateNextOpen(long id, ImGuiTreeNodeFlags flags);
+    static boolean                 TreeNodeUpdateNextOpen(long id, ImGuiTreeNodeFlags ImGuiTreeNodeFlags);
     static void                    SetNextItemSelectionUserData(long selection_user_data);
 };
 
@@ -109,17 +109,17 @@ interface ImGui {
     static void                    StyleColorsLight(optional ImGuiStyle dst);
     static void                    StyleColorsClassic(optional ImGuiStyle dst);
 
-    static boolean                 Begin([Const] DOMString name, optional boolean[] p_open, optional ImGuiWindowFlags flags);
+    static boolean                 Begin([Const] DOMString name, optional boolean[] p_open, optional ImGuiWindowFlags ImGuiWindowFlags);
     static void                    End();
 
-    static boolean                 BeginChild([Const] DOMString str_id, [Const,Ref] optional ImVec2 size, optional ImGuiChildFlags child_flags, optional ImGuiWindowFlags flags);
-    static boolean                 BeginChild_2(long id, [Const,Ref] optional ImVec2 size, optional ImGuiChildFlags child_flags, optional ImGuiWindowFlags flags);
+    static boolean                 BeginChild([Const] DOMString str_id, [Const,Ref] optional ImVec2 size, optional ImGuiChildFlags ImGuiChildFlags, optional ImGuiWindowFlags ImGuiWindowFlags);
+    static boolean                 BeginChild_2(long id, [Const,Ref] optional ImVec2 size, optional ImGuiChildFlags ImGuiChildFlags, optional ImGuiWindowFlags ImGuiWindowFlags);
     static void                    EndChild();
 
     static boolean                 IsWindowAppearing();
     static boolean                 IsWindowCollapsed();
-    static boolean                 IsWindowFocused(optional ImGuiFocusedFlags flags);
-    static boolean                 IsWindowHovered(optional ImGuiFocusedFlags flags);
+    static boolean                 IsWindowFocused(optional ImGuiFocusedFlags ImGuiFocusedFlags);
+    static boolean                 IsWindowHovered(optional ImGuiFocusedFlags ImGuiFocusedFlags);
     static ImDrawList              GetWindowDrawList();
     static float                   GetWindowDpiScale();
     [Value] static ImVec2          GetWindowPos();
@@ -240,7 +240,7 @@ interface ImGui {
 
     static boolean                 Button([Const] DOMString label, [Const, Ref] optional ImVec2 size);
     static boolean                 SmallButton([Const] DOMString label);
-    static boolean                 InvisibleButton([Const] DOMString str_id, [Const, Ref] ImVec2 size, optional ImGuiButtonFlags flags);
+    static boolean                 InvisibleButton([Const] DOMString str_id, [Const, Ref] ImVec2 size, optional ImGuiButtonFlags ImGuiButtonFlags);
     static boolean                 ArrowButton([Const] DOMString str_id, ImGuiDir dir);
     static boolean                 Checkbox([Const] DOMString label, boolean[] v);
     static boolean                 CheckboxFlags([Const] DOMString label, long[] flags, long flags_value);
@@ -253,70 +253,70 @@ interface ImGui {
     static void                    Image(long user_texture_id, [Const, Ref] ImVec2 size, [Const, Ref] optional ImVec2 uv0, [Const, Ref] optional ImVec2 uv1, [Const, Ref] optional ImVec4 tint_col, [Const, Ref] optional ImVec4 border_col);
     static boolean                 ImageButton([Const] DOMString str_id, long user_texture_id, [Const, Ref] ImVec2 size, [Const, Ref] optional ImVec2 uv0, [Const, Ref] optional ImVec2 uv1, [Const, Ref] optional ImVec4 bg_col, [Const, Ref] optional ImVec4 tint_col);
 
-    static boolean                 BeginCombo([Const] DOMString label, [Const] DOMString preview_value, optional ImGuiComboFlags flags);
+    static boolean                 BeginCombo([Const] DOMString label, [Const] DOMString preview_value, optional ImGuiComboFlags ImGuiComboFlags);
     static void                    EndCombo();
 ////    boolean                 Combo([Const] DOMString label, long[] current_item, [Const] DOMString [Const]items[], long items_count, optional long popup_max_height_in_items);  // items with multiple [Const]???
     static boolean                 Combo([Const] DOMString label, long[] current_item, [Const] DOMString items_separated_by_zeros, optional long popup_max_height_in_items);
 ////    boolean                 Combo([Const] DOMString label, long[] current_item, boolean(*items_getter)(any data, long idx, [Const] DOMString* out_text), any data, long items_count, optional long popup_max_height_in_items); // crazy boolean with param
 
-    static boolean                 DragFloat([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 DragFloat2([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 DragFloat3([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 DragFloat4([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 DragFloatRange2([Const] DOMString label, float[] v_current_min, float[] v_current_max, optional float v_speed, optional float v_min, optional float v_max, [Const] optional DOMString format, [Const] optional DOMString format_max, optional ImGuiSliderFlags flags);
-    static boolean                 DragInt([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 DragInt2([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 DragInt3([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 DragInt4([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 DragIntRange2([Const] DOMString label, long[] v_current_min, long[] v_current_max, optional float v_speed, optional long v_min, optional long v_max, [Const] optional DOMString format, [Const] optional DOMString format_max, optional ImGuiSliderFlags flags);
+    static boolean                 DragFloat([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 DragFloat2([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 DragFloat3([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 DragFloat4([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 DragFloatRange2([Const] DOMString label, float[] v_current_min, float[] v_current_max, optional float v_speed, optional float v_min, optional float v_max, [Const] optional DOMString format, [Const] optional DOMString format_max, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 DragInt([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 DragInt2([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 DragInt3([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 DragInt4([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 DragIntRange2([Const] DOMString label, long[] v_current_min, long[] v_current_max, optional float v_speed, optional long v_min, optional long v_max, [Const] optional DOMString format, [Const] optional DOMString format_max, optional ImGuiSliderFlags ImGuiSliderFlags);
 //    static boolean                 DragScalar([Const] DOMString label, long data_type, any p_data, optional float v_speed, [Const] optional any p_min, [Const] optional any p_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
 //    static boolean                 DragScalarN([Const] DOMString label, long data_type, any p_data, long components, optional float v_speed, [Const] optional any p_min, [Const] optional any p_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
 
-    static boolean                 SliderFloat([Const] DOMString label, float[] v, float v_min, float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 SliderFloat2([Const] DOMString label, float[] v, float v_min, float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 SliderFloat3([Const] DOMString label, float[] v, float v_min, float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 SliderFloat4([Const] DOMString label, float[] v, float v_min, float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 SliderAngle([Const] DOMString label, float[] v_rad, optional float v_degrees_min, optional float v_degrees_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 SliderInt([Const] DOMString label, long[] v, long v_min, long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 SliderInt2([Const] DOMString label, long[] v, long v_min, long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 SliderInt3([Const] DOMString label, long[] v, long v_min, long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 SliderInt4([Const] DOMString label, long[] v, long v_min, long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 SliderFloat([Const] DOMString label, float[] v, float v_min, float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 SliderFloat2([Const] DOMString label, float[] v, float v_min, float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 SliderFloat3([Const] DOMString label, float[] v, float v_min, float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 SliderFloat4([Const] DOMString label, float[] v, float v_min, float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 SliderAngle([Const] DOMString label, float[] v_rad, optional float v_degrees_min, optional float v_degrees_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 SliderInt([Const] DOMString label, long[] v, long v_min, long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 SliderInt2([Const] DOMString label, long[] v, long v_min, long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 SliderInt3([Const] DOMString label, long[] v, long v_min, long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 SliderInt4([Const] DOMString label, long[] v, long v_min, long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
 //    static boolean                 SliderScalar([Const] DOMString label, long data_type, any p_data, [Const] any p_min, [Const] any p_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
 //    static boolean                 SliderScalarN([Const] DOMString label, long data_type, any p_data, long components, [Const] any p_min, [Const] any p_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 VSliderFloat([Const] DOMString label, [Const, Ref] ImVec2 size, float[] v, float v_min, float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-    static boolean                 VSliderInt([Const] DOMString label, [Const, Ref] ImVec2 size, long[] v, long v_min, long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
+    static boolean                 VSliderFloat([Const] DOMString label, [Const, Ref] ImVec2 size, float[] v, float v_min, float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
+    static boolean                 VSliderInt([Const] DOMString label, [Const, Ref] ImVec2 size, long[] v, long v_min, long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
 //    static boolean                 VSliderScalar([Const] DOMString label, [Const, Ref] ImVec2 size, long data_type, any p_data, [Const] any p_min, [Const] any p_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
 
-    static boolean                 InputText([Const] DOMString label, byte[] buf, long long buf_size, optional ImGuiInputTextFlags flags); //, optional ImGuiInputTextCallback callback, optional ImGuiInputTextFlags flags);
-    static boolean                 InputTextMultiline([Const] DOMString label, byte[] buf, long long buf_size, [Const, Ref] optional ImVec2 size, optional ImGuiInputTextFlags flags); //, optional ImGuiInputTextCallback callback, optional any user_data);
-    static boolean                 InputTextWithHint([Const] DOMString label, [Const] DOMString hint, byte[] buf, long long buf_size, optional ImGuiInputTextFlags flags); //, optional ImGuiInputTextCallback callback, optional any user_data);
-    static boolean                 InputFloat([Const] DOMString label, float[] v, optional float step, optional float step_fast, [Const] optional DOMString format, optional ImGuiInputTextFlags flags);
-    static boolean                 InputFloat2([Const] DOMString label, float[] v, [Const] optional DOMString format, optional ImGuiInputTextFlags flags);
-    static boolean                 InputFloat3([Const] DOMString label, float[] v, [Const] optional DOMString format, optional ImGuiInputTextFlags flags);
-    static boolean                 InputFloat4([Const] DOMString label, float[] v, [Const] optional DOMString format, optional ImGuiInputTextFlags flags);
-    static boolean                 InputInt([Const] DOMString label, long[] v, optional long step, optional long step_fast, optional ImGuiInputTextFlags flags);
-    static boolean                 InputInt2([Const] DOMString label, long[] v, optional ImGuiInputTextFlags flags);
-    static boolean                 InputInt3([Const] DOMString label, long[] v, optional ImGuiInputTextFlags flags);
-    static boolean                 InputInt4([Const] DOMString label, long[] v, optional ImGuiInputTextFlags flags);
-    static boolean                 InputDouble([Const] DOMString label, double[] v, optional double step, optional double step_fast, [Const] optional DOMString format, optional ImGuiInputTextFlags flags);
+    static boolean                 InputText([Const] DOMString label, byte[] buf, long long buf_size, optional ImGuiInputTextFlags ImGuiInputTextFlags); //, optional ImGuiInputTextCallback callback, optional ImGuiInputTextFlags flags);
+    static boolean                 InputTextMultiline([Const] DOMString label, byte[] buf, long long buf_size, [Const, Ref] optional ImVec2 size, optional ImGuiInputTextFlags ImGuiInputTextFlags); //, optional ImGuiInputTextCallback callback, optional any user_data);
+    static boolean                 InputTextWithHint([Const] DOMString label, [Const] DOMString hint, byte[] buf, long long buf_size, optional ImGuiInputTextFlags ImGuiInputTextFlags); //, optional ImGuiInputTextCallback callback, optional any user_data);
+    static boolean                 InputFloat([Const] DOMString label, float[] v, optional float step, optional float step_fast, [Const] optional DOMString format, optional ImGuiInputTextFlags ImGuiInputTextFlags);
+    static boolean                 InputFloat2([Const] DOMString label, float[] v, [Const] optional DOMString format, optional ImGuiInputTextFlags ImGuiInputTextFlags);
+    static boolean                 InputFloat3([Const] DOMString label, float[] v, [Const] optional DOMString format, optional ImGuiInputTextFlags ImGuiInputTextFlags);
+    static boolean                 InputFloat4([Const] DOMString label, float[] v, [Const] optional DOMString format, optional ImGuiInputTextFlags ImGuiInputTextFlags);
+    static boolean                 InputInt([Const] DOMString label, long[] v, optional long step, optional long step_fast, optional ImGuiInputTextFlags ImGuiInputTextFlags);
+    static boolean                 InputInt2([Const] DOMString label, long[] v, optional ImGuiInputTextFlags ImGuiInputTextFlags);
+    static boolean                 InputInt3([Const] DOMString label, long[] v, optional ImGuiInputTextFlags ImGuiInputTextFlags);
+    static boolean                 InputInt4([Const] DOMString label, long[] v, optional ImGuiInputTextFlags ImGuiInputTextFlags);
+    static boolean                 InputDouble([Const] DOMString label, double[] v, optional double step, optional double step_fast, [Const] optional DOMString format, optional ImGuiInputTextFlags ImGuiInputTextFlags);
 //    static boolean                 InputScalar([Const] DOMString label, long data_type, any p_data, [Const] optional any p_step, [Const] optional any p_step_fast, [Const] optional DOMString format, optional ImGuiInputTextFlags flags);
 //    static boolean                 InputScalarN([Const] DOMString label, long data_type, any p_data, long components, [Const] optional any p_step, [Const] optional any p_step_fast, [Const] optional DOMString format, optional ImGuiInputTextFlags flags);
 //
-    static boolean                 ColorEdit3([Const] DOMString label, float[] col, optional ImGuiColorEditFlags flags);
-    static boolean                 ColorEdit4([Const] DOMString label, float[] col, optional ImGuiColorEditFlags flags);
-    static boolean                 ColorPicker3([Const] DOMString label, float[] col, optional ImGuiColorEditFlags flags);
-    static boolean                 ColorPicker4([Const] DOMString label, float[] col, optional ImGuiColorEditFlags flags, [Const] optional float[] ref_col);
-    static boolean                 ColorButton([Const] DOMString desc_id, [Const, Ref] ImVec4 col, optional ImGuiColorEditFlags flags, [Const, Ref] optional ImVec2 size);
-    static void                    SetColorEditOptions(ImGuiColorEditFlags flags);
+    static boolean                 ColorEdit3([Const] DOMString label, float[] col, optional ImGuiColorEditFlags ImGuiColorEditFlags);
+    static boolean                 ColorEdit4([Const] DOMString label, float[] col, optional ImGuiColorEditFlags ImGuiColorEditFlags);
+    static boolean                 ColorPicker3([Const] DOMString label, float[] col, optional ImGuiColorEditFlags ImGuiColorEditFlags);
+    static boolean                 ColorPicker4([Const] DOMString label, float[] col, optional ImGuiColorEditFlags ImGuiColorEditFlags, [Const] optional float[] ref_col);
+    static boolean                 ColorButton([Const] DOMString desc_id, [Const, Ref] ImVec4 col, optional ImGuiColorEditFlags ImGuiColorEditFlags, [Const, Ref] optional ImVec2 size);
+    static void                    SetColorEditOptions(ImGuiColorEditFlags ImGuiColorEditFlags);
 
     static boolean                 TreeNode([Const] DOMString label);
     static boolean                 TreeNode_2([Const] DOMString str_id, [Const] DOMString fmt);
     static boolean                 TreeNode_3([Const] any ptr_id, [Const] DOMString fmt);
 ////    static boolean                 TreeNodeV([Const] DOMString str_id, [Const] DOMString fmt, DOMString args);
 ////    static boolean                 TreeNodeV_2([Const] any ptr_id, [Const] DOMString fmt, DOMString args);
-    static boolean                 TreeNodeEx([Const] DOMString label, optional ImGuiTreeNodeFlags flags);
-    static boolean                 TreeNodeEx_2([Const] DOMString str_id, ImGuiTreeNodeFlags flags, [Const] DOMString fmt);
-    static boolean                 TreeNodeEx_3([Const] any ptr_id, ImGuiTreeNodeFlags flags, [Const] DOMString fmt);
+    static boolean                 TreeNodeEx([Const] DOMString label, optional ImGuiTreeNodeFlags flaImGuiTreeNodeFlagsgs);
+    static boolean                 TreeNodeEx_2([Const] DOMString str_id, ImGuiTreeNodeFlags ImGuiTreeNodeFlags, [Const] DOMString fmt);
+    static boolean                 TreeNodeEx_3([Const] any ptr_id, ImGuiTreeNodeFlags ImGuiTreeNodeFlags, [Const] DOMString fmt);
 ////    static boolean                 TreeNodeExV([Const] DOMString str_id, ImGuiTreeNodeFlags flags, [Const] DOMString fmt, DOMString args);
 ////    static boolean                 TreeNodeExV_2([Const] any ptr_id, ImGuiTreeNodeFlags flags, [Const] DOMString fmt, DOMString args);
     static void                    TreePush([Const] DOMString str_id);
