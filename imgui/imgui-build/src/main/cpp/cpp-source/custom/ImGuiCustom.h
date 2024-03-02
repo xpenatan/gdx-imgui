@@ -25,6 +25,11 @@ class ImGuiInternal {
         static ImGuiID                  ImHashStr_1(const char* data, size_t data_size = 0, ImGuiID seed = 0) { return ImHashStr(data, data_size, seed); }
 
         static ImGuiWindow*             GetCurrentWindow() { return im::GetCurrentWindow(); }
+        static ImGuiWindow*             FindWindowByID(ImGuiID id) { return im::FindWindowByID(id); }
+        static ImGuiWindow*             FindWindowByName(const char* name) { return im::FindWindowByName(name); }
+
+        // Windows: Display Order and Focus Order
+        static void                     FocusWindow(ImGuiWindow* window, ImGuiFocusRequestFlags flags = 0) { im::FocusWindow(window, flags); }
 
         // Basic Helpers for widget code
         static void                     ItemSize(const ImVec2& size, float text_baseline_y = -1.0f) { im::ItemSize(size, text_baseline_y); }
@@ -44,10 +49,6 @@ class ImGuiInternal {
         // Parameter stacks (shared)
         static void                     PushItemFlag(ImGuiItemFlags option, bool enabled) { im::PushItemFlag(option, enabled); }
         static void                     PopItemFlag() { im::PopItemFlag(); }
-
-        static ImGuiWindow*             FindWindowByID(ImGuiID id) { return im::FindWindowByID(id); }
-        static ImGuiWindow*             FindWindowByName(const char* name) { return im::FindWindowByName(name); }
-        static void                     FocusWindow(ImGuiWindow* window, ImGuiFocusRequestFlags flags = 0) { im::FocusWindow(window, flags); }
 
         static void                     DockBuilderDockWindow(const char* window_name, ImGuiID node_id) { im::DockBuilderDockWindow(window_name, node_id); }
         static ImGuiDockNode*           DockBuilderGetNode(ImGuiID node_id) { return im::DockBuilderGetNode(node_id); }
@@ -73,6 +74,7 @@ class ImGuiInternal {
         static void                     TabBarQueueFocus(ImGuiTabBar* tab_bar, ImGuiTabItem* tab) { im::TabBarQueueFocus(tab_bar, tab); }
         static void                     TabBarQueueReorder(ImGuiTabBar* tab_bar, ImGuiTabItem* tab, int offset) { im::TabBarQueueReorder(tab_bar, tab, offset); }
 
+        // Basic Accessors
         static void                     SetActiveID(ImGuiID id, ImGuiWindow* window) { im::SetActiveID(id, window); }
         static void                     SetFocusID(ImGuiID id, ImGuiWindow* window) { im::SetFocusID(id, window); }
         static void                     ClearActiveID() { im::ClearActiveID(); }

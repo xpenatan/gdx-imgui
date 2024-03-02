@@ -7,6 +7,11 @@ interface ImGuiInternal {
     static long                    ImHashStr_1([Const] DOMString data, optional long data_size, optional long seed);
 
     static ImGuiWindow             GetCurrentWindow();
+    static ImGuiWindow             FindWindowByID(long id);
+    static ImGuiWindow             FindWindowByName([Const] DOMString name);
+
+    // Windows: Display Order and Focus Order
+    static void                    FocusWindow(ImGuiWindow window, optional ImGuiFocusRequestFlags ImGuiFocusRequestFlags);
 
     // Basic Helpers for widget code
     static void                    ItemSize([Const, Ref] ImVec2 size, optional float text_baseline_y);
@@ -26,12 +31,6 @@ interface ImGuiInternal {
     // Parameter stacks (shared)
     static void                    PushItemFlag(ImGuiItemFlags ImGuiItemFlags, boolean enabled);
     static void                    PopItemFlag();
-
-
-    static ImGuiWindow             FindWindowByID(long id);
-    static ImGuiWindow             FindWindowByName([Const] DOMString name);
-
-    static void                    FocusWindow(ImGuiWindow window, optional ImGuiFocusRequestFlags ImGuiFocusRequestFlags);
 
     static void                    DockBuilderDockWindow([Const] DOMString window_name, long node_id);
     static ImGuiDockNode           DockBuilderGetNode(long node_id);
@@ -57,6 +56,7 @@ interface ImGuiInternal {
     static void                    TabBarQueueFocus(ImGuiTabBar tab_bar, ImGuiTabItem tab);
     static void                    TabBarQueueReorder(ImGuiTabBar tab_bar, ImGuiTabItem tab, long offset);
 
+    // Basic Accessors
     static void                    SetActiveID(long id, ImGuiWindow window);
     static void                    SetFocusID(long id, ImGuiWindow window);
     static void                    ClearActiveID();
