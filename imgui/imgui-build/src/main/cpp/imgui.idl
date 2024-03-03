@@ -459,6 +459,8 @@ interface ImGui {
     static void                    SetItemDefaultFocus();
     static void                    SetKeyboardFocusHere(optional long offset);
 
+    static void                    SetNextItemAllowOverlap();
+
     static boolean                 IsItemHovered(optional ImGuiHoveredFlags ImGuiHoveredFlags);
     static boolean                 IsItemActive();
     static boolean                 IsItemFocused();

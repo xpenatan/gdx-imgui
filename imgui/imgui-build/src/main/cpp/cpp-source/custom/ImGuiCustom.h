@@ -471,6 +471,8 @@ class ImGui {
         static void                     SetItemDefaultFocus() {  im::SetItemDefaultFocus(); }
         static void                     SetKeyboardFocusHere(int offset = 0) { im::SetKeyboardFocusHere(offset); }
 
+        static void                     SetNextItemAllowOverlap() { im::SetNextItemAllowOverlap(); }
+
         static bool                     IsItemHovered(ImGuiHoveredFlags flags = 0) { return im::IsItemHovered(flags); }
         static bool                     IsItemActive() { return im::IsItemActive(); }
         static bool                     IsItemFocused() { return im::IsItemFocused(); }
