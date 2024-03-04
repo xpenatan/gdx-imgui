@@ -57,6 +57,8 @@ interface ImGuiInternal {
     static void                    TabBarQueueReorder(ImGuiTabBar tab_bar, ImGuiTabItem tab, long offset);
 
     // Basic Accessors
+    static long                    GetActiveID();
+    static long                    GetFocusID();
     static void                    SetActiveID(long id, ImGuiWindow window);
     static void                    SetFocusID(long id, ImGuiWindow window);
     static void                    ClearActiveID();

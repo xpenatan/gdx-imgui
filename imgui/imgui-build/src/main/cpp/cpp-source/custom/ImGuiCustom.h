@@ -75,6 +75,8 @@ class ImGuiInternal {
         static void                     TabBarQueueReorder(ImGuiTabBar* tab_bar, ImGuiTabItem* tab, int offset) { im::TabBarQueueReorder(tab_bar, tab, offset); }
 
         // Basic Accessors
+        static ImGuiID                  GetActiveID() { return im::GetActiveID(); }
+        static ImGuiID                  GetFocusID() { return im::GetFocusID(); }
         static void                     SetActiveID(ImGuiID id, ImGuiWindow* window) { im::SetActiveID(id, window); }
         static void                     SetFocusID(ImGuiID id, ImGuiWindow* window) { im::SetFocusID(id, window); }
         static void                     ClearActiveID() { im::ClearActiveID(); }
