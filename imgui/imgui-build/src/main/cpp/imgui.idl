@@ -906,6 +906,8 @@ interface ImGuiPlatformIO {
 [NoDelete]
 interface ImGuiContext {
     attribute double Time;
+    attribute long LastActiveId;
+    attribute long NavId;
 };
 
 interface ImGuiDockNode {
