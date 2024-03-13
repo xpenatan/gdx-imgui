@@ -63,9 +63,9 @@ public class ImGuiGdxImpl {
         IDLIntArray bytesPerPixel = new IDLIntArray(1);
         IDLByteArray bytesArray = new IDLByteArray(pixelMax);
 
-        ImGuiIO io = ImGui.GetIO();
+        ImGuiIO io = ImGui.getIO();
 
-        io.GetTexDataAsRGBA32(bytesArray, width, height, bytesPerPixel);
+        io.getTexDataAsRGBA32(bytesArray, width, height, bytesPerPixel);
         int widthValue = width.getValue(0);
         int heightValue = height.getValue(0);
         int bytesPerPixelValue = bytesPerPixel.getValue(0);
@@ -88,7 +88,7 @@ public class ImGuiGdxImpl {
         Gdx.gl.glTexImage2D(GL20.GL_TEXTURE_2D, 0, GL20.GL_RGBA, widthValue, heightValue, 0, GL20.GL_RGBA,
                 GL20.GL_UNSIGNED_BYTE, buffer);
 
-        io.SetFontTexID(g_FontTexture);
+        io.setFontTexID(g_FontTexture);
     }
 
     private void createBufferObject() {
@@ -109,7 +109,7 @@ public class ImGuiGdxImpl {
     }
 
     protected void updateFrame(float deltaTime, int width, int height, int backBufferWidth, int backBufferHeight) {
-        ImGui.UpdateDisplayAndInputAndFrame(deltaTime, width, height, backBufferWidth, backBufferHeight);
+        ImGui.updateDisplayAndInputAndFrame(deltaTime, width, height, backBufferWidth, backBufferHeight);
     }
 
     public void render(ImDrawData drawData) {

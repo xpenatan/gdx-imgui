@@ -64,11 +64,21 @@ public class BuildImGui {
         if(generate) {
             FileHelper.copyDir(cppSourceDir, libDestinationPath);
             CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath, true);
-            CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage, cppSourceDir);
+            CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage, cppSourceDir) {
+                @Override
+                public String getIDLMethodName(String name) {
+                    return toLowerCase(name);
+                }
+            };
             cppParser.generateClass = true;
             JParser.generate(cppParser, baseJavaDir, imguiCorePath + "/src/main/java");
 
-            TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, libName, basePackage, cppSourceDir);
+            TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, libName, basePackage, cppSourceDir) {
+                @Override
+                public String getIDLMethodName(String name) {
+                    return toLowerCase(name);
+                }
+            };
             JParser.generate(teavmParser, baseJavaDir, imguiTeavmPath + "/src/main/java/");
 
             Path copyOut = new File(libDestinationPath).toPath();
@@ -201,5 +211,12 @@ public class BuildImGui {
         multiTarget.add(glueArmTarget);
 
         return multiTarget;
+    }
+
+    public static String toLowerCase(String name) {
+        char[] c = name.toCharArray();
+        c[0] = Character.toLowerCase(c[0]);
+        name = new String(c);
+        return name;
     }
 }

@@ -29,30 +29,30 @@ public class EditTextRenderer implements UIRenderer {
 
 
         int id = 93123;
-        ImGuiWindow window = ImGuiInternal.GetCurrentWindow();
-        ImGui.Text("Click Drag");
-        if(ImGui.IsItemClicked(ImGuiMouseButton.ImGuiMouseButton_Left)) {
+        ImGuiWindow window = ImGuiInternal.getCurrentWindow();
+        ImGui.text("Click Drag");
+        if(ImGui.isItemClicked(ImGuiMouseButton.ImGuiMouseButton_Left)) {
             flag = true;
             System.out.println("Item Clicked");
         }
-        if(flag && ImGui.IsMouseReleased(ImGuiMouseButton.ImGuiMouseButton_Left)) {
+        if(flag && ImGui.isMouseReleased(ImGuiMouseButton.ImGuiMouseButton_Left)) {
             System.out.println("Mouse Released");
             flag = false;
         }
         if(flag) {
-            ImGuiInternal.SetActiveID(id, window);
+            ImGuiInternal.setActiveID(id, window);
         }
         int flags = ImGuiSliderFlags.ImGuiSliderFlags_None;
-        if(ImGuiInternal.DragBehavior(id, ImGuiDataType.ImGuiDataType_Float, imguiFloat1.getPointer(), 0.1f, 0, 0, format, flags)) {
+        if(ImGuiInternal.dragBehavior(id, ImGuiDataType.ImGuiDataType_Float, imguiFloat1.getPointer(), 0.1f, 0, 0, format, flags)) {
             System.out.println("Dragging");
         }
 
-        ImGui.DragFloat("TestFloat", imguiFloat1);
-        ImGui.DragFloat2("TestFloat2", imguiFloat2);
-        ImGui.DragFloat3("TestFloat3", imguiFloat3);
-        ImGui.DragFloat4("TestFloat4", imguiFloat4, 0.01f, -2, 2);
+        ImGui.dragFloat("TestFloat", imguiFloat1);
+        ImGui.dragFloat2("TestFloat2", imguiFloat2);
+        ImGui.dragFloat3("TestFloat3", imguiFloat3);
+        ImGui.dragFloat4("TestFloat4", imguiFloat4, 0.01f, -2, 2);
 
-        if(ImGui.InputText("TestString2", imguiString1, imguiString1.getSize())) {
+        if(ImGui.inputText("TestString2", imguiString1, imguiString1.getSize())) {
             String value = imguiString1.getValue();
             System.out.println("value: " + value);
         }

@@ -12,9 +12,9 @@ public class LayoutTestView {
         float mouseX = Gdx.input.getX();
         float mouseY = Gdx.input.getY();
 
-        ImLayout.BeginLayout("Stuff", ImLayout.WRAP_PARENT, ImLayout.WRAP_PARENT);
-        ImLayout.ShowLayoutDebug();
-        ImGuiLayout curLayout = ImLayout.GetCurrentLayout();
+        ImLayout.beginLayout("Stuff", ImLayout.WRAP_PARENT, ImLayout.WRAP_PARENT);
+        ImLayout.showLayoutDebug();
+        ImGuiLayout curLayout = ImLayout.getCurrentLayout();
         ImVec2 position = curLayout.position();
         ImVec2 size = curLayout.size();
         float posX = position.x();
@@ -24,14 +24,14 @@ public class LayoutTestView {
         float posSizeX = posX + sizeX;
         float posSizeY = posY + sizeY;
 
-        ImGui.Text("MouseX: " + mouseX);
-        ImGui.SameLine();
-        ImGui.Text("MouseY: " + mouseY);
-        ImGui.Text("posX: " + posX);
-        ImGui.Text("posY: " + posY);
-        ImGui.Text("posSizeX: " + posSizeX);
-        ImGui.Text("posSizeY: " + posSizeY);
+        ImGui.text("MouseX: " + mouseX);
+        ImGui.sameLine();
+        ImGui.text("MouseY: " + mouseY);
+        ImGui.text("posX: " + posX);
+        ImGui.text("posY: " + posY);
+        ImGui.text("posSizeX: " + posSizeX);
+        ImGui.text("posSizeY: " + posSizeY);
 
-        ImLayout.EndLayout();
+        ImLayout.endLayout();
     }
 }

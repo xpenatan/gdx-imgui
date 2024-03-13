@@ -1,6 +1,5 @@
 package imgui.example.nodeeditor.demo;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -11,7 +10,6 @@ import imgui.example.nodeeditor.blueprint.Drawing;
 import imgui.extension.nodeeditor.EditorContext;
 import imgui.extension.nodeeditor.NodeEditor;
 import imgui.extension.nodeeditor.PinKind;
-import static imgui.ImGuiStyleVar.ImGuiStyleVar_Alpha;
 
 public class BlueprintExample {
 
@@ -31,8 +29,8 @@ public class BlueprintExample {
     }
 
     public void render(EditorContext editorContext) {
-        NodeEditor.SetCurrentEditor(editorContext);
-        NodeEditor.Begin("Node editor");
+        NodeEditor.setCurrentEditor(editorContext);
+        NodeEditor.begin("Node editor");
         {
             for(Node node : nodes) {
                 if(node.type != NodeType.Blueprint && node.type != NodeType.Simple)
@@ -51,8 +49,8 @@ public class BlueprintExample {
                 if(!isSimple) {
                     builder.Header(node.color);
 
-                    ImGui.TextUnformatted(node.name);
-                    ImGui.Dummy(ImVec2.TMP_1.set(0, 28));
+                    ImGui.textUnformatted(node.name);
+                    ImGui.dummy(ImVec2.TMP_1.set(0, 28));
 
                     if(hasOutputDelegates) {
 //                        ImGui::BeginVertical ("delegates", ImVec2(0, 28));
@@ -104,14 +102,14 @@ public class BlueprintExample {
 //                    DrawPinIcon(input, IsPinLinked(input.ID), (int)(alpha * 255));
 //                    ImGui::Spring (0);
                     if(!input.name.isEmpty()) {
-                        ImGui.TextUnformatted(input.name);
+                        ImGui.textUnformatted(input.name);
 //                        ImGui::Spring(0);
                     }
                     if(input.type == PinType.Bool) {
-                        ImGui.Button("Hello");
+                        ImGui.button("Hello");
 //                        ImGui::Spring(0);
                     }
-                    ImGui.PopStyleVar();
+                    ImGui.popStyleVar();
                     builder.EndInput();
                 }
 
@@ -134,22 +132,22 @@ public class BlueprintExample {
             }
 
 
-            ImVec2 openPopupPosition = ImGui.GetMousePos();
+            ImVec2 openPopupPosition = ImGui.getMousePos();
 //            float mouseX = openPopupPosition.get_x();
 //            float mouseY = openPopupPosition.get_y();
 
-            NodeEditor.Suspend();
-            if(NodeEditor.ShowBackgroundContextMenu()) {
-                ImGui.OpenPopup(MENU_CREATE_NODE);
+            NodeEditor.suspend();
+            if(NodeEditor.showBackgroundContextMenu()) {
+                ImGui.openPopup(MENU_CREATE_NODE);
             }
-            NodeEditor.Resume();
+            NodeEditor.resume();
 
-            NodeEditor.Suspend();
+            NodeEditor.suspend();
 //            renderCreateNodeMenu(mouseX, mouseY);
-            NodeEditor.Resume();
+            NodeEditor.resume();
         }
-        NodeEditor.End();
-        NodeEditor.SetCurrentEditor(null);
+        NodeEditor.end();
+        NodeEditor.setCurrentEditor(null);
     }
 
     void DrawPinIcon(Pin pin, boolean connected, int alpha) {
@@ -214,19 +212,19 @@ public class BlueprintExample {
     }
 
     private void renderCreateNodeMenu(float mouseX, float mouseY) {
-        if(ImGui.BeginPopup(MENU_CREATE_NODE)) {
+        if(ImGui.beginPopup(MENU_CREATE_NODE)) {
             Node node = null;
 
-            if(ImGui.MenuItem("Input Action")) {
+            if(ImGui.menuItem("Input Action")) {
                 node = SpawnInputActionNode();
             }
 
             if(node != null) {
                 BuildNodes();
-                NodeEditor.SetNodePosition(node.id, ImVec2.TMP_1.set(mouseX, mouseY));
+                NodeEditor.setNodePosition(node.id, ImVec2.TMP_1.set(mouseX, mouseY));
             }
 
-            ImGui.EndPopup();
+            ImGui.endPopup();
         }
     }
 

@@ -21,7 +21,7 @@ public class NodeEditorExample extends ImGuiRenderer {
     public void show() {
         super.show();
         Config config  = new Config();
-        editorContext = NodeEditor.CreateEditor(new LoadSaveSettingsListener() {
+        editorContext = NodeEditor.createEditor(new LoadSaveSettingsListener() {
             @Override
             public void onLoad(IDLString data) {
 //                Preferences preferences = Gdx.app.getPreferences("NodeEditorData");
@@ -52,6 +52,6 @@ public class NodeEditorExample extends ImGuiRenderer {
     public void dispose() {
         super.dispose();
 
-        NodeEditor.DestroyEditor(editorContext);
+        NodeEditor.destroyEditor(editorContext);
     }
 }

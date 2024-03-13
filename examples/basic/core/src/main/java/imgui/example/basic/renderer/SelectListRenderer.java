@@ -20,15 +20,15 @@ public class SelectListRenderer implements UIRenderer {
     @Override
     public void render() {
         String selectedText = items.get(currentIndex);
-        if(ImGui.BeginCombo("##selectListId", selectedText)) {
+        if(ImGui.beginCombo("##selectListId", selectedText)) {
             for(int i = 0; i < items.size; i++) {
                 String item = items.get(i);
                 boolean selected = i == currentIndex;
-                if(ImGui.Selectable(item, selected)) {
+                if(ImGui.selectable(item, selected)) {
                     currentIndex = i;
                 }
             }
-            ImGui.EndCombo();
+            ImGui.endCombo();
         }
     }
 

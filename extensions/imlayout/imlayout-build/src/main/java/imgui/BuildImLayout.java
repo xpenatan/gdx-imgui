@@ -59,14 +59,24 @@ public class BuildImLayout {
         {
             // Generate C++ classes
             CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath);
-            CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage, cppSourceDir);
+            CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage, cppSourceDir) {
+                @Override
+                public String getIDLMethodName(String name) {
+                    return toLowerCase(name);
+                }
+            };
             cppParser.generateClass = true;
             JParser.generate(cppParser, baseJavaDir, imLayoutCorePath + "/src/main/java");
         }
         {
             // Generate TeaVM classes
             String teavmLibname = "imgui";
-            TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, teavmLibname, basePackage, cppSourceDir);
+            TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, teavmLibname, basePackage, cppSourceDir) {
+                @Override
+                public String getIDLMethodName(String name) {
+                    return toLowerCase(name);
+                }
+            };
             JParser.generate(teavmParser, baseJavaDir, imLayoutTeavmPath + "/src/main/java/");
         }
 
@@ -166,4 +176,11 @@ public class BuildImLayout {
 //        androidTarget.cppFlags.add("-Wno-error=format-security");
 //        return androidTarget;
 //    }
+
+    public static String toLowerCase(String name) {
+        char[] c = name.toCharArray();
+        c[0] = Character.toLowerCase(c[0]);
+        name = new String(c);
+        return name;
+    }
 }

@@ -17,8 +17,8 @@ public class TextEditExample extends ImGuiRenderer {
 
         editor = new TextEditor();
 
-        LanguageDefinition lua = LanguageDefinition.Lua();
-        editor.SetLanguageDefinition(lua);
+        LanguageDefinition lua = LanguageDefinition.lua();
+        editor.setLanguageDefinition(lua);
 
         IDLString text = new IDLString();
 
@@ -31,19 +31,19 @@ public class TextEditExample extends ImGuiRenderer {
                 "\n" +
                 "end\n";
         text.append(code);
-        editor.SetText(text);
+        editor.setText(text);
     }
 
     @Override
     public void renderImGui() {
-        Coordinates coordinates = editor.GetCursorPosition();
+        Coordinates coordinates = editor.getCursorPosition();
 
-        ImGui.Begin("Editor");
+        ImGui.begin("Editor");
 
-        String text = "\t" + (coordinates.mLine() + 1) + "/" + (coordinates.mColumn() + 1) + " " + editor.GetTotalLines() + " lines | " + (editor.IsOverwrite() ? "Ovr" : "Ins") + " | " + (editor.CanUndo() ? "*" : " ") + " | " + editor.GetLanguageDefinition().mName().c_str();
-        ImGui.Text(text);
+        String text = "\t" + (coordinates.mLine() + 1) + "/" + (coordinates.mColumn() + 1) + " " + editor.getTotalLines() + " lines | " + (editor.isOverwrite() ? "Ovr" : "Ins") + " | " + (editor.canUndo() ? "*" : " ") + " | " + editor.getLanguageDefinition().mName().c_str();
+        ImGui.text(text);
 
-        editor.Render("Title");
-        ImGui.End();
+        editor.render("Title");
+        ImGui.end();
     }
 }

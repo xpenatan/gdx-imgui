@@ -15,14 +15,14 @@ public class ColorRenderer implements UIRenderer {
     @Override
     public void render() {
 
-        if(ImGui.ColorEdit3("color 01", color3)) {
+        if(ImGui.colorEdit3("color 01", color3)) {
             float r = color3.getValue(0);
             float g = color3.getValue(1);
             float b = color3.getValue(2);
             System.out.println("Red: " + r + " Green: " + g + " Blue: " + b);
         }
 
-        if(ImGui.ColorEdit4("color 02", color4)) {
+        if(ImGui.colorEdit4("color 02", color4)) {
             float r = color3.getValue(0);
             float g = color4.getValue(1);
             float b = color4.getValue(2);

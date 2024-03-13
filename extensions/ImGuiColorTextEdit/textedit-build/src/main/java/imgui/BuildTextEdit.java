@@ -62,14 +62,24 @@ public class BuildTextEdit {
         {
             // Generate C++ classes
             CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath, true);
-            CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage, cppSourceDir);
+            CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage, cppSourceDir) {
+                @Override
+                public String getIDLMethodName(String name) {
+                    return toLowerCase(name);
+                }
+            };
             cppParser.generateClass = true;
             JParser.generate(cppParser, baseJavaDir, textEditCorePath + "/src/main/java");
         }
         {
             // Generate TeaVM classes
             String teavmLibname = "imgui";
-            TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, teavmLibname, basePackage, cppSourceDir);
+            TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, teavmLibname, basePackage, cppSourceDir) {
+                @Override
+                public String getIDLMethodName(String name) {
+                    return toLowerCase(name);
+                }
+            };
             JParser.generate(teavmParser, baseJavaDir, textEditTeavmPath + "/src/main/java/");
         }
 
@@ -158,5 +168,12 @@ public class BuildTextEdit {
         multiTarget.add(macArmTarget);
 
         return multiTarget;
+    }
+
+    public static String toLowerCase(String name) {
+        char[] c = name.toCharArray();
+        c[0] = Character.toLowerCase(c[0]);
+        name = new String(c);
+        return name;
     }
 }
