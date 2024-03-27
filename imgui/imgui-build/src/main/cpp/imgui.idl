@@ -908,8 +908,36 @@ interface ImGuiPlatformIO {
 [NoDelete]
 interface ImGuiContext {
     attribute double Time;
-    attribute long LastActiveId;
     attribute long NavId;
+
+    // Item/widgets state and tracking information
+    attribute long                 DebugHookIdInfo;
+    attribute long                 HoveredId;
+    attribute long                 HoveredIdPreviousFrame;
+    attribute boolean              HoveredIdAllowOverlap;
+    attribute boolean              HoveredIdDisabled;
+    attribute float                HoveredIdTimer;
+    attribute float                HoveredIdNotActiveTimer;
+    attribute long                 ActiveId;
+    attribute long                 ActiveIdIsAlive;
+    attribute float                ActiveIdTimer;
+    attribute boolean              ActiveIdIsJustActivated;
+    attribute boolean              ActiveIdAllowOverlap;
+    attribute boolean              ActiveIdNoClearOnFocusLoss;
+    attribute boolean              ActiveIdHasBeenPressedBefore;
+    attribute boolean              ActiveIdHasBeenEditedBefore;
+    attribute boolean              ActiveIdHasBeenEditedThisFrame;
+    attribute boolean              ActiveIdFromShortcut;
+    attribute long                 ActiveIdMouseButton;
+    [Value] attribute ImVec2       ActiveIdClickOffset;
+    attribute ImGuiWindow          ActiveIdWindow;
+//    attribute long                 ActiveIdSource;
+    attribute long                 ActiveIdPreviousFrame;
+    attribute boolean              ActiveIdPreviousFrameIsAlive;
+    attribute boolean              ActiveIdPreviousFrameHasBeenEditedBefore;
+    attribute ImGuiWindow          ActiveIdPreviousFrameWindow;
+    attribute long                 LastActiveId;
+    attribute float                LastActiveIdTimer;
 };
 
 interface ImGuiDockNode {
@@ -1236,6 +1264,14 @@ enum ImGuiFocusRequestFlags {
     "ImGuiFocusRequestFlags_None",
     "ImGuiFocusRequestFlags_RestoreFocusedChild",
     "ImGuiFocusRequestFlags_UnlessBelowModal"
+};
+
+enum ImGuiInputSource {
+    "ImGuiInputSource_None",
+    "ImGuiInputSource_Mouse",
+    "ImGuiInputSource_Keyboard",
+    "ImGuiInputSource_Gamepad",
+    "ImGuiInputSource_Clipboard"
 };
 
 enum ImGuiChildFlags {
