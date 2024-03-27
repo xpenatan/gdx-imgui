@@ -511,19 +511,19 @@ interface ImGui {
 ////    [Const] DOMString        GetKeyName(ImGuiKey key);
     static void                    SetNextFrameWantCaptureKeyboard(boolean want_capture_keyboard);
 
-    static boolean                 IsMouseDown(long button);
-    static boolean                 IsMouseClicked(long button, optional boolean repeat);
-    static boolean                 IsMouseReleased(long button);
-    static boolean                 IsMouseDoubleClicked(long button);
-    static long                    GetMouseClickedCount(long button);
+    static boolean                 IsMouseDown(long ImGuiMouseButton);
+    static boolean                 IsMouseClicked(long ImGuiMouseButton, optional boolean repeat);
+    static boolean                 IsMouseReleased(long ImGuiMouseButton);
+    static boolean                 IsMouseDoubleClicked(long ImGuiMouseButton);
+    static long                    GetMouseClickedCount(long ImGuiMouseButton);
     static boolean                 IsMouseHoveringRect([Const, Ref]ImVec2 r_min, [Const, Ref]ImVec2 r_max, optional boolean clip);
     static boolean                 IsMousePosValid([Const] optional ImVec2 mouse_pos);
     static boolean                 IsAnyMouseDown();
     [Value] static ImVec2          GetMousePos();
     [Value] static ImVec2          GetMousePosOnOpeningCurrentPopup();
-    static boolean                 IsMouseDragging(long button, optional float lock_threshold);
-    [Value] static ImVec2          GetMouseDragDelta(optional long button, optional float lock_threshold);
-    static void                    ResetMouseDragDelta(optional long button);
+    static boolean                 IsMouseDragging(long ImGuiMouseButton, optional float lock_threshold);
+    [Value] static ImVec2          GetMouseDragDelta(optional long ImGuiMouseButton, optional float lock_threshold);
+    static void                    ResetMouseDragDelta(optional long ImGuiMouseButton);
     static long                    GetMouseCursor();
     static void                    SetMouseCursor(long cursor_type);
     static void                    SetNextFrameWantCaptureMouse(boolean want_capture_mouse);
