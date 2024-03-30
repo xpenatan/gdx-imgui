@@ -921,37 +921,48 @@ interface ImGuiPlatformIO {
 
 [NoDelete]
 interface ImGuiContext {
-    attribute double Time;
-    attribute long NavId;
+    readonly attribute double Time;
+    readonly attribute long NavId;
+
+    // Windows state
+    [Value] readonly attribute ImGuiStorage      WindowsById;
+    readonly attribute long                      WindowsActiveCount;
+    [Value] readonly attribute ImVec2            WindowsHoverPadding;
+    readonly attribute long                      DebugBreakInWindow;
+    readonly attribute ImGuiWindow               CurrentWindow;
+    readonly attribute ImGuiWindow               HoveredWindow;
+    readonly attribute ImGuiWindow               HoveredWindowUnderMovingWindow;
+    readonly attribute ImGuiWindow               MovingWindow;
+    readonly attribute ImGuiWindow               WheelingWindow;
 
     // Item/widgets state and tracking information
-    attribute long                 DebugHookIdInfo;
-    attribute long                 HoveredId;
-    attribute long                 HoveredIdPreviousFrame;
-    attribute boolean              HoveredIdAllowOverlap;
-    attribute boolean              HoveredIdDisabled;
-    attribute float                HoveredIdTimer;
-    attribute float                HoveredIdNotActiveTimer;
-    attribute long                 ActiveId;
-    attribute long                 ActiveIdIsAlive;
-    attribute float                ActiveIdTimer;
-    attribute boolean              ActiveIdIsJustActivated;
-    attribute boolean              ActiveIdAllowOverlap;
-    attribute boolean              ActiveIdNoClearOnFocusLoss;
-    attribute boolean              ActiveIdHasBeenPressedBefore;
-    attribute boolean              ActiveIdHasBeenEditedBefore;
-    attribute boolean              ActiveIdHasBeenEditedThisFrame;
-    attribute boolean              ActiveIdFromShortcut;
-    attribute long                 ActiveIdMouseButton;
-    [Value] attribute ImVec2       ActiveIdClickOffset;
-    attribute ImGuiWindow          ActiveIdWindow;
-//    attribute long                 ActiveIdSource;
-    attribute long                 ActiveIdPreviousFrame;
-    attribute boolean              ActiveIdPreviousFrameIsAlive;
-    attribute boolean              ActiveIdPreviousFrameHasBeenEditedBefore;
-    attribute ImGuiWindow          ActiveIdPreviousFrameWindow;
-    attribute long                 LastActiveId;
-    attribute float                LastActiveIdTimer;
+    readonly attribute long                      DebugHookIdInfo;
+    readonly attribute long                      HoveredId;
+    readonly attribute long                      HoveredIdPreviousFrame;
+    readonly attribute boolean                   HoveredIdAllowOverlap;
+    readonly attribute boolean                   HoveredIdDisabled;
+    readonly attribute float                     HoveredIdTimer;
+    readonly attribute float                     HoveredIdNotActiveTimer;
+    readonly attribute long                      ActiveId;
+    readonly attribute long                      ActiveIdIsAlive;
+    readonly attribute float                     ActiveIdTimer;
+    readonly attribute boolean                   ActiveIdIsJustActivated;
+    readonly attribute boolean                   ActiveIdAllowOverlap;
+    readonly attribute boolean                   ActiveIdNoClearOnFocusLoss;
+    readonly attribute boolean                   ActiveIdHasBeenPressedBefore;
+    readonly attribute boolean                   ActiveIdHasBeenEditedBefore;
+    readonly attribute boolean                   ActiveIdHasBeenEditedThisFrame;
+    readonly attribute boolean                   ActiveIdFromShortcut;
+    readonly attribute long                      ActiveIdMouseButton;
+    [Value] readonly attribute ImVec2            ActiveIdClickOffset;
+    readonly attribute ImGuiWindow               ActiveIdWindow;
+//    attribute long                      ActiveIdSource;
+    readonly attribute long                      ActiveIdPreviousFrame;
+    readonly attribute boolean                   ActiveIdPreviousFrameIsAlive;
+    readonly attribute boolean                   ActiveIdPreviousFrameHasBeenEditedBefore;
+    readonly attribute ImGuiWindow               ActiveIdPreviousFrameWindow;
+    readonly attribute long                      LastActiveId;
+    readonly attribute float                     LastActiveIdTimer;
 };
 
 interface ImGuiDockNode {
