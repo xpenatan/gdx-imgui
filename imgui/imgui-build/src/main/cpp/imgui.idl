@@ -674,8 +674,9 @@ interface ImDrawList {
     [Value] ImVec2 GetClipRectMin();
     [Value] ImVec2 GetClipRectMax();
 
+    // Primitives
     void AddLine([Const, Ref] ImVec2 p1, [Const, Ref] ImVec2 p2, long col, optional float thickness);
-    void AddRect([Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, long col, optional float rounding, optional ImDrawFlags ImDrawFlags, optional float thickness);
+    void AddRect([Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, long col, optional float rounding, optional ImDrawFlags ImDrawFlags, float thickness);
     void AddRectFilled([Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, long col, optional float rounding, optional ImDrawFlags ImDrawFlags);
     void AddRectFilledMultiColor([Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, long col_upr_left, long col_upr_right, long col_bot_right, long col_bot_left);
     void AddQuad([Const, Ref] ImVec2 p1, [Const, Ref] ImVec2 p2, [Const, Ref] ImVec2 p3, [Const, Ref] ImVec2 p4, long col, optional float thickness);
@@ -686,10 +687,23 @@ interface ImDrawList {
     void AddCircleFilled([Const, Ref] ImVec2 center, float radius, long col, optional long num_segments);
     void AddNgon([Const, Ref] ImVec2 center, float radius, long col, long num_segments, optional float thickness);
     void AddNgonFilled([Const, Ref] ImVec2 center, float radius, long col, long num_segments);
-    void AddEllipse([Const, Ref] ImVec2 center, float radius_x, float radius_y, long col, optional float rot, optional long num_segments, optional float thickness);
-    void AddEllipseFilled([Const, Ref] ImVec2 center, float radius_x, float radius_y, long col, optional float rot, optional long num_segments);
+    void AddEllipse([Const, Ref] ImVec2 center, [Const, Ref] ImVec2 radius, long col, optional float rot, optional long num_segments, optional float thickness);
+    void AddEllipseFilled([Const, Ref] ImVec2 center, [Const, Ref] ImVec2 radius, long col, optional float rot, optional long num_segments);
+    void AddText([Const, Ref] ImVec2 pos, long col, [Const] DOMString text_begin, [Const] optional DOMString text_end);
+    void AddText([Const] ImFont font, float font_size, [Const, Ref] ImVec2 pos, long col, [Const] DOMString text_begin, [Const] optional DOMString text_end, optional float wrap_width, [Const] optional ImVec4 cpu_fine_clip_rect);
+    void AddBezierCubic([Const, Ref] ImVec2 p1, [Const, Ref] ImVec2 p2, [Const, Ref] ImVec2 p3, [Const, Ref] ImVec2 p4, long col, float thickness, optional long num_segments);
+    void AddBezierQuadratic([Const, Ref] ImVec2 p1, [Const, Ref] ImVec2 p2, [Const, Ref] ImVec2 p3, long col, float thickness, optional long num_segments);
 
-    void AddImage(any user_texture_id, [Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, [Const, Ref] optional ImVec2 uv_min, [Const, Ref] optional ImVec2 uv_max, optional unsigned long col);
+    // General polygon
+//    void  AddPolyline([Const] ImVec2[] points, long num_points, long col, ImDrawFlags ImDrawFlags, float thickness);
+//    void  AddConvexPolyFilled([Const] ImVec2[] points, long num_points, long col);
+//    void  AddConcavePolyFilled([Const] ImVec2[] points, long num_points, long col);
+
+    // Image primitives
+    void AddImage(any user_texture_id, [Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, [Const, Ref] optional ImVec2 uv_min, [Const, Ref] optional ImVec2 uv_max, optional long col);
+    void AddImageQuad(any user_texture_id, [Const, Ref] ImVec2 p1, [Const, Ref] ImVec2 p2, [Const, Ref] ImVec2 p3, [Const, Ref] ImVec2 p4, [Const, Ref] optional ImVec2 uv1, [Const, Ref] optional ImVec2 uv2, [Const, Ref] optional ImVec2 uv3, [Const, Ref] optional ImVec2 uv4, optional long col);
+    void AddImageRounded(any user_texture_id, [Const, Ref] ImVec2 p_min, [Const, Ref] ImVec2 p_max, [Const, Ref] ImVec2 uv_min, [Const, Ref] ImVec2 uv_max, long col, float rounding, optional ImDrawFlags ImDrawFlags);
+
     void PathClear();
     void PathLineTo([Const, Ref] ImVec2 pos);
     void PathLineToMergeDuplicate([Const, Ref] ImVec2 pos);
@@ -1270,8 +1284,7 @@ enum ImGuiInputSource {
     "ImGuiInputSource_None",
     "ImGuiInputSource_Mouse",
     "ImGuiInputSource_Keyboard",
-    "ImGuiInputSource_Gamepad",
-    "ImGuiInputSource_Clipboard"
+    "ImGuiInputSource_Gamepad"
 };
 
 enum ImGuiChildFlags {
