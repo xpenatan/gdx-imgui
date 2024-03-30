@@ -822,10 +822,10 @@ interface ImGuiWindowClass {
 interface ImGuiWindow {
     [Value] readonly attribute ImVectorInt IDStack;
     [Value] readonly attribute ImGuiWindowTempData DC;
-    attribute long ID;
-    attribute long Flags;
-    attribute long FlagsPreviousFrame;
-    attribute long ViewportId;
+    readonly attribute long ID;
+    readonly attribute long Flags;
+    readonly attribute long FlagsPreviousFrame;
+    readonly attribute long ViewportId;
     [Value] attribute ImVec2 ViewportPos;
     attribute long ViewportAllowPlatformMonitorExtend;
     [Value] attribute ImVec2 Pos;
@@ -844,9 +844,9 @@ interface ImGuiWindow {
     attribute float DecoInnerSizeX1;
     attribute float DecoInnerSizeY1;
     attribute long NameBufLen;
-    attribute long MoveId;
-    attribute long TabId;
-    attribute long ChildId;
+    readonly attribute long MoveId;
+    readonly attribute long TabId;
+    readonly attribute long ChildId;
     [Value] attribute ImVec2 Scroll;
     [Value] attribute ImVec2 ScrollMax;
     [Value] attribute ImVec2 ScrollTarget;
