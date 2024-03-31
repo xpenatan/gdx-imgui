@@ -901,6 +901,9 @@ interface ImGuiWindowTempData {
 
 interface ImGuiPayload {
     attribute any Data;
+
+    [Const] boolean IsPreview();
+    [Const] boolean IsDelivery();
 };
 
 interface ImDrawListSharedData {
