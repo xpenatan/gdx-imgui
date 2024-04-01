@@ -144,23 +144,23 @@ interface ImGui {
     static float                   GetWindowHeight();
     static ImGuiViewport           GetWindowViewport();
 
-    static void                    SetNextWindowPos([Const, Ref]ImVec2 pos, optional ImGuiCond cond, [Const, Ref] optional ImVec2 pivot);
-    static void                    SetNextWindowSize([Const, Ref]ImVec2 size, optional ImGuiCond cond);
+    static void                    SetNextWindowPos([Const, Ref]ImVec2 pos, optional ImGuiCond ImGuiCond, [Const, Ref] optional ImVec2 pivot);
+    static void                    SetNextWindowSize([Const, Ref]ImVec2 size, optional ImGuiCond ImGuiCond);
     static void                    SetNextWindowSizeConstraints([Const, Ref]ImVec2 size_min, [Const, Ref]ImVec2 size_max); //, optional CustomImGuiSizeCallback custom_callback, any custom_callback_data);
     static void                    SetNextWindowContentSize([Const, Ref]ImVec2 size);
-    static void                    SetNextWindowCollapsed(boolean collapsed, optional ImGuiCond cond);
+    static void                    SetNextWindowCollapsed(boolean collapsed, optional ImGuiCond ImGuiCond);
     static void                    SetNextWindowFocus();
     static void                    SetNextWindowScroll([Const, Ref]ImVec2 scroll);
     static void                    SetNextWindowBgAlpha(float alpha);
     static void                    SetNextWindowViewport(long viewport_id);
-    static void                    SetWindowPos([Const, Ref]ImVec2 pos, optional ImGuiCond cond);
-    static void                    SetWindowSize([Const, Ref]ImVec2 size, optional ImGuiCond cond);
-    static void                    SetWindowCollapsed(boolean collapsed, optional ImGuiCond cond);
+    static void                    SetWindowPos([Const, Ref]ImVec2 pos, optional ImGuiCond ImGuiCond);
+    static void                    SetWindowSize([Const, Ref]ImVec2 size, optional ImGuiCond ImGuiCond);
+    static void                    SetWindowCollapsed(boolean collapsed, optional ImGuiCond ImGuiCond);
     static void                    SetWindowFocus();
     static void                    SetWindowFontScale(float scale);
-    static void                    SetWindowPos_2([Const] DOMString name, [Const, Ref]ImVec2 pos, optional ImGuiCond cond);
-    static void                    SetWindowSize_2([Const] DOMString name, [Const, Ref]ImVec2 size, optional ImGuiCond cond);
-    static void                    SetWindowCollapsed_2([Const] DOMString name, boolean collapsed, optional ImGuiCond cond);
+    static void                    SetWindowPos_2([Const] DOMString name, [Const, Ref]ImVec2 pos, optional ImGuiCond ImGuiCond);
+    static void                    SetWindowSize_2([Const] DOMString name, [Const, Ref]ImVec2 size, optional ImGuiCond ImGuiCond);
+    static void                    SetWindowCollapsed_2([Const] DOMString name, boolean collapsed, optional ImGuiCond ImGuiCond);
     static void                    SetWindowFocus([Const] DOMString name);
 
     [Value] static ImVec2          GetContentRegionAvail();
@@ -341,7 +341,7 @@ interface ImGui {
     static float                   GetTreeNodeToLabelSpacing();
     static boolean                 CollapsingHeader([Const] DOMString label, optional ImGuiTreeNodeFlags ImGuiTreeNodeFlags);
     static boolean                 CollapsingHeader_2([Const] DOMString label, boolean[] p_visible, optional ImGuiTreeNodeFlags ImGuiTreeNodeFlags);
-    static void                    SetNextItemOpen(boolean is_open, optional ImGuiCond cond);
+    static void                    SetNextItemOpen(boolean is_open, optional ImGuiCond ImGuiCond);
 
     static boolean                 Selectable([Const] DOMString label, optional boolean selected, optional ImGuiSelectableFlags flags, [Const, Ref] optional ImVec2 size);
     static boolean                 Selectable_2([Const] DOMString label, boolean[] p_selected, optional ImGuiSelectableFlags flags, [Const, Ref] optional ImVec2 size);
@@ -431,7 +431,7 @@ interface ImGui {
 
     static long                    DockSpace(long id, [Const, Ref] optional ImVec2 size, optional ImGuiDockNodeFlags ImGuiDockNodeFlags, [Const] optional ImGuiWindowClass window_class);
     static long                    DockSpaceOverViewport([Const] optional ImGuiViewport viewport, optional ImGuiDockNodeFlags ImGuiDockNodeFlags, [Const] optional ImGuiWindowClass window_class);
-    static void                    SetNextWindowDockID(long dock_id, optional ImGuiCond cond);
+    static void                    SetNextWindowDockID(long dock_id, optional ImGuiCond ImGuiCond);
     static void                    SetNextWindowClass([Const]ImGuiWindowClass window_class);
     static long                    GetWindowDockID();
     static boolean                 IsWindowDocked();
