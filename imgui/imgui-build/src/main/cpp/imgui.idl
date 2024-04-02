@@ -897,7 +897,7 @@ interface ImGuiWindow {
 [NoDelete]
 interface ImGuiWindowTempData {
     [Value] readonly attribute ImVec2 CursorPos;
-    readonly attribute long TreeDepth;
+    attribute long TreeDepth;
 };
 
 interface ImGuiPayload {
