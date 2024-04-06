@@ -817,6 +817,12 @@ interface ImGuiTableSortSpecs {
 
 interface ImGuiWindowClass {
     attribute long ClassId;
+    attribute long ViewportFlagsOverrideSet;
+    attribute long ViewportFlagsOverrideClear;
+    attribute long TabItemFlagsOverrideSet;
+    attribute long DockNodeFlagsOverrideSet;
+    attribute boolean DockingAlwaysTabBar;
+    attribute boolean DockingAllowUnclassed;
 };
 
 [NoDelete]
