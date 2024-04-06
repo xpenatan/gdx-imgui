@@ -823,6 +823,8 @@ interface ImGuiWindowClass {
     attribute long DockNodeFlagsOverrideSet;
     attribute boolean DockingAlwaysTabBar;
     attribute boolean DockingAllowUnclassed;
+
+    void ImGuiWindowClass();
 };
 
 [NoDelete]
