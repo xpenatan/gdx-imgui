@@ -1311,6 +1311,22 @@ enum ImGuiInputSource {
     "ImGuiInputSource_Gamepad"
 };
 
+enum ImGuiViewportFlags {
+    "ImGuiViewportFlags_None",
+    "ImGuiViewportFlags_IsPlatformWindow",
+    "ImGuiViewportFlags_IsPlatformMonitor",
+    "ImGuiViewportFlags_OwnedByApp",
+    "ImGuiViewportFlags_NoDecoration",
+    "ImGuiViewportFlags_NoTaskBarIcon",
+    "ImGuiViewportFlags_NoFocusOnAppearing",
+    "ImGuiViewportFlags_NoFocusOnClick",
+    "ImGuiViewportFlags_NoInputs",
+    "ImGuiViewportFlags_NoRendererClear",
+    "ImGuiViewportFlags_NoAutoMerge",
+    "ImGuiViewportFlags_TopMost",
+    "ImGuiViewportFlags_CanHostOtherWindows"
+};
+
 enum ImGuiChildFlags {
     "ImGuiChildFlags_None",
     "ImGuiChildFlags_Border",
