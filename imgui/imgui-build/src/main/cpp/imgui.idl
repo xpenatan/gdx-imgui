@@ -816,6 +816,7 @@ interface ImGuiTableSortSpecs {
 };
 
 interface ImGuiWindowClass {
+    attribute long ClassId;
 };
 
 [NoDelete]
