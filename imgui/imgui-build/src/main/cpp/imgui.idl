@@ -817,6 +817,8 @@ interface ImGuiTableSortSpecs {
 
 interface ImGuiWindowClass {
     attribute long ClassId;
+    attribute long ParentViewportId;
+    attribute long FocusRouteParentWindowId;
     attribute long ViewportFlagsOverrideSet;
     attribute long ViewportFlagsOverrideClear;
     attribute long TabItemFlagsOverrideSet;
