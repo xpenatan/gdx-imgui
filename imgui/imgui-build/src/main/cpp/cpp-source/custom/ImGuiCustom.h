@@ -440,7 +440,7 @@ class ImGui {
         static bool                     TabItemButton(const char* label, ImGuiTabItemFlags flags = 0) { return im::TabItemButton(label, flags); }
         static void                     SetTabItemClosed(const char* tab_or_docked_window_label) { im::SetTabItemClosed(tab_or_docked_window_label); }
 
-        static ImGuiID                  DockSpace(ImGuiID id, const ImVec2& size = ImVec2(0, 0), ImGuiDockNodeFlags flags = 0, const ImGuiWindowClass* window_class = NULL) { return im::DockSpace(id, size, flags); }
+        static ImGuiID                  DockSpace(ImGuiID id, const ImVec2& size = ImVec2(0, 0), ImGuiDockNodeFlags flags = 0, const ImGuiWindowClass* window_class = NULL) { return im::DockSpace(id, size, flags, window_class); }
         static ImGuiID                  DockSpaceOverViewport(const ImGuiViewport* viewport = NULL, ImGuiDockNodeFlags flags = 0, const ImGuiWindowClass* window_class = NULL) { return im::DockSpaceOverViewport(viewport, flags, window_class); }
         static void                     SetNextWindowDockID(ImGuiID dock_id, ImGuiCond cond = 0) { im::SetNextWindowDockID(dock_id, cond); }
         static void                     SetNextWindowClass(const ImGuiWindowClass* window_class) { im::SetNextWindowClass(window_class); }
