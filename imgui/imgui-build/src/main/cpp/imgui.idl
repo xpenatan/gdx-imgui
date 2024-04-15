@@ -1272,27 +1272,6 @@ enum ImGuiDockNodeFlags {
     "ImGuiDockNodeFlags_NoUndocking"
 };
 
-enum ImGuiDockNodeFlagsPrivate {
-    "ImGuiDockNodeFlags_DockSpace",
-    "ImGuiDockNodeFlags_CentralNode",
-    "ImGuiDockNodeFlags_NoTabBar",
-    "ImGuiDockNodeFlags_HiddenTabBar",
-    "ImGuiDockNodeFlags_NoWindowMenuButton",
-    "ImGuiDockNodeFlags_NoCloseButton",
-    "ImGuiDockNodeFlags_NoResizeX",
-    "ImGuiDockNodeFlags_NoResizeY",
-    "ImGuiDockNodeFlags_DockedWindowsInFocusRoute",
-    "ImGuiDockNodeFlags_NoDockingSplitOther",
-    "ImGuiDockNodeFlags_NoDockingOverMe",
-    "ImGuiDockNodeFlags_NoDockingOverOther",
-    "ImGuiDockNodeFlags_NoDockingOverEmpty",
-    "ImGuiDockNodeFlags_NoDocking",
-    "ImGuiDockNodeFlags_SharedFlagsInheritMask_",
-    "ImGuiDockNodeFlags_NoResizeFlagsMask_",
-    "ImGuiDockNodeFlags_LocalFlagsTransferMask_",
-    "ImGuiDockNodeFlags_SavedFlagsMask_"
-};
-
 enum ImGuiPopupFlags {
     "ImGuiPopupFlags_None",
     "ImGuiPopupFlags_MouseButtonLeft",
@@ -1639,4 +1618,25 @@ enum ImGuiItemStatusFlags {
     "ImGuiItemStatusFlags_HoveredWindow",
     "ImGuiItemStatusFlags_Visible",
     "ImGuiItemStatusFlags_HasClipRect"
+};
+
+enum ImGuiDockNodeFlagsPrivate_ {
+    "ImGuiDockNodeFlags_DockSpace",
+    "ImGuiDockNodeFlags_CentralNode",
+    "ImGuiDockNodeFlags_NoTabBar",
+    "ImGuiDockNodeFlags_HiddenTabBar",
+    "ImGuiDockNodeFlags_NoWindowMenuButton",
+    "ImGuiDockNodeFlags_NoCloseButton",
+    "ImGuiDockNodeFlags_NoResizeX",
+    "ImGuiDockNodeFlags_NoResizeY",
+    "ImGuiDockNodeFlags_DockedWindowsInFocusRoute",
+    "ImGuiDockNodeFlags_NoDockingSplitOther",
+    "ImGuiDockNodeFlags_NoDockingOverMe",
+    "ImGuiDockNodeFlags_NoDockingOverOther",
+    "ImGuiDockNodeFlags_NoDockingOverEmpty",
+    "ImGuiDockNodeFlags_NoDocking",
+    "ImGuiDockNodeFlags_SharedFlagsInheritMask_",
+    "ImGuiDockNodeFlags_NoResizeFlagsMask_",
+    "ImGuiDockNodeFlags_LocalFlagsTransferMask_",
+    "ImGuiDockNodeFlags_SavedFlagsMask_"
 };
