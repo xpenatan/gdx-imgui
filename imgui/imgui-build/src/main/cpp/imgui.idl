@@ -1264,11 +1264,12 @@ enum ImGuiTabItemFlags {
 enum ImGuiDockNodeFlags {
     "ImGuiDockNodeFlags_None",
     "ImGuiDockNodeFlags_KeepAliveOnly",
-    "ImGuiDockNodeFlags_NoDockingInCentralNode",
+    "ImGuiDockNodeFlags_NoDockingOverCentralNode",
     "ImGuiDockNodeFlags_PassthruCentralNode",
-    "ImGuiDockNodeFlags_NoSplit",
+    "ImGuiDockNodeFlags_NoDockingSplit",
     "ImGuiDockNodeFlags_NoResize",
-    "ImGuiDockNodeFlags_AutoHideTabBar"
+    "ImGuiDockNodeFlags_AutoHideTabBar",
+    "ImGuiDockNodeFlags_NoUndocking"
 };
 
 enum ImGuiPopupFlags {
