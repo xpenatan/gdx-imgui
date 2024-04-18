@@ -29,8 +29,8 @@ public class BlueprintExample {
     }
 
     public void render(EditorContext editorContext) {
-        NodeEditor.setCurrentEditor(editorContext);
-        NodeEditor.begin("Node editor");
+        NodeEditor.SetCurrentEditor(editorContext);
+        NodeEditor.Begin("Node editor");
         {
             for(Node node : nodes) {
                 if(node.type != NodeType.Blueprint && node.type != NodeType.Simple)
@@ -49,8 +49,8 @@ public class BlueprintExample {
                 if(!isSimple) {
                     builder.Header(node.color);
 
-                    ImGui.textUnformatted(node.name);
-                    ImGui.dummy(ImVec2.TMP_1.set(0, 28));
+                    ImGui.TextUnformatted(node.name);
+                    ImGui.Dummy(ImVec2.TMP_1.set(0, 28));
 
                     if(hasOutputDelegates) {
 //                        ImGui::BeginVertical ("delegates", ImVec2(0, 28));
@@ -102,14 +102,14 @@ public class BlueprintExample {
 //                    DrawPinIcon(input, IsPinLinked(input.ID), (int)(alpha * 255));
 //                    ImGui::Spring (0);
                     if(!input.name.isEmpty()) {
-                        ImGui.textUnformatted(input.name);
+                        ImGui.TextUnformatted(input.name);
 //                        ImGui::Spring(0);
                     }
                     if(input.type == PinType.Bool) {
-                        ImGui.button("Hello");
+                        ImGui.Button("Hello");
 //                        ImGui::Spring(0);
                     }
-                    ImGui.popStyleVar();
+                    ImGui.PopStyleVar();
                     builder.EndInput();
                 }
 
@@ -132,22 +132,22 @@ public class BlueprintExample {
             }
 
 
-            ImVec2 openPopupPosition = ImGui.getMousePos();
+            ImVec2 openPopupPosition = ImGui.GetMousePos();
 //            float mouseX = openPopupPosition.get_x();
 //            float mouseY = openPopupPosition.get_y();
 
-            NodeEditor.suspend();
-            if(NodeEditor.showBackgroundContextMenu()) {
-                ImGui.openPopup(MENU_CREATE_NODE);
+            NodeEditor.Suspend();
+            if(NodeEditor.ShowBackgroundContextMenu()) {
+                ImGui.OpenPopup(MENU_CREATE_NODE);
             }
-            NodeEditor.resume();
+            NodeEditor.Resume();
 
-            NodeEditor.suspend();
+            NodeEditor.Suspend();
 //            renderCreateNodeMenu(mouseX, mouseY);
-            NodeEditor.resume();
+            NodeEditor.Resume();
         }
-        NodeEditor.end();
-        NodeEditor.setCurrentEditor(null);
+        NodeEditor.End();
+        NodeEditor.SetCurrentEditor(null);
     }
 
     void DrawPinIcon(Pin pin, boolean connected, int alpha) {
@@ -212,19 +212,19 @@ public class BlueprintExample {
     }
 
     private void renderCreateNodeMenu(float mouseX, float mouseY) {
-        if(ImGui.beginPopup(MENU_CREATE_NODE)) {
+        if(ImGui.BeginPopup(MENU_CREATE_NODE)) {
             Node node = null;
 
-            if(ImGui.menuItem("Input Action")) {
+            if(ImGui.MenuItem("Input Action")) {
                 node = SpawnInputActionNode();
             }
 
             if(node != null) {
                 BuildNodes();
-                NodeEditor.setNodePosition(node.id, ImVec2.TMP_1.set(mouseX, mouseY));
+                NodeEditor.SetNodePosition(node.id, ImVec2.TMP_1.set(mouseX, mouseY));
             }
 
-            ImGui.endPopup();
+            ImGui.EndPopup();
         }
     }
 

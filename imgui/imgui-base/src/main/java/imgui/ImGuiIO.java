@@ -15,7 +15,7 @@ public class ImGuiIO extends IDLBase {
     public ImGuiIO(byte v, char c) {
     }
 
-    public void configFlags(int flags) {
+    public void ConfigFlags(int flags) {
         SetConfigFlagsNATIVE(getCPointer(), flags);
     }
 
@@ -45,7 +45,7 @@ public class ImGuiIO extends IDLBase {
 //    */
 //    private static native boolean ContainsConfigFlagsNATIVE(long addr, int flag);
 
-    public void setDockingFlags(boolean ConfigDockingNoSplit, boolean ConfigDockingWithShift, boolean ConfigDockingAlwaysTabBar, boolean ConfigDockingTransparentPayload) {
+    public void SetDockingFlags(boolean ConfigDockingNoSplit, boolean ConfigDockingWithShift, boolean ConfigDockingAlwaysTabBar, boolean ConfigDockingTransparentPayload) {
         SetDockingFlagsNATIVE(getCPointer(), ConfigDockingNoSplit, ConfigDockingWithShift, ConfigDockingAlwaysTabBar, ConfigDockingTransparentPayload);
     }
 
@@ -65,7 +65,7 @@ public class ImGuiIO extends IDLBase {
     */
     private static native void SetDockingFlagsNATIVE(long addr, boolean ConfigDockingNoSplit, boolean ConfigDockingWithShift, boolean ConfigDockingAlwaysTabBar, boolean ConfigDockingTransparentPayload);
 
-    public void setFontGlobalScale(float scale) {
+    public void SetFontGlobalScale(float scale) {
         SetFontGlobalScaleNATIVE(getCPointer(), scale);
     }
 
@@ -148,7 +148,7 @@ public class ImGuiIO extends IDLBase {
     */
     private static native boolean containsIniFilenameNATIVE(long addr);
 
-    public void getTexDataAsRGBA32(IDLByteArray pixelBuffer, IDLIntArray outWidth, IDLIntArray outHeight, IDLIntArray outBytesPerPixel) {
+    public void GetTexDataAsRGBA32(IDLByteArray pixelBuffer, IDLIntArray outWidth, IDLIntArray outHeight, IDLIntArray outBytesPerPixel) {
         GetTexDataAsRGBA32NATIVE(getCPointer(), pixelBuffer.getCPointer(), outWidth.getCPointer(), outHeight.getCPointer(), outBytesPerPixel.getCPointer());
     }
 
@@ -174,7 +174,7 @@ public class ImGuiIO extends IDLBase {
     */
     private static native void GetTexDataAsRGBA32NATIVE(long addr, long pixelBufferAddr, long widthAddr, long heightAddr, long bytesPerPixelAddr);
 
-    public void setFontTexID(int id) {
+    public void SetFontTexID(int id) {
         SetFontTexIDNATIVE(getCPointer(), id);
     }
 
@@ -188,7 +188,7 @@ public class ImGuiIO extends IDLBase {
     */
     private static native void SetFontTexIDNATIVE(long addr, int id);
 
-    public void updateKeyTyped(int c) {
+    public void UpdateKeyTyped(int c) {
         updateKeyTyped(getCPointer(), c);
     }
 
@@ -204,7 +204,7 @@ public class ImGuiIO extends IDLBase {
     */
     private static native void updateKeyTyped(long addr, int c);
 
-    public void addKeyEvent(int imGuiKey, boolean down) {
+    public void AddKeyEvent(int imGuiKey, boolean down) {
         AddKeyEventNATIVE(getCPointer(), imGuiKey, down);
     }
 
@@ -218,7 +218,7 @@ public class ImGuiIO extends IDLBase {
     */
     private static native void AddKeyEventNATIVE(long addr, int imGuiKey, boolean down);
 
-    public void addMousePosEvent(float x, float y) {
+    public void AddMousePosEvent(float x, float y) {
         AddMousePosEventNATIVE(getCPointer(), x, y);
     }
 
@@ -232,7 +232,7 @@ public class ImGuiIO extends IDLBase {
     */
     private static native void AddMousePosEventNATIVE(long addr, float x, float y);
 
-    public void addMouseButtonEvent(int button, boolean down) {
+    public void AddMouseButtonEvent(int button, boolean down) {
         AddMouseButtonEventNATIVE(getCPointer(), button, down);
     }
 
@@ -246,7 +246,7 @@ public class ImGuiIO extends IDLBase {
     */
     private static native void AddMouseButtonEventNATIVE(long addr, int button, boolean down);
 
-    public void addMouseWheelEvent(float xOffset, float yOffset) {
+    public void AddMouseWheelEvent(float xOffset, float yOffset) {
         AddMouseWheelEventNATIVE(getCPointer(), xOffset, yOffset);
     }
 

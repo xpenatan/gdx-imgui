@@ -5,7 +5,8 @@
 
 
 gdx-imgui is a java binding for C++ [dear-imgui](https://github.com/ocornut/imgui). <br>
-It's meant to be small and close 1-1 to C++. It uses webidl file to generate java methods with the help of [jParser](https://github.com/xpenatan/jParser).
+It uses webidl file to generate java methods with the help of [jParser](https://github.com/xpenatan/jParser). <br>
+It's meant to be small and 1-1 to C++. ImGui::Begin() is ImGui.Begin() and so on.
 
 <p align="center"><img src="https://i.imgur.com/rXk4Aq0.gif"/></p>
 

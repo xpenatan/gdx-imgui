@@ -9,31 +9,31 @@ import imgui.extension.nodeeditor.PinKind;
 public class SimpleExample {
 
     public static void render(EditorContext editorContext) {
-        NodeEditor.setCurrentEditor(editorContext);
+        NodeEditor.SetCurrentEditor(editorContext);
 
-        NodeEditor.begin("My Editor", ImVec2.TMP_1.set(0, 0));
+        NodeEditor.Begin("My Editor", ImVec2.TMP_1.set(0, 0));
 
         int uniqueId = 1;
         {
-            NodeEditor.beginNode(uniqueId++);
-            ImGui.text("Node A");
+            NodeEditor.BeginNode(uniqueId++);
+            ImGui.Text("Node A");
             {
-                NodeEditor.beginPin(uniqueId++, PinKind.Input);
-                ImGui.text("-> In");
-                NodeEditor.endPin();
+                NodeEditor.BeginPin(uniqueId++, PinKind.Input);
+                ImGui.Text("-> In");
+                NodeEditor.EndPin();
             }
 
-            ImGui.sameLine();
+            ImGui.SameLine();
 
             {
-                NodeEditor.beginPin(uniqueId++, PinKind.Output);
-                ImGui.text("-> Out");
-                NodeEditor.endPin();
+                NodeEditor.BeginPin(uniqueId++, PinKind.Output);
+                ImGui.Text("-> Out");
+                NodeEditor.EndPin();
             }
-            NodeEditor.endNode();
+            NodeEditor.EndNode();
         }
 
-        NodeEditor.end();
-        NodeEditor.setCurrentEditor(null);
+        NodeEditor.End();
+        NodeEditor.SetCurrentEditor(null);
     }
 }

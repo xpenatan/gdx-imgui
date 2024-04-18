@@ -21,14 +21,14 @@ public class ImLayoutExample extends ImGuiRenderer {
     public void renderImGui() {
         if(init == false) {
             init = true;
-            ImGui.setNextWindowSize(new ImVec2(400, 400));
+            ImGui.SetNextWindowSize(new ImVec2(400, 400));
         }
 
-        ImGui.begin("ImLayout Example");
+        ImGui.Begin("ImLayout Example");
         view.renderTabImGuiExtViews();
-        ImGui.end();
+        ImGui.End();
 
-        ImGui.showDemoWindow();
+        ImGui.ShowDemoWindow();
     }
 
     @Override

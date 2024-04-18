@@ -44,48 +44,48 @@ public class SubWindowRenderer implements UIRenderer {
         ToolWindowsClass02.DockingAlwaysTabBar(false);
         ToolWindowsClass02.ClassId(3333);
 
-        ImGuiViewport viewport = ImGui.getMainViewport();
-        ImGui.setNextWindowPos(viewport.Pos());
-        ImGui.setNextWindowSize(viewport.Size());
+        ImGuiViewport viewport = ImGui.GetMainViewport();
+        ImGui.SetNextWindowPos(viewport.Pos());
+        ImGui.SetNextWindowSize(viewport.Size());
 
         int flags = 0;
         flags |= ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
         flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
 
-        ImGui.pushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2.TMP_1.set(0.0f, 0.0f));
-        ImGui.begin("No document###DocumentRoot", null, flags);
-        ImGui.popStyleVar();
+        ImGui.PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2.TMP_1.set(0.0f, 0.0f));
+        ImGui.Begin("No document###DocumentRoot", null, flags);
+        ImGui.PopStyleVar();
         int root_dockspace_id = 99999;
-        ImGui.dockSpace(root_dockspace_id, ImVec2.TMP_1.set(0, 0), 0, TopLevelEditorWindowClass);
-        ImGui.end();
+        ImGui.DockSpace(root_dockspace_id, ImVec2.TMP_1.set(0, 0), 0, TopLevelEditorWindowClass);
+        ImGui.End();
 
-        ImGui.begin("Dock 01");
+        ImGui.Begin("Dock 01");
         int dockspace_id01 = 11211;
-        ImVec2 dockspace_size1 = ImGui.getContentRegionAvail();
-        ImGui.dockSpace(dockspace_id01, dockspace_size1, ImGuiDockNodeFlags.ImGuiDockNodeFlags_None, ToolWindowsClass01);
-        ImGui.end();
+        ImVec2 dockspace_size1 = ImGui.GetContentRegionAvail();
+        ImGui.DockSpace(dockspace_id01, dockspace_size1, ImGuiDockNodeFlags.ImGuiDockNodeFlags_None, ToolWindowsClass01);
+        ImGui.End();
 
-        ImGui.begin("Dock 02");
+        ImGui.Begin("Dock 02");
         int dockspace_id02 = 22222;
-        ImVec2 dockspace_size2 = ImGui.getContentRegionAvail();
-        ImGui.dockSpace(dockspace_id02, dockspace_size2, 0, ToolWindowsClass02);
-        ImGui.end();
+        ImVec2 dockspace_size2 = ImGui.GetContentRegionAvail();
+        ImGui.DockSpace(dockspace_id02, dockspace_size2, 0, ToolWindowsClass02);
+        ImGui.End();
 
-        ImGui.setNextWindowClass(ToolWindowsClass01);
-        ImGui.begin("Tool 01");
-        ImGui.end();
+        ImGui.SetNextWindowClass(ToolWindowsClass01);
+        ImGui.Begin("Tool 01");
+        ImGui.End();
 
-        ImGui.setNextWindowClass(ToolWindowsClass01);
-        ImGui.begin("Game 01");
-        ImGui.end();
+        ImGui.SetNextWindowClass(ToolWindowsClass01);
+        ImGui.Begin("Game 01");
+        ImGui.End();
 
-        ImGui.setNextWindowClass(ToolWindowsClass02);
-        ImGui.begin("Tool 02");
-        ImGui.end();
+        ImGui.SetNextWindowClass(ToolWindowsClass02);
+        ImGui.Begin("Tool 02");
+        ImGui.End();
 
-        ImGui.setNextWindowClass(ToolWindowsClass02);
-        ImGui.begin("Game 02");
-        ImGui.end();
+        ImGui.SetNextWindowClass(ToolWindowsClass02);
+        ImGui.Begin("Game 02");
+        ImGui.End();
     }
 
     @Override

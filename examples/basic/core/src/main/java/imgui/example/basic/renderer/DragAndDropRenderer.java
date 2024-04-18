@@ -13,23 +13,23 @@ public class DragAndDropRenderer implements UIRenderer {
 
     @Override
     public void render() {
-        ImGui.inputText("##test", imString, imString.getSize());
+        ImGui.InputText("##test", imString, imString.getSize());
 
-        if(ImGui.beginDragDropSource()) {
-            ImGui.setDragDropPayload("DRAG_ENTITY_ID", 3);
-            ImGui.text("Dragging: " + "entityName");
-            ImGui.endDragDropSource();
+        if(ImGui.BeginDragDropSource()) {
+            ImGui.SetDragDropPayload("DRAG_ENTITY_ID", 3);
+            ImGui.Text("Dragging: " + "entityName");
+            ImGui.EndDragDropSource();
         }
 
-        ImGui.text("Drag here");
-        if(ImGui.beginDragDropTarget()) {
-            ImGuiPayload dragDropPayload = ImGui.acceptDragDropPayload("DRAG_ENTITY_ID");
+        ImGui.Text("Drag here");
+        if(ImGui.BeginDragDropTarget()) {
+            ImGuiPayload dragDropPayload = ImGui.AcceptDragDropPayload("DRAG_ENTITY_ID");
             if(dragDropPayload != null) {
                 System.out.println("dragDropPayload");
                 int data1 = dragDropPayload.get_Data();
                 System.out.println("Value: " + data1);
             }
-            ImGui.endDragDropTarget();
+            ImGui.EndDragDropTarget();
         }
     }
 

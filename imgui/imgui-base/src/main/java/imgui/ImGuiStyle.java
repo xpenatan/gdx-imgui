@@ -12,15 +12,15 @@ public class ImGuiStyle extends IDLBase {
     /*[-IDL_SKIP]*/
     public native ImVec4[] Colors();
 
-    public void colors(int index, float r, float g, float b, float a) {
-        colors(index, ImVec4.TMP_INTERNAL_1.set(r, g, b, a));
+    public void Colors(int index, float r, float g, float b, float a) {
+        Colors(index, ImVec4.TMP_INTERNAL_1.set(r, g, b, a));
     }
 
-    public void colors(int index, int r, int g, int b, int a) {
-        colors(index, ImVec4.TMP_INTERNAL_1.set(r / 255f, g / 255f, b / 255f, a / 255f));
+    public void Clors(int index, int r, int g, int b, int a) {
+        Colors(index, ImVec4.TMP_INTERNAL_1.set(r / 255f, g / 255f, b / 255f, a / 255f));
     }
 
-    public void colors(int index, ImVec4 color) {
+    public void Colors(int index, ImVec4 color) {
         set_ColorsNATIVE(getCPointer(), index, color.getCPointer());
     }
 
@@ -39,7 +39,7 @@ public class ImGuiStyle extends IDLBase {
     /**
      * Return a temp ImVec4 object. Don't keep reference.
      */
-    public ImVec4 colors(int index) {
+    public ImVec4 Colors(int index) {
         tmp.setPointer(get_ColorsNATIVE(getCPointer(), index));
         return tmp;
     }

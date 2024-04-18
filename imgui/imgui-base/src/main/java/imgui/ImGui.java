@@ -10,7 +10,7 @@ import idl.helper.IDLInt;
  */
 public class ImGui {
 
-    public static void updateDisplayAndInputAndFrame(float deltaTime, int width, int height, int backBufferWidth, int backBufferHeight) {
+    public static void UpdateDisplayAndInputAndFrame(float deltaTime, int width, int height, int backBufferWidth, int backBufferHeight) {
         UpdateDisplayAndInputAndFrameNative(deltaTime, width, height, backBufferWidth, backBufferHeight);
     }
 
@@ -39,7 +39,7 @@ public class ImGui {
 
 
     /*[-IDL_SKIP]*/
-    public static void createContext() {
+    public static void CreateContext() {
     }
 
     /*[-teaVM;-NATIVE]
@@ -52,7 +52,7 @@ public class ImGui {
         }
         ImGui::GetIO().BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
     */
-    public static native void createContext(boolean saveIni);
+    public static native void CreateContext(boolean saveIni);
 
     /**
      * Dispose temp objects.

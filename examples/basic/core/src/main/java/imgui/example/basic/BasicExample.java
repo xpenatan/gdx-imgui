@@ -59,12 +59,12 @@ public class BasicExample extends ImGuiRenderer {
         uiCam.setToOrtho(true);
         batch = new SpriteBatch();
 
-        ImGuiStyle style = ImGui.getStyle();
+        ImGuiStyle style = ImGui.GetStyle();
 
-        ImVec4 colors = style.colors(ImGuiCol_Header);
+        ImVec4 colors = style.Colors(ImGuiCol_Header);
 
         System.out.println("Color before: R: " + colors.x() + " G: " + colors.y() + " B: " + colors.z() + " A: " + colors.w());
-        style.colors(ImGuiCol_Header, 255, 0, 0, 255);
+        style.Colors(ImGuiCol_Header, 255, 0, 0, 255);
         System.out.println("Color adter: R: " + colors.x() + " G: " + colors.y() + " B: " + colors.z() + " A: " + colors.w());
     }
 
@@ -79,27 +79,27 @@ public class BasicExample extends ImGuiRenderer {
             renderDock();
         }
         else {
-            ImGui.showDemoWindow();
+            ImGui.ShowDemoWindow();
 
             if(init == false) {
                 init = true;
-                ImGui.setNextWindowSize(new ImVec2(400, 400), 1 << 1);
+                ImGui.SetNextWindowSize(new ImVec2(400, 400), 1 << 1);
             }
 
-            ImGui.begin("Hello World");
+            ImGui.Begin("Hello World");
             renderItems();
-            ImGui.end();
+            ImGui.End();
         }
     }
     private void renderItems() {
-        if(ImGui.beginTabBar("##Renderer", ImGuiTabBarFlags.ImGuiTabBarFlags_FittingPolicyScroll | ImGuiTabBarFlags.ImGuiTabBarFlags_Reorderable)) {
+        if(ImGui.BeginTabBar("##Renderer", ImGuiTabBarFlags.ImGuiTabBarFlags_FittingPolicyScroll | ImGuiTabBarFlags.ImGuiTabBarFlags_Reorderable)) {
             for(UIRenderer renderer : renderers) {
-                if(ImGui.beginTabItem(renderer.getName())) {
+                if(ImGui.BeginTabItem(renderer.getName())) {
                     renderer.render();
-                    ImGui.endTabItem();
+                    ImGui.EndTabItem();
                 }
             }
-            ImGui.endTabBar();
+            ImGui.EndTabBar();
         }
     }
 
@@ -118,43 +118,43 @@ public class BasicExample extends ImGuiRenderer {
 
         if ((dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode) > 0)
             window_flags |= ImGuiWindowFlags_NoBackground;
-        ImGuiViewport imGuiViewport = ImGui.getMainViewport();
+        ImGuiViewport imGuiViewport = ImGui.GetMainViewport();
 
-        ImGui.setNextWindowPos(imGuiViewport.Pos());
-        ImGui.setNextWindowSize(imGuiViewport.Size());
+        ImGui.SetNextWindowPos(imGuiViewport.Pos());
+        ImGui.SetNextWindowSize(imGuiViewport.Size());
 
         // Create docking space
-        ImGui.pushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2.TMP_1.set(0.0f, 0.0f));
-        ImGui.begin("DockSpace111", null, window_flags);
-        ImGui.popStyleVar();
+        ImGui.PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2.TMP_1.set(0.0f, 0.0f));
+        ImGui.Begin("DockSpace111", null, window_flags);
+        ImGui.PopStyleVar();
 
-        dockspace_id = ImGui.getID("MyDockSpace");
-        ImGui.dockSpace(dockspace_id, ImVec2.TMP_1.set(0f, 0f), dockspace_flags);
+        dockspace_id = ImGui.GetID("MyDockSpace");
+        ImGui.DockSpace(dockspace_id, ImVec2.TMP_1.set(0f, 0f), dockspace_flags);
 
-        ImGui.end();
+        ImGui.End();
         // End of docking space
 
         renderMenu();
 
-        ImGui.showDemoWindow();
+        ImGui.ShowDemoWindow();
 
-        ImGui.begin("Game Window");
-        ImGui.end();
-        ImGui.begin("Hierarchy");
-        ImGui.end();
-        ImGui.begin("Assets");
-        ImGui.end();
+        ImGui.Begin("Game Window");
+        ImGui.End();
+        ImGui.Begin("Hierarchy");
+        ImGui.End();
+        ImGui.Begin("Assets");
+        ImGui.End();
 
-        if(ImGui.begin("Inspector")) {
+        if(ImGui.Begin("Inspector")) {
         }
-        ImGui.end();
+        ImGui.End();
 
-        if(ImGui.begin("Game Editor")) {
+        if(ImGui.Begin("Game Editor")) {
             renderItems();
         }
-        ImGui.end();
-        ImGui.begin("GUI Editor");
-        ImGui.end();
+        ImGui.End();
+        ImGui.Begin("GUI Editor");
+        ImGui.End();
 
         if (!first) {
             // Dock all windows when app start
@@ -164,98 +164,98 @@ public class BasicExample extends ImGuiRenderer {
     }
 
     private void resetLayout(int layout) {
-        ImGuiViewport imGuiViewport = ImGui.getMainViewport();
+        ImGuiViewport imGuiViewport = ImGui.GetMainViewport();
 
-        ImGui.setWindowFocus(null);
-        ImGuiInternal.dockBuilderRemoveNode(dockspace_id); // clear any previous layout
-        ImGuiInternal.dockBuilderAddNode(dockspace_id, dockspace_flags | 1 << 10);
-        ImGuiInternal.dockBuilderSetNodeSize(dockspace_id, imGuiViewport.Size());
+        ImGui.SetWindowFocus(null);
+        ImGuiInternal.DockBuilderRemoveNode(dockspace_id); // clear any previous layout
+        ImGuiInternal.DockBuilderAddNode(dockspace_id, dockspace_flags | 1 << 10);
+        ImGuiInternal.DockBuilderSetNodeSize(dockspace_id, imGuiViewport.Size());
 
         int centralID = 0;
 
         if(layout == 0 ) {
-            int rightId = ImGuiInternal.dockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.2f, null, IDLInt.TMP_1);
+            int rightId = ImGuiInternal.DockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.2f, null, IDLInt.TMP_1);
             int leftId = IDLInt.TMP_1.getValue();
 
-            int bottomId = ImGuiInternal.dockBuilderSplitNode(leftId, ImGuiDir_Down, 0.3f, null, IDLInt.TMP_1);
+            int bottomId = ImGuiInternal.DockBuilderSplitNode(leftId, ImGuiDir_Down, 0.3f, null, IDLInt.TMP_1);
             int topId = IDLInt.TMP_1.getValue();
-            int topLeft = ImGuiInternal.dockBuilderSplitNode(topId, ImGuiDir_Left, 0.4f, null, IDLInt.TMP_1);
+            int topLeft = ImGuiInternal.DockBuilderSplitNode(topId, ImGuiDir_Left, 0.4f, null, IDLInt.TMP_1);
             centralID = IDLInt.TMP_1.getValue();
 
-            int rightTopId = ImGuiInternal.dockBuilderSplitNode(rightId, ImGuiDir_Up, 0.5f, null, IDLInt.TMP_1);
+            int rightTopId = ImGuiInternal.DockBuilderSplitNode(rightId, ImGuiDir_Up, 0.5f, null, IDLInt.TMP_1);
             int rightBottomId = IDLInt.TMP_1.getValue();
 
-            int bottomLeftId = ImGuiInternal.dockBuilderSplitNode(bottomId, ImGuiDir_Left, 0.4f, null, IDLInt.TMP_1);
+            int bottomLeftId = ImGuiInternal.DockBuilderSplitNode(bottomId, ImGuiDir_Left, 0.4f, null, IDLInt.TMP_1);
             int bottomRightId = IDLInt.TMP_1.getValue();
 
             // Plug in all layout ids to window title
-            ImGuiInternal.dockBuilderDockWindow("Game Editor", centralID);
-            ImGuiInternal.dockBuilderDockWindow("GUI Editor", centralID);
-            ImGuiInternal.dockBuilderDockWindow("Game Window", topLeft);
-            ImGuiInternal.dockBuilderDockWindow("Dear ImGui Demo", bottomRightId);
-            ImGuiInternal.dockBuilderDockWindow("Hierarchy", rightTopId);
-            ImGuiInternal.dockBuilderDockWindow("Inspector", rightBottomId);
-            ImGuiInternal.dockBuilderDockWindow("Assets", bottomLeftId);
+            ImGuiInternal.DockBuilderDockWindow("Game Editor", centralID);
+            ImGuiInternal.DockBuilderDockWindow("GUI Editor", centralID);
+            ImGuiInternal.DockBuilderDockWindow("Game Window", topLeft);
+            ImGuiInternal.DockBuilderDockWindow("Dear ImGui Demo", bottomRightId);
+            ImGuiInternal.DockBuilderDockWindow("Hierarchy", rightTopId);
+            ImGuiInternal.DockBuilderDockWindow("Inspector", rightBottomId);
+            ImGuiInternal.DockBuilderDockWindow("Assets", bottomLeftId);
         }
         else {
-            int rightId = ImGuiInternal.dockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.2f, null, IDLInt.TMP_1);
+            int rightId = ImGuiInternal.DockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.2f, null, IDLInt.TMP_1);
 
             int leftId = IDLInt.TMP_1.getValue();
 
-            int bottomId = ImGuiInternal.dockBuilderSplitNode(leftId, ImGuiDir_Down, 0.2f, null, IDLInt.TMP_1);
+            int bottomId = ImGuiInternal.DockBuilderSplitNode(leftId, ImGuiDir_Down, 0.2f, null, IDLInt.TMP_1);
             int topId = IDLInt.TMP_1.getValue();
 
-            int leftLeftId = ImGuiInternal.dockBuilderSplitNode(topId, ImGuiDir_Left, 0.2f, null, IDLInt.TMP_1);
+            int leftLeftId = ImGuiInternal.DockBuilderSplitNode(topId, ImGuiDir_Left, 0.2f, null, IDLInt.TMP_1);
             int middleId = IDLInt.TMP_1.getValue();
 
-            int middleLeftId = ImGuiInternal.dockBuilderSplitNode(middleId, ImGuiDir_Left, 0.5f, null, IDLInt.TMP_1);
+            int middleLeftId = ImGuiInternal.DockBuilderSplitNode(middleId, ImGuiDir_Left, 0.5f, null, IDLInt.TMP_1);
             centralID = IDLInt.TMP_1.getValue();
 
-            int rightTopId = ImGuiInternal.dockBuilderSplitNode(rightId, ImGuiDir_Up, 0.5f, null, IDLInt.TMP_1);
+            int rightTopId = ImGuiInternal.DockBuilderSplitNode(rightId, ImGuiDir_Up, 0.5f, null, IDLInt.TMP_1);
             int rightBottomId = IDLInt.TMP_1.getValue();
 
-            ImGuiInternal.dockBuilderDockWindow("Game Editor", centralID);
-            ImGuiInternal.dockBuilderDockWindow("GUI Editor", centralID);
-            ImGuiInternal.dockBuilderDockWindow("Game Window", middleLeftId);
-            ImGuiInternal.dockBuilderDockWindow("Dear ImGui Demo", rightBottomId);
-            ImGuiInternal.dockBuilderDockWindow("Hierarchy", leftLeftId);
-            ImGuiInternal.dockBuilderDockWindow("Inspector", rightTopId);
-            ImGuiInternal.dockBuilderDockWindow("Assets", bottomId);
+            ImGuiInternal.DockBuilderDockWindow("Game Editor", centralID);
+            ImGuiInternal.DockBuilderDockWindow("GUI Editor", centralID);
+            ImGuiInternal.DockBuilderDockWindow("Game Window", middleLeftId);
+            ImGuiInternal.DockBuilderDockWindow("Dear ImGui Demo", rightBottomId);
+            ImGuiInternal.DockBuilderDockWindow("Hierarchy", leftLeftId);
+            ImGuiInternal.DockBuilderDockWindow("Inspector", rightTopId);
+            ImGuiInternal.DockBuilderDockWindow("Assets", bottomId);
         }
 
-        ImGuiDockNode node = ImGuiInternal.dockBuilderGetNode(centralID);
+        ImGuiDockNode node = ImGuiInternal.DockBuilderGetNode(centralID);
         // Select Game editor tab
-        int id = ImGuiInternal.imHashStr("#TAB", 0, ImGuiInternal.imHashStr("Game Editor", 0, 0));
+        int id = ImGuiInternal.ImHashStr("#TAB", 0, ImGuiInternal.ImHashStr("Game Editor", 0, 0));
         node.SelectedTabId(id);
 
-        ImGuiInternal.dockBuilderFinish(dockspace_id);
+        ImGuiInternal.DockBuilderFinish(dockspace_id);
     }
 
     private void renderMenu() {
-        if(ImGui.beginMainMenuBar()) {
-            if(ImGui.beginMenu("File")) {
-                if(ImGui.menuItem("Save")) {
+        if(ImGui.BeginMainMenuBar()) {
+            if(ImGui.BeginMenu("File")) {
+                if(ImGui.MenuItem("Save")) {
                 }
-                if(ImGui.menuItem("Load")) {
+                if(ImGui.MenuItem("Load")) {
                 }
-                ImGui.endMenu();
+                ImGui.EndMenu();
             }
 
-            if(ImGui.beginMenu("View")) {
-                if(ImGui.beginMenu("Layout")) {
-                    if(ImGui.menuItem("Layout 01")) {
+            if(ImGui.BeginMenu("View")) {
+                if(ImGui.BeginMenu("Layout")) {
+                    if(ImGui.MenuItem("Layout 01")) {
                         resetLayout(0);
                     }
-                    if(ImGui.menuItem("Layout 02")) {
+                    if(ImGui.MenuItem("Layout 02")) {
                         resetLayout(1);
                     }
 
-                    ImGui.endMenu();
+                    ImGui.EndMenu();
                 }
 
-                ImGui.endMenu();
+                ImGui.EndMenu();
             }
-            ImGui.endMainMenuBar();
+            ImGui.EndMainMenuBar();
         }
     }
 }
