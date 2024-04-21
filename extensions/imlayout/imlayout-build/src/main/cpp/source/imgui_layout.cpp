@@ -366,10 +366,6 @@ void ImLayout::EndLayout()
     float x = window->DC.CursorPos.x;
     float y = window->DC.CursorPos.y;
 
-    //curLayout->contentSize.x = window->DC.CursorMaxPos.x - x; // dont work with table api but there is no test bug
-    //curLayout->contentSize.y = y - curLayout->position.y - g.Style.ItemSpacing.y;
-    //curLayout->contentSize.x = x - curLayout->positionContents.x; // werid bug in test but works with table api
-
     curLayout->contentSize.x = window->DC.CursorMaxPos.x - curLayout->positionContents.x - curLayout->paddingLeft;
     curLayout->contentSize.y = y - curLayout->positionContents.y - g.Style.ItemSpacing.y;
 
@@ -379,6 +375,8 @@ void ImLayout::EndLayout()
     window->SkipItems = curLayout->skipping;
     window->Pos = curLayout->Pos;
     window->ContentRegionRect = curLayout->ContentsRegionRect;
+    g.LastItemData.Rect.Min = curLayout->positionContents;
+    g.LastItemData.Rect.Max = ImVec2(curLayout->positionContents.x + curLayout->contentSize.x, curLayout->positionContents.y + curLayout->contentSize.y);
     // ********************
 
     if (curLayout->isMatchParentX) {

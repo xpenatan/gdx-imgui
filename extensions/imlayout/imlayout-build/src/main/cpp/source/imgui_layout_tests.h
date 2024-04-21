@@ -139,68 +139,6 @@ namespace ImGuiExt
 			}
 			ImGui::PopID();
 		}
-
-		HelpMarker("Using Ext Method");
-
-		// String
-
-		static EditTextData<std::string> dataStringArray[3];
-		static std::string stringArray[4];
-
-		for (int i = 0; i < 3; ++i) {
-			ImGui::PushID(i);
-			std::string data = stringArray[i];
-			EditTextData<std::string> dataString = dataStringArray[i];
-			dataString.value.assign(data);
-			ImGui::Text("Value = %s", data.c_str());
-			ImGui::SameLine();
-			int idx = ImGuiExt::EditTextS("", &dataString);
-			if (idx >= 0) {
-				stringArray[i].assign(dataString.value);
-			}
-			ImGui::PopID();
-		}
-
-		// Float
-
-		static EditTextData<float> dataFloatArray[4];
-		static float floatArray[4];
-
-		for (int i = 0; i < 4; ++i) {
-			ImGui::PushID(i);
-			float data = floatArray[i];
-			EditTextData<float> datafloat = dataFloatArray[i];
-			datafloat.value = data;
-			datafloat.format = "%0.3f";
-			ImGui::Text("Value = %f", data);
-			ImGui::SameLine();
-			int idx = ImGuiExt::EditTextF("", &datafloat);
-			if (idx >= 0) {
-				floatArray[i] = datafloat.value;
-			}
-			ImGui::PopID();
-		}
-
-		// Int
-
-		static EditTextData<int> dataIntArray[4];
-		static int intArray[4];
-
-		for (int i = 0; i < 4; ++i) {
-			ImGui::PushID(i);
-			int data = intArray[i];
-			EditTextData<int> dataInt = dataIntArray[i];
-			dataInt.value = data;
-			dataInt.format = "%d";
-			ImGui::Text("Value = %d", data);
-			ImGui::SameLine();
-			int idx = ImGuiExt::EditTextI("", &dataInt);
-			if (idx >= 0) {
-				intArray[i] = dataInt.value;
-			}
-			ImGui::PopID();
-		}
-		
 	}
 
 	inline void test01(const char* name, bool debug) {
@@ -691,76 +629,7 @@ namespace ImGuiExt
 	}
 
 	inline void test15(const char* name, bool debug) {
-		ImGuiContext& g = *GImGui;
-		static float vec4f[4] = { 0.10f, 0.20f, 0.30f, 0.44f };
 
-		static float value = 0;
-
-		ImGui::SetNextItemWidth(-1);
-		float calcWidth = ImGui::CalcItemWidth();
-
-		float width = calcWidth / 3;
-
-		ImGui::Text("calcWidth: %.3f", calcWidth);
-		ImGui::Text("width: %.3f", width);
-		ImGui::Text("g.Style.ItemInnerSpacing.x: %.3f", g.Style.ItemInnerSpacing.x);
-
-		ImLayout::FillWidth(255, 0, 0, 255, ImVec2(calcWidth, 20));
-
-		ImLayout::FillWidth(255, 0, 0, 255, ImVec2(width, 20));
-		ImGui::SameLine(0, 0);
-		ImLayout::FillWidth(0, 255, 0, 255, ImVec2(width, 20));
-		ImGui::SameLine(0, 0);
-		ImLayout::FillWidth(0, 0, 255, 255, ImVec2(width, 20));
-
-		ImGui::SetNextItemWidth(-1);
-		ImGui::DragFloat3("", vec4f, 0.01f, 0.0f, 1.0f);
-
-		ImGui::SetNextItemWidth(-1);
-		ImGui::DragFloat("", &value, 0.01f, 0, 0, "%.3f");
-
-		static EditTextData<float> df1("%.3f", "X:", "Tooltip 01");
-		static EditTextData<float> df2("%.2f", "Y:", "Tooltip 02");
-		static EditTextData<float> df3("%.3f", "Z:", "Tooltip 03");
-		static EditTextData<float> df4("%.3f", "W:", "Tooltip 04");
-
-		static EditTextData<int> di1("%d", "X:", "Tooltip 01");
-		static EditTextData<int> di2("%d", "Y:", "Tooltip 02");
-
-		df1.leftLabelColor = IM_COL32(255, 0, 0, 255);
-		df1.leftLabelDragColor = IM_COL32(255, 0, 255, 255);
-		df2.leftLabelColor = IM_COL32(0, 255, 0, 255);
-		df2.v_speed = 0.01f;
-		df2.v_max = 4.3f;
-		df2.v_min = -4.3f;
-		df3.leftLabelColor = IM_COL32(0, 0, 255, 255);
-
-		di2.v_min = -10;
-		di2.v_max = 10;
-		ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-		ImGuiExt::EditTextF("##id1", &df1, NULL, NULL, NULL, 0);
-		ImGui::PopItemFlag();
-
-		ImGuiExt::EditTextF("##id2", &df1, &df2);
-
-		int index = ImGuiExt::EditTextF("##id3", &df1, &df2, &df3);
-
-		if (index != -1) {
-			cout << "Value changed index: " << index << endl;
-			cout << "isDragging 1: " << df1.isDragging << endl;
-			cout << "isDragging 2: " << df2.isDragging << endl;
-			cout << "isDragging 3: " << df3.isDragging << endl;
-		}
-
-		ImGuiExt::EditTextF("##id4", &df1, &df2, &df3, &df4);
-
-		ImGuiExt::EditTextI("##id5", &di1, &di2);
-
-		static EditTextData<std::string> text1(NULL, "S:", "Tooltip String");
-
-		text1.value = "Hello";
-
-		ImGuiExt::EditTextS("##id6", &text1);
 	}
 
 	inline void test16(const char* name, bool debug) {
