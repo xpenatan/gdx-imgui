@@ -325,8 +325,8 @@ bool ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
     window->ContentRegionRect.Max.y = contentPosition.y + curLayout->size.y - curLayout->paddingTop - curLayout->paddingBottom;
 
     // ***** End Write to window object
-    curLayout->clippingMin = curLayout->getPositionPadding();
-    curLayout->clippingMax = curLayout->getAbsoluteSizePadding();
+    curLayout->clippingMin = curLayout->position;
+    curLayout->clippingMax = curLayout->getAbsoluteSize();
 
     if (curLayout->clipping)
         ImGui::PushClipRect(curLayout->clippingMin, curLayout->clippingMax, true);
