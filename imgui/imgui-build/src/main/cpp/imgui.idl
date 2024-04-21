@@ -978,6 +978,12 @@ interface ImGuiContext {
     readonly attribute ImGuiWindow               ActiveIdPreviousFrameWindow;
     readonly attribute long                      LastActiveId;
     readonly attribute float                     LastActiveIdTimer;
+
+    [Value] readonly attribute ImGuiLastItemData LastItemData;
+};
+
+interface ImGuiLastItemData {
+    [Value] readonly attribute ImRect            Rect;
 };
 
 interface ImGuiDockNode {
