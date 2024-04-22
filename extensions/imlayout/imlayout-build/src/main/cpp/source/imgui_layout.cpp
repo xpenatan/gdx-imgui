@@ -160,11 +160,11 @@ void ImLayout::DrawBoundingBox_1(float x1, float y1, float x2, float y2, int r, 
     drawList->AddRect(ImVec2(x1, y1), ImVec2(x2, y2), color);
 }
 
-void ImLayout::DrawBoundingBox_2(ImVec2 min, ImVec2 max, int r, int g, int b, int a, bool clipping) {
+void ImLayout::DrawBoundingBox_2(const ImVec2& min, const ImVec2& max, int r, int g, int b, int a, bool clipping) {
     ImLayout::DrawBoundingBox_1(min.x, min.y, max.x, max.y, r, g, b, a, clipping);
 }
 
-void ImLayout::DrawBoundingBox_3(ImRect rect, int r, int g, int b, int a, bool clipping) {
+void ImLayout::DrawBoundingBox_3(const ImRect& rect, int r, int g, int b, int a, bool clipping) {
     ImLayout::DrawBoundingBox_2(rect.Min, rect.Max, r, g, b, a, clipping);
 }
 

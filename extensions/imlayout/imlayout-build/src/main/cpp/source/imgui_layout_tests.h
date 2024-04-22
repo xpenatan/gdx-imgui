@@ -678,20 +678,20 @@ namespace ImGuiExt
 		ImLayout::BeginBoundingBox();
 		ImGui::Button("TEST", ImVec2(50, 0));
 		ImRect boundingBox = ImLayout::EndBoundingBox();
-		ImLayout::DrawBoundingBox(boundingBox.Min, boundingBox.Max, 255, 0, 0, 90);
+		ImLayout::DrawBoundingBox_2(boundingBox.Min, boundingBox.Max, 255, 0, 0, 90);
 
 		ImLayout::BeginBoundingBox();
 		ImGui::Button("TEST", ImVec2(50, 0));
 		ImGui::Button("TEST", ImVec2(30, 0));
 		boundingBox = ImLayout::EndBoundingBox();
-		ImLayout::DrawBoundingBox(boundingBox.Min, boundingBox.Max, 255, 0, 0, 90);
+		ImLayout::DrawBoundingBox_2(boundingBox.Min, boundingBox.Max, 255, 0, 0, 90);
 
 		ImLayout::BeginBoundingBox();
 		ImGui::Button("TEST", ImVec2(50, 0));
 		ImGui::SameLine();
 		ImGui::Button("TEST", ImVec2(30, 0));
 		boundingBox = ImLayout::EndBoundingBox();
-		ImLayout::DrawBoundingBox(boundingBox.Min, boundingBox.Max, 255, 0, 0, 90);
+		ImLayout::DrawBoundingBox_2(boundingBox.Min, boundingBox.Max, 255, 0, 0, 90);
 	}
 
 	inline void test18(const char* name, bool debug) {

@@ -4,8 +4,8 @@ interface ImLayout {
     static readonly attribute long MATCH_PARENT;
 
     static void DrawBoundingBox_1(float x1, float y1, float x2, float y2, long r, long g, long b, optional long a, optional boolean clipping);
-    static void DrawBoundingBox_2(ImVec2 min, ImVec2 max, long r, long g, long b, optional long a, optional boolean clipping);
-    static void DrawBoundingBox_3(ImRect rect, long r, long g, long b, optional long a, optional boolean clipping);
+    static void DrawBoundingBox_2([Const, Ref] ImVec2 min, [Const, Ref] ImVec2 max, long r, long g, long b, optional long a, optional boolean clipping);
+    static void DrawBoundingBox_3([Const, Ref] ImRect rect, long r, long g, long b, optional long a, optional boolean clipping);
     static void ShowLayoutDebug();
     static void ShowLayoutDebugClipping();
 
@@ -67,4 +67,10 @@ ImGuiCollapseLayoutOptions implements ImGuiLayoutOptions;
 interface ImGuiLayout {
     [Value]attribute ImVec2 position;
     [Value]attribute ImVec2 size;
+
+    [Value] ImVec2 getAbsoluteSize();
+    [Value] ImVec2 getAbsoluteSizePadding();
+    [Value] ImVec2 getContentSize();
+    [Value] ImVec2 getContentSizePadding();
+    [Value] ImVec2 getPositionPadding();
 };
