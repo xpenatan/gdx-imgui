@@ -50,7 +50,7 @@ ImVec2 ImGuiLayout::getPositionPadding() {
 void ImGuiLayout::drawSizeDebug() {
     // Render layout space
     //Green
-    ImLayout::DrawBoundingBox(position, getAbsoluteSize(), 0, 255, 0);
+    ImLayout::DrawBoundingBox_2(position, getAbsoluteSize(), 0, 255, 0);
 }
 
 void ImGuiLayout::drawContentDebug() {
@@ -66,7 +66,7 @@ void ImGuiLayout::drawPaddingAreaDebug() {
 }
 
 void ImGuiLayout::drawError() {
-    ImLayout::DrawBoundingBox(position, getAbsoluteSize(), 255, 0, 0, true);
+    ImLayout::DrawBoundingBox_2(position, getAbsoluteSize(), 255, 0, 0, true);
 }
 
 // ##################################  ImGuiLayoutOptions  ########################################
@@ -154,14 +154,18 @@ static void popLayout() {
     ImGui::PopID();
 }
 
-void ImLayout::DrawBoundingBox(float x1, float y1, float x2, float y2, int r, int g, int b, int a, bool clipping) {
+void ImLayout::DrawBoundingBox_1(float x1, float y1, float x2, float y2, int r, int g, int b, int a, bool clipping) {
     ImDrawList* drawList = clipping ? ImGui::GetWindowDrawList() : ImGui::GetForegroundDrawList();
     int color = ImGui::GetColorU32(ImVec4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f));
     drawList->AddRect(ImVec2(x1, y1), ImVec2(x2, y2), color);
 }
 
-void ImLayout::DrawBoundingBox(ImVec2 min, ImVec2 max, int r, int g, int b, int a, bool clipping) {
-    ImLayout::DrawBoundingBox(min.x, min.y, max.x, max.y, r, g, b, a, clipping);
+void ImLayout::DrawBoundingBox_2(ImVec2 min, ImVec2 max, int r, int g, int b, int a, bool clipping) {
+    ImLayout::DrawBoundingBox_1(min.x, min.y, max.x, max.y, r, g, b, a, clipping);
+}
+
+void ImLayout::DrawBoundingBox_3(ImRect rect, int r, int g, int b, int a, bool clipping) {
+    ImLayout::DrawBoundingBox_2(rect.Min, rect.Max, r, g, b, a, clipping);
 }
 
 void ImLayout::FillWidth(int r, int g, int b, int a, ImVec2 size) {
@@ -411,7 +415,7 @@ void ImLayout::EndLayout()
     }
 
     if (curLayout->debugClipping) {
-        ImLayout::DrawBoundingBox(curLayout->clippingMin, curLayout->clippingMax, 255, 0, 0);
+        ImLayout::DrawBoundingBox_2(curLayout->clippingMin, curLayout->clippingMax, 255, 0, 0);
         curLayout->debugClipping = false;
     }
 

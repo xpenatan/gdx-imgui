@@ -109,8 +109,9 @@ public:
     static const int WRAP_PARENT = 9999991;
     static const int MATCH_PARENT = 9999990;
 
-    static void DrawBoundingBox(float x1, float y1, float x2, float y2, int r, int g, int b, int a = 50, bool clipping = false);
-    static void DrawBoundingBox(ImVec2 min, ImVec2 max, int r, int g, int b, int a = 50, bool clipping = false);
+    static void DrawBoundingBox_1(float x1, float y1, float x2, float y2, int r, int g, int b, int a = 50, bool clipping = false);
+    static void DrawBoundingBox_2(ImVec2 min, ImVec2 max, int r, int g, int b, int a = 50, bool clipping = false);
+    static void DrawBoundingBox_3(ImRect rect, int r, int g, int b, int a = 50, bool clipping = false);
 
     static void FillWidth(int r = 255, int g = 255, int b = 255, int a = 255, ImVec2 size = ImVec2(ImLayout::MATCH_PARENT, 20));
     static void ShowLayoutDebug();
