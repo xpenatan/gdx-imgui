@@ -1646,3 +1646,25 @@ enum ImGuiDockNodeFlagsPrivate_ {
     "ImGuiDockNodeFlags_LocalFlagsTransferMask_",
     "ImGuiDockNodeFlags_SavedFlagsMask_"
 };
+
+enum ImGuiButtonFlagsPrivate_ {
+    "ImGuiButtonFlags_PressedOnClick",
+    "ImGuiButtonFlags_PressedOnClickRelease",
+    "ImGuiButtonFlags_PressedOnClickReleaseAnywhere",
+    "ImGuiButtonFlags_PressedOnRelease",
+    "ImGuiButtonFlags_PressedOnDoubleClick",
+    "ImGuiButtonFlags_PressedOnDragDropHold",
+    "ImGuiButtonFlags_Repeat",
+    "ImGuiButtonFlags_FlattenChildren",
+    "ImGuiButtonFlags_AllowOverlap",
+    "ImGuiButtonFlags_DontClosePopups",
+    "ImGuiButtonFlags_AlignTextBaseLine",
+    "ImGuiButtonFlags_NoKeyModifiers",
+    "ImGuiButtonFlags_NoHoldingActiveId",
+    "ImGuiButtonFlags_NoNavFocus",
+    "ImGuiButtonFlags_NoHoveredOnFocus",
+    "ImGuiButtonFlags_NoSetKeyOwner",
+    "ImGuiButtonFlags_NoTestKeyOwner",
+    "ImGuiButtonFlags_PressedOnMask_",
+    "ImGuiButtonFlags_PressedOnDefault_"
+};
