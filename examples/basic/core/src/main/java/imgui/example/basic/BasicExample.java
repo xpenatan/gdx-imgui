@@ -3,6 +3,7 @@ package imgui.example.basic;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import imgui.example.basic.renderer.TableRenderer;
 import imgui.example.renderer.ImGuiRenderer;
 import imgui.example.basic.renderer.ColorRenderer;
 import imgui.example.basic.renderer.DragAndDropRenderer;
@@ -50,6 +51,7 @@ public class BasicExample extends ImGuiRenderer {
     public void show() {
         super.show();
 
+        renderers.add(new TableRenderer());
         renderers.add(new EditTextRenderer());
         renderers.add(new SelectListRenderer());
         renderers.add(new ColorRenderer());
@@ -73,7 +75,7 @@ public class BasicExample extends ImGuiRenderer {
         uiCam.update();
         batch.setProjectionMatrix(uiCam.combined);
 
-        boolean showDocking = true;
+        boolean showDocking = false;
 
         if(showDocking) {
             renderDock();

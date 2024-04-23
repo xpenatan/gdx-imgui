@@ -395,7 +395,6 @@ class ImGui {
         static bool                     BeginPopup(const char* str_id, ImGuiWindowFlags flags = 0) { return im::BeginPopup(str_id, flags); }
         static bool                     BeginPopupModal(const char* name, bool* p_open = NULL, ImGuiWindowFlags flags = 0) { return im::BeginPopupModal(name, p_open, flags); }
         //Custom me
-        static bool                     BeginPopupModal2(const char* name, ImGuiWindowFlags flags) { return im::BeginPopupModal(name, NULL, flags); }
         static void                     EndPopup() { im::EndPopup(); }
         static void                     OpenPopup(const char* str_id, ImGuiPopupFlags popup_flags = 0) { im::OpenPopup(str_id, popup_flags); }
         static void                     OpenPopup_2(ImGuiID id, ImGuiPopupFlags popup_flags = 0) { im::OpenPopup(id, popup_flags); }
@@ -410,7 +409,7 @@ class ImGui {
         static void                     TableNextRow(ImGuiTableRowFlags row_flags = 0, float min_row_height = 0.0f) { im::TableNextRow(row_flags, min_row_height); }
         static bool                     TableNextColumn() { return im::TableNextColumn(); }
         static bool                     TableSetColumnIndex(int column_n) { return im::TableSetColumnIndex(column_n); }
-        static void                     TableSetupColumn(const char* label, ImGuiTableColumnFlags flags = 0, float init_width_or_weight = 0.0f, ImGuiID user_id = 0) { im::TableSetupColumn(label, flags); }
+        static void                     TableSetupColumn(const char* label, ImGuiTableColumnFlags flags = 0, float init_width_or_weight = 0.0f, ImGuiID user_id = 0) { im::TableSetupColumn(label, flags, init_width_or_weight, user_id); }
         static void                     TableSetupScrollFreeze(int cols, int rows) { im::TableSetupScrollFreeze(cols, rows); }
         static void                     TableHeadersRow() { im::TableHeadersRow(); }
         static void                     TableHeader(const char* label) { im::TableHeader(label); }

@@ -379,7 +379,6 @@ interface ImGui {
 
     static boolean                 BeginPopup([Const] DOMString str_id, optional ImGuiWindowFlags ImGuiWindowFlags);
     static boolean                 BeginPopupModal([Const] DOMString name, optional boolean[] p_open, optional ImGuiWindowFlags ImGuiWindowFlags);
-    static boolean                 BeginPopupModal2([Const] DOMString name, ImGuiWindowFlags ImGuiWindowFlags);
     static void                    EndPopup();
 //
     static void                    OpenPopup([Const] DOMString str_id, optional ImGuiPopupFlags ImGuiPopupFlags);
@@ -1171,10 +1170,7 @@ enum ImGuiTableColumnFlags {
     "ImGuiTableColumnFlags_PreferSortDescending",
     "ImGuiTableColumnFlags_IndentEnable",
     "ImGuiTableColumnFlags_IndentDisable",
-    "ImGuiTableColumnFlags_IsEnabled",
-    "ImGuiTableColumnFlags_IsVisible",
-    "ImGuiTableColumnFlags_IsSorted",
-    "ImGuiTableColumnFlags_IsHovered"
+    "ImGuiTableColumnFlags_AngledHeader"
 };
 
 enum ImGuiComboFlags {
@@ -1481,7 +1477,8 @@ enum ImGuiTableFlags {
     "ImGuiTableFlags_ScrollX",
     "ImGuiTableFlags_ScrollY",
     "ImGuiTableFlags_SortMulti",
-    "ImGuiTableFlags_SortTristate"
+    "ImGuiTableFlags_SortTristate",
+    "ImGuiTableFlags_HighlightHoveredColumn"
 };
 
 enum ImGuiHoveredFlags {

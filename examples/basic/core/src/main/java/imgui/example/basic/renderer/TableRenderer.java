@@ -1,0 +1,42 @@
+package imgui.example.basic.renderer;
+
+import imgui.ImGui;
+import static imgui.ImGuiTableColumnFlags.ImGuiTableColumnFlags_WidthStretch;
+import static imgui.ImGuiTableFlags.ImGuiTableFlags_Borders;
+
+public class TableRenderer implements UIRenderer {
+
+    public TableRenderer() {
+    }
+
+
+    public void render() {
+        int flags1 = ImGuiTableFlags_Borders;
+        if (ImGui.BeginTable("table1", 3, flags1))
+        {
+            // We could also set ImGuiTableFlags_SizingFixedFit on the table and all columns will default to ImGuiTableColumnFlags_WidthFixed.
+            ImGui.TableSetupColumn("one", ImGuiTableColumnFlags_WidthStretch, 0.1f); // Default to 100.0f
+            ImGui.TableSetupColumn("two", ImGuiTableColumnFlags_WidthStretch, 0.4f); // Default to 200.0f
+            ImGui.TableSetupColumn("three", ImGuiTableColumnFlags_WidthStretch);       // Default to auto
+            ImGui.TableHeadersRow();
+            for (int row = 0; row < 4; row++)
+            {
+                ImGui.TableNextRow();
+                for (int column = 0; column < 3; column++)
+                {
+                    ImGui.TableSetColumnIndex(column);
+                    if (row == 0)
+                        ImGui.Text("(w: %5.1f)");
+                    else
+                        ImGui.Text("Hello %d,%d");
+                }
+            }
+            ImGui.EndTable();
+        }
+    }
+
+    @Override
+    public String getName() {
+        return "Table";
+    }
+}
