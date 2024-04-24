@@ -341,6 +341,7 @@ bool ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
         skip_items = true;
     window->SkipItems = skip_items;
     ret = !skip_items;
+    ImGui::BeginGroup();
     return true;
 }
 
@@ -358,6 +359,7 @@ bool ImLayout::BeginLayout(const char* strID, float sizeX, float sizeY, ImGuiLay
 
 void ImLayout::EndLayout()
 {
+    ImGui::EndGroup();
     ImGuiContext& g = *GImGui;
     ImGuiWindow* window = g.CurrentWindow;
     ImGuiLayout* curLayout = ImLayout::GetCurrentLayout();
