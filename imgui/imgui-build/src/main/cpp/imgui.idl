@@ -1406,6 +1406,7 @@ enum ImGuiTreeNodeFlags {
     "ImGuiTreeNodeFlags_FramePadding",
     "ImGuiTreeNodeFlags_SpanAvailWidth",
     "ImGuiTreeNodeFlags_SpanFullWidth",
+    "ImGuiTreeNodeFlags_SpanAllColumns",
     "ImGuiTreeNodeFlags_NavLeftJumpsBackHere",
     "ImGuiTreeNodeFlags_CollapsingHeader"
 };
