@@ -754,12 +754,11 @@ float ImLayout::GetTableContentHeight() {
 }
 
 // ## TREE
-
 static char* KEY_TREE_BEGIN = "KEY_TREE_BEGIN";
 static char* KEY_TREE_ID = "KEY_TREE_ID";
 static char* KEY_TREE_IS_OPEN = "KEY_TREE_IS_OPEN";
+static char* KEY_TREE_IS_SELECTED = "KEY_TREE_IS_SELECTED";
 static char* KEY_TREE_NODE_IS_LEAF = "KEY_TREE_NODE_IS_LEAF";
-static char* KEY_TREE_HOVERED = "KEY_TREE_HOVERED";
 
 void ImLayout::BeginTree(const char* treeIdStr) {
     ImGuiWindow* window = ImGui::GetCurrentWindow();
@@ -807,18 +806,13 @@ void ImLayout::EndTree() {
     ImGui::PopID();
 }
 
-void ImLayout::BeginTreeLayout(float height, bool isLeaf) {
-    BeginTreeLayout(height, isLeaf, -1);
-}
+void Begin(float height, bool isLeaf, int isOpen) {
+    bool debug = false;
 
-void ImLayout::BeginTreeLayout(float height, bool isLeaf, bool isOpen) {
-    BeginTreeLayout(height, isLeaf, isOpen ? 1 : 0);
-}
-
-void ImLayout::BeginTreeLayout(float height, bool isLeaf, int isOpen) {
     ImGuiWindow* window = ImGui::GetCurrentWindow();
     ImGuiStorage* storage = ImGui::GetStateStorage();
     int isOpenId = ImGui::GetID(KEY_TREE_IS_OPEN);
+    int isSelectedId = ImGui::GetID(KEY_TREE_IS_SELECTED);
     int isLeafId = ImGui::GetID(KEY_TREE_NODE_IS_LEAF);
     ImVec2 pos = window->DC.CursorPos;
     float posX = pos.x;
@@ -828,6 +822,13 @@ void ImLayout::BeginTreeLayout(float height, bool isLeaf, int isOpen) {
     float minY = bb.Min.y;
     float maxX = bb.Max.x;
     float maxY = bb.Max.y;
+    ImVec2 bbSize = bb.GetSize();
+    float bbSizeX = bbSize.x;
+    float bbSizeY = bbSize.y;
+
+    float windowX = ImGui::GetWindowPos().x;
+    float windowY = ImGui::GetWindowPos().y;
+
 
     if (isOpen == -1) {
         bool isOpenVal = storage->GetBool(isOpenId, true);
@@ -838,39 +839,164 @@ void ImLayout::BeginTreeLayout(float height, bool isLeaf, int isOpen) {
         isOpen = 0;
     }
 
-    ImGui::GetWindowDrawList()->AddRect(bb.Min, bb.Max, IM_COL32(255, 0, 0, 255));
+    if (debug) {
+        ImGui::GetWindowDrawList()->AddRect(bb.Min, bb.Max, IM_COL32(255, 0, 0, 255));
+    }
     storage->SetBool(isLeafId, isLeaf);
 
     if (!isLeaf) {
+        float arrowMaxX = minX + 15;
+
         ImLayout::BeginAlign("arrow", ImLayout::WRAP_PARENT, height, 0, 0.5f);
         {
             int dir = isOpen == 1 ? ImGuiDir_Down : ImGuiDir_Right;
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, IM_COL32(0, 0, 0, 0));
-            ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(0, 0, 0, 0));
-            ImGui::PushStyleColor(ImGuiCol_ButtonActive, IM_COL32(0, 0, 0, 0));
-
-            if (ImGui::ArrowButtonEx("Arrow", dir, ImVec2(15, 12))) {
+            int arrowButtonId = ImGui::GetID("ArrowButton");
+            ImRect bbArrow = ImRect(bb.Min, ImVec2(arrowMaxX, maxY));
+            if (debug) {
+                ImGui::GetWindowDrawList()->AddRect(bbArrow.Min, bbArrow.Max, IM_COL32(255, 0, 0, 255));
+            }
+            ImGui::ItemSize(bbArrow);
+            ImGui::ItemAdd(bbArrow, arrowButtonId);
+            if (ImGui::ButtonBehavior(bbArrow, arrowButtonId, NULL, NULL)) {
                 isOpen = isOpen == 1 ? 0 : 1;
             }
-
-            ImGui::PopStyleColor();
-            ImGui::PopStyleColor();
-            ImGui::PopStyleColor();
+            float fontSize = ImGui::GetFont()->FontSize;
+            int arrowColor = IM_COL32(255, 255, 255, 255);
+            ImVec2 size = bbArrow.GetSize();
+            float sizeX = size.x;
+            float sizeY = size.y;
+            float iconPosX = minX;
+            float iconPosY = minY;
+            iconPosX = iconPosX + (sizeX - fontSize) * 0.5f;
+            iconPosY = iconPosY + (sizeY - fontSize) * 0.5f;
+            ImGui::RenderArrow(ImGui::GetWindowDrawList(), ImVec2(iconPosX, iconPosY), arrowColor, dir);
         }
         ImLayout::EndAlign();
 
         ImGui::SameLine(0, 4);
     }
+    else {
+        ImGui::Dummy(ImVec2(0, 0));
+        ImGui::SameLine(0, 6);
+    }
+
+    int layoutId = ImGui::GetID("FullLayout");
+    float scrollOffsetH = ImGui::GetScrollX();
+    ImVec2 clipRectMin = ImVec2(windowX, windowY);
+    float xMin = clipRectMin.x + scrollOffsetH + ImGui::GetWindowContentRegionMin().x;
+    ImRect fullLayout = ImRect(ImVec2(xMin, minY), bb.Max);
+    ImGuiStyle style = ImGui::GetStyle();
+
+    {
+        // Tree alternative background
+        int treeDepth = (int)(windowY + posY);
+        bool isBGAlt = (treeDepth % 2) == 1;
+        if (isBGAlt) {
+            ImVec4 color = style.Colors[ImGuiCol_TableRowBgAlt];
+            float r = color.x;
+            float g = color.y;
+            float b = color.z;
+            float a = color.w;
+            int bgAltColor = IM_COL32((int)(255 * r), (int)(255 * g), (int)(255 * b), (int)(255 * a));
+            ImGui::GetWindowDrawList()->AddRectFilled(fullLayout.Min, fullLayout.Max, bgAltColor);
+        }
+    }
+
+    {
+        // Selected color
+        bool isSelect = storage->GetBool(isSelectedId, false);
+        if (isSelect) {
+            ImVec4 color = style.Colors[ImGuiCol_HeaderActive];
+            float r = color.x;
+            float g = color.y;
+            float b = color.z;
+            float a = color.w;
+            int selectedColor = IM_COL32((int)(255 * r), (int)(255 * g), (int)(255 * b), (int)(255 * a));
+            ImGui::GetWindowDrawList()->AddRectFilled(fullLayout.Min, fullLayout.Max, selectedColor);
+        }
+    }
+    {
+        // Selected and hover logic
+        ImGui::ItemAdd(fullLayout, layoutId);
+        bool isHovered = ImGui::ItemHoverable(fullLayout, layoutId, ImGuiItemFlags_AllowOverlap);
+        if (isHovered) {
+            ImVec4 color = style.Colors[ImGuiCol_HeaderHovered];
+            float r = color.x;
+            float g = color.y;
+            float b = color.z;
+            float a = color.w;
+            int hoveredColor = IM_COL32((int)(255 * r), (int)(255 * g), (int)(255 * b), (int)(255 * a));
+            ImGui::GetWindowDrawList()->AddRectFilled(fullLayout.Min, fullLayout.Max, hoveredColor);
+        }
+    }
+
     storage->SetBool(isOpenId, isOpen == 1);
 
-    ImLayout::BeginAlign("FullLayout", maxX, height, 0.0, 0.5f);
+    {
+        // Remove Y spacing
+        ImVec2 itemSpacing = style.ItemSpacing;
+        float x = itemSpacing.x;
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(x, 0));
+    }
+
+    ImLayout::BeginAlign("FullLayout", ImLayout::MATCH_PARENT, height, 0.0, 0.5);
 }
 
-bool ImLayout::EndTreeLayout() {
+void ImLayout::BeginTreeLayout(float height, bool isLeaf) {
+    Begin(height, isLeaf, -1);
+}
+
+void ImLayout::BeginTreeLayout(float height, bool isLeaf, bool isOpen) {
+    Begin(height, isLeaf, isOpen ? 1 : 0);
+}
+
+
+bool ImLayout::EndTreeLayout(bool* isSelected) {
+    bool debug = false;
+
+    bool isSelect = false;
+    if (isSelected != NULL) {
+        isSelect = *isSelected;
+    }
+
     ImGuiStorage* storage = ImGui::GetStateStorage();
 
     //        ImLayout.ShowLayoutDebug();
+
+    ImGuiLayout* layout = ImLayout::GetCurrentLayout();
+    ImVec2 absoluteSize = layout->getAbsoluteSize();
+    float maxX = absoluteSize.x;
+    float maxY = absoluteSize.y;
+    float minY = layout->position.y;
     ImLayout::EndAlign();
+
+    ImGuiWindow* window = ImGui::GetCurrentWindow();
+    float windowX = ImGui::GetWindowPos().x;
+    float windowY = ImGui::GetWindowPos().y;
+
+    int layoutId = ImGui::GetID("FullLayout");
+    float scrollOffsetH = ImGui::GetScrollX();
+    ImVec2 clipRectMin = ImVec2(windowX, windowY);
+    float minX = clipRectMin.x + scrollOffsetH + ImGui::GetWindowContentRegionMin().x;
+
+    ImRect fullLayout = ImRect(ImVec2(minX, minY), ImVec2(maxX, maxY));
+
+    if (debug) {
+        ImGui::GetWindowDrawList()->AddRect(fullLayout.Min, fullLayout.Max, IM_COL32(255, 0, 0, 255));
+    }
+
+    {
+        // Selected and hover logic
+        ImGui::ItemAdd(fullLayout, layoutId);
+        if (ImGui::ButtonBehavior(fullLayout, layoutId, NULL, NULL)) {
+            if (isSelected != NULL) {
+                isSelect = !isSelect;
+                *isSelected = isSelect;
+            }
+        }
+    }
+
+    ImGui::PopStyleVar();
 
     int isOpenId = ImGui::GetID(KEY_TREE_IS_OPEN);
     bool isOpen = storage->GetBool(isOpenId, false);
@@ -880,6 +1006,8 @@ bool ImLayout::EndTreeLayout() {
     }
     // We push it again to update data to treepush ID
     storage->SetBool(ImGui::GetID(KEY_TREE_IS_OPEN), isOpen);
+    storage->SetBool(ImGui::GetID(KEY_TREE_IS_SELECTED), isSelect);
+
     return isOpen;
 }
 

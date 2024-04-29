@@ -151,7 +151,6 @@ public:
     static void EndTree();
     static void BeginTreeLayout(float height, bool isLeaf);
     static void BeginTreeLayout(float height, bool isLeaf, bool isOpen);
-    static void BeginTreeLayout(float height, bool isLeaf, int isOpen);
-    static bool EndTreeLayout();
+    static bool EndTreeLayout(bool* isSelected = NULL);
     static float GetTreeHeight(float padding);
 };
