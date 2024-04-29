@@ -33,5 +33,36 @@ public class LayoutTestView {
         ImGui.Text("posSizeY: " + posSizeY);
 
         ImLayout.EndLayout();
+
+        renderTree();
+    }
+
+    private void renderTree() {
+        float height = ImLayout.GetTreeHeight(20);
+        ImLayout.BeginTree("RootId");
+        ImLayout.BeginTreeLayout(height, false);
+        ImGui.Text("Root");
+        if(ImLayout.EndTreeLayout()) {
+            {
+                ImLayout.BeginTree("Assets");
+                ImLayout.BeginTreeLayout(height, false);
+                ImGui.Text("Assets");
+                if(ImLayout.EndTreeLayout()) {
+
+                    {
+                        {
+                            ImLayout.BeginTree("Item");
+                            ImLayout.BeginTreeLayout(height, true);
+                            ImGui.Text("Item");
+                            if(ImLayout.EndTreeLayout()) {
+                            }
+                            ImLayout.EndTree();
+                        }
+                    }
+                }
+                ImLayout.EndTree();
+            }
+        }
+        ImLayout.EndTree();
     }
 }

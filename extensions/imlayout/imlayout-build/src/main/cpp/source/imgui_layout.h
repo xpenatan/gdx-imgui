@@ -4,21 +4,6 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 
-
-namespace ImGuiExt
-{
-    static int TOTAL_COLUMNS_KEY = 771;
-    static int ROOT_COLUMN_CUR_INDEX = 772;
-    static int COLUMN_INDEX = 773;
-    static int LINES_POS = 774;
-    static int COLUMN_LAYOUT_FULL_SIZE_X = 776; // Calculated by removing spliter space
-    static int COLUMN_END_OFFSET_X = 777;
-    static int TEMP_COLUMN_END_OFFSET_X = 779;
-    static int COLUMN_SPLITTER_WIDTH = 780;
-    static int COLUMN_SPLITTER_OFFSET_X = 781; // data saved for each column at line[0]
-    static int COLUMN_RESIZING = 782;
-};
-
 struct ImGuiLayout
 {
 public:
@@ -43,6 +28,7 @@ public:
     ImGuiLayout* parentLayout;
     ImVector<ImGuiLayout*> childsLayout;
 
+    bool hide;
     bool clipping;
     bool debug;
     bool debugClipping;
@@ -121,11 +107,11 @@ public:
     static ImVec2 GetLayoutSize();
     static void BeginLayoutEx(ImGuiID id);
     static void BeginLayoutEx(const char* id);
-    static bool PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayoutOptions options = ImGuiLayoutOptions());
+    static void PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayoutOptions options = ImGuiLayoutOptions());
     static void PrepareLayoutType(float sizeX, float sizeY);
-    static bool PrepareLayout(float sizeX, float sizeY, ImGuiLayoutOptions options);
-    static bool BeginLayout(const char* id, float sizeX, float sizeY);
-    static bool BeginLayout(const char* id, float sizeX, float sizeY, ImGuiLayoutOptions & options);
+    static void PrepareLayout(float sizeX, float sizeY, ImGuiLayoutOptions options);
+    static void BeginLayout(const char* id, float sizeX, float sizeY);
+    static void BeginLayout(const char* id, float sizeX, float sizeY, ImGuiLayoutOptions & options);
     static void EndLayout();
     static ImGuiLayout* GetCurrentLayout();
 
@@ -159,4 +145,13 @@ public:
     static ImRect& EndBoundingBox();  // Its the same as using Begin/End group and getting the LastItemRect values
 
     static float GetTableContentHeight();  // call before moving to the next cell/row
+
+    // Tree
+    static void BeginTree(const char* treeIdStr);
+    static void EndTree();
+    static void BeginTreeLayout(float height, bool isLeaf);
+    static void BeginTreeLayout(float height, bool isLeaf, bool isOpen);
+    static void BeginTreeLayout(float height, bool isLeaf, int isOpen);
+    static bool EndTreeLayout();
+    static float GetTreeHeight(float padding);
 };

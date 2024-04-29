@@ -149,7 +149,8 @@ namespace ImGuiExt
 		char* idChild4 = catStr(name, "child4");
 		ImGui::Button("Outside Begin", ImVec2(-0.1, 0));
 		{
-			if (ImLayout::BeginLayout(idChild, ImLayout::WRAP_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 0, 0))) {
+			ImLayout::BeginLayout(idChild, ImLayout::WRAP_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 0, 0));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -160,7 +161,8 @@ namespace ImGuiExt
 		HelpMarker("Layout with\nX: WRAP_PARENT\nY: WRAP_PARENT\nPaddingLeft: 40\nPaddingRight: 0");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild2, ImLayout::WRAP_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(40, 0, 0, 0))) {
+			ImLayout::BeginLayout(idChild2, ImLayout::WRAP_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(40, 0, 0, 0));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -171,7 +173,8 @@ namespace ImGuiExt
 		HelpMarker("Layout with\nX: WRAP_PARENT\nY: WRAP_PARENT\nPaddingLeft: 0\nPaddingRight: 40");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild3, ImLayout::WRAP_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 40, 0, 0))) {
+			ImLayout::BeginLayout(idChild3, ImLayout::WRAP_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 40, 0, 0));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -182,10 +185,9 @@ namespace ImGuiExt
 		HelpMarker("Layout with\nX: WRAP_PARENT\nY: WRAP_PARENT\nPaddingLeft: 40\nPaddingRight: 40");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild4, ImLayout::WRAP_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(40, 40, 0, 0))) {
+			ImLayout::BeginLayout(idChild4, ImLayout::WRAP_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(40, 40, 0, 0));
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
-			}
 			ImLayout::EndLayout();
 		}
 		ImGui::Button("Outside End", ImVec2(-0.1f, 0));
@@ -202,7 +204,8 @@ namespace ImGuiExt
 		HelpMarker("Layout with\nX: MATCH_PARENT\nY: WRAP_PARENT\nPaddingLeft: 0\nPaddingRight: 0");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(2, 2, 0, 0))) {
+			ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(2, 2, 0, 0));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -213,7 +216,8 @@ namespace ImGuiExt
 		HelpMarker("Layout with\nX: MATCH_PARENT\nY: WRAP_PARENT\nPaddingLeft: 40\nPaddingRight: 0");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild2, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(40, 0, 0, 0))) {
+			ImLayout::BeginLayout(idChild2, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(40, 0, 0, 0));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -224,7 +228,8 @@ namespace ImGuiExt
 		HelpMarker("Layout with\nX: MATCH_PARENT\nY: WRAP_PARENT\nPaddingLeft: 0\nPaddingRight: 40");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild3, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 40, 0, 0))) {
+			ImLayout::BeginLayout(idChild3, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 40, 0, 0));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -235,7 +240,8 @@ namespace ImGuiExt
 		HelpMarker("Layout with\nX: MATCH_PARENT\nY: WRAP_PARENT\nPaddingLeft: 40\nPaddingRight: 40");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild4, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(40, 40, 0, 0))) {
+			ImLayout::BeginLayout(idChild4, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(40, 40, 0, 0));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -259,7 +265,8 @@ namespace ImGuiExt
 			ImU32 bgColor = ImGui::GetColorU32(ImVec4(0xFF / 255.0f, 0x00 / 255.0f, 0x00 / 255.0f, 255 / 255.0f));
 			paintLayout(bgColor, ImVec2(300, 110));
 
-			if (ImLayout::BeginLayout(idChild, 300, 110, ImGuiLayoutOptions(0, 0, 0, 0))) {
+			ImLayout::BeginLayout(idChild, 300, 110, ImGuiLayoutOptions(0, 0, 0, 0));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -272,7 +279,8 @@ namespace ImGuiExt
 		{
 			ImU32 bgColor = ImGui::GetColorU32(ImVec4(0xFF / 255.0f, 0x00 / 255.0f, 0x00 / 255.0f, 255 / 255.0f));
 			paintLayout(bgColor, ImVec2(300, 110));
-			if (ImLayout::BeginLayout(idChild2, 300, 110, ImGuiLayoutOptions(40, 0, 0, 0))) {
+			ImLayout::BeginLayout(idChild2, 300, 110, ImGuiLayoutOptions(40, 0, 0, 0));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -286,7 +294,8 @@ namespace ImGuiExt
 			ImU32 bgColor = ImGui::GetColorU32(ImVec4(0xFF / 255.0f, 0x00 / 255.0f, 0x00 / 255.0f, 255 / 255.0f));
 			paintLayout(bgColor, ImVec2(300, 110));
 
-			if (ImLayout::BeginLayout(idChild2, 300, 110, ImGuiLayoutOptions(0, 40, 0, 0))) {
+			ImLayout::BeginLayout(idChild2, 300, 110, ImGuiLayoutOptions(0, 40, 0, 0));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -297,7 +306,8 @@ namespace ImGuiExt
 		HelpMarker("Layout with\nX: 300\nY: 110\nPaddingLeft: 40\nPaddingRight: 40");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild4, 300, 110, ImGuiLayoutOptions(40, 40, 0, 0))) {
+			ImLayout::BeginLayout(idChild4, 300, 110, ImGuiLayoutOptions(40, 40, 0, 0));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -317,7 +327,8 @@ namespace ImGuiExt
 		HelpMarker("Layout with\nX: MATCH_PARENT\nY: WRAP_PARENT\nPaddingTop: 40\nPaddingBottom: 0");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 40, 00))) {
+			ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 40, 00));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -328,7 +339,8 @@ namespace ImGuiExt
 		HelpMarker("Layout with\nX: MATCH_PARENT\nY: WRAP_PARENT\nPaddingTop: 0\nPaddingBottom: 40");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild2, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 0, 40))) {
+			ImLayout::BeginLayout(idChild2, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 0, 40));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -339,7 +351,8 @@ namespace ImGuiExt
 		HelpMarker("Layout with\nX: MATCH_PARENT\nY: WRAP_PARENT\nPaddingTop: 40\nPaddingBottom: 40");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild3, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 40, 40))) {
+			ImLayout::BeginLayout(idChild3, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 40, 40));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -358,7 +371,8 @@ namespace ImGuiExt
 		char* idChild4 = catStr(name, "child4");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(0, 0, 40, 0))) {
+			ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(0, 0, 40, 0));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -377,7 +391,8 @@ namespace ImGuiExt
 		char* idChild4 = catStr(name, "child4");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(0, 0, 0, 40))) {
+			ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(0, 0, 0, 40));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(true);
 			}
@@ -396,7 +411,8 @@ namespace ImGuiExt
 		char* idChild4 = catStr(name, "child4");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(0, 0, 40, 40))) {
+			ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(0, 0, 40, 40));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(true);
 			}
@@ -415,7 +431,8 @@ namespace ImGuiExt
 		char* idChild4 = catStr(name, "child4");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, 200, ImGuiLayoutOptions(0, 0, 0, 40))) {
+			ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, 200, ImGuiLayoutOptions(0, 0, 0, 40));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(true);
 			}
@@ -434,7 +451,8 @@ namespace ImGuiExt
 		char* idChild4 = catStr(name, "child4");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(40, 40, 40, 40))) {
+			ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(40, 40, 40, 40));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(true);
 			}
@@ -453,7 +471,8 @@ namespace ImGuiExt
 		char* idChild4 = catStr(name, "child4");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(2, 2, 2, 2))) {
+			ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(2, 2, 2, 2));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -472,17 +491,20 @@ namespace ImGuiExt
 		char* idChild4 = catStr(name, "child4");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, 200, ImGuiLayoutOptions(1, 1, 1, 1))) {
+			ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, 200, ImGuiLayoutOptions(1, 1, 1, 1));
+			{
 
 				ImGui::Button("Button Layout 01", ImVec2(-0.1f, 0));
 				ImU32 bgColor = ImGui::GetColorU32(ImVec4(0xFF / 255.0f, 0x00 / 255.0f, 0x00 / 255.0f, 255 / 255.0f));
 				paintLayout(bgColor);
 
-				if (ImLayout::BeginLayout(idChild2, ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(4, 4, 4, 4))) {
+				ImLayout::BeginLayout(idChild2, ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(4, 4, 4, 4));
+				{
 					ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x00 / 255.0f, 0xFF / 255.0f, 0x00 / 255.0f, 255 / 255.0f));
 					paintLayout(bgColor);
 
-					if (ImLayout::BeginLayout(idChild3, ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(4, 4, 4, 4))) {
+					ImLayout::BeginLayout(idChild3, ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(4, 4, 4, 4));
+					{
 						ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x00 / 255.0f, 0x00 / 255.0f, 0xFF / 255.0f, 255 / 255.0f));
 						paintLayout(bgColor);
 					}
@@ -531,10 +553,12 @@ namespace ImGuiExt
 
 			ImU32 bgColor = ImGui::GetColorU32(ImVec4(0xFF / 255.0f, 0xFF / 255.0f, 0xFF / 255.0f, 255 / 255.0f));
 			paintLayout(bgColor);
-			if (ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(paddingLeft, paddingRight, paddingTop, paddingBottom))) {
+			ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(paddingLeft, paddingRight, paddingTop, paddingBottom));
+			{
 				ImU32 bgColor = ImGui::GetColorU32(ImVec4(0xFF / 255.0f, 0x00 / 255.0f, 0x00 / 255.0f, 255 / 255.0f));
 				paintLayout(bgColor);
-				if (ImLayout::BeginLayout(idChild3, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(paddingLeft2, paddingRight2, paddingTop2, paddingBottom2))) {
+				ImLayout::BeginLayout(idChild3, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(paddingLeft2, paddingRight2, paddingTop2, paddingBottom2));
+				{
 					ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x00 / 255.0f, 0x00 / 255.0f, 0xFF / 255.0f, 255 / 255.0f));
 					paintLayout(bgColor);
 					renderContent(false);
@@ -555,9 +579,11 @@ namespace ImGuiExt
 		HelpMarker("Combining IDs test");
 		ImGui::Button("Outside Begin", ImVec2(150, 0));
 		{
-			if (ImLayout::BeginLayout(name, 200, 200, ImGuiLayoutOptions(1, 1, 1, 1))) {
+			ImLayout::BeginLayout(name, 200, 200, ImGuiLayoutOptions(1, 1, 1, 1));
+			{
 				ImLayout::ShowLayoutDebug();
-				if (ImLayout::BeginLayout("child", 170, 170, ImGuiLayoutOptions(2, 2, 2, 2))) {
+				ImLayout::BeginLayout("child", 170, 170, ImGuiLayoutOptions(2, 2, 2, 2));
+				{
 					ImLayout::ShowLayoutDebug();
 					renderContent(false);
 				}
@@ -565,7 +591,8 @@ namespace ImGuiExt
 			}
 			ImLayout::EndLayout();
 
-			if (ImLayout::BeginLayout("child", 150, 150, ImGuiLayoutOptions(2, 2, 2, 2))) {
+			ImLayout::BeginLayout("child", 150, 150, ImGuiLayoutOptions(2, 2, 2, 2));
+			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(false);
 			}
@@ -604,7 +631,8 @@ namespace ImGuiExt
 		ImGui::Button("Outside Begin", ImVec2(150, 0));
 		{
 			ImGui::Text("Layout SizeX: MATCH_PARENT, SizeY: 16");
-			if (ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, 16, ImGuiLayoutOptions(paddingLeft, paddingRight, paddingTop, paddingBottom))) {
+			ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, 16, ImGuiLayoutOptions(paddingLeft, paddingRight, paddingTop, paddingBottom));
+			{
 				ImLayout::ShowLayoutDebug();
 				ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x00 / 255.0f, 0x00 / 255.0f, 0xFF / 255.0f, 255 / 255.0f));
 				paintLayout(bgColor);
@@ -612,14 +640,16 @@ namespace ImGuiExt
 			ImLayout::EndLayout();
 			
 			ImGui::Text("Layout SizeX: 16, SizeY: WRAP_CONTENT");
-			if (ImLayout::BeginLayout(idChild2, 16, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(paddingLeft, paddingRight, paddingTop, paddingBottom))) {
+			ImLayout::BeginLayout(idChild2, 16, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(paddingLeft, paddingRight, paddingTop, paddingBottom));
+			{
 				ImLayout::ShowLayoutDebug();
 				ImGui::Button("TEST", ImVec2(-0.1f, 0));
 			}
 			ImLayout::EndLayout();
 
 			ImGui::Text("Layout SizeX: WRAP_PARENT, SizeY: MATCH_PARENT");
-			if (ImLayout::BeginLayout(idChild3, ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(paddingLeft, paddingRight, paddingTop, paddingBottom))) {
+			ImLayout::BeginLayout(idChild3, ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(paddingLeft, paddingRight, paddingTop, paddingBottom));
+			{
 				ImLayout::ShowLayoutDebug();
 				ImGui::Button("TEST", ImVec2(0, -0.1f));
 			}
@@ -648,7 +678,8 @@ namespace ImGuiExt
 		ImGui::SliderFloat("OffsetX", &offsetX, -10.0f, 10.0f, "%.2f");
 		ImGui::SliderFloat("OffsetY", &offsetY, -10.0f, 10.0f, "%.2f");
 
-		if (ImLayout::BeginLayout(name, ImLayout::MATCH_PARENT, 200, ImGuiLayoutOptions(paddingX, paddingX, paddingY, paddingY))) {
+		ImLayout::BeginLayout(name, ImLayout::MATCH_PARENT, 200, ImGuiLayoutOptions(paddingX, paddingX, paddingY, paddingY));
+		{
 			ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x44 / 255.0f, 0x44 / 255.0f, 0x44 / 255.0f, 100 / 255.0f));
 			paintLayout(bgColor);
 
@@ -895,11 +926,13 @@ namespace ImGuiExt
 
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild4, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 0, 0))) {
+			ImLayout::BeginLayout(idChild4, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 0, 0));
+			{
 				renderContent(false);
 
 				ImGui::SameLine();
-				if (ImLayout::BeginLayout(idChild6, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 0, 0))) {
+				ImLayout::BeginLayout(idChild6, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 0, 0));
+				{
 
 					ImGui::Text("This is a Texaaaaat");
 					ImGui::TextWrapped("This is a WrappeddddddddddddddText");
@@ -909,8 +942,10 @@ namespace ImGuiExt
 				ImLayout::EndLayout();
 
 				ImGui::SameLine();
-				if (ImLayout::BeginLayout(idChild7, ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(0, 0, 0, 0)))
+				ImLayout::BeginLayout(idChild7, ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(0, 0, 0, 0));
+				{
 					renderContent(false);
+				}
 				ImLayout::EndLayout();
 
 			}
@@ -932,13 +967,15 @@ namespace ImGuiExt
 
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			if (ImLayout::BeginLayout(idChild4, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 0, 0))) {
+			ImLayout::BeginLayout(idChild4, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 0, 0));
+			{
 
 				renderContent(false);
 
 				ImGui::SameLine();
 
-				if (ImLayout::BeginLayout(idChild6, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 0, 0))) {
+				ImLayout::BeginLayout(idChild6, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 0, 0));
+				{
 
 					ImGui::Text("This is a Texaaaaat");
 					ImGui::TextWrapped("This is a WrappeddddddddddddddText");
@@ -948,12 +985,16 @@ namespace ImGuiExt
 				ImLayout::EndLayout();
 
 				ImGui::SameLine();
-				if (ImLayout::BeginLayout(idChild7, 150, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(0, 0, 0, 0)))
+				ImLayout::BeginLayout(idChild7, 150, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(0, 0, 0, 0));
+				{
 					renderContent(false);
+				}
 				ImLayout::EndLayout();
 
-				if (ImLayout::BeginLayout(idChild, 300, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(0, 0, 0, 0)))
+				ImLayout::BeginLayout(idChild, 300, ImLayout::MATCH_PARENT, ImGuiLayoutOptions(0, 0, 0, 0));
+				{
 					renderContent(false);
+				}
 				ImLayout::EndLayout();
 			}
 			ImLayout::EndLayout();

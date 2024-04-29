@@ -227,7 +227,7 @@ void ImLayout::PrepareLayoutType(float sizeX, float sizeY)
     curLayout->isWrapParentY = sizeY == ImLayout::WRAP_PARENT;
 }
 
-bool ImLayout::PrepareLayout(float sizeX, float sizeY, ImGuiLayoutOptions options)
+void ImLayout::PrepareLayout(float sizeX, float sizeY, ImGuiLayoutOptions options)
 {
     ImGuiContext& g = *GImGui;
     ImGuiWindow* window = g.CurrentWindow;
@@ -239,17 +239,16 @@ bool ImLayout::PrepareLayout(float sizeX, float sizeY, ImGuiLayoutOptions option
     float x2 = position.x + sizeX;
     float y2 = position.y + sizeY;
 
-    return PrepareLayout(position.x, position.y, x2, y2, options);
+    PrepareLayout(position.x, position.y, x2, y2, options);
 }
 
-bool ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayoutOptions options)
+void ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayoutOptions options)
 {
     ImGuiContext& g = *GImGui;
     ImGuiWindow* window = g.CurrentWindow;
 
     ImGuiLayout* curLayout = ImLayout::GetCurrentLayout();
     curLayout->clipping = options.clipping;
-    bool ret = true;
     // Update layout
 
     // Backup windows data
@@ -331,30 +330,31 @@ bool ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
     // ***** End Write to window object
     curLayout->clippingMin = curLayout->position;
     curLayout->clippingMax = curLayout->getAbsoluteSize();
+    curLayout->hide = false;
 
-    if (curLayout->clipping)
-        ImGui::PushClipRect(curLayout->clippingMin, curLayout->clippingMax, true);
+    if (curLayout->contentSize.x == 0 && curLayout->contentSize.y == 0) {
+        curLayout->hide = true;
+        ImGui::GetStyle().Alpha = 0;
+    }
+    else {
+        if (curLayout->clipping) {
+            ImGui::PushClipRect(curLayout->clippingMin, curLayout->clippingMax, true);
+        }
+    }
 
-    bool skip_items = false;
-    if (window->Collapsed || !window->Active || window->Hidden)
-        /* if (window->AutoFitFramesX <= 0 && window->AutoFitFramesY <= 0 && window->HiddenFramesCannotSkipItems <= 0)*/
-        skip_items = true;
-    window->SkipItems = skip_items;
-    ret = !skip_items;
     ImGui::BeginGroup();
-    return true;
 }
 
-bool ImLayout::BeginLayout(const char* strID, float sizeX, float sizeY)
+void ImLayout::BeginLayout(const char* strID, float sizeX, float sizeY)
 {
     ImGuiLayoutOptions options;
-    return BeginLayout(strID, sizeX, sizeY, options);
+    BeginLayout(strID, sizeX, sizeY, options);
 }
 
-bool ImLayout::BeginLayout(const char* strID, float sizeX, float sizeY, ImGuiLayoutOptions & options)
+void ImLayout::BeginLayout(const char* strID, float sizeX, float sizeY, ImGuiLayoutOptions & options)
 {
     BeginLayoutEx(strID);
-    return PrepareLayout(sizeX, sizeY, options);
+    PrepareLayout(sizeX, sizeY, options);
 }
 
 void ImLayout::EndLayout()
@@ -366,8 +366,15 @@ void ImLayout::EndLayout()
     if (curLayout == NULL)
         return;
 
-    if (curLayout->clipping)
-        ImGui::PopClipRect();
+
+    if (curLayout->hide) {
+        ImGui::GetStyle().Alpha = 1.0;
+    }
+    else {
+        if (curLayout->clipping) {
+            ImGui::PopClipRect();
+        }
+    }
 
     float x = window->DC.CursorPos.x;
     float y = window->DC.CursorPos.y;
@@ -673,7 +680,7 @@ void ImLayout::AlignLayout(float alignX, float alignY, float offsetX, float offs
     ImVec2 posPad = curLayout->getPositionPadding();
     ImVec2 absSizePad = curLayout->getAbsoluteSizePadding();
 
-    if (alignX > 0.0f && curLayout->isWrapParentX == false) {
+    if (alignX > 0.0f && curLayout->isWrapParentX == false && curLayout->contentSize.x > 0.0) {
 
         float addX = ImFloor((totalX - curLayout->contentSize.x) * alignX);
         float newX = posPad.x + addX + offsetX;
@@ -688,7 +695,7 @@ void ImLayout::AlignLayout(float alignX, float alignY, float offsetX, float offs
         curLayout->positionContents.x = newX;
     }
 
-    if (alignY > 0.0f && curLayout->isWrapParentY == false) {
+    if (alignY > 0.0f && curLayout->isWrapParentY == false && curLayout->contentSize.y > 0.0) {
         float addY = ImFloor((totalY - curLayout->contentSize.y) * alignY);
         float newY = posPad.y + addY + offsetY;
         if (newY < posPad.y) {
@@ -744,4 +751,139 @@ float ImLayout::GetTableContentHeight() {
 		return height;
 	}
 	return 0;
+}
+
+// ## TREE
+
+static char* KEY_TREE_BEGIN = "KEY_TREE_BEGIN";
+static char* KEY_TREE_ID = "KEY_TREE_ID";
+static char* KEY_TREE_IS_OPEN = "KEY_TREE_IS_OPEN";
+static char* KEY_TREE_NODE_IS_LEAF = "KEY_TREE_NODE_IS_LEAF";
+static char* KEY_TREE_HOVERED = "KEY_TREE_HOVERED";
+
+void ImLayout::BeginTree(const char* treeIdStr) {
+    ImGuiWindow* window = ImGui::GetCurrentWindow();
+    ImGuiStorage* storage = ImGui::GetStateStorage();
+    int treeIdBefore = storage->GetInt(ImGui::GetID(KEY_TREE_ID), -1);
+    if (treeIdBefore != -1) {
+        ImVector<ImGuiID> stack = window->IDStack;
+        int treeId = stack.back();
+        if (treeIdBefore == treeId) {
+            IM_ASSERT("Cannot push same tree multiple times");
+        }
+    }
+    ImGui::PushID(treeIdStr);
+    ImVector<ImGuiID> stack = window->IDStack;
+    int treeId = stack.back();
+
+    storage->SetInt(ImGui::GetID(KEY_TREE_ID), treeId);
+}
+
+void ImLayout::EndTree() {
+    ImGuiStorage* storage = ImGui::GetStateStorage();
+
+    int isOpenId = ImGui::GetID(KEY_TREE_IS_OPEN);
+    bool isOpen = storage->GetBool(isOpenId, false);
+
+    if (isOpen) {
+        ImGui::TreePop();
+    }
+
+    int treeIdKey = ImGui::GetID(KEY_TREE_ID);
+    int treeId = storage->GetInt(treeIdKey, -1);
+    if (treeId == -1) {
+        IM_ASSERT("Begin must be called first");
+    }
+
+    ImGuiWindow* window = ImGui::GetCurrentWindow();
+    ImVector<ImGuiID> stack = window->IDStack;
+    int curID = stack.back();
+
+    if (treeId != curID) {
+        IM_ASSERT("Current tree id is wrong");
+    }
+    storage->SetInt(treeIdKey, -1);
+
+    ImGui::PopID();
+}
+
+void ImLayout::BeginTreeLayout(float height, bool isLeaf) {
+    BeginTreeLayout(height, isLeaf, -1);
+}
+
+void ImLayout::BeginTreeLayout(float height, bool isLeaf, bool isOpen) {
+    BeginTreeLayout(height, isLeaf, isOpen ? 1 : 0);
+}
+
+void ImLayout::BeginTreeLayout(float height, bool isLeaf, int isOpen) {
+    ImGuiWindow* window = ImGui::GetCurrentWindow();
+    ImGuiStorage* storage = ImGui::GetStateStorage();
+    int isOpenId = ImGui::GetID(KEY_TREE_IS_OPEN);
+    int isLeafId = ImGui::GetID(KEY_TREE_NODE_IS_LEAF);
+    ImVec2 pos = window->DC.CursorPos;
+    float posX = pos.x;
+    float posY = pos.y;
+    ImRect bb = ImRect(pos, ImVec2(posX + ImGui::GetContentRegionAvail().x, posY + height));
+    float minX = bb.Min.x;
+    float minY = bb.Min.y;
+    float maxX = bb.Max.x;
+    float maxY = bb.Max.y;
+
+    if (isOpen == -1) {
+        bool isOpenVal = storage->GetBool(isOpenId, true);
+        isOpen = isOpenVal ? 1 : 0;
+    }
+
+    if (isLeaf) {
+        isOpen = 0;
+    }
+
+    ImGui::GetWindowDrawList()->AddRect(bb.Min, bb.Max, IM_COL32(255, 0, 0, 255));
+    storage->SetBool(isLeafId, isLeaf);
+
+    if (!isLeaf) {
+        ImLayout::BeginAlign("arrow", ImLayout::WRAP_PARENT, height, 0, 0.5f);
+        {
+            int dir = isOpen == 1 ? ImGuiDir_Down : ImGuiDir_Right;
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, IM_COL32(0, 0, 0, 0));
+            ImGui::PushStyleColor(ImGuiCol_Button, IM_COL32(0, 0, 0, 0));
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive, IM_COL32(0, 0, 0, 0));
+
+            if (ImGui::ArrowButtonEx("Arrow", dir, ImVec2(15, 12))) {
+                isOpen = isOpen == 1 ? 0 : 1;
+            }
+
+            ImGui::PopStyleColor();
+            ImGui::PopStyleColor();
+            ImGui::PopStyleColor();
+        }
+        ImLayout::EndAlign();
+
+        ImGui::SameLine(0, 4);
+    }
+    storage->SetBool(isOpenId, isOpen == 1);
+
+    ImLayout::BeginAlign("FullLayout", maxX, height, 0.0, 0.5f);
+}
+
+bool ImLayout::EndTreeLayout() {
+    ImGuiStorage* storage = ImGui::GetStateStorage();
+
+    //        ImLayout.ShowLayoutDebug();
+    ImLayout::EndAlign();
+
+    int isOpenId = ImGui::GetID(KEY_TREE_IS_OPEN);
+    bool isOpen = storage->GetBool(isOpenId, false);
+
+    if (isOpen) {
+        ImGui::TreePush("TreePush");
+    }
+    // We push it again to update data to treepush ID
+    storage->SetBool(ImGui::GetID(KEY_TREE_IS_OPEN), isOpen);
+    return isOpen;
+}
+
+float ImLayout::GetTreeHeight(float padding) {
+    float fontSize = ImGui::GetFont()->FontSize;
+    return fontSize + padding;
 }
