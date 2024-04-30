@@ -50,23 +50,23 @@ ImVec2 ImGuiLayout::getPositionPadding() {
 void ImGuiLayout::drawSizeDebug() {
     // Render layout space
     //Green
-    ImLayout::DrawBoundingBox_2(position, getAbsoluteSize(), 0, 255, 0);
+    ImLayout::DrawBoundingBox_2(position, getAbsoluteSize(), 0, 255, 0, 255);
 }
 
 void ImGuiLayout::drawContentDebug() {
     // Render content space
     // Blue
     ImVec2 max = ImVec2(positionContents.x + contentSize.x, positionContents.y + contentSize.y);
-    //ImLayout::DrawBoundingBox(positionContents, max, 0, 0, 255);
+    ImLayout::DrawBoundingBox_2(positionContents, max, 0, 100, 255, 255);
 }
 
 void ImGuiLayout::drawPaddingAreaDebug() {
     // Render size with padding
-    //ImLayout::DrawBoundingBox(getPositionPadding(), getAbsoluteSizePadding(), 255, 255, 255);
+    ImLayout::DrawBoundingBox_2(getPositionPadding(), getAbsoluteSizePadding(), 255, 255, 255, 255);
 }
 
 void ImGuiLayout::drawError() {
-    ImLayout::DrawBoundingBox_2(position, getAbsoluteSize(), 255, 0, 0, true);
+    ImLayout::DrawBoundingBox_2(position, getAbsoluteSize(), 255, 0, 0, 200, true);
 }
 
 // ##################################  ImGuiLayoutOptions  ########################################
@@ -156,8 +156,8 @@ static void popLayout() {
 
 void ImLayout::DrawBoundingBox_1(float x1, float y1, float x2, float y2, int r, int g, int b, int a, bool clipping) {
     ImDrawList* drawList = clipping ? ImGui::GetWindowDrawList() : ImGui::GetForegroundDrawList();
-    int color = ImGui::GetColorU32(ImVec4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f));
-    drawList->AddRect(ImVec2(x1, y1), ImVec2(x2, y2), color);
+    int color = IM_COL32(r, g, b, a);
+    drawList->AddRect(ImVec2(x1, y1), ImVec2(x2, y2), color, 0, 0, 1.0);
 }
 
 void ImLayout::DrawBoundingBox_2(const ImVec2& min, const ImVec2& max, int r, int g, int b, int a, bool clipping) {
@@ -418,7 +418,10 @@ void ImLayout::EndLayout()
 
     if (curLayout->debug) {
         curLayout->drawContentDebug();
-        curLayout->drawPaddingAreaDebug();
+
+        if (curLayout->paddingTop != 0 || curLayout->paddingBottom != 0 || curLayout->paddingLeft != 0 || curLayout->paddingRight != 0) {
+            curLayout->drawPaddingAreaDebug();
+        }
         curLayout->drawSizeDebug();
         curLayout->debug = false;
     }
@@ -757,7 +760,6 @@ float ImLayout::GetTableContentHeight() {
 static char* KEY_TREE_BEGIN = "KEY_TREE_BEGIN";
 static char* KEY_TREE_ID = "KEY_TREE_ID";
 static char* KEY_TREE_IS_OPEN = "KEY_TREE_IS_OPEN";
-static char* KEY_TREE_IS_SELECTED = "KEY_TREE_IS_SELECTED";
 static char* KEY_TREE_NODE_IS_LEAF = "KEY_TREE_NODE_IS_LEAF";
 
 void ImLayout::BeginTree(const char* treeIdStr) {
@@ -806,13 +808,12 @@ void ImLayout::EndTree() {
     ImGui::PopID();
 }
 
-void Begin(float height, bool isLeaf, int isOpen) {
+void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
     bool debug = false;
 
     ImGuiWindow* window = ImGui::GetCurrentWindow();
     ImGuiStorage* storage = ImGui::GetStateStorage();
     int isOpenId = ImGui::GetID(KEY_TREE_IS_OPEN);
-    int isSelectedId = ImGui::GetID(KEY_TREE_IS_SELECTED);
     int isLeafId = ImGui::GetID(KEY_TREE_NODE_IS_LEAF);
     ImVec2 pos = window->DC.CursorPos;
     float posX = pos.x;
@@ -904,8 +905,7 @@ void Begin(float height, bool isLeaf, int isOpen) {
 
     {
         // Selected color
-        bool isSelect = storage->GetBool(isSelectedId, false);
-        if (isSelect) {
+        if (isSelected) {
             ImVec4 color = style.Colors[ImGuiCol_HeaderActive];
             float r = color.x;
             float g = color.y;
@@ -942,22 +942,21 @@ void Begin(float height, bool isLeaf, int isOpen) {
     ImLayout::BeginAlign("FullLayout", ImLayout::MATCH_PARENT, height, 0.0, 0.5);
 }
 
-void ImLayout::BeginTreeLayout(float height, bool isLeaf) {
-    Begin(height, isLeaf, -1);
+void ImLayout::BeginTreeLayout(float height, bool isLeaf, bool selected) {
+    Begin(height, isLeaf, selected , -1);
 }
 
-void ImLayout::BeginTreeLayout(float height, bool isLeaf, bool isOpen) {
-    Begin(height, isLeaf, isOpen ? 1 : 0);
+void ImLayout::BeginTreeLayout(float height, bool isLeaf, bool selected, bool isOpen) {
+    Begin(height, isLeaf, selected, isOpen ? 1 : 0);
 }
 
 
-bool ImLayout::EndTreeLayout(bool* isSelected) {
+bool ImLayout::EndTreeLayout() {
+
+    //ImLayout::ShowLayoutDebug();
     bool debug = false;
 
-    bool isSelect = false;
-    if (isSelected != NULL) {
-        isSelect = *isSelected;
-    }
+    bool selected = false;
 
     ImGuiStorage* storage = ImGui::GetStateStorage();
 
@@ -989,10 +988,7 @@ bool ImLayout::EndTreeLayout(bool* isSelected) {
         // Selected and hover logic
         ImGui::ItemAdd(fullLayout, layoutId);
         if (ImGui::ButtonBehavior(fullLayout, layoutId, NULL, NULL)) {
-            if (isSelected != NULL) {
-                isSelect = !isSelect;
-                *isSelected = isSelect;
-            }
+            selected = true;
         }
     }
 
@@ -1006,8 +1002,14 @@ bool ImLayout::EndTreeLayout(bool* isSelected) {
     }
     // We push it again to update data to treepush ID
     storage->SetBool(ImGui::GetID(KEY_TREE_IS_OPEN), isOpen);
-    storage->SetBool(ImGui::GetID(KEY_TREE_IS_SELECTED), isSelect);
 
+    return selected;
+}
+
+bool ImLayout::IsTreeOpen() {
+    ImGuiStorage* storage = ImGui::GetStateStorage();
+    int isOpenId = ImGui::GetID(KEY_TREE_IS_OPEN);
+    bool isOpen = storage->GetBool(isOpenId, false);
     return isOpen;
 }
 

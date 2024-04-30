@@ -95,9 +95,9 @@ public:
     static const int WRAP_PARENT = 9999991;
     static const int MATCH_PARENT = 9999990;
 
-    static void DrawBoundingBox_1(float x1, float y1, float x2, float y2, int r, int g, int b, int a = 50, bool clipping = false);
-    static void DrawBoundingBox_2(const ImVec2& min, const ImVec2& max, int r, int g, int b, int a = 50, bool clipping = false);
-    static void DrawBoundingBox_3(const ImRect& rect, int r, int g, int b, int a = 50, bool clipping = false);
+    static void DrawBoundingBox_1(float x1, float y1, float x2, float y2, int r, int g, int b, int a = 255, bool clipping = false);
+    static void DrawBoundingBox_2(const ImVec2& min, const ImVec2& max, int r, int g, int b, int a = 255, bool clipping = false);
+    static void DrawBoundingBox_3(const ImRect& rect, int r, int g, int b, int a = 255, bool clipping = false);
 
     static void FillWidth(int r = 255, int g = 255, int b = 255, int a = 255, ImVec2 size = ImVec2(ImLayout::MATCH_PARENT, 20));
     static void ShowLayoutDebug();
@@ -149,8 +149,9 @@ public:
     // Tree
     static void BeginTree(const char* treeIdStr);
     static void EndTree();
-    static void BeginTreeLayout(float height, bool isLeaf);
-    static void BeginTreeLayout(float height, bool isLeaf, bool isOpen);
-    static bool EndTreeLayout(bool* isSelected = NULL);
+    static void BeginTreeLayout(float height, bool isLeaf, bool isSelected);
+    static void BeginTreeLayout(float height, bool isLeaf, bool isSelected, bool isOpen);
+    static bool EndTreeLayout();
+    static bool IsTreeOpen();
     static float GetTreeHeight(float padding);
 };

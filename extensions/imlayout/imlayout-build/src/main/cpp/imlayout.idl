@@ -44,9 +44,10 @@ interface ImLayout {
     // Tree
     static void BeginTree([Const]DOMString treeIdStr);
     static void EndTree();
-    static void BeginTreeLayout(float height, boolean isLeaf);
-    static void BeginTreeLayout(float height, boolean isLeaf, boolean isOpen);
-    static boolean EndTreeLayout(boolean[] isSelected);
+    static void BeginTreeLayout(float height, boolean isLeaf, boolean isSelected);
+    static void BeginTreeLayout(float height, boolean isLeaf, boolean isSelected, boolean isOpen);
+    static boolean EndTreeLayout();
+    static boolean IsTreeOpen();
     static float GetTreeHeight(float padding);
 };
 
