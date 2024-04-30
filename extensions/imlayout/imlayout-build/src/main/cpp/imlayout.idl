@@ -13,7 +13,7 @@ interface ImLayout {
     // Layout
     static void BeginLayout([Const]DOMString id, float sizeX, float sizeY, [Const, Ref] optional ImGuiLayoutOptions options);
     static ImGuiLayout GetCurrentLayout();
-    static void SetOrientation(ImOrientation orientation);
+    static void SetOrientation(ImOrientation ImOrientation);
     static void EndLayout();
 
     // Align view
