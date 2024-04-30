@@ -4,6 +4,13 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 
+enum ImOrientation : int
+{
+    NONE = 0,
+    HORIZONTAL,
+    VERTICAL,
+};
+
 struct ImGuiLayout
 {
 public:
@@ -11,6 +18,8 @@ public:
 
     ImVec2 position;                    // Position of the layout
     ImVec2 size;                        // Size of the layout
+    ImVec2 content_avail;
+    ImVec2 matchTargetSize;                  // TargetSize calculated at the end of layout
     float paddingLeft;
     float paddingRight;
     float paddingTop;
@@ -26,7 +35,8 @@ public:
 
     ImGuiID id;
     ImGuiLayout* parentLayout;
-    ImVector<ImGuiLayout*> childsLayout;
+    ImVector<ImGuiLayout*> childsLayout;        // Cleared every frame. 
+    ImVector<ImGuiLayout*> childLayoutCache;    // Layout list is cached at the end of EndLayout. Child will be removed if it does not match cur layout order
 
     bool hide;
     bool clipping;
@@ -37,6 +47,7 @@ public:
     bool isWrapParentY;
     bool isMatchParentX;
     bool isMatchParentY;
+    ImOrientation orientation;
 
     // Backup window data
     ImGuiWindowTempData DC;
@@ -91,9 +102,18 @@ public:
 
 class ImLayout {
     // Emscripten webidl don't support binding methods without a class so we need to create a wrapper
+private:
+    static void BeginLayoutEx(ImGuiID id);
+    static void BeginLayoutEx(const char* id);
+    static void PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayoutOptions options = ImGuiLayoutOptions());
+    static void PrepareLayoutType(float sizeX, float sizeY);
+    static void PrepareLayout(float sizeX, float sizeY, ImGuiLayoutOptions options);
+
 public:
     static const int WRAP_PARENT = 9999991;
-    static const int MATCH_PARENT = 9999990;
+    static const int MATCH_PARENT = 9999990;    
+    static const int HORIZONTAL = 1;
+    static const int VERTICAL = 2;
 
     static void DrawBoundingBox_1(float x1, float y1, float x2, float y2, int r, int g, int b, int a = 255, bool clipping = false);
     static void DrawBoundingBox_2(const ImVec2& min, const ImVec2& max, int r, int g, int b, int a = 255, bool clipping = false);
@@ -104,20 +124,15 @@ public:
     static void ShowLayoutDebugClipping();
 
     // Layout
-    static ImVec2 GetLayoutSize();
-    static void BeginLayoutEx(ImGuiID id);
-    static void BeginLayoutEx(const char* id);
-    static void PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayoutOptions options = ImGuiLayoutOptions());
-    static void PrepareLayoutType(float sizeX, float sizeY);
-    static void PrepareLayout(float sizeX, float sizeY, ImGuiLayoutOptions options);
-    static void BeginLayout(const char* id, float sizeX, float sizeY);
-    static void BeginLayout(const char* id, float sizeX, float sizeY, ImGuiLayoutOptions & options);
+    static void BeginLayout(const char* id, float sizeX, float sizeY, const ImGuiLayoutOptions& options = ImGuiLayoutOptions());
     static void EndLayout();
     static ImGuiLayout* GetCurrentLayout();
+    static void SetOrientation(ImOrientation orientation);
+    static ImVec2 GetLayoutSize();
 
     // Align view
-    static void BeginAlign(const char* id, float sizeX, float sizeY, float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0, ImGuiLayoutOptions options = ImGuiLayoutOptions());
-    static void AlignLayout(float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0);
+    static void BeginAlign(const char* id, float sizeX, float sizeY, float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0, const ImGuiLayoutOptions& options = ImGuiLayoutOptions());
+    static void AlignLayout(float alignX, float alignY, float offsetX = 0, float offsetY = 0);
     static void EndAlign();
 
     // Custom Collapse Layout

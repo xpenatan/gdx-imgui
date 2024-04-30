@@ -20,6 +20,7 @@ ImGuiLayout::ImGuiLayout(ImGuiID id) {
     isMatchParentX = false;
     isWrapParentY = false;
     isMatchParentY = false;
+    orientation = ImOrientation::NONE;
 }
 
 bool ImGuiLayout::haveParent() {
@@ -203,9 +204,19 @@ void ImLayout::ShowLayoutDebugClipping() {
     }
 }
 
+void ImLayout::SetOrientation(ImOrientation orientation) {
+    ImGuiLayout* curLayout = ImLayout::GetCurrentLayout();
+    if (curLayout != NULL) {
+        curLayout->orientation = orientation;
+    }
+}
+
 ImVec2 ImLayout::GetLayoutSize() {
     ImGuiLayout* curLayout = ImLayout::GetCurrentLayout();
-    return curLayout->size;
+    if (curLayout != NULL) {
+        return curLayout->size;
+    }
+    return ImVec2();
 }
 
 void ImLayout::BeginLayoutEx(ImGuiID id)
@@ -277,19 +288,27 @@ void ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
 
     curLayout->positionContents = curLayout->position;
 
-    const ImVec2 content_avail = ImGui::GetContentRegionAvail();
+    curLayout->content_avail = ImGui::GetContentRegionAvail();
 
     if (curLayout->isMatchParentX) {
-        float sizeX = ImMax(content_avail.x, 4.0f);
-        curLayout->size.x = sizeX;
+        if (curLayout->parentLayout != NULL && curLayout->parentLayout->childLayoutCache.Size > 1) {
+            curLayout->size.x = ImMax(curLayout->matchTargetSize.x, 4.0f);
+        }
+        else {
+            curLayout->size.x = ImMax(curLayout->content_avail.x, 4.0f);
+        }
     }
     else if (!curLayout->isWrapParentX) {
         curLayout->size.x = ImFloor(x2 - x1);
     }
 
     if (curLayout->isMatchParentY) {
-        float sizeY = ImMax(content_avail.y, 4.0f);
-        curLayout->size.y = sizeY;
+        if (curLayout->parentLayout != NULL && curLayout->parentLayout->childLayoutCache.Size > 1) {
+            curLayout->size.y = ImMax(curLayout->matchTargetSize.y, 4.0f);
+        }
+        else {
+            curLayout->size.y = ImMax(curLayout->content_avail.y, 4.0f);
+        }
     }
     else if (!curLayout->isWrapParentY) {
         curLayout->size.y = ImFloor(y2 - y1);
@@ -345,13 +364,7 @@ void ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
     ImGui::BeginGroup();
 }
 
-void ImLayout::BeginLayout(const char* strID, float sizeX, float sizeY)
-{
-    ImGuiLayoutOptions options;
-    BeginLayout(strID, sizeX, sizeY, options);
-}
-
-void ImLayout::BeginLayout(const char* strID, float sizeX, float sizeY, ImGuiLayoutOptions & options)
+void ImLayout::BeginLayout(const char* strID, float sizeX, float sizeY, const ImGuiLayoutOptions& options)
 {
     BeginLayoutEx(strID);
     PrepareLayout(sizeX, sizeY, options);
@@ -399,6 +412,7 @@ void ImLayout::EndLayout()
             /* curLayout->error = true;
             sizeItem.x = 10;*/
         }
+        curLayout->matchTargetSize.x = curLayout->content_avail.x;
     }
     else if (curLayout->isWrapParentX)
         curLayout->size.x = curLayout->contentSize.x + curLayout->paddingLeft + curLayout->paddingRight;
@@ -410,6 +424,8 @@ void ImLayout::EndLayout()
                //curLayout->error = true;
             //sizeItem.y = curLayout->contentSize.y;
         }
+
+        curLayout->matchTargetSize.y = curLayout->content_avail.y;
     }
     else if (curLayout->isWrapParentY)
         curLayout->size.y = curLayout->contentSize.y + curLayout->paddingBottom;
@@ -434,6 +450,86 @@ void ImLayout::EndLayout()
     if (curLayout->error) {
         curLayout->error = false;
         curLayout->drawError();
+    }
+
+    curLayout->childLayoutCache.clear();
+    for (int i = 0; i < curLayout->childsLayout.Size; i++) {
+        ImGuiLayout* childLayout = curLayout->childsLayout[i];
+        curLayout->childLayoutCache.push_back(childLayout);
+    }
+
+    if (curLayout->childsLayout.Size > 1) {
+        int totalWrapSize = 0;
+        int matchCount = 0;
+        int subtractSize = 0;
+        ImVec2 parentMaxSize = curLayout->getAbsoluteSize();
+        if (curLayout->orientation == ImLayout::HORIZONTAL) {
+            for (int i = 0; i < curLayout->childsLayout.Size; i++) {
+                ImGuiLayout* childLayout = curLayout->childsLayout[i];
+                if (childLayout->isWrapParentX) {
+                    totalWrapSize += childLayout->contentSize.x;
+                }
+                if (childLayout->isMatchParentX) {
+                    matchCount++;
+                }
+                if (i > 0) {
+                    ImGuiLayout* prevChildLayout = curLayout->childsLayout[i-1];
+                    int lastPosX = prevChildLayout->getAbsoluteSize().x;
+                    int sub = lastPosX - childLayout->position.x;
+                    subtractSize = subtractSize + sub;
+                }
+            }
+
+            if (matchCount > 0) {
+                float totalSizeLeft = curLayout->size.x - totalWrapSize + subtractSize;
+                int matchSize = totalSizeLeft / matchCount;
+                for (int i = 0; i < curLayout->childsLayout.Size; i++) {
+                    ImGuiLayout* childLayout = curLayout->childsLayout[i];
+                    if (childLayout->isMatchParentX) {
+                        int addSize = 0;
+                        if (i + 1 == curLayout->childsLayout.Size) {
+                            // Make the last layout match the same parent size
+                            float childSize = childLayout->position.x + matchSize;
+                            addSize = parentMaxSize.x - childSize;
+                        }
+                        childLayout->matchTargetSize.x = matchSize + addSize;
+                    }
+                }
+            }
+        }
+        else if (curLayout->orientation == ImLayout::VERTICAL) {
+            for (int i = 0; i < curLayout->childsLayout.Size; i++) {
+                ImGuiLayout* childLayout = curLayout->childsLayout[i];
+                if (childLayout->isWrapParentY) {
+                    totalWrapSize += childLayout->contentSize.y;
+                }
+                if (childLayout->isMatchParentY) {
+                    matchCount++;
+                }
+                if (i > 0) {
+                    ImGuiLayout* prevChildLayout = curLayout->childsLayout[i - 1];
+                    int lastPosX = prevChildLayout->getAbsoluteSize().y;
+                    int sub = lastPosX - childLayout->position.y;
+                    subtractSize = subtractSize + sub;
+                }
+            }
+            if (matchCount > 0) {
+                float totalSizeLeft = curLayout->size.y - totalWrapSize + subtractSize;
+                int matchSize = totalSizeLeft / matchCount;
+                for (int i = 0; i < curLayout->childsLayout.Size; i++) {
+                    ImGuiLayout* childLayout = curLayout->childsLayout[i];
+                    if (childLayout->isMatchParentY) {
+                        int addSize = 0;
+                        if (i + 1 == curLayout->childsLayout.Size) {
+                            // Make the last layout match the same parent size
+                            float childSize = childLayout->position.y + matchSize;
+                            addSize = parentMaxSize.y - childSize;
+                        }
+                        childLayout->matchTargetSize.y = matchSize + addSize;
+                    }
+                }
+            }
+        }
     }
 
     popLayout();
@@ -548,7 +644,7 @@ bool ImLayout::PrepareCollapseLayout(const char* title, float sizeX, float sizeY
 
     ImGui::SameLine();
 
-    ImLayout::BeginAlign("align", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f, 0, 0);
+    ImLayout::BeginAlign("align", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT,  0.0, 0.5, 0, 0);
 
     ImGui::Text(title);
 
@@ -664,7 +760,7 @@ void ImLayout::EndCollapseLayout()
     drawList->AddRect(borderPosition, borderSize, borderColor, borderRound, roundingCorners, 1.0f);
 }
 
-void ImLayout::BeginAlign(const char* strID, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, ImGuiLayoutOptions options) {
+void ImLayout::BeginAlign(const char* strID, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, const ImGuiLayoutOptions& options) {
     ImLayout::BeginLayout(strID, sizeX, sizeY, options);
     ImLayout::AlignLayout(alignX, alignY, offsetX, offsetY);
 }
@@ -848,7 +944,7 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
     if (!isLeaf) {
         float arrowMaxX = minX + 15;
 
-        ImLayout::BeginAlign("arrow", ImLayout::WRAP_PARENT, height, 0, 0.5f);
+        ImLayout::BeginAlign("arrow", ImLayout::WRAP_PARENT, height, ImOrientation::HORIZONTAL, 0.0, 0.5);
         {
             int dir = isOpen == 1 ? ImGuiDir_Down : ImGuiDir_Right;
             int arrowButtonId = ImGui::GetID("ArrowButton");
@@ -939,7 +1035,7 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(x, 0));
     }
 
-    ImLayout::BeginAlign("FullLayout", ImLayout::MATCH_PARENT, height, 0.0, 0.5);
+    ImLayout::BeginAlign("FullLayout", ImLayout::MATCH_PARENT, height, ImOrientation::HORIZONTAL, 0.0, 0.5);
 }
 
 void ImLayout::BeginTreeLayout(float height, bool isLeaf, bool selected) {
