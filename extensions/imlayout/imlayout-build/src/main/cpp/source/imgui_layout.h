@@ -112,8 +112,6 @@ private:
 public:
     static const int WRAP_PARENT = 9999991;
     static const int MATCH_PARENT = 9999990;    
-    static const int HORIZONTAL = 1;
-    static const int VERTICAL = 2;
 
     static void DrawBoundingBox_1(float x1, float y1, float x2, float y2, int r, int g, int b, int a = 255, bool clipping = false);
     static void DrawBoundingBox_2(const ImVec2& min, const ImVec2& max, int r, int g, int b, int a = 255, bool clipping = false);

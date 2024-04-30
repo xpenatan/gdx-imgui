@@ -463,7 +463,7 @@ void ImLayout::EndLayout()
         int matchCount = 0;
         int subtractSize = 0;
         ImVec2 parentMaxSize = curLayout->getAbsoluteSize();
-        if (curLayout->orientation == ImLayout::HORIZONTAL) {
+        if (curLayout->orientation == ImOrientation::HORIZONTAL) {
             for (int i = 0; i < curLayout->childsLayout.Size; i++) {
                 ImGuiLayout* childLayout = curLayout->childsLayout[i];
                 if (childLayout->isWrapParentX) {
@@ -497,7 +497,7 @@ void ImLayout::EndLayout()
                 }
             }
         }
-        else if (curLayout->orientation == ImLayout::VERTICAL) {
+        else if (curLayout->orientation == ImOrientation::VERTICAL) {
             for (int i = 0; i < curLayout->childsLayout.Size; i++) {
                 ImGuiLayout* childLayout = curLayout->childsLayout[i];
                 if (childLayout->isWrapParentY) {
@@ -944,7 +944,7 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
     if (!isLeaf) {
         float arrowMaxX = minX + 15;
 
-        ImLayout::BeginAlign("arrow", ImLayout::WRAP_PARENT, height, ImOrientation::HORIZONTAL, 0.0, 0.5);
+        ImLayout::BeginAlign("arrow", ImLayout::WRAP_PARENT, height, 0.0, 0.0, 0.5);
         {
             int dir = isOpen == 1 ? ImGuiDir_Down : ImGuiDir_Right;
             int arrowButtonId = ImGui::GetID("ArrowButton");
@@ -1035,7 +1035,7 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(x, 0));
     }
 
-    ImLayout::BeginAlign("FullLayout", ImLayout::MATCH_PARENT, height, ImOrientation::HORIZONTAL, 0.0, 0.5);
+    ImLayout::BeginAlign("FullLayout", ImLayout::MATCH_PARENT, height, 0.0, 0.0, 0.5);
 }
 
 void ImLayout::BeginTreeLayout(float height, bool isLeaf, bool selected) {
