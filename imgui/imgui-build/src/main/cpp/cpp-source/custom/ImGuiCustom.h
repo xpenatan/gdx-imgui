@@ -81,6 +81,13 @@ class ImGuiInternal {
         static void                     SetFocusID(ImGuiID id, ImGuiWindow* window) { im::SetFocusID(id, window); }
         static void                     ClearActiveID() { im::ClearActiveID(); }
 
+        // Drag and Drop
+        bool                            IsDragDropActive() { return im::IsDragDropActive(); }
+        bool                            BeginDragDropTargetCustom(const ImRect& bb, ImGuiID id) { return im::BeginDragDropTargetCustom(bb, id); }
+        void                            ClearDragDrop() { im::ClearDragDrop(); }
+        bool                            IsDragDropPayloadBeingAccepted() { return im::IsDragDropPayloadBeingAccepted(); }
+        void                            RenderDragDropTargetRect(const ImRect& bb, const ImRect& item_clip_rect) { return im::RenderDragDropTargetRect(bb, item_clip_rect); }
+
         // Render helpers (those functions don't access any ImGui state!)
         static void                     RenderArrow(ImDrawList* draw_list, ImVec2& pos, ImU32 col, ImGuiDir dir, float scale = 1.0f) { im::RenderArrow(draw_list, pos, col, dir, scale); }
         static void                     RenderBullet(ImDrawList* draw_list, ImVec2& pos, ImU32 col) { im::RenderBullet(draw_list, pos, col); }
