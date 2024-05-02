@@ -64,11 +64,11 @@ interface ImGuiInternal {
     static void                    ClearActiveID();
 
     // Drag and Drop
-    boolean                        IsDragDropActive();
-    boolean                        BeginDragDropTargetCustom([Const, Ref] ImRect bb, long id);
-    void                           ClearDragDrop();
-    boolean                        IsDragDropPayloadBeingAccepted();
-    void                           RenderDragDropTargetRect([Const, Ref] ImRect bb, [Const, Ref] ImRect item_clip_rect);
+    static boolean                        IsDragDropActive();
+    static boolean                        BeginDragDropTargetCustom([Const, Ref] ImRect bb, long id);
+    static void                           ClearDragDrop();
+    static boolean                        IsDragDropPayloadBeingAccepted();
+    static void                           RenderDragDropTargetRect([Const, Ref] ImRect bb, [Const, Ref] ImRect item_clip_rect);
 
     // Render helpers (those functions don't access any ImGui state!)
     static void                    RenderArrow(ImDrawList draw_list, [Ref] ImVec2 pos, long col, ImGuiDir dir, optional float scale);

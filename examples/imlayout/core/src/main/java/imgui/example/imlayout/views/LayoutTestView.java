@@ -2,9 +2,13 @@ package imgui.example.imlayout.views;
 
 import com.badlogic.gdx.Gdx;
 import imgui.ImGui;
+import imgui.ImGuiTableFlags;
 import imgui.ImVec2;
 import imgui.extension.imlayout.ImGuiLayout;
 import imgui.extension.imlayout.ImLayout;
+import imgui.extension.imlayout.ImOrientation;
+import static imgui.ImGuiTableColumnFlags.ImGuiTableColumnFlags_WidthStretch;
+import static imgui.ImGuiTableFlags.ImGuiTableFlags_Resizable;
 
 public class LayoutTestView {
 
@@ -34,30 +38,93 @@ public class LayoutTestView {
 
         ImLayout.EndLayout();
 
-        renderTree();
+        int flags = ImGuiTableFlags_Resizable | ImGuiTableFlags.ImGuiTableFlags_ScrollY;
+        if(ImGui.BeginTable("ContentBrowser", 2, flags)) {
+
+            ImGui.TableSetupColumn("C0", ImGuiTableColumnFlags_WidthStretch, 0.2f);
+            ImGui.TableSetupColumn("C1", ImGuiTableColumnFlags_WidthStretch, 0.8f);
+
+            ImGui.TableNextRow();
+            ImGui.TableSetColumnIndex(0);
+
+            renderTree();
+
+            ImGui.TableSetColumnIndex(1);
+
+            ImGui.EndTable();
+        }
     }
 
     private void renderTree() {
-        float height = ImLayout.GetTreeHeight(20);
+        float height = 10;
         ImLayout.BeginTree("RootId");
-        ImLayout.BeginTreeLayout(height, false);
-        ImGui.Text("Root");
-        if(ImLayout.EndTreeLayout()) {
+        ImLayout.BeginTreeLayout(ImLayout.GetTreeHeight(height), false, false);
+        ImLayout.SetOrientation(ImOrientation.HORIZONTAL);
+        {
+            ImLayout.BeginAlign("111", ImLayout.MATCH_PARENT, ImLayout.MATCH_PARENT, 0f, 0.5f);
+            ImGui.Text("Root");
+
+            ImLayout.ShowLayoutDebug();
+            ImLayout.EndAlign();
+            ImGui.SameLine();
+        }
+
+        {
+            ImLayout.BeginAlign("222", ImLayout.MATCH_PARENT, ImLayout.MATCH_PARENT, 0.5f, 0.5f);
+            ImGui.Text("- " + 2);
+            ImLayout.ShowLayoutDebug();
+            ImLayout.EndAlign();
+        }
+
+        ImLayout.EndTreeLayout();
+        if(ImLayout.IsTreeOpen()) {
             {
                 ImLayout.BeginTree("Assets");
-                ImLayout.BeginTreeLayout(height, false);
+                ImLayout.BeginTreeLayout(ImLayout.GetTreeHeight(height), false, false);
                 ImGui.Text("Assets");
-                if(ImLayout.EndTreeLayout()) {
-
+                ImLayout.EndTreeLayout();
+                if(ImLayout.IsTreeOpen()) {
                     {
-                        {
-                            ImLayout.BeginTree("Item");
-                            ImLayout.BeginTreeLayout(height, true);
-                            ImGui.Text("Item");
-                            if(ImLayout.EndTreeLayout()) {
-                            }
-                            ImLayout.EndTree();
+                        ImLayout.BeginTree("Item01");
+                        ImLayout.BeginTreeLayout(ImLayout.GetTreeHeight(height), true, false);
+                        ImGui.Text("Item01");
+
+                        ImGui.SameLine();
+
+                        if(ImGui.Button("HELLO")) {
+                            System.out.println("HELLOO");
                         }
+                        ImLayout.EndTreeLayout();
+                        if(ImLayout.IsTreeOpen()) {
+                        }
+                        ImLayout.EndTree();
+                    }
+                    {
+                        ImLayout.BeginTree("Item02");
+                        ImLayout.BeginTreeLayout(ImLayout.GetTreeHeight(height), true, false);
+                        ImGui.Text("Item02");
+                        ImLayout.EndTreeLayout();
+                        if(ImLayout.IsTreeOpen()) {
+                        }
+                        ImLayout.EndTree();
+                    }
+                    {
+                        ImLayout.BeginTree("Item03");
+                        ImLayout.BeginTreeLayout(ImLayout.GetTreeHeight(height), true, false);
+                        ImGui.Text("Item03");
+                        ImLayout.EndTreeLayout();
+                        if(ImLayout.IsTreeOpen()) {
+                        }
+                        ImLayout.EndTree();
+                    }
+                    {
+                        ImLayout.BeginTree("Item04");
+                        ImLayout.BeginTreeLayout(ImLayout.GetTreeHeight(height), true, false);
+                        ImGui.Text("Item04");
+                        ImLayout.EndTreeLayout();
+                        if(ImLayout.IsTreeOpen()) {
+                        }
+                        ImLayout.EndTree();
                     }
                 }
                 ImLayout.EndTree();
