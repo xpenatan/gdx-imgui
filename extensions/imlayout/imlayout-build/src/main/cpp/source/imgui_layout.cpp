@@ -290,8 +290,91 @@ void ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
 
     curLayout->content_avail = ImGui::GetContentRegionAvail();
 
+    if (curLayout->childLayoutCache.Size > 1) {
+        int totalWrapSize = 0;
+        int matchCount = 0;
+        int subtractSize = 0;
+        ImVec2 parentMaxSize = curLayout->getAbsoluteSize();
+        if (curLayout->orientation == ImOrientation::HORIZONTAL) {
+            for (int i = 0; i < curLayout->childLayoutCache.Size; i++) {
+                ImGuiLayout* childLayout = curLayout->childLayoutCache[i];
+                if (childLayout->isWrapParentX) {
+                    totalWrapSize += childLayout->contentSize.x;
+                }
+                if (childLayout->isMatchParentX) {
+                    matchCount++;
+                }
+                if (i > 0) {
+                    ImGuiLayout* prevChildLayout = curLayout->childLayoutCache[i - 1];
+                    int lastPosX = prevChildLayout->getAbsoluteSize().x;
+                    int sub = lastPosX - childLayout->position.x;
+                    subtractSize = subtractSize + sub;
+                }
+            }
+
+            if (matchCount > 0) {
+                float totalSizeLeft = curLayout->size.x - totalWrapSize + subtractSize;
+                int matchSize = totalSizeLeft / matchCount;
+                for (int i = 0; i < curLayout->childLayoutCache.Size; i++) {
+                    ImGuiLayout* childLayout = curLayout->childLayoutCache[i];
+                    if (childLayout->isMatchParentX) {
+                        float addSize = 0;
+                        if (i + 1 == curLayout->childLayoutCache.Size) {
+                            // Make the last layout match the same parent size
+                            float childSize = childLayout->position.x + matchSize;
+                            addSize = parentMaxSize.x - childSize; 
+                            if (addSize > 3 || addSize < -3) {
+                                // FIXME the first 2 frames the addSize have very big size
+                                // childLayout->position.x is not calculated correctly at the first 2 frames.
+                                addSize = 0;
+                            }
+                        }
+                        childLayout->matchTargetSize.x = matchSize + addSize;
+                    }
+                }
+            }
+        }
+        else if (curLayout->orientation == ImOrientation::VERTICAL) {
+            for (int i = 0; i < curLayout->childLayoutCache.Size; i++) {
+                ImGuiLayout* childLayout = curLayout->childLayoutCache[i];
+                if (childLayout->isWrapParentY) {
+                    totalWrapSize += childLayout->contentSize.y;
+                }
+                if (childLayout->isMatchParentY) {
+                    matchCount++;
+                }
+                if (i > 0) {
+                    ImGuiLayout* prevChildLayout = curLayout->childLayoutCache[i - 1];
+                    int lastPosX = prevChildLayout->getAbsoluteSize().y;
+                    int sub = lastPosX - childLayout->position.y;
+                    subtractSize = subtractSize + sub;
+                }
+            }
+            if (matchCount > 0) {
+                float totalSizeLeft = curLayout->size.y - totalWrapSize + subtractSize;
+                int matchSize = totalSizeLeft / matchCount;
+                for (int i = 0; i < curLayout->childLayoutCache.Size; i++) {
+                    ImGuiLayout* childLayout = curLayout->childLayoutCache[i];
+                    if (childLayout->isMatchParentY) {
+                        int addSize = 0;
+                        if (i + 1 == curLayout->childLayoutCache.Size) {
+                            // Make the last layout match the same parent size
+                            float childSize = childLayout->position.y + matchSize;
+                            addSize = parentMaxSize.y - childSize;
+                            if (addSize > 3 || addSize < -3) {
+                                // FIXME the first 2 frames the addSize have very big size
+                                addSize = 0;
+                            }
+                        }
+                        childLayout->matchTargetSize.y = matchSize + addSize;
+                    }
+                }
+            }
+        }
+    }
+
     if (curLayout->isMatchParentX) {
-        if (curLayout->parentLayout != NULL && curLayout->parentLayout->childLayoutCache.Size > 1) {
+        if (curLayout->parentLayout != NULL && curLayout->parentLayout->orientation == ImOrientation::HORIZONTAL && curLayout->parentLayout->childLayoutCache.Size > 1) {
             curLayout->size.x = ImMax(curLayout->matchTargetSize.x, 4.0f);
         }
         else {
@@ -303,7 +386,7 @@ void ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
     }
 
     if (curLayout->isMatchParentY) {
-        if (curLayout->parentLayout != NULL && curLayout->parentLayout->childLayoutCache.Size > 1) {
+        if (curLayout->parentLayout != NULL && curLayout->parentLayout->orientation == ImOrientation::VERTICAL && curLayout->parentLayout->childLayoutCache.Size > 1) {
             curLayout->size.y = ImMax(curLayout->matchTargetSize.y, 4.0f);
         }
         else {
@@ -412,7 +495,6 @@ void ImLayout::EndLayout()
             /* curLayout->error = true;
             sizeItem.x = 10;*/
         }
-        curLayout->matchTargetSize.x = curLayout->content_avail.x;
     }
     else if (curLayout->isWrapParentX)
         curLayout->size.x = curLayout->contentSize.x + curLayout->paddingLeft + curLayout->paddingRight;
@@ -424,8 +506,6 @@ void ImLayout::EndLayout()
                //curLayout->error = true;
             //sizeItem.y = curLayout->contentSize.y;
         }
-
-        curLayout->matchTargetSize.y = curLayout->content_avail.y;
     }
     else if (curLayout->isWrapParentY)
         curLayout->size.y = curLayout->contentSize.y + curLayout->paddingBottom;
@@ -456,80 +536,6 @@ void ImLayout::EndLayout()
     for (int i = 0; i < curLayout->childsLayout.Size; i++) {
         ImGuiLayout* childLayout = curLayout->childsLayout[i];
         curLayout->childLayoutCache.push_back(childLayout);
-    }
-
-    if (curLayout->childsLayout.Size > 1) {
-        int totalWrapSize = 0;
-        int matchCount = 0;
-        int subtractSize = 0;
-        ImVec2 parentMaxSize = curLayout->getAbsoluteSize();
-        if (curLayout->orientation == ImOrientation::HORIZONTAL) {
-            for (int i = 0; i < curLayout->childsLayout.Size; i++) {
-                ImGuiLayout* childLayout = curLayout->childsLayout[i];
-                if (childLayout->isWrapParentX) {
-                    totalWrapSize += childLayout->contentSize.x;
-                }
-                if (childLayout->isMatchParentX) {
-                    matchCount++;
-                }
-                if (i > 0) {
-                    ImGuiLayout* prevChildLayout = curLayout->childsLayout[i-1];
-                    int lastPosX = prevChildLayout->getAbsoluteSize().x;
-                    int sub = lastPosX - childLayout->position.x;
-                    subtractSize = subtractSize + sub;
-                }
-            }
-
-            if (matchCount > 0) {
-                float totalSizeLeft = curLayout->size.x - totalWrapSize + subtractSize;
-                int matchSize = totalSizeLeft / matchCount;
-                for (int i = 0; i < curLayout->childsLayout.Size; i++) {
-                    ImGuiLayout* childLayout = curLayout->childsLayout[i];
-                    if (childLayout->isMatchParentX) {
-                        int addSize = 0;
-                        if (i + 1 == curLayout->childsLayout.Size) {
-                            // Make the last layout match the same parent size
-                            float childSize = childLayout->position.x + matchSize;
-                            addSize = parentMaxSize.x - childSize;
-                        }
-                        childLayout->matchTargetSize.x = matchSize + addSize;
-                    }
-                }
-            }
-        }
-        else if (curLayout->orientation == ImOrientation::VERTICAL) {
-            for (int i = 0; i < curLayout->childsLayout.Size; i++) {
-                ImGuiLayout* childLayout = curLayout->childsLayout[i];
-                if (childLayout->isWrapParentY) {
-                    totalWrapSize += childLayout->contentSize.y;
-                }
-                if (childLayout->isMatchParentY) {
-                    matchCount++;
-                }
-                if (i > 0) {
-                    ImGuiLayout* prevChildLayout = curLayout->childsLayout[i - 1];
-                    int lastPosX = prevChildLayout->getAbsoluteSize().y;
-                    int sub = lastPosX - childLayout->position.y;
-                    subtractSize = subtractSize + sub;
-                }
-            }
-            if (matchCount > 0) {
-                float totalSizeLeft = curLayout->size.y - totalWrapSize + subtractSize;
-                int matchSize = totalSizeLeft / matchCount;
-                for (int i = 0; i < curLayout->childsLayout.Size; i++) {
-                    ImGuiLayout* childLayout = curLayout->childsLayout[i];
-                    if (childLayout->isMatchParentY) {
-                        int addSize = 0;
-                        if (i + 1 == curLayout->childsLayout.Size) {
-                            // Make the last layout match the same parent size
-                            float childSize = childLayout->position.y + matchSize;
-                            addSize = parentMaxSize.y - childSize;
-                        }
-                        childLayout->matchTargetSize.y = matchSize + addSize;
-                    }
-                }
-            }
-        }
     }
 
     popLayout();
