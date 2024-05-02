@@ -391,7 +391,9 @@ class ImGui {
         static void                     EndMenu() { im::EndMenu(); }
         static bool                     MenuItem(const char* label, const char* shortcut = NULL, bool selected = false, bool enabled = true) { return im::MenuItem(label, shortcut, selected, enabled); }
         static bool                     MenuItem_2(const char* label, const char* shortcut, bool* p_selected, bool enabled = true) { return im::MenuItem(label, shortcut, enabled); }
-        static void                     BeginTooltip() { im::BeginTooltip(); }
+
+        // Tooltips
+        static bool                     BeginTooltip() { return im::BeginTooltip(); }
         static void                     EndTooltip() { im::EndTooltip(); }
         static void                     SetTooltip(const char* fmt) { im::SetTooltip(fmt); }
         static void                     SetTooltipV(const char* fmt, va_list args) { im::SetTooltipV(fmt, args); }

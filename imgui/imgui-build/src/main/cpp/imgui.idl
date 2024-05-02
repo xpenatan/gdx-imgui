@@ -375,8 +375,9 @@ interface ImGui {
     static void                    EndMenu();
     static boolean                 MenuItem([Const] DOMString label, [Const] optional DOMString shortcut, optional boolean selected, optional boolean enabled);
     static boolean                 MenuItem_2([Const] DOMString label, [Const] DOMString shortcut, boolean[] p_selected, optional boolean enabled);
-//
-    static void                    BeginTooltip();
+
+    // Tooltips
+    static boolean                 BeginTooltip();
     static void                    EndTooltip();
     static void                    SetTooltip([Const] DOMString fmt);
 ////    static void                    SetTooltipV([Const] DOMString fmt, DOMString args);
