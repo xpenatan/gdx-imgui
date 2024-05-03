@@ -1041,7 +1041,7 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(x, 0));
     }
 
-    ImLayout::BeginAlign("FullLayout", ImLayout::MATCH_PARENT, height, 0.0, 0.0, 0.5);
+    ImLayout::BeginAlign("FullLayout", ImLayout::MATCH_PARENT, height, 0.0, 0.5);
 }
 
 void ImLayout::BeginTreeLayout(float height, bool isLeaf, bool selected) {
