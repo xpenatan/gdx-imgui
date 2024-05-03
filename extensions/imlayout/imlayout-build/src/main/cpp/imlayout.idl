@@ -17,7 +17,7 @@ interface ImLayout {
     static void EndLayout();
 
     // Align view
-    static void BeginAlign([Const]DOMString id, float sizeX, float sizeY, optional float alignX, optional float alignY, optional float offsetX, optional float offsetY, [Const, Ref] ImGuiLayoutOptions options);
+    static void BeginAlign([Const]DOMString id, float sizeX, float sizeY, optional float alignX, optional float alignY, optional float offsetX, optional float offsetY, [Const, Ref] optional ImGuiLayoutOptions options);
     static void AlignLayout(float alignX, float alignY, optional float offsetX, optional float offsetY);
     static void EndAlign();
 
