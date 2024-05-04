@@ -947,19 +947,20 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
     }
     storage->SetBool(isLeafId, isLeaf);
 
-    if (!isLeaf) {
-        float arrowMaxX = minX + 15;
+    float arrowMaxX = minX + 19;
+    ImRect bbArrow = ImRect(bb.Min, ImVec2(arrowMaxX, maxY));
+    if (debug) {
+        ImGui::GetWindowDrawList()->AddRect(bbArrow.Min, bbArrow.Max, IM_COL32(255, 0, 0, 255));
+    }
+    int arrowButtonId = ImGui::GetID("ArrowButton");
+    ImGui::ItemSize(bbArrow);
+    ImGui::ItemAdd(bbArrow, arrowButtonId);
+    ImGui::SameLine(0, 0);
 
+    if (!isLeaf) {
         ImLayout::BeginAlign("arrow", ImLayout::WRAP_PARENT, height, 0.0, 0.0, 0.5);
         {
             int dir = isOpen == 1 ? ImGuiDir_Down : ImGuiDir_Right;
-            int arrowButtonId = ImGui::GetID("ArrowButton");
-            ImRect bbArrow = ImRect(bb.Min, ImVec2(arrowMaxX, maxY));
-            if (debug) {
-                ImGui::GetWindowDrawList()->AddRect(bbArrow.Min, bbArrow.Max, IM_COL32(255, 0, 0, 255));
-            }
-            ImGui::ItemSize(bbArrow);
-            ImGui::ItemAdd(bbArrow, arrowButtonId);
             if (ImGui::ButtonBehavior(bbArrow, arrowButtonId, NULL, NULL)) {
                 isOpen = isOpen == 1 ? 0 : 1;
             }
@@ -975,12 +976,7 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
             ImGui::RenderArrow(ImGui::GetWindowDrawList(), ImVec2(iconPosX, iconPosY), arrowColor, dir);
         }
         ImLayout::EndAlign();
-
-        ImGui::SameLine(0, 4);
-    }
-    else {
-        ImGui::Dummy(ImVec2(0, 0));
-        ImGui::SameLine(0, 6);
+        ImGui::SameLine(0, 0);
     }
 
     int layoutId = ImGui::GetID("FullLayout");
