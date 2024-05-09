@@ -5,8 +5,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
+import com.badlogic.gdx.graphics.glutils.GLVersion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.utils.BufferUtils;
 import imgui.ImDrawCmd;
 import imgui.ImDrawData;
 import imgui.ImDrawList;
@@ -16,6 +18,7 @@ import imgui.ImVec4;
 import imgui.idl.helper.IDLByteArray;
 import imgui.idl.helper.IDLIntArray;
 import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 
 /**
  * @author xpenatan
@@ -32,6 +35,12 @@ public class ImGuiGdxImpl {
 
     private int g_FontTexture;
 
+    final static IntBuffer tmpHandle = BufferUtils.newIntBuffer(1);
+    int vaoHandle = -1;
+
+    int glVersion;
+    boolean isGL30 = false;
+    boolean isGL32 = false;
 
     public ImGuiGdxImpl() {
         vertexAttributes = new VertexAttributes(
@@ -40,10 +49,17 @@ public class ImGuiGdxImpl {
                 new VertexAttribute(Usage.ColorPacked, 4, GL20.GL_UNSIGNED_BYTE, true, "Color")
         );
 
+        GLVersion glVersionObj = Gdx.graphics.getGLVersion();
+        glVersion = glVersionObj.getMajorVersion() * 100 + glVersionObj.getMinorVersion() * 10;
+        isGL30 = Gdx.graphics.isGL30Available();
+        isGL32 = Gdx.graphics.isGL32Available();
+
         String vertex = getVertexShaderGlsl130();
         String fragment = getFragmentShaderGlsl130();
-//        String vertex = getVertexShaderGlsl300es();
-//        String fragment = getFragmentShaderGlsl300es();
+        if(isGL30) {
+            vertex = getVertexShaderGlsl300es();
+            fragment = getFragmentShaderGlsl300es();
+        }
 
         shader = new ShaderProgram(vertex, fragment);
         if(shader.isCompiled() == false) {
@@ -94,9 +110,6 @@ public class ImGuiGdxImpl {
     private void createBufferObject() {
         VboHandle = Gdx.gl20.glGenBuffer();
         ElementsHandle = Gdx.gl20.glGenBuffer();
-//		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, ibufferHandle);
-//		Gdx.gl20.glBufferData(GL20.GL_ELEMENT_ARRAY_BUFFER, drawData.iByteBuffer.capacity(), null, GL20.GL_STATIC_DRAW);
-//		Gdx.gl20.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
     public void update() {
@@ -164,10 +177,12 @@ public class ImGuiGdxImpl {
 
                     int textureID = cmdBuffer.getTextureId();
                     int idxOffset = cmdBuffer.getIdxOffset();
+                    int vtxOffset = cmdBuffer.getVtxOffset();
                     int elemCount = cmdBuffer.getElemCount();
+                    int indices = idxOffset * 2;
 
                     Gdx.gl.glBindTexture(GL20.GL_TEXTURE_2D, textureID);
-                    Gdx.gl.glDrawElements(GL20.GL_TRIANGLES, elemCount, GL20.GL_UNSIGNED_SHORT, idxOffset * 2);
+                    Gdx.gl.glDrawElements(GL20.GL_TRIANGLES, elemCount, GL20.GL_UNSIGNED_SHORT, indices);
                 }
             }
 
@@ -241,6 +256,12 @@ public class ImGuiGdxImpl {
         shader.setUniformi("Texture", 0);
         shader.setUniformMatrix("ProjMtx", matrix);
 
+        if(isGL30) {
+            Gdx.gl30.glGenVertexArrays(1, tmpHandle);
+            vaoHandle = tmpHandle.get();
+            Gdx.gl30.glBindVertexArray(vaoHandle);
+        }
+
         Gdx.gl.glBindBuffer(GL20.GL_ARRAY_BUFFER, VboHandle);
         Gdx.gl.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, ElementsHandle);
         // bind vertices/indices
@@ -256,8 +277,6 @@ public class ImGuiGdxImpl {
     }
 
     public void unbind() {
-        //TODO check if this method is needed
-
         // unbind vertice
         Gdx.gl.glBindBuffer(GL20.GL_ARRAY_BUFFER, 0);
         final int numAttributes = vertexAttributes.size();
@@ -268,6 +287,13 @@ public class ImGuiGdxImpl {
         // unbind index
         Gdx.gl.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
         Gdx.gl.glFlush();
+
+        if(isGL30) {
+            tmpHandle.clear();
+            tmpHandle.put(vaoHandle);
+            tmpHandle.flip();
+            Gdx.gl30.glDeleteVertexArrays(1, tmpHandle);
+        }
     }
 
     private void deleteTexture() {

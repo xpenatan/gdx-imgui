@@ -11,7 +11,7 @@ public class Launcher {
         config.useDebugGL = false;
         config.width = 0;
         config.height = 0;
-        config.useGL30 = false;
+        config.useGL30 = true;
         config.useGLArrayBuffer = true;
         new TeaApplication(new ImGuiGame(), config);
     }
