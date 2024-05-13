@@ -25,6 +25,13 @@ It's meant to be small and 1-1 to C++. ImGui::Begin() is ImGui.Begin() and so on
 
 ¹ arm build not working
 
+Note: 
+```
+* Only snapshot builds are currently available. 
+* It's best to try the examples first to see how it works before adding to your project.
+* There are 2 ImGui builds. The first contains ImGui only. The second (Ext) contains ImGui with extensions. 
+```
+
 ## How to run examples
 There are two ways to run examples. 
 * Build the source and run:
@@ -44,27 +51,35 @@ repositories {
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     maven { url "https://oss.sonatype.org/content/repositories/releases/" }
 }
+```
 
+### Core module
+```groovy
 dependencies {
-    // Required implementation
-    implementation "com.github.xpenatan.gdx-imgui:gdx-impl:$project.gdxImguiVersion"
-    
-    // ImGui only
-    implementation "com.github.xpenatan.gdx-imgui:imgui-core:$project.gdxImguiVersion"
-    
-    // ImGui only platform natives
-    implementation "com.github.xpenatan.gdx-imgui:imgui-desktop:$project.gdxImguiVersion"
-    //implementation "com.github.xpenatan.gdx-imgui:imgui-android:$project.gdxImguiVersion"
-    //implementation "com.github.xpenatan.gdx-imgui:imgui-ios:$project.gdxImguiVersion"
-    implementation "com.github.xpenatan.gdx-imgui:imgui-teavm:$project.gdxImguiVersion"
+    implementation("com.github.xpenatan.gdx-imgui:gdx-impl:$project.gdxImguiVersion")
+    implementation("com.github.xpenatan.gdx-imgui:imgui-core:$project.gdxImguiVersion")
 
-    // ImGui with extensions
+    // Or the extension build
     implementation "com.github.xpenatan.gdx-imgui:imgui-ext-core:$project.gdxImguiVersion"
-    
-    // ImGui with extensions platform natives
+}
+```
+
+### Desktop module
+```groovy
+dependencies {
+    implementation("com.github.xpenatan.gdx-imgui:imgui-desktop:$project.gdxImguiVersion")
+
+    // Or the extension build
     implementation "com.github.xpenatan.gdx-imgui:imgui-ext-desktop:$project.gdxImguiVersion"
-    //implementation "com.github.xpenatan.gdx-imgui:imgui-ext-android:$project.gdxImguiVersion"
-    //implementation "com.github.xpenatan.gdx-imgui:imgui-ext-ios:$project.gdxImguiVersion"
+}
+```
+
+### TeaVM module
+```groovy
+dependencies {
+    implementation("com.github.xpenatan.gdx-imgui:imgui-teavm:$project.gdxImguiVersion")
+
+    // Or the extension build
     implementation "com.github.xpenatan.gdx-imgui:imgui-ext-teavm:$project.gdxImguiVersion"
 }
 ```

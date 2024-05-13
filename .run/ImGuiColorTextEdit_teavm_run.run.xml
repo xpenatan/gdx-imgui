@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="gdx-imgui:examples:basic:teavm [basic-run-teavm]" type="GradleRunConfiguration" factoryName="Gradle" folderName="ImGui">
+  <configuration default="false" name="ImGuiColorTextEdit_teavm_run" type="GradleRunConfiguration" factoryName="Gradle" folderName="ImGuiColorTextEdit">
     <ExternalSystemSettings>
       <option name="executionName" />
-      <option name="externalProjectPath" value="$PROJECT_DIR$/examples/basic/teavm" />
+      <option name="externalProjectPath" value="$PROJECT_DIR$/examples/ImGuiColorTextEdit/teavm" />
       <option name="externalSystemIdString" value="GRADLE" />
       <option name="scriptParameters" value="" />
       <option name="taskDescriptions">
@@ -10,7 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="basic-run-teavm" />
+          <option value="textedit-run-teavm" />
         </list>
       </option>
       <option name="vmOptions" />

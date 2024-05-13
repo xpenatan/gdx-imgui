@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="gdx-imgui:imgui:imgui-build [build_project]" type="GradleRunConfiguration" factoryName="Gradle" folderName="ImGui">
+  <configuration default="false" name="ImGuiColorTextEdit_desktop_run" type="GradleRunConfiguration" factoryName="Gradle" folderName="ImGuiColorTextEdit">
     <ExternalSystemSettings>
       <option name="executionName" />
-      <option name="externalProjectPath" value="$PROJECT_DIR$/imgui/imgui-build" />
+      <option name="externalProjectPath" value="$PROJECT_DIR$/examples/ImGuiColorTextEdit/desktop" />
       <option name="externalSystemIdString" value="GRADLE" />
       <option name="scriptParameters" value="" />
       <option name="taskDescriptions">
@@ -10,7 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="build_project" />
+          <option value="textedit-run-desktop" />
         </list>
       </option>
       <option name="vmOptions" />

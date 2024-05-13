@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="gdx-imgui:examples:imlayout:teavm [imlayout-run-teavm]" type="GradleRunConfiguration" factoryName="Gradle" folderName="ImLayout">
+  <configuration default="false" name="ImGui_download_source" type="GradleRunConfiguration" factoryName="Gradle" folderName="ImGui">
     <ExternalSystemSettings>
       <option name="executionName" />
-      <option name="externalProjectPath" value="$PROJECT_DIR$/examples/imlayout/teavm" />
+      <option name="externalProjectPath" value="$PROJECT_DIR$/imgui/imgui-build" />
       <option name="externalSystemIdString" value="GRADLE" />
       <option name="scriptParameters" value="" />
       <option name="taskDescriptions">
@@ -10,7 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="imlayout-run-teavm" />
+          <option value="download_source" />
         </list>
       </option>
       <option name="vmOptions" />

@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="gdx-imgui:extensions:imgui-node-editor:nodeeditor-build [download_source]" type="GradleRunConfiguration" factoryName="Gradle" folderName="imgui-node-editor">
+  <configuration default="false" name="ImGui_basic_desktop_run" type="GradleRunConfiguration" factoryName="Gradle" folderName="ImGui">
     <ExternalSystemSettings>
       <option name="executionName" />
-      <option name="externalProjectPath" value="$PROJECT_DIR$/extensions/imgui-node-editor/nodeeditor-build" />
+      <option name="externalProjectPath" value="$PROJECT_DIR$/examples/basic/desktop" />
       <option name="externalSystemIdString" value="GRADLE" />
       <option name="scriptParameters" value="" />
       <option name="taskDescriptions">
@@ -10,7 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="download_source" />
+          <option value="basic-run-desktop" />
         </list>
       </option>
       <option name="vmOptions" />

@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="gdx-imgui:examples:imgui-node-editor:teavm [nodeeditor-run-teavm]" type="GradleRunConfiguration" factoryName="Gradle" folderName="imgui-node-editor">
+  <configuration default="false" name="NodeEditor_build_project" type="GradleRunConfiguration" factoryName="Gradle" folderName="imgui-node-editor">
     <ExternalSystemSettings>
       <option name="executionName" />
-      <option name="externalProjectPath" value="$PROJECT_DIR$/examples/imgui-node-editor/teavm" />
+      <option name="externalProjectPath" value="$PROJECT_DIR$/extensions/imgui-node-editor/nodeeditor-build" />
       <option name="externalSystemIdString" value="GRADLE" />
       <option name="scriptParameters" value="" />
       <option name="taskDescriptions">
@@ -10,7 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="nodeeditor-run-teavm" />
+          <option value="build_project" />
         </list>
       </option>
       <option name="vmOptions" />
