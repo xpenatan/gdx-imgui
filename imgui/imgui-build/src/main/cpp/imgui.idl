@@ -1226,7 +1226,14 @@ enum ImGuiWindowFlags {
     "ImGuiWindowFlags_NoDocking",
     "ImGuiWindowFlags_NoNav",
     "ImGuiWindowFlags_NoDecoration",
-    "ImGuiWindowFlags_NoInputs"
+    "ImGuiWindowFlags_NoInputs",
+    "ImGuiWindowFlags_NavFlattened",
+    "ImGuiWindowFlags_ChildWindow",
+    "ImGuiWindowFlags_Tooltip",
+    "ImGuiWindowFlags_Popup",
+    "ImGuiWindowFlags_Modal",
+    "ImGuiWindowFlags_ChildMenu",
+    "ImGuiWindowFlags_DockNodeHost"
 };
 
 enum ImGuiCond {
