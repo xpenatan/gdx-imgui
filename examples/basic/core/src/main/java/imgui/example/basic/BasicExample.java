@@ -3,6 +3,7 @@ package imgui.example.basic;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import imgui.example.basic.renderer.ModalRenderer;
 import imgui.example.basic.renderer.TableRenderer;
 import imgui.example.renderer.ImGuiRenderer;
 import imgui.example.basic.renderer.ColorRenderer;
@@ -56,6 +57,7 @@ public class BasicExample extends ImGuiRenderer {
         renderers.add(new SelectListRenderer());
         renderers.add(new ColorRenderer());
         renderers.add(new DragAndDropRenderer());
+        renderers.add(new ModalRenderer());
 
         uiCam = new OrthographicCamera();
         uiCam.setToOrtho(true);
