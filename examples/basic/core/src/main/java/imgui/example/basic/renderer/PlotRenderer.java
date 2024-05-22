@@ -22,11 +22,12 @@ public class PlotRenderer implements UIRenderer {
         }
         int size = floatArray.getSize();
         int framesPerSecond = Gdx.graphics.getFramesPerSecond();
+        float updateRate = 5f;
         while (refresh_time < ImGui.GetTime()) // Create data at fixed 60 Hz rate for the demo
         {
             floatArray.setValue(values_offset, framesPerSecond);
             values_offset = (values_offset + 1) % size;
-            refresh_time += 1.0f / 5.0f;
+            refresh_time += 1.0f / updateRate;
         }
         if(framesPerSecond > maxScale) {
             maxScale = framesPerSecond + 20;
