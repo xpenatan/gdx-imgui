@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import imgui.example.basic.renderer.ModalRenderer;
+import imgui.example.basic.renderer.PlotRenderer;
 import imgui.example.basic.renderer.TableRenderer;
 import imgui.example.renderer.ImGuiRenderer;
 import imgui.example.basic.renderer.ColorRenderer;
@@ -52,6 +53,7 @@ public class BasicExample extends ImGuiRenderer {
     public void show() {
         super.show();
 
+        renderers.add(new PlotRenderer());
         renderers.add(new TableRenderer());
         renderers.add(new EditTextRenderer());
         renderers.add(new SelectListRenderer());
