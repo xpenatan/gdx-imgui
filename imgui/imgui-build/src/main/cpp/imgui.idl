@@ -358,9 +358,9 @@ interface ImGui {
 ////    boolean                 ListBox([Const] DOMString label, long[] current_item, [Const] DOMString[] items, long items_count, optional long height_in_items);
 ////    boolean                 ListBox([Const] DOMString label, long[] current_item, boolean (*items_getter)(any data, long idx, [Const] DOMString[] out_text), any data, long items_count, optional long height_in_items);
 //
-    static void                    PlotLines([Const] DOMString label, [Const]float[] values, long values_count, optional long values_offset, [Const] optional DOMString overlay_text, optional float scale_min, optional float scale_max); //, [Value] optional ImVec2 graph_size, optional long stride); //ERROR graph size
+    static void                    PlotLines([Const] DOMString label, [Const]float[] values, long values_count, optional long values_offset, [Const] optional DOMString overlay_text, optional float scale_min, optional float scale_max, [Ref] optional ImVec2 graph_size, optional long stride);
 ////    void                    PlotLines([Const] DOMString label, float(*values_getter)(any data, long idx), any data, long values_count, optional long values_offset, [Const] optional DOMString overlay_text, optional float scale_min, optional float scale_max, [Value] optionalImVec2 graph_size);
-    static void                    PlotHistogram([Const] DOMString label, [Const]float[] values, long values_count, optional long values_offset, [Const] optional DOMString overlay_text, optional float scale_min, optional float scale_max);//, [Value] optional ImVec2 graph_size, optional long stride); //ERROR graph size
+    static void                    PlotHistogram([Const] DOMString label, [Const]float[] values, long values_count, optional long values_offset, [Const] optional DOMString overlay_text, optional float scale_min, optional float scale_max, [Ref] optional ImVec2 graph_size, optional long stride);
 ////    void                    PlotHistogram([Const] DOMString label, float(*values_getter)(any data, long idx), any data, long values_count, optional long values_offset, [Const] optional DOMString overlay_text, optional float scale_min, optional float scale_max, [Value] optional ImVec2 graph_size);
 
     static void                    Value([Const] DOMString prefix, boolean b);
