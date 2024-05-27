@@ -63,6 +63,8 @@ public:
     ImVec2 getAbsoluteSizePadding();
     ImVec2 getContentSizePadding();
     ImVec2 getPositionPadding();
+    ImRect getBoundingBox();
+
     void drawSizeDebug();
     void drawContentDebug();
     void drawPaddingAreaDebug();

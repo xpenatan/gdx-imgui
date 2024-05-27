@@ -665,21 +665,26 @@ namespace ImGuiExt
 	inline void test16(const char* name, bool debug) {
 		ImGuiContext& g = *GImGui;
 		HelpMarker("Test algin");
-		static float paddingX = 0.0f;
-		static float paddingY = 0.0f;
+		static float paddingLeft = 0.0f;
+		static float paddingRight = 0.0f;
+		static float paddingTop = 0.0f;
+		static float paddingBottom = 0.0f;
 		static float alignX = 0.5f;
 		static float offsetX = 0.0f;
 		static float alignY = 0.5f;
 		static float offsetY = 0.0f;
-		ImGui::SliderFloat("Layout Padding X", &paddingX, 0.0f, 10.0f, "%.0f");
-		ImGui::SliderFloat("Layout Padding Y", &paddingY, 0.0f, 10.0f, "%.0f");
+		ImGui::SliderFloat("Layout Padding Left", &paddingLeft, 0.0f, 10.0f, "%.0f");
+		ImGui::SliderFloat("Layout Padding Right", &paddingRight, 0.0f, 10.0f, "%.0f");
+		ImGui::SliderFloat("Layout Padding Top", &paddingTop, 0.0f, 10.0f, "%.0f");
+		ImGui::SliderFloat("Layout Padding Bottom", &paddingBottom, 0.0f, 10.0f, "%.0f");
 		ImGui::SliderFloat("AlignX", &alignX, 0.0f, 1.0f, "%.2f");
 		ImGui::SliderFloat("AlignY", &alignY, 0.0f, 1.0f, "%.2f");
 		ImGui::SliderFloat("OffsetX", &offsetX, -10.0f, 10.0f, "%.2f");
 		ImGui::SliderFloat("OffsetY", &offsetY, -10.0f, 10.0f, "%.2f");
 
-		ImLayout::BeginLayout(name, ImLayout::MATCH_PARENT, 200, ImGuiLayoutOptions(paddingX, paddingX, paddingY, paddingY));
+		ImLayout::BeginLayout(name, ImLayout::MATCH_PARENT, 200, ImGuiLayoutOptions(paddingLeft, paddingRight, paddingTop, paddingBottom));
 		{
+			ImLayout::ShowLayoutDebug();
 			ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x44 / 255.0f, 0x44 / 255.0f, 0x44 / 255.0f, 100 / 255.0f));
 			paintLayout(bgColor);
 
