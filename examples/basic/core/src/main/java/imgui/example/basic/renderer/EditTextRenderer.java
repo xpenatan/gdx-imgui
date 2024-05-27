@@ -2,12 +2,14 @@ package imgui.example.basic.renderer;
 
 import imgui.ImGui;
 import imgui.ImGuiDataType;
+import imgui.ImGuiInputTextFlags;
 import imgui.ImGuiInternal;
 import imgui.ImGuiMouseButton;
 import imgui.ImGuiSliderFlags;
 import imgui.ImGuiString;
 import imgui.ImGuiWindow;
 import imgui.idl.helper.IDLFloatArray;
+import imgui.idl.helper.IDLInt;
 
 public class EditTextRenderer implements UIRenderer {
 
@@ -17,6 +19,9 @@ public class EditTextRenderer implements UIRenderer {
     private final IDLFloatArray imguiFloat4 = new IDLFloatArray(4);
 
     private final ImGuiString imguiString1 = new ImGuiString();
+    private final ImGuiString imguiString2 = new ImGuiString();
+
+    public String value = "";
 
     public EditTextRenderer() {
     }
@@ -52,10 +57,16 @@ public class EditTextRenderer implements UIRenderer {
         ImGui.DragFloat3("TestFloat3", imguiFloat3);
         ImGui.DragFloat4("TestFloat4", imguiFloat4, 0.01f, -2, 2);
 
-        if(ImGui.InputText("TestString2", imguiString1, imguiString1.getSize())) {
+        if(ImGui.InputText("TestString1", imguiString1, imguiString1.getSize())) {
             String value = imguiString1.getValue();
-            System.out.println("value: " + value);
+            System.out.println("value 1: " + value);
         }
+        imguiString2.setValue(value);
+        if(ImGui.InputText("TestString2", imguiString2, imguiString2.getSize(), ImGuiInputTextFlags.ImGuiInputTextFlags_EnterReturnsTrue)) {
+            value = imguiString2.getValue();
+            System.out.println("value 2: " + value);
+        }
+
     }
 
     @Override
