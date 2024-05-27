@@ -788,17 +788,10 @@ void ImLayout::AlignLayout(float alignX, float alignY, float offsetX, float offs
     float totalX = regionAvail.x - curLayout->paddingLeft;
     float totalY = regionAvail.y;
 
-    if (curLayout->paddingLeft > 0) {
-        int i = 0;
-        i++;
-    }
-
-
     ImVec2 posPad = curLayout->getPositionPadding();
     ImVec2 absSizePad = curLayout->getAbsoluteSizePadding();
 
     if (alignX >= 0.0f && curLayout->isWrapParentX == false && curLayout->contentSize.x > 0.0) {
-        
         float addX = ImFloor((totalX - curLayout->contentSize.x) * alignX);
         float newX = posPad.x + addX + offsetX;
         if (newX < posPad.x) {

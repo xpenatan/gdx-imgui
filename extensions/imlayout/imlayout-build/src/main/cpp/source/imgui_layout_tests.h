@@ -14,7 +14,7 @@ static void renderContent(bool verticalButtonFill) {
 	ImGui::Text("This is a Text");
 	ImGui::TextWrapped("This is a WrappeddddddddddddddText");
 	ImGui::Button("B 01", ImVec2(-0.1f, 0));
-	ImGui::Button("B 02", ImVec2(0, verticalButtonFill ? ImLayout::MATCH_PARENT : 0));
+	ImGui::Button("B 02", ImVec2(0, verticalButtonFill ? -1 : 0));
 }
 
 static char* catStr(const char* one, const char* two) {
@@ -431,7 +431,7 @@ namespace ImGuiExt
 		char* idChild4 = catStr(name, "child4");
 		ImGui::Button("Outside Begin", ImVec2(-0.1f, 0));
 		{
-			ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, 200, ImGuiLayoutOptions(0, 0, 0, 40));
+			ImLayout::BeginLayout(idChild, ImLayout::MATCH_PARENT, 200, ImGuiLayoutOptions(0, 0, 0, 0));
 			{
 				ImLayout::ShowLayoutDebug();
 				renderContent(true);
@@ -673,6 +673,8 @@ namespace ImGuiExt
 		static float offsetX = 0.0f;
 		static float alignY = 0.5f;
 		static float offsetY = 0.0f;
+		static bool matchX = true;
+		static bool matchY = false;
 		ImGui::SliderFloat("Layout Padding Left", &paddingLeft, 0.0f, 10.0f, "%.0f");
 		ImGui::SliderFloat("Layout Padding Right", &paddingRight, 0.0f, 10.0f, "%.0f");
 		ImGui::SliderFloat("Layout Padding Top", &paddingTop, 0.0f, 10.0f, "%.0f");
@@ -681,8 +683,13 @@ namespace ImGuiExt
 		ImGui::SliderFloat("AlignY", &alignY, 0.0f, 1.0f, "%.2f");
 		ImGui::SliderFloat("OffsetX", &offsetX, -10.0f, 10.0f, "%.2f");
 		ImGui::SliderFloat("OffsetY", &offsetY, -10.0f, 10.0f, "%.2f");
+		ImGui::Checkbox("MatchX", &matchX);
+		ImGui::Checkbox("MatchY", &matchY);
 
-		ImLayout::BeginLayout(name, ImLayout::MATCH_PARENT, 200, ImGuiLayoutOptions(paddingLeft, paddingRight, paddingTop, paddingBottom));
+		int sizeX = matchX ? ImLayout::MATCH_PARENT : 300;
+		int sizeY = matchY ? ImLayout::MATCH_PARENT : 200;
+
+		ImLayout::BeginLayout(name, sizeX, sizeY, ImGuiLayoutOptions(paddingLeft, paddingRight, paddingTop, paddingBottom));
 		{
 			ImLayout::ShowLayoutDebug();
 			ImU32 bgColor = ImGui::GetColorU32(ImVec4(0x44 / 255.0f, 0x44 / 255.0f, 0x44 / 255.0f, 100 / 255.0f));
