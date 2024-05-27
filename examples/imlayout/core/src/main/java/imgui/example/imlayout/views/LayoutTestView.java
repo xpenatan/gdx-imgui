@@ -72,8 +72,8 @@ public class LayoutTestView {
         int selectedColor = Color.toIntBits(255, 255, 255, 60);
         int houveredColor = Color.toIntBits(255, 255, 255, 60);
         int houveredStrokeColor = Color.toIntBits(255, 255, 255, 100);
-        int flags = ImGuiButtonFlagsPrivate_.ImGuiButtonFlags_PressedOnClick;
-        int click = ImLayout.ButtonBehavior(199, rect, selected, selectedColor, houveredColor, houveredStrokeColor, flags, 0.150f);
+        int flags = ImGuiButtonFlagsPrivate_.ImGuiButtonFlags_PressedOnRelease;
+        int click = ImLayout.ButtonBehavior(199, rect, selected, selectedColor, houveredColor, houveredStrokeColor, flags, 0.160f);
         if (click > 0) {
             if(click == 1) {
                 selected = !selected;
