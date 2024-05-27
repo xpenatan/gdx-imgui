@@ -22,7 +22,7 @@ public class ImGui {
             io.get_DisplayFramebufferScale().set_x(display_w / width);
             io.get_DisplayFramebufferScale().set_y(display_h / height);
         }
-        io.set_DeltaTime = deltaTime;
+        io.set_DeltaTime(deltaTime);
         [MODULE].ImGui.prototype.NewFrame();
     */
     /*[-C++;-NATIVE]
