@@ -98,6 +98,11 @@ public class BasicExample extends ImGuiRenderer {
         }
     }
     private void renderItems() {
+
+        double v = ImGui.GetTime();
+
+        ImGui.Text("Time: " + v);
+
         if(ImGui.BeginTabBar("##Renderer", ImGuiTabBarFlags.ImGuiTabBarFlags_FittingPolicyScroll | ImGuiTabBarFlags.ImGuiTabBarFlags_Reorderable)) {
             for(UIRenderer renderer : renderers) {
                 if(ImGui.BeginTabItem(renderer.getName())) {
