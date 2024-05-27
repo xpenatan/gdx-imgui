@@ -1115,3 +1115,64 @@ float ImLayout::GetTreeHeight(float padding) {
     float fontSize = ImGui::GetFont()->FontSize;
     return fontSize + padding;
 }
+
+int ImLayout::ButtonBehavior(int id, const ImRect& bb, bool isSelected, ImU32 selectedColor, ImU32 hoveredColor, ImU32 hoveredStrokeColor, int ImGuiButtonFlags, float clickDelay) {
+    ImGui::PushID(id);
+    int clicksId = ImGui::GetID("ButtonBehavior_clicks");
+    int clickTimeId = ImGui::GetID("ButtonBehavior_clickTime");
+    int retClicks = 0;
+
+    float timeNow = ImGui::GetTime();
+
+    ImGuiStorage* storage = ImGui::GetStateStorage();
+
+    int clicks = storage->GetInt(clicksId, 0);
+    float clickTime = storage->GetFloat(clickTimeId, 0);
+
+    bool hovered, held;
+
+    if (ImGui::ButtonBehavior(bb, id, &hovered, &held, ImGuiButtonFlags)) {
+        if ((ImGuiButtonFlags & ImGuiButtonFlags_PressedOnDoubleClick) == ImGuiButtonFlags_PressedOnDoubleClick) {
+            clicks++;
+        }
+        if (clicks == 0) {
+            clickTime = timeNow;
+        }
+        clicks++;
+    }
+
+    if (clicks > 0) {
+        float time = timeNow - clickTime;
+        if (time > clickDelay) {
+            if (clicks == 1) {
+                retClicks = clicks;
+            }
+            else {
+                retClicks = clicks;
+            }
+            clicks = 0;
+            clickTime = 0;
+        }
+    }
+
+    bool value = hovered;
+    ImDrawList* drawList = ImGui::GetWindowDrawList();
+    if (selectedColor != 0 && isSelected) {
+        drawList->AddRectFilled(bb.Min, bb.Max, selectedColor);
+    }
+    if (value) {
+        if (hoveredColor != 0) {
+            drawList->AddRectFilled(bb.Min, bb.Max, hoveredColor);
+        }
+        if (hoveredStrokeColor != 0) {
+            drawList->AddRect(bb.Min, bb.Max, hoveredStrokeColor);
+        }
+    }
+
+    storage->SetInt(clicksId, clicks);
+    storage->SetFloat(clickTimeId, clickTime);
+
+    ImGui::PopID();
+    
+    return retClicks;
+}

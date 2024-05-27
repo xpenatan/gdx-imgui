@@ -167,4 +167,7 @@ public:
     static bool EndTreeLayout();
     static bool IsTreeOpen();
     static float GetTreeHeight(float padding);
+
+    // Custom button behavior
+    static int ButtonBehavior(int id, const ImRect& bb, bool isSelected, ImU32 selectedColor = 0, ImU32 hoveredColor = 0, ImU32 hoveredStrokeColor = 0, int ImGuiButtonFlags = ImGuiButtonFlags_PressedOnRelease, float clickDelay = 0.150);
 };

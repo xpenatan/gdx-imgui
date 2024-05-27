@@ -49,6 +49,9 @@ interface ImLayout {
     static boolean EndTreeLayout();
     static boolean IsTreeOpen();
     static float GetTreeHeight(float padding);
+
+    // Custom button behavior
+    static long ButtonBehavior(long id, [Const, Ref]ImRect bb, boolean isSelected, optional long selectedColor, optional long hoveredColor, optional long hoveredStrokeColor, optional long ImGuiButtonFlags, optional float clickDelay);
 };
 
 interface ImGuiLayoutOptions {

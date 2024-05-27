@@ -1,8 +1,11 @@
 package imgui.example.imlayout.views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import imgui.ImGui;
+import imgui.ImGuiButtonFlagsPrivate_;
 import imgui.ImGuiTableFlags;
+import imgui.ImRect;
 import imgui.ImVec2;
 import imgui.extension.imlayout.ImGuiLayout;
 import imgui.extension.imlayout.ImLayout;
@@ -11,6 +14,8 @@ import static imgui.ImGuiTableColumnFlags.ImGuiTableColumnFlags_WidthStretch;
 import static imgui.ImGuiTableFlags.ImGuiTableFlags_Resizable;
 
 public class LayoutTestView {
+
+    boolean selected;
 
     public void render() {
         float mouseX = Gdx.input.getX();
@@ -46,12 +51,34 @@ public class LayoutTestView {
 
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
-
-            renderTree();
-
+            {
+                renderTree();
+            }
             ImGui.TableSetColumnIndex(1);
-
+            {
+                renderCustomButtonBehavior();
+            }
             ImGui.EndTable();
+        }
+    }
+
+    private void renderCustomButtonBehavior() {
+        ImLayout.BeginLayout("TestID", ImLayout.WRAP_PARENT, ImLayout.WRAP_PARENT);
+        ImGui.Text("Click");
+        ImGui.Text("Meeeeee!!!");
+        ImLayout.EndLayout();
+
+        ImRect rect = ImRect.TMP_1.set(ImGui.GetItemRectMin(), ImGui.GetItemRectMax());
+        int selectedColor = Color.toIntBits(255, 255, 255, 60);
+        int houveredColor = Color.toIntBits(255, 255, 255, 60);
+        int houveredStrokeColor = Color.toIntBits(255, 255, 255, 100);
+        int flags = ImGuiButtonFlagsPrivate_.ImGuiButtonFlags_PressedOnClick;
+        int click = ImLayout.ButtonBehavior(199, rect, selected, selectedColor, houveredColor, houveredStrokeColor, flags, 0.150f);
+        if (click > 0) {
+            if(click == 1) {
+                selected = !selected;
+            }
+            System.out.println("CLICKS:" + click);
         }
     }
 
