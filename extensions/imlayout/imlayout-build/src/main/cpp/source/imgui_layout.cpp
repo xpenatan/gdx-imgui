@@ -501,7 +501,7 @@ void ImLayout::EndLayout()
         }
     }
     else if (curLayout->isWrapParentX) {
-        float sizeX = curLayout->contentSize.x + curLayout->paddingLeft + curLayout->paddingRight;
+        int sizeX = curLayout->contentSize.x + curLayout->paddingLeft + curLayout->paddingRight;
         curLayout->size.x = sizeX;
     }
 
@@ -514,7 +514,7 @@ void ImLayout::EndLayout()
         }
     }
     else if (curLayout->isWrapParentY) {
-        float sizeY = curLayout->contentSize.y + curLayout->paddingBottom + curLayout->paddingTop;
+        int sizeY = curLayout->contentSize.y + curLayout->paddingBottom + curLayout->paddingTop;
         curLayout->size.y = sizeY;
     }
 
@@ -798,12 +798,15 @@ void ImLayout::AlignLayout(float alignX, float alignY, float offsetX, float offs
         float newX = posPad.x + addX + offsetX;
         if (curLayout->isWrapParentX == false) {
             if (newX < posPad.x) {
-                curLayout->error = true;
-                newX = posPad.x;
+                //curLayout->error = true;
+                //newX = posPad.x;
             }
-            else if (newX + curLayout->contentSize.x > absSizePad.x) {
-                curLayout->error = true;
-                newX = absSizePad.x - curLayout->contentSize.x;
+            else {
+                int sizeX = newX + curLayout->contentSize.x;
+                if (sizeX > absSizePad.x) {
+                    //curLayout->error = true;
+                    //newX = absSizePad.x;
+                }
             }
             curLayout->positionContents.x = newX;
         }
@@ -817,12 +820,15 @@ void ImLayout::AlignLayout(float alignX, float alignY, float offsetX, float offs
         float newY = posPad.y + addY + offsetY;
         if (curLayout->isWrapParentY == false) {
             if (newY < posPad.y) {
-                curLayout->error = true;
-                newY = posPad.y;
+                //curLayout->error = true;
+                //newY = posPad.y;
             }
-            else if (newY + curLayout->contentSize.y > absSizePad.y) {
-                curLayout->error = true;
-                newY = absSizePad.y - curLayout->contentSize.y;
+            else {
+                int sizeY = newY + curLayout->contentSize.y;
+                if (sizeY > absSizePad.y) {
+                    //curLayout->error = true;
+                    //newY = absSizePad.y - curLayout->contentSize.y;
+                }
             }
             curLayout->positionContents.y = newY;
         }
