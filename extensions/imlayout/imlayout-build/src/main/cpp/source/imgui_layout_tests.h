@@ -956,6 +956,92 @@ namespace ImGuiExt
 		ImLayout::EndLayout();
 	}
 
+	inline void test_tree(const char* name, bool debug) {
+		int flags = ImGuiTableFlags_Resizable | ImGuiTableFlags_ScrollY;
+		if (ImGui::BeginTable("ContentBrowser", 2, flags)) {
+
+			ImGui::TableSetupColumn("C0", ImGuiTableColumnFlags_WidthStretch, 0.2f);
+			ImGui::TableSetupColumn("C1", ImGuiTableColumnFlags_WidthStretch, 0.8f);
+
+			ImGui::TableNextRow();
+			ImGui::TableSetColumnIndex(0);
+
+			float height = 10;
+			ImLayout::BeginTree("RootId");
+			ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), false, false);
+			ImLayout::SetOrientation(ImOrientation::HORIZONTAL);
+			ImLayout::BeginAlign("111", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 0.0, 0.5);
+			ImGui::Text("Root");
+			//ImLayout::ShowLayoutDebug();
+			ImLayout::EndAlign();
+
+			ImGui::SameLine();
+			ImLayout::BeginAlign("222", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 0.5, 0.5);
+			ImGui::Text("- 22");
+			//ImLayout::ShowLayoutDebug();
+			ImLayout::EndAlign();
+
+			ImLayout::EndTreeLayout();
+			if (ImLayout::IsTreeOpen()) {
+				{
+					ImLayout::BeginTree("Assets");
+					ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), false, false);
+					ImGui::Text("Assets");
+					ImLayout::EndTreeLayout();
+					if (ImLayout::IsTreeOpen()) {
+
+						{
+							{
+								ImLayout::BeginTree("Item");
+								ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), true, false);
+								ImGui::Text("Item");
+								ImLayout::EndTreeLayout();
+								if (ImLayout::IsTreeOpen()) {
+								}
+								ImLayout::EndTree();
+							}
+						}
+					}
+					ImLayout::EndTree();
+
+					ImLayout::BeginTree("Folder");
+					ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), false, false);
+					ImGui::Text("Folder");
+					ImLayout::EndTreeLayout();
+					if (ImLayout::IsTreeOpen()) {
+
+						{
+							{
+								ImLayout::BeginTree("Item");
+								ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), true, false);
+								ImGui::Text("Item");
+								ImLayout::EndTreeLayout();
+								if (ImLayout::IsTreeOpen()) {
+								}
+								ImLayout::EndTree();
+							}
+						}
+					}
+					ImLayout::EndTree();
+
+
+					ImLayout::BeginTree("Folder2");
+					ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), true, false);
+					ImGui::Text("Folder2");
+					ImLayout::EndTreeLayout();
+					ImLayout::EndTree();
+				}
+			}
+			ImLayout::EndTree();
+
+
+			ImGui::TableSetColumnIndex(1);
+
+
+			ImGui::EndTable();
+		}
+	}
+
 	inline void testFail01(const char* name, bool debug) {
 		char* idChild = catStr(name, "child");
 		char* idChild2 = catStr(name, "child2");
@@ -1196,6 +1282,7 @@ namespace ImGuiExt
 		ImGui::RadioButton("test16", &e, i++);
 		ImGui::RadioButton("test17", &e, i++);
 		ImGui::RadioButton("test18", &e, i++);
+		ImGui::RadioButton("test_tree", &e, i++);
 		ImGui::RadioButton("example01", &e, i++);
 		ImGui::RadioButton("example02", &e, i++);
 		ImGui::RadioButton("example03", &e, i++);
@@ -1241,6 +1328,8 @@ namespace ImGuiExt
 			test17("test17", false);
 		if (e == i++)
 			test18("test18", false);
+		if (e == i++)
+			test_tree("test_tree", false);
 		if (e == i++)
 			example01("example01");
 		if (e == i++)
