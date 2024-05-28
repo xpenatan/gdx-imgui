@@ -502,10 +502,6 @@ void ImLayout::EndLayout()
     }
     else if (curLayout->isWrapParentX) {
         float sizeX = curLayout->contentSize.x + curLayout->paddingLeft + curLayout->paddingRight;
-        if (sizeX > curLayout->content_avail.x) {
-            // Fall back to max content avail if parent is wrap_size and child is match_parent
-            sizeX = curLayout->content_avail.x;
-        }
         curLayout->size.x = sizeX;
     }
 
@@ -519,10 +515,6 @@ void ImLayout::EndLayout()
     }
     else if (curLayout->isWrapParentY) {
         float sizeY = curLayout->contentSize.y + curLayout->paddingBottom + curLayout->paddingTop;
-        if (sizeY > curLayout->content_avail.y) {
-            // Fall back to max content avail if parent is wrap_size and child is match_parent
-            sizeY = curLayout->content_avail.y;
-        }
         curLayout->size.y = sizeY;
     }
 
