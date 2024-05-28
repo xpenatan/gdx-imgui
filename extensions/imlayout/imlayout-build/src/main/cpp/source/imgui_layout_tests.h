@@ -10,10 +10,10 @@ using namespace std;
 static void renderContent(bool verticalButtonFill) {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 	ImGuiWindowTempData& DC = window->DC;
-	ImGui::Button("B 00", ImVec2(-0.1f, 0));
+	ImGui::Button("B 00", ImVec2(-1, 0));
 	ImGui::Text("This is a Text");
 	ImGui::TextWrapped("This is a WrappeddddddddddddddText");
-	ImGui::Button("B 01", ImVec2(-0.1f, 0));
+	ImGui::Button("B 01", ImVec2(-1, 0));
 	ImGui::Button("B 02", ImVec2(0, verticalButtonFill ? -1 : 0));
 }
 
@@ -142,11 +142,11 @@ namespace ImGuiExt
 	}
 
 	inline void test01(const char* name, bool debug) {
-		HelpMarker("Layout with\nX: WRAP_PARENT\nY: WRAP_PARENT\nPaddingLeft: 0\nPaddingRight: 0");
 		char* idChild = catStr(name, "child");
 		char* idChild2 = catStr(name, "child2");
 		char* idChild3 = catStr(name, "child3");
 		char* idChild4 = catStr(name, "child4");
+		HelpMarker("Layout with\nX: WRAP_PARENT\nY: WRAP_PARENT\nPaddingLeft: 0\nPaddingRight: 0");
 		ImGui::Button("Outside Begin", ImVec2(-0.1, 0));
 		{
 			ImLayout::BeginLayout(idChild, ImLayout::WRAP_PARENT, ImLayout::WRAP_PARENT, ImGuiLayoutOptions(0, 0, 0, 0));
@@ -673,8 +673,10 @@ namespace ImGuiExt
 		static float offsetX = 0.0f;
 		static float alignY = 0.5f;
 		static float offsetY = 0.0f;
-		static bool matchX = true;
-		static bool matchY = false;
+		static int matchXLayout = 1;
+		static int matchYLayout = 0;
+		static bool matchXButton = false;
+		static bool matchYButton = false;
 		ImGui::SliderFloat("Layout Padding Left", &paddingLeft, 0.0f, 10.0f, "%.0f");
 		ImGui::SliderFloat("Layout Padding Right", &paddingRight, 0.0f, 10.0f, "%.0f");
 		ImGui::SliderFloat("Layout Padding Top", &paddingTop, 0.0f, 10.0f, "%.0f");
@@ -683,11 +685,37 @@ namespace ImGuiExt
 		ImGui::SliderFloat("AlignY", &alignY, 0.0f, 1.0f, "%.2f");
 		ImGui::SliderFloat("OffsetX", &offsetX, -10.0f, 10.0f, "%.2f");
 		ImGui::SliderFloat("OffsetY", &offsetY, -10.0f, 10.0f, "%.2f");
-		ImGui::Checkbox("MatchX", &matchX);
-		ImGui::Checkbox("MatchY", &matchY);
 
-		int sizeX = matchX ? ImLayout::MATCH_PARENT : 300;
-		int sizeY = matchY ? ImLayout::MATCH_PARENT : 200;
+
+		ImGui::RadioButton("x: 300", &matchXLayout, 0);
+		ImGui::SameLine();
+		ImGui::RadioButton("x: MATCH_CONTENT", &matchXLayout, 1);
+		ImGui::SameLine();
+		ImGui::RadioButton("x: WRAP_CONTENT", &matchXLayout, 2);
+
+		ImGui::RadioButton("y: 200", &matchYLayout, 0);
+		ImGui::SameLine();
+		ImGui::RadioButton("y: MATCH_CONTENT", &matchYLayout, 1);
+		ImGui::SameLine();
+		ImGui::RadioButton("y: WRAP_CONTENT", &matchYLayout, 2);
+
+		ImGui::Checkbox("MatchXButton", &matchXButton);
+		ImGui::Checkbox("MatchYButton", &matchYButton);
+
+		int sizeX = 300;
+		int sizeY = 200;
+		if (matchXLayout == 1) {
+			sizeX = ImLayout::MATCH_PARENT;
+		}
+		else if (matchXLayout == 2) {
+			sizeX = ImLayout::WRAP_PARENT;
+		}		
+		if (matchYLayout == 1) {
+			sizeY = ImLayout::MATCH_PARENT;
+		}
+		else if (matchYLayout == 2) {
+			sizeY = ImLayout::WRAP_PARENT;
+		}
 
 		ImLayout::BeginLayout(name, sizeX, sizeY, ImGuiLayoutOptions(paddingLeft, paddingRight, paddingTop, paddingBottom));
 		{
@@ -712,9 +740,10 @@ namespace ImGuiExt
 			ImGui::Button("Hello ", ImVec2(0, 60));
 
 			ImGui::SameLine();
-			ImGui::Button("Hello3", ImVec2(0, 0));
+			ImGui::Button("Hello3", ImVec2(matchXButton ? -1 : 0, matchYButton ? -1 : 0));
 		}
 		ImLayout::EndLayout();
+		ImGui::Button("Bottom");
 	}
 
 	inline void test17(const char* name, bool debug) {

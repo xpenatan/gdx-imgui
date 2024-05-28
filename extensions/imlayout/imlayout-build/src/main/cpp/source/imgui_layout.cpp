@@ -40,7 +40,7 @@ ImVec2 ImGuiLayout::getAbsoluteSizePadding() {
 }
 
 ImVec2 ImGuiLayout::getContentSizePadding() {
-    return ImVec2(position.x + contentSize.x + paddingLeft, position.y + contentSize.y);
+    return ImVec2(position.x + contentSize.x - paddingRight, position.y + contentSize.y - paddingBottom);
 }
 
 ImVec2 ImGuiLayout::getPositionPadding() {
@@ -63,7 +63,7 @@ void ImGuiLayout::drawContentDebug() {
     // Blue
     float minX = positionContents.x;
     float minY = positionContents.y;
-    float maxX = positionContents.x + paddingLeft + contentSize.x;
+    float maxX = positionContents.x + contentSize.x;
     float maxY = positionContents.y + contentSize.y;
     ImLayout::DrawBoundingBox_2(ImVec2(minX, minY), ImVec2(maxX, maxY), 0, 100, 255, 255);
 }
@@ -284,12 +284,10 @@ void ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
     curLayout->position.x = x1;
     curLayout->position.y = y1;
 
-
     curLayout->paddingLeft = options.paddingLeft;
     curLayout->paddingRight = options.paddingRight;
     curLayout->paddingTop = options.paddingTop;
     curLayout->paddingBottom = options.paddingBottom;
-
 
     ImVec2 contentPosition = curLayout->getPositionPadding();
 
@@ -482,7 +480,7 @@ void ImLayout::EndLayout()
     float x = window->DC.CursorPos.x;
     float y = window->DC.CursorPos.y;
 
-    curLayout->contentSize.x = window->DC.CursorMaxPos.x - curLayout->positionContents.x - curLayout->paddingLeft;
+    curLayout->contentSize.x = window->DC.CursorMaxPos.x - curLayout->positionContents.x;
     curLayout->contentSize.y = y - curLayout->positionContents.y - g.Style.ItemSpacing.y;
 
     // Restore windows data
@@ -502,8 +500,14 @@ void ImLayout::EndLayout()
             sizeItem.x = 10;*/
         }
     }
-    else if (curLayout->isWrapParentX)
-        curLayout->size.x = curLayout->contentSize.x + curLayout->paddingLeft + curLayout->paddingRight;
+    else if (curLayout->isWrapParentX) {
+        float sizeX = curLayout->contentSize.x + curLayout->paddingLeft + curLayout->paddingRight;
+        if (sizeX > curLayout->content_avail.x) {
+            // Fall back to max content avail if parent is wrap_size and child is match_parent
+            sizeX = curLayout->content_avail.x;
+        }
+        curLayout->size.x = sizeX;
+    }
 
     if (curLayout->isMatchParentY) {
         //sizeItem.y = curLayout->size.y;
@@ -513,8 +517,14 @@ void ImLayout::EndLayout()
             //sizeItem.y = curLayout->contentSize.y;
         }
     }
-    else if (curLayout->isWrapParentY)
-        curLayout->size.y = curLayout->contentSize.y + curLayout->paddingBottom;
+    else if (curLayout->isWrapParentY) {
+        float sizeY = curLayout->contentSize.y + curLayout->paddingBottom + curLayout->paddingTop;
+        if (sizeY > curLayout->content_avail.y) {
+            // Fall back to max content avail if parent is wrap_size and child is match_parent
+            sizeY = curLayout->content_avail.y;
+        }
+        curLayout->size.y = sizeY;
+    }
 
     ImGui::ItemSize(curLayout->size);
 
@@ -785,38 +795,48 @@ void ImLayout::AlignLayout(float alignX, float alignY, float offsetX, float offs
         return;
 
     ImVec2 regionAvail = ImGui::GetContentRegionAvail();
-    float totalX = regionAvail.x - curLayout->paddingLeft;
+    float totalX = regionAvail.x;
     float totalY = regionAvail.y;
 
     ImVec2 posPad = curLayout->getPositionPadding();
     ImVec2 absSizePad = curLayout->getAbsoluteSizePadding();
 
-    if (alignX >= 0.0f && curLayout->isWrapParentX == false && curLayout->contentSize.x > 0.0) {
+    if (alignX >= 0.0f && curLayout->contentSize.x > 0.0) {
         float addX = ImFloor((totalX - curLayout->contentSize.x) * alignX);
         float newX = posPad.x + addX + offsetX;
-        if (newX < posPad.x) {
-            curLayout->error = true;
-            newX = posPad.x;
+        if (curLayout->isWrapParentX == false) {
+            if (newX < posPad.x) {
+                curLayout->error = true;
+                newX = posPad.x;
+            }
+            else if (newX + curLayout->contentSize.x > absSizePad.x) {
+                curLayout->error = true;
+                newX = absSizePad.x - curLayout->contentSize.x;
+            }
+            curLayout->positionContents.x = newX;
         }
-        else if (newX + curLayout->contentSize.x > absSizePad.x) {
-            curLayout->error = true;
-            newX = absSizePad.x - curLayout->contentSize.x;
+        else {
+            curLayout->positionContents.x = newX;
         }
-        curLayout->positionContents.x = newX;
     }
 
-    if (alignY >= 0.0f && curLayout->isWrapParentY == false && curLayout->contentSize.y > 0.0) {
+    if (alignY >= 0.0f && curLayout->contentSize.y > 0.0) {
         float addY = ImFloor((totalY - curLayout->contentSize.y) * alignY);
         float newY = posPad.y + addY + offsetY;
-        if (newY < posPad.y) {
-            curLayout->error = true;
-            newY = posPad.y;
+        if (curLayout->isWrapParentY == false) {
+            if (newY < posPad.y) {
+                curLayout->error = true;
+                newY = posPad.y;
+            }
+            else if (newY + curLayout->contentSize.y > absSizePad.y) {
+                curLayout->error = true;
+                newY = absSizePad.y - curLayout->contentSize.y;
+            }
+            curLayout->positionContents.y = newY;
         }
-        else if (newY + curLayout->contentSize.y > absSizePad.y) {
-            curLayout->error = true;
-            newY = absSizePad.y - curLayout->contentSize.y;
+        else {
+            curLayout->positionContents.y = newY;
         }
-        curLayout->positionContents.y = newY;
     }
     window->DC.CursorMaxPos.x = curLayout->positionContents.x;
     window->DC.CursorMaxPos.y = curLayout->positionContents.y;
