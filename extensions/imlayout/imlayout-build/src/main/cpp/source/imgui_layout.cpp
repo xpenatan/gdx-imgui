@@ -39,10 +39,6 @@ ImVec2 ImGuiLayout::getAbsoluteSizePadding() {
     return ImVec2(position.x + size.x - paddingRight, position.y + size.y - paddingBottom);
 }
 
-ImVec2 ImGuiLayout::getContentSizePadding() {
-    return ImVec2(contentSize.x - paddingRight, contentSize.y - paddingBottom);
-}
-
 ImVec2 ImGuiLayout::getPositionPadding() {
     return ImVec2(position.x + paddingLeft, position.y + paddingTop);
 }
