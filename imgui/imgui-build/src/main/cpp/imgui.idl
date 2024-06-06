@@ -104,7 +104,7 @@ interface ImGuiInternal {
     static boolean                 TreeNodeUpdateNextOpen(long id, ImGuiTreeNodeFlags ImGuiTreeNodeFlags);
     static void                    SetNextItemSelectionUserData(long selection_user_data);
 
-    static long                    GetKeyOwner(ImGuiKey ImGuiKey;
+    static long                    GetKeyOwner(ImGuiKey ImGuiKey);
     static void                    SetKeyOwner(ImGuiKey ImGuiKey, long owner_id, optional ImGuiInputFlags ImGuiInputFlags);
     static void                    SetItemKeyOwner(ImGuiKey ImGuiKey, optional ImGuiInputFlags ImGuiInputFlags);
     static boolean                 TestKeyOwner(ImGuiKey ImGuiKey, long owner_id);
