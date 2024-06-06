@@ -118,6 +118,11 @@ class ImGuiInternal {
         static void                     TreeNodeSetOpen(ImGuiID id, bool open) { im::TreeNodeSetOpen(id, open); }
         static bool                     TreeNodeUpdateNextOpen(ImGuiID id, ImGuiTreeNodeFlags flags) { return im::TreeNodeUpdateNextOpen(id, flags); }
         static void                     SetNextItemSelectionUserData(ImGuiSelectionUserData selection_user_data) { im::SetNextItemSelectionUserData(selection_user_data); }
+
+        static ImGuiID                  GetKeyOwner(ImGuiKey key) { return im::GetKeyOwner(key); }
+        static void                     SetKeyOwner(ImGuiKey key, ImGuiID owner_id, ImGuiInputFlags flags = 0) { im::SetKeyOwner(key, owner_id, flags); }
+        static void                     SetItemKeyOwner(ImGuiKey key, ImGuiInputFlags flags = 0) { im::SetItemKeyOwner(key, flags); }
+        static bool                     TestKeyOwner(ImGuiKey key, ImGuiID owner_id) { return im::TestKeyOwner(key, owner_id); }
 };
 
 class ImGui {

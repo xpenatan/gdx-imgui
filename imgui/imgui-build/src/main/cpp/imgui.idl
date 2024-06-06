@@ -100,6 +100,11 @@ interface ImGuiInternal {
     static void                    TreeNodeSetOpen(long id, boolean open);
     static boolean                 TreeNodeUpdateNextOpen(long id, ImGuiTreeNodeFlags ImGuiTreeNodeFlags);
     static void                    SetNextItemSelectionUserData(long selection_user_data);
+
+    static long                    GetKeyOwner(ImGuiKey ImGuiKey;
+    static void                    SetKeyOwner(ImGuiKey ImGuiKey, long owner_id, optional ImGuiInputFlags ImGuiInputFlags);
+    static void                    SetItemKeyOwner(ImGuiKey ImGuiKey, optional ImGuiInputFlags ImGuiInputFlags);
+    static boolean                 TestKeyOwner(ImGuiKey ImGuiKey, long owner_id);
 };
 
 [NoDelete, Prefix="ImGuiWrapper::"]
@@ -1680,4 +1685,37 @@ enum ImGuiButtonFlagsPrivate_ {
     "ImGuiButtonFlags_NoTestKeyOwner",
     "ImGuiButtonFlags_PressedOnMask_",
     "ImGuiButtonFlags_PressedOnDefault_"
+};
+
+enum ImGuiInputFlags {
+    "ImGuiInputFlags_None",
+    "ImGuiInputFlags_Repeat",
+    "ImGuiInputFlags_RepeatRateDefault",
+    "ImGuiInputFlags_RepeatRateNavMove",
+    "ImGuiInputFlags_RepeatRateNavTweak",
+    "ImGuiInputFlags_RepeatUntilRelease",
+    "ImGuiInputFlags_RepeatUntilKeyModsChange",
+    "ImGuiInputFlags_RepeatUntilKeyModsChangeFromNone",
+    "ImGuiInputFlags_RepeatUntilOtherKeyPress",
+    "ImGuiInputFlags_CondHovered",
+    "ImGuiInputFlags_CondActive",
+    "ImGuiInputFlags_CondDefault_",
+    "ImGuiInputFlags_LockThisFrame",
+    "ImGuiInputFlags_LockUntilRelease",
+    "ImGuiInputFlags_RouteFocused",
+    "ImGuiInputFlags_RouteGlobalLow",
+    "ImGuiInputFlags_RouteGlobal",
+    "ImGuiInputFlags_RouteGlobalHigh",
+    "ImGuiInputFlags_RouteAlways",
+    "ImGuiInputFlags_RouteUnlessBgFocused",
+    "ImGuiInputFlags_RepeatRateMask_",
+    "ImGuiInputFlags_RepeatUntilMask_",
+    "ImGuiInputFlags_RepeatMask_",
+    "ImGuiInputFlags_CondMask_",
+    "ImGuiInputFlags_RouteMask_",
+    "ImGuiInputFlags_SupportedByIsKeyPressed",
+    "ImGuiInputFlags_SupportedByIsMouseClicked",
+    "ImGuiInputFlags_SupportedByShortcut",
+    "ImGuiInputFlags_SupportedBySetKeyOwner",
+    "ImGuiInputFlags_SupportedBySetItemKeyOwner"
 };

@@ -29,9 +29,9 @@ public class BuildImGui {
         ArrayList<BuildMultiTarget> targets = new ArrayList<>();
 
         if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
+            targets.add(getEmscriptenBuildTarget(imguiPath, idlReader));
             targets.add(getWindowBuildTarget(imguiPath));
             targets.add(getAndroidBuildTarget(imguiPath));
-            targets.add(getEmscriptenBuildTarget(imguiPath, idlReader));
         }
         if(BuildTarget.isUnix()) {
             targets.add(getLinuxBuildTarget(imguiPath));
