@@ -454,11 +454,21 @@ void ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
 
 void ImLayout::BeginLayout_1(ImGuiID id, float sizeX, float sizeY, const ImGuiLayoutOptions& options)
 {
+    BeginLayout(id, sizeX, sizeY, options);
+}
+
+void ImLayout::BeginLayout_2(const char* id, float sizeX, float sizeY, const ImGuiLayoutOptions& options)
+{
+    BeginLayout(id, sizeX, sizeY, options);
+}
+
+void ImLayout::BeginLayout(ImGuiID id, float sizeX, float sizeY, const ImGuiLayoutOptions& options)
+{
     BeginLayoutEx(id);
     PrepareLayout(sizeX, sizeY, options);
 }
 
-void ImLayout::BeginLayout_2(const char* strID, float sizeX, float sizeY, const ImGuiLayoutOptions& options)
+void ImLayout::BeginLayout(const char* strID, float sizeX, float sizeY, const ImGuiLayoutOptions& options)
 {
     BeginLayoutEx(strID);
     PrepareLayout(sizeX, sizeY, options);
@@ -781,11 +791,20 @@ void ImLayout::EndCollapseLayout()
 }
 
 void ImLayout::BeginAlign_1(ImGuiID id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, const ImGuiLayoutOptions& options) {
+    ImLayout::BeginAlign(id, sizeX, sizeY, alignX, alignY, offsetX, offsetY, options);
+}
+
+void ImLayout::BeginAlign_2(const char* id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, const ImGuiLayoutOptions& options) {
+    ImLayout::BeginAlign(id, sizeX, sizeY, alignX, alignY, offsetX, offsetY, options);
+}
+
+
+void ImLayout::BeginAlign(ImGuiID id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, const ImGuiLayoutOptions& options) {
     ImLayout::BeginLayout(id, sizeX, sizeY, options);
     ImLayout::AlignLayout(alignX, alignY, offsetX, offsetY);
 }
 
-void ImLayout::BeginAlign_2(const char* strID, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, const ImGuiLayoutOptions& options) {
+void ImLayout::BeginAlign(const char* strID, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, const ImGuiLayoutOptions& options) {
     ImLayout::BeginLayout(strID, sizeX, sizeY, options);
     ImLayout::AlignLayout(alignX, alignY, offsetX, offsetY);
 }
