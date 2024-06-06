@@ -505,8 +505,7 @@ void ImLayout::EndLayout()
     window->SkipItems = curLayout->skipping;
     window->Pos = curLayout->Pos;
     window->ContentRegionRect = curLayout->ContentsRegionRect;
-    g.LastItemData.Rect = curLayout->getBoundingBox();
-    g.LastItemData.ID = curLayout->id;
+    ImGui::ItemAdd(curLayout->getBoundingBox(), curLayout->id);
     // ********************
 
     if (curLayout->isMatchParentX) {
