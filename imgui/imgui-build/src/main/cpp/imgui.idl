@@ -62,6 +62,9 @@ interface ImGuiInternal {
     static void                    SetActiveID(long id, ImGuiWindow window);
     static void                    SetFocusID(long id, ImGuiWindow window);
     static void                    ClearActiveID();
+    static long                    GetHoveredID();
+    static void                    SetHoveredID(long id);
+    static void                    KeepAliveID(long id);
 
     // Drag and Drop
     static boolean                        IsDragDropActive();

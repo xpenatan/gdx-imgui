@@ -80,6 +80,9 @@ class ImGuiInternal {
         static void                     SetActiveID(ImGuiID id, ImGuiWindow* window) { im::SetActiveID(id, window); }
         static void                     SetFocusID(ImGuiID id, ImGuiWindow* window) { im::SetFocusID(id, window); }
         static void                     ClearActiveID() { im::ClearActiveID(); }
+        static ImGuiID                  GetHoveredID() { return im::GetHoveredID(); }
+        static void                     SetHoveredID(ImGuiID id) { im::SetHoveredID(id); }
+        static void                     KeepAliveID(ImGuiID id) { im::KeepAliveID(id); }
 
         // Drag and Drop
         static bool                            IsDragDropActive() { return im::IsDragDropActive(); }
