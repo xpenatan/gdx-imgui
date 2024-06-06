@@ -124,14 +124,16 @@ public:
     static void ShowLayoutDebugClipping();
 
     // Layout
-    static void BeginLayout(const char* id, float sizeX, float sizeY, const ImGuiLayoutOptions& options = ImGuiLayoutOptions());
+    static void BeginLayout_1(ImGuiID id, float sizeX, float sizeY, const ImGuiLayoutOptions& options = ImGuiLayoutOptions());
+    static void BeginLayout_2(const char* id, float sizeX, float sizeY, const ImGuiLayoutOptions& options = ImGuiLayoutOptions());
     static void EndLayout();
     static ImGuiLayout* GetCurrentLayout();
     static void SetOrientation(ImOrientation orientation);
     static ImVec2 GetLayoutSize();
 
     // Align view
-    static void BeginAlign(const char* id, float sizeX, float sizeY, float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0, const ImGuiLayoutOptions& options = ImGuiLayoutOptions());
+    static void BeginAlign_1(ImGuiID id, float sizeX, float sizeY, float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0, const ImGuiLayoutOptions& options = ImGuiLayoutOptions());
+    static void BeginAlign_2(const char* id, float sizeX, float sizeY, float alignX = 0.0f, float alignY = 0.0f, float offsetX = 0, float offsetY = 0, const ImGuiLayoutOptions& options = ImGuiLayoutOptions());
     static void AlignLayout(float alignX, float alignY, float offsetX = 0, float offsetY = 0);
     static void EndAlign();
 

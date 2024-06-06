@@ -11,13 +11,15 @@ interface ImLayout {
     static void ShowLayoutDebugClipping();
 
     // Layout
-    static void BeginLayout([Const]DOMString id, float sizeX, float sizeY, [Const, Ref] optional ImGuiLayoutOptions options);
+    static void BeginLayout_1(long id, float sizeX, float sizeY, [Const, Ref] optional ImGuiLayoutOptions options);
+    static void BeginLayout_2([Const]DOMString id, float sizeX, float sizeY, [Const, Ref] optional ImGuiLayoutOptions options);
     static ImGuiLayout GetCurrentLayout();
     static void SetOrientation(ImOrientation ImOrientation);
     static void EndLayout();
 
     // Align view
-    static void BeginAlign([Const]DOMString id, float sizeX, float sizeY, optional float alignX, optional float alignY, optional float offsetX, optional float offsetY, [Const, Ref] optional ImGuiLayoutOptions options);
+    static void BeginAlign_1(long id, float sizeX, float sizeY, optional float alignX, optional float alignY, optional float offsetX, optional float offsetY, [Const, Ref] optional ImGuiLayoutOptions options);
+    static void BeginAlign_2([Const]DOMString id, float sizeX, float sizeY, optional float alignX, optional float alignY, optional float offsetX, optional float offsetY, [Const, Ref] optional ImGuiLayoutOptions options);
     static void AlignLayout(float alignX, float alignY, optional float offsetX, optional float offsetY);
     static void EndAlign();
 

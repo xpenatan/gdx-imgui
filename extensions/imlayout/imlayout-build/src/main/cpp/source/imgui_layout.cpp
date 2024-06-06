@@ -452,7 +452,13 @@ void ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
     ImGui::BeginGroup();
 }
 
-void ImLayout::BeginLayout(const char* strID, float sizeX, float sizeY, const ImGuiLayoutOptions& options)
+void ImLayout::BeginLayout_1(ImGuiID id, float sizeX, float sizeY, const ImGuiLayoutOptions& options)
+{
+    BeginLayoutEx(id);
+    PrepareLayout(sizeX, sizeY, options);
+}
+
+void ImLayout::BeginLayout_2(const char* strID, float sizeX, float sizeY, const ImGuiLayoutOptions& options)
 {
     BeginLayoutEx(strID);
     PrepareLayout(sizeX, sizeY, options);
@@ -774,7 +780,12 @@ void ImLayout::EndCollapseLayout()
     drawList->AddRect(borderPosition, borderSize, borderColor, borderRound, roundingCorners, 1.0f);
 }
 
-void ImLayout::BeginAlign(const char* strID, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, const ImGuiLayoutOptions& options) {
+void ImLayout::BeginAlign_1(ImGuiID id, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, const ImGuiLayoutOptions& options) {
+    ImLayout::BeginLayout(id, sizeX, sizeY, options);
+    ImLayout::AlignLayout(alignX, alignY, offsetX, offsetY);
+}
+
+void ImLayout::BeginAlign_2(const char* strID, float sizeX, float sizeY, float alignX, float alignY, float offsetX, float offsetY, const ImGuiLayoutOptions& options) {
     ImLayout::BeginLayout(strID, sizeX, sizeY, options);
     ImLayout::AlignLayout(alignX, alignY, offsetX, offsetY);
 }
