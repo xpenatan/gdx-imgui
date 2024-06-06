@@ -506,6 +506,7 @@ void ImLayout::EndLayout()
     window->Pos = curLayout->Pos;
     window->ContentRegionRect = curLayout->ContentsRegionRect;
     g.LastItemData.Rect = curLayout->getBoundingBox();
+    g.LastItemData.ID = curLayout->id;
     // ********************
 
     if (curLayout->isMatchParentX) {
