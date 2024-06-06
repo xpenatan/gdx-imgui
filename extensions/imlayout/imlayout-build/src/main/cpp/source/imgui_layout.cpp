@@ -32,7 +32,7 @@ ImVec2 ImGuiLayout::getAbsoluteSize() {
 }
 
 ImVec2 ImGuiLayout::getContentSize() {
-    return ImVec2(position.x + contentSize.x, position.y + contentSize.y);
+    return ImVec2(contentSize.x, contentSize.y);
 }
 
 ImVec2 ImGuiLayout::getAbsoluteSizePadding() {
@@ -40,7 +40,7 @@ ImVec2 ImGuiLayout::getAbsoluteSizePadding() {
 }
 
 ImVec2 ImGuiLayout::getContentSizePadding() {
-    return ImVec2(position.x + contentSize.x - paddingRight, position.y + contentSize.y - paddingBottom);
+    return ImVec2(contentSize.x - paddingRight, contentSize.y - paddingBottom);
 }
 
 ImVec2 ImGuiLayout::getPositionPadding() {

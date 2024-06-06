@@ -61,7 +61,6 @@ public:
     ImVec2 getAbsoluteSize();
     ImVec2 getContentSize();
     ImVec2 getAbsoluteSizePadding();
-    ImVec2 getContentSizePadding();
     ImVec2 getPositionPadding();
     ImRect getBoundingBox();
 

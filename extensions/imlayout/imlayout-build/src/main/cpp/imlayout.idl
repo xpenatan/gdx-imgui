@@ -85,7 +85,6 @@ interface ImGuiLayout {
     [Value] ImVec2 getAbsoluteSize();
     [Value] ImVec2 getAbsoluteSizePadding();
     [Value] ImVec2 getContentSize();
-    [Value] ImVec2 getContentSizePadding();
     [Value] ImVec2 getPositionPadding();
 };
 
