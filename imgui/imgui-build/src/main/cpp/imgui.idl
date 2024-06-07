@@ -519,10 +519,10 @@ interface ImGui {
     static void                    ColorConvertRGBtoHSV(float r, float g, float b, float[] out_h, float[] out_s, float[] out_v); // fix by changing to pointer
     static void                    ColorConvertHSVtoRGB(float h, float s, float v, float[] out_r, float[] out_g, float[] out_b); // fix by changing to pointer
 
-    static boolean                 IsKeyDown(ImGuiKey key);
-    static boolean                 IsKeyPressed(ImGuiKey key, optional boolean repeat);
-    static boolean                 IsKeyReleased(ImGuiKey key);
-    static long                    GetKeyPressedAmount(ImGuiKey key, float repeat_delay, float rate);
+    static boolean                 IsKeyDown(ImGuiKey ImGuiKey);
+    static boolean                 IsKeyPressed(ImGuiKey ImGuiKey, optional boolean repeat);
+    static boolean                 IsKeyReleased(ImGuiKey ImGuiKey);
+    static long                    GetKeyPressedAmount(ImGuiKey ImGuiKey, float repeat_delay, float rate);
 ////    [Const] DOMString        GetKeyName(ImGuiKey key);
     static void                    SetNextFrameWantCaptureKeyboard(boolean want_capture_keyboard);
 
@@ -746,7 +746,7 @@ interface ImGuiIO {
     void AddMouseWheelEvent(float wheel_x, float wheel_y);
     void AddMouseButtonEvent(long button, boolean down);
     void AddMousePosEvent(float x, float y);
-    void AddKeyEvent(ImGuiKey key, boolean down);
+    void AddKeyEvent(ImGuiKey ImGuiKey, boolean down);
     void AddInputCharacter(unsigned long c);
 };
 
