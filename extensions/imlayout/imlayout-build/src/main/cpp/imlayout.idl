@@ -2,6 +2,7 @@
 interface ImLayout {
     static readonly attribute long WRAP_PARENT;
     static readonly attribute long MATCH_PARENT;
+    static readonly attribute long MATCH_WRAP_PARENT;
 
     // Debug
     static void DrawBoundingBox_1(float x1, float y1, float x2, float y2, long r, long g, long b, optional long a, optional boolean clipping);

@@ -111,6 +111,7 @@ private:
     static void PrepareLayout(float sizeX, float sizeY, ImGuiLayoutOptions options);
 
 public:
+    static const int MATCH_WRAP_PARENT = 9999992;    
     static const int WRAP_PARENT = 9999991;
     static const int MATCH_PARENT = 9999990;    
 

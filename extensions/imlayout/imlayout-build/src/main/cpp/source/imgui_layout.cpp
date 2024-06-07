@@ -245,6 +245,31 @@ void ImLayout::PrepareLayout(float sizeX, float sizeY, ImGuiLayoutOptions option
 {
     ImGuiContext& g = *GImGui;
     ImGuiWindow* window = g.CurrentWindow;
+    ImGuiLayout* curLayout = ImLayout::GetCurrentLayout();
+
+    if (sizeX == ImLayout::MATCH_WRAP_PARENT) {
+        float availX = ImGui::GetContentRegionAvail().x;
+        float contentSizeX = curLayout->getContentSize().x;
+
+        if (availX > contentSizeX) {
+            sizeX = ImLayout::MATCH_PARENT;
+        }
+        else {
+            sizeX = ImLayout::WRAP_PARENT;
+        }
+    }
+    if (sizeY == ImLayout::MATCH_WRAP_PARENT) {
+        float availY = ImGui::GetContentRegionAvail().y;
+        float contentSizeY = curLayout->getContentSize().y;
+
+        if (availY > contentSizeY) {
+            sizeY = ImLayout::MATCH_PARENT;
+        }
+        else {
+            sizeY = ImLayout::WRAP_PARENT;
+        }
+    }
+
 
     ImVec2 position = window->DC.CursorPos;
 
