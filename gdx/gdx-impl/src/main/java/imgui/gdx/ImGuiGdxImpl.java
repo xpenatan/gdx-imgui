@@ -44,7 +44,7 @@ public class ImGuiGdxImpl {
     boolean isGL30 = false;
     boolean isGL32 = false;
 
-    public FileHandle imguiFile;
+    private FileHandle imguiFile;
 
     public ImGuiGdxImpl() {
         this(Gdx.files.local("imgui.ini"));
