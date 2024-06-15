@@ -4,7 +4,6 @@ import idl.IDLBase;
 import idl.helper.IDLByteArray;
 import idl.helper.IDLIntArray;
 
-/*[-IDL_SKIP]*/
 public class ImGuiIO extends IDLBase {
 
     public static ImGuiIO TMP_EMPTY = new ImGuiIO(false);

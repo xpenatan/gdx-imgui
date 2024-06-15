@@ -8,6 +8,7 @@
 #else
 #include <stdint.h>     // intptr_t
 #endif
+#include <string>
 
 typedef ImVector<ImDrawCmd> VecCmdBuffer;
 typedef ImVector<ImDrawIdx> VecIdxBuffer;
@@ -131,7 +132,11 @@ class ImGuiInternal {
 class ImGui {
     // Emscripten webidl don't support binding methods without a class so we need to create a wrapper
     public:
-        static                          ImGuiContext* CreateContext() { return im::CreateContext(); }
+        static                          ImGuiContext* CreateContext() {
+                                            ImGuiContext* ctx = im::CreateContext();
+                                            ImGui::GetIO().IniFilename = NULL;
+                                            return ctx;
+                                        }
         static void                     DestroyContext(ImGuiContext* ctx = NULL) { im::DestroyContext(ctx); }
         static ImGuiContext*            GetCurrentContext() { return im::GetCurrentContext(); }
         static void                     SetCurrentContext(ImGuiContext* ctx) { im::SetCurrentContext(ctx); }
@@ -562,7 +567,7 @@ class ImGui {
         static void                     LoadIniSettingsFromDisk(const char* ini_filename) { im::LoadIniSettingsFromDisk(ini_filename); }
         static void                     LoadIniSettingsFromMemory(const char* ini_data, size_t ini_size=0) { im::LoadIniSettingsFromMemory(ini_data, ini_size); }
         static void                     SaveIniSettingsToDisk(const char* ini_filename) { im::SaveIniSettingsToDisk(ini_filename); }
-//        static const char* SaveIniSettingsToMemory(size_t* out_ini_size = NULL) { return im::SaveIniSettingsToMemory(out_ini_size); }
+        static const std::string        SaveIniSettingsToMemory(size_t* out_ini_size = NULL) { return im::SaveIniSettingsToMemory(out_ini_size); }
 
         static void                     DebugTextEncoding(const char* text) { im::DebugTextEncoding(text); }
         static bool                     DebugCheckVersionAndDataLayout(const char* version_str, size_t sz_io, size_t sz_style, size_t sz_vec2, size_t sz_vec4, size_t sz_drawvert, size_t sz_drawidx) { return im::DebugCheckVersionAndDataLayout(version_str, sz_io, sz_style, sz_vec2, sz_vec4, sz_drawvert, sz_drawidx); }

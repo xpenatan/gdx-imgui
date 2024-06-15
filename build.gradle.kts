@@ -29,10 +29,10 @@ allprojects  {
         maven { url = uri("https://oss.sonatype.org/content/repositories/releases/") }
     }
 
-//    configurations.configureEach {
-//        // Check for updates every sync
-//        resolutionStrategy.cacheChangingModulesFor(0, "seconds")
-//    }
+    configurations.configureEach {
+        // Check for updates every sync
+        resolutionStrategy.cacheChangingModulesFor(0, "seconds")
+    }
 }
 
 configure(allprojects - project(":imgui:imgui-android") - project(":examples:basic:android")) {

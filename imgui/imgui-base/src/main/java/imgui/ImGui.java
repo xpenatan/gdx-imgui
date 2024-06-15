@@ -37,9 +37,13 @@ public class ImGui {
     */
     private static native void UpdateDisplayAndInputAndFrameNative(float deltaTime, int width, int height, int display_w, int display_h);
 
-
-    /*[-IDL_SKIP]*/
     public static void CreateContext() {
+        // ImGui data need to be saved manually.
+        CreateContextInternal();
+    }
+
+    public static void DestroyContext() {
+        DestroyContextInternal();
     }
 
     /*[-teaVM;-NATIVE]
@@ -47,12 +51,17 @@ public class ImGui {
     */
     /*[-C++;-NATIVE]
         ImGui::CreateContext();
-        if(saveIni == false) {
-            ImGui::GetIO().IniFilename = NULL;
-        }
         ImGui::GetIO().BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
     */
-    public static native void CreateContext(boolean saveIni);
+    private static native void CreateContextInternal();
+
+    /*[-teaVM;-NATIVE]
+        [MODULE].ImGui.prototype.DestroyContext();
+    */
+    /*[-C++;-NATIVE]
+        ImGui::DestroyContext();
+    */
+    private static native void DestroyContextInternal();
 
     /**
      * Dispose temp objects.

@@ -18,6 +18,7 @@ public class Build {
 
         TeaVMTool tool = TeaBuilder.config(teaBuildConfiguration);
         tool.setMainClass(Launcher.class.getName());
+        tool.setObfuscated(false);
         TeaBuilder.build(tool);
     }
 }

@@ -1,6 +1,5 @@
 package imgui.example.renderer;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -19,14 +18,7 @@ public abstract class ImGuiRenderer extends ScreenAdapter {
 
     @Override
     public void show() {
-        if(Gdx.app.getType() == Application.ApplicationType.WebGL) {
-            // Not possible to have ini filename with webgl
-            ImGui.CreateContext(false);
-        }
-        else {
-            ImGui.CreateContext(true);
-        }
-
+        ImGui.CreateContext();
         ImGuiIO io = ImGui.GetIO();
         io.ConfigFlags(ImGuiConfigFlags.ImGuiConfigFlags_DockingEnable);
 
@@ -65,6 +57,7 @@ public abstract class ImGuiRenderer extends ScreenAdapter {
 
     @Override
     public void hide() {
+        impl.dispose();
         ImGui.disposeStatic();
         ImGui.DestroyContext();
     }

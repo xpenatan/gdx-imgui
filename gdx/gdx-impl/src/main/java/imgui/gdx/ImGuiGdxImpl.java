@@ -1,6 +1,7 @@
 package imgui.gdx;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes;
@@ -17,6 +18,7 @@ import imgui.ImGuiIO;
 import imgui.ImVec4;
 import imgui.idl.helper.IDLByteArray;
 import imgui.idl.helper.IDLIntArray;
+import imgui.idl.helper.IDLString;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
@@ -42,7 +44,13 @@ public class ImGuiGdxImpl {
     boolean isGL30 = false;
     boolean isGL32 = false;
 
+    public FileHandle imguiFile;
+
     public ImGuiGdxImpl() {
+        this(Gdx.files.local("imgui.ini"));
+    }
+
+    public ImGuiGdxImpl(FileHandle imguiFile) {
         vertexAttributes = new VertexAttributes(
                 new VertexAttribute(Usage.Position, 2, GL20.GL_FLOAT, false, "Position"),
                 new VertexAttribute(Usage.TextureCoordinates, 2, GL20.GL_FLOAT, false, "UV"),
@@ -69,6 +77,15 @@ public class ImGuiGdxImpl {
 
         prepareFont();
         createBufferObject();
+
+        this.imguiFile = imguiFile;
+
+        if(imguiFile != null && imguiFile.exists()) {
+            String iniData = imguiFile.readString();
+            if(!iniData.isEmpty()) {
+                ImGui.LoadIniSettingsFromMemory(iniData);
+            }
+        }
     }
 
     private void prepareFont() {
@@ -119,6 +136,16 @@ public class ImGuiGdxImpl {
         int backBufferWidth = Gdx.graphics.getBackBufferWidth();
         int backBufferHeight = Gdx.graphics.getBackBufferHeight();
         updateFrame(deltaTime, width, height, backBufferWidth, backBufferHeight);
+
+        if(imguiFile != null) {
+            ImGuiIO imGuiIO = ImGui.GetIO();
+            if(imGuiIO.WantSaveIniSettings()) {
+                imGuiIO.WantSaveIniSettings(false);
+                IDLString idlString = ImGui.SaveIniSettingsToMemory();
+                String s = idlString.c_str();
+                imguiFile.writeString(s, false);
+            }
+        }
     }
 
     protected void updateFrame(float deltaTime, int width, int height, int backBufferWidth, int backBufferHeight) {
@@ -305,6 +332,11 @@ public class ImGuiGdxImpl {
 
     public void dispose() {
         deleteTexture();
+        if(imguiFile != null) {
+            IDLString idlString = ImGui.SaveIniSettingsToMemory();
+            String s = idlString.c_str();
+            imguiFile.writeString(s, false);
+        }
 
         // TODO fix exception
 //		ImGui.DestroyPlatformWindows();

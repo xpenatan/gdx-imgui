@@ -549,8 +549,7 @@ interface ImGui {
     static void                    LoadIniSettingsFromDisk([Const] DOMString ini_filename);
     static void                    LoadIniSettingsFromMemory([Const] DOMString ini_data, optional long long ini_size);
     static void                    SaveIniSettingsToDisk([Const] DOMString ini_filename);
-////    [Const] DOMString           SaveIniSettingsToMemory(optional long long[] out_ini_size); // ERROR
-////    [Const] DOMString           SaveIniSettingsToMemory();
+    [Const, Value] static IDLString SaveIniSettingsToMemory();
 //
     static void                    DebugTextEncoding([Const] DOMString text);
     static boolean                 DebugCheckVersionAndDataLayout([Const] DOMString version_str, long long sz_io, long long sz_style, long long sz_vec2, long long sz_vec4, long long sz_drawvert, long long sz_drawidx); // This is called by IMGUI_CHECKVERSION() macro.
@@ -742,6 +741,8 @@ interface ImGuiIO {
     attribute boolean ConfigDockingAlwaysTabBar;
     attribute boolean ConfigDockingTransparentPayload;
     attribute long ConfigFlags;
+
+    attribute boolean WantSaveIniSettings;
 
     void AddMouseWheelEvent(float wheel_x, float wheel_y);
     void AddMouseButtonEvent(long button, boolean down);
