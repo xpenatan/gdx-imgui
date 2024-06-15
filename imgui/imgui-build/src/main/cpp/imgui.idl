@@ -742,6 +742,7 @@ interface ImGuiIO {
     attribute boolean ConfigDockingTransparentPayload;
     attribute long ConfigFlags;
 
+    attribute float IniSavingRate;
     attribute boolean WantSaveIniSettings;
 
     void AddMouseWheelEvent(float wheel_x, float wheel_y);

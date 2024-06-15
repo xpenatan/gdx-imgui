@@ -1,6 +1,8 @@
 package imgui.gdx;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.LifecycleListener;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.VertexAttribute;
@@ -44,13 +46,15 @@ public class ImGuiGdxImpl {
     boolean isGL30 = false;
     boolean isGL32 = false;
 
-    private FileHandle imguiFile;
+    private FileHandle imgui;
 
     public ImGuiGdxImpl() {
         this(Gdx.files.local("imgui.ini"));
     }
 
-    public ImGuiGdxImpl(FileHandle imguiFile) {
+    public ImGuiGdxImpl(FileHandle imgui) {
+        this.imgui = imgui;
+
         vertexAttributes = new VertexAttributes(
                 new VertexAttribute(Usage.Position, 2, GL20.GL_FLOAT, false, "Position"),
                 new VertexAttribute(Usage.TextureCoordinates, 2, GL20.GL_FLOAT, false, "UV"),
@@ -78,14 +82,29 @@ public class ImGuiGdxImpl {
         prepareFont();
         createBufferObject();
 
-        this.imguiFile = imguiFile;
-
-        if(imguiFile != null && imguiFile.exists()) {
-            String iniData = imguiFile.readString();
-            if(!iniData.isEmpty()) {
-                ImGui.LoadIniSettingsFromMemory(iniData);
+        if(imgui != null) {
+            boolean exists = imgui.exists();
+            if(exists) {
+                String iniData = imgui.readString();
+                if(!iniData.isEmpty()) {
+                    ImGui.LoadIniSettingsFromMemory(iniData);
+                }
             }
         }
+
+        Gdx.app.addLifecycleListener(new LifecycleListener() {
+            @Override
+            public void pause() {
+                saveImGuiData();
+            }
+            @Override
+            public void resume() {
+            }
+
+            @Override
+            public void dispose() {
+            }
+        });
     }
 
     private void prepareFont() {
@@ -137,13 +156,11 @@ public class ImGuiGdxImpl {
         int backBufferHeight = Gdx.graphics.getBackBufferHeight();
         updateFrame(deltaTime, width, height, backBufferWidth, backBufferHeight);
 
-        if(imguiFile != null) {
+        if(imgui != null) {
             ImGuiIO imGuiIO = ImGui.GetIO();
             if(imGuiIO.WantSaveIniSettings()) {
                 imGuiIO.WantSaveIniSettings(false);
-                IDLString idlString = ImGui.SaveIniSettingsToMemory();
-                String s = idlString.c_str();
-                imguiFile.writeString(s, false);
+                saveImGuiData();
             }
         }
     }
@@ -332,17 +349,20 @@ public class ImGuiGdxImpl {
 
     public void dispose() {
         deleteTexture();
-        if(imguiFile != null) {
-            IDLString idlString = ImGui.SaveIniSettingsToMemory();
-            String s = idlString.c_str();
-            imguiFile.writeString(s, false);
-        }
 
         // TODO fix exception
 //		ImGui.DestroyPlatformWindows();
         Gdx.gl.glBindBuffer(GL20.GL_ELEMENT_ARRAY_BUFFER, 0);
         Gdx.gl.glDeleteBuffer(ElementsHandle);
         ElementsHandle = 0;
+    }
+
+    private void saveImGuiData() {
+        if(imgui != null) {
+            IDLString idlString = ImGui.SaveIniSettingsToMemory();
+            String s = idlString.c_str();
+            imgui.writeString(s, false);
+        }
     }
 
     private String vertex_shader_glsl_130 = "uniform mat4 ProjMtx;\n" +
