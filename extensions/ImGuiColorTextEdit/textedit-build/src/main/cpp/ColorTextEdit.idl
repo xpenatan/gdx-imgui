@@ -26,7 +26,7 @@ interface TextEditor {
     [Const] float GetLineSpacing();
 
     static void SetDefaultPalette(PaletteId aValue);
-    static PaletteId GetDefaultPalette();
+    [Const] static PaletteId GetDefaultPalette();
 
     void SelectAll();
     void SelectLine(long aLine);
@@ -53,8 +53,7 @@ interface TextEditor {
     [Const] boolean CanRedo();
     [Const] long GetUndoIndex();
 
-
-    void SetText([Const, Ref] IDLString aText);
+    void SetText([Const] DOMString aText);
     [Const, Value] IDLString GetText();
 
 //    void SetTextLines(const std::vector<std::string>& aLines) { ed.SetTextLines(aLines); }

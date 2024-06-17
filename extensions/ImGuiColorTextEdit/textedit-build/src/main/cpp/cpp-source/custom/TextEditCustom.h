@@ -69,7 +69,9 @@ public:
     bool CanRedo() const { return ed.CanRedo(); }
     int GetUndoIndex() const { return ed.GetUndoIndex(); }
 
-    void SetText(const std::string& aText) { ed.SetText(aText); }
+    void SetText(const char* aText) {
+        ed.SetText(aText);
+    }
     std::string GetText() const { return ed.GetText(); }
 
     void SetTextLines(const std::vector<std::string>& aLines) { ed.SetTextLines(aLines); }

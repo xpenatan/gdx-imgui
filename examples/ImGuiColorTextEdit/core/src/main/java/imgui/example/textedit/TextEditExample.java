@@ -26,7 +26,6 @@ public class TextEditExample extends ImGuiRenderer {
         int lua = LanguageDefinitionId.Lua;
         editor.SetLanguageDefinition(lua);
 
-        IDLString text = new IDLString();
 
         String code = "\n" +
                 "function onCreate()\n" +
@@ -36,8 +35,7 @@ public class TextEditExample extends ImGuiRenderer {
                 "function onRender(delta)\n" +
                 "\n" +
                 "end\n";
-        text.append(code);
-        editor.SetText(text);
+        editor.SetText(code);
     }
 
     @Override
