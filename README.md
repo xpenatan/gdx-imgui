@@ -10,6 +10,11 @@ It's meant to be small and 1-1 to C++. ImGui::Begin() is ImGui.Begin() and so on
 
 <p align="center"><img src="https://i.imgur.com/rXk4Aq0.gif"/></p>
 
+## Supported extensions:
+[imgui-node-editor](https://github.com/thedmd/imgui-node-editor) <br>
+[ImGuiColorTextEdit](https://github.com/santaclose/ImGuiColorTextEdit/) <br>
+[ImLayout](https://github.com/xpenatan/gdx-imgui/tree/master/extensions/imlayout) <br>
+
 ## Examples
 * [basic](https://xpenatan.github.io/gdx-imgui/basic/)
 

@@ -28,10 +28,14 @@ val zippedPath = "${buildDir}/text-edit.zip"
 val sourcePath = "${buildDir}/text-edit/"
 val sourceDestination = "${buildDir}/ImGuiColorTextEdit/"
 
-tasks.register<Download>("download_source") {
+val zippedVendorPath = "${buildDir}/regex.zip"
+val sourceVendorPath = "${buildDir}/regex/"
+val sourceVendorDestination = "${buildDir}/ImGuiColorTextEdit/vendor/regex"
+
+tasks.register<Download>("download_textedit_source") {
     group = "textedit"
     description = "Download source"
-    src("https://github.com/BalazsJako/ImGuiColorTextEdit/archive/master.zip")
+    src("https://github.com/santaclose/ImGuiColorTextEdit/archive/master.zip")
     dest(File(zippedPath))
     doLast {
         unzipTo(File(sourcePath), dest)
@@ -42,4 +46,31 @@ tasks.register<Download>("download_source") {
         delete(sourcePath)
         delete(zippedPath)
     }
+}
+
+
+tasks.register<Download>("download_vendor_source") {
+    group = "textedit"
+    description = "Download source"
+    src("https://github.com/boostorg/regex/archive/4cbcd3078e6ae10d05124379623a1bf03fcb9350.zip")
+    dest(File(zippedVendorPath))
+    doLast {
+        unzipTo(File(sourceVendorPath), dest)
+        copy{
+            from("$sourceVendorPath/regex-4cbcd3078e6ae10d05124379623a1bf03fcb9350/")
+            into(sourceVendorDestination)
+        }
+        delete(sourceVendorPath)
+        delete(zippedVendorPath)
+    }
+}
+
+tasks.register("download_source") {
+    group = "textedit"
+    description = "Download source"
+
+    val list = listOf("download_textedit_source", "download_vendor_source")
+    dependsOn(list)
+
+    tasks.findByName("download_vendor_source")?.mustRunAfter("download_textedit_source")
 }

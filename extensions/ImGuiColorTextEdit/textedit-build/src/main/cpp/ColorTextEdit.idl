@@ -1,136 +1,85 @@
 
+[NoDelete, Prefix="TextEditorWrapper::"]
 interface TextEditor {
     void TextEditor();
 
-    void SetLanguageDefinition([Const, Ref] LanguageDefinition aLanguageDef);
-    [Const, Ref] LanguageDefinition GetLanguageDefinition();
-
-//    [Const, Ref] Palette GetPalette();
-//    void SetPalette([Const, Ref] Palette aValue);
-
-//    void SetErrorMarkers([Const, Ref] ErrorMarkers aMarkers);
-//    void SetBreakpoints([Const, Ref] Breakpoints aMarkers);
-
-    void Render([Const] DOMString aTitle, [Const, Ref] optional ImVec2 aSize, optional boolean aBorder);
-    void SetText([Const, Ref] IDLString aText);
-    [Const, Value] IDLString GetText();
-
-//    void SetTextLines(const std::vector<std::string>& aLines);
-//    std::vector<std::string> GetTextLines() const;
-
-    [Const, Value] IDLString GetSelectedText();
-    [Const, Value] IDLString GetCurrentLineText();
-
-    [Const] long GetTotalLines();
-    [Const] boolean IsOverwrite();
-
-    void SetReadOnly(boolean aValue);
-    [Const] boolean IsReadOnly();
-    [Const] boolean IsTextChanged();
-    [Const] boolean IsCursorPositionChanged();
-
-    [Const] boolean IsColorizerEnabled();
-    void SetColorizerEnable(boolean aValue);
-
-    [Const, Value] Coordinates GetCursorPosition();
-    void SetCursorPosition([Const, Ref] Coordinates aPosition);
-
-    void SetHandleMouseInputs(boolean aValue);
-    [Const] boolean IsHandleMouseInputsEnabled();
-
-    void SetHandleKeyboardInputs (boolean aValue);
-    [Const] boolean IsHandleKeyboardInputsEnabled();
-
-    void SetImGuiChildIgnored(boolean aValue);
-    [Const] boolean IsImGuiChildIgnored();
-
-    void SetShowWhitespaces(boolean aValue);
-    [Const] boolean IsShowingWhitespaces();
-
+    void SetReadOnlyEnabled(boolean aValue);
+    [Const] boolean IsReadOnlyEnabled();
+    void SetAutoIndentEnabled(boolean aValue);
+    [Const] boolean IsAutoIndentEnabled();
+    void SetShowWhitespacesEnabled(boolean aValue);
+    [Const] boolean IsShowWhitespacesEnabled();
+    void SetShowLineNumbersEnabled(boolean aValue);
+    [Const] boolean IsShowLineNumbersEnabled();
+    void SetShortTabsEnabled(boolean aValue);
+    [Const] boolean IsShortTabsEnabled();
+    [Const] long GetLineCount();
+    [Const] boolean IsOverwriteEnabled();
+    void SetPalette(PaletteId aValue);
+    [Const] PaletteId GetPalette();
+    void SetLanguageDefinition(LanguageDefinitionId aValue);
+    [Const] LanguageDefinitionId GetLanguageDefinition();
+    [Const, Value] IDLString GetLanguageDefinitionName();
     void SetTabSize(long aValue);
     [Const] long GetTabSize();
+    void SetLineSpacing(float aValue);
+    [Const] float GetLineSpacing();
 
-    void InsertText([Const] DOMString aValue);
+    void SetDefaultPalette(PaletteId aValue);
+    PaletteId GetDefaultPalette();
 
-    void MoveUp(optional long aAmount, optional boolean aSelect);
-    void MoveDown(optional long aAmount, optional boolean aSelect);
-    void MoveLeft(optional long aAmount, optional boolean aSelect, optional boolean aWordMode);
-    void MoveRight(optional long aAmount, optional boolean aSelect, optional boolean aWordMode);
-    void MoveTop(optional boolean aSelect);
-    void MoveBottom(optional boolean aSelect);
-    void MoveHome(optional boolean aSelect);
-    void MoveEnd(optional boolean aSelect);
-
-    void SetSelectionStart([Const, Ref] Coordinates aPosition);
-    void SetSelectionEnd([Const, Ref] Coordinates aPosition);
-    void SetSelection([Const, Ref] Coordinates aStart, [Const, Ref] Coordinates aEnd, optional SelectionMode aMode);
-
-    void SelectWordUnderCursor();
     void SelectAll();
-    [Const] boolean HasSelection();
+    void SelectLine(long aLine);
+    void SelectRegion(long aStartLine, long aStartChar, long aEndLine, long aEndChar);
+    void SelectNextOccurrenceOf([Const] DOMString aText, long aTextSize, optional boolean aCaseSensitive);
+    void SelectAllOccurrencesOf([Const] DOMString aText, long aTextSize, optional boolean aCaseSensitive);
+    [Const] boolean AnyCursorHasSelection();
+    [Const] boolean AllCursorsHaveSelection();
+    void ClearExtraCursors();
+    void ClearSelections();
+    void SetCursorPosition(long aLine, long aCharIndex);
+    [Const] void GetCursorPosition(long[] outLine, long[] outColumn);
+
+    long GetFirstVisibleLine();
+    long GetLastVisibleLine();
+    void SetViewAtLine(long aLine, SetViewAtLineMode aMode);
 
     void Copy();
     void Cut();
     void Paste();
-    void Delete();
-
-    [Const] boolean CanUndo();
-    [Const] boolean CanRedo();
     void Undo(optional long aSteps);
     void Redo(optional long aSteps);
+    [Const] boolean CanUndo();
+    [Const] boolean CanRedo();
+    [Const] long GetUndoIndex();
+
+    void Render([Const] DOMString aTitle, optional boolean aParentIsFocused, [Const, Ref] optional ImVec2 aSize, optional boolean aBorder);
+    void SetText([Const, Ref] IDLString aText);
 };
 
-[Prefix = "TextEditor::"]
-interface LanguageDefinition {
-    [Value] attribute IDLString mName;
-
-    [Const, Ref] static LanguageDefinition Lua();
+enum PaletteId {
+    "PaletteId::Dark",
+    "PaletteId::Light",
+    "PaletteId::Mariana",
+    "PaletteId::RetroBlue"
 };
 
-[Prefix = "TextEditor::"]
-interface Coordinates {
-    attribute long mLine;
-    attribute long mColumn;
+enum LanguageDefinitionId {
+    "LanguageDefinitionId::None",
+    "LanguageDefinitionId::Cpp",
+    "LanguageDefinitionId::C",
+    "LanguageDefinitionId::Cs",
+    "LanguageDefinitionId::Python",
+    "LanguageDefinitionId::Lua",
+    "LanguageDefinitionId::Json",
+    "LanguageDefinitionId::Sql",
+    "LanguageDefinitionId::AngelScript",
+    "LanguageDefinitionId::Glsl",
+    "LanguageDefinitionId::Hlsl"
 };
 
-[Prefix = "TextEditor::"]
-interface Breakpoint {
-};
-
-[Prefix = "TextEditor::"]
-interface Identifier {
-};
-
-interface CustomTextEdit {
-};
-
-enum PaletteIndex {
-    "PaletteIndex::Default",
-    "PaletteIndex::Keyword",
-    "PaletteIndex::Number",
-    "PaletteIndex::String",
-    "PaletteIndex::CharLiteral",
-    "PaletteIndex::Punctuation",
-    "PaletteIndex::Preprocessor",
-    "PaletteIndex::Identifier",
-    "PaletteIndex::KnownIdentifier",
-    "PaletteIndex::PreprocIdentifier",
-    "PaletteIndex::Comment",
-    "PaletteIndex::MultiLineComment",
-    "PaletteIndex::Background",
-    "PaletteIndex::Cursor",
-    "PaletteIndex::Selection",
-    "PaletteIndex::ErrorMarker",
-    "PaletteIndex::Breakpoint",
-    "PaletteIndex::LineNumber",
-    "PaletteIndex::CurrentLineFill",
-    "PaletteIndex::CurrentLineFillInactive",
-    "PaletteIndex::CurrentLineEdge",
-    "PaletteIndex::Max"
-};
-
-enum SelectionMode {
-    "SelectionMode::Normal",
-    "SelectionMode::Word",
-    "SelectionMode::Line"
+enum SetViewAtLineMode {
+    "SetViewAtLineMode::FirstVisibleLine",
+    "SetViewAtLineMode::Centered",
+    "SetViewAtLineMode::LastVisibleLine"
 };

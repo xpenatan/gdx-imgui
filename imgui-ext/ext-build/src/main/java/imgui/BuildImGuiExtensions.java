@@ -81,6 +81,7 @@ public class BuildImGuiExtensions {
             // ImGuiColorTextEdit extension
             String textEditCPPPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/c++";
             glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
+            glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/vendor/regex/include");
             glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/jniglue");
             glueTarget.linkerFlags.add(textEditCPPPath + "/libs/windows/textedit64.a");
             glueTarget.headerDirs.add("-include" + textEditCPPPath + "/src/jniglue/JNIGlue.h");
@@ -125,6 +126,7 @@ public class BuildImGuiExtensions {
             String texteditIdlPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/src/main/cpp/ColorTextEdit.idl";
             IDLReader.addIDL(idlReaderCombined, texteditIdlPath);
             linkTarget.headerDirs.add("-I" + texteditCppPath + "/src/textedit");
+            linkTarget.headerDirs.add("-I" + texteditCppPath + "/src/textedit/vendor/regex/include");
             linkTarget.headerDirs.add("-include" + texteditCppPath + "/src/textedit/TextEditCustom.h");
             linkTarget.linkerFlags.add(texteditCppPath + "/libs/emscripten/textedit.a");
         }
@@ -167,6 +169,7 @@ public class BuildImGuiExtensions {
             // ImGuiColorTextEdit extension
             String textEditCPPPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/c++";
             glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
+            glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/vendor/regex/include");
             glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/jniglue");
             glueTarget.linkerFlags.add(textEditCPPPath + "/libs/linux/libtextedit64.a");
             glueTarget.headerDirs.add("-include" + textEditCPPPath + "/src/jniglue/JNIGlue.h");
@@ -209,6 +212,7 @@ public class BuildImGuiExtensions {
             // ImGuiColorTextEdit extension
             String textEditCPPPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/c++";
             macGlueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
+            macGlueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/vendor/regex/include");
             macGlueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/jniglue");
             macGlueTarget.linkerFlags.add(textEditCPPPath + "/libs/mac/libtextedit64.a");
             macGlueTarget.headerDirs.add("-include" + textEditCPPPath + "/src/jniglue/JNIGlue.h");
@@ -245,6 +249,7 @@ public class BuildImGuiExtensions {
             // ImGuiColorTextEdit extension
             String textEditCPPPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/c++";
             macArmGlueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
+            macArmGlueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/vendor/regex/include");
             macArmGlueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/jniglue");
             macArmGlueTarget.linkerFlags.add(textEditCPPPath + "/libs/mac/arm/libtextedit64.a");
             macArmGlueTarget.headerDirs.add("-include" + textEditCPPPath + "/src/jniglue/JNIGlue.h");

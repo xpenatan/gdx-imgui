@@ -101,6 +101,12 @@ public class BuildTextEdit {
         windowsTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
         windowsTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
         windowsTarget.cppInclude.add(textEditCPPPath + "/**/textedit/*.cpp");
+
+        // Boost regex
+        windowsTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/vendor/regex/include");
+        windowsTarget.headerDirs.add("-includecmath");
+        windowsTarget.cppInclude.add(textEditCPPPath + "/**/textedit/vendor/regex/src/*.cpp");
+
         multiTarget.add(windowsTarget);
 
         return multiTarget;
@@ -118,6 +124,11 @@ public class BuildTextEdit {
         libTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui");
         libTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit");
         libTarget.cppInclude.add(textEditCPPPath + "/src/textedit/*.cpp");
+
+        // Boost regex
+        libTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/vendor/regex/include");
+        libTarget.cppInclude.add(textEditCPPPath + "/**/textedit/vendor/regex/src/*.cpp");
+
         multiTarget.add(libTarget);
 
         return multiTarget;
@@ -133,6 +144,12 @@ public class BuildTextEdit {
         linuxTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
         linuxTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
         linuxTarget.cppInclude.add(textEditCPPPath + "/**/textedit/*.cpp");
+
+        // Boost regex
+        linuxTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/vendor/regex/include");
+        linuxTarget.headerDirs.add("-includecmath");
+        linuxTarget.cppInclude.add(textEditCPPPath + "/**/textedit/vendor/regex/src/*.cpp");
+
         multiTarget.add(linuxTarget);
 
         return multiTarget;
@@ -148,6 +165,12 @@ public class BuildTextEdit {
         macTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
         macTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
         macTarget.cppInclude.add(textEditCPPPath + "/**/textedit/*.cpp");
+
+        // Boost regex
+        macTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/vendor/regex/include");
+        macTarget.headerDirs.add("-includecmath");
+        macTarget.cppInclude.add(textEditCPPPath + "/**/textedit/vendor/regex/src/*.cpp");
+
         multiTarget.add(macTarget);
 
         MacTarget macArmTarget = new MacTarget(true);
@@ -155,6 +178,12 @@ public class BuildTextEdit {
         macArmTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
         macArmTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
         macArmTarget.cppInclude.add(textEditCPPPath + "/**/textedit/*.cpp");
+
+        // Boost regex
+        macArmTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/vendor/regex/include");
+        macArmTarget.headerDirs.add("-includecmath");
+        macArmTarget.cppInclude.add(textEditCPPPath + "/**/textedit/vendor/regex/src/*.cpp");
+
         multiTarget.add(macArmTarget);
 
         return multiTarget;
