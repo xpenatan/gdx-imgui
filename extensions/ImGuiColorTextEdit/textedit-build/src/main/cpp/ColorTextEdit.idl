@@ -53,8 +53,14 @@ interface TextEditor {
     [Const] boolean CanRedo();
     [Const] long GetUndoIndex();
 
-    void Render([Const] DOMString aTitle, optional boolean aParentIsFocused, [Const, Ref] optional ImVec2 aSize, optional boolean aBorder);
+
     void SetText([Const, Ref] IDLString aText);
+    [Const, Value] IDLString GetText();
+
+//    void SetTextLines(const std::vector<std::string>& aLines) { ed.SetTextLines(aLines); }
+//    [Const, Value] std::vector<std::string> GetTextLines() const { return ed.GetTextLines(); }
+
+    void Render([Const] DOMString aTitle, optional boolean aParentIsFocused, [Const, Ref] optional ImVec2 aSize, optional boolean aBorder);
 };
 
 enum PaletteId {

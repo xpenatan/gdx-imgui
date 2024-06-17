@@ -70,6 +70,9 @@ public:
     int GetUndoIndex() const { return ed.GetUndoIndex(); }
 
     void SetText(const std::string& aText) { ed.SetText(aText); }
+    std::string GetText() const { return ed.GetText(); }
+
+    void SetTextLines(const std::vector<std::string>& aLines) { ed.SetTextLines(aLines); }
     std::vector<std::string> GetTextLines() const { return ed.GetTextLines(); }
 
     bool Render(const char* aTitle, bool aParentIsFocused = false, const ImVec2& aSize = ImVec2(), bool aBorder = false) {
