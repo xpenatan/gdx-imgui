@@ -1,8 +1,6 @@
 package imgui.gdx;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.LifecycleListener;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.VertexAttribute;
@@ -86,25 +84,13 @@ public class ImGuiGdxImpl {
             boolean exists = imgui.exists();
             if(exists) {
                 String iniData = imgui.readString();
+
+                System.out.println("iniData: \n" + iniData);
                 if(!iniData.isEmpty()) {
                     ImGui.LoadIniSettingsFromMemory(iniData);
                 }
             }
         }
-
-        Gdx.app.addLifecycleListener(new LifecycleListener() {
-            @Override
-            public void pause() {
-                saveImGuiData();
-            }
-            @Override
-            public void resume() {
-            }
-
-            @Override
-            public void dispose() {
-            }
-        });
     }
 
     private void prepareFont() {
