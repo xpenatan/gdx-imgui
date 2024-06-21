@@ -84,8 +84,6 @@ public class ImGuiGdxImpl {
             boolean exists = imgui.exists();
             if(exists) {
                 String iniData = imgui.readString();
-
-                System.out.println("iniData: \n" + iniData);
                 if(!iniData.isEmpty()) {
                     ImGui.LoadIniSettingsFromMemory(iniData);
                 }
