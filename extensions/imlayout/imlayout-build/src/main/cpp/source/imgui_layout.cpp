@@ -1,6 +1,7 @@
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "imgui_layout.h"
+#include <iostream>
 
 // ##################################  ImGuiLayout  ###############################################
 
@@ -1031,28 +1032,6 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
     ImGui::ItemAdd(bbArrow, arrowButtonId);
     ImGui::SameLine(0, 0);
 
-    if (!isLeaf) {
-        ImLayout::BeginAlign("arrow", ImLayout::WRAP_PARENT, height, 0.0, 0.0, 0.5);
-        {
-            int dir = isOpen == 1 ? ImGuiDir_Down : ImGuiDir_Right;
-            if (ImGui::ButtonBehavior(bbArrow, arrowButtonId, NULL, NULL)) {
-                isOpen = isOpen == 1 ? 0 : 1;
-            }
-            float fontSize = ImGui::GetFont()->FontSize;
-            int arrowColor = IM_COL32(255, 255, 255, 255);
-            ImVec2 size = bbArrow.GetSize();
-            float sizeX = size.x;
-            float sizeY = size.y;
-            float iconPosX = minX;
-            float iconPosY = minY;
-            iconPosX = iconPosX + (sizeX - fontSize) * 0.5f;
-            iconPosY = iconPosY + (sizeY - fontSize) * 0.5f;
-            ImGui::RenderArrow(ImGui::GetWindowDrawList(), ImVec2(iconPosX, iconPosY), arrowColor, dir);
-        }
-        ImLayout::EndAlign();
-        ImGui::SameLine(0, 0);
-    }
-
     int layoutId = ImGui::GetID("FullLayout");
     float scrollOffsetH = ImGui::GetScrollX();
     ImVec2 clipRectMin = ImVec2(windowX, windowY);
@@ -1087,11 +1066,18 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
             ImGui::GetWindowDrawList()->AddRectFilled(fullLayout.Min, fullLayout.Max, selectedColor);
         }
     }
+
+    // Selected and hover logic
+    ImGui::ItemAdd(bbArrow, arrowButtonId);
+    bool isArrowHovered = ImGui::ItemHoverable(bbArrow, arrowButtonId, ImGuiItemFlags_None);
+    bool arrowClicked = ImGui::IsItemClicked();
+
     {
-        // Selected and hover logic
+
         ImGui::ItemAdd(fullLayout, layoutId);
-        bool isHovered = ImGui::ItemHoverable(fullLayout, layoutId, ImGuiItemFlags_AllowOverlap);
-        if (isHovered) {
+        bool isLayoutHovered = ImGui::ItemHoverable(fullLayout, layoutId, ImGuiItemFlags_None);
+
+        if (isLayoutHovered || isArrowHovered) {
             ImVec4 color = style.Colors[ImGuiCol_HeaderHovered];
             float r = color.x;
             float g = color.y;
@@ -1100,6 +1086,30 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
             int hoveredColor = IM_COL32((int)(255 * r), (int)(255 * g), (int)(255 * b), (int)(255 * a));
             ImGui::GetWindowDrawList()->AddRectFilled(fullLayout.Min, fullLayout.Max, hoveredColor);
         }
+    }
+
+
+    if (!isLeaf) {
+        ImLayout::BeginAlign("arrow", ImLayout::WRAP_PARENT, height, 0.0, 0.0, 0.5);
+        {
+            int dir = isOpen == 1 ? ImGuiDir_Down : ImGuiDir_Right;
+           // if (ImGui::ButtonBehavior(bbArrow, arrowButtonId, NULL, NULL, ImGuiButtonFlags_AllowOverlap | ImGuiButtonFlags_PressedOnClickRelease)) {
+            if (arrowClicked) {
+                isOpen = isOpen == 1 ? 0 : 1;
+            }
+            float fontSize = ImGui::GetFont()->FontSize;
+            int arrowColor = IM_COL32(255, 255, 255, 255);
+            ImVec2 size = bbArrow.GetSize();
+            float sizeX = size.x;
+            float sizeY = size.y;
+            float iconPosX = minX;
+            float iconPosY = minY;
+            iconPosX = iconPosX + (sizeX - fontSize) * 0.5f;
+            iconPosY = iconPosY + (sizeY - fontSize) * 0.5f;
+            ImGui::RenderArrow(ImGui::GetWindowDrawList(), ImVec2(iconPosX, iconPosY), arrowColor, dir);
+        }
+        ImLayout::EndAlign();
+        ImGui::SameLine(0, 0);
     }
 
     storage->SetBool(isOpenId, isOpen == 1);

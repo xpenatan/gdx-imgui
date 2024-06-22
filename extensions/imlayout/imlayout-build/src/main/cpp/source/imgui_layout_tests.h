@@ -968,7 +968,7 @@ namespace ImGuiExt
 
 			float height = 10;
 			ImLayout::BeginTree("RootId");
-			ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), false, false);
+			ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), false, true);
 			ImLayout::SetOrientation(ImOrientation::HORIZONTAL);
 			ImLayout::BeginAlign("111", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 0.0, 0.5);
 			ImGui::Text("Root");
