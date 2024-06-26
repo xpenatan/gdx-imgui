@@ -67,7 +67,7 @@ public class ImDrawList extends IDLBase {
 
     public ImDrawCmd getCmdBuffer(int index) {
         long pointer = getCmdBufferNATIVE(getCPointer(), index);
-        imDrawCmd.setPointer(pointer);
+        imDrawCmd.setCPointer(pointer);
         return imDrawCmd;
     }
 

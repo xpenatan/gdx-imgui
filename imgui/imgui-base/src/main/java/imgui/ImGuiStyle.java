@@ -40,7 +40,7 @@ public class ImGuiStyle extends IDLBase {
      * Return a temp ImVec4 object. Don't keep reference.
      */
     public ImVec4 Colors(int index) {
-        tmp.setPointer(get_ColorsNATIVE(getCPointer(), index));
+        tmp.setCPointer(get_ColorsNATIVE(getCPointer(), index));
         return tmp;
     }
 

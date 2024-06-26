@@ -258,4 +258,20 @@ public class ImGuiIO extends IDLBase {
         io->AddMouseWheelEvent(xOffset, yOffset);
     */
     private static native void AddMouseWheelEventNATIVE(long addr, float xOffset, float yOffset);
+
+    public void SetClipboardTextFunction(ClipboardTextFunction function) {
+        setClipboardTextFunctionNATIVE(getCPointer(), function.getCPointer());
+    }
+
+    /*[-teaVM;-NATIVE]
+        var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
+        var clipboardFunction = [MODULE].wrapPointer(function_addr, [MODULE].ClipboardTextFunction);
+        [MODULE].ImHelper.prototype.setClipboardTextFunction(io, clipboardFunction);
+    */
+    /*[-C++;-NATIVE]
+        ImGuiIO* io = (ImGuiIO*)addr;
+        ClipboardTextFunction* clipboardFunction = (ClipboardTextFunction*)function_addr;
+        ImHelper::setClipboardTextFunction(io, clipboardFunction);
+    */
+    private static native void setClipboardTextFunctionNATIVE(long addr, long function_addr);
 }

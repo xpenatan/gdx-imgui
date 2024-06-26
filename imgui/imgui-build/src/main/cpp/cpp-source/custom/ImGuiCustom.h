@@ -9,6 +9,8 @@
 #include <stdint.h>     // intptr_t
 #endif
 #include <string>
+#include <cstdint>
+#include <iostream>
 
 typedef ImVector<ImDrawCmd> VecCmdBuffer;
 typedef ImVector<ImDrawIdx> VecIdxBuffer;
@@ -586,8 +588,40 @@ class ImGui {
 };
 }
 
+class ClipboardTextFunction
+{
+    public:
+        virtual ~ClipboardTextFunction() {
+        }
+
+        virtual void onGetClipboardText(std::string* strOut) = 0;
+        virtual void onSetClipboardText(std::string* text) = 0;
+};
+
+static const char* ImGui_Impl_GetClipboardText(void* user_data) {
+    auto addr = reinterpret_cast<std::uintptr_t>(user_data);
+    ClipboardTextFunction* clipboardFunction = reinterpret_cast<ClipboardTextFunction*>(addr);
+    std::string str;
+    clipboardFunction->onGetClipboardText(&str);
+    return str.c_str();
+}
+
+static void ImGui_Impl_SetClipboardText(void* user_data, const char* text) {
+    auto addr = reinterpret_cast<std::uintptr_t>(user_data);
+    ClipboardTextFunction* clipboardFunction = reinterpret_cast<ClipboardTextFunction*>(addr);
+    std::string str = text;
+    clipboardFunction->onSetClipboardText(&str);
+}
+
 class ImHelper {
     public:
+        static void setClipboardTextFunction(ImGuiIO * io, ClipboardTextFunction * clipboardFunction) {
+            auto pointer = reinterpret_cast<std::uintptr_t>(clipboardFunction);
+            io->ClipboardUserData = (void*)pointer;
+            io->SetClipboardTextFn = &ImGui_Impl_SetClipboardText;
+            io->GetClipboardTextFn = &ImGui_Impl_GetClipboardText;
+        }
+
         static void memcpyIdx(intptr_t destination, ImDrawList * drawList, int num) {
             void * dest = (void*)destination;
             memcpy(dest, drawList->IdxBuffer.Data, num);

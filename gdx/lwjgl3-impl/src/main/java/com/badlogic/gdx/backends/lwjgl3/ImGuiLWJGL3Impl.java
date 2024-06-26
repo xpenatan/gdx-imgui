@@ -135,7 +135,7 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
     @Override
     public void CreateWindow(long viewportAddr) {
         ImGuiViewport viewport = ImGuiViewport.TMP_EMPTY;
-        ImGuiViewport.TMP_EMPTY.setPointer(viewportAddr);
+        ImGuiViewport.TMP_EMPTY.setCSPointer(viewportAddr);
         nextUserData++;
         viewport.setPlatformUserData(nextUserData);
 
@@ -229,7 +229,7 @@ public class ImGuiLWJGL3Impl extends ImGuiGdxImpl implements ImGuiPlatformListen
     @Override
     public void RendererRenderWindow(long viewportAddr) {
         ImGuiViewport viewport = ImGuiViewport.TMP_EMPTY;
-        viewport.setPointer(viewportAddr);
+        viewport.setCPointer(viewportAddr);
     }
 
     @Override

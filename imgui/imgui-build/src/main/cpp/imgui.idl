@@ -585,6 +585,7 @@ interface ImGuiInputTextCallbackData {
 };
 
 interface ImHelper {
+    void setClipboardTextFunction(ImGuiIO io, ClipboardTextFunction clipboardFunction);
     void memcpyIdx(long destination, ImDrawList drawList, long num);
     void memcpyVtx(long destination, ImDrawList drawList, long num);
     void memcpyFont(ImGuiIO io, long pixelBuffer, long[] widthData, long[] heightData, long[] bytesPerPixel);
@@ -1022,6 +1023,19 @@ interface ImGuiShrinkWidthItem {
     attribute float Width;
     attribute float InitialWidth;
 };
+
+interface ClipboardTextFunction {
+    void onGetClipboardText(IDLString strOut);
+    void onSetClipboardText(IDLString text);
+};
+
+[JSImplementation="ClipboardTextFunction"]
+interface ClipboardTextFunctionImpl {
+    void ClipboardTextFunctionImpl();
+    void onGetClipboardText(IDLString strOut);
+    void onSetClipboardText(IDLString text);
+};
+
 
 enum ImGuiFocusedFlags {
     "ImGuiFocusedFlags_None",

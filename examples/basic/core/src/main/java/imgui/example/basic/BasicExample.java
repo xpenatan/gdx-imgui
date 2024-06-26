@@ -3,6 +3,7 @@ package imgui.example.basic;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import imgui.ClipboardTextFunction;
 import imgui.example.basic.renderer.ModalRenderer;
 import imgui.example.basic.renderer.PlotRenderer;
 import imgui.example.basic.renderer.TableRenderer;
@@ -21,6 +22,7 @@ import imgui.ImGuiViewport;
 import imgui.ImVec2;
 import imgui.ImVec4;
 import imgui.idl.helper.IDLInt;
+import imgui.idl.helper.IDLString;
 import static imgui.ImGuiCol.ImGuiCol_Header;
 import static imgui.ImGuiDir.ImGuiDir_Down;
 import static imgui.ImGuiDir.ImGuiDir_Left;
@@ -72,6 +74,20 @@ public class BasicExample extends ImGuiRenderer {
         System.out.println("Color before: R: " + colors.x() + " G: " + colors.y() + " B: " + colors.z() + " A: " + colors.w());
         style.Colors(ImGuiCol_Header, 255, 0, 0, 255);
         System.out.println("Color adter: R: " + colors.x() + " G: " + colors.y() + " B: " + colors.z() + " A: " + colors.w());
+
+        ImGui.GetIO().SetClipboardTextFunction(new ClipboardTextFunction() {
+            @Override
+            public void onGetClipboardText(IDLString strOut) {
+
+                System.out.println("onGetClipboardText: " + strOut.c_str());
+            }
+
+            @Override
+            public void onSetClipboardText(IDLString text) {
+
+                System.out.println("onSetClipboardText: " + text.c_str());
+            }
+        });
     }
 
     @Override
