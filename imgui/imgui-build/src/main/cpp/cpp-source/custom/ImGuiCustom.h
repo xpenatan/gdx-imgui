@@ -591,6 +591,7 @@ class ImGui {
 class ClipboardTextFunction
 {
     public:
+        std::string text;
         virtual ~ClipboardTextFunction() {
         }
 
@@ -601,7 +602,8 @@ class ClipboardTextFunction
 static const char* ImGui_Impl_GetClipboardText(void* user_data) {
     auto addr = reinterpret_cast<std::uintptr_t>(user_data);
     ClipboardTextFunction* clipboardFunction = reinterpret_cast<ClipboardTextFunction*>(addr);
-    std::string str;
+    std::string& str = clipboardFunction->text;
+    str.clear();
     clipboardFunction->onGetClipboardText(&str);
     return str.c_str();
 }
@@ -609,7 +611,8 @@ static const char* ImGui_Impl_GetClipboardText(void* user_data) {
 static void ImGui_Impl_SetClipboardText(void* user_data, const char* text) {
     auto addr = reinterpret_cast<std::uintptr_t>(user_data);
     ClipboardTextFunction* clipboardFunction = reinterpret_cast<ClipboardTextFunction*>(addr);
-    std::string str = text;
+    std::string& str = clipboardFunction->text;
+    str = text;
     clipboardFunction->onSetClipboardText(&str);
 }
 

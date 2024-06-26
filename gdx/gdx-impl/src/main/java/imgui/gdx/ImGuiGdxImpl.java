@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.GLVersion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.BufferUtils;
+import imgui.ClipboardTextFunction;
 import imgui.ImDrawCmd;
 import imgui.ImDrawData;
 import imgui.ImDrawList;
@@ -89,6 +90,20 @@ public class ImGuiGdxImpl {
                 }
             }
         }
+
+        ImGui.GetIO().SetClipboardTextFunction(new ClipboardTextFunction() {
+            @Override
+            public void onGetClipboardText(IDLString strOut) {
+                String contents = Gdx.app.getClipboard().getContents();
+                strOut.append(contents);
+            }
+
+            @Override
+            public void onSetClipboardText(IDLString text) {
+                String contents = text.c_str();
+                Gdx.app.getClipboard().setContents(contents);
+            }
+        });
     }
 
     private void prepareFont() {
