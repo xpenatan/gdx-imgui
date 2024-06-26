@@ -101,7 +101,7 @@ jobs:
 
   build_Mac:
     name: Build Mac OS
-    runs-on: macos-11
+    runs-on: macos-latest
     needs: build_Linux
 
     steps:
