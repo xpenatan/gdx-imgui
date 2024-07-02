@@ -300,31 +300,31 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: windows-natives
-          path: ./example/lib/lib-build/build/c++/libs/
+          path: ./imgui/imgui-build/build/c++/libs/
 
       - name: Download linux natives
         uses: actions/download-artifact@v4
         with:
           name: linux-natives
-          path: ./example/lib/lib-build/build/c++/libs/
+          path: ./imgui/imgui-build/build/c++/libs/
 
       - name: Download mac natives
         uses: actions/download-artifact@v4
         with:
           name: mac-natives
-          path: ./example/lib/lib-build/build/c++/libs/
+          path: ./imgui/imgui-build/build/c++/libs/
 
       - name: Download android natives
         uses: actions/download-artifact@v4
         with:
           name: android-natives
-          path: ./example/lib/lib-build/build/c++/libs/
+          path: ./imgui/imgui-build/build/c++/libs/
 
       - name: Download teavm natives
         uses: actions/download-artifact@v4
         with:
           name: teavm-natives
-          path: ./example/lib/lib-build/build/c++/libs/
+          path: ./imgui/imgui-build/build/c++/libs/
 
       - name: Generate ImGui classes
         run: ./gradlew :imgui:imgui-build:build_project
