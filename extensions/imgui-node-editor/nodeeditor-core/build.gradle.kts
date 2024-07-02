@@ -1,9 +1,10 @@
-val genPath = File("$projectDir/../nodeeditor-cpp/src/main/java")
-println("Path " + genPath.canonicalPath)
-sourceSets["main"].java {
-    srcDir(genPath)
-}
-
 dependencies {
     implementation(project(":imgui:imgui-core"))
+}
+
+tasks.named("clean") {
+    doFirst {
+        val srcPath = "$projectDir/src/main/java"
+        project.delete(files(srcPath))
+    }
 }

@@ -11,18 +11,12 @@ dependencies {
     implementation(project(":imgui:imgui-core"))
     implementation("com.github.xpenatan.jParser:jParser-core:${LibExt.jParserVersion}")
     implementation("com.github.xpenatan.jParser:jParser-build:${LibExt.jParserVersion}")
+    implementation("com.github.xpenatan.jParser:jParser-build-tool:${LibExt.jParserVersion}")
     implementation("com.github.xpenatan.jParser:jParser-teavm:${LibExt.jParserVersion}")
     implementation("com.github.xpenatan.jParser:jParser-cpp:${LibExt.jParserVersion}")
     implementation("com.github.xpenatan.jParser:jParser-idl:${LibExt.jParserVersion}")
 }
 
-tasks.register<JavaExec>("build_project") {
-    dependsOn("classes")
-    group = "textedit"
-    description = "Generate and build native project"
-    mainClass.set(mainClassName)
-    classpath = sourceSets["main"].runtimeClasspath
-}
 val buildDir = layout.buildDirectory.get().asFile
 val zippedPath = "${buildDir}/text-edit.zip"
 val sourcePath = "${buildDir}/text-edit/"
@@ -48,7 +42,6 @@ tasks.register<Download>("download_textedit_source") {
     }
 }
 
-
 tasks.register<Download>("download_vendor_source") {
     group = "textedit"
     description = "Download source"
@@ -73,4 +66,76 @@ tasks.register("download_source") {
     dependsOn(list)
 
     tasks.findByName("download_vendor_source")?.mustRunAfter("download_textedit_source")
+}
+
+tasks.register<JavaExec>("build_project") {
+    group = "textedit"
+    description = "Generate native project"
+    mainClass.set(mainClassName)
+    args = mutableListOf()
+    classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<JavaExec>("build_project_all") {
+    group = "textedit"
+    description = "Generate native project"
+    mainClass.set(mainClassName)
+    args = mutableListOf("teavm", "windows64", "linux64", "mac64", "macArm", "android", "ios")
+    classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<JavaExec>("build_project_teavm") {
+    group = "textedit"
+    description = "Generate native project"
+    mainClass.set(mainClassName)
+    args = mutableListOf("teavm")
+    classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<JavaExec>("build_project_windows64") {
+    group = "textedit"
+    description = "Generate native project"
+    mainClass.set(mainClassName)
+    args = mutableListOf("windows64")
+    classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<JavaExec>("build_project_linux64") {
+    group = "textedit"
+    description = "Generate native project"
+    mainClass.set(mainClassName)
+    args = mutableListOf("linux64")
+    classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<JavaExec>("build_project_mac64") {
+    group = "textedit"
+    description = "Generate native project"
+    mainClass.set(mainClassName)
+    args = mutableListOf("mac64")
+    classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<JavaExec>("build_project_macArm") {
+    group = "textedit"
+    description = "Generate native project"
+    mainClass.set(mainClassName)
+    args = mutableListOf("macArm")
+    classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<JavaExec>("build_project_android") {
+    group = "textedit"
+    description = "Generate native project"
+    mainClass.set(mainClassName)
+    args = mutableListOf("android")
+    classpath = sourceSets["main"].runtimeClasspath
+}
+
+tasks.register<JavaExec>("build_project_ios") {
+    group = "textedit"
+    description = "Generate native project"
+    mainClass.set(mainClassName)
+    args = mutableListOf("ios")
+    classpath = sourceSets["main"].runtimeClasspath
 }
