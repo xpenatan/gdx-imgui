@@ -1,6 +1,5 @@
 import com.github.xpenatan.jparser.builder.BuildConfig;
 import com.github.xpenatan.jparser.builder.BuildMultiTarget;
-import com.github.xpenatan.jparser.builder.BuildTarget;
 import com.github.xpenatan.jparser.builder.JBuilder;
 import com.github.xpenatan.jparser.builder.targets.AndroidTarget;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
@@ -55,28 +54,6 @@ public class BuildImGui {
 //                }
             }
         });
-
-
-
-//        String imguiPath = new File("./../").getCanonicalPath().replace("\\", "/");
-//
-//        String idlPath = new File("src/main/cpp/imgui.idl").getCanonicalPath();
-//        IDLReader idlReader = IDLReader.readIDL(idlPath);
-//        ArrayList<BuildMultiTarget> targets = new ArrayList<>();
-//
-//        if(BuildTarget.isWindows() || BuildTarget.isUnix()) {
-//            targets.add(getEmscriptenBuildTarget(imguiPath, idlReader));
-//            targets.add(getWindowBuildTarget(imguiPath));
-//            targets.add(getAndroidBuildTarget(imguiPath));
-//        }
-//        if(BuildTarget.isUnix()) {
-//            targets.add(getLinuxBuildTarget(imguiPath));
-//        }
-//        if(BuildTarget.isMac()) {
-//            targets.add(getMacBuildTarget(imguiPath));
-//        }
-//
-//        generateAndBuild(imguiPath, idlReader, targets, true);
     }
 
     public static void generateAndBuild(String imguiPath, IDLReader idlReader, ArrayList<BuildMultiTarget> targets, boolean generate) throws Exception {
