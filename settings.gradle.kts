@@ -74,6 +74,7 @@ include(":examples:imgui-node-editor:teavm")
 //    dependencySubstitution {
 //        substitute(module("com.github.xpenatan.jParser:jParser-base")).using(project(":jParser:base"))
 //        substitute(module("com.github.xpenatan.jParser:jParser-build")).using(project(":jParser:builder"))
+//        substitute(module("com.github.xpenatan.jParser:jParser-build-tool")).using(project(":jParser:builder-tool"))
 //        substitute(module("com.github.xpenatan.jParser:jParser-core")).using(project(":jParser:core"))
 //        substitute(module("com.github.xpenatan.jParser:jParser-cpp")).using(project(":jParser:cpp"))
 //        substitute(module("com.github.xpenatan.jParser:jParser-idl")).using(project(":jParser:idl"))
