@@ -22,13 +22,11 @@ It's meant to be small and 1-1 to C++. ImGui::Begin() is ImGui.Begin() and so on
 
 | Emscripten | Windows | Linux | Mac | Android | iOS |
 |:----------:|:-------:|:-----:|:---:|:-------:|:---:|
-|     ✅      | ✅ | ✅ | ✅¹  | ⚠️ | ❌ |
+|     ✅      | ✅ | ✅ |  ✅  | ⚠️ | ❌ |
 
 * ✅: Have a working build.
 * ⚠️: Have a working build, but it's not ready yet.
 * ❌: Build not ready.
-
-¹ arm build not working
 
 Note: 
 ```
