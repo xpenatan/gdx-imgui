@@ -5,7 +5,7 @@ import imgui.idl.helper.IDLString;
 
 public abstract class LoadSaveSettingsListener extends IDLBase {
 
-        /*[-C++;-NATIVE]
+        /*[-JNI;-NATIVE]
         static jclass loadSaveSettingsListenerClass = 0;
         static jmethodID onLoadID = 0;
         static jmethodID onSaveID = 0;
@@ -31,21 +31,21 @@ public abstract class LoadSaveSettingsListener extends IDLBase {
         };
     */
 
-    /*[-teaVM;-ADD]
+    /*[-TEAVM;-ADD]
         @org.teavm.jso.JSFunctor
         public interface OnLoad extends org.teavm.jso.JSObject {
             void onLoadJS(int data);
         }
     */
 
-    /*[-teaVM;-ADD]
+    /*[-TEAVM;-ADD]
         @org.teavm.jso.JSFunctor
         public interface OnSave extends org.teavm.jso.JSObject {
             boolean onSaveJS(int data, int reason);
         }
     */
 
-    /*[-teaVM;-REPLACE]
+    /*[-TEAVM;-REPLACE]
         public LoadSaveSettingsListener() {
             OnLoad onLoad = new OnLoad() {
                 @Override
@@ -68,7 +68,7 @@ public abstract class LoadSaveSettingsListener extends IDLBase {
         initNative(addr, true);
     }
 
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         if(loadSaveSettingsListenerClass == 0) {
             loadSaveSettingsListenerClass = (jclass)env->NewGlobalRef(env->GetObjectClass(object));
             onLoadID = env->GetMethodID(loadSaveSettingsListenerClass, "onLoad", "(J)V");
@@ -76,7 +76,7 @@ public abstract class LoadSaveSettingsListener extends IDLBase {
         }
         return (jlong)new LoadSaveSettingsListenerImpl(env, env->NewGlobalRef(object));
     */
-    /*[-teaVM;-REPLACE]
+    /*[-TEAVM;-REPLACE]
         @org.teavm.jso.JSBody(params = { "onLoad", "onSave" }, script = "var jsListener = new [MODULE].LoadSaveSettingsListenerImpl(); jsListener.onLoad = onLoad; jsListener.onSave = onSave; return [MODULE].getPointer(jsListener);")
         private static native int createNative(OnLoad onLoad, OnSave onSave);
     */

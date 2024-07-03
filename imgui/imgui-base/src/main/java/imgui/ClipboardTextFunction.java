@@ -8,7 +8,7 @@ public abstract class ClipboardTextFunction extends IDLBase {
 
     IDLString TMP = new IDLString((byte)0, (char)0);
 
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         static jclass clipboardFunctionClass = 0;
         static jmethodID onGetClipboardTextID = 0;
         static jmethodID onSetClipboardTextID = 0;
@@ -34,21 +34,21 @@ public abstract class ClipboardTextFunction extends IDLBase {
         };
     */
 
-    /*[-teaVM;-ADD]
+    /*[-TEAVM;-ADD]
         @org.teavm.jso.JSFunctor
         public interface OnGetClipboardText extends org.teavm.jso.JSObject {
             void onGetClipboardTextJS(int strOutAddr);
         }
     */
 
-    /*[-teaVM;-ADD]
+    /*[-TEAVM;-ADD]
         @org.teavm.jso.JSFunctor
         public interface OnSetClipboardText extends org.teavm.jso.JSObject {
             void onSetClipboardTextJS(int textAddr);
         }
     */
 
-    /*[-teaVM;-REPLACE]
+    /*[-TEAVM;-REPLACE]
         public ClipboardTextFunction() {
             OnGetClipboardText onGetClipboardText = new OnGetClipboardText() {
                 @Override
@@ -71,7 +71,7 @@ public abstract class ClipboardTextFunction extends IDLBase {
         initNative(addr, true);
     }
 
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         if(clipboardFunctionClass == 0) {
             clipboardFunctionClass = (jclass)env->NewGlobalRef(env->GetObjectClass(object));
             onGetClipboardTextID = env->GetMethodID(clipboardFunctionClass, "onGetClipboardText", "(J)V");
@@ -79,7 +79,7 @@ public abstract class ClipboardTextFunction extends IDLBase {
         }
         return (jlong)new CustomClipboardFunction(env, env->NewGlobalRef(object));
     */
-    /*[-teaVM;-REPLACE]
+    /*[-TEAVM;-REPLACE]
         @org.teavm.jso.JSBody(params = { "onGetClipboardText", "onSetClipboardText" }, script = "var jsFunction = new [MODULE].ClipboardTextFunctionImpl(); jsFunction.onGetClipboardText = onGetClipboardText; jsFunction.onSetClipboardText = onSetClipboardText; return [MODULE].getPointer(jsFunction);")
         private static native int createNative(OnGetClipboardText onGetClipboardText, OnSetClipboardText onSetClipboardText);
     */

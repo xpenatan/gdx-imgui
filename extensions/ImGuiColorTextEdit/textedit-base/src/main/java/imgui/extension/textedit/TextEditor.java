@@ -1,7 +1,7 @@
 package imgui.extension.textedit;
 
 public class TextEditor {
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         #include "TextEditCustom.h"
     */
 }

@@ -18,11 +18,11 @@ public class ImGuiIO extends IDLBase {
         SetConfigFlagsNATIVE(getCPointer(), flags);
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
         io.set_ConfigFlags(flag);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
         io->ConfigFlags = flag;
     */
@@ -32,12 +32,12 @@ public class ImGuiIO extends IDLBase {
 //        return ContainsConfigFlagsNATIVE(getCPointer(), flags.getValue());
 //    }
 //
-//    /*[-teaVM;-NATIVE]
+//    /*[-TEAVM;-NATIVE]
 //        var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
 //        var newFlag = io.get_ConfigFlags() & flag;
 //        return newFlag == flag;
 //    */
-//    /*[-C++;-NATIVE]
+//    /*[-JNI;-NATIVE]
 //        ImGuiIO* io = (ImGuiIO*)addr;
 //        int newFlag = io->ConfigFlags & flag;
 //        return newFlag == flag;
@@ -48,14 +48,14 @@ public class ImGuiIO extends IDLBase {
         SetDockingFlagsNATIVE(getCPointer(), ConfigDockingNoSplit, ConfigDockingWithShift, ConfigDockingAlwaysTabBar, ConfigDockingTransparentPayload);
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
         io.set_ConfigDockingNoSplit(ConfigDockingNoSplit);
         io.set_ConfigDockingWithShift(ConfigDockingWithShift);
         io.set_ConfigDockingAlwaysTabBar(ConfigDockingAlwaysTabBar);
         io.set_ConfigDockingTransparentPayload(ConfigDockingTransparentPayload);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
         io->ConfigDockingNoSplit = ConfigDockingNoSplit;
         io->ConfigDockingWithShift = ConfigDockingWithShift;
@@ -68,11 +68,11 @@ public class ImGuiIO extends IDLBase {
         SetFontGlobalScaleNATIVE(getCPointer(), scale);
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
         io.set_FontGlobalScale(scale);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
         io->FontGlobalScale = scale;
     */
@@ -82,11 +82,11 @@ public class ImGuiIO extends IDLBase {
         return getWantCaptureMouseNATIVE(getCPointer());
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
         return io.get_WantCaptureMouse();
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
         return io->WantCaptureMouse;
     */
@@ -94,7 +94,7 @@ public class ImGuiIO extends IDLBase {
 
     //TODO fix replace. generator not yet cast int on multiple methods.
 
-//    /*[-teaVM;-REPLACE]
+//    /*[-TEAVM;-REPLACE]
 //    public void setIniFilename(String fileName) {
 //        long cPointer1 = getCPointer();
 //        if(fileName == null) {
@@ -113,21 +113,21 @@ public class ImGuiIO extends IDLBase {
 //        }
 //    }
 //
-//    /*[-teaVM;-NATIVE]
+//    /*[-TEAVM;-NATIVE]
 //        var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
 //        [MODULE].ImHelper.prototype.setIniFilename(io, fileName);
 //    */
-//    /*[-C++;-NATIVE]
+//    /*[-JNI;-NATIVE]
 //        ImGuiIO* io = (ImGuiIO*)addr;
 //        io->IniFilename = fileName.data;
 //    */
 //    private static native void setIniFilenameNATIVE(long addr, byte[] fileName);
 //
-//    /*[-teaVM;-NATIVE]
+//    /*[-TEAVM;-NATIVE]
 //        var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
 //        [MODULE].ImHelper.prototype.removeIniFilename(io);
 //    */
-//    /*[-C++;-NATIVE]
+//    /*[-JNI;-NATIVE]
 //        ImGuiIO* io = (ImGuiIO*)addr;
 //        io->IniFilename = NULL;
 //    */
@@ -137,11 +137,11 @@ public class ImGuiIO extends IDLBase {
         return containsIniFilenameNATIVE(getCPointer());
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
         return [MODULE].ImHelper.prototype.containsIniFilename();
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
         return io->IniFilename != NULL;
     */
@@ -151,7 +151,7 @@ public class ImGuiIO extends IDLBase {
         GetTexDataAsRGBA32NATIVE(getCPointer(), pixelBuffer.getCPointer(), outWidth.getCPointer(), outHeight.getCPointer(), outBytesPerPixel.getCPointer());
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var io = [MODULE].wrapPointer(addr, [MODULE].IDLImGuiIO);
         var widthIntArray = [MODULE].wrapPointer(widthAddr, [MODULE].IDLIntArray);
         var heightIntArray = [MODULE].wrapPointer(heightAddr, [MODULE].IDLIntArray);
@@ -163,7 +163,7 @@ public class ImGuiIO extends IDLBase {
         var pixelBufferArr = pixelBufferArray.getPointer();
         [MODULE].ImHelper.prototype.memcpyFont(io, pixelBufferArr, widthArr, heightArr, bytesPerPixelArr);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
         IDLIntArray* widthIntArray = (IDLIntArray*)widthAddr;
         IDLIntArray* heightIntArray = (IDLIntArray*)heightAddr;
@@ -177,11 +177,11 @@ public class ImGuiIO extends IDLBase {
         SetFontTexIDNATIVE(getCPointer(), id);
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
         io.get_Fonts().set_TexID(id);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
         io->Fonts->TexID = (ImTextureID)id;
     */
@@ -191,12 +191,12 @@ public class ImGuiIO extends IDLBase {
         updateKeyTyped(getCPointer(), c);
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
         if (c > 0 && c < 0x10000)
             io.AddInputCharacter(c);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
         if (c > 0 && c < 0x10000)
             io->AddInputCharacter((unsigned short)c);
@@ -207,11 +207,11 @@ public class ImGuiIO extends IDLBase {
         AddKeyEventNATIVE(getCPointer(), imGuiKey, down);
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
         io.AddKeyEvent(imGuiKey, down);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
         io->AddKeyEvent((ImGuiKey)imGuiKey, down);
     */
@@ -221,11 +221,11 @@ public class ImGuiIO extends IDLBase {
         AddMousePosEventNATIVE(getCPointer(), x, y);
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
         io.AddMousePosEvent(x, y);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
         io->AddMousePosEvent(x, y);
     */
@@ -235,11 +235,11 @@ public class ImGuiIO extends IDLBase {
         AddMouseButtonEventNATIVE(getCPointer(), button, down);
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
         io.AddMouseButtonEvent(button, down);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
         io->AddMouseButtonEvent(button, down);
     */
@@ -249,11 +249,11 @@ public class ImGuiIO extends IDLBase {
         AddMouseWheelEventNATIVE(getCPointer(), xOffset, yOffset);
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
         io.AddMouseWheelEvent(xOffset, yOffset);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
         io->AddMouseWheelEvent(xOffset, yOffset);
     */
@@ -263,12 +263,12 @@ public class ImGuiIO extends IDLBase {
         setClipboardTextFunctionNATIVE(getCPointer(), function.getCPointer());
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
         var clipboardFunction = [MODULE].wrapPointer(function_addr, [MODULE].ClipboardTextFunction);
         [MODULE].ImHelper.prototype.setClipboardTextFunction(io, clipboardFunction);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiIO* io = (ImGuiIO*)addr;
         ClipboardTextFunction* clipboardFunction = (ClipboardTextFunction*)function_addr;
         ImHelper::setClipboardTextFunction(io, clipboardFunction);

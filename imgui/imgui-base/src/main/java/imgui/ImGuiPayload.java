@@ -8,11 +8,11 @@ public class ImGuiPayload extends IDLBase {
         return getDataNATIVE(getCPointer());
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImGuiPayload);
         return [MODULE].ImHelper.prototype.getImGuiPayloadData(nativeObject);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiPayload* nativeObject = (ImGuiPayload*)addr;
         return *(const int*)nativeObject->Data;
     */

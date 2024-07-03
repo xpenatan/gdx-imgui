@@ -14,7 +14,7 @@ public class ImGui {
         UpdateDisplayAndInputAndFrameNative(deltaTime, width, height, backBufferWidth, backBufferHeight);
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var io = [MODULE].ImGui.prototype.GetIO();
         io.get_DisplaySize().set_x(width);
         io.get_DisplaySize().set_y(height);
@@ -25,7 +25,7 @@ public class ImGui {
         io.set_DeltaTime(deltaTime);
         [MODULE].ImGui.prototype.NewFrame();
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiIO * io = &ImGui::GetIO();
 
         io->DisplaySize = ImVec2(width, height);
@@ -46,19 +46,19 @@ public class ImGui {
         DestroyContextInternal();
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         [MODULE].ImGui.prototype.CreateContext();
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGui::CreateContext();
         ImGui::GetIO().BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
     */
     private static native void CreateContextInternal();
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         [MODULE].ImGui.prototype.DestroyContext();
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGui::DestroyContext();
     */
     private static native void DestroyContextInternal();

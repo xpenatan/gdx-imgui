@@ -7,7 +7,7 @@ import java.nio.ByteOrder;
 
 public class ImDrawList extends IDLBase {
 
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         static int DRAWLIST_TYPE_DEFAULT = 0;
         static int DRAWLIST_TYPE_BACKGROUND = 1;
         static int DRAWLIST_TYPE_FOREGROUND = 2;
@@ -55,11 +55,11 @@ public class ImDrawList extends IDLBase {
         return getFlagsNATIVE(getCPointer());
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawList);
         return nativeObject.get_Flags();
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImDrawList* nativeObject = (ImDrawList*)addr;
         return nativeObject->Flags;
     */
@@ -71,13 +71,13 @@ public class ImDrawList extends IDLBase {
         return imDrawCmd;
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawList);
         var cmdBuffer = nativeObject.get_CmdBuffer();
         var drawCmd = cmdBuffer.getData(index);
         return [MODULE].getPointer(drawCmd);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImDrawList* nativeObject = (ImDrawList*)addr;
         return (jlong)&nativeObject->CmdBuffer.Data[index];
     */
@@ -87,11 +87,11 @@ public class ImDrawList extends IDLBase {
         return getCmdBufferSizeNATIVE(getCPointer());
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawList);
         return nativeObject.CmdBuffer.size();
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImDrawList* nativeObject = (ImDrawList*)addr;
         return nativeObject->CmdBuffer.size();
     */
@@ -121,24 +121,24 @@ public class ImDrawList extends IDLBase {
         return idxByteBuffer;
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawList);
         var charArray = [MODULE].wrapPointer(bufferAddr, [MODULE].IDLByteArray);
         var charArrayPtr = charArray.getPointer();
         [MODULE].ImHelper.prototype.memcpyIdx(charArrayPtr, nativeObject, bufferCapacity);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImDrawList* nativeObject = (ImDrawList*)addr;
         IDLByteArray* charArray = (IDLByteArray*)bufferAddr;
         ImHelper::memcpyIdx(charArray->getPointer(), nativeObject, bufferCapacity);
     */
     private static native void getIdxBufferDataNATIVE(long addr, long bufferAddr, int bufferCapacity);
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawList);
         return nativeObject.IdxBuffer.size();
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImDrawList* nativeObject = (ImDrawList*)addr;
         return nativeObject->IdxBuffer.size();
     */
@@ -169,24 +169,24 @@ public class ImDrawList extends IDLBase {
         return vtxByteBuffer;
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawList);
         var charArray = [MODULE].wrapPointer(bufferAddr, [MODULE].IDLByteArray);
         var charArrayPtr = charArray.getPointer();
         [MODULE].ImHelper.prototype.memcpyVtx(charArrayPtr, nativeObject, bufferCapacity);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImDrawList* nativeObject = (ImDrawList*)addr;
         IDLByteArray* charArray = (IDLByteArray*)bufferAddr;
         ImHelper::memcpyVtx(charArray->getPointer(), nativeObject, bufferCapacity);
     */
     private static native void getVtxBufferDataNATIVE(long addr, long bufferAddr, int bufferCapacity);
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawList);
         return nativeObject.VtxBuffer.size();
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImDrawList* nativeObject = (ImDrawList*)addr;
         return nativeObject->VtxBuffer.size();
     */

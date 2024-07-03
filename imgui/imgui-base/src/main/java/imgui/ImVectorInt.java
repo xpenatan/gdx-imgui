@@ -8,11 +8,11 @@ public class ImVectorInt extends IDLBase {
         return getDataNATIVE(getCPointer(), index);
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var jsObj = [MODULE].wrapPointer(this_addr, [MODULE].ImVectorInt);
         return jsObj.getData(index);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImVectorInt* nativeObject = (ImVectorInt*)this_addr;
         unsigned int value = nativeObject->Data[index];
         return (jint)value;

@@ -1,7 +1,7 @@
 package imgui.extension.nodeeditor;
 
 public class NodeEditor {
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         #include "NodeEditorCustom.h"
     */
 }

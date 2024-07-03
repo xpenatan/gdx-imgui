@@ -4,7 +4,7 @@ import idl.IDLBase;
 
 public class ImDrawCmd extends IDLBase {
 
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
         #include <stddef.h>     // intptr_t
         #else
@@ -19,12 +19,12 @@ public class ImDrawCmd extends IDLBase {
         return getTextureIdNATIVE(getCPointer());
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawCmd);
         var textureId = [MODULE].ImHelper.prototype.getTextureId(nativeObject);
         return textureId;
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImDrawCmd* nativeObject = (ImDrawCmd*)addr;
         int textureId = ImHelper::getTextureId(nativeObject);
         return textureId;
@@ -35,12 +35,12 @@ public class ImDrawCmd extends IDLBase {
         return getIdxOffsetNATIVE(getCPointer());
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawCmd);
         var jsObj = nativeObject.get_IdxOffset();
         return jsObj;
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImDrawCmd* nativeObject = (ImDrawCmd*)addr;
         return nativeObject->IdxOffset;
     */
@@ -50,12 +50,12 @@ public class ImDrawCmd extends IDLBase {
         return getVtxOffsetNATIVE(getCPointer());
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawCmd);
         var jsObj = nativeObject.get_VtxOffset();
         return jsObj;
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImDrawCmd* nativeObject = (ImDrawCmd*)addr;
         return nativeObject->VtxOffset;
     */
@@ -65,12 +65,12 @@ public class ImDrawCmd extends IDLBase {
         return getElemCountNATIVE(getCPointer());
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImDrawCmd);
         var jsObj = nativeObject.get_ElemCount();
         return jsObj;
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImDrawCmd* nativeObject = (ImDrawCmd*)addr;
         return nativeObject->ElemCount;
     */

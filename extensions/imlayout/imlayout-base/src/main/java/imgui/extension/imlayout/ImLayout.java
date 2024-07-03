@@ -1,7 +1,7 @@
 package imgui.extension.imlayout;
 
 public class ImLayout {
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         #include "imgui_layout.h"
     */
 

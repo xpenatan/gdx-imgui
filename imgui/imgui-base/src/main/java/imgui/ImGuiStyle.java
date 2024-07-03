@@ -24,12 +24,12 @@ public class ImGuiStyle extends IDLBase {
         set_ColorsNATIVE(getCPointer(), index, color.getCPointer());
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImGuiStyle);
         var vec4 = [MODULE].wrapPointer(vec4Addr, [MODULE].ImVec4);
         nativeObject.set_Colors(index, vec4);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiStyle* nativeObject = (ImGuiStyle*)addr;
         ImVec4* vec4 = (ImVec4*)vec4Addr;
         nativeObject->Colors[index] = *vec4;
@@ -44,12 +44,12 @@ public class ImGuiStyle extends IDLBase {
         return tmp;
     }
 
-    /*[-teaVM;-NATIVE]
+    /*[-TEAVM;-NATIVE]
         var nativeObject = [MODULE].wrapPointer(addr, [MODULE].ImGuiStyle);
         var vec4 = nativeObject.get_Colors(index);
         return [MODULE].getPointer(vec4);
     */
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         ImGuiStyle* nativeObject = (ImGuiStyle*)addr;
         ImVec4* vec4 = &nativeObject->Colors[index];
         return (jlong)vec4;

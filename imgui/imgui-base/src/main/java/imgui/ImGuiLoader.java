@@ -7,18 +7,18 @@ import com.github.xpenatan.jparser.loader.JParserLibraryLoader;
  */
 public class ImGuiLoader {
 
-    /*[-C++;-NATIVE]
+    /*[-JNI;-NATIVE]
         #include "ImGuiCustom.h"
     */
 
-    /*[-teaVM;-ADD]
+    /*[-TEAVM;-ADD]
         @org.teavm.jso.JSFunctor
         public interface OnInitFunction extends org.teavm.jso.JSObject {
             void onInit();
         }
     */
 
-    /*[-teaVM;-REPLACE]
+    /*[-TEAVM;-REPLACE]
      public static void init(Runnable run) {
         JParserLibraryLoader libraryLoader = new JParserLibraryLoader();
         OnInitFunction onInitFunction = new OnInitFunction() {
@@ -37,11 +37,11 @@ public class ImGuiLoader {
         run.run();
     }
 
-    /*[-teaVM;-REPLACE]
+    /*[-TEAVM;-REPLACE]
         @org.teavm.jso.JSBody(params = { "onInitFunction" }, script = "window.[MODULE]OnInit = onInitFunction;")
         private static native void setOnLoadInit(OnInitFunction onInitFunction);
     */
-    /*[-C++;-REMOVE] */
+    /*[-JNI;-REMOVE] */
     public static native void setOnLoadInit();
 
 }
