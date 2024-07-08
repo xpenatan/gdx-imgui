@@ -108,6 +108,10 @@ interface ImGuiInternal {
     static void                    SetKeyOwner(ImGuiKey ImGuiKey, long owner_id, optional ImGuiInputFlags ImGuiInputFlags);
     static void                    SetItemKeyOwner(ImGuiKey ImGuiKey, optional ImGuiInputFlags ImGuiInputFlags);
     static boolean                 TestKeyOwner(ImGuiKey ImGuiKey, long owner_id);
+
+    static void                    ScrollToItem(optional ImGuiScrollFlags flags);
+    static void                    ScrollToRect(ImGuiWindow window, [Const, Ref] ImRect rect, optional ImGuiScrollFlags flags);
+    [Value] static ImVec2          ScrollToRectEx(ImGuiWindow window, [Const, Ref] ImRect rect, optional ImGuiScrollFlags flags);
 };
 
 [NoDelete, Prefix="ImGuiWrapper::"]
@@ -1737,4 +1741,17 @@ enum ImGuiInputFlags {
     "ImGuiInputFlags_SupportedByShortcut",
     "ImGuiInputFlags_SupportedBySetKeyOwner",
     "ImGuiInputFlags_SupportedBySetItemKeyOwner"
+};
+
+enum ImGuiScrollFlags {
+    "ImGuiScrollFlags_None",
+    "ImGuiScrollFlags_KeepVisibleEdgeX",
+    "ImGuiScrollFlags_KeepVisibleEdgeY",
+    "ImGuiScrollFlags_KeepVisibleCenterX",
+    "ImGuiScrollFlags_KeepVisibleCenterY",
+    "ImGuiScrollFlags_AlwaysCenterX",
+    "ImGuiScrollFlags_AlwaysCenterY",
+    "ImGuiScrollFlags_NoScrollParent",
+    "ImGuiScrollFlags_MaskX_",
+    "ImGuiScrollFlags_MaskY_"
 };

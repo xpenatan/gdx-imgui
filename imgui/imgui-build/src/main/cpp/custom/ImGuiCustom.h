@@ -129,6 +129,10 @@ class ImGuiInternal {
         static void                     SetKeyOwner(ImGuiKey key, ImGuiID owner_id, ImGuiInputFlags flags = 0) { im::SetKeyOwner(key, owner_id, flags); }
         static void                     SetItemKeyOwner(ImGuiKey key, ImGuiInputFlags flags = 0) { im::SetItemKeyOwner(key, flags); }
         static bool                     TestKeyOwner(ImGuiKey key, ImGuiID owner_id) { return im::TestKeyOwner(key, owner_id); }
+
+        static void                     ScrollToItem(ImGuiScrollFlags flags = 0) { im::ScrollToItem(flags); }
+        static void                     ScrollToRect(ImGuiWindow* window, const ImRect& rect, ImGuiScrollFlags flags = 0) { im::ScrollToRect(window, rect, flags); }
+        static ImVec2                   ScrollToRectEx(ImGuiWindow* window, const ImRect& rect, ImGuiScrollFlags flags = 0) { return im::ScrollToRectEx(window, rect, flags); }
 };
 
 class ImGui {
