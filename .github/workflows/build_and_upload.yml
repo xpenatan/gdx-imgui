@@ -339,7 +339,7 @@ jobs:
 
       - name: Upload to repository
         uses: nick-fields/retry@v3
-        if: ${{ success() && inputs.shouldUpload == 'true' }}
+        if: ${{ inputs.shouldUpload }}
         with:
           max_attempts: 3
           timeout_minutes: 10
@@ -353,7 +353,7 @@ jobs:
 
       - name: Create Git tag
         uses: actions/github-script@v7
-        if: ${{ success() && inputs.isRelease == 'true' }}
+        if: ${{ inputs.isRelease }}
         with:
           script: |
             const versionOutputs = ${{ toJSON(steps.version.outputs) }};
