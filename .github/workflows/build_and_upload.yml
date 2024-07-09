@@ -339,8 +339,12 @@ jobs:
         run: ./gradlew :extensions:imgui-node-editor:nodeeditor-build:build_project
 
       - name: Upload to repository
-        if: ${{ inputs.shouldUpload }}
-        run: ./gradlew publish
+        uses: nick-fields/retry@v3
+        with:
+          max_attempts: 3
+          timeout_minutes: 10
+          retry_on: error
+          command: ./gradlew publish
         env:
           USER: ${{ secrets.USER }}
           PASSWORD: ${{ secrets.PASSWORD }}
