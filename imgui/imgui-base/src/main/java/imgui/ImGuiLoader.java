@@ -19,22 +19,20 @@ public class ImGuiLoader {
     */
 
     /*[-TEAVM;-REPLACE]
-     public static void init(Runnable run) {
+     public static void init(Runnable onSuccess) {
         JParserLibraryLoader libraryLoader = new JParserLibraryLoader();
-        OnInitFunction onInitFunction = new OnInitFunction() {
-            @Override
-            public void onInit() {
-                run.run();
-            }
-        };
+        OnInitFunction onInitFunction = () -> onSuccess.run();
         setOnLoadInit(onInitFunction);
-        libraryLoader.load("[MODULE].wasm");
+        libraryLoader.load("[MODULE].wasm", isSuccess -> {});
     }
     */
-    public static void init(Runnable run) {
+    public static void init(Runnable onSuccess) {
         JParserLibraryLoader libraryLoader = new JParserLibraryLoader();
-        libraryLoader.load("imgui");
-        run.run();
+        libraryLoader.load("imgui", isSuccess -> {
+            if(isSuccess) {
+                onSuccess.run();
+            }
+        });
     }
 
     /*[-TEAVM;-REPLACE]
