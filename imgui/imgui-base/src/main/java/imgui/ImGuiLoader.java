@@ -21,7 +21,7 @@ public class ImGuiLoader {
     /*[-TEAVM;-REPLACE]
      public static void init(Runnable onSuccess) {
         JParserLibraryLoader libraryLoader = new JParserLibraryLoader();
-        OnInitFunction onInitFunction = () -> onSuccess.run();
+        OnInitFunction onInitFunction = onSuccess::run;
         setOnLoadInit(onInitFunction);
         libraryLoader.load("[MODULE].wasm", isSuccess -> {});
     }
