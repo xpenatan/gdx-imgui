@@ -1092,7 +1092,7 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
     if (!isLeaf) {
         ImLayout::BeginAlign("arrow", ImLayout::WRAP_PARENT, height, 0.0, 0.0, 0.5);
         {
-            int dir = isOpen == 1 ? ImGuiDir_Down : ImGuiDir_Right;
+            ImGuiDir dir = isOpen == 1 ? ImGuiDir_Down : ImGuiDir_Right;
             if (arrowClicked) {
                 isOpen = isOpen == 1 ? 0 : 1;
             }

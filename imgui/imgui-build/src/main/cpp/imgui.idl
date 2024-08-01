@@ -25,12 +25,7 @@ interface ImGuiInternal {
     static float                   CalcWrapWidthForPos([Const, Ref] ImVec2 pos, float wrap_pos_x);
     static void                    PushMultiItemsWidths(long components, float width_full);
     static boolean                 IsItemToggledSelection();
-    [Value] static ImVec2          GetContentRegionMaxAbs();
     static void                    ShrinkWidths(ImGuiShrinkWidthItem items, long count, float width_excess);
-
-    // Parameter stacks (shared)
-    static void                    PushItemFlag(ImGuiItemFlags ImGuiItemFlags, boolean enabled);
-    static void                    PopItemFlag();
 
     static void                    DockBuilderDockWindow([Const] DOMString window_name, long node_id);
     static ImGuiDockNode           DockBuilderGetNode(long node_id);
@@ -118,11 +113,13 @@ interface ImGuiInternal {
 interface ImGui {
     // Note: method overloading don't work with emscripten so we use _2, _3 and so on
 
+    // Context creation and access
     static ImGuiContext            CreateContext();
     static void                    DestroyContext(optional ImGuiContext ctx);
     static ImGuiContext            GetCurrentContext();
     static void                    SetCurrentContext(ImGuiContext ctx);
 
+    // Main
     [Ref] static ImGuiIO           GetIO();
     [Ref] static ImGuiStyle        GetStyle();
     static void                    NewFrame();
@@ -130,9 +127,11 @@ interface ImGui {
     static void                    Render();
     static ImDrawData              GetDrawData();
 
+    // Demo, Debug, Information
     static void                    ShowDemoWindow(optional boolean[] p_open);
     static void                    ShowMetricsWindow(optional boolean[] p_open);
     static void                    ShowDebugLogWindow(optional boolean[] p_open);
+    static void                    ShowIDStackToolWindow(optional boolean[] p_open);
     static void                    ShowAboutWindow(optional boolean[] p_open);
     static void                    ShowStyleEditor(optional ImGuiStyle ref);
     static void                    ShowStyleSelector([Const] DOMString label);
@@ -140,17 +139,21 @@ interface ImGui {
     static void                    ShowUserGuide();
 ////    [Const] DOMString        GetVersion();
 
+    // Styles
     static void                    StyleColorsDark(optional ImGuiStyle dst);
     static void                    StyleColorsLight(optional ImGuiStyle dst);
     static void                    StyleColorsClassic(optional ImGuiStyle dst);
 
+    // Windows
     static boolean                 Begin([Const] DOMString name, optional boolean[] p_open, optional ImGuiWindowFlags ImGuiWindowFlags);
     static void                    End();
 
+    // Child Windows
     static boolean                 BeginChild([Const] DOMString str_id, [Const,Ref] optional ImVec2 size, optional ImGuiChildFlags ImGuiChildFlags, optional ImGuiWindowFlags ImGuiWindowFlags);
     static boolean                 BeginChild_2(long id, [Const,Ref] optional ImVec2 size, optional ImGuiChildFlags ImGuiChildFlags, optional ImGuiWindowFlags ImGuiWindowFlags);
     static void                    EndChild();
 
+    // Windows Utilities
     static boolean                 IsWindowAppearing();
     static boolean                 IsWindowCollapsed();
     static boolean                 IsWindowFocused(optional ImGuiFocusedFlags ImGuiFocusedFlags);
@@ -163,6 +166,7 @@ interface ImGui {
     static float                   GetWindowHeight();
     static ImGuiViewport           GetWindowViewport();
 
+    // Window manipulation
     static void                    SetNextWindowPos([Const, Ref]ImVec2 pos, optional ImGuiCond ImGuiCond, [Const, Ref] optional ImVec2 pivot);
     static void                    SetNextWindowSize([Const, Ref]ImVec2 size, optional ImGuiCond ImGuiCond);
     static void                    SetNextWindowSizeConstraints([Const, Ref]ImVec2 size_min, [Const, Ref]ImVec2 size_max); //, optional CustomImGuiSizeCallback custom_callback, any custom_callback_data);
@@ -182,11 +186,7 @@ interface ImGui {
     static void                    SetWindowCollapsed_2([Const] DOMString name, boolean collapsed, optional ImGuiCond ImGuiCond);
     static void                    SetWindowFocus([Const] DOMString name);
 
-    [Value] static ImVec2          GetContentRegionAvail();
-    [Value] static ImVec2          GetContentRegionMax();
-    [Value] static ImVec2          GetWindowContentRegionMin();
-    [Value] static ImVec2          GetWindowContentRegionMax();
-
+    // Windows Scrolling
     static float                   GetScrollX();
     static float                   GetScrollY();
     static void                    SetScrollX(float scroll_x);
@@ -198,6 +198,7 @@ interface ImGui {
     static void                    SetScrollFromPosX(float local_x, optional float center_x_ratio);
     static void                    SetScrollFromPosY(float local_y, optional float center_y_ratio);
 
+    // Parameters stacks (shared)
     static void                    PushFont(ImFont font);
     static void                    PopFont();
     static void                    PushStyleColor(ImGuiCol idx, unsigned long col);
@@ -206,11 +207,8 @@ interface ImGui {
     static void                    PushStyleVar(ImGuiStyleVar idx, float val);
     static void                    PushStyleVar_2(ImGuiStyleVar idx, [Const, Ref]ImVec2 val);
     static void                    PopStyleVar(optional long count);
-    static void                    PushTabStop(boolean tab_stop);
-    static void                    PopTabStop();
-    static void                    PushButtonRepeat(boolean repeat);
-    static void                    PopButtonRepeat();
 
+    // Parameters stacks (current window)
     static void                    PushItemWidth(float item_width);
     static void                    PopItemWidth();
     static void                    SetNextItemWidth(float item_width);
@@ -218,6 +216,7 @@ interface ImGui {
     static void                    PushTextWrapPos(optional float wrap_local_pos_x);
     static void                    PopTextWrapPos();
 
+    // Style read access
     static ImFont                  GetFont();
     static float                   GetFontSize();
     [Value] static ImVec2          GetFontTexUvWhitePixel();
@@ -226,6 +225,19 @@ interface ImGui {
     static unsigned long           GetColorU32_3(unsigned long col);
     [Const, Ref] static ImVec4     GetStyleColorVec4(long idx);
 
+    // Layout cursor positioning
+    [Value] static ImVec2          GetCursorScreenPos();
+    static void                    SetCursorScreenPos([Const, Ref] ImVec2 pos);
+    [Value] static ImVec2          GetContentRegionAvail();
+    [Value] static ImVec2          GetCursorPos();
+    static float                   GetCursorPosX();
+    static float                   GetCursorPosY();
+    static void                    SetCursorPos([Const, Ref] ImVec2 local_pos);
+    static void                    SetCursorPosX(float local_x);
+    static void                    SetCursorPosY(float local_y);
+    [Value] static ImVec2          GetCursorStartPos();
+
+    // Other layout functions
     static void                    Separator();
     static void                    SameLine(optional float offset_from_start_x, optional float spacing);
     static void                    NewLine();
@@ -235,65 +247,55 @@ interface ImGui {
     static void                    Unindent(optional float indent_w);
     static void                    BeginGroup();
     static void                    EndGroup();
-    [Value] static ImVec2          GetCursorPos();
-    static float                   GetCursorPosX();
-    static float                   GetCursorPosY();
-    static void                    SetCursorPos([Const, Ref] ImVec2 local_pos);
-    static void                    SetCursorPosX(float local_x);
-    static void                    SetCursorPosY(float local_y);
-    [Value] static ImVec2          GetCursorStartPos();
-    [Value] static ImVec2          GetCursorScreenPos();
-    static void                    SetCursorScreenPos([Const, Ref] ImVec2 pos);
     static void                    AlignTextToFramePadding();
     static float                   GetTextLineHeight();
     static float                   GetTextLineHeightWithSpacing();
     static float                   GetFrameHeight();
     static float                   GetFrameHeightWithSpacing();
 
+    // ID stack/scopes
     static void                    PushID([Const] DOMString str_id);
     static void                    PushID([Const] DOMString str_id_begin, [Const] DOMString str_id_end);
     static void                    PushID_2(long int_id);
-//    static void                    PushID_3([Const] any ptr_id);
     static void                    PopID();
     static long                    GetID([Const] DOMString str_id);
     static long                    GetID_2([Const] DOMString str_id_begin, [Const] DOMString str_id_end);
     static long                    GetID_3([Const] any ptr_id);
 
+    // Widgets: Text
     static void                    TextUnformatted([Const] DOMString text, [Const] optional DOMString text_end);
     static void                    Text([Const] DOMString fmt);
-////    static void                    TextV([Const] DOMString fmt, DOMString args);
     static void                    TextColored([Const, Ref] ImVec4 col, [Const] DOMString fmt);
-////    static void                    TextColoredV([Const, Ref] ImVec4 col, [Const] DOMString fmt, DOMString args);
     static void                    TextDisabled([Const] DOMString fmt);
-////    static void                    TextDisabledV([Const] DOMString fmt, DOMString args);
     static void                    TextWrapped([Const] DOMString fmt);
-////    static void                    TextWrappedV([Const] DOMString fmt, DOMString args);
     static void                    LabelText([Const] DOMString label, [Const] DOMString fmt);
-////    static void                    LabelTextV([Const] DOMString label, [Const] DOMString fmt, DOMString args);
     static void                    BulletText([Const] DOMString fmt);
-////    static void                    BulletTextV([Const] DOMString fmt, DOMString args);
+    static void                    SeparatorText([Const] DOMString label);
 
+    // Widgets: Main
     static boolean                 Button([Const] DOMString label, [Const, Ref] optional ImVec2 size);
     static boolean                 SmallButton([Const] DOMString label);
     static boolean                 InvisibleButton([Const] DOMString str_id, [Const, Ref] ImVec2 size, optional ImGuiButtonFlags ImGuiButtonFlags);
     static boolean                 ArrowButton([Const] DOMString str_id, ImGuiDir dir);
     static boolean                 Checkbox([Const] DOMString label, boolean[] v);
     static boolean                 CheckboxFlags([Const] DOMString label, long[] flags, long flags_value);
-//    static boolean                 CheckboxFlags_2([Const] DOMString label, unsigned long[] flags, unsigned long flags_value);
     static boolean                 RadioButton([Const] DOMString label, boolean active);
     static boolean                 RadioButton_2([Const] DOMString label, long[] v, long v_button);
     static void                    ProgressBar(float fraction, [Const, Ref] optional ImVec2 size_arg, [Const] optional DOMString overlay);
     static void                    Bullet();
+    static boolean                 TextLink([Const] DOMString label);
+    static void                    TextLinkOpenURL([Const] DOMString label, [Const] optional DOMString url);
 
+    // Widgets: Images
     static void                    Image(long user_texture_id, [Const, Ref] ImVec2 size, [Const, Ref] optional ImVec2 uv0, [Const, Ref] optional ImVec2 uv1, [Const, Ref] optional ImVec4 tint_col, [Const, Ref] optional ImVec4 border_col);
     static boolean                 ImageButton([Const] DOMString str_id, long user_texture_id, [Const, Ref] ImVec2 size, [Const, Ref] optional ImVec2 uv0, [Const, Ref] optional ImVec2 uv1, [Const, Ref] optional ImVec4 bg_col, [Const, Ref] optional ImVec4 tint_col);
 
+    // Widgets: Combo Box (Dropdown)
     static boolean                 BeginCombo([Const] DOMString label, [Const] DOMString preview_value, optional ImGuiComboFlags ImGuiComboFlags);
     static void                    EndCombo();
-////    boolean                 Combo([Const] DOMString label, long[] current_item, [Const] DOMString [Const]items[], long items_count, optional long popup_max_height_in_items);  // items with multiple [Const]???
     static boolean                 Combo([Const] DOMString label, long[] current_item, [Const] DOMString items_separated_by_zeros, optional long popup_max_height_in_items);
-////    boolean                 Combo([Const] DOMString label, long[] current_item, boolean(*items_getter)(any data, long idx, [Const] DOMString* out_text), any data, long items_count, optional long popup_max_height_in_items); // crazy boolean with param
 
+    // Widgets: Drag Sliders
     static boolean                 DragFloat([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
     static boolean                 DragFloat2([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
     static boolean                 DragFloat3([Const] DOMString label, float[] v, optional float v_speed, optional float v_min, optional float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
@@ -304,9 +306,8 @@ interface ImGui {
     static boolean                 DragInt3([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
     static boolean                 DragInt4([Const] DOMString label, long[] v, optional float v_speed, optional long v_min, optional long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
     static boolean                 DragIntRange2([Const] DOMString label, long[] v_current_min, long[] v_current_max, optional float v_speed, optional long v_min, optional long v_max, [Const] optional DOMString format, [Const] optional DOMString format_max, optional ImGuiSliderFlags ImGuiSliderFlags);
-//    static boolean                 DragScalar([Const] DOMString label, long data_type, any p_data, optional float v_speed, [Const] optional any p_min, [Const] optional any p_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-//    static boolean                 DragScalarN([Const] DOMString label, long data_type, any p_data, long components, optional float v_speed, [Const] optional any p_min, [Const] optional any p_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
 
+    // Widgets: Regular Sliders
     static boolean                 SliderFloat([Const] DOMString label, float[] v, float v_min, float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
     static boolean                 SliderFloat2([Const] DOMString label, float[] v, float v_min, float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
     static boolean                 SliderFloat3([Const] DOMString label, float[] v, float v_min, float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
@@ -316,12 +317,10 @@ interface ImGui {
     static boolean                 SliderInt2([Const] DOMString label, long[] v, long v_min, long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
     static boolean                 SliderInt3([Const] DOMString label, long[] v, long v_min, long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
     static boolean                 SliderInt4([Const] DOMString label, long[] v, long v_min, long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
-//    static boolean                 SliderScalar([Const] DOMString label, long data_type, any p_data, [Const] any p_min, [Const] any p_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
-//    static boolean                 SliderScalarN([Const] DOMString label, long data_type, any p_data, long components, [Const] any p_min, [Const] any p_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
     static boolean                 VSliderFloat([Const] DOMString label, [Const, Ref] ImVec2 size, float[] v, float v_min, float v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
     static boolean                 VSliderInt([Const] DOMString label, [Const, Ref] ImVec2 size, long[] v, long v_min, long v_max, [Const] optional DOMString format, optional ImGuiSliderFlags ImGuiSliderFlags);
-//    static boolean                 VSliderScalar([Const] DOMString label, [Const, Ref] ImVec2 size, long data_type, any p_data, [Const] any p_min, [Const] any p_max, [Const] optional DOMString format, optional ImGuiSliderFlags flags);
 
+    // Widgets: Input with Keyboard
     static boolean                 InputText([Const] DOMString label, byte[] buf, long buf_size, optional ImGuiInputTextFlags ImGuiInputTextFlags); //, optional ImGuiInputTextCallback callback, optional ImGuiInputTextFlags flags);
     static boolean                 InputTextMultiline([Const] DOMString label, byte[] buf, long buf_size, [Const, Ref] optional ImVec2 size, optional ImGuiInputTextFlags ImGuiInputTextFlags); //, optional ImGuiInputTextCallback callback, optional any user_data);
     static boolean                 InputTextWithHint([Const] DOMString label, [Const] DOMString hint, byte[] buf, long buf_size, optional ImGuiInputTextFlags ImGuiInputTextFlags); //, optional ImGuiInputTextCallback callback, optional any user_data);
@@ -334,9 +333,8 @@ interface ImGui {
     static boolean                 InputInt3([Const] DOMString label, long[] v, optional ImGuiInputTextFlags ImGuiInputTextFlags);
     static boolean                 InputInt4([Const] DOMString label, long[] v, optional ImGuiInputTextFlags ImGuiInputTextFlags);
     static boolean                 InputDouble([Const] DOMString label, double[] v, optional double step, optional double step_fast, [Const] optional DOMString format, optional ImGuiInputTextFlags ImGuiInputTextFlags);
-//    static boolean                 InputScalar([Const] DOMString label, long data_type, any p_data, [Const] optional any p_step, [Const] optional any p_step_fast, [Const] optional DOMString format, optional ImGuiInputTextFlags flags);
-//    static boolean                 InputScalarN([Const] DOMString label, long data_type, any p_data, long components, [Const] optional any p_step, [Const] optional any p_step_fast, [Const] optional DOMString format, optional ImGuiInputTextFlags flags);
-//
+
+    // Widgets: Color Editor/Picker
     static boolean                 ColorEdit3([Const] DOMString label, float[] col, optional ImGuiColorEditFlags ImGuiColorEditFlags);
     static boolean                 ColorEdit4([Const] DOMString label, float[] col, optional ImGuiColorEditFlags ImGuiColorEditFlags);
     static boolean                 ColorPicker3([Const] DOMString label, float[] col, optional ImGuiColorEditFlags ImGuiColorEditFlags);
@@ -344,41 +342,45 @@ interface ImGui {
     static boolean                 ColorButton([Const] DOMString desc_id, [Const, Ref] ImVec4 col, optional ImGuiColorEditFlags ImGuiColorEditFlags, [Const, Ref] optional ImVec2 size);
     static void                    SetColorEditOptions(ImGuiColorEditFlags ImGuiColorEditFlags);
 
+    // Widgets: Trees
     static boolean                 TreeNode([Const] DOMString label);
     static boolean                 TreeNode_2([Const] DOMString str_id, [Const] DOMString fmt);
     static boolean                 TreeNode_3([Const] any ptr_id, [Const] DOMString fmt);
-////    static boolean                 TreeNodeV([Const] DOMString str_id, [Const] DOMString fmt, DOMString args);
-////    static boolean                 TreeNodeV_2([Const] any ptr_id, [Const] DOMString fmt, DOMString args);
     static boolean                 TreeNodeEx([Const] DOMString label, optional ImGuiTreeNodeFlags flaImGuiTreeNodeFlagsgs);
     static boolean                 TreeNodeEx_2([Const] DOMString str_id, ImGuiTreeNodeFlags ImGuiTreeNodeFlags, [Const] DOMString fmt);
     static boolean                 TreeNodeEx_3([Const] any ptr_id, ImGuiTreeNodeFlags ImGuiTreeNodeFlags, [Const] DOMString fmt);
-////    static boolean                 TreeNodeExV([Const] DOMString str_id, ImGuiTreeNodeFlags flags, [Const] DOMString fmt, DOMString args);
-////    static boolean                 TreeNodeExV_2([Const] any ptr_id, ImGuiTreeNodeFlags flags, [Const] DOMString fmt, DOMString args);
     static void                    TreePush([Const] DOMString str_id);
-//    static void                    TreePush_2([Const] any ptr_id);
     static void                    TreePop();
     static float                   GetTreeNodeToLabelSpacing();
     static boolean                 CollapsingHeader([Const] DOMString label, optional ImGuiTreeNodeFlags ImGuiTreeNodeFlags);
     static boolean                 CollapsingHeader_2([Const] DOMString label, boolean[] p_visible, optional ImGuiTreeNodeFlags ImGuiTreeNodeFlags);
     static void                    SetNextItemOpen(boolean is_open, optional ImGuiCond ImGuiCond);
+    static void                    SetNextItemStorageID(long storage_id);
 
+    // Widgets: Selectables
     static boolean                 Selectable([Const] DOMString label, optional boolean selected, optional ImGuiSelectableFlags flags, [Const, Ref] optional ImVec2 size);
     static boolean                 Selectable_2([Const] DOMString label, boolean[] p_selected, optional ImGuiSelectableFlags flags, [Const, Ref] optional ImVec2 size);
 
+    // Multi-selection system for Selectable(), Checkbox(), TreeNode() functions
+    static ImGuiMultiSelectIO      BeginMultiSelect(ImGuiMultiSelectFlags flags, optional long selection_size, optional long items_count);
+    static ImGuiMultiSelectIO      EndMultiSelect();
+    static void                    SetNextItemSelectionUserData(long selection_user_data);
+    static boolean                 IsItemToggledSelection();
+
+    // Widgets: List Boxes
     static boolean                 BeginListBox([Const] DOMString label, [Const, Ref] optional ImVec2 size);
     static void                    EndListBox();
-////    boolean                 ListBox([Const] DOMString label, long[] current_item, [Const] DOMString[] items, long items_count, optional long height_in_items);
-////    boolean                 ListBox([Const] DOMString label, long[] current_item, boolean (*items_getter)(any data, long idx, [Const] DOMString[] out_text), any data, long items_count, optional long height_in_items);
-//
-    static void                    PlotLines([Const] DOMString label, [Const]float[] values, long values_count, optional long values_offset, [Const] optional DOMString overlay_text, optional float scale_min, optional float scale_max, [Ref] optional ImVec2 graph_size, optional long stride);
-////    void                    PlotLines([Const] DOMString label, float(*values_getter)(any data, long idx), any data, long values_count, optional long values_offset, [Const] optional DOMString overlay_text, optional float scale_min, optional float scale_max, [Value] optionalImVec2 graph_size);
-    static void                    PlotHistogram([Const] DOMString label, [Const]float[] values, long values_count, optional long values_offset, [Const] optional DOMString overlay_text, optional float scale_min, optional float scale_max, [Ref] optional ImVec2 graph_size, optional long stride);
-////    void                    PlotHistogram([Const] DOMString label, float(*values_getter)(any data, long idx), any data, long values_count, optional long values_offset, [Const] optional DOMString overlay_text, optional float scale_min, optional float scale_max, [Value] optional ImVec2 graph_size);
 
+    // Widgets: Data Plotting
+    static void                    PlotLines([Const] DOMString label, [Const]float[] values, long values_count, optional long values_offset, [Const] optional DOMString overlay_text, optional float scale_min, optional float scale_max, [Ref] optional ImVec2 graph_size, optional long stride);
+    static void                    PlotHistogram([Const] DOMString label, [Const]float[] values, long values_count, optional long values_offset, [Const] optional DOMString overlay_text, optional float scale_min, optional float scale_max, [Ref] optional ImVec2 graph_size, optional long stride);
+
+    // Widgets: Value() Helpers.
     static void                    Value([Const] DOMString prefix, boolean b);
     static void                    Value_2([Const] DOMString prefix, long v);
     static void                    Value_4([Const] DOMString prefix, float v, [Const] optional DOMString float_format);
 
+    // Widgets: Menus
     static boolean                 BeginMenuBar();
     static void                    EndMenuBar();
     static boolean                 BeginMainMenuBar();
@@ -392,37 +394,45 @@ interface ImGui {
     static boolean                 BeginTooltip();
     static void                    EndTooltip();
     static void                    SetTooltip([Const] DOMString fmt);
-////    static void                    SetTooltipV([Const] DOMString fmt, DOMString args);
 
+    // Tooltips: helpers
     static boolean                 BeginItemTooltip();
     static void                    SetItemTooltip([Const] DOMString fmt);
 
+    // Popups, Modals
     static boolean                 BeginPopup([Const] DOMString str_id, optional ImGuiWindowFlags ImGuiWindowFlags);
     static boolean                 BeginPopupModal([Const] DOMString name, optional boolean[] p_open, optional ImGuiWindowFlags ImGuiWindowFlags);
     static void                    EndPopup();
-//
+
+    // Popups: open/close functions
     static void                    OpenPopup([Const] DOMString str_id, optional ImGuiPopupFlags ImGuiPopupFlags);
     static void                    OpenPopup_2(long id, optional ImGuiPopupFlags ImGuiPopupFlags);
     static void                    OpenPopupOnItemClick([Const] optional DOMString str_id, optional ImGuiPopupFlags ImGuiPopupFlags);
     static void                    CloseCurrentPopup();
-//
+
+    // Popups: open+begin combined functions helpers
     static boolean                 BeginPopupContextItem([Const] optional DOMString str_id, optional ImGuiPopupFlags ImGuiPopupFlags);
     static boolean                 BeginPopupContextWindow([Const] optional DOMString str_id, optional ImGuiPopupFlags ImGuiPopupFlags);
     static boolean                 BeginPopupContextVoid([Const] optional DOMString str_id, optional ImGuiPopupFlags ImGuiPopupFlags);
-//
+
+    // Popups: query functions
     static boolean                 IsPopupOpen([Const] DOMString str_id, optional ImGuiPopupFlags ImGuiPopupFlags);
-//
+
+    // Tables
     static boolean                 BeginTable([Const] DOMString str_id, long column, optional ImGuiTableFlags ImGuiTableFlags, [Const, Ref] optional ImVec2 outer_size, optional float inner_width);
     static void                    EndTable();
     static void                    TableNextRow(optional long row_flags, optional float min_row_height);
     static boolean                 TableNextColumn();
     static boolean                 TableSetColumnIndex(long column_n);
 
+    // Tables: Headers & Columns declaration
     static void                    TableSetupColumn([Const] DOMString label, optional ImGuiTableColumnFlags ImGuiTableColumnFlags, optional float init_width_or_weight, optional long user_id);
     static void                    TableSetupScrollFreeze(long cols, long rows);
-    static void                    TableHeadersRow();
     static void                    TableHeader([Const] DOMString label);
+    static void                    TableHeadersRow();
+    static void                    TableAngledHeadersRow();
 
+    // Tables: Sorting & Miscellaneous functions
     static ImGuiTableSortSpecs     TableGetSortSpecs();
     static long                    TableGetColumnCount();
     static long                    TableGetColumnIndex();
@@ -432,15 +442,7 @@ interface ImGui {
     static void                    TableSetColumnEnabled(long column_n, boolean v);
     static void                    TableSetBgColor(long target, unsigned long color, optional long column_n);
 
-    static void                    Columns(optional long count, [Const] optional DOMString id, optional boolean border);
-    static void                    NextColumn();
-    static long                    GetColumnIndex();
-    static float                   GetColumnWidth(optional long column_index);
-    static void                    SetColumnWidth(long column_index, float width);
-    static float                   GetColumnOffset(optional long column_index);
-    static void                    SetColumnOffset(long column_index, float offset_x);
-    static long                    GetColumnsCount();
-
+    // Tab Bars, Tabs
     static boolean                 BeginTabBar([Const] DOMString str_id, optional ImGuiTabBarFlags ImGuiTabBarFlags);
     static void                    EndTabBar();
     static boolean                 BeginTabItem([Const] DOMString label, optional boolean[] p_open, optional ImGuiTabItemFlags ImGuiTabItemFlags);
@@ -448,21 +450,24 @@ interface ImGui {
     static boolean                 TabItemButton([Const] DOMString label, ImGuiTabItemFlags ImGuiTabItemFlags);
     static void                    SetTabItemClosed([Const] DOMString tab_or_docked_window_label);
 
+    // Docking
     static long                    DockSpace(long id, [Const, Ref] optional ImVec2 size, optional ImGuiDockNodeFlags ImGuiDockNodeFlags, [Const] optional ImGuiWindowClass window_class);
-    static long                    DockSpaceOverViewport([Const] optional ImGuiViewport viewport, optional ImGuiDockNodeFlags ImGuiDockNodeFlags, [Const] optional ImGuiWindowClass window_class);
+    static long                    DockSpaceOverViewport(optional long dockspace_id, [Const] optional ImGuiViewport viewport, optional ImGuiDockNodeFlags ImGuiDockNodeFlags, [Const] optional ImGuiWindowClass window_class);
     static void                    SetNextWindowDockID(long dock_id, optional ImGuiCond ImGuiCond);
     static void                    SetNextWindowClass([Const]ImGuiWindowClass window_class);
     static long                    GetWindowDockID();
     static boolean                 IsWindowDocked();
 
+    // Logging/Capture
 //    static void                    LogToTTY(optional long auto_open_depth);
 //    static void                    LogToFile(optional long auto_open_depth, [Const] optional DOMString filename);
 //    static void                    LogToClipboard(optional long auto_open_depth);
 //    static void                    LogFinish();
 //    static void                    LogButtons();
 //    static void                    LogText([Const] DOMString fmt);
-////    static void                    LogTextV([Const] DOMString fmt, DOMString args);
+//    static void                    LogTextV([Const] DOMString fmt, DOMString args);
 
+    // Drag and Drop
     static boolean                 BeginDragDropSource(optional ImGuiDragDropFlags ImGuiDragDropFlags);
     static boolean                 SetDragDropPayload([Const] DOMString type, long data, optional ImGuiCond ImGuiCond);
     static void                    EndDragDropSource();
@@ -471,17 +476,22 @@ interface ImGui {
     static void                    EndDragDropTarget();
     [Const] static ImGuiPayload    GetDragDropPayload();
 
+    // Disabling [BETA API]
     static void                    BeginDisabled(optional boolean disabled);
     static void                    EndDisabled();
 
+    // Clipping
     static void                    PushClipRect([Const, Ref]ImVec2 clip_rect_min, [Const, Ref]ImVec2 clip_rect_max, boolean intersect_with_current_clip_rect);
     static void                    PopClipRect();
 
+    // Focus, Activation
     static void                    SetItemDefaultFocus();
     static void                    SetKeyboardFocusHere(optional long offset);
 
+    // Overlapping mode
     static void                    SetNextItemAllowOverlap();
 
+    // Item/Widgets Utilities and Query Functions
     static boolean                 IsItemHovered(optional ImGuiHoveredFlags ImGuiHoveredFlags);
     static boolean                 IsItemActive();
     static boolean                 IsItemFocused();
@@ -500,13 +510,16 @@ interface ImGui {
     [Value] static ImVec2          GetItemRectMax();
     [Value] static ImVec2          GetItemRectSize();
 
+    // Viewports
     static ImGuiViewport           GetMainViewport();
 
+    // Background/Foreground Draw Lists
     static ImDrawList              GetBackgroundDrawList();
     static ImDrawList              GetForegroundDrawList();
     static ImDrawList              GetBackgroundDrawList_2(ImGuiViewport viewport);
     static ImDrawList              GetForegroundDrawList_2(ImGuiViewport viewport);
 
+    // Miscellaneous Utilities
     static boolean                 IsRectVisible([Const, Ref]ImVec2 size);
     static boolean                 IsRectVisible_2([Const, Ref]ImVec2 rect_min, [Const, Ref]ImVec2 rect_max);
     static double                  GetTime();
@@ -516,20 +529,32 @@ interface ImGui {
     static void                    SetStateStorage(ImGuiStorage storage);
     static ImGuiStorage            GetStateStorage();
 
+    // Text Utilities
     [Value] static ImVec2          CalcTextSize([Const] DOMString text, [Const] optional DOMString text_end, optional boolean hide_text_after_double_hash, optional float wrap_width);
-//
+
+    // Color Utilities
     [Value] static ImVec4          ColorConvertU32ToFloat4(unsigned long col);
     static unsigned long           ColorConvertFloat4ToU32([Const, Ref]ImVec4 col);
     static void                    ColorConvertRGBtoHSV(float r, float g, float b, float[] out_h, float[] out_s, float[] out_v); // fix by changing to pointer
     static void                    ColorConvertHSVtoRGB(float h, float s, float v, float[] out_r, float[] out_g, float[] out_b); // fix by changing to pointer
 
+    // Inputs Utilities: Keyboard/Mouse/Gamepad
     static boolean                 IsKeyDown(ImGuiKey ImGuiKey);
     static boolean                 IsKeyPressed(ImGuiKey ImGuiKey, optional boolean repeat);
     static boolean                 IsKeyReleased(ImGuiKey ImGuiKey);
+    static boolean                 IsKeyChordPressed(long key_chord);
     static long                    GetKeyPressedAmount(ImGuiKey ImGuiKey, float repeat_delay, float rate);
 ////    [Const] DOMString        GetKeyName(ImGuiKey key);
     static void                    SetNextFrameWantCaptureKeyboard(boolean want_capture_keyboard);
 
+    // Inputs Utilities: Shortcut Testing & Routing [BETA]
+    static boolean                 Shortcut(long key_chord, optional ImGuiInputFlags flags);
+    static void                    SetNextItemShortcut(long key_chord, optional ImGuiInputFlags flags);
+
+    // Inputs Utilities: Key/Input Ownership [BETA]
+    static void                    SetItemKeyOwner(ImGuiKey key);
+
+    // Inputs Utilities: Mouse specific
     static boolean                 IsMouseDown(long ImGuiMouseButton);
     static boolean                 IsMouseClicked(long ImGuiMouseButton, optional boolean repeat);
     static boolean                 IsMouseReleased(long ImGuiMouseButton);
@@ -547,22 +572,27 @@ interface ImGui {
     static void                    SetMouseCursor(long cursor_type);
     static void                    SetNextFrameWantCaptureMouse(boolean want_capture_mouse);
 
-////    [Const] DOMString        GetClipboardText();
+    // Clipboard Utilities
+//    [Const] DOMString              GetClipboardText();
     static void                    SetClipboardText([Const] DOMString text);
 
+    // Settings/.Ini Utilities
     static void                    LoadIniSettingsFromDisk([Const] DOMString ini_filename);
     static void                    LoadIniSettingsFromMemory([Const] DOMString ini_data, optional long long ini_size);
     static void                    SaveIniSettingsToDisk([Const] DOMString ini_filename);
     [Const, Value] static IDLString SaveIniSettingsToMemory();
-//
+
+    // Debug Utilities
     static void                    DebugTextEncoding([Const] DOMString text);
     static boolean                 DebugCheckVersionAndDataLayout([Const] DOMString version_str, long long sz_io, long long sz_style, long long sz_vec2, long long sz_vec4, long long sz_drawvert, long long sz_drawidx); // This is called by IMGUI_CHECKVERSION() macro.
-//
-////    void                    SetAllocatorFunctions(ImGuiMemAllocFunc alloc_func, ImGuiMemFreeFunc free_func, optional any user_data);
-////    void                    GetAllocatorFunctions(ImGuiMemAllocFunc* p_alloc_func, ImGuiMemFreeFunc* p_free_func, any* p_user_data);
+
+    // Memory Allocators
+//    static void                    SetAllocatorFunctions(ImGuiMemAllocFunc alloc_func, ImGuiMemFreeFunc free_func, optional any user_data);
+//    static void                    GetAllocatorFunctions(ImGuiMemAllocFunc* p_alloc_func, ImGuiMemFreeFunc* p_free_func, any* p_user_data);
 //    static any                     MemAlloc(long long size);
 //    static void                    MemFree(any ptr);
-//
+
+    // (Optional) Platform/OS interface for multi-viewport support
     [Ref] static ImGuiPlatformIO   GetPlatformIO();
     static void                    UpdatePlatformWindows();
     static void                    RenderPlatformWindowsDefault(optional any platform_render_arg, optional any renderer_render_arg);
@@ -773,7 +803,7 @@ interface ImGuiStyle {
     attribute float             WindowBorderSize;
     [Value] attribute ImVec2    WindowMinSize;
     [Value] attribute ImVec2    WindowTitleAlign;
-    attribute long              WindowMenuButtonPosition;
+    attribute ImGuiDir          WindowMenuButtonPosition;
     attribute float             ChildRounding;
     attribute float             ChildBorderSize;
     attribute float             PopupRounding;
@@ -796,7 +826,7 @@ interface ImGuiStyle {
     attribute float             TabBorderSize;
     attribute float             TabMinWidthForCloseButton;
     attribute float             TabBarBorderSize;
-    attribute long              ColorButtonPosition;
+    attribute ImGuiDir          ColorButtonPosition;
     [Value] attribute ImVec2    ButtonTextAlign;
     [Value] attribute ImVec2    SelectableTextAlign;
     attribute float             SeparatorTextBorderSize;
@@ -921,9 +951,9 @@ interface ImGuiWindow {
 
     [Const, Value] ImRect Rect();
     float CalcFontSize();
-    float TitleBarHeight();
+    attribute float TitleBarHeight;
     [Const, Value] ImRect TitleBarRect();
-    float MenuBarHeight();
+    attribute float MenuBarHeight;
     [Const, Value] ImRect MenuBarRect();
 };
 
@@ -977,7 +1007,6 @@ interface ImGuiContext {
     readonly attribute long                      HoveredId;
     readonly attribute long                      HoveredIdPreviousFrame;
     readonly attribute boolean                   HoveredIdAllowOverlap;
-    readonly attribute boolean                   HoveredIdDisabled;
     readonly attribute float                     HoveredIdTimer;
     readonly attribute float                     HoveredIdNotActiveTimer;
     readonly attribute long                      ActiveId;
@@ -1040,6 +1069,12 @@ interface ClipboardTextFunctionImpl {
     void onSetClipboardText(IDLString text);
 };
 
+
+interface ImGuiMultiSelectIO {
+    attribute boolean NavIdSelected;
+    attribute boolean RangeSrcReset;
+    attribute long ItemsCount;
+};
 
 enum ImGuiFocusedFlags {
     "ImGuiFocusedFlags_None",
@@ -1407,17 +1442,10 @@ enum ImDrawFlags {
 enum ImGuiItemFlags {
     "ImGuiItemFlags_None",
     "ImGuiItemFlags_NoTabStop",
-    "ImGuiItemFlags_ButtonRepeat",
-    "ImGuiItemFlags_Disabled",
     "ImGuiItemFlags_NoNav",
     "ImGuiItemFlags_NoNavDefaultFocus",
-    "ImGuiItemFlags_SelectableDontClosePopup",
-    "ImGuiItemFlags_MixedValue",
-    "ImGuiItemFlags_ReadOnly",
-    "ImGuiItemFlags_NoWindowHoverableCheck",
-    "ImGuiItemFlags_AllowOverlap",
-    "ImGuiItemFlags_Inputable",
-    "ImGuiItemFlags_HasSelectionUserData"
+    "ImGuiItemFlags_ButtonRepeat",
+    "ImGuiItemFlags_AutoClosePopups"
 };
 
 enum ImGuiDragDropFlags {
@@ -1632,6 +1660,26 @@ enum ImGuiInputTextFlags {
     "ImGuiInputTextFlags_EscapeClearsAll"
 };
 
+enum ImGuiMultiSelectFlags {
+    "ImGuiMultiSelectFlags_None",
+    "ImGuiMultiSelectFlags_SingleSelect",
+    "ImGuiMultiSelectFlags_NoSelectAll",
+    "ImGuiMultiSelectFlags_NoRangeSelect",
+    "ImGuiMultiSelectFlags_NoAutoSelect",
+    "ImGuiMultiSelectFlags_NoAutoClear",
+    "ImGuiMultiSelectFlags_NoAutoClearOnReselect",
+    "ImGuiMultiSelectFlags_BoxSelect1d",
+    "ImGuiMultiSelectFlags_BoxSelect2d",
+    "ImGuiMultiSelectFlags_BoxSelectNoScroll",
+    "ImGuiMultiSelectFlags_ClearOnEscape",
+    "ImGuiMultiSelectFlags_ClearOnClickVoid",
+    "ImGuiMultiSelectFlags_ScopeWindow",
+    "ImGuiMultiSelectFlags_ScopeRect",
+    "ImGuiMultiSelectFlags_SelectOnClick",
+    "ImGuiMultiSelectFlags_SelectOnClickRelease",
+    "ImGuiMultiSelectFlags_NavWrapX"
+};
+
 // ImGui Internal
 
 enum ImGuiAxis {
@@ -1713,34 +1761,15 @@ enum ImGuiButtonFlagsPrivate_ {
 enum ImGuiInputFlags {
     "ImGuiInputFlags_None",
     "ImGuiInputFlags_Repeat",
-    "ImGuiInputFlags_RepeatRateDefault",
-    "ImGuiInputFlags_RepeatRateNavMove",
-    "ImGuiInputFlags_RepeatRateNavTweak",
-    "ImGuiInputFlags_RepeatUntilRelease",
-    "ImGuiInputFlags_RepeatUntilKeyModsChange",
-    "ImGuiInputFlags_RepeatUntilKeyModsChangeFromNone",
-    "ImGuiInputFlags_RepeatUntilOtherKeyPress",
-    "ImGuiInputFlags_CondHovered",
-    "ImGuiInputFlags_CondActive",
-    "ImGuiInputFlags_CondDefault_",
-    "ImGuiInputFlags_LockThisFrame",
-    "ImGuiInputFlags_LockUntilRelease",
+    "ImGuiInputFlags_RouteActive",
     "ImGuiInputFlags_RouteFocused",
-    "ImGuiInputFlags_RouteGlobalLow",
     "ImGuiInputFlags_RouteGlobal",
-    "ImGuiInputFlags_RouteGlobalHigh",
     "ImGuiInputFlags_RouteAlways",
+    "ImGuiInputFlags_RouteOverFocused",
+    "ImGuiInputFlags_RouteOverActive",
     "ImGuiInputFlags_RouteUnlessBgFocused",
-    "ImGuiInputFlags_RepeatRateMask_",
-    "ImGuiInputFlags_RepeatUntilMask_",
-    "ImGuiInputFlags_RepeatMask_",
-    "ImGuiInputFlags_CondMask_",
-    "ImGuiInputFlags_RouteMask_",
-    "ImGuiInputFlags_SupportedByIsKeyPressed",
-    "ImGuiInputFlags_SupportedByIsMouseClicked",
-    "ImGuiInputFlags_SupportedByShortcut",
-    "ImGuiInputFlags_SupportedBySetKeyOwner",
-    "ImGuiInputFlags_SupportedBySetItemKeyOwner"
+    "ImGuiInputFlags_RouteFromRootWindow",
+    "ImGuiInputFlags_Tooltip"
 };
 
 enum ImGuiScrollFlags {
