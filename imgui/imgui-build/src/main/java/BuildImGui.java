@@ -1,6 +1,4 @@
-import com.github.xpenatan.jparser.builder.BuildConfig;
 import com.github.xpenatan.jparser.builder.BuildMultiTarget;
-import com.github.xpenatan.jparser.builder.JBuilder;
 import com.github.xpenatan.jparser.builder.targets.AndroidTarget;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
 import com.github.xpenatan.jparser.builder.targets.LinuxTarget;
@@ -9,15 +7,7 @@ import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
 import com.github.xpenatan.jparser.builder.tool.BuildToolListener;
 import com.github.xpenatan.jparser.builder.tool.BuildToolOptions;
 import com.github.xpenatan.jparser.builder.tool.BuilderTool;
-import com.github.xpenatan.jparser.core.JParser;
-import com.github.xpenatan.jparser.core.util.FileHelper;
-import com.github.xpenatan.jparser.cpp.CppCodeParser;
-import com.github.xpenatan.jparser.cpp.CppGenerator;
-import com.github.xpenatan.jparser.cpp.NativeCPPGenerator;
 import com.github.xpenatan.jparser.idl.IDLReader;
-import com.github.xpenatan.jparser.teavm.TeaVMCodeParser;
-import java.io.File;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class BuildImGui {
@@ -47,49 +37,14 @@ public class BuildImGui {
                     targets.add(getMacTarget(op, true));
                 }
                 if(op.android) {
-                    targets.add(getAndroidTarget(op));
+                    // TODO fix android input and ui scale (Widgets are too small)
+//                    targets.add(getAndroidTarget(op));
                 }
 //                if(op.iOS) {
 //                    targets.add(getIOSTarget(op));
 //                }
             }
         });
-    }
-
-    public static void generateAndBuild(String imguiPath, IDLReader idlReader, ArrayList<BuildMultiTarget> targets, boolean generate) throws Exception {
-        String libName = "imgui";
-        String basePackage = "imgui";
-
-        String imguiBasePath = imguiPath + "/imgui-base";
-        String imguiBuildPath = imguiPath + "/imgui-build";
-        String imguiCorePath = imguiPath + "/imgui-core";
-        String imguiTeavmPath = imguiPath + "/imgui-teavm";
-
-        String buildCPPPath = imguiBuildPath + "/build/c++";
-        String cppSourceDir = imguiBuildPath + "/build/imgui";
-        String baseJavaDir = imguiBasePath + "/src/main/java";
-        String libsDir = buildCPPPath + "/libs/";
-        String cppDestinationPath = buildCPPPath + "/src";
-        String libDestinationPath = cppDestinationPath + "/imgui";
-
-        BuildConfig buildConfig = new BuildConfig(cppDestinationPath, buildCPPPath, libsDir, libName);
-
-        if(generate) {
-            FileHelper.copyDir(cppSourceDir, libDestinationPath);
-            CppGenerator cppGenerator = new NativeCPPGenerator(libDestinationPath, true);
-            CppCodeParser cppParser = new CppCodeParser(cppGenerator, idlReader, basePackage, cppSourceDir);
-            cppParser.generateClass = true;
-            JParser.generate(cppParser, baseJavaDir, imguiCorePath + "/src/main/java");
-
-            TeaVMCodeParser teavmParser = new TeaVMCodeParser(idlReader, libName, basePackage, cppSourceDir);
-            JParser.generate(teavmParser, baseJavaDir, imguiTeavmPath + "/src/main/java/");
-
-            Path copyOut = new File(libDestinationPath).toPath();
-            Path copyJNIOut = new File(cppDestinationPath + "/jniglue").toPath();
-            FileHelper.copyDir(new File(imguiBuildPath + "/src/main/cpp/cpp-source/custom").toPath(), copyOut);
-            FileHelper.copyDir(new File(imguiBuildPath + "/src/main/cpp/cpp-source/jni").toPath(), copyJNIOut);
-        }
-        JBuilder.build(buildConfig, targets);
     }
 
     private static BuildMultiTarget getWindowTarget(BuildToolOptions op) {
