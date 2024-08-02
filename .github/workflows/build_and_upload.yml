@@ -313,11 +313,11 @@ jobs:
           name: mac-natives
           path: ./imgui/imgui-build/build/c++/libs/
 
-#      - name: Download android natives
-#        uses: actions/download-artifact@v4
-#        with:
-#          name: android-natives
-#          path: ./imgui/imgui-build/build/c++/libs/
+      - name: Download android natives
+        uses: actions/download-artifact@v4
+        with:
+          name: android-natives
+          path: ./imgui/imgui-build/build/c++/libs/
 
       - name: Download teavm natives
         uses: actions/download-artifact@v4

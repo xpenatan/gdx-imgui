@@ -30,13 +30,14 @@ android {
 dependencies {
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            artifactId = moduleName
-            afterEvaluate {
-                from(components["release"])
-            }
-        }
-    }
-}
+// TODO Uncomment when android is ready
+//publishing {
+//    publications {
+//        create<MavenPublication>("maven") {
+//            artifactId = moduleName
+//            afterEvaluate {
+//                from(components["release"])
+//            }
+//        }
+//    }
+//}
