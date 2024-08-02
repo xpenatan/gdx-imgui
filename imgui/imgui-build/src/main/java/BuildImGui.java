@@ -38,7 +38,7 @@ public class BuildImGui {
                 }
                 if(op.android) {
                     // TODO fix android input and ui scale (Widgets are too small)
-//                    targets.add(getAndroidTarget(op));
+                    targets.add(getAndroidTarget(op));
                 }
 //                if(op.iOS) {
 //                    targets.add(getIOSTarget(op));
