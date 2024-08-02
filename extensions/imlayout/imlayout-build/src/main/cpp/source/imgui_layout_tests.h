@@ -956,6 +956,26 @@ namespace ImGuiExt
 		ImLayout::EndLayout();
 	}
 
+	inline void render_file(const char* name, float thumbnailSize) {
+		ImGuiLayoutOptions op;
+		op.paddingBottom = 5;
+		op.paddingLeft = 4;
+		op.paddingRight = 4;
+		op.clipping = false;
+
+		ImLayout::BeginLayout(name, thumbnailSize, ImLayout::WRAP_PARENT);
+		{
+			ImGui::Button("Btn", ImVec2(thumbnailSize, thumbnailSize));
+			ImLayout::BeginAlign(name, ImLayout::MATCH_PARENT, ImLayout::WRAP_PARENT, 0.5f, 0, 0, 0, op);
+			{
+				ImGui::TextWrapped(name);
+			}
+			ImLayout::EndAlign();
+
+		}
+		ImLayout::EndLayout();
+	}
+
 	inline void test_tree(const char* name, bool debug) {
 		int flags = ImGuiTableFlags_Resizable | ImGuiTableFlags_ScrollY;
 		if (ImGui::BeginTable("ContentBrowser", 2, flags)) {
@@ -968,75 +988,122 @@ namespace ImGuiExt
 
 			float height = 10;
 			ImLayout::BeginTree("RootId");
-			ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), false, true);
-			ImLayout::SetOrientation(ImOrientation::HORIZONTAL);
-			ImLayout::BeginAlign("111", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 0.0, 0.5);
-			ImGui::Text("Root");
-			//ImLayout::ShowLayoutDebug();
-			ImLayout::EndAlign();
-
-			ImGui::SameLine();
-			ImLayout::BeginAlign("222", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 0.5, 0.5);
-			ImGui::Text("- 22");
-			//ImLayout::ShowLayoutDebug();
-			ImLayout::EndAlign();
-
-			ImLayout::EndTreeLayout();
-			if (ImLayout::IsTreeOpen()) {
+			{
+				ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), false, false);
 				{
-					ImLayout::BeginTree("Assets");
-					ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), false, false);
-					ImGui::Text("Assets");
-					ImLayout::EndTreeLayout();
-					if (ImLayout::IsTreeOpen()) {
+					ImLayout::SetOrientation(ImOrientation::HORIZONTAL);
+					ImLayout::BeginAlign("111", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 0.0, 0.5);
+					{
+						ImGui::Text("Root");
+						//ImLayout::ShowLayoutDebug();
+					}
+					ImLayout::EndAlign();
 
-						{
+					ImGui::SameLine();
+					ImLayout::BeginAlign("222", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 1.0, 0.5);
+					{
+						ImGui::Text("- 22");
+						//ImLayout::ShowLayoutDebug();
+					}
+					ImLayout::EndAlign();
+				}
+				ImLayout::EndTreeLayout();
+				if (ImLayout::IsTreeOpen()) {
+					{
+						ImLayout::BeginTree("Assets");
+						ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), false, false);
+						ImGui::Text("Assets");
+						ImLayout::EndTreeLayout();
+						if (ImLayout::IsTreeOpen()) {
+
 							{
-								ImLayout::BeginTree("Item");
-								ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), true, false);
-								ImGui::Text("Item");
-								ImLayout::EndTreeLayout();
-								if (ImLayout::IsTreeOpen()) {
+								{
+									ImLayout::BeginTree("Item");
+									ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), true, false);
+									ImGui::Text("Item");
+									ImLayout::EndTreeLayout();
+									if (ImLayout::IsTreeOpen()) {
+									}
+									ImLayout::EndTree();
 								}
-								ImLayout::EndTree();
 							}
 						}
-					}
-					ImLayout::EndTree();
+						ImLayout::EndTree();
 
-					ImLayout::BeginTree("Folder");
-					ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), false, false);
-					ImGui::Text("Folder");
-					ImLayout::EndTreeLayout();
-					if (ImLayout::IsTreeOpen()) {
+						ImLayout::BeginTree("Folder");
+						ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), false, false);
+						ImGui::Text("Folder");
+						ImLayout::EndTreeLayout();
+						if (ImLayout::IsTreeOpen()) {
 
-						{
 							{
-								ImLayout::BeginTree("Item");
-								ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), true, false);
-								ImGui::Text("Item");
-								ImLayout::EndTreeLayout();
-								if (ImLayout::IsTreeOpen()) {
+								{
+									ImLayout::BeginTree("Item");
+									ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), true, false);
+									ImGui::Text("Item");
+									ImLayout::EndTreeLayout();
+									if (ImLayout::IsTreeOpen()) {
+									}
+									ImLayout::EndTree();
 								}
-								ImLayout::EndTree();
 							}
 						}
+						ImLayout::EndTree();
+
+
+						ImLayout::BeginTree("Folder2");
+						ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), true, false);
+						ImGui::Text("Folder2");
+						ImLayout::EndTreeLayout();
+						ImLayout::EndTree();
 					}
-					ImLayout::EndTree();
-
-
-					ImLayout::BeginTree("Folder2");
-					ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), true, false);
-					ImGui::Text("Folder2");
-					ImLayout::EndTreeLayout();
-					ImLayout::EndTree();
 				}
 			}
 			ImLayout::EndTree();
 
-
 			ImGui::TableSetColumnIndex(1);
 
+			ImGuiContext* imGuiContext = ImGui::GetCurrentContext();
+			float availSizeX = ImGui::GetContentRegionAvail().x;
+			float cursorX = ImGui::GetCursorScreenPos().x;
+
+			static int thumbnailSize = 90;
+			static int padding = 8;	
+			static int itemSize = 10;
+
+			ImGui::DragInt("Item Size", &itemSize, 0.1f, 0, 100);
+			ImGui::DragInt("Padding", &padding, 0.1f, 0, 60);
+			ImGui::DragInt("ThumbnailSize", &thumbnailSize, 0.1f, 40, 128);
+			
+			for (int i = 0; i < itemSize; i++) {
+
+				if (i == 1) {
+					render_file("Test World big name", thumbnailSize);
+				}
+				else if (i == 8) {
+					render_file("Test World very very very very big name", thumbnailSize);
+				}
+				else {
+					render_file("Test", thumbnailSize);
+				}
+				ImRect rect = imGuiContext->LastItemData.Rect;
+
+				float lastItemX = rect.Max.x - cursorX;
+
+				if (i + 1 < itemSize) {
+					bool sameLine = false;
+					float padThumbSize = thumbnailSize + padding;
+					float finalX = lastItemX + padThumbSize;
+
+					if (finalX < availSizeX) {
+						sameLine = true;
+					}
+					if (sameLine) {
+						ImGui::SameLine(0, padding);
+					}
+				}
+				ImVec2 cursorPosStart = ImGui::GetCursorPos();
+			}
 
 			ImGui::EndTable();
 		}

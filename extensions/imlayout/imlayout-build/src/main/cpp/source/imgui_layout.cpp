@@ -1068,13 +1068,13 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
     }
 
     // Selected and hover logic
-    ImGui::ItemAdd(bbArrow, arrowButtonId);
     bool isArrowHovered = ImGui::ItemHoverable(bbArrow, arrowButtonId, ImGuiItemFlags_None);
     bool arrowClicked = ImGui::IsItemClicked();
 
     {
 
-        ImGui::ItemAdd(fullLayout, layoutId);
+        //ImGui::KeepAliveID(layoutId);
+        //ImGui::ItemAdd(fullLayout, layoutId);
         bool isLayoutHovered = ImGui::ItemHoverable(fullLayout, layoutId, ImGuiItemFlags_None);
 
         if (isLayoutHovered || isArrowHovered) {
@@ -1090,25 +1090,20 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
 
 
     if (!isLeaf) {
-        ImLayout::BeginAlign("arrow", ImLayout::WRAP_PARENT, height, 0.0, 0.0, 0.5);
-        {
-            ImGuiDir dir = isOpen == 1 ? ImGuiDir_Down : ImGuiDir_Right;
-            if (arrowClicked) {
-                isOpen = isOpen == 1 ? 0 : 1;
-            }
-            float fontSize = ImGui::GetFont()->FontSize;
-            int arrowColor = IM_COL32(255, 255, 255, 255);
-            ImVec2 size = bbArrow.GetSize();
-            float sizeX = size.x;
-            float sizeY = size.y;
-            float iconPosX = minX;
-            float iconPosY = minY;
-            iconPosX = iconPosX + (sizeX - fontSize) * 0.5f;
-            iconPosY = iconPosY + (sizeY - fontSize) * 0.5f;
-            ImGui::RenderArrow(ImGui::GetWindowDrawList(), ImVec2(iconPosX, iconPosY), arrowColor, dir);
+        ImGuiDir dir = isOpen == 1 ? ImGuiDir_Down : ImGuiDir_Right;
+        if (arrowClicked) {
+            isOpen = isOpen == 1 ? 0 : 1;
         }
-        ImLayout::EndAlign();
-        ImGui::SameLine(0, 0);
+        float fontSize = ImGui::GetFont()->FontSize;
+        int arrowColor = IM_COL32(255, 255, 255, 255);
+        ImVec2 size = bbArrow.GetSize();
+        float sizeX = size.x;
+        float sizeY = size.y;
+        float iconPosX = minX;
+        float iconPosY = minY;
+        iconPosX = iconPosX + (sizeX - fontSize) * 0.5f;
+        iconPosY = iconPosY + (sizeY - fontSize) * 0.5f;
+        ImGui::RenderArrow(ImGui::GetWindowDrawList(), ImVec2(iconPosX, iconPosY), arrowColor, dir);
     }
 
     storage->SetBool(isOpenId, isOpen == 1);
