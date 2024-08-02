@@ -328,8 +328,11 @@ void ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
                 if (childLayout->isWrapParentX) {
                     totalWrapSize += childLayout->contentSize.x;
                 }
-                if (childLayout->isMatchParentX) {
+                else if (childLayout->isMatchParentX) {
                     matchCount++;
+                }
+                else {
+                    totalWrapSize += childLayout->size.x;
                 }
                 if (i > 0) {
                     ImGuiLayout* prevChildLayout = curLayout->childLayoutCache[i - 1];
@@ -367,8 +370,11 @@ void ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
                 if (childLayout->isWrapParentY) {
                     totalWrapSize += childLayout->contentSize.y;
                 }
-                if (childLayout->isMatchParentY) {
+                else if (childLayout->isMatchParentY) {
                     matchCount++;
+                }
+                else {
+                    totalWrapSize += childLayout->size.y;
                 }
                 if (i > 0) {
                     ImGuiLayout* prevChildLayout = curLayout->childLayoutCache[i - 1];
