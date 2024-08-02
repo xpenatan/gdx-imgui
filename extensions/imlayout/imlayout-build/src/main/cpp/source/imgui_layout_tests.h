@@ -1074,7 +1074,7 @@ namespace ImGuiExt
 			ImGui::DragInt("Item Size", &itemSize, 0.1f, 0, 100);
 			ImGui::DragInt("Padding", &padding, 0.1f, 0, 60);
 			ImGui::DragInt("ThumbnailSize", &thumbnailSize, 0.1f, 40, 128);
-			
+
 			for (int i = 0; i < itemSize; i++) {
 
 				if (i == 1) {
@@ -1107,6 +1107,159 @@ namespace ImGuiExt
 
 			ImGui::EndTable();
 		}
+	}
+
+	inline void test_layout_orientation(const char* name, bool debug) {
+		ImLayout::BeginLayout("menu1", ImLayout::MATCH_PARENT, 22);
+		{
+			int menuColor = ImColor(255, 255, 255, 20);
+			//ImLayout::SetOrientation(ImOrientation::HORIZONTAL);
+			ImGuiLayout* imGuiLayout1 = ImLayout::GetCurrentLayout();
+			ImGui::GetWindowDrawList()->AddRectFilled(imGuiLayout1->position, imGuiLayout1->getAbsoluteSize(), menuColor);
+			ImLayout::BeginAlign("path", 50, ImLayout::MATCH_PARENT, 0, 0.5f);
+			{
+				ImGui::Text("TEST1");
+			}
+			ImLayout::EndLayout();
+			ImGui::SameLine();
+			ImLayout::BeginAlign("gear", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 1.0f, 0.0f);
+			{
+				ImLayout::ShowLayoutDebug();
+				if (ImGui::Button("A", ImVec2(22, 22))) {
+
+				}
+			}
+			ImLayout::EndLayout();
+		}
+		ImLayout::EndLayout();
+
+		ImLayout::BeginLayout("menu2", ImLayout::MATCH_PARENT, 22);
+		{
+			int menuColor = ImColor(255, 255, 255, 40);
+			//ImLayout::SetOrientation(ImOrientation::HORIZONTAL);
+			ImGuiLayout* imGuiLayout1 = ImLayout::GetCurrentLayout();
+			ImGui::GetWindowDrawList()->AddRectFilled(imGuiLayout1->position, imGuiLayout1->getAbsoluteSize(), menuColor);
+			ImLayout::BeginAlign("path", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f);
+			{
+				ImGui::Text("TEST1");
+			}
+			ImLayout::EndLayout();
+			ImGui::SameLine();
+			ImLayout::BeginAlign("gear", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 1.0f, 0.0f);
+			{
+				ImLayout::ShowLayoutDebug();
+				if (ImGui::Button("B", ImVec2(22, 22))) {
+
+				}
+			}
+			ImLayout::EndLayout();
+		}
+		ImLayout::EndLayout();
+
+		ImLayout::BeginLayout("menu3", ImLayout::MATCH_PARENT, 22);
+		{
+			ImLayout::ShowLayoutDebug();
+			int menuColor = ImColor(255, 255, 255, 20);
+			ImLayout::SetOrientation(ImOrientation::HORIZONTAL);
+			ImGuiLayout* imGuiLayout1 = ImLayout::GetCurrentLayout();
+			ImGui::GetWindowDrawList()->AddRectFilled(imGuiLayout1->position, imGuiLayout1->getAbsoluteSize(), menuColor);
+			ImLayout::BeginAlign("path", 50, ImLayout::MATCH_PARENT, 0, 0.5f);
+			{
+				ImGui::Text("TEST1");
+			}
+			ImLayout::EndLayout();
+			ImGui::SameLine();
+			ImLayout::BeginAlign("gear", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 1.0f, 0.0f);
+			{
+				ImLayout::ShowLayoutDebug();
+				if (ImGui::Button("C", ImVec2(22, 22))) {
+
+				}
+			}
+			ImLayout::EndLayout();
+		}
+		ImLayout::EndLayout();
+
+		ImLayout::BeginLayout("menu4", ImLayout::MATCH_PARENT, 22);
+		{
+			int menuColor = ImColor(255, 255, 255, 40);
+			ImLayout::SetOrientation(ImOrientation::HORIZONTAL);
+			ImGuiLayout* imGuiLayout1 = ImLayout::GetCurrentLayout();
+			ImGui::GetWindowDrawList()->AddRectFilled(imGuiLayout1->position, imGuiLayout1->getAbsoluteSize(), menuColor);
+			ImLayout::BeginAlign("path", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f);
+			{
+				ImGui::Text("TEST1");
+			}
+			ImLayout::EndLayout();
+			ImGui::SameLine();
+			ImLayout::BeginAlign("gear", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 1.0f, 0.0f);
+			{
+				ImLayout::ShowLayoutDebug();
+				if (ImGui::Button("D", ImVec2(22, 22))) {
+
+				}
+			}
+			ImLayout::EndLayout();
+		}
+		ImLayout::EndLayout();
+
+		ImLayout::BeginLayout("menu5", ImLayout::MATCH_PARENT, 22);
+		{
+			int menuColor = ImColor(255, 255, 255, 20);
+			ImLayout::SetOrientation(ImOrientation::HORIZONTAL);
+			ImGuiLayout* imGuiLayout1 = ImLayout::GetCurrentLayout();
+			ImGui::GetWindowDrawList()->AddRectFilled(imGuiLayout1->position, imGuiLayout1->getAbsoluteSize(), menuColor);
+			ImLayout::BeginAlign("path1", 40, ImLayout::MATCH_PARENT, 0, 0.5f);
+			{
+				ImGui::Text("TEST1");
+			}
+			ImLayout::EndLayout();
+			ImGui::SameLine();
+			ImLayout::BeginAlign("gear", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 0.0f, 0.0f);
+			{
+				ImLayout::ShowLayoutDebug();
+				if (ImGui::Button("D", ImVec2(-1, 22))) {
+
+				}
+			}
+			ImLayout::EndLayout();
+			ImGui::SameLine();
+			ImLayout::BeginAlign("path2", 40, ImLayout::MATCH_PARENT, 0, 0.5f);
+			{
+				ImGui::Text("TEST2");
+			}
+			ImLayout::EndLayout();
+		}
+		ImLayout::EndLayout();
+
+		ImLayout::BeginLayout("menu6", ImLayout::MATCH_PARENT, 22);
+		{
+			int menuColor = ImColor(255, 255, 255, 20);
+			ImLayout::SetOrientation(ImOrientation::HORIZONTAL);
+			ImGuiLayout* imGuiLayout1 = ImLayout::GetCurrentLayout();
+			ImGui::GetWindowDrawList()->AddRectFilled(imGuiLayout1->position, imGuiLayout1->getAbsoluteSize(), menuColor);
+			ImLayout::BeginAlign("path1", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f);
+			{
+				ImGui::Text("TEST1");
+			}
+			ImLayout::EndLayout();
+			ImGui::SameLine();
+			ImLayout::BeginAlign("gear", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 0.0f, 0.0f);
+			{
+				ImLayout::ShowLayoutDebug();
+				if (ImGui::Button("D", ImVec2(-1, 22))) {
+
+				}
+			}
+			ImLayout::EndLayout();
+			ImGui::SameLine();
+			ImLayout::BeginAlign("path2", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f);
+			{
+				ImGui::Text("TEST2");
+			}
+			ImLayout::EndLayout();
+		}
+		ImLayout::EndLayout();
 	}
 
 	inline void testFail01(const char* name, bool debug) {
@@ -1350,6 +1503,7 @@ namespace ImGuiExt
 		ImGui::RadioButton("test17", &e, i++);
 		ImGui::RadioButton("test18", &e, i++);
 		ImGui::RadioButton("test_tree", &e, i++);
+		ImGui::RadioButton("test_orientation", &e, i++);
 		ImGui::RadioButton("example01", &e, i++);
 		ImGui::RadioButton("example02", &e, i++);
 		ImGui::RadioButton("example03", &e, i++);
@@ -1396,7 +1550,9 @@ namespace ImGuiExt
 		if (e == i++)
 			test18("test18", false);
 		if (e == i++)
-			test_tree("test_tree", false);
+			test_tree("test_tree", false);		
+		if (e == i++)
+			test_layout_orientation("test_orientation", false);
 		if (e == i++)
 			example01("example01");
 		if (e == i++)
