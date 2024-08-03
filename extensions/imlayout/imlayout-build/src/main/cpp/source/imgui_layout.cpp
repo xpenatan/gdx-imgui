@@ -317,6 +317,31 @@ void ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
 
     curLayout->content_avail = ImGui::GetContentRegionAvail();
 
+    if (curLayout->isMatchParentX) {
+        if (curLayout->parentLayout != NULL && curLayout->parentLayout->orientation == ImOrientation::HORIZONTAL && curLayout->parentLayout->childLayoutCache.Size > 1) {
+            curLayout->size.x = ImMax(curLayout->matchTargetSize.x, 4.0f);
+        }
+        else {
+            curLayout->size.x = ImMax(curLayout->content_avail.x, 4.0f);
+        }
+    }
+    else if (!curLayout->isWrapParentX) {
+        curLayout->size.x = ImFloor(x2 - x1);
+    }
+
+    if (curLayout->isMatchParentY) {
+        if (curLayout->parentLayout != NULL && curLayout->parentLayout->orientation == ImOrientation::VERTICAL && curLayout->parentLayout->childLayoutCache.Size > 1) {
+            curLayout->size.y = ImMax(curLayout->matchTargetSize.y, 4.0f);
+        }
+        else {
+            curLayout->size.y = ImMax(curLayout->content_avail.y, 4.0f);
+        }
+    }
+    else if (!curLayout->isWrapParentY) {
+        curLayout->size.y = ImFloor(y2 - y1);
+    }
+
+
     if (curLayout->childLayoutCache.Size > 1) {
         int totalWrapSize = 0;
         int matchCount = 0;
@@ -345,19 +370,15 @@ void ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
             if (matchCount > 0) {
                 float totalSizeLeft = curLayout->size.x - totalWrapSize + subtractSize;
                 int matchSize = totalSizeLeft / matchCount;
+                int totalSize = matchSize * matchCount - subtractSize + totalWrapSize;
+                float remainingPixels = curLayout->content_avail.x - totalSize;
                 for (int i = 0; i < curLayout->childLayoutCache.Size; i++) {
                     ImGuiLayout* childLayout = curLayout->childLayoutCache[i];
                     if (childLayout->isMatchParentX) {
                         float addSize = 0;
-                        if (i + 1 == curLayout->childLayoutCache.Size) {
-                            // Make the last layout match the same parent size
-                            float childSize = childLayout->position.x + matchSize;
-                            addSize = parentMaxSize.x - childSize; 
-                            if (addSize > 3 || addSize < -3) {
-                                // FIXME the first 2 frames the addSize have very big size
-                                // childLayout->position.x is not calculated correctly at the first 2 frames.
-                                addSize = 0;
-                            }
+                        if (remainingPixels > 0) {
+                            remainingPixels--;
+                            addSize = 1;
                         }
                         childLayout->matchTargetSize.x = matchSize + addSize;
                     }
@@ -386,48 +407,22 @@ void ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
             if (matchCount > 0) {
                 float totalSizeLeft = curLayout->size.y - totalWrapSize + subtractSize;
                 int matchSize = totalSizeLeft / matchCount;
+                int totalSize = matchSize * matchCount - subtractSize + totalWrapSize;
+                float remainingPixels = curLayout->content_avail.x - totalSize;
+
                 for (int i = 0; i < curLayout->childLayoutCache.Size; i++) {
                     ImGuiLayout* childLayout = curLayout->childLayoutCache[i];
                     if (childLayout->isMatchParentY) {
                         int addSize = 0;
-                        if (i + 1 == curLayout->childLayoutCache.Size) {
-                            // Make the last layout match the same parent size
-                            float childSize = childLayout->position.y + matchSize;
-                            addSize = parentMaxSize.y - childSize;
-                            if (addSize > 3 || addSize < -3) {
-                                // FIXME the first 2 frames the addSize have very big size
-                                addSize = 0;
-                            }
+                        if (remainingPixels > 0) {
+                            remainingPixels--;
+                            addSize = 1;
                         }
                         childLayout->matchTargetSize.y = matchSize + addSize;
                     }
                 }
             }
         }
-    }
-
-    if (curLayout->isMatchParentX) {
-        if (curLayout->parentLayout != NULL && curLayout->parentLayout->orientation == ImOrientation::HORIZONTAL && curLayout->parentLayout->childLayoutCache.Size > 1) {
-            curLayout->size.x = ImMax(curLayout->matchTargetSize.x, 4.0f);
-        }
-        else {
-            curLayout->size.x = ImMax(curLayout->content_avail.x, 4.0f);
-        }
-    }
-    else if (!curLayout->isWrapParentX) {
-        curLayout->size.x = ImFloor(x2 - x1);
-    }
-
-    if (curLayout->isMatchParentY) {
-        if (curLayout->parentLayout != NULL && curLayout->parentLayout->orientation == ImOrientation::VERTICAL && curLayout->parentLayout->childLayoutCache.Size > 1) {
-            curLayout->size.y = ImMax(curLayout->matchTargetSize.y, 4.0f);
-        }
-        else {
-            curLayout->size.y = ImMax(curLayout->content_avail.y, 4.0f);
-        }
-    }
-    else if (!curLayout->isWrapParentY) {
-        curLayout->size.y = ImFloor(y2 - y1);
     }
 
     // ***** End Update Layout

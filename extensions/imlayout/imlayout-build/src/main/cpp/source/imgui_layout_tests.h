@@ -1110,14 +1110,24 @@ namespace ImGuiExt
 	}
 
 	inline void test_layout_orientation(const char* name, bool debug) {
+
+		ImGui::SetWindowSize(ImVec2(500, 400));
 		int width = 0;
-		if (ImGui::Button("30")) {
-			width = 30;
+		if (ImGui::Button("75")) {
+			width = 75;
 		}
 		ImGui::SameLine();
-		if (ImGui::Button("150")) {
-			width = 150;
+		if (ImGui::Button("175")) {
+			width = 175;
+		}	
+		ImGui::SameLine();
+		if (ImGui::Button("176")) {
+			width = 176;
 		}
+		float availX = ImGui::GetContentRegionAvail().x;
+		float availY = ImGui::GetContentRegionAvail().y;
+		ImGui::Text("%f", availX);
+		ImGui::Text("%f", availY);
 		int flags = ImGuiTableFlags_Resizable | ImGuiTableFlags_ScrollY;
 		if (ImGui::BeginTable("ContentBrowser", 2, flags)) {
 
@@ -1134,6 +1144,7 @@ namespace ImGuiExt
 			}
 			ImGui::TableSetColumnIndex(1);
 			{
+				ImGui::Text("%f", ImGui::GetContentRegionAvail().x);
 				ImLayout::BeginLayout("menu1", ImLayout::MATCH_PARENT, 22);
 				{
 					int menuColor = ImColor(255, 255, 255, 20);
@@ -1165,7 +1176,7 @@ namespace ImGuiExt
 					ImGui::GetWindowDrawList()->AddRectFilled(imGuiLayout1->position, imGuiLayout1->getAbsoluteSize(), menuColor);
 					ImLayout::BeginAlign("path", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f);
 					{
-						ImGui::Text("TEST1");
+						ImGui::Text("TEST2");
 					}
 					ImLayout::EndLayout();
 					ImGui::SameLine();
@@ -1189,7 +1200,7 @@ namespace ImGuiExt
 					ImGui::GetWindowDrawList()->AddRectFilled(imGuiLayout1->position, imGuiLayout1->getAbsoluteSize(), menuColor);
 					ImLayout::BeginAlign("path", 50, ImLayout::MATCH_PARENT, 0, 0.5f);
 					{
-						ImGui::Text("TEST1");
+						ImGui::Text("TEST3");
 					}
 					ImLayout::EndLayout();
 					ImGui::SameLine();
@@ -1212,7 +1223,7 @@ namespace ImGuiExt
 					ImGui::GetWindowDrawList()->AddRectFilled(imGuiLayout1->position, imGuiLayout1->getAbsoluteSize(), menuColor);
 					ImLayout::BeginAlign("path", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f);
 					{
-						ImGui::Text("TEST1");
+						ImGui::Text("TEST4");
 					}
 					ImLayout::EndLayout();
 					ImGui::SameLine();
@@ -1235,7 +1246,7 @@ namespace ImGuiExt
 					ImGui::GetWindowDrawList()->AddRectFilled(imGuiLayout1->position, imGuiLayout1->getAbsoluteSize(), menuColor);
 					ImLayout::BeginAlign("path1", 40, ImLayout::MATCH_PARENT, 0, 0.5f);
 					{
-						ImGui::Text("TEST1");
+						ImGui::Text("TEST5");
 					}
 					ImLayout::EndLayout();
 					ImGui::SameLine();
@@ -1264,7 +1275,7 @@ namespace ImGuiExt
 					ImGui::GetWindowDrawList()->AddRectFilled(imGuiLayout1->position, imGuiLayout1->getAbsoluteSize(), menuColor);
 					ImLayout::BeginAlign("path1", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f);
 					{
-						ImGui::Text("TEST1");
+						ImGui::Text("TEST6");
 					}
 					ImLayout::EndLayout();
 					ImGui::SameLine();
@@ -1280,6 +1291,91 @@ namespace ImGuiExt
 					ImLayout::BeginAlign("path2", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f);
 					{
 						ImGui::Text("TEST2");
+					}
+					ImLayout::EndLayout();
+				}
+				ImLayout::EndLayout();
+
+				ImLayout::BeginLayout("menu7", ImLayout::MATCH_PARENT, 22);
+				{
+					int menuColor = ImColor(255, 255, 255, 20);
+					ImLayout::SetOrientation(ImOrientation::HORIZONTAL);
+					ImGuiLayout* imGuiLayout1 = ImLayout::GetCurrentLayout();
+					ImGui::GetWindowDrawList()->AddRectFilled(imGuiLayout1->position, imGuiLayout1->getAbsoluteSize(), menuColor);
+					ImLayout::BeginAlign("path1", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f);
+					{
+						ImGui::Text("TEST7");
+					}
+					ImLayout::EndLayout();
+					ImGui::SameLine();
+					ImLayout::BeginAlign("gear", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 0.0f, 0.0f);
+					{
+						ImLayout::ShowLayoutDebug();
+						if (ImGui::Button("D", ImVec2(-1, 22))) {
+
+						}
+					}
+					ImLayout::EndLayout();
+					ImGui::SameLine();
+					ImLayout::BeginAlign("path2", 50, ImLayout::MATCH_PARENT, 0, 0.5f);
+					{
+						ImLayout::ShowLayoutDebug();
+						ImGui::Text("TEST2");
+					}
+					ImLayout::EndLayout();
+				}
+				ImLayout::EndLayout();
+
+				ImLayout::BeginLayout("menu8", ImLayout::MATCH_PARENT, 22);
+				{
+					int menuColor = ImColor(255, 255, 255, 20);
+					ImLayout::SetOrientation(ImOrientation::HORIZONTAL);
+					ImGuiLayout* imGuiLayout1 = ImLayout::GetCurrentLayout();
+					ImGui::GetWindowDrawList()->AddRectFilled(imGuiLayout1->position, imGuiLayout1->getAbsoluteSize(), menuColor);
+					ImLayout::BeginAlign("path1", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f);
+					{
+						ImLayout::ShowLayoutDebug();
+						ImGui::Text("TEST8");
+					}
+					ImLayout::EndLayout();
+					ImGui::SameLine();
+					ImLayout::BeginAlign("gear", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 0.0f, 0.0f);
+					{
+						ImLayout::ShowLayoutDebug();
+						if (ImGui::Button("D", ImVec2(-1, 22))) {
+
+						}
+					}
+					ImLayout::EndLayout();
+					ImGui::SameLine();
+					ImLayout::BeginAlign("path2", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f);
+					{
+						ImLayout::ShowLayoutDebug();
+						ImGui::Text("TEST2");
+					}
+					ImLayout::EndLayout();
+				}
+				ImLayout::EndLayout();
+
+				ImLayout::BeginLayout("menu9", ImLayout::MATCH_PARENT, 22);
+				{
+					int menuColor = ImColor(255, 255, 255, 20);
+					ImLayout::SetOrientation(ImOrientation::HORIZONTAL);
+					ImGuiLayout* imGuiLayout1 = ImLayout::GetCurrentLayout();
+					ImGui::GetWindowDrawList()->AddRectFilled(imGuiLayout1->position, imGuiLayout1->getAbsoluteSize(), menuColor);
+					ImLayout::BeginAlign("path1", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 0, 0.5f);
+					{
+						ImLayout::ShowLayoutDebug();
+						ImGui::Text("TEST9");
+					}
+					ImLayout::EndLayout();
+					ImGui::SameLine();
+					ImLayout::BeginAlign("gear", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 0.0f, 0.0f);
+					{
+						ImLayout::ShowLayoutDebug();
+						if (ImGui::Button("D", ImVec2(-1, 22))) {
+
+						}
 					}
 					ImLayout::EndLayout();
 				}
