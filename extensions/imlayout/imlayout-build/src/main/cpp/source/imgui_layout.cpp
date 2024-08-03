@@ -341,7 +341,6 @@ void ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
         curLayout->size.y = ImFloor(y2 - y1);
     }
 
-
     if (curLayout->childLayoutCache.Size > 1) {
         int totalWrapSize = 0;
         int matchCount = 0;
@@ -409,7 +408,6 @@ void ImLayout::PrepareLayout(float x1, float y1, float x2, float y2, ImGuiLayout
                 int matchSize = totalSizeLeft / matchCount;
                 int totalSize = matchSize * matchCount - subtractSize + totalWrapSize;
                 float remainingPixels = curLayout->content_avail.x - totalSize;
-
                 for (int i = 0; i < curLayout->childLayoutCache.Size; i++) {
                     ImGuiLayout* childLayout = curLayout->childLayoutCache[i];
                     if (childLayout->isMatchParentY) {
