@@ -1040,7 +1040,8 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
 
     {
         // Tree alternative background
-        int treeDepth = (int)(windowY + posY);
+        float localCursorY = ImGui::GetCursorPosY();
+        int treeDepth = (int)(localCursorY);
         bool isBGAlt = (treeDepth % 2) == 1;
         if (isBGAlt) {
             ImVec4 color = style.Colors[ImGuiCol_TableRowBgAlt];
