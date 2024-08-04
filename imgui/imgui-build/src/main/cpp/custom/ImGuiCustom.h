@@ -2,6 +2,7 @@
 
 #include "imgui.h"
 #include "imgui_internal.h"
+#include "IDLHelper.h"
 
 #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
 #include <stddef.h>     // intptr_t
@@ -692,12 +693,19 @@ class ImHelper {
             memcpy(dest, drawList->VtxBuffer.Data, num);
         }
 
-        static void memcpyFont(ImGuiIO * io, intptr_t pixelBuff, int * width, int * height, int * bytesPerPixel) {
-            void * pixelBuffer = (void *)pixelBuff;
+        static void memcpyFont(ImFontAtlas* fontAtlas, IDLByteArray* byteArray, int* width, int* height) {
             unsigned char* pixels;
-            io->Fonts->GetTexDataAsRGBA32(&pixels, width, height, bytesPerPixel);
-            int size = (*width) * (*height) * (*bytesPerPixel);
-            memcpy(pixelBuffer, pixels, size);
+            fontAtlas->GetTexDataAsRGBA32(&pixels, width, height);
+            int size = (*width) * (*height) * 4;
+            byteArray->resize(size);
+            for(int i = 0; i < size; i++) {
+                byteArray->setValue(i, pixels[i]);
+            }
+        }
+
+        static void updateFontName(ImFont* font, const char* name, float size_pixels) {
+            ImFontConfig* fontConfig = const_cast<ImFontConfig*>(font->ConfigData);
+            ImFormatString(fontConfig->Name, IM_ARRAYSIZE(fontConfig->Name), "%s, %.0fpx", name, size_pixels);
         }
 
         static int getTextureId(ImDrawCmd* nativeObject) {

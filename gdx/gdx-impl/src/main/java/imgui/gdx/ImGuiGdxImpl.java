@@ -14,6 +14,7 @@ import imgui.ClipboardTextFunction;
 import imgui.ImDrawCmd;
 import imgui.ImDrawData;
 import imgui.ImDrawList;
+import imgui.ImFontAtlas;
 import imgui.ImGui;
 import imgui.ImGuiIO;
 import imgui.ImVec4;
@@ -36,7 +37,7 @@ public class ImGuiGdxImpl {
 
     private ShaderProgram shader;
 
-    private int g_FontTexture;
+    private int g_FontTexture = 0;
 
     final static IntBuffer tmpHandle = BufferUtils.newIntBuffer(1);
     int vaoHandle = -1;
@@ -78,7 +79,6 @@ public class ImGuiGdxImpl {
             Gdx.app.exit();
         }
 
-        prepareFont();
         createBufferObject();
 
         if(imgui != null) {
@@ -107,22 +107,18 @@ public class ImGuiGdxImpl {
     }
 
     private void prepareFont() {
-        int pixelMax = 131072; // 131072
-        ByteBuffer buffer = ByteBuffer.allocateDirect(pixelMax);
         IDLIntArray width = new IDLIntArray(1);
         IDLIntArray height = new IDLIntArray(1);
-        IDLIntArray bytesPerPixel = new IDLIntArray(1);
-        IDLByteArray bytesArray = new IDLByteArray(pixelMax);
+        IDLByteArray bytesArray = new IDLByteArray(1);
 
         ImGuiIO io = ImGui.GetIO();
-
-        io.GetTexDataAsRGBA32(bytesArray, width, height, bytesPerPixel);
+        ImFontAtlas fonts = io.Fonts();
+        fonts.GetTexDataAsRGBA32(bytesArray, width, height);
         int widthValue = width.getValue(0);
         int heightValue = height.getValue(0);
-        int bytesPerPixelValue = bytesPerPixel.getValue(0);
 
-        int size = widthValue * heightValue * 4;
-
+        int size = bytesArray.getSize();
+        ByteBuffer buffer = ByteBuffer.allocateDirect(size);
         for(int i = 0; i < size; i++) {
             buffer.put(i, bytesArray.getValue(i));
         }
@@ -147,12 +143,16 @@ public class ImGuiGdxImpl {
         ElementsHandle = Gdx.gl20.glGenBuffer();
     }
 
-    public void update() {
+    public void newFrame() {
         float deltaTime = Gdx.graphics.getDeltaTime();
         int width = Gdx.graphics.getWidth();
         int height = Gdx.graphics.getHeight();
         int backBufferWidth = Gdx.graphics.getBackBufferWidth();
         int backBufferHeight = Gdx.graphics.getBackBufferHeight();
+
+        if(g_FontTexture == 0) {
+            prepareFont();
+        }
         updateFrame(deltaTime, width, height, backBufferWidth, backBufferHeight);
 
         if(imgui != null) {

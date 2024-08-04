@@ -147,32 +147,6 @@ public class ImGuiIO extends IDLBase {
     */
     private static native boolean containsIniFilenameNATIVE(long addr);
 
-    public void GetTexDataAsRGBA32(IDLByteArray pixelBuffer, IDLIntArray outWidth, IDLIntArray outHeight, IDLIntArray outBytesPerPixel) {
-        GetTexDataAsRGBA32NATIVE(getCPointer(), pixelBuffer.getCPointer(), outWidth.getCPointer(), outHeight.getCPointer(), outBytesPerPixel.getCPointer());
-    }
-
-    /*[-TEAVM;-NATIVE]
-        var io = [MODULE].wrapPointer(addr, [MODULE].IDLImGuiIO);
-        var widthIntArray = [MODULE].wrapPointer(widthAddr, [MODULE].IDLIntArray);
-        var heightIntArray = [MODULE].wrapPointer(heightAddr, [MODULE].IDLIntArray);
-        var bytesPerPixelArray = [MODULE].wrapPointer(bytesPerPixelAddr, [MODULE].IDLIntArray);
-        var pixelBufferArray = [MODULE].wrapPointer(pixelBufferAddr, [MODULE].IDLByteArray);
-        var widthArr = widthIntArray.getPointer();
-        var heightArr = heightIntArray.getPointer();
-        var bytesPerPixelArr = bytesPerPixelArray.getPointer();
-        var pixelBufferArr = pixelBufferArray.getPointer();
-        [MODULE].ImHelper.prototype.memcpyFont(io, pixelBufferArr, widthArr, heightArr, bytesPerPixelArr);
-    */
-    /*[-JNI;-NATIVE]
-        ImGuiIO* io = (ImGuiIO*)addr;
-        IDLIntArray* widthIntArray = (IDLIntArray*)widthAddr;
-        IDLIntArray* heightIntArray = (IDLIntArray*)heightAddr;
-        IDLIntArray* bytesPerPixel = (IDLIntArray*)bytesPerPixelAddr;
-        IDLByteArray* pixelBuffer = (IDLByteArray*)pixelBufferAddr;
-        ImHelper::memcpyFont(io, pixelBuffer->getPointer(), (int*)widthIntArray->data, (int*)heightIntArray->data, (int*)bytesPerPixel->data);
-    */
-    private static native void GetTexDataAsRGBA32NATIVE(long addr, long pixelBufferAddr, long widthAddr, long heightAddr, long bytesPerPixelAddr);
-
     public void SetFontTexID(int id) {
         SetFontTexIDNATIVE(getCPointer(), id);
     }

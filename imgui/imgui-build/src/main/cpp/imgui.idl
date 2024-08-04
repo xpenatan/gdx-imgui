@@ -622,7 +622,8 @@ interface ImHelper {
     void setClipboardTextFunction(ImGuiIO io, ClipboardTextFunction clipboardFunction);
     void memcpyIdx(long destination, ImDrawList drawList, long num);
     void memcpyVtx(long destination, ImDrawList drawList, long num);
-    void memcpyFont(ImGuiIO io, long pixelBuffer, long[] widthData, long[] heightData, long[] bytesPerPixel);
+    void memcpyFont(ImFontAtlas fontAtlas, IDLByteArray pixelBuffer, long[] widthData, long[] heightData);
+    void updateFontName(ImFont font, [Const] DOMString name, float size_pixels);
     long getTextureId(ImDrawCmd imDrawCmd);
     void setIniFilename(ImGuiIO io, byte[] fileName);
     void removeIniFilename(ImGuiIO io);
@@ -789,10 +790,33 @@ interface ImGuiIO {
 
 interface ImFontAtlas {
     attribute any TexID;
+
+    ImFont AddFont([Const] ImFontConfig font_cfg);
+    ImFont AddFontFromMemoryTTF(any font_data, long font_data_size, long size_pixels);
+};
+
+interface ImFontConfig {
+    void ImFontConfig();
+    attribute any FontData;
+    attribute long FontDataSize;
+    attribute boolean FontDataOwnedByAtlas;
+    attribute long FontNo;
+    attribute float SizePixels;
+    attribute long OversampleH;
+    attribute long OversampleV;
+    attribute boolean PixelSnapH;
+    [Value] attribute ImVec2 GlyphExtraSpacing;
+    [Value] attribute ImVec2 GlyphOffset;
+    attribute float GlyphMinAdvanceX;
+    attribute float GlyphMaxAdvanceX;
+    attribute boolean MergeMode;
+    attribute float RasterizerMultiply;
+    attribute float RasterizerDensity;
+//    attribute char[] Name;
 };
 
 interface ImFont {
-    attribute float             FontSize;
+    [Const] readonly attribute ImFontConfig ConfigData;
 };
 
 interface ImGuiStyle {

@@ -2,7 +2,10 @@ package imgui.example.renderer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
+import imgui.ImFont;
+import imgui.ImFontAtlas;
 import imgui.gdx.ImGuiGdxImpl;
 import imgui.gdx.ImGuiGdxInputMultiplexer;
 import imgui.ImDrawData;
@@ -24,7 +27,15 @@ public abstract class ImGuiRenderer extends ScreenAdapter {
 
         input = new ImGuiGdxInputMultiplexer();
         impl = new ImGuiGdxImpl();
+
         Gdx.input.setInputProcessor(input);
+
+        ImFontAtlas fonts = ImGui.GetIO().Fonts();
+        FileHandle fontFile01 = Gdx.files.internal("fonts/Cousine-Regular.ttf");
+        FileHandle fontFile02 = Gdx.files.internal("fonts/DroidSans.ttf");
+
+        fonts.AddFontFromMemoryTTF(fontFile01.readBytes(), 16).setName(fontFile01.name());
+        fonts.AddFontFromMemoryTTF(fontFile02.readBytes(), 20).setName(fontFile02.name());
     }
 
     @Override
@@ -32,7 +43,7 @@ public abstract class ImGuiRenderer extends ScreenAdapter {
         Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        impl.update();
+        impl.newFrame();
 
         renderImGui();
 

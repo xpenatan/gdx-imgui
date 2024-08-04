@@ -220,6 +220,7 @@ public class BuildImGuiExtensions {
         EmscriptenTarget linkTarget = new EmscriptenTarget(idlReaderCombined);
         linkTarget.libDirSuffix += "ext/";
         linkTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui");
+        linkTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/jsglue");
         linkTarget.headerDirs.add("-include" + libBuildCPPPath + "/src/imgui/ImGuiCustom.h");
         linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/emscripten/imgui.a");
 
