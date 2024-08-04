@@ -56,7 +56,6 @@ public class BuildImGui {
         WindowsTarget windowsTarget = new WindowsTarget();
         windowsTarget.isStatic = true;
         windowsTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
-        windowsTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/jniglue/");
         windowsTarget.cppInclude.add(libBuildCPPPath + "/**/imgui/*.cpp");
         multiTarget.add(windowsTarget);
 
@@ -64,7 +63,6 @@ public class BuildImGui {
         WindowsTarget linkTarget = new WindowsTarget();
         linkTarget.addJNIHeaders();
         linkTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
-        linkTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/jniglue/");
         linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/windows/imgui64.a");
         linkTarget.cppInclude.add(libBuildCPPPath + "/src/jniglue/JNIGlue.cpp");
         multiTarget.add(linkTarget);
@@ -81,7 +79,6 @@ public class BuildImGui {
         LinuxTarget linuxTarget = new LinuxTarget();
         linuxTarget.isStatic = true;
         linuxTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
-        linuxTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/jniglue/");
         linuxTarget.cppInclude.add(libBuildCPPPath + "/**/imgui/*.cpp");
         multiTarget.add(linuxTarget);
 
@@ -89,7 +86,6 @@ public class BuildImGui {
         LinuxTarget linkTarget = new LinuxTarget();
         linkTarget.addJNIHeaders();
         linkTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
-        linkTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/jniglue/");
         linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/linux/libimgui64.a");
         linkTarget.cppInclude.add(libBuildCPPPath + "/src/jniglue/JNIGlue.cpp");
         multiTarget.add(linkTarget);
@@ -106,7 +102,6 @@ public class BuildImGui {
         MacTarget macTarget = new MacTarget(isArm);
         macTarget.isStatic = true;
         macTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
-        macTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/jniglue/");
         macTarget.cppInclude.add(libBuildCPPPath + "/**/imgui/*.cpp");
         multiTarget.add(macTarget);
 
@@ -114,7 +109,6 @@ public class BuildImGui {
         MacTarget linkTarget = new MacTarget(isArm);
         linkTarget.addJNIHeaders();
         linkTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
-        linkTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/jniglue/");
         if(isArm) {
             linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/mac/arm/libimgui64.a");
         }
@@ -137,7 +131,6 @@ public class BuildImGui {
         libTarget.isStatic = true;
         libTarget.compileGlueCode = false;
         libTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui");
-        libTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/jsglue");
         libTarget.cppInclude.add(libBuildCPPPath + "/**/imgui/*.cpp");
         libTarget.cppFlags.add("-DIMGUI_DISABLE_FILE_FUNCTIONS");
         libTarget.cppFlags.add("-DIMGUI_DEFINE_MATH_OPERATORS");
@@ -146,8 +139,6 @@ public class BuildImGui {
         // Compile glue code and link
         EmscriptenTarget linkTarget = new EmscriptenTarget(idlReader);
         linkTarget.headerDirs.add("-include" + libBuildCPPPath + "/src/imgui/ImGuiCustom.h");
-        linkTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/jsglue");
-
         linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/emscripten/imgui.a");
         multiTarget.add(linkTarget);
 
@@ -162,7 +153,6 @@ public class BuildImGui {
         AndroidTarget androidTarget = new AndroidTarget();
         androidTarget.addJNIHeaders();
         androidTarget.headerDirs.add(libBuildCPPPath + "/src/imgui");
-        androidTarget.headerDirs.add(libBuildCPPPath + "/src/jniglue");
         androidTarget.cppInclude.add(libBuildCPPPath + "/**/imgui/*.cpp");
         androidTarget.cppFlags.add("-Wno-error=format-security");
         androidTarget.cppFlags.add("-DIMGUI_DISABLE_FILE_FUNCTIONS");
