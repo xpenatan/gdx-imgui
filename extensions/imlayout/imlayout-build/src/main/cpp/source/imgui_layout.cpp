@@ -1005,8 +1005,7 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
 
     float windowX = ImGui::GetWindowPos().x;
     float windowY = ImGui::GetWindowPos().y;
-
-
+    
     if (isOpen == -1) {
         bool isOpenVal = storage->GetBool(isOpenId, true);
         isOpen = isOpenVal ? 1 : 0;
@@ -1040,8 +1039,13 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
 
     {
         // Tree alternative background
-        float localCursorY = ImGui::GetCursorPosY();
-        int treeDepth = (int)(localCursorY);
+        static int count = 0;
+        count++;
+        if (window->DC.TreeDepth == 0) {
+            count = 0;
+        }
+
+        int treeDepth = count;
         bool isBGAlt = (treeDepth % 2) == 1;
         if (isBGAlt) {
             ImVec4 color = style.Colors[ImGuiCol_TableRowBgAlt];
