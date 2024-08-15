@@ -23,14 +23,14 @@ public abstract class ImGuiRenderer extends ScreenAdapter {
     public void show() {
         ImGui.CreateContext();
         ImGuiIO io = ImGui.GetIO();
-        io.ConfigFlags(ImGuiConfigFlags.ImGuiConfigFlags_DockingEnable);
+        io.set_ConfigFlags(ImGuiConfigFlags.ImGuiConfigFlags_DockingEnable);
 
         input = new ImGuiGdxInputMultiplexer();
         impl = new ImGuiGdxImpl();
 
         Gdx.input.setInputProcessor(input);
 
-        ImFontAtlas fonts = ImGui.GetIO().Fonts();
+        ImFontAtlas fonts = ImGui.GetIO().get_Fonts();
         FileHandle fontFile01 = Gdx.files.internal("fonts/Cousine-Regular.ttf");
         FileHandle fontFile02 = Gdx.files.internal("fonts/DroidSans.ttf");
 

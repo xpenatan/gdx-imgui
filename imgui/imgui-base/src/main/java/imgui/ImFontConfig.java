@@ -4,5 +4,5 @@ import idl.IDLBase;
 
 public class ImFontConfig extends IDLBase {
 
-    public native float SizePixels();
+    public native float get_SizePixels();
 }

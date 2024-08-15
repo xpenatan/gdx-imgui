@@ -13,22 +13,22 @@ public class ImVec2 extends IDLBase {
 
     public ImVec2(byte t) {}
 
-    public native float x();
-    public native float y();
-    public native void x(float x);
-    public native void y(float y);
+    public native float get_x();
+    public native float get_y();
+    public native void set_x(float x);
+    public native void set_y(float y);
 
     public ImVec2 set(float x, float y) {
-        x(x);
-        y(y);
+        set_x(x);
+        set_y(y);
         return this;
     }
 
     public ImVec2 set(ImVec2 vec) {
-        float x = vec.x();
-        float y = vec.y();
-        x(x);
-        y(y);
+        float x = vec.get_x();
+        float y = vec.get_y();
+        set_x(x);
+        set_y(y);
         return this;
     }
 }

@@ -112,7 +112,7 @@ public class ImGuiGdxImpl {
         IDLByteArray bytesArray = new IDLByteArray(1);
 
         ImGuiIO io = ImGui.GetIO();
-        ImFontAtlas fonts = io.Fonts();
+        ImFontAtlas fonts = io.get_Fonts();
         fonts.GetTexDataAsRGBA32(bytesArray, width, height);
         int widthValue = width.getValue(0);
         int heightValue = height.getValue(0);
@@ -157,8 +157,8 @@ public class ImGuiGdxImpl {
 
         if(imgui != null) {
             ImGuiIO imGuiIO = ImGui.GetIO();
-            if(imGuiIO.WantSaveIniSettings()) {
-                imGuiIO.WantSaveIniSettings(false);
+            if(imGuiIO.get_WantSaveIniSettings()) {
+                imGuiIO.set_WantSaveIniSettings(false);
                 saveImGuiData();
             }
         }
@@ -204,11 +204,11 @@ public class ImGuiGdxImpl {
                 int cmdBufferSize = imDrawList.getCmdBufferSize();
                 for(int j = 0; j < cmdBufferSize; j++) {
                     ImDrawCmd cmdBuffer = imDrawList.getCmdBuffer(j);
-                    ImVec4 clipRect = cmdBuffer.ClipRect();
-                    float clipRectX = clipRect.x();
-                    float clipRectY = clipRect.y();
-                    float clipRectZ = clipRect.z();
-                    float clipRectW = clipRect.w();
+                    ImVec4 clipRect = cmdBuffer.get_ClipRect();
+                    float clipRectX = clipRect.get_x();
+                    float clipRectY = clipRect.get_y();
+                    float clipRectZ = clipRect.get_z();
+                    float clipRectW = clipRect.get_w();
                     float clip_minX = (clipRectX - clip_offX) * clip_scaleX;
                     float clip_minY = (clipRectY - clip_offY) * clip_scaleY;
                     float clip_maxX = (clipRectZ - clip_offX) * clip_scaleX;

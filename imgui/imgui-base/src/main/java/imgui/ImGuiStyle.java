@@ -16,7 +16,7 @@ public class ImGuiStyle extends IDLBase {
         Colors(index, ImVec4.TMP_INTERNAL_1.set(r, g, b, a));
     }
 
-    public void Clors(int index, int r, int g, int b, int a) {
+    public void Colors(int index, int r, int g, int b, int a) {
         Colors(index, ImVec4.TMP_INTERNAL_1.set(r / 255f, g / 255f, b / 255f, a / 255f));
     }
 

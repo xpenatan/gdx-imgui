@@ -43,7 +43,7 @@ public class CollapseView {
     public void render() {
         ImLayout.DrawBoundingBox(100f, 100f,40f, 40f, 255, 0, 0);
 
-        if(ImLayout.BeginCollapseLayout("##idd", "Hello", ImLayout.MATCH_PARENT(), ImLayout.WRAP_PARENT())) {
+        if(ImLayout.BeginCollapseLayout("##idd", "Hello", ImLayout.MATCH_PARENT, ImLayout.WRAP_PARENT)) {
             ImGui.Button("HI");
 
         }

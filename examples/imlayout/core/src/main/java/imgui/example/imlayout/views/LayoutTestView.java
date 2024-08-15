@@ -24,12 +24,12 @@ public class LayoutTestView {
         ImLayout.BeginLayout("Stuff", ImLayout.WRAP_PARENT, ImLayout.WRAP_PARENT);
         ImLayout.ShowLayoutDebug();
         ImGuiLayout curLayout = ImLayout.GetCurrentLayout();
-        ImVec2 position = curLayout.position();
-        ImVec2 size = curLayout.size();
-        float posX = position.x();
-        float posY = position.y();
-        float sizeX = size.x();
-        float sizeY = size.y();
+        ImVec2 position = curLayout.get_position();
+        ImVec2 size = curLayout.get_size();
+        float posX = position.get_x();
+        float posY = position.get_y();
+        float sizeX = size.get_x();
+        float sizeY = size.get_y();
         float posSizeX = posX + sizeX;
         float posSizeY = posY + sizeY;
 

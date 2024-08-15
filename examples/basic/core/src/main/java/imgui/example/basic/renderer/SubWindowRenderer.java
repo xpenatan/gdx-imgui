@@ -31,22 +31,22 @@ public class SubWindowRenderer implements UIRenderer {
         }
 
         ImGuiWindowClass TopLevelEditorWindowClass = rootWindowClass;
-        TopLevelEditorWindowClass.ClassId(1111);
-        TopLevelEditorWindowClass.DockingAllowUnclassed(false);
+        TopLevelEditorWindowClass.set_ClassId(1111);
+        TopLevelEditorWindowClass.set_DockingAllowUnclassed(false);
 
         ImGuiWindowClass ToolWindowsClass01 = windowClass1;
-        ToolWindowsClass01.DockingAllowUnclassed(false);
-        ToolWindowsClass01.DockingAlwaysTabBar(false);
-        ToolWindowsClass01.ClassId(22221);
+        ToolWindowsClass01.set_DockingAllowUnclassed(false);
+        ToolWindowsClass01.set_DockingAlwaysTabBar(false);
+        ToolWindowsClass01.set_ClassId(22221);
 
         ImGuiWindowClass ToolWindowsClass02 = windowClass2;
-        ToolWindowsClass02.DockingAllowUnclassed(false);
-        ToolWindowsClass02.DockingAlwaysTabBar(false);
-        ToolWindowsClass02.ClassId(3333);
+        ToolWindowsClass02.set_DockingAllowUnclassed(false);
+        ToolWindowsClass02.set_DockingAlwaysTabBar(false);
+        ToolWindowsClass02.set_ClassId(3333);
 
         ImGuiViewport viewport = ImGui.GetMainViewport();
-        ImGui.SetNextWindowPos(viewport.Pos());
-        ImGui.SetNextWindowSize(viewport.Size());
+        ImGui.SetNextWindowPos(viewport.get_Pos());
+        ImGui.SetNextWindowSize(viewport.get_Size());
 
         int flags = 0;
         flags |= ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;

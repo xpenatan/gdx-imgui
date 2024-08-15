@@ -4,10 +4,10 @@ import idl.IDLBase;
 
 public class ImFont extends IDLBase {
 
-    public native ImFontConfig ConfigData();
+    public native ImFontConfig get_ConfigData();
 
     public void setName(String name) {
-        updateNameNATIVE(getCPointer(), name, ConfigData().SizePixels());
+        updateNameNATIVE(getCPointer(), name, get_ConfigData().get_SizePixels());
     }
 
     /*[-TEAVM;-NATIVE]

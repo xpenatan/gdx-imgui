@@ -18,32 +18,32 @@ public class ImVec4 extends IDLBase {
     public ImVec4(boolean cMemoryOwn) {
     }
 
-    public native float x();
-    public native float y();
-    public native float z();
-    public native float w();
-    public native void x(float x);
-    public native void y(float y);
-    public native void z(float z);
-    public native void w(float w);
+    public native float get_x();
+    public native float get_y();
+    public native float get_z();
+    public native float get_w();
+    public native void set_x(float x);
+    public native void set_y(float y);
+    public native void set_z(float z);
+    public native void set_w(float w);
 
     public ImVec4 set(float x, float y, float z, float w) {
-        x(x);
-        y(y);
-        z(z);
-        w(w);
+        set_x(x);
+        set_y(y);
+        set_z(z);
+        set_w(w);
         return this;
     }
 
     public ImVec4 set(ImVec4 vec) {
-        float x = vec.x();
-        float y = vec.y();
-        float z = vec.z();
-        float w = vec.w();
-        x(x);
-        y(y);
-        z(z);
-        w(w);
+        float x = vec.get_x();
+        float y = vec.get_y();
+        float z = vec.get_z();
+        float w = vec.get_w();
+        set_x(x);
+        set_y(y);
+        set_z(z);
+        set_w(w);
         return this;
     }
 }

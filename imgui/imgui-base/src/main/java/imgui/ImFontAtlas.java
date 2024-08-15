@@ -30,7 +30,7 @@ public class ImFontAtlas extends IDLBase {
         IDLByteArray* pixelBuffer = (IDLByteArray*)pixelBufferAddr;
         IDLIntArray* widthIntArray = (IDLIntArray*)widthAddr;
         IDLIntArray* heightIntArray = (IDLIntArray*)heightAddr;
-        ImHelper::memcpyFont(fontAtlas, pixelBuffer, (int*)widthIntArray->data, (int*)heightIntArray->data);
+        ImHelper::memcpyFont(fontAtlas, pixelBuffer, (int*)widthIntArray->getData(), (int*)heightIntArray->getData());
     */
     private static native void GetTexDataAsRGBA32NATIVE(long addr, long pixelBufferAddr, long widthAddr, long heightAddr);
 
