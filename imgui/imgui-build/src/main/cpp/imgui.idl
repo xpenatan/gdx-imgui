@@ -620,8 +620,8 @@ interface ImGuiInputTextCallbackData {
 
 interface ImHelper {
     void setClipboardTextFunction(ImGuiIO io, ClipboardTextFunction clipboardFunction);
-    void memcpyIdx(long destination, ImDrawList drawList, long num);
-    void memcpyVtx(long destination, ImDrawList drawList, long num);
+    void memcpyIdx(any destination, ImDrawList drawList, long num);
+    void memcpyVtx(any destination, ImDrawList drawList, long num);
     void memcpyFont(ImFontAtlas fontAtlas, IDLByteArray pixelBuffer, long[] widthData, long[] heightData);
     void updateFontName(ImFont font, [Const] DOMString name, float size_pixels);
     long getTextureId(ImDrawCmd imDrawCmd);

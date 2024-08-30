@@ -69,14 +69,14 @@ public class BuildImGuiExtensions {
         glueTarget.addJNIHeaders();
         glueTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
         glueTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/jniglue");
-        glueTarget.linkerFlags.add(libBuildCPPPath + "/libs/windows/imgui64.a");
+        glueTarget.linkerFlags.add(libBuildCPPPath + "/libs/windows/imgui64_.a");
         glueTarget.cppInclude.add(libBuildCPPPath + "/src/jniglue/JNIGlue.cpp");
 
         {
             // ImLayout extension
             String imlayoutCPPPath = extensionsPath + "/imlayout/imlayout-build/build/c++";
             glueTarget.headerDirs.add("-I" + imlayoutCPPPath + "/src/imlayout/");
-            glueTarget.linkerFlags.add(imlayoutCPPPath + "/libs/windows/imlayout64.a");
+            glueTarget.linkerFlags.add(imlayoutCPPPath + "/libs/windows/imlayout64_.a");
             glueTarget.headerDirs.add("-include" + imlayoutCPPPath + "/src/jniglue/JNIGlue.h");
         }
         {
@@ -84,14 +84,14 @@ public class BuildImGuiExtensions {
             String textEditCPPPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/c++";
             glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
             glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/vendor/regex/include");
-            glueTarget.linkerFlags.add(textEditCPPPath + "/libs/windows/textedit64.a");
+            glueTarget.linkerFlags.add(textEditCPPPath + "/libs/windows/textedit64_.a");
             glueTarget.headerDirs.add("-include" + textEditCPPPath + "/src/jniglue/JNIGlue.h");
         }
         {
             // imgui-node-editor extension
             String nodeeditorCPPPath = extensionsPath + "/imgui-node-editor/nodeeditor-build/build/c++";
             glueTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/nodeeditor/");
-            glueTarget.linkerFlags.add(nodeeditorCPPPath + "/libs/windows/nodeeditor64.a");
+            glueTarget.linkerFlags.add(nodeeditorCPPPath + "/libs/windows/nodeeditor64_.a");
             glueTarget.headerDirs.add("-include" + nodeeditorCPPPath + "/src/jniglue/JNIGlue.h");
         }
 
@@ -108,7 +108,7 @@ public class BuildImGuiExtensions {
         glueTarget.libDirSuffix += "ext/";
         glueTarget.addJNIHeaders();
         glueTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
-        glueTarget.linkerFlags.add(libBuildCPPPath + "/libs/linux/libimgui64.a");
+        glueTarget.linkerFlags.add(libBuildCPPPath + "/libs/linux/libimgui64_.a");
 
         glueTarget.cppInclude.add(libBuildCPPPath + "/src/jniglue/JNIGlue.cpp");
 
@@ -116,7 +116,7 @@ public class BuildImGuiExtensions {
             // ImLayout extension
             String imlayoutCPPPath = extensionsPath + "/imlayout/imlayout-build/build/c++";
             glueTarget.headerDirs.add("-I" + imlayoutCPPPath + "/src/imlayout/");
-            glueTarget.linkerFlags.add(imlayoutCPPPath + "/libs/linux/libimlayout64.a");
+            glueTarget.linkerFlags.add(imlayoutCPPPath + "/libs/linux/libimlayout64_.a");
             glueTarget.headerDirs.add("-include" + imlayoutCPPPath + "/src/jniglue/JNIGlue.h");
         }
         {
@@ -124,14 +124,14 @@ public class BuildImGuiExtensions {
             String textEditCPPPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/c++";
             glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
             glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/vendor/regex/include");
-            glueTarget.linkerFlags.add(textEditCPPPath + "/libs/linux/libtextedit64.a");
+            glueTarget.linkerFlags.add(textEditCPPPath + "/libs/linux/libtextedit64_.a");
             glueTarget.headerDirs.add("-include" + textEditCPPPath + "/src/jniglue/JNIGlue.h");
         }
         {
             // imgui-node-editor extension
             String nodeeditorCPPPath = extensionsPath + "/imgui-node-editor/nodeeditor-build/build/c++";
             glueTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/nodeeditor/");
-            glueTarget.linkerFlags.add(nodeeditorCPPPath + "/libs/linux/libnodeeditor64.a");
+            glueTarget.linkerFlags.add(nodeeditorCPPPath + "/libs/linux/libnodeeditor64_.a");
             glueTarget.headerDirs.add("-include" + nodeeditorCPPPath + "/src/jniglue/JNIGlue.h");
         }
 
@@ -149,10 +149,10 @@ public class BuildImGuiExtensions {
         macGlueTarget.addJNIHeaders();
         macGlueTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
         if(isArm) {
-            macGlueTarget.linkerFlags.add(libBuildCPPPath + "/libs/mac/arm/libimgui64.a");
+            macGlueTarget.linkerFlags.add(libBuildCPPPath + "/libs/mac/arm/libimgui64_.a");
         }
         else {
-            macGlueTarget.linkerFlags.add(libBuildCPPPath + "/libs/mac/libimgui64.a");
+            macGlueTarget.linkerFlags.add(libBuildCPPPath + "/libs/mac/libimgui64_.a");
         }
 
         macGlueTarget.cppInclude.add(libBuildCPPPath + "/src/jniglue/JNIGlue.cpp");
@@ -162,10 +162,10 @@ public class BuildImGuiExtensions {
             String imlayoutCPPPath = extensionsPath + "/imlayout/imlayout-build/build/c++";
             macGlueTarget.headerDirs.add("-I" + imlayoutCPPPath + "/src/imlayout/");
             if(isArm) {
-                macGlueTarget.linkerFlags.add(imlayoutCPPPath + "/libs/mac/arm/libimlayout64.a");
+                macGlueTarget.linkerFlags.add(imlayoutCPPPath + "/libs/mac/arm/libimlayout64_.a");
             }
             else {
-                macGlueTarget.linkerFlags.add(imlayoutCPPPath + "/libs/mac/libimlayout64.a");
+                macGlueTarget.linkerFlags.add(imlayoutCPPPath + "/libs/mac/libimlayout64_.a");
             }
             macGlueTarget.headerDirs.add("-include" + imlayoutCPPPath + "/src/jniglue/JNIGlue.h");
         }
@@ -175,10 +175,10 @@ public class BuildImGuiExtensions {
             macGlueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
             macGlueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/vendor/regex/include");
             if(isArm) {
-                macGlueTarget.linkerFlags.add(textEditCPPPath + "/libs/mac/arm/libtextedit64.a");
+                macGlueTarget.linkerFlags.add(textEditCPPPath + "/libs/mac/arm/libtextedit64_.a");
             }
             else {
-                macGlueTarget.linkerFlags.add(textEditCPPPath + "/libs/mac/libtextedit64.a");
+                macGlueTarget.linkerFlags.add(textEditCPPPath + "/libs/mac/libtextedit64_.a");
             }
             macGlueTarget.headerDirs.add("-include" + textEditCPPPath + "/src/jniglue/JNIGlue.h");
         }
@@ -187,10 +187,10 @@ public class BuildImGuiExtensions {
             String nodeeditorCPPPath = extensionsPath + "/imgui-node-editor/nodeeditor-build/build/c++";
             macGlueTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/nodeeditor/");
             if(isArm) {
-                macGlueTarget.linkerFlags.add(nodeeditorCPPPath + "/libs/mac/arm/libnodeeditor64.a");
+                macGlueTarget.linkerFlags.add(nodeeditorCPPPath + "/libs/mac/arm/libnodeeditor64_.a");
             }
             else {
-                macGlueTarget.linkerFlags.add(nodeeditorCPPPath + "/libs/mac/libnodeeditor64.a");
+                macGlueTarget.linkerFlags.add(nodeeditorCPPPath + "/libs/mac/libnodeeditor64_.a");
             }
             macGlueTarget.headerDirs.add("-include" + nodeeditorCPPPath + "/src/jniglue/JNIGlue.h");
         }
@@ -210,7 +210,7 @@ public class BuildImGuiExtensions {
         linkTarget.libDirSuffix += "ext/";
         linkTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui");
         linkTarget.headerDirs.add("-include" + libBuildCPPPath + "/src/imgui/ImGuiCustom.h");
-        linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/emscripten/imgui.a");
+        linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/emscripten/imgui_.a");
 
         {
             // ImLayout extension
@@ -219,7 +219,7 @@ public class BuildImGuiExtensions {
             IDLReader.addIDL(idlReaderCombined, imlayoutIdlPath);
             linkTarget.headerDirs.add("-I" + imlayoutCppPath + "/src/imlayout");
             linkTarget.headerDirs.add("-include" + imlayoutCppPath + "/src/imlayout/ImLayoutCustom.h");
-            linkTarget.linkerFlags.add(imlayoutCppPath + "/libs/emscripten/imlayout.a");
+            linkTarget.linkerFlags.add(imlayoutCppPath + "/libs/emscripten/imlayout_.a");
         }
         {
             // ImGuiColorTextEdit extension
@@ -229,7 +229,7 @@ public class BuildImGuiExtensions {
             linkTarget.headerDirs.add("-I" + texteditCppPath + "/src/textedit");
             linkTarget.headerDirs.add("-I" + texteditCppPath + "/src/textedit/vendor/regex/include");
             linkTarget.headerDirs.add("-include" + texteditCppPath + "/src/textedit/TextEditCustom.h");
-            linkTarget.linkerFlags.add(texteditCppPath + "/libs/emscripten/textedit.a");
+            linkTarget.linkerFlags.add(texteditCppPath + "/libs/emscripten/textedit_.a");
         }
         {
             // imgui-node-editor extension
@@ -238,7 +238,7 @@ public class BuildImGuiExtensions {
             IDLReader.addIDL(idlReaderCombined, nodeeditorIdlPath);
             linkTarget.headerDirs.add("-I" + nodeeditorCppPath + "/src/nodeeditor");
             linkTarget.headerDirs.add("-include" + nodeeditorCppPath + "/src/nodeeditor/NodeEditorCustom.h");
-            linkTarget.linkerFlags.add(nodeeditorCppPath + "/libs/emscripten/nodeeditor.a");
+            linkTarget.linkerFlags.add(nodeeditorCppPath + "/libs/emscripten/nodeeditor_.a");
         }
         multiTarget.add(linkTarget);
 

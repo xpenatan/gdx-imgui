@@ -683,14 +683,12 @@ class ImHelper {
             io->GetClipboardTextFn = &ImGui_Impl_GetClipboardText;
         }
 
-        static void memcpyIdx(intptr_t destination, ImDrawList * drawList, int num) {
-            void * dest = (void*)destination;
-            memcpy(dest, drawList->IdxBuffer.Data, num);
+        static void memcpyIdx(void* destination, ImDrawList * drawList, int num) {
+            memcpy(destination, drawList->IdxBuffer.Data, num);
         }
 
-        static void memcpyVtx(intptr_t destination, ImDrawList * drawList, int num) {
-            void * dest = (void*)destination;
-            memcpy(dest, drawList->VtxBuffer.Data, num);
+        static void memcpyVtx(void* destination, ImDrawList * drawList, int num) {
+            memcpy(destination, drawList->VtxBuffer.Data, num);
         }
 
         static void memcpyFont(ImFontAtlas* fontAtlas, IDLByteArray* byteArray, int* width, int* height) {

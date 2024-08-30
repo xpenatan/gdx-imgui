@@ -63,7 +63,7 @@ public class BuildImGui {
         WindowsTarget linkTarget = new WindowsTarget();
         linkTarget.addJNIHeaders();
         linkTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
-        linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/windows/imgui64.a");
+        linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/windows/imgui64_.a");
         linkTarget.cppInclude.add(libBuildCPPPath + "/src/jniglue/JNIGlue.cpp");
         multiTarget.add(linkTarget);
 
@@ -86,7 +86,7 @@ public class BuildImGui {
         LinuxTarget linkTarget = new LinuxTarget();
         linkTarget.addJNIHeaders();
         linkTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
-        linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/linux/libimgui64.a");
+        linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/linux/libimgui64_.a");
         linkTarget.cppInclude.add(libBuildCPPPath + "/src/jniglue/JNIGlue.cpp");
         multiTarget.add(linkTarget);
 
@@ -110,10 +110,10 @@ public class BuildImGui {
         linkTarget.addJNIHeaders();
         linkTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
         if(isArm) {
-            linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/mac/arm/libimgui64.a");
+            linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/mac/arm/libimgui64_.a");
         }
         else {
-            linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/mac/libimgui64.a");
+            linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/mac/libimgui64_.a");
         }
         linkTarget.cppInclude.add(libBuildCPPPath + "/src/jniglue/JNIGlue.cpp");
         multiTarget.add(linkTarget);
@@ -139,7 +139,7 @@ public class BuildImGui {
         // Compile glue code and link
         EmscriptenTarget linkTarget = new EmscriptenTarget(idlReader);
         linkTarget.headerDirs.add("-include" + libBuildCPPPath + "/src/imgui/ImGuiCustom.h");
-        linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/emscripten/imgui.a");
+        linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/emscripten/imgui_.a");
         multiTarget.add(linkTarget);
 
         return multiTarget;
