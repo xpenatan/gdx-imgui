@@ -63,6 +63,7 @@ jobs:
         with:
           name: windows-natives
           path: ./imgui/imgui-build/build/c++/libs/
+          if-no-files-found: error
 
   build_linux:
     name: Build Linux
@@ -113,6 +114,7 @@ jobs:
         with:
           name: linux-natives
           path: ./imgui/imgui-build/build/c++/libs/
+          if-no-files-found: error
 
   build_mac:
     name: Build Mac
@@ -159,6 +161,7 @@ jobs:
         with:
           name: mac-natives
           path: ./imgui/imgui-build/build/c++/libs/
+          if-no-files-found: error
 
   build_teavm:
     name: Build TeaVM
@@ -212,6 +215,7 @@ jobs:
         with:
           name: teavm-natives
           path: ./imgui/imgui-build/build/c++/libs/
+          if-no-files-found: error
 
   build_android:
     name: Build Android
@@ -259,6 +263,7 @@ jobs:
         with:
           name: android-natives
           path: ./imgui/imgui-build/build/c++/libs/
+          if-no-files-found: error
 
   upload_natives:
     name: Upload Natives
