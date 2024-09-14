@@ -4,7 +4,7 @@ import com.github.xpenatan.jparser.builder.BuildMultiTarget;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
 import com.github.xpenatan.jparser.builder.targets.LinuxTarget;
 import com.github.xpenatan.jparser.builder.targets.MacTarget;
-import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
+import com.github.xpenatan.jparser.builder.targets.WindowsMSVCTarget;
 import com.github.xpenatan.jparser.builder.tool.BuildToolListener;
 import com.github.xpenatan.jparser.builder.tool.BuildToolOptions;
 import com.github.xpenatan.jparser.builder.tool.BuilderTool;
@@ -59,7 +59,7 @@ public class BuildNodeEditor {
 
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
-        WindowsTarget windowsTarget = new WindowsTarget();
+        WindowsMSVCTarget windowsTarget = new WindowsMSVCTarget();
         windowsTarget.isStatic = true;
         windowsTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
         windowsTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/nodeeditor/");

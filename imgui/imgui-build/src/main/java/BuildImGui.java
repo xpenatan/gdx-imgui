@@ -3,7 +3,7 @@ import com.github.xpenatan.jparser.builder.targets.AndroidTarget;
 import com.github.xpenatan.jparser.builder.targets.EmscriptenTarget;
 import com.github.xpenatan.jparser.builder.targets.LinuxTarget;
 import com.github.xpenatan.jparser.builder.targets.MacTarget;
-import com.github.xpenatan.jparser.builder.targets.WindowsTarget;
+import com.github.xpenatan.jparser.builder.targets.WindowsMSVCTarget;
 import com.github.xpenatan.jparser.builder.tool.BuildToolListener;
 import com.github.xpenatan.jparser.builder.tool.BuildToolOptions;
 import com.github.xpenatan.jparser.builder.tool.BuilderTool;
@@ -53,17 +53,17 @@ public class BuildImGui {
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
         // Make a static library
-        WindowsTarget windowsTarget = new WindowsTarget();
+        WindowsMSVCTarget windowsTarget = new WindowsMSVCTarget();
         windowsTarget.isStatic = true;
         windowsTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
         windowsTarget.cppInclude.add(libBuildCPPPath + "/**/imgui/*.cpp");
         multiTarget.add(windowsTarget);
 
         // Compile glue code and link
-        WindowsTarget linkTarget = new WindowsTarget();
+        WindowsMSVCTarget linkTarget = new WindowsMSVCTarget();
         linkTarget.addJNIHeaders();
         linkTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
-        linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/windows/imgui64_.a");
+        linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/windows/vc/imgui64_.lib");
         linkTarget.cppInclude.add(libBuildCPPPath + "/src/jniglue/JNIGlue.cpp");
         multiTarget.add(linkTarget);
 
