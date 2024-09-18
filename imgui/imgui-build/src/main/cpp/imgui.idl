@@ -114,7 +114,7 @@ interface ImGui {
     // Note: method overloading don't work with emscripten so we use _2, _3 and so on
 
     // Context creation and access
-    static ImGuiContext            CreateContext();
+    static ImGuiContext            CreateContext(optional ImFontAtlas shared_font_atlas);
     static void                    DestroyContext(optional ImGuiContext ctx);
     static ImGuiContext            GetCurrentContext();
     static void                    SetCurrentContext(ImGuiContext ctx);
