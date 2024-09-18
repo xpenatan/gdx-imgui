@@ -37,32 +37,6 @@ public class ImGui {
     */
     private static native void UpdateDisplayAndInputAndFrameNative(float deltaTime, int width, int height, int display_w, int display_h);
 
-    public static void CreateContext() {
-        // ImGui data need to be saved manually.
-        CreateContextInternal();
-    }
-
-    public static void DestroyContext() {
-        DestroyContextInternal();
-    }
-
-    /*[-TEAVM;-NATIVE]
-        [MODULE].ImGui.prototype.CreateContext();
-    */
-    /*[-JNI;-NATIVE]
-        ImGui::CreateContext();
-        ImGui::GetIO().BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-    */
-    private static native void CreateContextInternal();
-
-    /*[-TEAVM;-NATIVE]
-        [MODULE].ImGui.prototype.DestroyContext();
-    */
-    /*[-JNI;-NATIVE]
-        ImGui::DestroyContext();
-    */
-    private static native void DestroyContextInternal();
-
     /**
      * Dispose temp objects.
      */
