@@ -136,7 +136,7 @@ class ImGui {
     public:
 
         // Context creation and access
-        static                          ImGuiContext* CreateContext() {
+        static                          ImGuiContext* CreateContext(ImFontAtlas* shared_font_atlas = NULL) {
                                             ImGuiContext* ctx = im::CreateContext();
                                             ImGui::GetIO().IniFilename = NULL;
                                             return ctx;
