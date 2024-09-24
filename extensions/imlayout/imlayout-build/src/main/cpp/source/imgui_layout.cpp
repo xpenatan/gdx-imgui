@@ -1072,16 +1072,15 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
     }
 
     // Selected and hover logic
-    bool isArrowHovered = ImGui::ItemHoverable(bbArrow, arrowButtonId, ImGuiItemFlags_None);
     bool arrowClicked = ImGui::IsItemClicked();
 
     {
 
         //ImGui::KeepAliveID(layoutId);
         //ImGui::ItemAdd(fullLayout, layoutId);
-        bool isLayoutHovered = ImGui::ItemHoverable(fullLayout, layoutId, ImGuiItemFlags_None);
+        bool isLayoutHovered = ImGui::ItemHoverable(fullLayout, layoutId, ImGuiItemFlags_AllowOverlap);
 
-        if (isLayoutHovered || isArrowHovered) {
+        if (isLayoutHovered) {
             ImVec4 color = style.Colors[ImGuiCol_HeaderHovered];
             float r = color.x;
             float g = color.y;

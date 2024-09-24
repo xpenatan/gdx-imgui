@@ -1002,6 +1002,10 @@ namespace ImGuiExt
 					ImGui::SameLine();
 					ImLayout::BeginAlign("222", ImLayout::MATCH_PARENT, ImLayout::MATCH_PARENT, 1.0, 0.5);
 					{
+						if (ImGui::Button("CLICK ME")) {
+							std::cout << "CLICK ME" << std::endl;
+						}
+						ImGui::SameLine();
 						ImGui::Text("- 22");
 						//ImLayout::ShowLayoutDebug();
 					}
