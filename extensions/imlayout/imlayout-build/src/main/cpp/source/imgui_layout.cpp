@@ -1166,10 +1166,10 @@ bool ImLayout::EndTreeLayout() {
 
     {
         // Selected and hover logic
-        //ImGui::ItemAdd(fullLayout, layoutId);
-        //if (ImGui::ButtonBehavior(fullLayout, layoutId, NULL, NULL)) {
-        //    selected = true;
-        //}
+        ImGui::ItemAdd(fullLayout, layoutId);
+        if (ImGui::ButtonBehavior(fullLayout, layoutId, NULL, NULL)) {
+            selected = true;
+        }
     }
 
     ImGui::PopStyleVar();
