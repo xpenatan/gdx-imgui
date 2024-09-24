@@ -1071,13 +1071,14 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
         }
     }
 
+    if (!isLeaf) {
+        // Prevent layout hover in arrow bounding box
+        ImGui::ItemHoverable(bbArrow, arrowButtonId, ImGuiItemFlags_None);
+    }
     // Selected and hover logic
     bool arrowClicked = ImGui::IsItemClicked();
 
     {
-
-        //ImGui::KeepAliveID(layoutId);
-        //ImGui::ItemAdd(fullLayout, layoutId);
         bool isLayoutHovered = ImGui::ItemHoverable(fullLayout, layoutId, ImGuiItemFlags_AllowOverlap);
 
         if (isLayoutHovered) {
@@ -1165,10 +1166,10 @@ bool ImLayout::EndTreeLayout() {
 
     {
         // Selected and hover logic
-        ImGui::ItemAdd(fullLayout, layoutId);
-        if (ImGui::ButtonBehavior(fullLayout, layoutId, NULL, NULL)) {
-            selected = true;
-        }
+        //ImGui::ItemAdd(fullLayout, layoutId);
+        //if (ImGui::ButtonBehavior(fullLayout, layoutId, NULL, NULL)) {
+        //    selected = true;
+        //}
     }
 
     ImGui::PopStyleVar();
