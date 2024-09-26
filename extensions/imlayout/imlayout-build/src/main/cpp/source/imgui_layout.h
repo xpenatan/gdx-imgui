@@ -168,6 +168,8 @@ public:
     static float GetTableContentHeight();  // call before moving to the next cell/row
 
     // Tree
+    static void BeginGlobalTree();
+    static void EndGlobalTree();
     static void BeginTree(const char* treeIdStr);
     static void EndTree();
     static void BeginTreeLayout(float height, bool isLeaf, bool isSelected);

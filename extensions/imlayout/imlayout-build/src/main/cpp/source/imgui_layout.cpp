@@ -938,6 +938,21 @@ static char* KEY_TREE_ID = "KEY_TREE_ID";
 static char* KEY_TREE_IS_OPEN = "KEY_TREE_IS_OPEN";
 static char* KEY_TREE_NODE_IS_LEAF = "KEY_TREE_NODE_IS_LEAF";
 
+static bool IS_GLOBAL_TREE = false;
+// Tree alternative background
+static int TREE_COUNT = 0;
+
+void ImLayout::BeginGlobalTree() {
+    IS_GLOBAL_TREE = true;
+    TREE_COUNT = 0;
+}
+
+void ImLayout::EndGlobalTree() {
+    IS_GLOBAL_TREE = false;
+}
+
+
+
 void ImLayout::BeginTree(const char* treeIdStr) {
     ImGuiWindow* window = ImGui::GetCurrentWindow();
     ImGuiStorage* storage = ImGui::GetStateStorage();
@@ -1038,14 +1053,12 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
     ImGuiStyle style = ImGui::GetStyle();
 
     {
-        // Tree alternative background
-        static int count = 0;
-        count++;
-        if (window->DC.TreeDepth == 0) {
-            count = 0;
+        TREE_COUNT++;
+        if (!IS_GLOBAL_TREE && window->DC.TreeDepth == 0) {
+            TREE_COUNT = 0;
         }
 
-        int treeDepth = count;
+        int treeDepth = TREE_COUNT;
         bool isBGAlt = (treeDepth % 2) == 1;
         if (isBGAlt) {
             ImVec4 color = style.Colors[ImGuiCol_TableRowBgAlt];
