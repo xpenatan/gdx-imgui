@@ -591,34 +591,60 @@ static bool renderFrameArrow(bool* value, int arrowColor, int arrowBackgroundHov
     ImGuiContext& g = *GImGui;
     ImGuiWindow* window = g.CurrentWindow;
 
+    const ImGuiStyle& style = g.Style;
+    const bool display_frame = true;
+    int flags = ImGuiTreeNodeFlags_FramePadding;
+
+    const ImVec2 padding = display_frame ? style.FramePadding : ImVec2(style.FramePadding.x, ImMin(window->DC.CurrLineTextBaseOffset, style.FramePadding.y));
+    const float text_offset_x = g.FontSize + (display_frame ? padding.x * 3 : padding.x * 2);   // Collapsing arrow width + Spacing
+    const float text_offset_y = ImMax(padding.y, window->DC.CurrLineTextBaseOffset);            // Latch before ItemSize changes it
+    ImVec2 text_pos(window->DC.CursorPos.x + text_offset_x, window->DC.CursorPos.y + text_offset_y);
+
     ImDrawList* drawList = ImGui::GetWindowDrawList();
     float getFrameHeight = ImGui::GetFrameHeight();
-    float removedSize = 5.5f; // reduce few pixels
+    float removedSize = 0.0f; // reduce few pixels
     float halfSize = (getFrameHeight) / 2.0f - removedSize;
 
     ImVec2 vec = ImGui::GetCursorScreenPos();
 
     float screenPosX = vec.x;
     float screenPosY = vec.y;
-    float arrowPaddingLeft = 6;
+    float arrowPaddingLeft = 0;
 
     float x = screenPosX + halfSize + arrowPaddingLeft;
     float y = screenPosY + getFrameHeight / 2.0f;
 
-    bool hovered = ImGui::IsMouseHoveringRect(ImVec2(x - halfSize - removedSize, y - halfSize - removedSize), ImVec2(x + halfSize + removedSize, y + halfSize + removedSize));
+    ImVec2 min(x - halfSize - removedSize, y - halfSize - removedSize);
+    ImVec2 max(x + halfSize + removedSize, y + halfSize + removedSize);
+
+    //ImLayout::DrawBoundingBox_2(min, max, 0, 100, 255, 255);
+
+    bool hovered = ImGui::IsMouseHoveringRect(min, max);
     ImU32 hoveredColor = arrowBackgroundHoveredColor;
     bool isWindowHovered = ImGui::IsWindowHovered();
+
+    float centerOffsetX = (max.x - min.x);
+    float centerOffsetY = (max.y - min.y);
+    float half = centerOffsetX / 2.0;
+    float centerX = min.x + half;
+    float centerY = min.y + half;
+
+    const float h = drawList->_Data->FontSize;
+    float scale = ImLayout::GetDPIScale();
+    float r = h * 0.40f * scale;
+    float r1 = h * 0.20f * scale;
 
     if (isWindowHovered) {
         if (hovered) {
             if (ImGui::IsMouseDown(0))
                 hoveredColor = arrowBackgroundClickedColor;
             if (ImGui::IsMouseReleased(0))
-                * value = !*value;
+                *value = !*value;
         }
 
-        if (hovered)
-            drawList->AddCircleFilled(ImVec2(x, y), halfSize * 2, hoveredColor);
+        if (hovered) {
+            drawList->AddCircleFilled(ImVec2(centerX, centerY), r + r1, hoveredColor);
+        }
     }
 
     float triA_X = 0;
@@ -627,28 +653,29 @@ static bool renderFrameArrow(bool* value, int arrowColor, int arrowBackgroundHov
     float triB_Y = 0;
     float triC_X = 0;
     float triC_Y = 0;
+    float offsetX = 0;
+    float offsetY = 0;
 
+    float halfArrowSize = halfSize - halfSize/2 * scale;
+
+    ImVec2 a, b, c;
     if (*value) {
         // arrow down
-        float offset = -0.5f;
-        triA_X = x - halfSize + offset;
-        triA_Y = y - halfSize;
-        triB_X = x + halfSize + offset;
-        triB_Y = y - halfSize;
-        triC_X = x + offset;
-        triC_Y = y + halfSize;
+        centerY = centerY + (h / 2.0) * 0.1f;
+        a = ImVec2(+0.000f, +0.750f) * r;
+        b = ImVec2(-0.866f, -0.750f) * r;
+        c = ImVec2(+0.866f, -0.750f) * r;
     }
     else {
         // arrow right
-        triA_X = x - halfSize;
-        triA_Y = y - halfSize;
-        triB_X = x + halfSize;
-        triB_Y = y;
-        triC_X = x - halfSize;
-        triC_Y = y + halfSize;
+        a = ImVec2(+0.750f, +0.000f) * r;
+        b = ImVec2(-0.750f, +0.866f) * r;
+        c = ImVec2(-0.750f, -0.866f) * r;
     }
 
-    drawList->AddTriangleFilled(ImVec2(triA_X, triA_Y), ImVec2(triB_X, triB_Y), ImVec2(triC_X, triC_Y), arrowColor);
+    ImVec2 centerVec(centerX, centerY);
+
+    drawList->AddTriangleFilled(a + centerVec, b + centerVec, c + centerVec, arrowColor);
 
     float bk = g.Style.ItemSpacing.y;
     g.Style.ItemSpacing.y = 0;
@@ -693,7 +720,7 @@ bool ImLayout::PrepareCollapseLayout(const char* title, float sizeX, float sizeY
 
     rootLayout->map.SetBool(OPEN_KEY, *isOpen);
 
-    ImGui::SameLine();
+    ImGui::SameLine(0, 0);
 
     ImLayout::BeginAlign("align", ImLayout::WRAP_PARENT, ImLayout::MATCH_PARENT,  0.0, 0.5, 0, 0);
 
@@ -1020,6 +1047,7 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
 
     float windowX = ImGui::GetWindowPos().x;
     float windowY = ImGui::GetWindowPos().y;
+    ImDrawList* drawlist = ImGui::GetWindowDrawList();
     
     if (isOpen == -1) {
         bool isOpenVal = storage->GetBool(isOpenId, true);
@@ -1031,14 +1059,18 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
     }
 
     if (debug) {
-        ImGui::GetWindowDrawList()->AddRect(bb.Min, bb.Max, IM_COL32(255, 0, 0, 255));
+        drawlist->AddRect(bb.Min, bb.Max, IM_COL32(255, 0, 0, 255));
     }
     storage->SetBool(isLeafId, isLeaf);
 
-    float arrowMaxX = minX + 19;
+    const float h = drawlist->_Data->FontSize;
+
+    float arrowWidth = (h * 0.70) * 2 * ImLayout::GetDPIScale();
+
+    float arrowMaxX = minX + arrowWidth;
     ImRect bbArrow = ImRect(bb.Min, ImVec2(arrowMaxX, maxY));
     if (debug) {
-        ImGui::GetWindowDrawList()->AddRect(bbArrow.Min, bbArrow.Max, IM_COL32(255, 0, 0, 255));
+        drawlist->AddRect(bbArrow.Min, bbArrow.Max, IM_COL32(255, 0, 0, 255));
     }
     int arrowButtonId = ImGui::GetID("ArrowButton");
     ImGui::ItemSize(bbArrow);
@@ -1067,7 +1099,7 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
             float b = color.z;
             float a = color.w;
             int bgAltColor = IM_COL32((int)(255 * r), (int)(255 * g), (int)(255 * b), (int)(255 * a));
-            ImGui::GetWindowDrawList()->AddRectFilled(fullLayout.Min, fullLayout.Max, bgAltColor);
+            drawlist->AddRectFilled(fullLayout.Min, fullLayout.Max, bgAltColor);
         }
     }
 
@@ -1080,7 +1112,7 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
             float b = color.z;
             float a = color.w;
             int selectedColor = IM_COL32((int)(255 * r), (int)(255 * g), (int)(255 * b), (int)(255 * a));
-            ImGui::GetWindowDrawList()->AddRectFilled(fullLayout.Min, fullLayout.Max, selectedColor);
+            drawlist->AddRectFilled(fullLayout.Min, fullLayout.Max, selectedColor);
         }
     }
 
@@ -1101,7 +1133,8 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
             float b = color.z;
             float a = color.w;
             int hoveredColor = IM_COL32((int)(255 * r), (int)(255 * g), (int)(255 * b), (int)(255 * a));
-            ImGui::GetWindowDrawList()->AddRectFilled(fullLayout.Min, fullLayout.Max, hoveredColor);
+
+            drawlist->AddRectFilled(fullLayout.Min, fullLayout.Max, hoveredColor);
         }
     }
 
@@ -1120,7 +1153,7 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
         float iconPosY = minY;
         iconPosX = iconPosX + (sizeX - fontSize) * 0.5f;
         iconPosY = iconPosY + (sizeY - fontSize) * 0.5f;
-        ImGui::RenderArrow(ImGui::GetWindowDrawList(), ImVec2(iconPosX, iconPosY), arrowColor, dir);
+        ImGui::RenderArrow(drawlist, ImVec2(iconPosX, iconPosY), arrowColor, dir);
     }
 
     storage->SetBool(isOpenId, isOpen == 1);

@@ -57,6 +57,10 @@ interface ImLayout {
 
     // Custom button behavior
     static long ButtonBehavior(long id, [Const, Ref]ImRect bb, boolean isSelected, optional long selectedColor, optional long hoveredColor, optional long hoveredStrokeColor, optional long ImGuiButtonFlags, optional float clickDelay);
+
+    // Custom DPI Utils
+    static void ScaleAllSizes(float scale_factor);
+    static float GetDPIScale();
 };
 
 interface ImGuiLayoutOptions {
