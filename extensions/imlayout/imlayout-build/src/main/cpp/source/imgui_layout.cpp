@@ -978,13 +978,13 @@ void ImLayout::EndGlobalTree() {
     IS_GLOBAL_TREE = false;
 }
 
-void ImLayout::BeginTree(const char* treeIdStr) {
+void ImLayout::BeginTree_1(const char* treeIdStr) {
     ImGuiWindow* window = ImGui::GetCurrentWindow();
     ImGuiID id = window->GetID(treeIdStr);
     BeginTree(id);
 }
 
-void ImLayout::BeginTree(int id) {
+void ImLayout::BeginTree_2(int id) {
     ImGuiWindow* window = ImGui::GetCurrentWindow();
     ImGuiStorage* storage = ImGui::GetStateStorage();
     int treeIdBefore = storage->GetInt(ImGui::GetID(KEY_TREE_ID), -1);

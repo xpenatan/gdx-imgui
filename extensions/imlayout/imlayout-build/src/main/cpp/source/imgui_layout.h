@@ -278,8 +278,8 @@ public:
     // Tree
     static void BeginGlobalTree();
     static void EndGlobalTree();
-    static void BeginTree(const char* treeIdStr);
-    static void BeginTree(int id);
+    static void BeginTree_1(const char* treeIdStr);
+    static void BeginTree_2(int id);
     static void EndTree();
     static void BeginTreeLayout(float height, bool isLeaf, bool isSelected);
     static void BeginTreeLayout(float height, bool isLeaf, bool isSelected, bool isOpen);
