@@ -987,7 +987,7 @@ namespace ImGuiExt
 			ImGui::TableSetColumnIndex(0);
 
 			float height = 10;
-			ImLayout::BeginTree("RootId");
+			ImLayout::BeginTree_1("RootId");
 			{
 				ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), false, false);
 				{
@@ -1014,7 +1014,7 @@ namespace ImGuiExt
 				ImLayout::EndTreeLayout();
 				if (ImLayout::IsTreeOpen()) {
 					{
-						ImLayout::BeginTree("Assets");
+						ImLayout::BeginTree_1("Assets");
 						ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), false, false);
 						ImGui::Text("Assets");
 						ImLayout::EndTreeLayout();
@@ -1022,7 +1022,7 @@ namespace ImGuiExt
 
 							{
 								{
-									ImLayout::BeginTree("Item");
+									ImLayout::BeginTree_1("Item");
 									ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), true, false);
 									ImGui::Text("Item");
 									ImLayout::EndTreeLayout();
@@ -1034,7 +1034,7 @@ namespace ImGuiExt
 						}
 						ImLayout::EndTree();
 
-						ImLayout::BeginTree("Folder");
+						ImLayout::BeginTree_1("Folder");
 						ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), false, false);
 						ImGui::Text("Folder");
 						ImLayout::EndTreeLayout();
@@ -1042,7 +1042,7 @@ namespace ImGuiExt
 
 							{
 								{
-									ImLayout::BeginTree("Item");
+									ImLayout::BeginTree_1("Item");
 									ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), true, false);
 									ImGui::Text("Item");
 									ImLayout::EndTreeLayout();
@@ -1055,7 +1055,7 @@ namespace ImGuiExt
 						ImLayout::EndTree();
 
 
-						ImLayout::BeginTree("Folder2");
+						ImLayout::BeginTree_1("Folder2");
 						ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), true, false);
 						ImGui::Text("Folder2");
 						ImLayout::EndTreeLayout();

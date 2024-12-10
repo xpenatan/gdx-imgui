@@ -111,10 +111,10 @@ public:
     static void Flow(int linkId, FlowDirection direction = FlowDirection::Forward) { return n::Flow(linkId, direction); }
 
     static bool BeginCreate(const ImVec4& color = ImVec4(1, 1, 1, 1), float thickness = 1.0f) { return n::BeginCreate(color, thickness); }
-    static bool QueryNewLink(int* startId, int* endId) { return n::QueryNewLink((PinId*)&startId[0], (PinId*)&endId[0]); }
-    static bool QueryNewLink(int* startId, int* endId, const ImVec4& color, float thickness = 1.0f) { return n::QueryNewLink((PinId*)&startId[0], (PinId*)&endId[0], color, thickness); }
-    static bool QueryNewNode(int* pinId) { return n::QueryNewNode((PinId*)&pinId[0]); }
-    static bool QueryNewNode(int* pinId, const ImVec4& color, float thickness = 1.0f) { return n::QueryNewNode((PinId*)&pinId[0], color, thickness); }
+    static bool QueryNewLink(long long* startId, long long* endId) { return n::QueryNewLink((PinId*)&startId[0], (PinId*)&endId[0]); }
+    static bool QueryNewLink(long long* startId, long long* endId, const ImVec4& color, float thickness = 1.0f) { return n::QueryNewLink((PinId*)&startId[0], (PinId*)&endId[0], color, thickness); }
+    static bool QueryNewNode(long long* pinId) { return n::QueryNewNode((PinId*)&pinId[0]); }
+    static bool QueryNewNode(long long* pinId, const ImVec4& color, float thickness = 1.0f) { return n::QueryNewNode((PinId*)&pinId[0], color, thickness); }
     static bool AcceptNewItem() { return n::AcceptNewItem(); }
     static bool AcceptNewItem(const ImVec4& color, float thickness = 1.0f) { return n::AcceptNewItem(color, thickness); }
     static void RejectNewItem() { n::RejectNewItem(); }
@@ -122,7 +122,7 @@ public:
     static void EndCreate() { n::EndCreate(); }
 
     static bool BeginDelete() { return n::BeginDelete(); }
-    static bool QueryDeletedLink(int* linkId, int* startId = nullptr, int* endId = nullptr) {
+    static bool QueryDeletedLink(long long* linkId, long long* startId = nullptr, long long* endId = nullptr) {
         PinId* startPinId = nullptr;
         PinId* endPinId = nullptr;
         if(startId != nullptr) {
@@ -133,7 +133,7 @@ public:
         }
         return n::QueryDeletedLink((LinkId*)&linkId[0], startPinId, endPinId);
     }
-    static bool QueryDeletedNode(int* nodeId) { return n::QueryDeletedNode((NodeId*)&nodeId[0]); }
+    static bool QueryDeletedNode(long long* nodeId) { return n::QueryDeletedNode((NodeId*)&nodeId[0]); }
     static bool AcceptDeletedItem(bool deleteDependencies = true) { return n::AcceptDeletedItem(deleteDependencies); }
     static void RejectDeletedItem() { n::RejectDeletedItem(); }
     static void EndDelete() { n::EndDelete(); }
@@ -156,8 +156,8 @@ public:
 
     static bool HasSelectionChanged() { return n::HasSelectionChanged(); }
     static int  GetSelectedObjectCount() { return n::GetSelectedObjectCount(); }
-    static int  GetSelectedNodes(int* nodes, int size) { return n::GetSelectedNodes((NodeId*)&nodes[0], size); }
-    static int  GetSelectedLinks(int* links, int size) { return n::GetSelectedLinks((LinkId*)&links[0], size); }
+    static int  GetSelectedNodes(long long* nodes, int size) { return n::GetSelectedNodes((NodeId*)&nodes[0], size); }
+    static int  GetSelectedLinks(long long* links, int size) { return n::GetSelectedLinks((LinkId*)&links[0], size); }
     static bool IsNodeSelected(int nodeId) { return n::IsNodeSelected(nodeId); }
     static bool IsLinkSelected(int linkId) { return n::IsLinkSelected(linkId); }
     static void ClearSelection() { n::ClearSelection(); }
@@ -177,9 +177,9 @@ public:
     static void NavigateToContent(float duration = -1) { n::NavigateToContent(duration); }
     static void NavigateToSelection(bool zoomIn = false, float duration = -1) { n::NavigateToSelection(zoomIn, duration); }
 
-    static bool ShowNodeContextMenu(int* nodeId) { return n::ShowNodeContextMenu((NodeId*)&nodeId[0]); }
-    static bool ShowPinContextMenu(int* pinId) { return n::ShowPinContextMenu((PinId*)&pinId[0]); }
-    static bool ShowLinkContextMenu(int* linkId) { return n::ShowLinkContextMenu((LinkId*)&linkId[0]); }
+    static bool ShowNodeContextMenu(long long* nodeId) { return n::ShowNodeContextMenu((NodeId*)&nodeId[0]); }
+    static bool ShowPinContextMenu(long long* pinId) { return n::ShowPinContextMenu((PinId*)&pinId[0]); }
+    static bool ShowLinkContextMenu(long long* linkId) { return n::ShowLinkContextMenu((LinkId*)&linkId[0]); }
     static bool ShowBackgroundContextMenu() { return n::ShowBackgroundContextMenu(); }
 
     static void EnableShortcuts(bool enable) { n::EnableShortcuts(enable); }
@@ -192,8 +192,8 @@ public:
     static bool AcceptDuplicate() { return n::AcceptDuplicate(); }
     static bool AcceptCreateNode() { return n::AcceptCreateNode(); }
     static int  GetActionContextSize() { return n::GetActionContextSize(); }
-    static int  GetActionContextNodes(int* nodes, int size) { return n::GetActionContextNodes((NodeId*)&nodes[0], size); }
-    static int  GetActionContextLinks(int* links, int size) { return n::GetActionContextLinks((LinkId*)&links[0], size); }
+    static int  GetActionContextNodes(long long* nodes, int size) { return n::GetActionContextNodes((NodeId*)&nodes[0], size); }
+    static int  GetActionContextLinks(long long* links, int size) { return n::GetActionContextLinks((LinkId*)&links[0], size); }
     static void EndShortcut() { n::EndShortcut(); }
 
     static float GetCurrentZoom() { return n::GetCurrentZoom(); }
@@ -209,7 +209,7 @@ public:
     static ImGuiMouseButton GetBackgroundClickButtonIndex() { return n::GetBackgroundClickButtonIndex(); }
     static ImGuiMouseButton GetBackgroundDoubleClickButtonIndex() { return n::GetBackgroundDoubleClickButtonIndex(); }
 
-    static bool GetLinkPins(int linkId, int* startPinId, int* endPinId) { return n::GetLinkPins(linkId, (PinId*)&startPinId[0], (PinId*)&endPinId[0]); }
+    static bool GetLinkPins(int linkId, long long* startPinId, long long* endPinId) { return n::GetLinkPins(linkId, (PinId*)&startPinId[0], (PinId*)&endPinId[0]); }
 
     static bool PinHadAnyLinks(int pinId) { return n::PinHadAnyLinks(pinId); }
 
@@ -218,5 +218,5 @@ public:
     static ImVec2 CanvasToScreen(const ImVec2& pos) { return n::CanvasToScreen(pos); }
 
     static int GetNodeCount() { return n::GetNodeCount(); }
-    static int GetOrderedNodeIds(int* nodes, int size) { return n::GetOrderedNodeIds((NodeId*)&nodes[0], size); }
+    static int GetOrderedNodeIds(long long* nodes, int size) { return n::GetOrderedNodeIds((NodeId*)&nodes[0], size); }
 };
