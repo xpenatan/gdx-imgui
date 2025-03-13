@@ -74,7 +74,7 @@ jobs:
 
   build_linux:
     name: Build Linux
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Cancel Previous Runs
