@@ -60,12 +60,12 @@ public abstract class LoadSaveSettingsListener extends IDLBase {
                 }
             };
             int pointer = createNative(onLoad, onSave);
-            initNative(pointer, true);
+            getNativeData().reset(pointer, true);
         }
     */
     public LoadSaveSettingsListener() {
         long addr = createNATIVE();
-        initNative(addr, true);
+        getNativeData().reset(addr, true);
     }
 
     /*[-JNI;-NATIVE]
@@ -84,13 +84,13 @@ public abstract class LoadSaveSettingsListener extends IDLBase {
 
     private void onLoad(long data) {
         IDLString tmp = IDLString.TMP_EMPTY_1;
-        tmp.setCPointer(data);
+        tmp.getNativeData().reset(data, false);;
         onLoad(tmp);
     }
 
     private boolean onSaveInternal(long data, int reason) {
         IDLString tmp = IDLString.TMP_EMPTY_1;
-        tmp.setCPointer(data);
+        tmp.getNativeData().reset(data, false);;
         return onSave(tmp, reason);
     }
 

@@ -14,7 +14,7 @@ public final class ImDrawData extends IDLBase {
     }
 
     public int getCmdListsCount() {
-        return getCmdListsCountNATIVE(getCPointer());
+        return getCmdListsCountNATIVE(getNativeData().getCPointer());
     }
 
     /*[-TEAVM;-NATIVE]
@@ -28,8 +28,8 @@ public final class ImDrawData extends IDLBase {
     private static native int getCmdListsCountNATIVE(long addr);
 
     public ImDrawList getCmdLists(int index) {
-        long pointer = getCmdListsNATIVE(getCPointer(), index);
-        imDrawList.setCPointer(pointer);
+        long pointer = getCmdListsNATIVE(getNativeData().getCPointer(), index);
+        imDrawList.getNativeData().reset(pointer, false);
         return imDrawList;
     }
 
@@ -45,7 +45,7 @@ public final class ImDrawData extends IDLBase {
     private static native long getCmdListsNATIVE(long addr, int index);
 
     public float getDisplayPosX() {
-        return getDisplayPosXNATIVE(getCPointer());
+        return getDisplayPosXNATIVE(getNativeData().getCPointer());
     }
 
     /*[-TEAVM;-NATIVE]
@@ -59,7 +59,7 @@ public final class ImDrawData extends IDLBase {
     private static native int getDisplayPosXNATIVE(long addr);
 
     public float getDisplayPosY() {
-        return getDisplayPosYNATIVE(getCPointer());
+        return getDisplayPosYNATIVE(getNativeData().getCPointer());
     }
 
     /*[-TEAVM;-NATIVE]
@@ -73,7 +73,7 @@ public final class ImDrawData extends IDLBase {
     private static native int getDisplayPosYNATIVE(long addr);
 
     public float getDisplaySizeX() {
-        return getDisplaySizeXNATIVE(getCPointer());
+        return getDisplaySizeXNATIVE(getNativeData().getCPointer());
     }
 
     /*[-TEAVM;-NATIVE]
@@ -87,7 +87,7 @@ public final class ImDrawData extends IDLBase {
     private static native int getDisplaySizeXNATIVE(long addr);
 
     public float getDisplaySizeY() {
-        return getDisplaySizeYNATIVE(getCPointer());
+        return getDisplaySizeYNATIVE(getNativeData().getCPointer());
     }
 
     /*[-TEAVM;-NATIVE]
@@ -101,7 +101,7 @@ public final class ImDrawData extends IDLBase {
     private static native int getDisplaySizeYNATIVE(long addr);
 
     public float getFramebufferScaleX() {
-        return getFramebufferScaleXNATIVE(getCPointer());
+        return getFramebufferScaleXNATIVE(getNativeData().getCPointer());
     }
 
     /*[-TEAVM;-NATIVE]
@@ -115,7 +115,7 @@ public final class ImDrawData extends IDLBase {
     private static native int getFramebufferScaleXNATIVE(long addr);
 
     public float getFramebufferScaleY() {
-        return getFramebufferScaleYNATIVE(getCPointer());
+        return getFramebufferScaleYNATIVE(getNativeData().getCPointer());
     }
 
     /*[-TEAVM;-NATIVE]

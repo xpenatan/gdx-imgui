@@ -15,7 +15,7 @@ public class ImGuiIO extends IDLBase {
     }
 
     public void ConfigFlags(int flags) {
-        SetConfigFlagsNATIVE(getCPointer(), flags);
+        SetConfigFlagsNATIVE(getNativeData().getCPointer(), flags);
     }
 
     /*[-TEAVM;-NATIVE]
@@ -45,7 +45,7 @@ public class ImGuiIO extends IDLBase {
 //    private static native boolean ContainsConfigFlagsNATIVE(long addr, int flag);
 
     public void SetDockingFlags(boolean ConfigDockingNoSplit, boolean ConfigDockingWithShift, boolean ConfigDockingAlwaysTabBar, boolean ConfigDockingTransparentPayload) {
-        SetDockingFlagsNATIVE(getCPointer(), ConfigDockingNoSplit, ConfigDockingWithShift, ConfigDockingAlwaysTabBar, ConfigDockingTransparentPayload);
+        SetDockingFlagsNATIVE(getNativeData().getCPointer(), ConfigDockingNoSplit, ConfigDockingWithShift, ConfigDockingAlwaysTabBar, ConfigDockingTransparentPayload);
     }
 
     /*[-TEAVM;-NATIVE]
@@ -65,7 +65,7 @@ public class ImGuiIO extends IDLBase {
     private static native void SetDockingFlagsNATIVE(long addr, boolean ConfigDockingNoSplit, boolean ConfigDockingWithShift, boolean ConfigDockingAlwaysTabBar, boolean ConfigDockingTransparentPayload);
 
     public void SetFontGlobalScale(float scale) {
-        SetFontGlobalScaleNATIVE(getCPointer(), scale);
+        SetFontGlobalScaleNATIVE(getNativeData().getCPointer(), scale);
     }
 
     /*[-TEAVM;-NATIVE]
@@ -79,7 +79,7 @@ public class ImGuiIO extends IDLBase {
     private static native void SetFontGlobalScaleNATIVE(long addr, float scale);
 
     public boolean getWantCaptureMouse() {
-        return getWantCaptureMouseNATIVE(getCPointer());
+        return getWantCaptureMouseNATIVE(getNativeData().getCPointer());
     }
 
     /*[-TEAVM;-NATIVE]
@@ -134,7 +134,7 @@ public class ImGuiIO extends IDLBase {
 //    private static native void removeIniFilenameNATIVE(long addr);
 
     public boolean containsIniFilename() {
-        return containsIniFilenameNATIVE(getCPointer());
+        return containsIniFilenameNATIVE(getNativeData().getCPointer());
     }
 
     /*[-TEAVM;-NATIVE]
@@ -148,7 +148,7 @@ public class ImGuiIO extends IDLBase {
     private static native boolean containsIniFilenameNATIVE(long addr);
 
     public void SetFontTexID(int id) {
-        SetFontTexIDNATIVE(getCPointer(), id);
+        SetFontTexIDNATIVE(getNativeData().getCPointer(), id);
     }
 
     /*[-TEAVM;-NATIVE]
@@ -162,7 +162,7 @@ public class ImGuiIO extends IDLBase {
     private static native void SetFontTexIDNATIVE(long addr, int id);
 
     public void UpdateKeyTyped(int c) {
-        updateKeyTyped(getCPointer(), c);
+        updateKeyTyped(getNativeData().getCPointer(), c);
     }
 
     /*[-TEAVM;-NATIVE]
@@ -178,7 +178,7 @@ public class ImGuiIO extends IDLBase {
     private static native void updateKeyTyped(long addr, int c);
 
     public void AddKeyEvent(int imGuiKey, boolean down) {
-        AddKeyEventNATIVE(getCPointer(), imGuiKey, down);
+        AddKeyEventNATIVE(getNativeData().getCPointer(), imGuiKey, down);
     }
 
     /*[-TEAVM;-NATIVE]
@@ -192,7 +192,7 @@ public class ImGuiIO extends IDLBase {
     private static native void AddKeyEventNATIVE(long addr, int imGuiKey, boolean down);
 
     public void AddMousePosEvent(float x, float y) {
-        AddMousePosEventNATIVE(getCPointer(), x, y);
+        AddMousePosEventNATIVE(getNativeData().getCPointer(), x, y);
     }
 
     /*[-TEAVM;-NATIVE]
@@ -206,7 +206,7 @@ public class ImGuiIO extends IDLBase {
     private static native void AddMousePosEventNATIVE(long addr, float x, float y);
 
     public void AddMouseButtonEvent(int button, boolean down) {
-        AddMouseButtonEventNATIVE(getCPointer(), button, down);
+        AddMouseButtonEventNATIVE(getNativeData().getCPointer(), button, down);
     }
 
     /*[-TEAVM;-NATIVE]
@@ -220,7 +220,7 @@ public class ImGuiIO extends IDLBase {
     private static native void AddMouseButtonEventNATIVE(long addr, int button, boolean down);
 
     public void AddMouseWheelEvent(float xOffset, float yOffset) {
-        AddMouseWheelEventNATIVE(getCPointer(), xOffset, yOffset);
+        AddMouseWheelEventNATIVE(getNativeData().getCPointer(), xOffset, yOffset);
     }
 
     /*[-TEAVM;-NATIVE]
@@ -234,7 +234,7 @@ public class ImGuiIO extends IDLBase {
     private static native void AddMouseWheelEventNATIVE(long addr, float xOffset, float yOffset);
 
     public void SetClipboardTextFunction(ClipboardTextFunction function) {
-        setClipboardTextFunctionNATIVE(getCPointer(), function.getCPointer());
+        setClipboardTextFunctionNATIVE(getNativeData().getCPointer(), function.getNativeData().getCPointer());
     }
 
     /*[-TEAVM;-NATIVE]

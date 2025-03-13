@@ -21,7 +21,7 @@ public class ImGuiStyle extends IDLBase {
     }
 
     public void Colors(int index, ImVec4 color) {
-        set_ColorsNATIVE(getCPointer(), index, color.getCPointer());
+        set_ColorsNATIVE(getNativeData().getCPointer(), index, color.getNativeData().getCPointer());
     }
 
     /*[-TEAVM;-NATIVE]
@@ -40,7 +40,7 @@ public class ImGuiStyle extends IDLBase {
      * Return a temp ImVec4 object. Don't keep reference.
      */
     public ImVec4 Colors(int index) {
-        tmp.setCPointer(get_ColorsNATIVE(getCPointer(), index));
+        tmp.getNativeData().reset((get_ColorsNATIVE(getNativeData().getCPointer(), index)), false);
         return tmp;
     }
 
