@@ -54,56 +54,56 @@ public class BuildNodeEditor {
     }
 
     private static BuildMultiTarget getWindowTarget(BuildToolOptions op, String imguiPath) {
-        String libBuildCPPPath = op.getModuleBuildCPPPath();
-        String imguiBuildPath = imguiPath + "/imgui-build/build/c++";
+        String imguiCppPath = imguiPath + "/imgui-build/build/imgui";
+        String sourceDir = op.getSourceDir();
 
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
         WindowsMSVCTarget windowsTarget = new WindowsMSVCTarget();
         windowsTarget.isStatic = true;
-        windowsTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
-        windowsTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/nodeeditor/");
-        windowsTarget.cppInclude.add(libBuildCPPPath + "/**/nodeeditor/*.cpp");
+        windowsTarget.headerDirs.add("-I" + imguiCppPath);
+        windowsTarget.headerDirs.add("-I" + sourceDir);
+        windowsTarget.cppInclude.add(sourceDir + "/*.cpp");
         multiTarget.add(windowsTarget);
 
         return multiTarget;
     }
 
     private static BuildMultiTarget getLinuxTarget(BuildToolOptions op, String imguiPath) {
-        String libBuildCPPPath = op.getModuleBuildCPPPath();
-        String imguiBuildPath = imguiPath + "/imgui-build/build/c++";
+        String imguiCppPath = imguiPath + "/imgui-build/build/imgui";
+        String sourceDir = op.getSourceDir();
 
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
         LinuxTarget linuxTarget = new LinuxTarget();
         linuxTarget.isStatic = true;
-        linuxTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
-        linuxTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/nodeeditor/");
-        linuxTarget.cppInclude.add(libBuildCPPPath + "/**/nodeeditor/*.cpp");
+        linuxTarget.headerDirs.add("-I" + imguiCppPath);
+        linuxTarget.headerDirs.add("-I" + sourceDir);
+        linuxTarget.cppInclude.add(sourceDir + "/*.cpp");
         multiTarget.add(linuxTarget);
 
         return multiTarget;
     }
 
     private static BuildMultiTarget getMacTarget(BuildToolOptions op, boolean isArm, String imguiPath) {
-        String libBuildCPPPath = op.getModuleBuildCPPPath();
-        String imguiBuildPath = imguiPath + "/imgui-build/build/c++";
+        String imguiCppPath = imguiPath + "/imgui-build/build/imgui";
+        String sourceDir = op.getSourceDir();
 
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
         MacTarget macTarget = new MacTarget(isArm);
         macTarget.isStatic = true;
-        macTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
-        macTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/nodeeditor/");
-        macTarget.cppInclude.add(libBuildCPPPath + "/**/nodeeditor/*.cpp");
+        macTarget.headerDirs.add("-I" + imguiCppPath);
+        macTarget.headerDirs.add("-I" + sourceDir);
+        macTarget.cppInclude.add(sourceDir + "/*.cpp");
         multiTarget.add(macTarget);
 
         return multiTarget;
     }
 
     private static BuildMultiTarget getTeaVMTarget(BuildToolOptions op, String imguiPath) {
-        String libBuildCPPPath = op.getModuleBuildCPPPath();
-        String imguiCppPath = imguiPath + "/imgui-build/build/c++";
+        String imguiCppPath = imguiPath + "/imgui-build/build/imgui";
+        String sourceDir = op.getSourceDir();
 
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
@@ -111,9 +111,9 @@ public class BuildNodeEditor {
         EmscriptenTarget libTarget = new EmscriptenTarget(null);
         libTarget.isStatic = true;
         libTarget.compileGlueCode = false;
-        libTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui");
-        libTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/nodeeditor");
-        libTarget.cppInclude.add(libBuildCPPPath + "/src/nodeeditor/*.cpp");
+        libTarget.headerDirs.add("-I" + imguiCppPath);
+        libTarget.headerDirs.add("-I" + sourceDir);
+        libTarget.cppInclude.add(sourceDir + "/*.cpp");
         multiTarget.add(libTarget);
 
         return multiTarget;

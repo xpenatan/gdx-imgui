@@ -14,7 +14,6 @@ interface TextEditor {
     void SetShortTabsEnabled(boolean aValue);
     [Const] boolean IsShortTabsEnabled();
     [Const] long GetLineCount();
-    [Const] boolean IsOverwriteEnabled();
     void SetPalette(PaletteId aValue);
     [Const] PaletteId GetPalette();
     void SetLanguageDefinition(LanguageDefinitionId aValue);

@@ -31,7 +31,6 @@ public:
     void SetShortTabsEnabled(bool aValue) { ed.SetShortTabsEnabled(aValue); }
     bool IsShortTabsEnabled() const { return ed.IsShortTabsEnabled(); }
     int GetLineCount() const { return ed.GetLineCount(); }
-    bool IsOverwriteEnabled() const { return ed.IsOverwriteEnabled(); }
     void SetPalette(PaletteId aValue) { ed.SetPalette(aValue); }
     PaletteId GetPalette() const { return ed.GetPalette(); }
     void SetLanguageDefinition(LanguageDefinitionId aValue) { ed.SetLanguageDefinition(aValue); }

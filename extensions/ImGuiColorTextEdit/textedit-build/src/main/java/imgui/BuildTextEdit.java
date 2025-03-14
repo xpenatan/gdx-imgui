@@ -16,6 +16,8 @@ import java.util.ArrayList;
 public class BuildTextEdit {
 
     public static void main(String[] args) throws Exception {
+//        WindowsMSVCTarget.DEBUG_BUILD = true;
+
         String libName = "textedit";
         String basePackage = "imgui.extension.textedit";
         String modulePrefix = "textedit";
@@ -54,21 +56,21 @@ public class BuildTextEdit {
     }
 
     private static BuildMultiTarget getWindowTarget(BuildToolOptions op, String imguiPath) {
-        String libBuildCPPPath = op.getModuleBuildCPPPath();
-        String imguiBuildPath = imguiPath + "/imgui-build/build/c++";
+        String imguiCppPath = imguiPath + "/imgui-build/build/imgui";
+        String sourceDir = op.getSourceDir();
 
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
         WindowsMSVCTarget windowsTarget = new WindowsMSVCTarget();
         windowsTarget.isStatic = true;
-        windowsTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
-        windowsTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/textedit/");
-        windowsTarget.cppInclude.add(libBuildCPPPath + "/**/textedit/*.cpp");
+        windowsTarget.headerDirs.add("-I" + imguiCppPath);
+        windowsTarget.headerDirs.add("-I" + sourceDir);
+        windowsTarget.cppInclude.add(sourceDir + "/*.cpp");
 
         // Boost regex
-        windowsTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/textedit/vendor/regex/include");
+        windowsTarget.headerDirs.add("-I" + sourceDir + "/vendor/regex/include");
         windowsTarget.headerDirs.add("-includecmath");
-        windowsTarget.cppInclude.add(libBuildCPPPath + "/**/textedit/vendor/regex/src/*.cpp");
+        windowsTarget.cppInclude.add(sourceDir + "/vendor/regex/src/*.cpp");
 
         multiTarget.add(windowsTarget);
 
@@ -76,21 +78,21 @@ public class BuildTextEdit {
     }
 
     private static BuildMultiTarget getLinuxTarget(BuildToolOptions op, String imguiPath) {
-        String libBuildCPPPath = op.getModuleBuildCPPPath();
-        String imguiBuildPath = imguiPath + "/imgui-build/build/c++";
+        String imguiCppPath = imguiPath + "/imgui-build/build/imgui";
+        String sourceDir = op.getSourceDir();
 
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
         LinuxTarget linuxTarget = new LinuxTarget();
         linuxTarget.isStatic = true;
-        linuxTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
-        linuxTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/textedit/");
-        linuxTarget.cppInclude.add(libBuildCPPPath + "/**/textedit/*.cpp");
+        linuxTarget.headerDirs.add("-I" + imguiCppPath);
+        linuxTarget.headerDirs.add("-I" + sourceDir);
+        linuxTarget.cppInclude.add(sourceDir + "/*.cpp");
 
         // Boost regex
-        linuxTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/textedit/vendor/regex/include");
+        linuxTarget.headerDirs.add("-I" + sourceDir + "/vendor/regex/include");
         linuxTarget.headerDirs.add("-includecmath");
-        linuxTarget.cppInclude.add(libBuildCPPPath + "/**/textedit/vendor/regex/src/*.cpp");
+        linuxTarget.cppInclude.add(sourceDir + "/vendor/regex/src/*.cpp");
 
         multiTarget.add(linuxTarget);
 
@@ -98,21 +100,21 @@ public class BuildTextEdit {
     }
 
     private static BuildMultiTarget getMacTarget(BuildToolOptions op, boolean isArm, String imguiPath) {
-        String libBuildCPPPath = op.getModuleBuildCPPPath();
-        String imguiBuildPath = imguiPath + "/imgui-build/build/c++";
+        String imguiCppPath = imguiPath + "/imgui-build/build/imgui";
+        String sourceDir = op.getSourceDir();
 
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
         MacTarget macTarget = new MacTarget(isArm);
         macTarget.isStatic = true;
-        macTarget.headerDirs.add("-I" + imguiBuildPath + "/src/imgui");
-        macTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/textedit/");
-        macTarget.cppInclude.add(libBuildCPPPath + "/**/textedit/*.cpp");
+        macTarget.headerDirs.add("-I" + imguiCppPath);
+        macTarget.headerDirs.add("-I" + sourceDir);
+        macTarget.cppInclude.add(sourceDir + "/*.cpp");
 
         // Boost regex
-        macTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/textedit/vendor/regex/include");
+        macTarget.headerDirs.add("-I" + sourceDir + "/vendor/regex/include");
         macTarget.headerDirs.add("-includecmath");
-        macTarget.cppInclude.add(libBuildCPPPath + "/**/textedit/vendor/regex/src/*.cpp");
+        macTarget.cppInclude.add(sourceDir + "/vendor/regex/src/*.cpp");
 
         multiTarget.add(macTarget);
 
@@ -120,8 +122,8 @@ public class BuildTextEdit {
     }
 
     private static BuildMultiTarget getTeaVMTarget(BuildToolOptions op, String imguiPath) {
-        String libBuildCPPPath = op.getModuleBuildCPPPath();
-        String imguiCppPath = imguiPath + "/imgui-build/build/c++";
+        String imguiCppPath = imguiPath + "/imgui-build/build/imgui";
+        String sourceDir = op.getSourceDir();
 
         BuildMultiTarget multiTarget = new BuildMultiTarget();
 
@@ -129,13 +131,13 @@ public class BuildTextEdit {
         EmscriptenTarget libTarget = new EmscriptenTarget(null);
         libTarget.isStatic = true;
         libTarget.compileGlueCode = false;
-        libTarget.headerDirs.add("-I" + imguiCppPath + "/src/imgui");
-        libTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/textedit");
-        libTarget.cppInclude.add(libBuildCPPPath + "/src/textedit/*.cpp");
+        libTarget.headerDirs.add("-I" + imguiCppPath);
+        libTarget.headerDirs.add("-I" + sourceDir);
+        libTarget.cppInclude.add(sourceDir + "/*.cpp");
 
         // Boost regex
-        libTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/textedit/vendor/regex/include");
-        libTarget.cppInclude.add(libBuildCPPPath + "/**/textedit/vendor/regex/src/*.cpp");
+        libTarget.headerDirs.add("-I" + sourceDir + "/vendor/regex/include");
+        libTarget.cppInclude.add(sourceDir + "/vendor/regex/src/*.cpp");
 
         multiTarget.add(libTarget);
 

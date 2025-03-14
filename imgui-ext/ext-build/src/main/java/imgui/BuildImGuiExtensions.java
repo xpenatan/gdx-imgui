@@ -10,12 +10,12 @@ import com.github.xpenatan.jparser.builder.tool.BuildToolOptions;
 import com.github.xpenatan.jparser.builder.tool.BuilderTool;
 import com.github.xpenatan.jparser.idl.IDLReader;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class BuildImGuiExtensions {
 
     public static void main(String[] args) throws Exception {
+//        WindowsMSVCTarget.DEBUG_BUILD = true;
 
         String libName = "imgui";
         String basePackage = "imgui";
@@ -60,37 +60,46 @@ public class BuildImGuiExtensions {
     }
 
     private static BuildMultiTarget getWindowTarget(BuildToolOptions op, String extensionsPath) {
-        String libBuildCPPPath = op.getModuleBuildCPPPath();
-
         BuildMultiTarget multiTarget = new BuildMultiTarget();
+        String imguiCppPath = op.libPath + "/imgui-build/build/imgui";
+        String libBuildCPPPath = op.getModuleBuildCPPPath();
 
         WindowsMSVCTarget glueTarget = new WindowsMSVCTarget();
         glueTarget.libDirSuffix += "ext/";
         glueTarget.addJNIHeaders();
-        glueTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
-        glueTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/jniglue");
+        glueTarget.headerDirs.add("-I" + imguiCppPath);
+        glueTarget.headerDirs.add("-I" + op.getCustomSourceDir());
         glueTarget.linkerFlags.add(libBuildCPPPath + "/libs/windows/vc/imgui64_.lib");
         glueTarget.cppInclude.add(libBuildCPPPath + "/src/jniglue/JNIGlue.cpp");
 
         {
             // ImLayout extension
             String imlayoutCPPPath = extensionsPath + "/imlayout/imlayout-build/build/c++";
-            glueTarget.headerDirs.add("-I" + imlayoutCPPPath + "/src/imlayout/");
+            String imlayoutCPPSource = extensionsPath + "/imlayout/imlayout-build/src/main/cpp/source";
+            String imlayoutCPPCustom = extensionsPath + "/imlayout/imlayout-build/src/main/cpp/custom";
+            glueTarget.headerDirs.add("-I" + imlayoutCPPSource);
+            glueTarget.headerDirs.add("-I" + imlayoutCPPCustom);
             glueTarget.linkerFlags.add(imlayoutCPPPath + "/libs/windows/vc/imlayout64_.lib");
             glueTarget.headerDirs.add("/FI" + "\"" + imlayoutCPPPath + "/src/jniglue/JNIGlue.h" + "\"");
         }
         {
             // ImGuiColorTextEdit extension
             String textEditCPPPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/c++";
-            glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
-            glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/vendor/regex/include");
+            String textEditCPPSource = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/ImGuiColorTextEdit";
+            String textEditCPPCustom = extensionsPath + "/ImGuiColorTextEdit/textedit-build/src/main/cpp/custom";
+            glueTarget.headerDirs.add("-I" + textEditCPPSource);
+            glueTarget.headerDirs.add("-I" + textEditCPPSource + "/vendor/regex/include");
+            glueTarget.headerDirs.add("-I" + textEditCPPCustom);
             glueTarget.linkerFlags.add(textEditCPPPath + "/libs/windows/vc/textedit64_.lib");
             glueTarget.headerDirs.add("/FI" + "\"" + textEditCPPPath + "/src/jniglue/JNIGlue.h" + "\"");
         }
         {
             // imgui-node-editor extension
             String nodeeditorCPPPath = extensionsPath + "/imgui-node-editor/nodeeditor-build/build/c++";
-            glueTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/nodeeditor/");
+            String nodeeditorCPPSource = extensionsPath + "/imgui-node-editor/nodeeditor-build/build/imgui-node-editor";
+            String nodeeditorCPPCustom = extensionsPath + "/imgui-node-editor/nodeeditor-build/src/main/cpp/custom";
+            glueTarget.headerDirs.add("-I" + nodeeditorCPPSource);
+            glueTarget.headerDirs.add("-I" + nodeeditorCPPCustom);
             glueTarget.linkerFlags.add(nodeeditorCPPPath + "/libs/windows/vc/nodeeditor64_.lib");
             glueTarget.headerDirs.add("/FI" + "\"" + nodeeditorCPPPath + "/src/jniglue/JNIGlue.h" + "\"");
         }
@@ -100,37 +109,46 @@ public class BuildImGuiExtensions {
     }
 
     private static BuildMultiTarget getLinuxTarget(BuildToolOptions op, String extensionsPath) {
-        String libBuildCPPPath = op.getModuleBuildCPPPath();
-
         BuildMultiTarget multiTarget = new BuildMultiTarget();
+        String imguiCppPath = op.libPath + "/imgui-build/build/imgui";
+        String libBuildCPPPath = op.getModuleBuildCPPPath();
 
         LinuxTarget glueTarget = new LinuxTarget();
         glueTarget.libDirSuffix += "ext/";
         glueTarget.addJNIHeaders();
-        glueTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
+        glueTarget.headerDirs.add("-I" + imguiCppPath);
+        glueTarget.headerDirs.add("-I" + op.getCustomSourceDir());
         glueTarget.linkerFlags.add(libBuildCPPPath + "/libs/linux/libimgui64_.a");
-
         glueTarget.cppInclude.add(libBuildCPPPath + "/src/jniglue/JNIGlue.cpp");
 
         {
             // ImLayout extension
             String imlayoutCPPPath = extensionsPath + "/imlayout/imlayout-build/build/c++";
-            glueTarget.headerDirs.add("-I" + imlayoutCPPPath + "/src/imlayout/");
+            String imlayoutCPPSource = extensionsPath + "/imlayout/imlayout-build/src/main/cpp/source";
+            String imlayoutCPPCustom = extensionsPath + "/imlayout/imlayout-build/src/main/cpp/custom";
+            glueTarget.headerDirs.add("-I" + imlayoutCPPSource);
+            glueTarget.headerDirs.add("-I" + imlayoutCPPCustom);
             glueTarget.linkerFlags.add(imlayoutCPPPath + "/libs/linux/libimlayout64_.a");
             glueTarget.headerDirs.add("-include" + imlayoutCPPPath + "/src/jniglue/JNIGlue.h");
         }
         {
             // ImGuiColorTextEdit extension
             String textEditCPPPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/c++";
-            glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
-            glueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/vendor/regex/include");
+            String textEditCPPSource = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/ImGuiColorTextEdit";
+            String textEditCPPCustom = extensionsPath + "/ImGuiColorTextEdit/textedit-build/src/main/cpp/custom";
+            glueTarget.headerDirs.add("-I" + textEditCPPSource);
+            glueTarget.headerDirs.add("-I" + textEditCPPSource + "/vendor/regex/include");
+            glueTarget.headerDirs.add("-I" + textEditCPPCustom);
             glueTarget.linkerFlags.add(textEditCPPPath + "/libs/linux/libtextedit64_.a");
             glueTarget.headerDirs.add("-include" + textEditCPPPath + "/src/jniglue/JNIGlue.h");
         }
         {
             // imgui-node-editor extension
             String nodeeditorCPPPath = extensionsPath + "/imgui-node-editor/nodeeditor-build/build/c++";
-            glueTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/nodeeditor/");
+            String nodeeditorCPPSource = extensionsPath + "/imgui-node-editor/nodeeditor-build/build/imgui-node-editor";
+            String nodeeditorCPPCustom = extensionsPath + "/imgui-node-editor/nodeeditor-build/src/main/cpp/custom";
+            glueTarget.headerDirs.add("-I" + nodeeditorCPPSource);
+            glueTarget.headerDirs.add("-I" + nodeeditorCPPCustom);
             glueTarget.linkerFlags.add(nodeeditorCPPPath + "/libs/linux/libnodeeditor64_.a");
             glueTarget.headerDirs.add("-include" + nodeeditorCPPPath + "/src/jniglue/JNIGlue.h");
         }
@@ -140,27 +158,30 @@ public class BuildImGuiExtensions {
     }
 
     private static BuildMultiTarget getMacTarget(BuildToolOptions op, boolean isArm, String extensionsPath) {
-        String libBuildCPPPath = op.getModuleBuildCPPPath();
-
         BuildMultiTarget multiTarget = new BuildMultiTarget();
+        String imguiCppPath = op.libPath + "/imgui-build/build/imgui";
+        String libBuildCPPPath = op.getModuleBuildCPPPath();
 
         MacTarget macGlueTarget = new MacTarget(isArm);
         macGlueTarget.libDirSuffix += "ext/";
         macGlueTarget.addJNIHeaders();
-        macGlueTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui/");
+        macGlueTarget.headerDirs.add("-I" + imguiCppPath);
+        macGlueTarget.headerDirs.add("-I" + op.getCustomSourceDir());
         if(isArm) {
             macGlueTarget.linkerFlags.add(libBuildCPPPath + "/libs/mac/arm/libimgui64_.a");
         }
         else {
             macGlueTarget.linkerFlags.add(libBuildCPPPath + "/libs/mac/libimgui64_.a");
         }
-
         macGlueTarget.cppInclude.add(libBuildCPPPath + "/src/jniglue/JNIGlue.cpp");
 
         {
             // ImLayout extension
             String imlayoutCPPPath = extensionsPath + "/imlayout/imlayout-build/build/c++";
-            macGlueTarget.headerDirs.add("-I" + imlayoutCPPPath + "/src/imlayout/");
+            String imlayoutCPPSource = extensionsPath + "/imlayout/imlayout-build/src/main/cpp/source";
+            String imlayoutCPPCustom = extensionsPath + "/imlayout/imlayout-build/src/main/cpp/custom";
+            macGlueTarget.headerDirs.add("-I" + imlayoutCPPSource);
+            macGlueTarget.headerDirs.add("-I" + imlayoutCPPCustom);
             if(isArm) {
                 macGlueTarget.linkerFlags.add(imlayoutCPPPath + "/libs/mac/arm/libimlayout64_.a");
             }
@@ -172,8 +193,11 @@ public class BuildImGuiExtensions {
         {
             // ImGuiColorTextEdit extension
             String textEditCPPPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/c++";
-            macGlueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/");
-            macGlueTarget.headerDirs.add("-I" + textEditCPPPath + "/src/textedit/vendor/regex/include");
+            String textEditCPPSource = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/ImGuiColorTextEdit";
+            String textEditCPPCustom = extensionsPath + "/ImGuiColorTextEdit/textedit-build/src/main/cpp/custom";
+            macGlueTarget.headerDirs.add("-I" + textEditCPPSource);
+            macGlueTarget.headerDirs.add("-I" + textEditCPPSource + "/vendor/regex/include");
+            macGlueTarget.headerDirs.add("-I" + textEditCPPCustom);
             if(isArm) {
                 macGlueTarget.linkerFlags.add(textEditCPPPath + "/libs/mac/arm/libtextedit64_.a");
             }
@@ -185,7 +209,10 @@ public class BuildImGuiExtensions {
         {
             // imgui-node-editor extension
             String nodeeditorCPPPath = extensionsPath + "/imgui-node-editor/nodeeditor-build/build/c++";
-            macGlueTarget.headerDirs.add("-I" + nodeeditorCPPPath + "/src/nodeeditor/");
+            String nodeeditorCPPSource = extensionsPath + "/imgui-node-editor/nodeeditor-build/build/imgui-node-editor";
+            String nodeeditorCPPCustom = extensionsPath + "/imgui-node-editor/nodeeditor-build/src/main/cpp/custom";
+            macGlueTarget.headerDirs.add("-I" + nodeeditorCPPSource);
+            macGlueTarget.headerDirs.add("-I" + nodeeditorCPPCustom);
             if(isArm) {
                 macGlueTarget.linkerFlags.add(nodeeditorCPPPath + "/libs/mac/arm/libnodeeditor64_.a");
             }
@@ -201,44 +228,51 @@ public class BuildImGuiExtensions {
     }
 
     private static BuildMultiTarget getTeaVMTarget(BuildToolOptions op, IDLReader idlReaderCombined, String extensionsPath) {
-        String libBuildCPPPath = op.getModuleBuildCPPPath();
-
         BuildMultiTarget multiTarget = new BuildMultiTarget();
+        String imguiCppPath = op.libPath + "/imgui-build/build/imgui";
+        String libBuildCPPPath = op.getModuleBuildCPPPath();
 
         // Compile glue code and link to make js file
         EmscriptenTarget linkTarget = new EmscriptenTarget(idlReaderCombined);
         linkTarget.libDirSuffix += "ext/";
-        linkTarget.headerDirs.add("-I" + libBuildCPPPath + "/src/imgui");
-        linkTarget.headerDirs.add("-include" + libBuildCPPPath + "/src/imgui/ImGuiCustom.h");
+        linkTarget.headerDirs.add("-I" + imguiCppPath);
+        linkTarget.headerDirs.add("-include" + op.getCustomSourceDir() + "ImGuiCustom.h");
         linkTarget.linkerFlags.add(libBuildCPPPath + "/libs/emscripten/imgui_.a");
 
         {
             // ImLayout extension
-            String imlayoutCppPath = extensionsPath + "/imlayout/imlayout-build/build/c++";
+            String imlayoutCPPPath = extensionsPath + "/imlayout/imlayout-build/build/c++";
+            String imlayoutCPPSource = extensionsPath + "/imlayout/imlayout-build/src/main/cpp/source";
+            String imlayoutCPPCustom = extensionsPath + "/imlayout/imlayout-build/src/main/cpp/custom";
             String imlayoutIdlPath = extensionsPath + "/imlayout/imlayout-build/src/main/cpp/imlayout.idl";
             IDLReader.addIDL(idlReaderCombined, imlayoutIdlPath);
-            linkTarget.headerDirs.add("-I" + imlayoutCppPath + "/src/imlayout");
-            linkTarget.headerDirs.add("-include" + imlayoutCppPath + "/src/imlayout/ImLayoutCustom.h");
-            linkTarget.linkerFlags.add(imlayoutCppPath + "/libs/emscripten/imlayout_.a");
+            linkTarget.headerDirs.add("-I" + imlayoutCPPSource);
+            linkTarget.headerDirs.add("-include" + imlayoutCPPCustom + "/ImLayoutCustom.h");
+            linkTarget.linkerFlags.add(imlayoutCPPPath + "/libs/emscripten/imlayout_.a");
         }
         {
             // ImGuiColorTextEdit extension
-            String texteditCppPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/c++";
+
+            String textEditCPPPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/c++";
+            String textEditCPPSource = extensionsPath + "/ImGuiColorTextEdit/textedit-build/build/ImGuiColorTextEdit";
+            String textEditCPPCustom = extensionsPath + "/ImGuiColorTextEdit/textedit-build/src/main/cpp/custom";
             String texteditIdlPath = extensionsPath + "/ImGuiColorTextEdit/textedit-build/src/main/cpp/ColorTextEdit.idl";
             IDLReader.addIDL(idlReaderCombined, texteditIdlPath);
-            linkTarget.headerDirs.add("-I" + texteditCppPath + "/src/textedit");
-            linkTarget.headerDirs.add("-I" + texteditCppPath + "/src/textedit/vendor/regex/include");
-            linkTarget.headerDirs.add("-include" + texteditCppPath + "/src/textedit/TextEditCustom.h");
-            linkTarget.linkerFlags.add(texteditCppPath + "/libs/emscripten/textedit_.a");
+            linkTarget.headerDirs.add("-I" + textEditCPPSource);
+            linkTarget.headerDirs.add("-I" + textEditCPPSource + "/vendor/regex/include");
+            linkTarget.headerDirs.add("-include" + textEditCPPCustom + "/TextEditCustom.h");
+            linkTarget.linkerFlags.add(textEditCPPPath + "/libs/emscripten/textedit_.a");
         }
         {
             // imgui-node-editor extension
-            String nodeeditorCppPath = extensionsPath + "/imgui-node-editor/nodeeditor-build/build/c++";
+            String nodeeditorCPPPath = extensionsPath + "/imgui-node-editor/nodeeditor-build/build/c++";
+            String nodeeditorCPPSource = extensionsPath + "/imgui-node-editor/nodeeditor-build/build/imgui-node-editor";
+            String nodeeditorCPPCustom = extensionsPath + "/imgui-node-editor/nodeeditor-build/src/main/cpp/custom";
             String nodeeditorIdlPath = extensionsPath + "/imgui-node-editor/nodeeditor-build/src/main/cpp/nodeeditor.idl";
             IDLReader.addIDL(idlReaderCombined, nodeeditorIdlPath);
-            linkTarget.headerDirs.add("-I" + nodeeditorCppPath + "/src/nodeeditor");
-            linkTarget.headerDirs.add("-include" + nodeeditorCppPath + "/src/nodeeditor/NodeEditorCustom.h");
-            linkTarget.linkerFlags.add(nodeeditorCppPath + "/libs/emscripten/nodeeditor_.a");
+            linkTarget.headerDirs.add("-I" + nodeeditorCPPSource);
+            linkTarget.headerDirs.add("-include" + nodeeditorCPPCustom + "/NodeEditorCustom.h");
+            linkTarget.linkerFlags.add(nodeeditorCPPPath + "/libs/emscripten/nodeeditor_.a");
         }
         multiTarget.add(linkTarget);
 
