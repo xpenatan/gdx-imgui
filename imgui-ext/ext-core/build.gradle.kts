@@ -44,6 +44,14 @@ publishing {
             artifact(fromClasses)
             artifact(sourcesJar)
             artifact(javadocJar)
+
+            pom.withXml {
+                val dependenciesNode = asNode().appendNode("dependencies")
+                val dependencyNode = dependenciesNode.appendNode("dependency")
+                dependencyNode.appendNode("groupId", "com.github.xpenatan.jParser")
+                dependencyNode.appendNode("artifactId", "loader-core")
+                dependencyNode.appendNode("version", LibExt.jParserVersion)
+            }
         }
     }
 }
