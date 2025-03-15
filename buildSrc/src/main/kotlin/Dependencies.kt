@@ -11,7 +11,7 @@ object LibExt {
     const val jParserVersion = "-SNAPSHOT"
     const val jUnitVersion = "4.12"
 
-    const val exampleUseRepoLibs = true
+    const val exampleUseRepoLibs = false
 }
 
 private fun getVersion(): String {
