@@ -49,7 +49,7 @@ publishing {
                 val dependenciesNode = asNode().appendNode("dependencies")
                 val dependencyNode = dependenciesNode.appendNode("dependency")
                 dependencyNode.appendNode("groupId", "com.github.xpenatan.jParser")
-                dependencyNode.appendNode("artifactId", "loader-core")
+                dependencyNode.appendNode("artifactId", "jParser-core")
                 dependencyNode.appendNode("version", LibExt.jParserVersion)
             }
         }
