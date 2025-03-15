@@ -14,8 +14,8 @@ dependencies {
     implementation(project(":extensions:imlayout:imlayout-teavm"))
     implementation(project(":extensions:ImGuiColorTextEdit:textedit-teavm"))
     implementation(project(":extensions:imgui-node-editor:nodeeditor-teavm"))
+    implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
 
-    includePom("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
     includePom("com.github.xpenatan.jParser:loader-core:${LibExt.jParserVersion}")
     includePom("com.github.xpenatan.jParser:loader-teavm:${LibExt.jParserVersion}")
     includePom("org.teavm:teavm-jso:${LibExt.teaVMVersion}")

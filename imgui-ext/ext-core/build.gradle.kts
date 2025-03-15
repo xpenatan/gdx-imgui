@@ -51,6 +51,7 @@ publishing {
                 dependencyNode.appendNode("groupId", "com.github.xpenatan.jParser")
                 dependencyNode.appendNode("artifactId", "loader-core")
                 dependencyNode.appendNode("version", LibExt.jParserVersion)
+                dependencyNode.appendNode("scope", "compile")
             }
         }
     }
