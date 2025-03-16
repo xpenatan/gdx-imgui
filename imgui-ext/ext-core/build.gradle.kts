@@ -85,3 +85,7 @@ publishing {
         }
     }
 }
+
+tasks.withType<GenerateModuleMetadata> {
+    enabled = false
+}
