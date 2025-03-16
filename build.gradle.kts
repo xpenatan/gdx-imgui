@@ -89,6 +89,10 @@ configure(libProjects + libProjects2) {
                     username = System.getenv("USER")
                     password = System.getenv("PASSWORD")
                 }
+                metadataSources {
+                    mavenPom()
+                    ignoreGradleMetadataRedirection()
+                }
             }
         }
     }
