@@ -1,3 +1,5 @@
+import groovy.util.Node
+
 plugins {
     id("java-library")
 }
@@ -5,10 +7,11 @@ plugins {
 val moduleName = "imgui-ext-core"
 
 dependencies {
-    api(project(":imgui:imgui-core"))
-    api(project(":extensions:imlayout:imlayout-core"))
-    api(project(":extensions:ImGuiColorTextEdit:textedit-core"))
-    api(project(":extensions:imgui-node-editor:nodeeditor-core"))
+    api("com.github.xpenatan.jParser:loader-core:${LibExt.jParserVersion}")
+    implementation(project(":imgui:imgui-core"))
+    implementation(project(":extensions:imlayout:imlayout-core"))
+    implementation(project(":extensions:ImGuiColorTextEdit:textedit-core"))
+    implementation(project(":extensions:imgui-node-editor:nodeeditor-core"))
 }
 
 java {
@@ -16,45 +19,65 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-val fromClasses = tasks.register<Jar>("fromClasses") {
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+tasks.jar {
+    archiveBaseName.set(moduleName)
+    archiveClassifier.set("")
+
+    dependsOn(tasks.named("classes")) // This project’s classes
+    dependsOn(configurations["implementation"].dependencies.mapNotNull { dep ->
+        if (dep is ProjectDependency) {
+            dep.dependencyProject.tasks.findByName("classes")
+        } else {
+            null
+        }
+    })
+
     from(sourceSets.main.get().output)
-    val projectDependencies = configurations["api"].allDependencies
-        .filterIsInstance<ProjectDependency>()
-        .map { it.dependencyProject.tasks.named<Jar>("jar") }
-    dependsOn(projectDependencies)
-    from(projectDependencies.map { zipTree(it.get().archiveFile.get().asFile) })
+
+    from({
+        configurations["implementation"].dependencies
+            .filterIsInstance<ProjectDependency>()
+            .mapNotNull { dep ->
+                val output = dep.dependencyProject.sourceSets.main.get().output
+                output.takeIf { it.files.any { file -> file.exists() } }
+            }
+    })
 
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    archiveFileName.set("$moduleName.jar") // Optional: Name the output JAR
 }
-
-val sourcesJar = tasks.register<Jar>("sourcesJar") {
-    archiveClassifier.set("sources")
-    from(sourceSets["main"].allSource) {
-    }
-}
-
-val javadocJar = tasks.register<Jar>("javadocJar") {
-    archiveClassifier.set("javadoc")
-    from(tasks.javadoc)
-}
-
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
             artifactId = moduleName
-            artifact(fromClasses)
-            artifact(sourcesJar)
-            artifact(javadocJar)
+            from(components["java"])
+            pom {
+                withXml {
+                    val rootNode = asNode()
+                    // Find or create the <dependencies> node
+                    val dependenciesNode = rootNode["dependencies"]?.let { it as groovy.util.NodeList }?.get(0) as groovy.util.Node?
+                        ?: rootNode.appendNode("dependencies")
 
-            pom.withXml {
-                val dependenciesNode = asNode().appendNode("dependencies")
-                val dependencyNode = dependenciesNode.appendNode("dependency")
-                dependencyNode.appendNode("groupId", "com.github.xpenatan.jParser")
-                dependencyNode.appendNode("artifactId", "loader-core")
-                dependencyNode.appendNode("version", "1.0-SNAPSHOT")
-                dependencyNode.appendNode("scope", "compile")
+                    // Remove all existing <dependency> children safely
+                    val childrenToRemove = dependenciesNode.children().toList()
+                    childrenToRemove.forEach { child ->
+                        dependenciesNode.remove(child as groovy.util.Node)
+                    }
+
+                    // Add only the api configuration dependencies
+                    configurations["api"].dependencies.forEach { dep ->
+                        val dependencyNode = dependenciesNode.appendNode("dependency")
+                        dependencyNode.appendNode("groupId", dep.group)
+                        dependencyNode.appendNode("artifactId", dep.name)
+                        dependencyNode.appendNode("version", dep.version)
+                        dependencyNode.appendNode("scope", "compile")
+                    }
+                }
             }
         }
     }
