@@ -6,12 +6,15 @@ plugins {
 
 val moduleName = "imgui-ext-core"
 
+val includePom = configurations.create("includePom")
+includePom.extendsFrom(configurations.api.get())
+
 dependencies {
-    api("com.github.xpenatan.jParser:loader-core:${LibExt.jParserVersion}")
-    implementation(project(":imgui:imgui-core"))
-    implementation(project(":extensions:imlayout:imlayout-core"))
-    implementation(project(":extensions:ImGuiColorTextEdit:textedit-core"))
-    implementation(project(":extensions:imgui-node-editor:nodeeditor-core"))
+    includePom("com.github.xpenatan.jParser:loader-core:${LibExt.jParserVersion}")
+    api(project(":imgui:imgui-core"))
+    api(project(":extensions:imlayout:imlayout-core"))
+    api(project(":extensions:ImGuiColorTextEdit:textedit-core"))
+    api(project(":extensions:imgui-node-editor:nodeeditor-core"))
 }
 
 java {
@@ -29,7 +32,7 @@ tasks.jar {
     archiveClassifier.set("")
 
     dependsOn(tasks.named("classes")) // This project’s classes
-    dependsOn(configurations["implementation"].dependencies.mapNotNull { dep ->
+    dependsOn(configurations["api"].dependencies.mapNotNull { dep ->
         if (dep is ProjectDependency) {
             dep.dependencyProject.tasks.findByName("classes")
         } else {
@@ -40,7 +43,7 @@ tasks.jar {
     from(sourceSets.main.get().output)
 
     from({
-        configurations["implementation"].dependencies
+        configurations["api"].dependencies
             .filterIsInstance<ProjectDependency>()
             .mapNotNull { dep ->
                 val output = dep.dependencyProject.sourceSets.main.get().output
@@ -70,7 +73,7 @@ publishing {
                     }
 
                     // Add only the api configuration dependencies
-                    configurations["api"].dependencies.forEach { dep ->
+                    configurations["includePom"].dependencies.forEach { dep ->
                         val dependencyNode = dependenciesNode.appendNode("dependency")
                         dependencyNode.appendNode("groupId", dep.group)
                         dependencyNode.appendNode("artifactId", dep.name)

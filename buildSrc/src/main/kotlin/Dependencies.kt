@@ -22,7 +22,7 @@ private fun getVersion(): String {
     if(file.exists()) {
         val properties = Properties()
         properties.load(file.inputStream())
-        val version = properties.getProperty("version")
+        val version = properties.getProperty("lib-version")
         if(isRelease) {
             libVersion = version
         }
