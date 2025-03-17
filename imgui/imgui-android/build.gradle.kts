@@ -7,7 +7,7 @@ val moduleName = "imgui-android"
 
 android {
     namespace = "imgui"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 21

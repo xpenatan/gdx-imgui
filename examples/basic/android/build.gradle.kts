@@ -7,12 +7,11 @@ group = "imgui.example.basic.android"
 
 android {
     namespace = "imgui.basic"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "imgui.basic"
         minSdk = 24
-        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
     }
