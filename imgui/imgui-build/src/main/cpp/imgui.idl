@@ -1507,74 +1507,74 @@ enum ImGuiTreeNodeFlags {
 };
 
 enum ImGuiStyleVar {
-    "ImGuiStyleVar_Alpha",
-    "ImGuiStyleVar_DisabledAlpha",
-    "ImGuiStyleVar_WindowPadding",
-    "ImGuiStyleVar_WindowRounding",
-    "ImGuiStyleVar_WindowBorderSize",
-    "ImGuiStyleVar_WindowMinSize",
-    "ImGuiStyleVar_WindowTitleAlign",
-    "ImGuiStyleVar_ChildRounding",
-    "ImGuiStyleVar_ChildBorderSize",
-    "ImGuiStyleVar_PopupRounding",
-    "ImGuiStyleVar_PopupBorderSize",
-    "ImGuiStyleVar_FramePadding",
-    "ImGuiStyleVar_FrameRounding",
-    "ImGuiStyleVar_FrameBorderSize",
-    "ImGuiStyleVar_ItemSpacing",
-    "ImGuiStyleVar_ItemInnerSpacing",
-    "ImGuiStyleVar_IndentSpacing",
-    "ImGuiStyleVar_CellPadding",
-    "ImGuiStyleVar_ScrollbarSize",
-    "ImGuiStyleVar_ScrollbarRounding",
-    "ImGuiStyleVar_GrabMinSize",
-    "ImGuiStyleVar_GrabRounding",
-    "ImGuiStyleVar_TabRounding",
-    "ImGuiStyleVar_ButtonTextAlign",
-    "ImGuiStyleVar_SelectableTextAlign",
-    "ImGuiStyleVar_SeparatorTextBorderSize",
-    "ImGuiStyleVar_SeparatorTextAlign",
-    "ImGuiStyleVar_SeparatorTextPadding",
-    "ImGuiStyleVar_DockingSeparatorSize"
+    "ImGuiStyleVar_Alpha",                              //[-RENAME=Alpha]
+    "ImGuiStyleVar_DisabledAlpha",                      //[-RENAME=DisabledAlpha]
+    "ImGuiStyleVar_WindowPadding",                      //[-RENAME=WindowPadding]
+    "ImGuiStyleVar_WindowRounding",                     //[-RENAME=WindowRounding]
+    "ImGuiStyleVar_WindowBorderSize",                   //[-RENAME=WindowBorderSize]
+    "ImGuiStyleVar_WindowMinSize",                      //[-RENAME=WindowMinSize]
+    "ImGuiStyleVar_WindowTitleAlign",                   //[-RENAME=WindowTitleAlign]
+    "ImGuiStyleVar_ChildRounding",                      //[-RENAME=ChildRounding]
+    "ImGuiStyleVar_ChildBorderSize",                    //[-RENAME=ChildBorderSize]
+    "ImGuiStyleVar_PopupRounding",                      //[-RENAME=PopupRounding]
+    "ImGuiStyleVar_PopupBorderSize",                    //[-RENAME=PopupBorderSize]
+    "ImGuiStyleVar_FramePadding",                       //[-RENAME=FramePadding]
+    "ImGuiStyleVar_FrameRounding",                      //[-RENAME=FrameRounding]
+    "ImGuiStyleVar_FrameBorderSize",                    //[-RENAME=FrameBorderSize]
+    "ImGuiStyleVar_ItemSpacing",                        //[-RENAME=ItemSpacing]
+    "ImGuiStyleVar_ItemInnerSpacing",                   //[-RENAME=ItemInnerSpacing]
+    "ImGuiStyleVar_IndentSpacing",                      //[-RENAME=IndentSpacing]
+    "ImGuiStyleVar_CellPadding",                        //[-RENAME=CellPadding]
+    "ImGuiStyleVar_ScrollbarSize",                      //[-RENAME=ScrollbarSize]
+    "ImGuiStyleVar_ScrollbarRounding",                  //[-RENAME=ScrollbarRounding]
+    "ImGuiStyleVar_GrabMinSize",                        //[-RENAME=GrabMinSize]
+    "ImGuiStyleVar_GrabRounding",                       //[-RENAME=GrabRounding]
+    "ImGuiStyleVar_TabRounding",                        //[-RENAME=TabRounding]
+    "ImGuiStyleVar_ButtonTextAlign",                    //[-RENAME=ButtonTextAlign]
+    "ImGuiStyleVar_SelectableTextAlign",                //[-RENAME=SelectableTextAlign]
+    "ImGuiStyleVar_SeparatorTextBorderSize",            //[-RENAME=SeparatorTextBorderSize]
+    "ImGuiStyleVar_SeparatorTextAlign",                 //[-RENAME=SeparatorTextAlign]
+    "ImGuiStyleVar_SeparatorTextPadding",               //[-RENAME=SeparatorTextPadding]
+    "ImGuiStyleVar_DockingSeparatorSize"                //[-RENAME=DockingSeparatorSize]
 };
 
 enum ImGuiTableFlags {
-    "ImGuiTableFlags_None",
-    "ImGuiTableFlags_Resizable",
-    "ImGuiTableFlags_Reorderable",
-    "ImGuiTableFlags_Hideable",
-    "ImGuiTableFlags_Sortable",
-    "ImGuiTableFlags_NoSavedSettings",
-    "ImGuiTableFlags_ContextMenuInBody",
-    "ImGuiTableFlags_RowBg",
-    "ImGuiTableFlags_BordersInnerH",
-    "ImGuiTableFlags_BordersOuterH",
-    "ImGuiTableFlags_BordersInnerV",
-    "ImGuiTableFlags_BordersOuterV",
-    "ImGuiTableFlags_BordersH",
-    "ImGuiTableFlags_BordersV",
-    "ImGuiTableFlags_BordersInner",
-    "ImGuiTableFlags_BordersOuter",
-    "ImGuiTableFlags_Borders",
-    "ImGuiTableFlags_NoBordersInBody",
-    "ImGuiTableFlags_NoBordersInBodyUntilResize",
-    "ImGuiTableFlags_SizingFixedFit",
-    "ImGuiTableFlags_SizingFixedSame",
-    "ImGuiTableFlags_SizingStretchProp",
-    "ImGuiTableFlags_SizingStretchSame",
-    "ImGuiTableFlags_NoHostExtendX",
-    "ImGuiTableFlags_NoHostExtendY",
-    "ImGuiTableFlags_NoKeepColumnsVisible",
-    "ImGuiTableFlags_PreciseWidths",
-    "ImGuiTableFlags_NoClip",
-    "ImGuiTableFlags_PadOuterX",
-    "ImGuiTableFlags_NoPadOuterX",
-    "ImGuiTableFlags_NoPadInnerX",
-    "ImGuiTableFlags_ScrollX",
-    "ImGuiTableFlags_ScrollY",
-    "ImGuiTableFlags_SortMulti",
-    "ImGuiTableFlags_SortTristate",
-    "ImGuiTableFlags_HighlightHoveredColumn"
+    "ImGuiTableFlags_None",                             //[-RENAME=None]
+    "ImGuiTableFlags_Resizable",                        //[-RENAME=Resizable]
+    "ImGuiTableFlags_Reorderable",                      //[-RENAME=Reorderable]
+    "ImGuiTableFlags_Hideable",                         //[-RENAME=Hideable]
+    "ImGuiTableFlags_Sortable",                         //[-RENAME=Sortable]
+    "ImGuiTableFlags_NoSavedSettings",                  //[-RENAME=NoSavedSettings]
+    "ImGuiTableFlags_ContextMenuInBody",                //[-RENAME=ContextMenuInBody]
+    "ImGuiTableFlags_RowBg",                            //[-RENAME=RowBg]
+    "ImGuiTableFlags_BordersInnerH",                    //[-RENAME=BordersInnerH]
+    "ImGuiTableFlags_BordersOuterH",                    //[-RENAME=BordersOuterH]
+    "ImGuiTableFlags_BordersInnerV",                    //[-RENAME=BordersInnerV]
+    "ImGuiTableFlags_BordersOuterV",                    //[-RENAME=BordersOuterV]
+    "ImGuiTableFlags_BordersH",                         //[-RENAME=BordersH]
+    "ImGuiTableFlags_BordersV",                         //[-RENAME=BordersV]
+    "ImGuiTableFlags_BordersInner",                     //[-RENAME=BordersInner]
+    "ImGuiTableFlags_BordersOuter",                     //[-RENAME=BordersOuter]
+    "ImGuiTableFlags_Borders",                          //[-RENAME=Borders]
+    "ImGuiTableFlags_NoBordersInBody",                  //[-RENAME=NoBordersInBod]
+    "ImGuiTableFlags_NoBordersInBodyUntilResize",       //[-RENAME=NoBordersInBodyUntilResize]
+    "ImGuiTableFlags_SizingFixedFit",                   //[-RENAME=SizingFixedFit]
+    "ImGuiTableFlags_SizingFixedSame",                  //[-RENAME=SizingFixedSame]
+    "ImGuiTableFlags_SizingStretchProp",                //[-RENAME=SizingStretchProp]
+    "ImGuiTableFlags_SizingStretchSame",                //[-RENAME=SizingStretchSame]
+    "ImGuiTableFlags_NoHostExtendX",                    //[-RENAME=NoHostExtendX]
+    "ImGuiTableFlags_NoHostExtendY",                    //[-RENAME=NoHostExtendY]
+    "ImGuiTableFlags_NoKeepColumnsVisible",             //[-RENAME=NoKeepColumnsVisible]
+    "ImGuiTableFlags_PreciseWidths",                    //[-RENAME=PreciseWidths]
+    "ImGuiTableFlags_NoClip",                           //[-RENAME=NoClip]
+    "ImGuiTableFlags_PadOuterX",                        //[-RENAME=PadOuterX]
+    "ImGuiTableFlags_NoPadOuterX",                      //[-RENAME=NoPadOuterX]
+    "ImGuiTableFlags_NoPadInnerX",                      //[-RENAME=NoPadInnerX]
+    "ImGuiTableFlags_ScrollX",                          //[-RENAME=ScrollX]
+    "ImGuiTableFlags_ScrollY",                          //[-RENAME=ScrollY]
+    "ImGuiTableFlags_SortMulti",                        //[-RENAME=SortMulti]
+    "ImGuiTableFlags_SortTristate",                     //[-RENAME=SortTristate]
+    "ImGuiTableFlags_HighlightHoveredColumn"            //[-RENAME=HighlightHoveredColumn]
 };
 
 enum ImGuiHoveredFlags {

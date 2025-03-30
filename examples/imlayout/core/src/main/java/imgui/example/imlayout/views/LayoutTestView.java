@@ -11,7 +11,6 @@ import imgui.extension.imlayout.ImGuiLayout;
 import imgui.extension.imlayout.ImLayout;
 import imgui.extension.imlayout.ImOrientation;
 import static imgui.ImGuiTableColumnFlags.ImGuiTableColumnFlags_WidthStretch;
-import static imgui.ImGuiTableFlags.ImGuiTableFlags_Resizable;
 
 public class LayoutTestView {
 
@@ -43,7 +42,7 @@ public class LayoutTestView {
 
         ImLayout.EndLayout();
 
-        int flags = ImGuiTableFlags_Resizable | ImGuiTableFlags.ImGuiTableFlags_ScrollY;
+        int flags = ImGuiTableFlags.Resizable | ImGuiTableFlags.ScrollY;
         if(ImGui.BeginTable("ContentBrowser", 2, flags)) {
 
             ImGui.TableSetupColumn("C0", ImGuiTableColumnFlags_WidthStretch, 0.2f);
