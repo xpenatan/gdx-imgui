@@ -1052,11 +1052,19 @@ void Begin(float height, bool isLeaf, bool isSelected, int isOpen) {
     float windowX = ImGui::GetWindowPos().x;
     float windowY = ImGui::GetWindowPos().y;
     ImDrawList* drawlist = ImGui::GetWindowDrawList();
-    
-    if (isOpen == -1) {
-        bool isOpenVal = storage->GetBool(isOpenId, true);
+
+    ImGuiContext& g = *GImGui;
+
+    if (g.NextItemData.OpenCond & ImGuiCond_Always)
+    {
+        isOpen = g.NextItemData.OpenVal ? 1 : 0;
+    }
+    else if (isOpen == -1) {
+        bool defaultValue = g.NextItemData.OpenCond != 0 ? g.NextItemData.OpenVal : false;
+        bool isOpenVal = storage->GetBool(isOpenId, defaultValue);
         isOpen = isOpenVal ? 1 : 0;
     }
+    g.NextItemData.OpenCond = ImGuiCond_None;
 
     if (isLeaf) {
         isOpen = 0;

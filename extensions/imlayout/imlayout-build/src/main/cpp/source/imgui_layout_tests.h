@@ -987,6 +987,7 @@ namespace ImGuiExt
 			ImGui::TableSetColumnIndex(0);
 
 			float height = 10;
+			ImGui::SetNextItemOpen(true, ImGuiCond_Once);
 			ImLayout::BeginTree_1("RootId");
 			{
 				ImLayout::BeginTreeLayout(ImLayout::GetTreeHeight(height), false, false);
