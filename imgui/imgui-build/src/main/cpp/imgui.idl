@@ -1101,409 +1101,471 @@ interface ImGuiMultiSelectIO {
 };
 
 enum ImGuiFocusedFlags {
-    "ImGuiFocusedFlags_None",
-    "ImGuiFocusedFlags_ChildWindows",
-    "ImGuiFocusedFlags_RootWindow",
-    "ImGuiFocusedFlags_AnyWindow",
-    "ImGuiFocusedFlags_NoPopupHierarchy",
-    "ImGuiFocusedFlags_DockHierarchy",
-    "ImGuiFocusedFlags_RootAndChildWindows"
+    "ImGuiFocusedFlags_None",                           //[-RENAME=None]
+    "ImGuiFocusedFlags_ChildWindows",                   //[-RENAME=ChildWindows]
+    "ImGuiFocusedFlags_RootWindow",                     //[-RENAME=RootWindow]
+    "ImGuiFocusedFlags_AnyWindow",                      //[-RENAME=AnyWindow]
+    "ImGuiFocusedFlags_NoPopupHierarchy",               //[-RENAME=NoPopupHierarchy]
+    "ImGuiFocusedFlags_DockHierarchy",                  //[-RENAME=DockHierarchy
+    "ImGuiFocusedFlags_RootAndChildWindows"             //[-RENAME=RootAndChildWindows]
 };
 
 enum ImGuiConfigFlags {
-    "ImGuiConfigFlags_None",
-    "ImGuiConfigFlags_NavEnableKeyboard",
-    "ImGuiConfigFlags_NavEnableGamepad",
-    "ImGuiConfigFlags_NavEnableSetMousePos",
-    "ImGuiConfigFlags_NavNoCaptureKeyboard",
-    "ImGuiConfigFlags_NoMouse",
-    "ImGuiConfigFlags_NoMouseCursorChange",
-    "ImGuiConfigFlags_DockingEnable",
-    "ImGuiConfigFlags_ViewportsEnable",
-    "ImGuiConfigFlags_DpiEnableScaleViewports",
-    "ImGuiConfigFlags_DpiEnableScaleFonts"
+    "ImGuiConfigFlags_None",                            //[-RENAME=None]
+    "ImGuiConfigFlags_NavEnableKeyboard",               //[-RENAME=NavEnableKeyboard]
+    "ImGuiConfigFlags_NavEnableGamepad",                //[-RENAME=NavEnableGamepad]
+    "ImGuiConfigFlags_NavEnableSetMousePos",            //[-RENAME=NavEnableSetMousePos]
+    "ImGuiConfigFlags_NavNoCaptureKeyboard",            //[-RENAME=NavNoCaptureKeyboard]
+    "ImGuiConfigFlags_NoMouse",                         //[-RENAME=NoMouse]
+    "ImGuiConfigFlags_NoMouseCursorChange",             //[-RENAME=NoMouseCursorChange]
+    "ImGuiConfigFlags_DockingEnable",                   //[-RENAME=DockingEnable]
+    "ImGuiConfigFlags_ViewportsEnable",                 //[-RENAME=ViewportsEnable]
+    "ImGuiConfigFlags_DpiEnableScaleViewports",         //[-RENAME=DpiEnableScaleViewports]
+    "ImGuiConfigFlags_DpiEnableScaleFonts"              //[-RENAME=DpiEnableScaleFonts]
 };
 
 enum ImGuiKey {
-    "ImGuiKey_None",
-    "ImGuiKey_Tab",
-    "ImGuiKey_LeftArrow",
-    "ImGuiKey_RightArrow",
-    "ImGuiKey_UpArrow",
-    "ImGuiKey_DownArrow",
-    "ImGuiKey_PageUp",
-    "ImGuiKey_PageDown",
-    "ImGuiKey_Home",
-    "ImGuiKey_End",
-    "ImGuiKey_Insert",
-    "ImGuiKey_Delete",
-    "ImGuiKey_Backspace",
-    "ImGuiKey_Space",
-    "ImGuiKey_Enter",
-    "ImGuiKey_Escape",
-    "ImGuiKey_LeftCtrl", "ImGuiKey_LeftShift", "ImGuiKey_LeftAlt", "ImGuiKey_LeftSuper",
-    "ImGuiKey_RightCtrl", "ImGuiKey_RightShift", "ImGuiKey_RightAlt", "ImGuiKey_RightSuper",
-    "ImGuiKey_Menu",
-    "ImGuiKey_0", "ImGuiKey_1", "ImGuiKey_2", "ImGuiKey_3", "ImGuiKey_4", "ImGuiKey_5", "ImGuiKey_6", "ImGuiKey_7", "ImGuiKey_8", "ImGuiKey_9",
-    "ImGuiKey_A", "ImGuiKey_B", "ImGuiKey_C", "ImGuiKey_D", "ImGuiKey_E", "ImGuiKey_F", "ImGuiKey_G", "ImGuiKey_H", "ImGuiKey_I", "ImGuiKey_J",
-    "ImGuiKey_K", "ImGuiKey_L", "ImGuiKey_M", "ImGuiKey_N", "ImGuiKey_O", "ImGuiKey_P", "ImGuiKey_Q", "ImGuiKey_R", "ImGuiKey_S", "ImGuiKey_T",
-    "ImGuiKey_U", "ImGuiKey_V", "ImGuiKey_W", "ImGuiKey_X", "ImGuiKey_Y", "ImGuiKey_Z",
-    "ImGuiKey_F1", "ImGuiKey_F2", "ImGuiKey_F3", "ImGuiKey_F4", "ImGuiKey_F5", "ImGuiKey_F6",
-    "ImGuiKey_F7", "ImGuiKey_F8", "ImGuiKey_F9", "ImGuiKey_F10", "ImGuiKey_F11", "ImGuiKey_F12",
-    "ImGuiKey_Apostrophe",
-    "ImGuiKey_Comma",
-    "ImGuiKey_Minus",
-    "ImGuiKey_Period",
-    "ImGuiKey_Slash",
-    "ImGuiKey_Semicolon",
-    "ImGuiKey_Equal",
-    "ImGuiKey_LeftBracket",
-    "ImGuiKey_Backslash",
-    "ImGuiKey_RightBracket",
-    "ImGuiKey_GraveAccent",
-    "ImGuiKey_CapsLock",
-    "ImGuiKey_ScrollLock",
-    "ImGuiKey_NumLock",
-    "ImGuiKey_PrintScreen",
-    "ImGuiKey_Pause",
-    "ImGuiKey_Keypad0", "ImGuiKey_Keypad1", "ImGuiKey_Keypad2", "ImGuiKey_Keypad3", "ImGuiKey_Keypad4",
-    "ImGuiKey_Keypad5", "ImGuiKey_Keypad6", "ImGuiKey_Keypad7", "ImGuiKey_Keypad8", "ImGuiKey_Keypad9",
-    "ImGuiKey_KeypadDecimal",
-    "ImGuiKey_KeypadDivide",
-    "ImGuiKey_KeypadMultiply",
-    "ImGuiKey_KeypadSubtract",
-    "ImGuiKey_KeypadAdd",
-    "ImGuiKey_KeypadEnter",
-    "ImGuiKey_KeypadEqual",
-    "ImGuiKey_GamepadStart",
-    "ImGuiKey_GamepadBack",
-    "ImGuiKey_GamepadFaceLeft",
-    "ImGuiKey_GamepadFaceRight",
-    "ImGuiKey_GamepadFaceUp",
-    "ImGuiKey_GamepadFaceDown",
-    "ImGuiKey_GamepadDpadLeft",
-    "ImGuiKey_GamepadDpadRight",
-    "ImGuiKey_GamepadDpadUp",
-    "ImGuiKey_GamepadDpadDown",
-    "ImGuiKey_GamepadL1",
-    "ImGuiKey_GamepadR1",
-    "ImGuiKey_GamepadL2",
-    "ImGuiKey_GamepadR2",
-    "ImGuiKey_GamepadL3",
-    "ImGuiKey_GamepadR3",
-    "ImGuiKey_GamepadLStickLeft",
-    "ImGuiKey_GamepadLStickRight",
-    "ImGuiKey_GamepadLStickUp",
-    "ImGuiKey_GamepadLStickDown",
-    "ImGuiKey_GamepadRStickLeft",
-    "ImGuiKey_GamepadRStickRight",
-    "ImGuiKey_GamepadRStickUp",
-    "ImGuiKey_GamepadRStickDown",
+    "ImGuiKey_None",                                    //[-RENAME=None]
+    "ImGuiKey_Tab",                                     //[-RENAME=Tab]
+    "ImGuiKey_LeftArrow",                               //[-RENAME=LeftArrow]
+    "ImGuiKey_RightArrow",                              //[-RENAME=RightArrow]
+    "ImGuiKey_UpArrow",                                 //[-RENAME=UpArrow]
+    "ImGuiKey_DownArrow",                               //[-RENAME=DownArrow]
+    "ImGuiKey_PageUp",                                  //[-RENAME=PageUp]
+    "ImGuiKey_PageDown",                                //[-RENAME=PageDown]
+    "ImGuiKey_Home",                                    //[-RENAME=Home]
+    "ImGuiKey_End",                                     //[-RENAME=End]
+    "ImGuiKey_Insert",                                  //[-RENAME=Insert]
+    "ImGuiKey_Delete",                                  //[-RENAME=Delete]
+    "ImGuiKey_Backspace",                               //[-RENAME=Backspace]
+    "ImGuiKey_Space",                                   //[-RENAME=Space]
+    "ImGuiKey_Enter",                                   //[-RENAME=Enter]
+    "ImGuiKey_Escape",                                  //[-RENAME=Escape]
+    "ImGuiKey_LeftCtrl",                                //[-RENAME=LeftCtrl]
+    "ImGuiKey_LeftShift",                               //[-RENAME=LeftShift]
+    "ImGuiKey_LeftAlt",                                 //[-RENAME=LeftAlt]
+    "ImGuiKey_LeftSuper",                               //[-RENAME=LeftSuper]
+    "ImGuiKey_RightCtrl",                               //[-RENAME=RightCtrl]
+    "ImGuiKey_RightShift",                              //[-RENAME=RightShift]
+    "ImGuiKey_RightAlt",                                //[-RENAME=RightAlt]
+    "ImGuiKey_RightSuper",                              //[-RENAME=RightSuper]
+    "ImGuiKey_Menu",                                    //[-RENAME=Menu]
+    "ImGuiKey_0",                                       //[-RENAME=0]
+    "ImGuiKey_1",                                       //[-RENAME=1]
+    "ImGuiKey_2",                                       //[-RENAME=2]
+    "ImGuiKey_3",                                       //[-RENAME=3]
+    "ImGuiKey_4",                                       //[-RENAME=4]
+    "ImGuiKey_5",                                       //[-RENAME=5]
+    "ImGuiKey_6",                                       //[-RENAME=6]
+    "ImGuiKey_7",                                       //[-RENAME=7]
+    "ImGuiKey_8",                                       //[-RENAME=8]
+    "ImGuiKey_9",                                       //[-RENAME=9]
+    "ImGuiKey_A",                                       //[-RENAME=A]
+    "ImGuiKey_B",                                       //[-RENAME=B]
+    "ImGuiKey_C",                                       //[-RENAME=C]
+    "ImGuiKey_D",                                       //[-RENAME=D]
+    "ImGuiKey_E",                                       //[-RENAME=E]
+    "ImGuiKey_F",                                       //[-RENAME=F]
+    "ImGuiKey_G",                                       //[-RENAME=G]
+    "ImGuiKey_H",                                       //[-RENAME=H]
+    "ImGuiKey_I",                                       //[-RENAME=I]
+    "ImGuiKey_J",                                       //[-RENAME=J]
+    "ImGuiKey_K",                                       //[-RENAME=K]
+    "ImGuiKey_L",                                       //[-RENAME=L]
+    "ImGuiKey_M",                                       //[-RENAME=M]
+    "ImGuiKey_N",                                       //[-RENAME=N]
+    "ImGuiKey_O",                                       //[-RENAME=O]
+    "ImGuiKey_P",                                       //[-RENAME=P]
+    "ImGuiKey_Q",                                       //[-RENAME=Q]
+    "ImGuiKey_R",                                       //[-RENAME=R]
+    "ImGuiKey_S",                                       //[-RENAME=S]
+    "ImGuiKey_T",                                       //[-RENAME=T]
+    "ImGuiKey_U",                                       //[-RENAME=U]
+    "ImGuiKey_V",                                       //[-RENAME=V]
+    "ImGuiKey_W",                                       //[-RENAME=W]
+    "ImGuiKey_X",                                       //[-RENAME=X]
+    "ImGuiKey_Y",                                       //[-RENAME=Y]
+    "ImGuiKey_Z",                                       //[-RENAME=Z]
+    "ImGuiKey_F1",                                      //[-RENAME=F1]
+    "ImGuiKey_F2",                                      //[-RENAME=F2]
+    "ImGuiKey_F3",                                      //[-RENAME=F3]
+    "ImGuiKey_F4",                                      //[-RENAME=F4]
+    "ImGuiKey_F5",                                      //[-RENAME=F5]
+    "ImGuiKey_F6",                                      //[-RENAME=F6]
+    "ImGuiKey_F7",                                      //[-RENAME=F7]
+    "ImGuiKey_F8",                                      //[-RENAME=F8]
+    "ImGuiKey_F9",                                      //[-RENAME=F9]
+    "ImGuiKey_F10",                                     //[-RENAME=F10]
+    "ImGuiKey_F11",                                     //[-RENAME=F11]
+    "ImGuiKey_F12",                                     //[-RENAME=F12]
+    "ImGuiKey_Apostrophe",                              //[-RENAME=Apostrophe]
+    "ImGuiKey_Comma",                                   //[-RENAME=Comma]
+    "ImGuiKey_Minus",                                   //[-RENAME=Minus]
+    "ImGuiKey_Period",                                  //[-RENAME=Period]
+    "ImGuiKey_Slash",                                   //[-RENAME=Slash]
+    "ImGuiKey_Semicolon",                               //[-RENAME=Semicolon]
+    "ImGuiKey_Equal",                                   //[-RENAME=Equal]
+    "ImGuiKey_LeftBracket",                             //[-RENAME=LeftBracket]
+    "ImGuiKey_Backslash",                               //[-RENAME=Backslash]
+    "ImGuiKey_RightBracket",                            //[-RENAME=RightBracket]
+    "ImGuiKey_GraveAccent",                             //[-RENAME=GraveAccent]
+    "ImGuiKey_CapsLock",                                //[-RENAME=CapsLock]
+    "ImGuiKey_ScrollLock",                              //[-RENAME=ScrollLock]
+    "ImGuiKey_NumLock",                                 //[-RENAME=NumLock]
+    "ImGuiKey_PrintScreen",                             //[-RENAME=PrintScreen]
+    "ImGuiKey_Pause",                                   //[-RENAME=Pause]
+    "ImGuiKey_Keypad0",                                 //[-RENAME=Keypad0]
+    "ImGuiKey_Keypad1",                                 //[-RENAME=Keypad1]
+    "ImGuiKey_Keypad2",                                 //[-RENAME=Keypad2]
+    "ImGuiKey_Keypad3",                                 //[-RENAME=Keypad3]
+    "ImGuiKey_Keypad4",                                 //[-RENAME=Keypad4]
+    "ImGuiKey_Keypad5",                                 //[-RENAME=Keypad5]
+    "ImGuiKey_Keypad6",                                 //[-RENAME=Keypad6]
+    "ImGuiKey_Keypad7",                                 //[-RENAME=Keypad7]
+    "ImGuiKey_Keypad8",                                 //[-RENAME=Keypad8]
+    "ImGuiKey_Keypad9",                                 //[-RENAME=Keypad9]
+    "ImGuiKey_KeypadDecimal",                           //[-RENAME=KeypadDecimal]
+    "ImGuiKey_KeypadDivide",                            //[-RENAME=KeypadDivide]
+    "ImGuiKey_KeypadMultiply",                          //[-RENAME=KeypadMultiply]
+    "ImGuiKey_KeypadSubtract",                          //[-RENAME=KeypadSubtract]
+    "ImGuiKey_KeypadAdd",                               //[-RENAME=KeypadAdd]
+    "ImGuiKey_KeypadEnter",                             //[-RENAME=KeypadEnter]
+    "ImGuiKey_KeypadEqual",                             //[-RENAME=KeypadEqual]
+    "ImGuiKey_GamepadStart",                            //[-RENAME=GamepadStart]
+    "ImGuiKey_GamepadBack",                             //[-RENAME=GamepadBack]
+    "ImGuiKey_GamepadFaceLeft",                         //[-RENAME=GamepadFaceLeft]
+    "ImGuiKey_GamepadFaceRight",                        //[-RENAME=GamepadFaceRight]
+    "ImGuiKey_GamepadFaceUp",                           //[-RENAME=GamepadFaceUp]
+    "ImGuiKey_GamepadFaceDown",                         //[-RENAME=GamepadFaceDown]
+    "ImGuiKey_GamepadDpadLeft",                         //[-RENAME=GamepadDpadLeft]
+    "ImGuiKey_GamepadDpadRight",                        //[-RENAME=GamepadDpadRight]
+    "ImGuiKey_GamepadDpadUp",                           //[-RENAME=GamepadDpadUp]
+    "ImGuiKey_GamepadDpadDown",                         //[-RENAME=GamepadDpadDown]
+    "ImGuiKey_GamepadL1",                               //[-RENAME=GamepadL1]
+    "ImGuiKey_GamepadR1",                               //[-RENAME=GamepadR1]
+    "ImGuiKey_GamepadL2",                               //[-RENAME=GamepadL2]
+    "ImGuiKey_GamepadR2",                               //[-RENAME=GamepadR2]
+    "ImGuiKey_GamepadL3",                               //[-RENAME=GamepadL3
+    "ImGuiKey_GamepadR3",                               //[-RENAME=GamepadR3]
+    "ImGuiKey_GamepadLStickLeft",                       //[-RENAME=GamepadLStickLeft]
+    "ImGuiKey_GamepadLStickRight",                      //[-RENAME=GamepadLStickRight]
+    "ImGuiKey_GamepadLStickUp",                         //[-RENAME=GamepadLStickUp]
+    "ImGuiKey_GamepadLStickDown",                       //[-RENAME=GamepadLStickDown]
+    "ImGuiKey_GamepadRStickLeft",                       //[-RENAME=GamepadRStickLeft]
+    "ImGuiKey_GamepadRStickRight",                      //[-RENAME=GamepadRStickRight]
+    "ImGuiKey_GamepadRStickUp",                         //[-RENAME=GamepadRStickUp]
+    "ImGuiKey_GamepadRStickDown",                       //[-RENAME=GamepadRStickDown]
 
-    "ImGuiKey_MouseLeft", "ImGuiKey_MouseRight", "ImGuiKey_MouseMiddle", "ImGuiKey_MouseX1", "ImGuiKey_MouseX2", "ImGuiKey_MouseWheelX", "ImGuiKey_MouseWheelY",
+    "ImGuiKey_MouseLeft",                               //[-RENAME=MouseLeft]
+    "ImGuiKey_MouseRight",                              //[-RENAME=MouseRight]
+    "ImGuiKey_MouseMiddle",                             //[-RENAME=MouseMiddle]
+    "ImGuiKey_MouseX1",                                 //[-RENAME=MouseX1]
+    "ImGuiKey_MouseX2",                                 //[-RENAME=MouseX2]
+    "ImGuiKey_MouseWheelX",                             //[-RENAME=MouseWheelX]
+    "ImGuiKey_MouseWheelY",                             //[-RENAME=MouseWheelY]
 
-    "ImGuiMod_None",
-    "ImGuiMod_Ctrl",
-    "ImGuiMod_Shift",
-    "ImGuiMod_Alt",
-    "ImGuiMod_Super",
-    "ImGuiMod_Shortcut",
-    "ImGuiMod_Mask_"
+    "ImGuiMod_None",                                    //[-RENAME=Mod_None]
+    "ImGuiMod_Ctrl",                                    //[-RENAME=Mod_Ctrl]
+    "ImGuiMod_Shift",                                   //[-RENAME=Mod_Shift]
+    "ImGuiMod_Alt",                                     //[-RENAME=Mod_Alt]
+    "ImGuiMod_Super",                                   //[-RENAME=Mod_Super]
+    "ImGuiMod_Shortcut",                                //[-RENAME=Mod_Shortcut]
+    "ImGuiMod_Mask_"                                    //[-RENAME=Mod_Mask_]
 };
 
 enum ImGuiColorEditFlags {
-    "ImGuiColorEditFlags_None",
-    "ImGuiColorEditFlags_NoAlpha",
-    "ImGuiColorEditFlags_NoPicker",
-    "ImGuiColorEditFlags_NoOptions",
-    "ImGuiColorEditFlags_NoSmallPreview",
-    "ImGuiColorEditFlags_NoTooltip",
-    "ImGuiColorEditFlags_NoLabel",
-    "ImGuiColorEditFlags_NoSidePreview",
-    "ImGuiColorEditFlags_NoDragDrop",
-    "ImGuiColorEditFlags_NoBorder",
-    "ImGuiColorEditFlags_AlphaBar",
-    "ImGuiColorEditFlags_AlphaPreview",
-    "ImGuiColorEditFlags_AlphaPreviewHalf",
-    "ImGuiColorEditFlags_HDR",
-    "ImGuiColorEditFlags_DisplayRGB",
-    "ImGuiColorEditFlags_DisplayHSV",
-    "ImGuiColorEditFlags_DisplayHex",
-    "ImGuiColorEditFlags_Uint8",
-    "ImGuiColorEditFlags_Float",
-    "ImGuiColorEditFlags_PickerHueBar",
-    "ImGuiColorEditFlags_PickerHueWheel",
-    "ImGuiColorEditFlags_InputRGB",
-    "ImGuiColorEditFlags_InputHSV",
-    "ImGuiColorEditFlags_DefaultOptions_"
+    "ImGuiColorEditFlags_None",                         //[-RENAME=None]
+    "ImGuiColorEditFlags_NoAlpha",                      //[-RENAME=NoAlpha]
+    "ImGuiColorEditFlags_NoPicker",                     //[-RENAME=NoPicker]
+    "ImGuiColorEditFlags_NoOptions",                    //[-RENAME=NoOptions]
+    "ImGuiColorEditFlags_NoSmallPreview",               //[-RENAME=NoSmallPreview]
+    "ImGuiColorEditFlags_NoTooltip",                    //[-RENAME=NoTooltip]
+    "ImGuiColorEditFlags_NoLabel",                      //[-RENAME=NoLabel]
+    "ImGuiColorEditFlags_NoSidePreview",                //[-RENAME=NoSidePreview]
+    "ImGuiColorEditFlags_NoDragDrop",                   //[-RENAME=NoDragDrop]
+    "ImGuiColorEditFlags_NoBorder",                     //[-RENAME=NoBorder]
+    "ImGuiColorEditFlags_AlphaBar",                     //[-RENAME=AlphaBar]
+    "ImGuiColorEditFlags_AlphaPreview",                 //[-RENAME=AlphaPreview]
+    "ImGuiColorEditFlags_AlphaPreviewHalf",             //[-RENAME=AlphaPreviewHalf]
+    "ImGuiColorEditFlags_HDR",                          //[-RENAME=HDR]
+    "ImGuiColorEditFlags_DisplayRGB",                   //[-RENAME=DisplayRGB]
+    "ImGuiColorEditFlags_DisplayHSV",                   //[-RENAME=DisplayHSV]
+    "ImGuiColorEditFlags_DisplayHex",                   //[-RENAME=DisplayHex]
+    "ImGuiColorEditFlags_Uint8",                        //[-RENAME=Uint8]
+    "ImGuiColorEditFlags_Float",                        //[-RENAME=Float]
+    "ImGuiColorEditFlags_PickerHueBar",                 //[-RENAME=PickerHueBar]
+    "ImGuiColorEditFlags_PickerHueWheel",               //[-RENAME=PickerHueWheel]
+    "ImGuiColorEditFlags_InputRGB",                     //[-RENAME=InputRGB]
+    "ImGuiColorEditFlags_InputHSV",                     //[-RENAME=InputHSV]
+    "ImGuiColorEditFlags_DefaultOptions_"               //[-RENAME=DefaultOptions_]
 };
 
 enum ImGuiButtonFlags {
-    "ImGuiButtonFlags_None",
-    "ImGuiButtonFlags_MouseButtonLeft",
-    "ImGuiButtonFlags_MouseButtonRight",
-    "ImGuiButtonFlags_MouseButtonMiddle"
+    "ImGuiButtonFlags_None",                            //[-RENAME=None]
+    "ImGuiButtonFlags_MouseButtonLeft",                 //[-RENAME=MouseButtonLeft]
+    "ImGuiButtonFlags_MouseButtonRight",                //[-RENAME=MouseButtonRight]
+    "ImGuiButtonFlags_MouseButtonMiddle"                //[-RENAME=MouseButtonMiddle]
 };
 
 enum ImGuiTableColumnFlags {
-    "ImGuiTableColumnFlags_None",
-    "ImGuiTableColumnFlags_Disabled",
-    "ImGuiTableColumnFlags_DefaultHide",
-    "ImGuiTableColumnFlags_DefaultSort",
-    "ImGuiTableColumnFlags_WidthStretch",
-    "ImGuiTableColumnFlags_WidthFixed",
-    "ImGuiTableColumnFlags_NoResize",
-    "ImGuiTableColumnFlags_NoReorder",
-    "ImGuiTableColumnFlags_NoHide",
-    "ImGuiTableColumnFlags_NoClip",
-    "ImGuiTableColumnFlags_NoSort",
-    "ImGuiTableColumnFlags_NoSortAscending",
-    "ImGuiTableColumnFlags_NoSortDescending",
-    "ImGuiTableColumnFlags_NoHeaderLabel",
-    "ImGuiTableColumnFlags_NoHeaderWidth",
-    "ImGuiTableColumnFlags_PreferSortAscending",
-    "ImGuiTableColumnFlags_PreferSortDescending",
-    "ImGuiTableColumnFlags_IndentEnable",
-    "ImGuiTableColumnFlags_IndentDisable",
-    "ImGuiTableColumnFlags_AngledHeader"
+    "ImGuiTableColumnFlags_None",                       //[-RENAME=None]
+    "ImGuiTableColumnFlags_Disabled",                   //[-RENAME=Disabled]
+    "ImGuiTableColumnFlags_DefaultHide",                //[-RENAME=DefaultHide]
+    "ImGuiTableColumnFlags_DefaultSort",                //[-RENAME=DefaultSort]
+    "ImGuiTableColumnFlags_WidthStretch",               //[-RENAME=WidthStretch]
+    "ImGuiTableColumnFlags_WidthFixed",                 //[-RENAME=WidthFixed]
+    "ImGuiTableColumnFlags_NoResize",                   //[-RENAME=NoResize]
+    "ImGuiTableColumnFlags_NoReorder",                  //[-RENAME=NoReorder]
+    "ImGuiTableColumnFlags_NoHide",                     //[-RENAME=NoHide]
+    "ImGuiTableColumnFlags_NoClip",                     //[-RENAME=NoClip]
+    "ImGuiTableColumnFlags_NoSort",                     //[-RENAME=NoSort]
+    "ImGuiTableColumnFlags_NoSortAscending",            //[-RENAME=NoSortAscending]
+    "ImGuiTableColumnFlags_NoSortDescending",           //[-RENAME=NoSortDescending]
+    "ImGuiTableColumnFlags_NoHeaderLabel",              //[-RENAME=NoHeaderLabel]
+    "ImGuiTableColumnFlags_NoHeaderWidth",              //[-RENAME=NoHeaderWidth]
+    "ImGuiTableColumnFlags_PreferSortAscending",        //[-RENAME=PreferSortAscending]
+    "ImGuiTableColumnFlags_PreferSortDescending",       //[-RENAME=PreferSortDescending]
+    "ImGuiTableColumnFlags_IndentEnable",               //[-RENAME=IndentEnable]
+    "ImGuiTableColumnFlags_IndentDisable",              //[-RENAME=IndentDisable]
+    "ImGuiTableColumnFlags_AngledHeader"                //[-RENAME=AngledHeader]
 };
 
 enum ImGuiComboFlags {
-    "ImGuiComboFlags_None",
-    "ImGuiComboFlags_PopupAlignLeft",
-    "ImGuiComboFlags_HeightSmall",
-    "ImGuiComboFlags_HeightRegular",
-    "ImGuiComboFlags_HeightLarge",
-    "ImGuiComboFlags_HeightLargest",
-    "ImGuiComboFlags_NoArrowButton",
-    "ImGuiComboFlags_NoPreview",
-    "ImGuiComboFlags_HeightMask_"
+    "ImGuiComboFlags_None",                             //[-RENAME=None]
+    "ImGuiComboFlags_PopupAlignLeft",                   //[-RENAME=PopupAlignLeft]
+    "ImGuiComboFlags_HeightSmall",                      //[-RENAME=HeightSmall]
+    "ImGuiComboFlags_HeightRegular",                    //[-RENAME=HeightRegular]
+    "ImGuiComboFlags_HeightLarge",                      //[-RENAME=HeightLarge]
+    "ImGuiComboFlags_HeightLargest",                    //[-RENAME=HeightLargest]
+    "ImGuiComboFlags_NoArrowButton",                    //[-RENAME=NoArrowButton]
+    "ImGuiComboFlags_NoPreview",                        //[-RENAME=NoPreview]
+    "ImGuiComboFlags_HeightMask_"                       //[-RENAME=HeightMask_]
 };
 
 enum ImGuiDir {
-    "ImGuiDir_None",
-    "ImGuiDir_Left",
-    "ImGuiDir_Right",
-    "ImGuiDir_Up",
-    "ImGuiDir_Down"
+    "ImGuiDir_None",                                    //[-RENAME=None]
+    "ImGuiDir_Left",                                    //[-RENAME=Left]
+    "ImGuiDir_Right",                                   //[-RENAME=Right]
+    "ImGuiDir_Up",                                      //[-RENAME=Up]
+    "ImGuiDir_Down"                                     //[-RENAME=Down]
 };
 
 enum ImGuiWindowFlags {
-    "ImGuiWindowFlags_None",
-    "ImGuiWindowFlags_NoTitleBar",
-    "ImGuiWindowFlags_NoResize",
-    "ImGuiWindowFlags_NoMove",
-    "ImGuiWindowFlags_NoScrollbar",
-    "ImGuiWindowFlags_NoScrollWithMouse",
-    "ImGuiWindowFlags_NoCollapse",
-    "ImGuiWindowFlags_AlwaysAutoResize",
-    "ImGuiWindowFlags_NoBackground",
-    "ImGuiWindowFlags_NoSavedSettings",
-    "ImGuiWindowFlags_NoMouseInputs",
-    "ImGuiWindowFlags_MenuBar",
-    "ImGuiWindowFlags_HorizontalScrollbar",
-    "ImGuiWindowFlags_NoFocusOnAppearing",
-    "ImGuiWindowFlags_NoBringToFrontOnFocus",
-    "ImGuiWindowFlags_AlwaysVerticalScrollbar",
-    "ImGuiWindowFlags_AlwaysHorizontalScrollbar",
-    "ImGuiWindowFlags_AlwaysUseWindowPadding",
-    "ImGuiWindowFlags_NoNavInputs",
-    "ImGuiWindowFlags_NoNavFocus",
-    "ImGuiWindowFlags_UnsavedDocument",
-    "ImGuiWindowFlags_NoDocking",
-    "ImGuiWindowFlags_NoNav",
-    "ImGuiWindowFlags_NoDecoration",
-    "ImGuiWindowFlags_NoInputs",
-    "ImGuiWindowFlags_NavFlattened",
-    "ImGuiWindowFlags_ChildWindow",
-    "ImGuiWindowFlags_Tooltip",
-    "ImGuiWindowFlags_Popup",
-    "ImGuiWindowFlags_Modal",
-    "ImGuiWindowFlags_ChildMenu",
-    "ImGuiWindowFlags_DockNodeHost"
+    "ImGuiWindowFlags_None",                            //[-RENAME=None]
+    "ImGuiWindowFlags_NoTitleBar",                      //[-RENAME=NoTitleBar]
+    "ImGuiWindowFlags_NoResize",                        //[-RENAME=NoResize]
+    "ImGuiWindowFlags_NoMove",                          //[-RENAME=NoMove]
+    "ImGuiWindowFlags_NoScrollbar",                     //[-RENAME=NoScrollbar]
+    "ImGuiWindowFlags_NoScrollWithMouse",               //[-RENAME=NoScrollWithMouse]
+    "ImGuiWindowFlags_NoCollapse",                      //[-RENAME=NoCollapse]
+    "ImGuiWindowFlags_AlwaysAutoResize",                //[-RENAME=AlwaysAutoResize]
+    "ImGuiWindowFlags_NoBackground",                    //[-RENAME=NoBackground]
+    "ImGuiWindowFlags_NoSavedSettings",                 //[-RENAME=NoSavedSettings]
+    "ImGuiWindowFlags_NoMouseInputs",                   //[-RENAME=NoMouseInputs]
+    "ImGuiWindowFlags_MenuBar",                         //[-RENAME=MenuBar]
+    "ImGuiWindowFlags_HorizontalScrollbar",             //[-RENAME=HorizontalScrollbar]
+    "ImGuiWindowFlags_NoFocusOnAppearing",              //[-RENAME=NoFocusOnAppearing]
+    "ImGuiWindowFlags_NoBringToFrontOnFocus",           //[-RENAME=NoBringToFrontOnFocus]
+    "ImGuiWindowFlags_AlwaysVerticalScrollbar",         //[-RENAME=AlwaysVerticalScrollbar]
+    "ImGuiWindowFlags_AlwaysHorizontalScrollbar",       //[-RENAME=AlwaysHorizontalScrollbar]
+    "ImGuiWindowFlags_AlwaysUseWindowPadding",          //[-RENAME=AlwaysUseWindowPadding]
+    "ImGuiWindowFlags_NoNavInputs",                     //[-RENAME=NoNavInputs]
+    "ImGuiWindowFlags_NoNavFocus",                      //[-RENAME=NoNavFocus]
+    "ImGuiWindowFlags_UnsavedDocument",                 //[-RENAME=UnsavedDocument]
+    "ImGuiWindowFlags_NoDocking",                       //[-RENAME=NoDocking]
+    "ImGuiWindowFlags_NoNav",                           //[-RENAME=NoNav]
+    "ImGuiWindowFlags_NoDecoration",                    //[-RENAME=NoDecoration]
+    "ImGuiWindowFlags_NoInputs",                        //[-RENAME=NoInputs
+    "ImGuiWindowFlags_NavFlattened",                    //[-RENAME=NavFlattened]
+    "ImGuiWindowFlags_ChildWindow",                     //[-RENAME=ChildWindow]
+    "ImGuiWindowFlags_Tooltip",                         //[-RENAME=Tooltip]
+    "ImGuiWindowFlags_Popup",                           //[-RENAME=Popup]
+    "ImGuiWindowFlags_Modal",                           //[-RENAME=Modal]
+    "ImGuiWindowFlags_ChildMenu",                       //[-RENAME=ChildMenu]
+    "ImGuiWindowFlags_DockNodeHost"                     //[-RENAME=DockNodeHost]
 };
 
 enum ImGuiCond {
-    "ImGuiCond_None",
-    "ImGuiCond_Always",
-    "ImGuiCond_Once",
-    "ImGuiCond_FirstUseEver",
-    "ImGuiCond_Appearing"
+    "ImGuiCond_None",                                   //[-RENAME=None]
+    "ImGuiCond_Always",                                 //[-RENAME=Always
+    "ImGuiCond_Once",                                   //[-RENAME=Once
+    "ImGuiCond_FirstUseEver",                           //[-RENAME=FirstUseEver]
+    "ImGuiCond_Appearing"                               //[-RENAME=Appearing]
 };
 
 enum ImGuiSliderFlags {
-    "ImGuiSliderFlags_None",
-    "ImGuiSliderFlags_AlwaysClamp",
-    "ImGuiSliderFlags_Logarithmic",
-    "ImGuiSliderFlags_NoRoundToFormat",
-    "ImGuiSliderFlags_NoInput"
+    "ImGuiSliderFlags_None",                            //[-RENAME=None]
+    "ImGuiSliderFlags_AlwaysClamp",                     //[-RENAME=AlwaysClamp]
+    "ImGuiSliderFlags_Logarithmic",                     //[-RENAME=Logarithmic]
+    "ImGuiSliderFlags_NoRoundToFormat",                 //[-RENAME=NoRoundToFormat]
+    "ImGuiSliderFlags_NoInput"                          //[-RENAME=NoInput]
 };
 
 enum ImGuiTabBarFlags {
-    "ImGuiTabBarFlags_None",
-    "ImGuiTabBarFlags_Reorderable",
-    "ImGuiTabBarFlags_AutoSelectNewTabs",
-    "ImGuiTabBarFlags_TabListPopupButton",
-    "ImGuiTabBarFlags_NoCloseWithMiddleMouseButton",
-    "ImGuiTabBarFlags_NoTabListScrollingButtons",
-    "ImGuiTabBarFlags_NoTooltip",
-    "ImGuiTabBarFlags_FittingPolicyResizeDown",
-    "ImGuiTabBarFlags_FittingPolicyScroll",
-    "ImGuiTabBarFlags_FittingPolicyMask_",
-    "ImGuiTabBarFlags_FittingPolicyDefault_"
+    "ImGuiTabBarFlags_None",                            //[-RENAME=None]
+    "ImGuiTabBarFlags_Reorderable",                     //[-RENAME=Reorderable]
+    "ImGuiTabBarFlags_AutoSelectNewTabs",               //[-RENAME=AutoSelectNewTabs]
+    "ImGuiTabBarFlags_TabListPopupButton",              //[-RENAME=TabListPopupButton]
+    "ImGuiTabBarFlags_NoCloseWithMiddleMouseButton",    //[-RENAME=NoCloseWithMiddleMouseButton]
+    "ImGuiTabBarFlags_NoTabListScrollingButtons",       //[-RENAME=NoTabListScrollingButtons]
+    "ImGuiTabBarFlags_NoTooltip",                       //[-RENAME=NoTooltip]
+    "ImGuiTabBarFlags_FittingPolicyResizeDown",         //[-RENAME=FittingPolicyResizeDown]
+    "ImGuiTabBarFlags_FittingPolicyScroll",             //[-RENAME=FittingPolicyScroll]
+    "ImGuiTabBarFlags_FittingPolicyMask_",              //[-RENAME=FittingPolicyMask_]
+    "ImGuiTabBarFlags_FittingPolicyDefault_"            //[-RENAME=FittingPolicyDefault_]
 };
 
 enum ImGuiTabItemFlags {
-    "ImGuiTabItemFlags_None",
-    "ImGuiTabItemFlags_UnsavedDocument",
-    "ImGuiTabItemFlags_SetSelected",
-    "ImGuiTabItemFlags_NoCloseWithMiddleMouseButton",
-    "ImGuiTabItemFlags_NoPushId",
-    "ImGuiTabItemFlags_NoTooltip",
-    "ImGuiTabItemFlags_NoReorder",
-    "ImGuiTabItemFlags_Leading",
-    "ImGuiTabItemFlags_Trailing"
+    "ImGuiTabItemFlags_None",                           //[-RENAME=None]
+    "ImGuiTabItemFlags_UnsavedDocument",                //[-RENAME=UnsavedDocument]
+    "ImGuiTabItemFlags_SetSelected",                    //[-RENAME=SetSelected]
+    "ImGuiTabItemFlags_NoCloseWithMiddleMouseButton",   //[-RENAME=NoCloseWithMiddleMouseButton]
+    "ImGuiTabItemFlags_NoPushId",                       //[-RENAME=NoPushId]
+    "ImGuiTabItemFlags_NoTooltip",                      //[-RENAME=NoTooltip]
+    "ImGuiTabItemFlags_NoReorder",                      //[-RENAME=NoReorder]
+    "ImGuiTabItemFlags_Leading",                        //[-RENAME=Leading]
+    "ImGuiTabItemFlags_Trailing"                        //[-RENAME=Trailing]
 };
 
 enum ImGuiDockNodeFlags {
-    "ImGuiDockNodeFlags_None",
-    "ImGuiDockNodeFlags_KeepAliveOnly",
-    "ImGuiDockNodeFlags_NoDockingOverCentralNode",
-    "ImGuiDockNodeFlags_PassthruCentralNode",
-    "ImGuiDockNodeFlags_NoDockingSplit",
-    "ImGuiDockNodeFlags_NoResize",
-    "ImGuiDockNodeFlags_AutoHideTabBar",
-    "ImGuiDockNodeFlags_NoUndocking"
+    "ImGuiDockNodeFlags_None",                          //[-RENAME=None]
+    "ImGuiDockNodeFlags_KeepAliveOnly",                 //[-RENAME=KeepAliveOnly]
+    "ImGuiDockNodeFlags_NoDockingOverCentralNode",      //[-RENAME=NoDockingOverCentralNode]
+    "ImGuiDockNodeFlags_PassthruCentralNode",           //[-RENAME=PassthruCentralNode]
+    "ImGuiDockNodeFlags_NoDockingSplit",                //[-RENAME=NoDockingSplit]
+    "ImGuiDockNodeFlags_NoResize",                      //[-RENAME=NoResize]
+    "ImGuiDockNodeFlags_AutoHideTabBar",                //[-RENAME=AutoHideTabBar]
+    "ImGuiDockNodeFlags_NoUndocking"                    //[-RENAME=NoUndocking]
 };
 
 enum ImGuiPopupFlags {
-    "ImGuiPopupFlags_None",
-    "ImGuiPopupFlags_MouseButtonLeft",
-    "ImGuiPopupFlags_MouseButtonRight",
-    "ImGuiPopupFlags_MouseButtonMiddle",
-    "ImGuiPopupFlags_MouseButtonMask_",
-    "ImGuiPopupFlags_MouseButtonDefault_",
-    "ImGuiPopupFlags_NoOpenOverExistingPopup",
-    "ImGuiPopupFlags_NoOpenOverItems",
-    "ImGuiPopupFlags_AnyPopupId",
-    "ImGuiPopupFlags_AnyPopupLevel",
-    "ImGuiPopupFlags_AnyPopup"
+    "ImGuiPopupFlags_None",                             //[-RENAME=None]
+    "ImGuiPopupFlags_MouseButtonLeft",                  //[-RENAME=MouseButtonLeft]
+    "ImGuiPopupFlags_MouseButtonRight",                 //[-RENAME=MouseButtonRight]
+    "ImGuiPopupFlags_MouseButtonMiddle",                //[-RENAME=MouseButtonMiddle]
+    "ImGuiPopupFlags_MouseButtonMask_",                 //[-RENAME=MouseButtonMask_]
+    "ImGuiPopupFlags_MouseButtonDefault_",              //[-RENAME=MouseButtonDefault_]
+    "ImGuiPopupFlags_NoOpenOverExistingPopup",          //[-RENAME=NoOpenOverExistingPopup]
+    "ImGuiPopupFlags_NoOpenOverItems",                  //[-RENAME=NoOpenOverItems]
+    "ImGuiPopupFlags_AnyPopupId",                       //[-RENAME=AnyPopupId]
+    "ImGuiPopupFlags_AnyPopupLevel",                    //[-RENAME=AnyPopupLevel]
+    "ImGuiPopupFlags_AnyPopup"                          //[-RENAME=AnyPopup]
 };
 
 enum ImGuiSelectableFlags {
-    "ImGuiSelectableFlags_None",
-    "ImGuiSelectableFlags_DontClosePopups",
-    "ImGuiSelectableFlags_SpanAllColumns",
-    "ImGuiSelectableFlags_AllowDoubleClick",
-    "ImGuiSelectableFlags_Disabled",
-    "ImGuiSelectableFlags_AllowOverlap"
+    "ImGuiSelectableFlags_None",                        //[-RENAME=None]
+    "ImGuiSelectableFlags_DontClosePopups",             //[-RENAME=DontClosePopups]
+    "ImGuiSelectableFlags_SpanAllColumns",              //[-RENAME=SpanAllColumns]
+    "ImGuiSelectableFlags_AllowDoubleClick",            //[-RENAME=AllowDoubleClick]
+    "ImGuiSelectableFlags_Disabled",                    //[-RENAME=Disabled]
+    "ImGuiSelectableFlags_AllowOverlap"                 //[-RENAME=AllowOverlap]
 };
 
 enum ImGuiMouseButton {
-    "ImGuiMouseButton_Left",
-    "ImGuiMouseButton_Right",
-    "ImGuiMouseButton_Middle"
+    "ImGuiMouseButton_Left",                            //[-RENAME=Left]
+    "ImGuiMouseButton_Right",                           //[-RENAME=Right]
+    "ImGuiMouseButton_Middle"                           //[-RENAME=Middle]
 };
 
 enum ImGuiFocusRequestFlags {
-    "ImGuiFocusRequestFlags_None",
-    "ImGuiFocusRequestFlags_RestoreFocusedChild",
-    "ImGuiFocusRequestFlags_UnlessBelowModal"
+    "ImGuiFocusRequestFlags_None",                      //[-RENAME=None]
+    "ImGuiFocusRequestFlags_RestoreFocusedChild",       //[-RENAME=RestoreFocusedChild]
+    "ImGuiFocusRequestFlags_UnlessBelowModal"           //[-RENAME=UnlessBelowModal]
 };
 
 enum ImGuiInputSource {
-    "ImGuiInputSource_None",
-    "ImGuiInputSource_Mouse",
-    "ImGuiInputSource_Keyboard",
-    "ImGuiInputSource_Gamepad"
+    "ImGuiInputSource_None",                            //[-RENAME=None]
+    "ImGuiInputSource_Mouse",                           //[-RENAME=Mouse]
+    "ImGuiInputSource_Keyboard",                        //[-RENAME=Keyboard]
+    "ImGuiInputSource_Gamepad"                          //[-RENAME=Gamepad]
 };
 
 enum ImGuiViewportFlags {
-    "ImGuiViewportFlags_None",
-    "ImGuiViewportFlags_IsPlatformWindow",
-    "ImGuiViewportFlags_IsPlatformMonitor",
-    "ImGuiViewportFlags_OwnedByApp",
-    "ImGuiViewportFlags_NoDecoration",
-    "ImGuiViewportFlags_NoTaskBarIcon",
-    "ImGuiViewportFlags_NoFocusOnAppearing",
-    "ImGuiViewportFlags_NoFocusOnClick",
-    "ImGuiViewportFlags_NoInputs",
-    "ImGuiViewportFlags_NoRendererClear",
-    "ImGuiViewportFlags_NoAutoMerge",
-    "ImGuiViewportFlags_TopMost",
-    "ImGuiViewportFlags_CanHostOtherWindows"
+    "ImGuiViewportFlags_None",                          //[-RENAME=None]
+    "ImGuiViewportFlags_IsPlatformWindow",              //[-RENAME=IsPlatformWindow]
+    "ImGuiViewportFlags_IsPlatformMonitor",             //[-RENAME=IsPlatformMonitor]
+    "ImGuiViewportFlags_OwnedByApp",                    //[-RENAME=OwnedByApp
+    "ImGuiViewportFlags_NoDecoration",                  //[-RENAME=NoDecoration
+    "ImGuiViewportFlags_NoTaskBarIcon",                 //[-RENAME=NoTaskBarIcon]
+    "ImGuiViewportFlags_NoFocusOnAppearing",            //[-RENAME=NoFocusOnAppearing]
+    "ImGuiViewportFlags_NoFocusOnClick",                //[-RENAME=NoFocusOnClick]
+    "ImGuiViewportFlags_NoInputs",                      //[-RENAME=NoInputs]
+    "ImGuiViewportFlags_NoRendererClear",               //[-RENAME=NoRendererClear]
+    "ImGuiViewportFlags_NoAutoMerge",                   //[-RENAME=NoAutoMerge]
+    "ImGuiViewportFlags_TopMost",                       //[-RENAME=TopMost]
+    "ImGuiViewportFlags_CanHostOtherWindows"            //[-RENAME=CanHostOtherWindows]
 };
 
 enum ImGuiChildFlags {
-    "ImGuiChildFlags_None",
-    "ImGuiChildFlags_Border",
-    "ImGuiChildFlags_AlwaysUseWindowPadding",
-    "ImGuiChildFlags_ResizeX",
-    "ImGuiChildFlags_ResizeY",
-    "ImGuiChildFlags_AutoResizeX",
-    "ImGuiChildFlags_AutoResizeY",
-    "ImGuiChildFlags_AlwaysAutoResize",
-    "ImGuiChildFlags_FrameStyle"
+    "ImGuiChildFlags_None",                             //[-RENAME=None]
+    "ImGuiChildFlags_Border",                           //[-RENAME=Border]
+    "ImGuiChildFlags_AlwaysUseWindowPadding",           //[-RENAME=AlwaysUseWindowPadding]
+    "ImGuiChildFlags_ResizeX",                          //[-RENAME=ResizeX]
+    "ImGuiChildFlags_ResizeY",                          //[-RENAME=ResizeY]
+    "ImGuiChildFlags_AutoResizeX",                      //[-RENAME=AutoResizeX]
+    "ImGuiChildFlags_AutoResizeY",                      //[-RENAME=AutoResizeY]
+    "ImGuiChildFlags_AlwaysAutoResize",                 //[-RENAME=AlwaysAutoResize]
+    "ImGuiChildFlags_FrameStyle"                        //[-RENAME=FrameStyle]
 };
 
 enum ImDrawFlags {
-    "ImDrawFlags_None",
-    "ImDrawFlags_Closed",
-    "ImDrawFlags_RoundCornersTopLeft",
-    "ImDrawFlags_RoundCornersTopRight",
-    "ImDrawFlags_RoundCornersBottomLeft",
-    "ImDrawFlags_RoundCornersBottomRight",
-    "ImDrawFlags_RoundCornersNone",
-    "ImDrawFlags_RoundCornersTop",
-    "ImDrawFlags_RoundCornersBottom",
-    "ImDrawFlags_RoundCornersLeft",
-    "ImDrawFlags_RoundCornersRight",
-    "ImDrawFlags_RoundCornersAll",
-    "ImDrawFlags_RoundCornersDefault_",
-    "ImDrawFlags_RoundCornersMask_"
+    "ImDrawFlags_None",                                 //[-RENAME=None]
+    "ImDrawFlags_Closed",                               //[-RENAME=Closed]
+    "ImDrawFlags_RoundCornersTopLeft",                  //[-RENAME=RoundCornersTopLeft]
+    "ImDrawFlags_RoundCornersTopRight",                 //[-RENAME=RoundCornersTopRight]
+    "ImDrawFlags_RoundCornersBottomLeft",               //[-RENAME=RoundCornersBottomLeft]
+    "ImDrawFlags_RoundCornersBottomRight",              //[-RENAME=RoundCornersBottomRight]
+    "ImDrawFlags_RoundCornersNone",                     //[-RENAME=RoundCornersNone]
+    "ImDrawFlags_RoundCornersTop",                      //[-RENAME=RoundCornersTop]
+    "ImDrawFlags_RoundCornersBottom",                   //[-RENAME=RoundCornersBottom]
+    "ImDrawFlags_RoundCornersLeft",                     //[-RENAME=RoundCornersLeft]
+    "ImDrawFlags_RoundCornersRight",                    //[-RENAME=RoundCornersRight]
+    "ImDrawFlags_RoundCornersAll",                      //[-RENAME=RoundCornersAll]
+    "ImDrawFlags_RoundCornersDefault_",                 //[-RENAME=RoundCornersDefault_]
+    "ImDrawFlags_RoundCornersMask_"                     //[-RENAME=RoundCornersMask_]
 };
 
 enum ImGuiItemFlags {
-    "ImGuiItemFlags_None",
-    "ImGuiItemFlags_NoTabStop",
-    "ImGuiItemFlags_NoNav",
-    "ImGuiItemFlags_NoNavDefaultFocus",
-    "ImGuiItemFlags_ButtonRepeat",
-    "ImGuiItemFlags_AutoClosePopups"
+    "ImGuiItemFlags_None",                              //[-RENAME=None]
+    "ImGuiItemFlags_NoTabStop",                         //[-RENAME=NoTabStop]
+    "ImGuiItemFlags_NoNav",                             //[-RENAME=NoNav]
+    "ImGuiItemFlags_NoNavDefaultFocus",                 //[-RENAME=NoNavDefaultFocus]
+    "ImGuiItemFlags_ButtonRepeat",                      //[-RENAME=ButtonRepeat]
+    "ImGuiItemFlags_AutoClosePopups"                    //[-RENAME=AutoClosePopups]
 };
 
 enum ImGuiDragDropFlags {
-    "ImGuiDragDropFlags_None",
-    "ImGuiDragDropFlags_SourceNoPreviewTooltip",
-    "ImGuiDragDropFlags_SourceNoDisableHover",
-    "ImGuiDragDropFlags_SourceNoHoldToOpenOthers",
-    "ImGuiDragDropFlags_SourceAllowNullID",
-    "ImGuiDragDropFlags_SourceExtern",
-    "ImGuiDragDropFlags_SourceAutoExpirePayload",
-    "ImGuiDragDropFlags_AcceptBeforeDelivery",
-    "ImGuiDragDropFlags_AcceptNoDrawDefaultRect",
-    "ImGuiDragDropFlags_AcceptNoPreviewTooltip",
-    "ImGuiDragDropFlags_AcceptPeekOnly"
+    "ImGuiDragDropFlags_None",                          //[-RENAME=None]
+    "ImGuiDragDropFlags_SourceNoPreviewTooltip",        //[-RENAME=SourceNoPreviewTooltip]
+    "ImGuiDragDropFlags_SourceNoDisableHover",          //[-RENAME=SourceNoDisableHover]
+    "ImGuiDragDropFlags_SourceNoHoldToOpenOthers",      //[-RENAME=SourceNoHoldToOpenOthers]
+    "ImGuiDragDropFlags_SourceAllowNullID",             //[-RENAME=SourceAllowNullID]
+    "ImGuiDragDropFlags_SourceExtern",                  //[-RENAME=SourceExtern]
+    "ImGuiDragDropFlags_SourceAutoExpirePayload",       //[-RENAME=SourceAutoExpirePayload]
+    "ImGuiDragDropFlags_AcceptBeforeDelivery",          //[-RENAME=AcceptBeforeDelivery]
+    "ImGuiDragDropFlags_AcceptNoDrawDefaultRect",       //[-RENAME=AcceptNoDrawDefaultRect]
+    "ImGuiDragDropFlags_AcceptNoPreviewTooltip",        //[-RENAME=AcceptNoPreviewTooltip]
+    "ImGuiDragDropFlags_AcceptPeekOnly"                 //[-RENAME=AcceptPeekOnly]
 };
 
 enum ImGuiTreeNodeFlags {
-    "ImGuiTreeNodeFlags_None",
-    "ImGuiTreeNodeFlags_Selected",
-    "ImGuiTreeNodeFlags_Framed",
-    "ImGuiTreeNodeFlags_AllowOverlap",
-    "ImGuiTreeNodeFlags_NoTreePushOnOpen",
-    "ImGuiTreeNodeFlags_NoAutoOpenOnLog",
-    "ImGuiTreeNodeFlags_DefaultOpen",
-    "ImGuiTreeNodeFlags_OpenOnDoubleClick",
-    "ImGuiTreeNodeFlags_OpenOnArrow",
-    "ImGuiTreeNodeFlags_Leaf",
-    "ImGuiTreeNodeFlags_Bullet",
-    "ImGuiTreeNodeFlags_FramePadding",
-    "ImGuiTreeNodeFlags_SpanAvailWidth",
-    "ImGuiTreeNodeFlags_SpanFullWidth",
-    "ImGuiTreeNodeFlags_SpanAllColumns",
-    "ImGuiTreeNodeFlags_NavLeftJumpsBackHere",
-    "ImGuiTreeNodeFlags_CollapsingHeader"
+    "ImGuiTreeNodeFlags_None",                          //[-RENAME=None]
+    "ImGuiTreeNodeFlags_Selected",                      //[-RENAME=Selected]
+    "ImGuiTreeNodeFlags_Framed",                        //[-RENAME=Framed]
+    "ImGuiTreeNodeFlags_AllowOverlap",                  //[-RENAME=AllowOverlap]
+    "ImGuiTreeNodeFlags_NoTreePushOnOpen",              //[-RENAME=NoTreePushOnOpen]
+    "ImGuiTreeNodeFlags_NoAutoOpenOnLog",               //[-RENAME=NoAutoOpenOnLog]
+    "ImGuiTreeNodeFlags_DefaultOpen",                   //[-RENAME=DefaultOpen]
+    "ImGuiTreeNodeFlags_OpenOnDoubleClick",             //[-RENAME=OpenOnDoubleClick]
+    "ImGuiTreeNodeFlags_OpenOnArrow",                   //[-RENAME=OpenOnArrow]
+    "ImGuiTreeNodeFlags_Leaf",                          //[-RENAME=Leaf]
+    "ImGuiTreeNodeFlags_Bullet",                        //[-RENAME=Bullet]
+    "ImGuiTreeNodeFlags_FramePadding",                  //[-RENAME=FramePadding]
+    "ImGuiTreeNodeFlags_SpanAvailWidth",                //[-RENAME=SpanAvailWidth]
+    "ImGuiTreeNodeFlags_SpanFullWidth",                 //[-RENAME=SpanFullWidth]
+    "ImGuiTreeNodeFlags_SpanAllColumns",                //[-RENAME=SpanAllColumns]
+    "ImGuiTreeNodeFlags_NavLeftJumpsBackHere",          //[-RENAME=NavLeftJumpsBackHere]
+    "ImGuiTreeNodeFlags_CollapsingHeader"               //[-RENAME=CollapsingHeader]
 };
 
 enum ImGuiStyleVar {
@@ -1578,233 +1640,233 @@ enum ImGuiTableFlags {
 };
 
 enum ImGuiHoveredFlags {
-    "ImGuiHoveredFlags_None",
-    "ImGuiHoveredFlags_ChildWindows",
-    "ImGuiHoveredFlags_RootWindow",
-    "ImGuiHoveredFlags_AnyWindow",
-    "ImGuiHoveredFlags_NoPopupHierarchy",
-    "ImGuiHoveredFlags_DockHierarchy",
-    "ImGuiHoveredFlags_AllowWhenBlockedByPopup",
-    "ImGuiHoveredFlags_AllowWhenBlockedByActiveItem",
-    "ImGuiHoveredFlags_AllowWhenOverlappedByItem",
-    "ImGuiHoveredFlags_AllowWhenOverlappedByWindow",
-    "ImGuiHoveredFlags_AllowWhenDisabled",
-    "ImGuiHoveredFlags_NoNavOverride",
-    "ImGuiHoveredFlags_AllowWhenOverlapped",
-    "ImGuiHoveredFlags_RectOnly",
-    "ImGuiHoveredFlags_RootAndChildWindows",
-    "ImGuiHoveredFlags_ForTooltip",
-    "ImGuiHoveredFlags_Stationary",
-    "ImGuiHoveredFlags_DelayNone",
-    "ImGuiHoveredFlags_DelayShort",
-    "ImGuiHoveredFlags_DelayNormal",
-    "ImGuiHoveredFlags_NoSharedDelay"
+    "ImGuiHoveredFlags_None",                           //[-RENAME=None]
+    "ImGuiHoveredFlags_ChildWindows",                   //[-RENAME=ChildWindows]
+    "ImGuiHoveredFlags_RootWindow",                     //[-RENAME=RootWindow]
+    "ImGuiHoveredFlags_AnyWindow",                      //[-RENAME=AnyWindow]
+    "ImGuiHoveredFlags_NoPopupHierarchy",               //[-RENAME=NoPopupHierarchy]
+    "ImGuiHoveredFlags_DockHierarchy",                  //[-RENAME=DockHierarchy]
+    "ImGuiHoveredFlags_AllowWhenBlockedByPopup",        //[-RENAME=AllowWhenBlockedByPopup]
+    "ImGuiHoveredFlags_AllowWhenBlockedByActiveItem",   //[-RENAME=AllowWhenBlockedByActiveItem]
+    "ImGuiHoveredFlags_AllowWhenOverlappedByItem",      //[-RENAME=AllowWhenOverlappedByItem]
+    "ImGuiHoveredFlags_AllowWhenOverlappedByWindow",    //[-RENAME=AllowWhenOverlappedByWindow]
+    "ImGuiHoveredFlags_AllowWhenDisabled",              //[-RENAME=AllowWhenDisabled]
+    "ImGuiHoveredFlags_NoNavOverride",                  //[-RENAME=NoNavOverride]
+    "ImGuiHoveredFlags_AllowWhenOverlapped",            //[-RENAME=AllowWhenOverlapped]
+    "ImGuiHoveredFlags_RectOnly",                       //[-RENAME=RectOnly]
+    "ImGuiHoveredFlags_RootAndChildWindows",            //[-RENAME=RootAndChildWindows]
+    "ImGuiHoveredFlags_ForTooltip",                     //[-RENAME=ForTooltip]
+    "ImGuiHoveredFlags_Stationary",                     //[-RENAME=Stationary]
+    "ImGuiHoveredFlags_DelayNone",                      //[-RENAME=DelayNone]
+    "ImGuiHoveredFlags_DelayShort",                     //[-RENAME=DelayShort]
+    "ImGuiHoveredFlags_DelayNormal",                    //[-RENAME=DelayNormal]
+    "ImGuiHoveredFlags_NoSharedDelay"                   //[-RENAME=NoSharedDelay]
 };
 
 enum ImGuiCol {
-    "ImGuiCol_Text",
-    "ImGuiCol_TextDisabled",
-    "ImGuiCol_WindowBg",
-    "ImGuiCol_ChildBg",
-    "ImGuiCol_PopupBg",
-    "ImGuiCol_Border",
-    "ImGuiCol_BorderShadow",
-    "ImGuiCol_FrameBg",
-    "ImGuiCol_FrameBgHovered",
-    "ImGuiCol_FrameBgActive",
-    "ImGuiCol_TitleBg",
-    "ImGuiCol_TitleBgActive",
-    "ImGuiCol_TitleBgCollapsed",
-    "ImGuiCol_MenuBarBg",
-    "ImGuiCol_ScrollbarBg",
-    "ImGuiCol_ScrollbarGrab",
-    "ImGuiCol_ScrollbarGrabHovered",
-    "ImGuiCol_ScrollbarGrabActive",
-    "ImGuiCol_CheckMark",
-    "ImGuiCol_SliderGrab",
-    "ImGuiCol_SliderGrabActive",
-    "ImGuiCol_Button",
-    "ImGuiCol_ButtonHovered",
-    "ImGuiCol_ButtonActive",
-    "ImGuiCol_Header",
-    "ImGuiCol_HeaderHovered",
-    "ImGuiCol_HeaderActive",
-    "ImGuiCol_Separator",
-    "ImGuiCol_SeparatorHovered",
-    "ImGuiCol_SeparatorActive",
-    "ImGuiCol_ResizeGrip",
-    "ImGuiCol_ResizeGripHovered",
-    "ImGuiCol_ResizeGripActive",
-    "ImGuiCol_Tab",
-    "ImGuiCol_TabHovered",
-    "ImGuiCol_TabActive",
-    "ImGuiCol_TabUnfocused",
-    "ImGuiCol_TabUnfocusedActive",
-    "ImGuiCol_DockingPreview",
-    "ImGuiCol_DockingEmptyBg",
-    "ImGuiCol_PlotLines",
-    "ImGuiCol_PlotLinesHovered",
-    "ImGuiCol_PlotHistogram",
-    "ImGuiCol_PlotHistogramHovered",
-    "ImGuiCol_TableHeaderBg",
-    "ImGuiCol_TableBorderStrong",
-    "ImGuiCol_TableBorderLight",
-    "ImGuiCol_TableRowBg",
-    "ImGuiCol_TableRowBgAlt",
-    "ImGuiCol_TextSelectedBg",
-    "ImGuiCol_DragDropTarget",
-    "ImGuiCol_NavHighlight",
-    "ImGuiCol_NavWindowingHighlight",
-    "ImGuiCol_NavWindowingDimBg",
-    "ImGuiCol_ModalWindowDimBg"
+    "ImGuiCol_Text",                                    //[-RENAME=Text]
+    "ImGuiCol_TextDisabled",                            //[-RENAME=TextDisabled]
+    "ImGuiCol_WindowBg",                                //[-RENAME=WindowBg]
+    "ImGuiCol_ChildBg",                                 //[-RENAME=ChildBg]
+    "ImGuiCol_PopupBg",                                 //[-RENAME=PopupBg]
+    "ImGuiCol_Border",                                  //[-RENAME=Border]
+    "ImGuiCol_BorderShadow",                            //[-RENAME=BorderShadow]
+    "ImGuiCol_FrameBg",                                 //[-RENAME=FrameBg]
+    "ImGuiCol_FrameBgHovered",                          //[-RENAME=FrameBgHovered]
+    "ImGuiCol_FrameBgActive",                           //[-RENAME=FrameBgActive]
+    "ImGuiCol_TitleBg",                                 //[-RENAME=TitleBg]
+    "ImGuiCol_TitleBgActive",                           //[-RENAME=TitleBgActive]
+    "ImGuiCol_TitleBgCollapsed",                        //[-RENAME=TitleBgCollapsed]
+    "ImGuiCol_MenuBarBg",                               //[-RENAME=MenuBarBg]
+    "ImGuiCol_ScrollbarBg",                             //[-RENAME=ScrollbarBg]
+    "ImGuiCol_ScrollbarGrab",                           //[-RENAME=ScrollbarGrab]
+    "ImGuiCol_ScrollbarGrabHovered",                    //[-RENAME=ScrollbarGrabHovered]
+    "ImGuiCol_ScrollbarGrabActive",                     //[-RENAME=ScrollbarGrabActive]
+    "ImGuiCol_CheckMark",                               //[-RENAME=CheckMark]
+    "ImGuiCol_SliderGrab",                              //[-RENAME=SliderGrab]
+    "ImGuiCol_SliderGrabActive",                        //[-RENAME=SliderGrabActive]
+    "ImGuiCol_Button",                                  //[-RENAME=Button]
+    "ImGuiCol_ButtonHovered",                           //[-RENAME=ButtonHovered]
+    "ImGuiCol_ButtonActive",                            //[-RENAME=ButtonActive]
+    "ImGuiCol_Header",                                  //[-RENAME=Header]
+    "ImGuiCol_HeaderHovered",                           //[-RENAME=HeaderHovered]
+    "ImGuiCol_HeaderActive",                            //[-RENAME=HeaderActive]
+    "ImGuiCol_Separator",                               //[-RENAME=Separator]
+    "ImGuiCol_SeparatorHovered",                        //[-RENAME=SeparatorHovered]
+    "ImGuiCol_SeparatorActive",                         //[-RENAME=SeparatorActive]
+    "ImGuiCol_ResizeGrip",                              //[-RENAME=ResizeGrip]
+    "ImGuiCol_ResizeGripHovered",                       //[-RENAME=ResizeGripHovered]
+    "ImGuiCol_ResizeGripActive",                        //[-RENAME=ResizeGripActive]
+    "ImGuiCol_Tab",                                     //[-RENAME=Tab]
+    "ImGuiCol_TabHovered",                              //[-RENAME=TabHovered
+    "ImGuiCol_TabActive",                               //[-RENAME=TabActive]
+    "ImGuiCol_TabUnfocused",                            //[-RENAME=TabUnfocused]
+    "ImGuiCol_TabUnfocusedActive",                      //[-RENAME=TabUnfocusedActive]
+    "ImGuiCol_DockingPreview",                          //[-RENAME=DockingPreview]
+    "ImGuiCol_DockingEmptyBg",                          //[-RENAME=DockingEmptyBg]
+    "ImGuiCol_PlotLines",                               //[-RENAME=PlotLines]
+    "ImGuiCol_PlotLinesHovered",                        //[-RENAME=PlotLinesHovered]
+    "ImGuiCol_PlotHistogram",                           //[-RENAME=PlotHistogram]
+    "ImGuiCol_PlotHistogramHovered",                    //[-RENAME=PlotHistogramHovered]
+    "ImGuiCol_TableHeaderBg",                           //[-RENAME=TableHeaderBg]
+    "ImGuiCol_TableBorderStrong",                       //[-RENAME=TableBorderStrong]
+    "ImGuiCol_TableBorderLight",                        //[-RENAME=TableBorderLight]
+    "ImGuiCol_TableRowBg",                              //[-RENAME=TableRowBg]
+    "ImGuiCol_TableRowBgAlt",                           //[-RENAME=TableRowBgAlt]
+    "ImGuiCol_TextSelectedBg",                          //[-RENAME=TextSelectedBg]
+    "ImGuiCol_DragDropTarget",                          //[-RENAME=DragDropTarget]
+    "ImGuiCol_NavHighlight",                            //[-RENAME=NavHighlight]
+    "ImGuiCol_NavWindowingHighlight",                   //[-RENAME=NavWindowingHighlight]
+    "ImGuiCol_NavWindowingDimBg",                       //[-RENAME=NavWindowingDimBg]
+    "ImGuiCol_ModalWindowDimBg"                         //[-RENAME=ModalWindowDimBg]
 };
 
 enum ImGuiInputTextFlags {
-    "ImGuiInputTextFlags_None",
-    "ImGuiInputTextFlags_CharsDecimal",
-    "ImGuiInputTextFlags_CharsHexadecimal",
-    "ImGuiInputTextFlags_CharsUppercase",
-    "ImGuiInputTextFlags_CharsNoBlank",
-    "ImGuiInputTextFlags_AutoSelectAll",
-    "ImGuiInputTextFlags_EnterReturnsTrue",
-    "ImGuiInputTextFlags_CallbackCompletion",
-    "ImGuiInputTextFlags_CallbackHistory",
-    "ImGuiInputTextFlags_CallbackAlways",
-    "ImGuiInputTextFlags_CallbackCharFilter",
-    "ImGuiInputTextFlags_AllowTabInput",
-    "ImGuiInputTextFlags_CtrlEnterForNewLine",
-    "ImGuiInputTextFlags_NoHorizontalScroll",
-    "ImGuiInputTextFlags_AlwaysOverwrite",
-    "ImGuiInputTextFlags_ReadOnly",
-    "ImGuiInputTextFlags_Password",
-    "ImGuiInputTextFlags_NoUndoRedo",
-    "ImGuiInputTextFlags_CharsScientific",
-    "ImGuiInputTextFlags_CallbackResize",
-    "ImGuiInputTextFlags_CallbackEdit",
-    "ImGuiInputTextFlags_EscapeClearsAll"
+    "ImGuiInputTextFlags_None",                         //[-RENAME=None]
+    "ImGuiInputTextFlags_CharsDecimal",                 //[-RENAME=CharsDecimal]
+    "ImGuiInputTextFlags_CharsHexadecimal",             //[-RENAME=CharsHexadecimal]
+    "ImGuiInputTextFlags_CharsUppercase",               //[-RENAME=CharsUppercase]
+    "ImGuiInputTextFlags_CharsNoBlank",                 //[-RENAME=CharsNoBlank]
+    "ImGuiInputTextFlags_AutoSelectAll",                //[-RENAME=AutoSelectAll]
+    "ImGuiInputTextFlags_EnterReturnsTrue",             //[-RENAME=EnterReturnsTrue]
+    "ImGuiInputTextFlags_CallbackCompletion",           //[-RENAME=CallbackCompletion]
+    "ImGuiInputTextFlags_CallbackHistory",              //[-RENAME=CallbackHistory]
+    "ImGuiInputTextFlags_CallbackAlways",               //[-RENAME=CallbackAlways]
+    "ImGuiInputTextFlags_CallbackCharFilter",           //[-RENAME=CallbackCharFilter]
+    "ImGuiInputTextFlags_AllowTabInput",                //[-RENAME=AllowTabInput]
+    "ImGuiInputTextFlags_CtrlEnterForNewLine",          //[-RENAME=CtrlEnterForNewLine]
+    "ImGuiInputTextFlags_NoHorizontalScroll",           //[-RENAME=NoHorizontalScroll]
+    "ImGuiInputTextFlags_AlwaysOverwrite",              //[-RENAME=AlwaysOverwrite]
+    "ImGuiInputTextFlags_ReadOnly",                     //[-RENAME=ReadOnly]
+    "ImGuiInputTextFlags_Password",                     //[-RENAME=Password]
+    "ImGuiInputTextFlags_NoUndoRedo",                   //[-RENAME=NoUndoRedo]
+    "ImGuiInputTextFlags_CharsScientific",              //[-RENAME=CharsScientific]
+    "ImGuiInputTextFlags_CallbackResize",               //[-RENAME=CallbackResize]
+    "ImGuiInputTextFlags_CallbackEdit",                 //[-RENAME=CallbackEdit]
+    "ImGuiInputTextFlags_EscapeClearsAll"               //[-RENAME=EscapeClearsAll]
 };
 
 enum ImGuiMultiSelectFlags {
-    "ImGuiMultiSelectFlags_None",
-    "ImGuiMultiSelectFlags_SingleSelect",
-    "ImGuiMultiSelectFlags_NoSelectAll",
-    "ImGuiMultiSelectFlags_NoRangeSelect",
-    "ImGuiMultiSelectFlags_NoAutoSelect",
-    "ImGuiMultiSelectFlags_NoAutoClear",
-    "ImGuiMultiSelectFlags_NoAutoClearOnReselect",
-    "ImGuiMultiSelectFlags_BoxSelect1d",
-    "ImGuiMultiSelectFlags_BoxSelect2d",
-    "ImGuiMultiSelectFlags_BoxSelectNoScroll",
-    "ImGuiMultiSelectFlags_ClearOnEscape",
-    "ImGuiMultiSelectFlags_ClearOnClickVoid",
-    "ImGuiMultiSelectFlags_ScopeWindow",
-    "ImGuiMultiSelectFlags_ScopeRect",
-    "ImGuiMultiSelectFlags_SelectOnClick",
-    "ImGuiMultiSelectFlags_SelectOnClickRelease",
-    "ImGuiMultiSelectFlags_NavWrapX"
+    "ImGuiMultiSelectFlags_None",                       //[-RENAME=None]
+    "ImGuiMultiSelectFlags_SingleSelect",               //[-RENAME=SingleSelect]
+    "ImGuiMultiSelectFlags_NoSelectAll",                //[-RENAME=NoSelectAll]
+    "ImGuiMultiSelectFlags_NoRangeSelect",              //[-RENAME=NoRangeSelect]
+    "ImGuiMultiSelectFlags_NoAutoSelect",               //[-RENAME=NoAutoSelect]
+    "ImGuiMultiSelectFlags_NoAutoClear",                //[-RENAME=NoAutoClear]
+    "ImGuiMultiSelectFlags_NoAutoClearOnReselect",      //[-RENAME=NoAutoClearOnReselect]
+    "ImGuiMultiSelectFlags_BoxSelect1d",                //[-RENAME=BoxSelect1d]
+    "ImGuiMultiSelectFlags_BoxSelect2d",                //[-RENAME=BoxSelect2d]
+    "ImGuiMultiSelectFlags_BoxSelectNoScroll",          //[-RENAME=BoxSelectNoScroll]
+    "ImGuiMultiSelectFlags_ClearOnEscape",              //[-RENAME=ClearOnEscape]
+    "ImGuiMultiSelectFlags_ClearOnClickVoid",           //[-RENAME=ClearOnClickVoid]
+    "ImGuiMultiSelectFlags_ScopeWindow",                //[-RENAME=ScopeWindow]
+    "ImGuiMultiSelectFlags_ScopeRect",                  //[-RENAME=ScopeRect]
+    "ImGuiMultiSelectFlags_SelectOnClick",              //[-RENAME=SelectOnClick]
+    "ImGuiMultiSelectFlags_SelectOnClickRelease",       //[-RENAME=SelectOnClickRelease]
+    "ImGuiMultiSelectFlags_NavWrapX"                    //[-RENAME=NavWrapX]
 };
 
 // ImGui Internal
 
 enum ImGuiAxis {
-    "ImGuiAxis_None",
-    "ImGuiAxis_X",
-    "ImGuiAxis_Y"
+    "ImGuiAxis_None",                                   //[-RENAME=None]
+    "ImGuiAxis_X",                                      //[-RENAME=X]
+    "ImGuiAxis_Y"                                       //[-RENAME=Y]
 };
 
 enum ImGuiDataType {
-    "ImGuiDataType_S8",
-    "ImGuiDataType_U8",
-    "ImGuiDataType_S16",
-    "ImGuiDataType_U16",
-    "ImGuiDataType_S32",
-    "ImGuiDataType_U32",
-    "ImGuiDataType_S64",
-    "ImGuiDataType_U64",
-    "ImGuiDataType_Float",
-    "ImGuiDataType_Double"
+    "ImGuiDataType_S8",                                 //[-RENAME=S8]
+    "ImGuiDataType_U8",                                 //[-RENAME=U8]
+    "ImGuiDataType_S16",                                //[-RENAME=S16]
+    "ImGuiDataType_U16",                                //[-RENAME=U16]
+    "ImGuiDataType_S32",                                //[-RENAME=S32]
+    "ImGuiDataType_U32",                                //[-RENAME=U32]
+    "ImGuiDataType_S64",                                //[-RENAME=S64]
+    "ImGuiDataType_U64",                                //[-RENAME=U64]
+    "ImGuiDataType_Float",                              //[-RENAME=Float]
+    "ImGuiDataType_Double"                              //[-RENAME=Double]
 };
 
 enum ImGuiItemStatusFlags {
-    "ImGuiItemStatusFlags_None",
-    "ImGuiItemStatusFlags_HoveredRect",
-    "ImGuiItemStatusFlags_HasDisplayRect",
-    "ImGuiItemStatusFlags_Edited",
-    "ImGuiItemStatusFlags_ToggledSelection",
-    "ImGuiItemStatusFlags_ToggledOpen",
-    "ImGuiItemStatusFlags_HasDeactivated",
-    "ImGuiItemStatusFlags_Deactivated",
-    "ImGuiItemStatusFlags_HoveredWindow",
-    "ImGuiItemStatusFlags_Visible",
-    "ImGuiItemStatusFlags_HasClipRect"
+    "ImGuiItemStatusFlags_None",                        //[-RENAME=None]
+    "ImGuiItemStatusFlags_HoveredRect",                 //[-RENAME=HoveredRect]
+    "ImGuiItemStatusFlags_HasDisplayRect",              //[-RENAME=HasDisplayRect]
+    "ImGuiItemStatusFlags_Edited",                      //[-RENAME=Edited]
+    "ImGuiItemStatusFlags_ToggledSelection",            //[-RENAME=ToggledSelection]
+    "ImGuiItemStatusFlags_ToggledOpen",                 //[-RENAME=ToggledOpen]
+    "ImGuiItemStatusFlags_HasDeactivated",              //[-RENAME=HasDeactivated]
+    "ImGuiItemStatusFlags_Deactivated",                 //[-RENAME=Deactivated]
+    "ImGuiItemStatusFlags_HoveredWindow",               //[-RENAME=HoveredWindow]
+    "ImGuiItemStatusFlags_Visible",                     //[-RENAME=Visible]
+    "ImGuiItemStatusFlags_HasClipRect"                  //[-RENAME=HasClipRect]
 };
 
 enum ImGuiDockNodeFlagsPrivate_ {
-    "ImGuiDockNodeFlags_DockSpace",
-    "ImGuiDockNodeFlags_CentralNode",
-    "ImGuiDockNodeFlags_NoTabBar",
-    "ImGuiDockNodeFlags_HiddenTabBar",
-    "ImGuiDockNodeFlags_NoWindowMenuButton",
-    "ImGuiDockNodeFlags_NoCloseButton",
-    "ImGuiDockNodeFlags_NoResizeX",
-    "ImGuiDockNodeFlags_NoResizeY",
-    "ImGuiDockNodeFlags_DockedWindowsInFocusRoute",
-    "ImGuiDockNodeFlags_NoDockingSplitOther",
-    "ImGuiDockNodeFlags_NoDockingOverMe",
-    "ImGuiDockNodeFlags_NoDockingOverOther",
-    "ImGuiDockNodeFlags_NoDockingOverEmpty",
-    "ImGuiDockNodeFlags_NoDocking",
-    "ImGuiDockNodeFlags_SharedFlagsInheritMask_",
-    "ImGuiDockNodeFlags_NoResizeFlagsMask_",
-    "ImGuiDockNodeFlags_LocalFlagsTransferMask_",
-    "ImGuiDockNodeFlags_SavedFlagsMask_"
+    "ImGuiDockNodeFlags_DockSpace",                     //[-RENAME=DockSpace]
+    "ImGuiDockNodeFlags_CentralNode",                   //[-RENAME=CentralNode]
+    "ImGuiDockNodeFlags_NoTabBar",                      //[-RENAME=NoTabBar]
+    "ImGuiDockNodeFlags_HiddenTabBar",                  //[-RENAME=HiddenTabBar]
+    "ImGuiDockNodeFlags_NoWindowMenuButton",            //[-RENAME=NoWindowMenuButton]
+    "ImGuiDockNodeFlags_NoCloseButton",                 //[-RENAME=NoCloseButton]
+    "ImGuiDockNodeFlags_NoResizeX",                     //[-RENAME=NoResizeX]
+    "ImGuiDockNodeFlags_NoResizeY",                     //[-RENAME=NoResizeY]
+    "ImGuiDockNodeFlags_DockedWindowsInFocusRoute",     //[-RENAME=DockedWindowsInFocusRoute]
+    "ImGuiDockNodeFlags_NoDockingSplitOther",           //[-RENAME=NoDockingSplitOther]
+    "ImGuiDockNodeFlags_NoDockingOverMe",               //[-RENAME=NoDockingOverMe]
+    "ImGuiDockNodeFlags_NoDockingOverOther",            //[-RENAME=NoDockingOverOther]
+    "ImGuiDockNodeFlags_NoDockingOverEmpty",            //[-RENAME=NoDockingOverEmpty]
+    "ImGuiDockNodeFlags_NoDocking",                     //[-RENAME=NoDocking]
+    "ImGuiDockNodeFlags_SharedFlagsInheritMask_",       //[-RENAME=SharedFlagsInheritMask_]
+    "ImGuiDockNodeFlags_NoResizeFlagsMask_",            //[-RENAME=NoResizeFlagsMask_]
+    "ImGuiDockNodeFlags_LocalFlagsTransferMask_",       //[-RENAME=LocalFlagsTransferMask_]
+    "ImGuiDockNodeFlags_SavedFlagsMask_"                //[-RENAME=SavedFlagsMask_
 };
 
 enum ImGuiButtonFlagsPrivate_ {
-    "ImGuiButtonFlags_PressedOnClick",
-    "ImGuiButtonFlags_PressedOnClickRelease",
-    "ImGuiButtonFlags_PressedOnClickReleaseAnywhere",
-    "ImGuiButtonFlags_PressedOnRelease",
-    "ImGuiButtonFlags_PressedOnDoubleClick",
-    "ImGuiButtonFlags_PressedOnDragDropHold",
-    "ImGuiButtonFlags_Repeat",
-    "ImGuiButtonFlags_FlattenChildren",
-    "ImGuiButtonFlags_AllowOverlap",
-    "ImGuiButtonFlags_DontClosePopups",
-    "ImGuiButtonFlags_AlignTextBaseLine",
-    "ImGuiButtonFlags_NoKeyModifiers",
-    "ImGuiButtonFlags_NoHoldingActiveId",
-    "ImGuiButtonFlags_NoNavFocus",
-    "ImGuiButtonFlags_NoHoveredOnFocus",
-    "ImGuiButtonFlags_NoSetKeyOwner",
-    "ImGuiButtonFlags_NoTestKeyOwner",
-    "ImGuiButtonFlags_PressedOnMask_",
-    "ImGuiButtonFlags_PressedOnDefault_"
+    "ImGuiButtonFlags_PressedOnClick",                  //[-RENAME=PressedOnClick]
+    "ImGuiButtonFlags_PressedOnClickRelease",           //[-RENAME=PressedOnClickRelease]
+    "ImGuiButtonFlags_PressedOnClickReleaseAnywhere",   //[-RENAME=PressedOnClickReleaseAnywhere]
+    "ImGuiButtonFlags_PressedOnRelease",                //[-RENAME=PressedOnRelease]
+    "ImGuiButtonFlags_PressedOnDoubleClick",            //[-RENAME=PressedOnDoubleClick]
+    "ImGuiButtonFlags_PressedOnDragDropHold",           //[-RENAME=PressedOnDragDropHold]
+    "ImGuiButtonFlags_Repeat",                          //[-RENAME=Repeat]
+    "ImGuiButtonFlags_FlattenChildren",                 //[-RENAME=FlattenChildren]
+    "ImGuiButtonFlags_AllowOverlap",                    //[-RENAME=AllowOverlap]
+    "ImGuiButtonFlags_DontClosePopups",                 //[-RENAME=DontClosePopupsone]
+    "ImGuiButtonFlags_AlignTextBaseLine",               //[-RENAME=AlignTextBaseLine]
+    "ImGuiButtonFlags_NoKeyModifiers",                  //[-RENAME=NoKeyModifiers]
+    "ImGuiButtonFlags_NoHoldingActiveId",               //[-RENAME=NoHoldingActiveId]
+    "ImGuiButtonFlags_NoNavFocus",                      //[-RENAME=NoNavFocus]
+    "ImGuiButtonFlags_NoHoveredOnFocus",                //[-RENAME=NoHoveredOnFocus]
+    "ImGuiButtonFlags_NoSetKeyOwner",                   //[-RENAME=NoSetKeyOwner]
+    "ImGuiButtonFlags_NoTestKeyOwner",                  //[-RENAME=NoTestKeyOwner]
+    "ImGuiButtonFlags_PressedOnMask_",                  //[-RENAME=PressedOnMask_]
+    "ImGuiButtonFlags_PressedOnDefault_"                //[-RENAME=PressedOnDefault_]
 };
 
 enum ImGuiInputFlags {
-    "ImGuiInputFlags_None",
-    "ImGuiInputFlags_Repeat",
-    "ImGuiInputFlags_RouteActive",
-    "ImGuiInputFlags_RouteFocused",
-    "ImGuiInputFlags_RouteGlobal",
-    "ImGuiInputFlags_RouteAlways",
-    "ImGuiInputFlags_RouteOverFocused",
-    "ImGuiInputFlags_RouteOverActive",
-    "ImGuiInputFlags_RouteUnlessBgFocused",
-    "ImGuiInputFlags_RouteFromRootWindow",
-    "ImGuiInputFlags_Tooltip"
+    "ImGuiInputFlags_None",                             //[-RENAME=None]
+    "ImGuiInputFlags_Repeat",                           //[-RENAME=Repeat]
+    "ImGuiInputFlags_RouteActive",                      //[-RENAME=RouteActive]
+    "ImGuiInputFlags_RouteFocused",                     //[-RENAME=RouteFocused]
+    "ImGuiInputFlags_RouteGlobal",                      //[-RENAME=RouteGlobal]
+    "ImGuiInputFlags_RouteAlways",                      //[-RENAME=RouteAlways]
+    "ImGuiInputFlags_RouteOverFocused",                 //[-RENAME=RouteOverFocused]
+    "ImGuiInputFlags_RouteOverActive",                  //[-RENAME=RouteOverActive]
+    "ImGuiInputFlags_RouteUnlessBgFocused",             //[-RENAME=RouteUnlessBgFocused]
+    "ImGuiInputFlags_RouteFromRootWindow",              //[-RENAME=RouteFromRootWindow]
+    "ImGuiInputFlags_Tooltip"                           //[-RENAME=Tooltip]
 };
 
 enum ImGuiScrollFlags {
-    "ImGuiScrollFlags_None",
-    "ImGuiScrollFlags_KeepVisibleEdgeX",
-    "ImGuiScrollFlags_KeepVisibleEdgeY",
-    "ImGuiScrollFlags_KeepVisibleCenterX",
-    "ImGuiScrollFlags_KeepVisibleCenterY",
-    "ImGuiScrollFlags_AlwaysCenterX",
-    "ImGuiScrollFlags_AlwaysCenterY",
-    "ImGuiScrollFlags_NoScrollParent",
-    "ImGuiScrollFlags_MaskX_",
-    "ImGuiScrollFlags_MaskY_"
+    "ImGuiScrollFlags_None",                            //[-RENAME=None]
+    "ImGuiScrollFlags_KeepVisibleEdgeX",                //[-RENAME=KeepVisibleEdgeX]
+    "ImGuiScrollFlags_KeepVisibleEdgeY",                //[-RENAME=KeepVisibleEdgeY]
+    "ImGuiScrollFlags_KeepVisibleCenterX",              //[-RENAME=KeepVisibleCenterX]
+    "ImGuiScrollFlags_KeepVisibleCenterY",              //[-RENAME=KeepVisibleCenterY]
+    "ImGuiScrollFlags_AlwaysCenterX",                   //[-RENAME=AlwaysCenterX]
+    "ImGuiScrollFlags_AlwaysCenterY",                   //[-RENAME=AlwaysCenterY]
+    "ImGuiScrollFlags_NoScrollParent",                  //[-RENAME=NoScrollParent]
+    "ImGuiScrollFlags_MaskX_",                          //[-RENAME=MaskX_]
+    "ImGuiScrollFlags_MaskY_"                           //[-RENAME=MaskY_]
 };
