@@ -9,7 +9,6 @@ public class TableRenderer implements UIRenderer {
     public TableRenderer() {
     }
 
-
     public void render() {
         int flags1 = ImGuiTableFlags.Borders;
         if (ImGui.BeginTable("table1", 3, flags1))
