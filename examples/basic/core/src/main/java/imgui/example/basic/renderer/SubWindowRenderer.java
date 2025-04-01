@@ -2,16 +2,11 @@ package imgui.example.basic.renderer;
 
 import imgui.ImGui;
 import imgui.ImGuiDockNodeFlags;
+import imgui.ImGuiStyleVar;
 import imgui.ImGuiViewport;
 import imgui.ImGuiWindowClass;
+import imgui.ImGuiWindowFlags;
 import imgui.ImVec2;
-import static imgui.ImGuiStyleVar.ImGuiStyleVar_WindowPadding;
-import static imgui.ImGuiWindowFlags.ImGuiWindowFlags_NoBringToFrontOnFocus;
-import static imgui.ImGuiWindowFlags.ImGuiWindowFlags_NoCollapse;
-import static imgui.ImGuiWindowFlags.ImGuiWindowFlags_NoDocking;
-import static imgui.ImGuiWindowFlags.ImGuiWindowFlags_NoMove;
-import static imgui.ImGuiWindowFlags.ImGuiWindowFlags_NoNavFocus;
-import static imgui.ImGuiWindowFlags.ImGuiWindowFlags_NoResize;
 
 public class SubWindowRenderer implements UIRenderer {
 
@@ -49,10 +44,10 @@ public class SubWindowRenderer implements UIRenderer {
         ImGui.SetNextWindowSize(viewport.get_Size());
 
         int flags = 0;
-        flags |= ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
-        flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+        flags |= ImGuiWindowFlags.NoDocking | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoMove;
+        flags |= ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.NoNavFocus;
 
-        ImGui.PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2.TMP_1.set(0.0f, 0.0f));
+        ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, ImVec2.TMP_1.set(0.0f, 0.0f));
         ImGui.Begin("No document###DocumentRoot", null, flags);
         ImGui.PopStyleVar();
         int root_dockspace_id = 99999;
@@ -62,7 +57,7 @@ public class SubWindowRenderer implements UIRenderer {
         ImGui.Begin("Dock 01");
         int dockspace_id01 = 11211;
         ImVec2 dockspace_size1 = ImGui.GetContentRegionAvail();
-        ImGui.DockSpace(dockspace_id01, dockspace_size1, ImGuiDockNodeFlags.ImGuiDockNodeFlags_None, ToolWindowsClass01);
+        ImGui.DockSpace(dockspace_id01, dockspace_size1, ImGuiDockNodeFlags.None, ToolWindowsClass01);
         ImGui.End();
 
         ImGui.Begin("Dock 02");

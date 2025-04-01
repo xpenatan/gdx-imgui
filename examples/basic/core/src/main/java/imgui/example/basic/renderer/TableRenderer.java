@@ -1,8 +1,8 @@
 package imgui.example.basic.renderer;
 
 import imgui.ImGui;
+import imgui.ImGuiTableColumnFlags;
 import imgui.ImGuiTableFlags;
-import static imgui.ImGuiTableColumnFlags.ImGuiTableColumnFlags_WidthStretch;
 
 public class TableRenderer implements UIRenderer {
 
@@ -15,9 +15,9 @@ public class TableRenderer implements UIRenderer {
         if (ImGui.BeginTable("table1", 3, flags1))
         {
             // We could also set ImGuiTableFlags_SizingFixedFit on the table and all columns will default to ImGuiTableColumnFlags_WidthFixed.
-            ImGui.TableSetupColumn("one", ImGuiTableColumnFlags_WidthStretch, 0.1f); // Default to 100.0f
-            ImGui.TableSetupColumn("two", ImGuiTableColumnFlags_WidthStretch, 0.4f); // Default to 200.0f
-            ImGui.TableSetupColumn("three", ImGuiTableColumnFlags_WidthStretch);       // Default to auto
+            ImGui.TableSetupColumn("one", ImGuiTableColumnFlags.WidthStretch, 0.1f); // Default to 100.0f
+            ImGui.TableSetupColumn("two", ImGuiTableColumnFlags.WidthStretch, 0.4f); // Default to 200.0f
+            ImGui.TableSetupColumn("three", ImGuiTableColumnFlags.WidthStretch);       // Default to auto
             ImGui.TableHeadersRow();
             for (int row = 0; row < 4; row++)
             {

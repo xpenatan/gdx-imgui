@@ -4,13 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import imgui.ImGui;
 import imgui.ImGuiButtonFlagsPrivate_;
+import imgui.ImGuiTableColumnFlags;
 import imgui.ImGuiTableFlags;
 import imgui.ImRect;
 import imgui.ImVec2;
 import imgui.extension.imlayout.ImGuiLayout;
 import imgui.extension.imlayout.ImLayout;
 import imgui.extension.imlayout.ImOrientation;
-import static imgui.ImGuiTableColumnFlags.ImGuiTableColumnFlags_WidthStretch;
 
 public class LayoutTestView {
 
@@ -45,8 +45,8 @@ public class LayoutTestView {
         int flags = ImGuiTableFlags.Resizable | ImGuiTableFlags.ScrollY;
         if(ImGui.BeginTable("ContentBrowser", 2, flags)) {
 
-            ImGui.TableSetupColumn("C0", ImGuiTableColumnFlags_WidthStretch, 0.2f);
-            ImGui.TableSetupColumn("C1", ImGuiTableColumnFlags_WidthStretch, 0.8f);
+            ImGui.TableSetupColumn("C0", ImGuiTableColumnFlags.WidthStretch, 0.2f);
+            ImGui.TableSetupColumn("C1", ImGuiTableColumnFlags.WidthStretch, 0.8f);
 
             ImGui.TableNextRow();
             ImGui.TableSetColumnIndex(0);
@@ -71,7 +71,7 @@ public class LayoutTestView {
         int selectedColor = Color.toIntBits(255, 255, 255, 60);
         int houveredColor = Color.toIntBits(255, 255, 255, 60);
         int houveredStrokeColor = Color.toIntBits(255, 255, 255, 100);
-        int flags = ImGuiButtonFlagsPrivate_.ImGuiButtonFlags_PressedOnRelease;
+        int flags = ImGuiButtonFlagsPrivate_.PressedOnRelease;
         int click = ImLayout.ButtonBehavior(199, rect, selected, selectedColor, houveredColor, houveredStrokeColor, flags, 0.160f);
         if (click > 0) {
             if(click == 1) {

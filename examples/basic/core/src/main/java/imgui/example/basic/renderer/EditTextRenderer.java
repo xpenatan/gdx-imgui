@@ -36,19 +36,19 @@ public class EditTextRenderer implements UIRenderer {
         int id = 93123;
         ImGuiWindow window = ImGuiInternal.GetCurrentWindow();
         ImGui.Text("Click Drag");
-        if(ImGui.IsItemClicked(ImGuiMouseButton.ImGuiMouseButton_Left)) {
+        if(ImGui.IsItemClicked(ImGuiMouseButton.Left)) {
             flag = true;
             System.out.println("Item Clicked");
         }
-        if(flag && ImGui.IsMouseReleased(ImGuiMouseButton.ImGuiMouseButton_Left)) {
+        if(flag && ImGui.IsMouseReleased(ImGuiMouseButton.Left)) {
             System.out.println("Mouse Released");
             flag = false;
         }
         if(flag) {
             ImGuiInternal.SetActiveID(id, window);
         }
-        int flags = ImGuiSliderFlags.ImGuiSliderFlags_None;
-        if(ImGuiInternal.DragBehavior(id, ImGuiDataType.ImGuiDataType_Float, imguiFloat1.getPointer(), 0.1f, 0, 0, format, flags)) {
+        int flags = ImGuiSliderFlags.None;
+        if(ImGuiInternal.DragBehavior(id, ImGuiDataType.Float, imguiFloat1.getPointer(), 0.1f, 0, 0, format, flags)) {
             System.out.println("Dragging");
         }
 
@@ -62,7 +62,7 @@ public class EditTextRenderer implements UIRenderer {
             System.out.println("value 1: " + value);
         }
         imguiString2.setValue(value);
-        if(ImGui.InputText("TestString2", imguiString2, imguiString2.getSize(), ImGuiInputTextFlags.ImGuiInputTextFlags_EnterReturnsTrue)) {
+        if(ImGui.InputText("TestString2", imguiString2, imguiString2.getSize(), ImGuiInputTextFlags.EnterReturnsTrue)) {
             value = imguiString2.getValue();
             System.out.println("value 2: " + value);
         }

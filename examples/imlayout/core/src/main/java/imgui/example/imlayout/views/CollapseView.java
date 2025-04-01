@@ -80,13 +80,13 @@ public class CollapseView {
             }
             ImLayout.EndCollapseLayout();
 
-            ImGui.ArrowButton("##Left", ImGuiDir.ImGuiDir_Left);
+            ImGui.ArrowButton("##Left", ImGuiDir.Left);
             ImGui.SameLine();
-            ImGui.ArrowButton("##Right", ImGuiDir.ImGuiDir_Right);
+            ImGui.ArrowButton("##Right", ImGuiDir.Right);
             ImGui.SameLine();
-            ImGui.ArrowButton("##Up", ImGuiDir.ImGuiDir_Up);
+            ImGui.ArrowButton("##Up", ImGuiDir.Up);
             ImGui.SameLine();
-            ImGui.ArrowButton("##Down", ImGuiDir.ImGuiDir_Down);
+            ImGui.ArrowButton("##Down", ImGuiDir.Down);
 
             ImGui.RadioButton("radio a", guiInt, 0);
             ImGui.SameLine();

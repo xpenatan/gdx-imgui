@@ -4,11 +4,16 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import imgui.ImGui;
+import imgui.ImGuiCol;
+import imgui.ImGuiDir;
 import imgui.ImGuiDockNode;
+import imgui.ImGuiDockNodeFlags;
 import imgui.ImGuiInternal;
 import imgui.ImGuiStyle;
+import imgui.ImGuiStyleVar;
 import imgui.ImGuiTabBarFlags;
 import imgui.ImGuiViewport;
+import imgui.ImGuiWindowFlags;
 import imgui.ImVec2;
 import imgui.ImVec4;
 import imgui.example.basic.renderer.ColorRenderer;
@@ -21,22 +26,6 @@ import imgui.example.basic.renderer.TableRenderer;
 import imgui.example.basic.renderer.UIRenderer;
 import imgui.example.renderer.ImGuiRenderer;
 import imgui.idl.helper.IDLInt;
-import static imgui.ImGuiCol.ImGuiCol_Header;
-import static imgui.ImGuiDir.ImGuiDir_Down;
-import static imgui.ImGuiDir.ImGuiDir_Left;
-import static imgui.ImGuiDir.ImGuiDir_Right;
-import static imgui.ImGuiDir.ImGuiDir_Up;
-import static imgui.ImGuiDockNodeFlags.ImGuiDockNodeFlags_PassthruCentralNode;
-import static imgui.ImGuiStyleVar.ImGuiStyleVar_WindowPadding;
-import static imgui.ImGuiWindowFlags.ImGuiWindowFlags_MenuBar;
-import static imgui.ImGuiWindowFlags.ImGuiWindowFlags_NoBackground;
-import static imgui.ImGuiWindowFlags.ImGuiWindowFlags_NoBringToFrontOnFocus;
-import static imgui.ImGuiWindowFlags.ImGuiWindowFlags_NoCollapse;
-import static imgui.ImGuiWindowFlags.ImGuiWindowFlags_NoDocking;
-import static imgui.ImGuiWindowFlags.ImGuiWindowFlags_NoMove;
-import static imgui.ImGuiWindowFlags.ImGuiWindowFlags_NoNavFocus;
-import static imgui.ImGuiWindowFlags.ImGuiWindowFlags_NoResize;
-import static imgui.ImGuiWindowFlags.ImGuiWindowFlags_NoTitleBar;
 
 public class BasicExample extends ImGuiRenderer {
 
@@ -67,10 +56,10 @@ public class BasicExample extends ImGuiRenderer {
 
         ImGuiStyle style = ImGui.GetStyle();
 
-        ImVec4 colors = style.Colors(ImGuiCol_Header);
+        ImVec4 colors = style.Colors(ImGuiCol.Header);
 
         System.out.println("Color before: R: " + colors.get_x() + " G: " + colors.get_y() + " B: " + colors.get_z() + " A: " + colors.get_w());
-        style.Colors(ImGuiCol_Header, 255, 0, 0, 255);
+        style.Colors(ImGuiCol.Header, 255, 0, 0, 255);
         System.out.println("Color adter: R: " + colors.get_x() + " G: " + colors.get_y() + " B: " + colors.get_z() + " A: " + colors.get_w());
     }
 
@@ -103,7 +92,7 @@ public class BasicExample extends ImGuiRenderer {
 
         ImGui.Text("Time: " + v);
 
-        if(ImGui.BeginTabBar("##Renderer", ImGuiTabBarFlags.ImGuiTabBarFlags_FittingPolicyScroll | ImGuiTabBarFlags.ImGuiTabBarFlags_Reorderable)) {
+        if(ImGui.BeginTabBar("##Renderer", ImGuiTabBarFlags.FittingPolicyScroll | ImGuiTabBarFlags.Reorderable)) {
             for(UIRenderer renderer : renderers) {
                 if(ImGui.BeginTabItem(renderer.getName())) {
                     renderer.render();
@@ -117,25 +106,25 @@ public class BasicExample extends ImGuiRenderer {
 
     static boolean first = false;
 
-    int dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
+    int dockspace_flags = ImGuiDockNodeFlags.PassthruCentralNode;
     int dockspace_id;
 
     private void renderDock() {
 
-        int window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+        int window_flags = ImGuiWindowFlags.MenuBar | ImGuiWindowFlags.NoDocking;
 
-        window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
-        window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+        window_flags |= ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoMove;
+        window_flags |= ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.NoNavFocus;
 
-        if ((dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode) > 0)
-            window_flags |= ImGuiWindowFlags_NoBackground;
+        if ((dockspace_flags & ImGuiDockNodeFlags.PassthruCentralNode) > 0)
+            window_flags |= ImGuiWindowFlags.NoBackground;
         ImGuiViewport imGuiViewport = ImGui.GetMainViewport();
 
         ImGui.SetNextWindowPos(imGuiViewport.get_Pos());
         ImGui.SetNextWindowSize(imGuiViewport.get_Size());
 
         // Create docking space
-        ImGui.PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2.TMP_1.set(0.0f, 0.0f));
+        ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, ImVec2.TMP_1.set(0.0f, 0.0f));
         ImGui.Begin("DockSpace111", null, window_flags);
         ImGui.PopStyleVar();
 
@@ -185,18 +174,18 @@ public class BasicExample extends ImGuiRenderer {
         int centralID = 0;
 
         if(layout == 0 ) {
-            int rightId = ImGuiInternal.DockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.2f, null, IDLInt.TMP_1);
+            int rightId = ImGuiInternal.DockBuilderSplitNode(dockspace_id, ImGuiDir.Right, 0.2f, null, IDLInt.TMP_1);
             int leftId = IDLInt.TMP_1.getValue();
 
-            int bottomId = ImGuiInternal.DockBuilderSplitNode(leftId, ImGuiDir_Down, 0.3f, null, IDLInt.TMP_1);
+            int bottomId = ImGuiInternal.DockBuilderSplitNode(leftId, ImGuiDir.Down, 0.3f, null, IDLInt.TMP_1);
             int topId = IDLInt.TMP_1.getValue();
-            int topLeft = ImGuiInternal.DockBuilderSplitNode(topId, ImGuiDir_Left, 0.4f, null, IDLInt.TMP_1);
+            int topLeft = ImGuiInternal.DockBuilderSplitNode(topId, ImGuiDir.Left, 0.4f, null, IDLInt.TMP_1);
             centralID = IDLInt.TMP_1.getValue();
 
-            int rightTopId = ImGuiInternal.DockBuilderSplitNode(rightId, ImGuiDir_Up, 0.5f, null, IDLInt.TMP_1);
+            int rightTopId = ImGuiInternal.DockBuilderSplitNode(rightId, ImGuiDir.Up, 0.5f, null, IDLInt.TMP_1);
             int rightBottomId = IDLInt.TMP_1.getValue();
 
-            int bottomLeftId = ImGuiInternal.DockBuilderSplitNode(bottomId, ImGuiDir_Left, 0.4f, null, IDLInt.TMP_1);
+            int bottomLeftId = ImGuiInternal.DockBuilderSplitNode(bottomId, ImGuiDir.Left, 0.4f, null, IDLInt.TMP_1);
             int bottomRightId = IDLInt.TMP_1.getValue();
 
             // Plug in all layout ids to window title
@@ -209,20 +198,20 @@ public class BasicExample extends ImGuiRenderer {
             ImGuiInternal.DockBuilderDockWindow("Assets", bottomLeftId);
         }
         else {
-            int rightId = ImGuiInternal.DockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.2f, null, IDLInt.TMP_1);
+            int rightId = ImGuiInternal.DockBuilderSplitNode(dockspace_id, ImGuiDir.Right, 0.2f, null, IDLInt.TMP_1);
 
             int leftId = IDLInt.TMP_1.getValue();
 
-            int bottomId = ImGuiInternal.DockBuilderSplitNode(leftId, ImGuiDir_Down, 0.2f, null, IDLInt.TMP_1);
+            int bottomId = ImGuiInternal.DockBuilderSplitNode(leftId, ImGuiDir.Down, 0.2f, null, IDLInt.TMP_1);
             int topId = IDLInt.TMP_1.getValue();
 
-            int leftLeftId = ImGuiInternal.DockBuilderSplitNode(topId, ImGuiDir_Left, 0.2f, null, IDLInt.TMP_1);
+            int leftLeftId = ImGuiInternal.DockBuilderSplitNode(topId, ImGuiDir.Left, 0.2f, null, IDLInt.TMP_1);
             int middleId = IDLInt.TMP_1.getValue();
 
-            int middleLeftId = ImGuiInternal.DockBuilderSplitNode(middleId, ImGuiDir_Left, 0.5f, null, IDLInt.TMP_1);
+            int middleLeftId = ImGuiInternal.DockBuilderSplitNode(middleId, ImGuiDir.Left, 0.5f, null, IDLInt.TMP_1);
             centralID = IDLInt.TMP_1.getValue();
 
-            int rightTopId = ImGuiInternal.DockBuilderSplitNode(rightId, ImGuiDir_Up, 0.5f, null, IDLInt.TMP_1);
+            int rightTopId = ImGuiInternal.DockBuilderSplitNode(rightId, ImGuiDir.Up, 0.5f, null, IDLInt.TMP_1);
             int rightBottomId = IDLInt.TMP_1.getValue();
 
             ImGuiInternal.DockBuilderDockWindow("Game Editor", centralID);
