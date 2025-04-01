@@ -1698,7 +1698,7 @@ enum ImGuiCol {
     "ImGuiCol_ResizeGripHovered",                       //[-RENAME=ResizeGripHovered]
     "ImGuiCol_ResizeGripActive",                        //[-RENAME=ResizeGripActive]
     "ImGuiCol_Tab",                                     //[-RENAME=Tab]
-    "ImGuiCol_TabHovered",                              //[-RENAME=TabHovered
+    "ImGuiCol_TabHovered",                              //[-RENAME=TabHovered]
     "ImGuiCol_TabActive",                               //[-RENAME=TabActive]
     "ImGuiCol_TabUnfocused",                            //[-RENAME=TabUnfocused]
     "ImGuiCol_TabUnfocusedActive",                      //[-RENAME=TabUnfocusedActive]
