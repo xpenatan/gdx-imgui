@@ -3,6 +3,7 @@ package imgui.example.imlayout.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import imgui.ImGui;
+import imgui.ImGuiButtonFlags;
 import imgui.ImGuiButtonFlagsPrivate_;
 import imgui.ImGuiTableColumnFlags;
 import imgui.ImGuiTableFlags;
@@ -42,7 +43,7 @@ public class LayoutTestView {
 
         ImLayout.EndLayout();
 
-        int flags = ImGuiTableFlags.Resizable | ImGuiTableFlags.ScrollY;
+        ImGuiTableFlags flags = ImGuiTableFlags.Resizable.or(ImGuiTableFlags.ScrollY);
         if(ImGui.BeginTable("ContentBrowser", 2, flags)) {
 
             ImGui.TableSetupColumn("C0", ImGuiTableColumnFlags.WidthStretch, 0.2f);
@@ -71,8 +72,8 @@ public class LayoutTestView {
         int selectedColor = Color.toIntBits(255, 255, 255, 60);
         int houveredColor = Color.toIntBits(255, 255, 255, 60);
         int houveredStrokeColor = Color.toIntBits(255, 255, 255, 100);
-        int flags = ImGuiButtonFlagsPrivate_.PressedOnRelease;
-        int click = ImLayout.ButtonBehavior(199, rect, selected, selectedColor, houveredColor, houveredStrokeColor, flags, 0.160f);
+        ImGuiButtonFlags.CUSTOM.setValue(ImGuiButtonFlagsPrivate_.PressedOnRelease.getValue());
+        int click = ImLayout.ButtonBehavior(199, rect, selected, selectedColor, houveredColor, houveredStrokeColor, ImGuiButtonFlags.CUSTOM, 0.160f);
         if (click > 0) {
             if(click == 1) {
                 selected = !selected;

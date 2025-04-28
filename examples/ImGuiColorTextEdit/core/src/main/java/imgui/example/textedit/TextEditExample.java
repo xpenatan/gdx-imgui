@@ -23,7 +23,7 @@ public class TextEditExample extends ImGuiRenderer {
 
         editor = new TextEditor();
 
-        int lua = LanguageDefinitionId.Lua;
+        LanguageDefinitionId lua = LanguageDefinitionId.Lua;
         editor.SetLanguageDefinition(lua);
 
 

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import imgui.ImGui;
 import imgui.ImGuiCol;
+import imgui.ImGuiCond;
 import imgui.ImGuiDir;
 import imgui.ImGuiDockNode;
 import imgui.ImGuiDockNodeFlags;
@@ -78,7 +79,7 @@ public class BasicExample extends ImGuiRenderer {
 
             if(init == false) {
                 init = true;
-                ImGui.SetNextWindowSize(new ImVec2(400, 400), 1 << 1);
+                ImGui.SetNextWindowSize(new ImVec2(400, 400), ImGuiCond.ImGuiCond_Once);
             }
 
             ImGui.Begin("Hello World");
@@ -92,7 +93,7 @@ public class BasicExample extends ImGuiRenderer {
 
         ImGui.Text("Time: " + v);
 
-        if(ImGui.BeginTabBar("##Renderer", ImGuiTabBarFlags.FittingPolicyScroll | ImGuiTabBarFlags.Reorderable)) {
+        if(ImGui.BeginTabBar("##Renderer", ImGuiTabBarFlags.FittingPolicyScroll.or(ImGuiTabBarFlags.Reorderable))) {
             for(UIRenderer renderer : renderers) {
                 if(ImGui.BeginTabItem(renderer.getName())) {
                     renderer.render();
@@ -106,18 +107,18 @@ public class BasicExample extends ImGuiRenderer {
 
     static boolean first = false;
 
-    int dockspace_flags = ImGuiDockNodeFlags.PassthruCentralNode;
+    ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags.PassthruCentralNode;
     int dockspace_id;
 
     private void renderDock() {
 
-        int window_flags = ImGuiWindowFlags.MenuBar | ImGuiWindowFlags.NoDocking;
+        ImGuiWindowFlags window_flags = ImGuiWindowFlags.MenuBar.or(ImGuiWindowFlags.NoDocking);
 
-        window_flags |= ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoMove;
-        window_flags |= ImGuiWindowFlags.NoBringToFrontOnFocus | ImGuiWindowFlags.NoNavFocus;
+        window_flags = window_flags.or(ImGuiWindowFlags.NoTitleBar).or(ImGuiWindowFlags.NoCollapse).or(ImGuiWindowFlags.NoResize).or(ImGuiWindowFlags.NoMove);
+        window_flags = window_flags.or(ImGuiWindowFlags.NoBringToFrontOnFocus).or(ImGuiWindowFlags.NoNavFocus);
 
-        if ((dockspace_flags & ImGuiDockNodeFlags.PassthruCentralNode) > 0)
-            window_flags |= ImGuiWindowFlags.NoBackground;
+        if ((dockspace_flags.and(ImGuiDockNodeFlags.PassthruCentralNode).getValue()) > 0)
+            window_flags = window_flags.or(ImGuiWindowFlags.NoBackground);
         ImGuiViewport imGuiViewport = ImGui.GetMainViewport();
 
         ImGui.SetNextWindowPos(imGuiViewport.get_Pos());
@@ -168,7 +169,7 @@ public class BasicExample extends ImGuiRenderer {
 
         ImGui.SetWindowFocus(null);
         ImGuiInternal.DockBuilderRemoveNode(dockspace_id); // clear any previous layout
-        ImGuiInternal.DockBuilderAddNode(dockspace_id, dockspace_flags | 1 << 10);
+        ImGuiInternal.DockBuilderAddNode(dockspace_id, dockspace_flags);
         ImGuiInternal.DockBuilderSetNodeSize(dockspace_id, imGuiViewport.get_Size());
 
         int centralID = 0;

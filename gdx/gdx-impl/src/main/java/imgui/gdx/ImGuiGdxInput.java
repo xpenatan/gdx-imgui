@@ -101,7 +101,7 @@ public class ImGuiGdxInput extends InputAdapter {
             altKey = true;
         if(keycode == Keys.SYM)
             superKey = true;
-        int imGuiKey = getImGuiKey(keycode);
+        ImGuiKey imGuiKey = getImGuiKey(keycode);
         if(superKey) {
             io.AddKeyEvent(ImGuiKey.Mod_Super, true);
         }
@@ -139,7 +139,7 @@ public class ImGuiGdxInput extends InputAdapter {
             altKey = true;
         if(keycode == Keys.SYM)
             superKey = true;
-        int imGuiKey = getImGuiKey(keycode);
+        ImGuiKey imGuiKey = getImGuiKey(keycode);
         if(superKey) {
             io.AddKeyEvent(ImGuiKey.Mod_Super, false);
         }
@@ -179,7 +179,7 @@ public class ImGuiGdxInput extends InputAdapter {
         return false;
     }
 
-    private static int getImGuiKey(int gdxKey) {
+    private static ImGuiKey getImGuiKey(int gdxKey) {
         switch(gdxKey) {
             case Keys.TAB:
                 return ImGuiKey.Tab;

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="ImGui-Ext_build_project_all" type="GradleRunConfiguration" factoryName="Gradle" folderName="ImGui-ext">
+  <configuration default="false" name="ImGui_Ext_build_project_windows64" type="GradleRunConfiguration" factoryName="Gradle" folderName="ImGui-ext">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$/imgui-ext/ext-build" />
@@ -10,7 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="build_project_all" />
+          <option value="build_project_windows64" />
         </list>
       </option>
       <option name="vmOptions" />

@@ -555,19 +555,19 @@ interface ImGui {
     static void                    SetItemKeyOwner(ImGuiKey key);
 
     // Inputs Utilities: Mouse specific
-    static boolean                 IsMouseDown(long ImGuiMouseButton);
-    static boolean                 IsMouseClicked(long ImGuiMouseButton, optional boolean repeat);
-    static boolean                 IsMouseReleased(long ImGuiMouseButton);
-    static boolean                 IsMouseDoubleClicked(long ImGuiMouseButton);
-    static long                    GetMouseClickedCount(long ImGuiMouseButton);
+    static boolean                 IsMouseDown(ImGuiMouseButton ImGuiMouseButton);
+    static boolean                 IsMouseClicked(ImGuiMouseButton ImGuiMouseButton, optional boolean repeat);
+    static boolean                 IsMouseReleased(ImGuiMouseButton ImGuiMouseButton);
+    static boolean                 IsMouseDoubleClicked(ImGuiMouseButton ImGuiMouseButton);
+    static long                    GetMouseClickedCount(ImGuiMouseButton ImGuiMouseButton);
     static boolean                 IsMouseHoveringRect([Const, Ref]ImVec2 r_min, [Const, Ref]ImVec2 r_max, optional boolean clip);
     static boolean                 IsMousePosValid([Const] optional ImVec2 mouse_pos);
     static boolean                 IsAnyMouseDown();
     [Value] static ImVec2          GetMousePos();
     [Value] static ImVec2          GetMousePosOnOpeningCurrentPopup();
-    static boolean                 IsMouseDragging(long ImGuiMouseButton, optional float lock_threshold);
-    [Value] static ImVec2          GetMouseDragDelta(optional long ImGuiMouseButton, optional float lock_threshold);
-    static void                    ResetMouseDragDelta(optional long ImGuiMouseButton);
+    static boolean                 IsMouseDragging(ImGuiMouseButton ImGuiMouseButton, optional float lock_threshold);
+    [Value] static ImVec2          GetMouseDragDelta(optional ImGuiMouseButton ImGuiMouseButton, optional float lock_threshold);
+    static void                    ResetMouseDragDelta(optional ImGuiMouseButton ImGuiMouseButton);
     static long                    GetMouseCursor();
     static void                    SetMouseCursor(long cursor_type);
     static void                    SetNextFrameWantCaptureMouse(boolean want_capture_mouse);
@@ -776,7 +776,7 @@ interface ImGuiIO {
     attribute boolean ConfigDockingWithShift;
     attribute boolean ConfigDockingAlwaysTabBar;
     attribute boolean ConfigDockingTransparentPayload;
-    attribute long ConfigFlags;
+    attribute ImGuiConfigFlags ConfigFlags;
 
     attribute float IniSavingRate;
     attribute boolean WantSaveIniSettings;

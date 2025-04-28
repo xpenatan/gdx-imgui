@@ -288,7 +288,7 @@ public:
     static float GetTreeHeight(float padding);
 
     // Custom button behavior
-    static int ButtonBehavior(int id, const ImRect& bb, bool isSelected, ImU32 selectedColor = 0, ImU32 hoveredColor = 0, ImU32 hoveredStrokeColor = 0, int ImGuiButtonFlags = ImGuiButtonFlags_PressedOnRelease, float clickDelay = 0.160);
+    static int ButtonBehavior(int id, const ImRect& bb, bool isSelected, ImU32 selectedColor = 0, ImU32 hoveredColor = 0, ImU32 hoveredStrokeColor = 0, ImGuiButtonFlags ImGuiButtonFlags = ImGuiButtonFlags_PressedOnRelease, float clickDelay = 0.160);
 
     // Custom DPI Utils
     static void ScaleAllSizes(float scale_factor) {

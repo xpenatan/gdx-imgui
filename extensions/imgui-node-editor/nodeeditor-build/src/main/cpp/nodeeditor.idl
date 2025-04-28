@@ -146,8 +146,6 @@ interface NodeEditor {
 };
 
 interface LoadSaveSettingsListener {
-    void onLoad(IDLString data);
-    boolean onSave(IDLString data, SaveReasonFlags reason);
 };
 
 [JSImplementation="LoadSaveSettingsListener"]

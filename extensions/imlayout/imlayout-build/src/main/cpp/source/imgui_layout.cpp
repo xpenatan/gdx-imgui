@@ -1256,7 +1256,7 @@ float ImLayout::GetTreeHeight(float padding) {
     return fontSize + padding;
 }
 
-int ImLayout::ButtonBehavior(int id, const ImRect& bb, bool isSelected, ImU32 selectedColor, ImU32 hoveredColor, ImU32 hoveredStrokeColor, int ImGuiButtonFlags, float clickDelay) {
+int ImLayout::ButtonBehavior(int id, const ImRect& bb, bool isSelected, ImU32 selectedColor, ImU32 hoveredColor, ImU32 hoveredStrokeColor, ImGuiButtonFlags ImGuiButtonFlags, float clickDelay) {
     ImGui::PushID(id);
     int clicksId = ImGui::GetID("ButtonBehavior_clicks");
     int clickTimeId = ImGui::GetID("ButtonBehavior_clickTime");

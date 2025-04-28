@@ -14,20 +14,6 @@ public class ImGuiIO extends IDLBase {
     public ImGuiIO(byte v, char c) {
     }
 
-    public void ConfigFlags(int flags) {
-        SetConfigFlagsNATIVE(getNativeData().getCPointer(), flags);
-    }
-
-    /*[-TEAVM;-NATIVE]
-        var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
-        io.set_ConfigFlags(flag);
-    */
-    /*[-JNI;-NATIVE]
-        ImGuiIO* io = (ImGuiIO*)addr;
-        io->ConfigFlags = flag;
-    */
-    private static native void SetConfigFlagsNATIVE(long addr, int flag);
-
 //    public boolean ContainsConfigFlags(ImGuiConfigFlags flags) {
 //        return ContainsConfigFlagsNATIVE(getCPointer(), flags.getValue());
 //    }
@@ -176,20 +162,6 @@ public class ImGuiIO extends IDLBase {
             io->AddInputCharacter((unsigned short)c);
     */
     private static native void updateKeyTyped(long addr, int c);
-
-    public void AddKeyEvent(int imGuiKey, boolean down) {
-        AddKeyEventNATIVE(getNativeData().getCPointer(), imGuiKey, down);
-    }
-
-    /*[-TEAVM;-NATIVE]
-        var io = [MODULE].wrapPointer(addr, [MODULE].ImGuiIO);
-        io.AddKeyEvent(imGuiKey, down);
-    */
-    /*[-JNI;-NATIVE]
-        ImGuiIO* io = (ImGuiIO*)addr;
-        io->AddKeyEvent((ImGuiKey)imGuiKey, down);
-    */
-    private static native void AddKeyEventNATIVE(long addr, int imGuiKey, boolean down);
 
     public void AddMousePosEvent(float x, float y) {
         AddMousePosEventNATIVE(getNativeData().getCPointer(), x, y);

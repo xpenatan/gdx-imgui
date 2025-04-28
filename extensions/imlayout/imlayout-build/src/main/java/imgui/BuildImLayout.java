@@ -26,6 +26,7 @@ public class BuildImLayout {
         op.moduleName = "imgui";
         JParser.CREATE_IDL_HELPER = false;
         String imguiPath = new File("./../../../imgui/").getCanonicalPath().replace("\\", "/");
+        op.addAdditionalIDLRefPath(imguiPath + "/imgui-build/src/main/cpp/imgui.idl");
         BuilderTool.build(op, new BuildToolListener() {
             @Override
             public void onAddTarget(BuildToolOptions op, IDLReader idlReader, ArrayList<BuildMultiTarget> targets) {

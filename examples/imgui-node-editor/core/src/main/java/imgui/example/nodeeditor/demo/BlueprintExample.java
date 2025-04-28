@@ -281,7 +281,7 @@ public class BlueprintExample {
         public Node node;
         public String name = "";
         public PinType type;
-        public int kind;
+        public PinKind kind;
 
         public Pin() {
         }

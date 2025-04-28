@@ -9,6 +9,7 @@ import imgui.extension.nodeeditor.Config;
 import imgui.extension.nodeeditor.EditorContext;
 import imgui.extension.nodeeditor.LoadSaveSettingsListener;
 import imgui.extension.nodeeditor.NodeEditor;
+import imgui.extension.nodeeditor.SaveReasonFlags;
 import imgui.idl.helper.IDLString;
 
 public class NodeEditorExample extends ImGuiRenderer {
@@ -30,7 +31,7 @@ public class NodeEditorExample extends ImGuiRenderer {
             }
 
             @Override
-            public boolean onSave(IDLString data, int reason) {
+            public boolean onSave(IDLString data, SaveReasonFlags reason) {
                 Preferences preferences = Gdx.app.getPreferences("NodeEditorData");
                 String str = data.c_str();
                 preferences.putString("jsonData", str);

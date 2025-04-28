@@ -10,7 +10,7 @@ public class TableRenderer implements UIRenderer {
     }
 
     public void render() {
-        int flags1 = ImGuiTableFlags.Borders;
+        ImGuiTableFlags flags1 = ImGuiTableFlags.Borders;
         if (ImGui.BeginTable("table1", 3, flags1))
         {
             // We could also set ImGuiTableFlags_SizingFixedFit on the table and all columns will default to ImGuiTableColumnFlags_WidthFixed.

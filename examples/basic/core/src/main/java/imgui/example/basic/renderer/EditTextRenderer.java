@@ -47,7 +47,7 @@ public class EditTextRenderer implements UIRenderer {
         if(flag) {
             ImGuiInternal.SetActiveID(id, window);
         }
-        int flags = ImGuiSliderFlags.None;
+        ImGuiSliderFlags flags = ImGuiSliderFlags.None;
         if(ImGuiInternal.DragBehavior(id, ImGuiDataType.Float, imguiFloat1.getPointer(), 0.1f, 0, 0, format, flags)) {
             System.out.println("Dragging");
         }

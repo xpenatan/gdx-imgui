@@ -1,6 +1,7 @@
 package imgui;
 
 import idl.IDLBase;
+import idl.IDLEnum;
 
 public class ImGuiStyle extends IDLBase {
 
@@ -12,16 +13,16 @@ public class ImGuiStyle extends IDLBase {
     /*[-IDL_SKIP]*/
     public native ImVec4[] Colors();
 
-    public void Colors(int index, float r, float g, float b, float a) {
+    public void Colors(IDLEnum index, float r, float g, float b, float a) {
         Colors(index, ImVec4.TMP_INTERNAL_1.set(r, g, b, a));
     }
 
-    public void Colors(int index, int r, int g, int b, int a) {
+    public void Colors(IDLEnum index, int r, int g, int b, int a) {
         Colors(index, ImVec4.TMP_INTERNAL_1.set(r / 255f, g / 255f, b / 255f, a / 255f));
     }
 
-    public void Colors(int index, ImVec4 color) {
-        set_ColorsNATIVE(getNativeData().getCPointer(), index, color.getNativeData().getCPointer());
+    public void Colors(IDLEnum index, ImVec4 color) {
+        set_ColorsNATIVE(getNativeData().getCPointer(), index.getValue(), color.getNativeData().getCPointer());
     }
 
     /*[-TEAVM;-NATIVE]
@@ -34,13 +35,13 @@ public class ImGuiStyle extends IDLBase {
         ImVec4* vec4 = (ImVec4*)vec4Addr;
         nativeObject->Colors[index] = *vec4;
     */
-    private static native void set_ColorsNATIVE(long addr, int index, long vec4Addr);
+    private static native void set_ColorsNATIVE(long addr, long index, long vec4Addr);
 
     /**
      * Return a temp ImVec4 object. Don't keep reference.
      */
-    public ImVec4 Colors(int index) {
-        tmp.getNativeData().reset((get_ColorsNATIVE(getNativeData().getCPointer(), index)), false);
+    public ImVec4 Colors(IDLEnum index) {
+        tmp.getNativeData().reset((get_ColorsNATIVE(getNativeData().getCPointer(), index.getValue())), false);
         return tmp;
     }
 
@@ -54,6 +55,6 @@ public class ImGuiStyle extends IDLBase {
         ImVec4* vec4 = &nativeObject->Colors[index];
         return (jlong)vec4;
     */
-    private static native long get_ColorsNATIVE(long addr, int index);
+    private static native long get_ColorsNATIVE(long addr, long index);
 
 }
