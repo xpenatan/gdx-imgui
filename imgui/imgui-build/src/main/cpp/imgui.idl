@@ -869,8 +869,8 @@ interface ImGuiStyle {
     attribute float             HoverStationaryDelay;
     attribute float             HoverDelayShort;
     attribute float             HoverDelayNormal;
-    attribute long              HoverFlagsForTooltipMouse;
-    attribute long              HoverFlagsForTooltipNav;
+    attribute ImGuiHoveredFlags HoverFlagsForTooltipMouse;
+    attribute ImGuiHoveredFlags HoverFlagsForTooltipNav;
     [Value] attribute ImVec4[]  Colors;
 
     void ScaleAllSizes(float scale_factor);
