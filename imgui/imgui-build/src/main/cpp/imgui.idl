@@ -615,7 +615,7 @@ interface ImGuiInputTextCallbackData {
     attribute long BufSize;
     attribute boolean BufDirty;
     attribute long BufTextLen;
-    attribute long Flags;
+    attribute ImGuiInputTextFlags Flags;
 };
 
 interface ImHelper {
@@ -878,7 +878,7 @@ interface ImGuiStyle {
 
 interface ImGuiViewport {
     attribute long ID;
-    attribute long Flags;
+    attribute ImGuiViewportFlags Flags;
     [Value] attribute ImVec2 Pos;
     [Value] attribute ImVec2 Size;
     [Value] attribute ImVec2 WorkPos;
@@ -895,10 +895,10 @@ interface ImGuiWindowClass {
     attribute long ClassId;
     attribute long ParentViewportId;
     attribute long FocusRouteParentWindowId;
-    attribute long ViewportFlagsOverrideSet;
-    attribute long ViewportFlagsOverrideClear;
-    attribute long TabItemFlagsOverrideSet;
-    attribute long DockNodeFlagsOverrideSet;
+    attribute ImGuiViewportFlags ViewportFlagsOverrideSet;
+    attribute ImGuiViewportFlags ViewportFlagsOverrideClear;
+    attribute ImGuiTabItemFlags TabItemFlagsOverrideSet;
+    attribute ImGuiDockNodeFlags DockNodeFlagsOverrideSet;
     attribute boolean DockingAlwaysTabBar;
     attribute boolean DockingAllowUnclassed;
 
@@ -910,8 +910,8 @@ interface ImGuiWindow {
     [Value] readonly attribute ImVectorInt IDStack;
     [Value] readonly attribute ImGuiWindowTempData DC;
     readonly attribute long ID;
-    readonly attribute long Flags;
-    readonly attribute long FlagsPreviousFrame;
+    readonly attribute ImGuiWindowFlags Flags;
+    readonly attribute ImGuiWindowFlags FlagsPreviousFrame;
     readonly attribute long ViewportId;
     [Value] attribute ImVec2 ViewportPos;
     attribute long ViewportAllowPlatformMonitorExtend;
