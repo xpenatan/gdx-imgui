@@ -157,7 +157,7 @@ interface ImGui {
     static boolean                 IsWindowAppearing();
     static boolean                 IsWindowCollapsed();
     static boolean                 IsWindowFocused(optional ImGuiFocusedFlags ImGuiFocusedFlags);
-    static boolean                 IsWindowHovered(optional ImGuiFocusedFlags ImGuiFocusedFlags);
+    static boolean                 IsWindowHovered(optional ImGuiHoveredFlags ImGuiFocusedFlags);
     static ImDrawList              GetWindowDrawList();
     static float                   GetWindowDpiScale();
     [Value] static ImVec2          GetWindowPos();
