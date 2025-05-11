@@ -25,8 +25,8 @@ allprojects  {
         mavenLocal()
         google()
         mavenCentral()
+        maven { url = uri("https://central.sonatype.com/repository/maven-snapshots/") }
         maven { url = uri("https://oss.sonatype.org/content/repositories/snapshots/") }
-        maven { url = uri("https://oss.sonatype.org/content/repositories/releases/") }
         maven { url = uri("https://jitpack.io") }
     }
 
@@ -79,16 +79,14 @@ configure(libProjects + libProjects2) {
     publishing {
         repositories {
             maven {
-                url = uri {
-                    val ver = project.version.toString()
-                    val isSnapshot = ver.uppercase().contains("SNAPSHOT")
-                    val repoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-                    val repoUrlSnapshot = "https://oss.sonatype.org/content/repositories/snapshots/"
-                    if (isSnapshot) repoUrlSnapshot else repoUrl
+                url = if (project.version.toString().endsWith("-SNAPSHOT")) {
+                    uri("https://central.sonatype.com/repository/maven-snapshots/")
+                } else {
+                    uri("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
                 }
                 credentials {
-                    username = System.getenv("USER")
-                    password = System.getenv("PASSWORD")
+                    username = System.getenv("CENTRAL_PORTAL_USERNAME")
+                    password = System.getenv("CENTRAL_PORTAL_PASSWORD")
                 }
             }
         }
