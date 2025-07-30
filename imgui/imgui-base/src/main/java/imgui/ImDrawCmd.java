@@ -16,7 +16,7 @@ public class ImDrawCmd extends IDLBase {
     }
 
     public int getTextureId() {
-        return getTextureIdNATIVE(getNativeData().getCPointer());
+        return getTextureIdNATIVE(native_address);
     }
 
     /*[-TEAVM;-NATIVE]
@@ -32,7 +32,7 @@ public class ImDrawCmd extends IDLBase {
     private static native int getTextureIdNATIVE(long addr);
 
     public int getIdxOffset() {
-        return getIdxOffsetNATIVE(getNativeData().getCPointer());
+        return getIdxOffsetNATIVE(native_address);
     }
 
     /*[-TEAVM;-NATIVE]
@@ -47,7 +47,7 @@ public class ImDrawCmd extends IDLBase {
     private static native int getIdxOffsetNATIVE(long addr);
 
     public int getVtxOffset() {
-        return getVtxOffsetNATIVE(getNativeData().getCPointer());
+        return getVtxOffsetNATIVE(native_address);
     }
 
     /*[-TEAVM;-NATIVE]
@@ -62,7 +62,7 @@ public class ImDrawCmd extends IDLBase {
     private static native int getVtxOffsetNATIVE(long addr);
 
     public int getElemCount() {
-        return getElemCountNATIVE(getNativeData().getCPointer());
+        return getElemCountNATIVE(native_address);
     }
 
     /*[-TEAVM;-NATIVE]

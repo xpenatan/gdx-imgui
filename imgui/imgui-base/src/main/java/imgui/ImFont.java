@@ -7,7 +7,7 @@ public class ImFont extends IDLBase {
     public native ImFontConfig get_ConfigData();
 
     public void setName(String name) {
-        updateNameNATIVE(getNativeData().getCPointer(), name, get_ConfigData().get_SizePixels());
+        updateNameNATIVE(native_address, name, get_ConfigData().get_SizePixels());
     }
 
     /*[-TEAVM;-NATIVE]

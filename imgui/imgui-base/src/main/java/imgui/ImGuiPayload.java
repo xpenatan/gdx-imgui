@@ -5,7 +5,7 @@ import idl.IDLBase;
 public class ImGuiPayload extends IDLBase {
 
     public int get_Data() {
-        return getDataNATIVE(getNativeData().getCPointer());
+        return getDataNATIVE(native_address);
     }
 
     /*[-TEAVM;-NATIVE]

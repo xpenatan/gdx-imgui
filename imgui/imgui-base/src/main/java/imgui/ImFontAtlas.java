@@ -13,7 +13,7 @@ public class ImFontAtlas extends IDLBase {
     }
 
     public void GetTexDataAsRGBA32(IDLByteArray pixelBuffer, IDLIntArray outWidth, IDLIntArray outHeight) {
-        GetTexDataAsRGBA32NATIVE(getNativeData().getCPointer(), pixelBuffer.getNativeData().getCPointer(), outWidth.getNativeData().getCPointer(), outHeight.getNativeData().getCPointer());
+        GetTexDataAsRGBA32NATIVE(native_address, pixelBuffer.native_address, outWidth.native_address, outHeight.native_address);
     }
 
     /*[-TEAVM;-NATIVE]

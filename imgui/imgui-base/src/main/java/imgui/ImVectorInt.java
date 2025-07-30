@@ -5,7 +5,7 @@ import idl.IDLBase;
 public class ImVectorInt extends IDLBase {
 
     public int getData(int index) {
-        return getDataNATIVE(getNativeData().getCPointer(), index);
+        return getDataNATIVE(native_address, index);
     }
 
     /*[-TEAVM;-NATIVE]

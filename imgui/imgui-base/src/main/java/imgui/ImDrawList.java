@@ -52,7 +52,7 @@ public class ImDrawList extends IDLBase {
     }
 
     public int getFlags() {
-        return getFlagsNATIVE(getNativeData().getCPointer());
+        return getFlagsNATIVE(native_address);
     }
 
     /*[-TEAVM;-NATIVE]
@@ -66,8 +66,8 @@ public class ImDrawList extends IDLBase {
     private static native int getFlagsNATIVE(long addr);
 
     public ImDrawCmd getCmdBuffer(int index) {
-        long pointer = getCmdBufferNATIVE(getNativeData().getCPointer(), index);
-        imDrawCmd.getNativeData().reset(pointer, false);
+        long pointer = getCmdBufferNATIVE(native_address, index);
+        imDrawCmd.native_reset(pointer, false);
         return imDrawCmd;
     }
 
@@ -84,7 +84,7 @@ public class ImDrawList extends IDLBase {
     private static native long getCmdBufferNATIVE(long addr, int index);
 
     public int getCmdBufferSize() {
-        return getCmdBufferSizeNATIVE(getNativeData().getCPointer());
+        return getCmdBufferSizeNATIVE(native_address);
     }
 
     /*[-TEAVM;-NATIVE]
@@ -98,19 +98,19 @@ public class ImDrawList extends IDLBase {
     private static native int getCmdBufferSizeNATIVE(long addr);
 
     public ByteBuffer getIdxBufferData() {
-        int idxBufferSize = getIdxBufferSizeNATIVE(getNativeData().getCPointer());
+        int idxBufferSize = getIdxBufferSizeNATIVE(native_address);
         int idxBufferCapacity = idxBufferSize * IDX_BUFFER_SIZE;
         if (idxByteBuffer == null || idxByteBuffer.capacity() < idxBufferCapacity) {
             if(idxByteBuffer != null) {
                 idxByteBuffer.clear();
             }
             if(idxBuffer != null) {
-                idxBuffer.getNativeData().dispose();
+//                idxBuffer.dispose(); // TODO Fix
             }
             idxBuffer = new IDLByteArray(idxBufferCapacity + RESIZE_FACTOR);
             idxByteBuffer = ByteBuffer.allocateDirect(idxBufferCapacity + RESIZE_FACTOR).order(ByteOrder.nativeOrder());
         }
-        getIdxBufferDataNATIVE(getNativeData().getCPointer(), idxBuffer.getNativeData().getCPointer(), idxBufferCapacity);
+        getIdxBufferDataNATIVE(native_address, idxBuffer.native_address, idxBufferCapacity);
         idxByteBuffer.position(0);
         idxByteBuffer.limit(idxBufferCapacity);
         for(int i = 0; i < idxBufferCapacity; i++) {
@@ -145,20 +145,20 @@ public class ImDrawList extends IDLBase {
     private static native int getIdxBufferSizeNATIVE(long addr);
 
     public ByteBuffer getVtxBufferData() {
-        int vtxBufferSize = getVtxBufferSizeNATIVE(getNativeData().getCPointer());
+        int vtxBufferSize = getVtxBufferSizeNATIVE(native_address);
         int vtxBufferCapacity = vtxBufferSize * VTX_BUFFER_SIZE;
         if (vtxByteBuffer == null || vtxByteBuffer.capacity() < vtxBufferCapacity) {
             if(vtxByteBuffer != null) {
                 vtxByteBuffer.clear();
             }
             if(vtxBuffer != null) {
-                vtxBuffer.getNativeData().dispose();
+//                vtxBuffer.dispose(); // TODO fix
             }
             vtxBuffer = new IDLByteArray(vtxBufferCapacity + RESIZE_FACTOR);
             vtxByteBuffer = ByteBuffer.allocateDirect(vtxBufferCapacity + RESIZE_FACTOR).order(ByteOrder.nativeOrder());
         }
         // TODO find a better way to get native byte buffer for c++ and teavm
-        getVtxBufferDataNATIVE(getNativeData().getCPointer(), vtxBuffer.getNativeData().getCPointer(), vtxBufferCapacity);
+        getVtxBufferDataNATIVE(native_address, vtxBuffer.native_address, vtxBufferCapacity);
         vtxByteBuffer.position(0);
         vtxByteBuffer.limit(vtxBufferCapacity);
         for(int i = 0; i < vtxBufferCapacity; i++) {
