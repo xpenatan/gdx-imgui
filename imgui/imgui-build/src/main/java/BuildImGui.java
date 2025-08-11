@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class BuildImGui {
 
     public static void main(String[] args) {
-        WindowsMSVCTarget.DEBUG_BUILD = true;
+//        WindowsMSVCTarget.DEBUG_BUILD = true;
 
         String libName = "imgui";
         String modulePrefix = "imgui";
