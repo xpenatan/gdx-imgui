@@ -41,7 +41,7 @@ public class ImGuiStyle extends IDLBase {
      * Return a temp ImVec4 object. Don't keep reference.
      */
     public ImVec4 Colors(IDLEnum index) {
-        tmp.native_reset((get_ColorsNATIVE(native_address, index.getValue())), false);
+        tmp.internal_reset((get_ColorsNATIVE(native_address, index.getValue())), false);
         return tmp;
     }
 

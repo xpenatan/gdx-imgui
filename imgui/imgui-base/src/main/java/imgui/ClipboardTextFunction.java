@@ -63,12 +63,12 @@ public abstract class ClipboardTextFunction extends IDLBase {
                 }
             };
             int pointer = createNative(onGetClipboardText, onSetClipboardText);
-            native_reset(pointer, true);
+            internal_reset(pointer, true);
         }
     */
     public ClipboardTextFunction() {
         long addr = createNATIVE();
-        native_reset(addr, true);
+        internal_reset(addr, true);
     }
 
     /*[-JNI;-NATIVE]
@@ -86,12 +86,12 @@ public abstract class ClipboardTextFunction extends IDLBase {
     private native long createNATIVE();
 
     private void onGetClipboardText(long strOut_addr) {
-        TMP.native_reset(strOut_addr, false);
+        TMP.internal_reset(strOut_addr, false);
         onGetClipboardText(TMP);
     }
 
     private void onSetClipboardText(long text_addr) {
-        TMP.native_reset(text_addr, false);
+        TMP.internal_reset(text_addr, false);
         onSetClipboardText(TMP);
     }
 

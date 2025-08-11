@@ -29,7 +29,7 @@ public final class ImDrawData extends IDLBase {
 
     public ImDrawList getCmdLists(int index) {
         long pointer = getCmdListsNATIVE(native_address, index);
-        imDrawList.native_reset(pointer, false);
+        imDrawList.internal_reset(pointer, false);
         return imDrawList;
     }
 

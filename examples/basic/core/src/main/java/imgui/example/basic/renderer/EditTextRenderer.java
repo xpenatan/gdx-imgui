@@ -9,7 +9,6 @@ import imgui.ImGuiSliderFlags;
 import imgui.ImGuiString;
 import imgui.ImGuiWindow;
 import imgui.idl.helper.IDLFloatArray;
-import imgui.idl.helper.IDLInt;
 
 public class EditTextRenderer implements UIRenderer {
 
