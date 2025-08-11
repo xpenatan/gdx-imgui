@@ -105,7 +105,7 @@ public class ImDrawList extends IDLBase {
                 idxByteBuffer.clear();
             }
             if(idxBuffer != null) {
-//                idxBuffer.dispose(); // TODO Fix
+                idxBuffer.dispose();
             }
             idxBuffer = new IDLByteArray(idxBufferCapacity + RESIZE_FACTOR);
             idxByteBuffer = ByteBuffer.allocateDirect(idxBufferCapacity + RESIZE_FACTOR).order(ByteOrder.nativeOrder());
@@ -152,7 +152,7 @@ public class ImDrawList extends IDLBase {
                 vtxByteBuffer.clear();
             }
             if(vtxBuffer != null) {
-//                vtxBuffer.dispose(); // TODO fix
+                vtxBuffer.dispose();
             }
             vtxBuffer = new IDLByteArray(vtxBufferCapacity + RESIZE_FACTOR);
             vtxByteBuffer = ByteBuffer.allocateDirect(vtxBufferCapacity + RESIZE_FACTOR).order(ByteOrder.nativeOrder());
