@@ -26,33 +26,33 @@ java {
     withJavadocJar()
     withSourcesJar()
 }
-
-tasks.jar {
-    archiveBaseName.set(moduleName)
-    archiveClassifier.set("")
-
-    dependsOn(tasks.named("classes")) // This project’s classes
-    dependsOn(configurations["api"].dependencies.mapNotNull { dep ->
-        if (dep is ProjectDependency) {
-            dep.dependencyProject.tasks.findByName("classes")
-        } else {
-            null
-        }
-    })
-
-    from(sourceSets.main.get().output)
-
-    from({
-        configurations["api"].dependencies
-            .filterIsInstance<ProjectDependency>()
-            .mapNotNull { dep ->
-                val output = dep.dependencyProject.sourceSets.main.get().output
-                output.takeIf { it.files.any { file -> file.exists() } }
-            }
-    })
-
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
+//
+//tasks.jar {
+//    archiveBaseName.set(moduleName)
+//    archiveClassifier.set("")
+//
+//    dependsOn(tasks.named("classes")) // This project’s classes
+//    dependsOn(configurations["api"].dependencies.mapNotNull { dep ->
+//        if (dep is ProjectDependency) {
+//            dep.dependencyProject.tasks.findByName("classes")
+//        } else {
+//            null
+//        }
+//    })
+//
+//    from(sourceSets.main.get().output)
+//
+//    from({
+//        configurations["api"].dependencies
+//            .filterIsInstance<ProjectDependency>()
+//            .mapNotNull { dep ->
+//                val output = dep.dependencyProject.sourceSets.main.get().output
+//                output.takeIf { it.files.any { file -> file.exists() } }
+//            }
+//    })
+//
+//    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+//}
 
 publishing {
     publications {

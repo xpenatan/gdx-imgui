@@ -9,7 +9,7 @@ public class ImFontAtlas extends IDLBase {
     public ImFont AddFontFromMemoryTTF(byte[] fontData, int font_size) {
         IDLByteArray byteArray = new IDLByteArray(fontData.length);
         byteArray.copy(fontData);
-        return AddFontFromMemoryTTF(byteArray.getPointer(), byteArray.getSize(), font_size);
+        return AddFontFromMemoryTTF(byteArray, byteArray.getSize(), font_size);
     }
 
     public void GetTexDataAsRGBA32(IDLByteArray pixelBuffer, IDLIntArray outWidth, IDLIntArray outHeight) {
@@ -30,9 +30,11 @@ public class ImFontAtlas extends IDLBase {
         IDLByteArray* pixelBuffer = (IDLByteArray*)pixelBufferAddr;
         IDLIntArray* widthIntArray = (IDLIntArray*)widthAddr;
         IDLIntArray* heightIntArray = (IDLIntArray*)heightAddr;
-        ImHelper::memcpyFont(fontAtlas, pixelBuffer, (int*)widthIntArray->getData(), (int*)heightIntArray->getData());
+        int* widthPtr = (int*)widthIntArray->getData();
+        int* heightPtr = (int*)heightIntArray->getData();
+        ImHelper::memcpyFont(fontAtlas, pixelBuffer, widthPtr, heightPtr);
     */
     private static native void GetTexDataAsRGBA32NATIVE(long addr, long pixelBufferAddr, long widthAddr, long heightAddr);
 
-    public native ImFont AddFontFromMemoryTTF(long font_data, int font_data_size, int size_pixels);
+    public native ImFont AddFontFromMemoryTTF(IDLBase font_data, int font_data_size, int size_pixels);
 }

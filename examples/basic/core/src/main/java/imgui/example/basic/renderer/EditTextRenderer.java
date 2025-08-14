@@ -8,6 +8,7 @@ import imgui.ImGuiMouseButton;
 import imgui.ImGuiSliderFlags;
 import imgui.ImGuiString;
 import imgui.ImGuiWindow;
+import imgui.idl.IDLBase;
 import imgui.idl.helper.IDLFloatArray;
 
 public class EditTextRenderer implements UIRenderer {
@@ -47,7 +48,7 @@ public class EditTextRenderer implements UIRenderer {
             ImGuiInternal.SetActiveID(id, window);
         }
         ImGuiSliderFlags flags = ImGuiSliderFlags.None;
-        if(ImGuiInternal.DragBehavior(id, ImGuiDataType.Float, imguiFloat1, 0.1f, 0, 0, format, flags)) {
+        if(ImGuiInternal.DragBehavior(id, ImGuiDataType.Float, imguiFloat1, 0.1f, IDLBase.NULL, IDLBase.NULL, format, flags)) {
             System.out.println("Dragging");
         }
 

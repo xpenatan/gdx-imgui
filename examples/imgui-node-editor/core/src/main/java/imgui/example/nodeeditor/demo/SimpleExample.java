@@ -5,6 +5,7 @@ import imgui.ImVec2;
 import imgui.extension.nodeeditor.EditorContext;
 import imgui.extension.nodeeditor.NodeEditor;
 import imgui.extension.nodeeditor.PinKind;
+import imgui.idl.IDLBase;
 
 public class SimpleExample {
 
@@ -34,6 +35,6 @@ public class SimpleExample {
         }
 
         NodeEditor.End();
-        NodeEditor.SetCurrentEditor(null);
+        NodeEditor.SetCurrentEditor(EditorContext.NULL);
     }
 }
