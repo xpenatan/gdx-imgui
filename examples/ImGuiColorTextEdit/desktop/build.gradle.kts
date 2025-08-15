@@ -1,10 +1,19 @@
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
+plugins {
+    id("java")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(LibExt.java8Target)
+    targetCompatibility = JavaVersion.toVersion(LibExt.java8Target)
+}
+
 dependencies {
     implementation(project(":examples:ImGuiColorTextEdit:core"))
 
-    if(LibExt.exampleUseRepoLibs) {
-        implementation("com.github.xpenatan.gdx-imgui:imgui-ext-desktop:-SNAPSHOT")
+    if(LibExt.useRepoLibs) {
+        implementation("com.github.xpenatan.xImGui:imgui-ext-desktop:-SNAPSHOT")
     }
     else {
         implementation(project(":imgui-ext:ext-desktop"))

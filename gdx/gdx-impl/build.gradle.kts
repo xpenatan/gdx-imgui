@@ -1,3 +1,7 @@
+plugins {
+    id("java")
+}
+
 val moduleName = "gdx-impl"
 
 dependencies {
@@ -10,8 +14,8 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.toVersion(LibExt.java8Target)
+    targetCompatibility = JavaVersion.toVersion(LibExt.java8Target)
 }
 
 java {

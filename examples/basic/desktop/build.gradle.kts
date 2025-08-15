@@ -1,10 +1,19 @@
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
+plugins {
+    id("java")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(LibExt.java8Target)
+    targetCompatibility = JavaVersion.toVersion(LibExt.java8Target)
+}
+
 dependencies {
     implementation(project(":examples:basic:core"))
 
-    if(LibExt.exampleUseRepoLibs) {
-        implementation("com.github.xpenatan.gdx-imgui:imgui-desktop:-SNAPSHOT")
+    if(LibExt.useRepoLibs) {
+        implementation("com.github.xpenatan.xImGui:imgui-desktop:-SNAPSHOT")
     }
     else {
         implementation(project(":imgui:imgui-desktop"))

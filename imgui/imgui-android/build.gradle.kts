@@ -19,11 +19,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.toVersion(LibExt.java11Target)
+        targetCompatibility = JavaVersion.toVersion(LibExt.java11Target)
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = LibExt.java11Target
     }
 }
 

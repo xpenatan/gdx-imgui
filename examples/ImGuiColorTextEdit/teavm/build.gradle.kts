@@ -1,4 +1,5 @@
 plugins {
+    id("java")
     id("org.gretty") version("3.1.0")
 }
 
@@ -7,13 +8,18 @@ gretty {
     extraResourceBase("build/dist/webapp")
 }
 
+java {
+    sourceCompatibility = JavaVersion.toVersion(LibExt.java11Target)
+    targetCompatibility = JavaVersion.toVersion(LibExt.java11Target)
+}
+
 val mainClassName = "imgui.example.textedit.Build"
 
 dependencies {
     implementation(project(":examples:ImGuiColorTextEdit:core"))
 
-    if(LibExt.exampleUseRepoLibs) {
-        implementation("com.github.xpenatan.gdx-imgui:imgui-ext-teavm:-SNAPSHOT")
+    if(LibExt.useRepoLibs) {
+        implementation("com.github.xpenatan.xImGui:imgui-ext-teavm:-SNAPSHOT")
     }
     else {
         implementation(project(":imgui-ext:ext-teavm"))

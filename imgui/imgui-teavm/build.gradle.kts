@@ -1,3 +1,7 @@
+plugins {
+    id("java")
+}
+
 val moduleName = "imgui-teavm"
 
 val emscriptenFile = "$projectDir/../imgui-build/build/c++/libs/emscripten/imgui.wasm.js"
@@ -22,8 +26,8 @@ tasks.named("clean") {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.toVersion(LibExt.java11Target)
+    targetCompatibility = JavaVersion.toVersion(LibExt.java11Target)
 }
 
 java {

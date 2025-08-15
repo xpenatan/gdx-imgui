@@ -1,3 +1,12 @@
+plugins {
+    id("java")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(LibExt.java8Target)
+    targetCompatibility = JavaVersion.toVersion(LibExt.java8Target)
+}
+
 val mainClassName = "imgui.BuildImLayout"
 
 dependencies {

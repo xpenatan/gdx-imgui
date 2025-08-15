@@ -19,7 +19,7 @@ public class BuildImGui {
         String modulePrefix = "imgui";
         String basePackage = "imgui";
         String sourceDir =  "/build/imgui";
-        BuildToolOptions op = new BuildToolOptions(modulePrefix, libName, basePackage, sourceDir, args);
+        BuildToolOptions op = new BuildToolOptions(libName, basePackage, modulePrefix, sourceDir, args);
         BuilderTool.build(op, new BuildToolListener() {
             @Override
             public void onAddTarget(BuildToolOptions op, IDLReader idlReader, ArrayList<BuildMultiTarget> targets) {

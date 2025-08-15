@@ -1,4 +1,5 @@
 plugins {
+    id("java")
     id("org.gretty") version("3.1.0")
 }
 
@@ -7,11 +8,16 @@ gretty {
     extraResourceBase("build/dist/webapp")
 }
 
+java {
+    sourceCompatibility = JavaVersion.toVersion(LibExt.java8Target)
+    targetCompatibility = JavaVersion.toVersion(LibExt.java8Target)
+}
+
 dependencies {
     implementation(project(":examples:basic:core"))
 
-    if(LibExt.exampleUseRepoLibs) {
-        implementation("com.github.xpenatan.gdx-imgui:imgui-teavm:-SNAPSHOT")
+    if(LibExt.useRepoLibs) {
+        implementation("com.github.xpenatan.xImGui:imgui-teavm:-SNAPSHOT")
     }
     else {
         implementation(project(":imgui:imgui-teavm"))

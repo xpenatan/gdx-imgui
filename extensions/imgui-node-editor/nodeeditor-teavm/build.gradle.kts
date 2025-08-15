@@ -1,3 +1,12 @@
+plugins {
+    id("java")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(LibExt.java11Target)
+    targetCompatibility = JavaVersion.toVersion(LibExt.java11Target)
+}
+
 dependencies {
     implementation(project(":imgui:imgui-teavm"))
     implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")

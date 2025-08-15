@@ -1,3 +1,7 @@
+plugins {
+    id("java-library")
+}
+
 val moduleName = "imgui-core"
 
 dependencies {
@@ -15,8 +19,8 @@ tasks.named("clean") {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.toVersion(LibExt.java8Target)
+    targetCompatibility = JavaVersion.toVersion(LibExt.java8Target)
 }
 
 java {

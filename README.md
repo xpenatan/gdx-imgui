@@ -1,13 +1,13 @@
-# gdx-imgui
+# xImGui
 
-![Build](https://github.com/xpenatan/gdx-imgui/actions/workflows/release.yml/badge.svg)
-![Build](https://github.com/xpenatan/gdx-imgui/actions/workflows/snapshot.yml/badge.svg)
-[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/releases/com.github.xpenatan.gdx-imgui/imgui-core?nexusVersion=2&server=https%3A%2F%2Foss.sonatype.org&label=release)](https://repo.maven.apache.org/maven2/com/github/xpenatan/gdx-imgui/)
-[![Static Badge](https://img.shields.io/badge/snapshot---SNAPSHOT-red)](https://oss.sonatype.org/content/repositories/snapshots/com/github/xpenatan/gdx-imgui/)
+![Build](https://github.com/xpenatan/xImGui/actions/workflows/release.yml/badge.svg)
+![Build](https://github.com/xpenatan/xImGui/actions/workflows/snapshot.yml/badge.svg)
+[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/releases/com.github.xpenatan.xImGui/imgui-core?nexusVersion=2&server=https%3A%2F%2Foss.sonatype.org&label=release)](https://repo.maven.apache.org/maven2/com/github/xpenatan/xImGui/)
+[![Static Badge](https://img.shields.io/badge/snapshot---SNAPSHOT-red)](https://oss.sonatype.org/content/repositories/snapshots/com/github/xpenatan/xImGui/)
 
 
 
-gdx-imgui is a java binding for C++ [dear-imgui](https://github.com/ocornut/imgui). <br>
+xImGui is a java binding for C++ [dear-imgui](https://github.com/ocornut/imgui). <br>
 It uses webidl file to generate java methods with the help of [jParser](https://github.com/xpenatan/jParser). <br>
 It's meant to be small and 1-1 to C++. ImGui::Begin() is ImGui.Begin() and so on.
 
@@ -16,10 +16,10 @@ It's meant to be small and 1-1 to C++. ImGui::Begin() is ImGui.Begin() and so on
 ## Supported extensions:
 [imgui-node-editor](https://github.com/thedmd/imgui-node-editor) <br>
 [ImGuiColorTextEdit](https://github.com/santaclose/ImGuiColorTextEdit/) <br>
-[ImLayout](https://github.com/xpenatan/gdx-imgui/tree/master/extensions/imlayout) <br>
+[ImLayout](https://github.com/xpenatan/xImGui/tree/master/extensions/imlayout) <br>
 
 ## Examples
-* [basic](https://xpenatan.github.io/gdx-imgui/basic/)
+* [basic](https://xpenatan.github.io/xImGui/basic/)
 
 ### ImGui current state:
 
@@ -46,8 +46,8 @@ There are two ways to run examples.
 
 ## Setup
 
-    gdxVersion = "1.12.1"
-    gdxImguiVersion = "-SNAPSHOT"
+    gdxVersion = "1.13.5"
+    xImGuiVersion = "-SNAPSHOT"
 
 ```groovy
 // Add repository to Root gradle
@@ -62,31 +62,31 @@ repositories {
 ### Core module
 ```groovy
 dependencies {
-    implementation("com.github.xpenatan.gdx-imgui:gdx-impl:$project.gdxImguiVersion")
-    implementation("com.github.xpenatan.gdx-imgui:imgui-core:$project.gdxImguiVersion")
+    implementation("com.github.xpenatan.xImGui:gdx-impl:$project.xImGuiVersion")
+    implementation("com.github.xpenatan.xImGui:imgui-core:$project.xImGuiVersion")
 
     // Or the extension build
-    implementation "com.github.xpenatan.gdx-imgui:imgui-ext-core:$project.gdxImguiVersion"
+    implementation "com.github.xpenatan.xImGui:imgui-ext-core:$project.xImGuiVersion"
 }
 ```
 
 ### Desktop module
 ```groovy
 dependencies {
-    implementation("com.github.xpenatan.gdx-imgui:imgui-desktop:$project.gdxImguiVersion")
+    implementation("com.github.xpenatan.xImGui:imgui-desktop:$project.xImGuiVersion")
 
     // Or the extension build
-    implementation "com.github.xpenatan.gdx-imgui:imgui-ext-desktop:$project.gdxImguiVersion"
+    implementation "com.github.xpenatan.xImGui:imgui-ext-desktop:$project.xImGuiVersion"
 }
 ```
 
 ### TeaVM module
 ```groovy
 dependencies {
-    implementation("com.github.xpenatan.gdx-imgui:imgui-teavm:$project.gdxImguiVersion")
+    implementation("com.github.xpenatan.xImGui:imgui-teavm:$project.xImGuiVersion")
 
     // Or the extension build
-    implementation "com.github.xpenatan.gdx-imgui:imgui-ext-teavm:$project.gdxImguiVersion"
+    implementation "com.github.xpenatan.xImGui:imgui-ext-teavm:$project.xImGuiVersion"
 }
 ```
 

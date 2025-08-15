@@ -1,9 +1,18 @@
+plugins {
+    id("java")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(LibExt.java8Target)
+    targetCompatibility = JavaVersion.toVersion(LibExt.java8Target)
+}
+
 dependencies {
     implementation(project(":examples:basic:base"))
 
-    if(LibExt.exampleUseRepoLibs) {
-        implementation("com.github.xpenatan.gdx-imgui:imgui-ext-core:-SNAPSHOT")
-        implementation("com.github.xpenatan.gdx-imgui:gdx-impl:-SNAPSHOT")
+    if(LibExt.useRepoLibs) {
+        implementation("com.github.xpenatan.xImGui:imgui-ext-core:-SNAPSHOT")
+        implementation("com.github.xpenatan.xImGui:gdx-impl:-SNAPSHOT")
     }
     else {
         implementation(project(":imgui-ext:ext-core"))

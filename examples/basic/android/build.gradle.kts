@@ -30,11 +30,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.toVersion(LibExt.java11Target)
+        targetCompatibility = JavaVersion.toVersion(LibExt.java11Target)
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = LibExt.java11Target
     }
 }
 val natives: Configuration by configurations.creating
@@ -42,8 +42,8 @@ val natives: Configuration by configurations.creating
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 
-    if(LibExt.exampleUseRepoLibs) {
-        implementation("com.github.xpenatan.gdx-imgui:imgui-android:-SNAPSHOT")
+    if(LibExt.useRepoLibs) {
+        implementation("com.github.xpenatan.xImGui:imgui-android:-SNAPSHOT")
     }
     else {
         implementation(project(":imgui:imgui-android"))

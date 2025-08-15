@@ -2,7 +2,13 @@ import de.undercouch.gradle.tasks.download.Download
 import org.gradle.kotlin.dsl.support.unzipTo
 
 plugins {
+    id("java")
     id("de.undercouch.download") version("5.4.0")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(LibExt.java8Target)
+    targetCompatibility = JavaVersion.toVersion(LibExt.java8Target)
 }
 
 val mainClassName = "BuildImGui"

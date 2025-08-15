@@ -1,9 +1,18 @@
+plugins {
+    id("java")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(LibExt.java8Target)
+    targetCompatibility = JavaVersion.toVersion(LibExt.java8Target)
+}
+
 dependencies {
     implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
 
-    if(LibExt.exampleUseRepoLibs) {
-        implementation("com.github.xpenatan.gdx-imgui:imgui-core:-SNAPSHOT")
-        implementation("com.github.xpenatan.gdx-imgui:gdx-impl:-SNAPSHOT")
+    if(LibExt.useRepoLibs) {
+        implementation("com.github.xpenatan.xImGui:imgui-core:-SNAPSHOT")
+        implementation("com.github.xpenatan.xImGui:gdx-impl:-SNAPSHOT")
     }
     else {
         implementation(project(":imgui:imgui-core"))
