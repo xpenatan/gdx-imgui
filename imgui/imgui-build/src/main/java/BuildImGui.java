@@ -23,22 +23,22 @@ public class BuildImGui {
         BuilderTool.build(op, new BuildToolListener() {
             @Override
             public void onAddTarget(BuildToolOptions op, IDLReader idlReader, ArrayList<BuildMultiTarget> targets) {
-                if(op.teavm) {
+                if(op.containsArg("teavm")) {
                     targets.add(getTeaVMTarget(op, idlReader));
                 }
-                if(op.windows64) {
+                if(op.containsArg("windows64")) {
                     targets.add(getWindowTarget(op));
                 }
-                if(op.linux64) {
+                if(op.containsArg("linux64")) {
                     targets.add(getLinuxTarget(op));
                 }
-                if(op.mac64) {
+                if(op.containsArg("mac64")) {
                     targets.add(getMacTarget(op, false));
                 }
-                if(op.macArm) {
+                if(op.containsArg("macArm")) {
                     targets.add(getMacTarget(op, true));
                 }
-                if(op.android) {
+                if(op.containsArg("android")) {
                     // TODO fix android input and ui scale (Widgets are too small)
                     targets.add(getAndroidTarget(op));
                 }
