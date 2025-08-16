@@ -3,6 +3,7 @@ package imgui.example.imlayout;
 import com.github.xpenatan.gdx.backends.teavm.config.AssetFileHandle;
 import com.github.xpenatan.gdx.backends.teavm.config.TeaBuildConfiguration;
 import com.github.xpenatan.gdx.backends.teavm.config.TeaBuilder;
+import com.github.xpenatan.gdx.backends.teavm.config.TeaTargetType;
 import imgui.example.imlayout.launcher.Launcher;
 import java.io.File;
 import java.io.IOException;
@@ -14,8 +15,10 @@ public class Build {
         TeaBuildConfiguration teaBuildConfiguration = new TeaBuildConfiguration();
         teaBuildConfiguration.assetsPath.add(new AssetFileHandle("../assets"));
         teaBuildConfiguration.webappPath = new File("build/dist").getCanonicalPath();
+        teaBuildConfiguration.targetType = TeaTargetType.JAVASCRIPT;
 
-        TeaVMTool tool = TeaBuilder.config(teaBuildConfiguration);
+        TeaBuilder.config(teaBuildConfiguration);
+        TeaVMTool tool = new TeaVMTool();
         tool.setMainClass(Launcher.class.getName());
         tool.setObfuscated(false);
         TeaBuilder.build(tool);

@@ -3,6 +3,7 @@ package imgui.example.nodeeditor;
 import com.github.xpenatan.gdx.backends.teavm.config.AssetFileHandle;
 import com.github.xpenatan.gdx.backends.teavm.config.TeaBuildConfiguration;
 import com.github.xpenatan.gdx.backends.teavm.config.TeaBuilder;
+import com.github.xpenatan.gdx.backends.teavm.config.TeaTargetType;
 import imgui.example.nodeeditor.launcher.Launcher;
 import java.io.File;
 import java.io.IOException;
@@ -14,8 +15,9 @@ public class Build {
         TeaBuildConfiguration teaBuildConfiguration = new TeaBuildConfiguration();
         teaBuildConfiguration.assetsPath.add(new AssetFileHandle("../assets"));
         teaBuildConfiguration.webappPath = new File("build/dist").getCanonicalPath();
-
-        TeaVMTool tool = TeaBuilder.config(teaBuildConfiguration);
+        teaBuildConfiguration.targetType = TeaTargetType.JAVASCRIPT;
+        TeaBuilder.config(teaBuildConfiguration);
+        TeaVMTool tool = new TeaVMTool();
         tool.setMainClass(Launcher.class.getName());
         tool.setObfuscated(false);
         TeaBuilder.build(tool);
