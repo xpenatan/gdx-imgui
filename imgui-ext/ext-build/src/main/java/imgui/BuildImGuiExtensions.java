@@ -34,25 +34,25 @@ public class BuildImGuiExtensions {
         BuilderTool.build(op, new BuildToolListener() {
             @Override
             public void onAddTarget(BuildToolOptions op, IDLReader idlReader, ArrayList<BuildMultiTarget> targets) {
-                if(op.teavm) {
+                if(op.containsArg("teavm")) {
                     targets.add(getTeaVMTarget(op, idlReader, extensionsPath));
                 }
-                if(op.windows64) {
+                if(op.containsArg("windows64")) {
                     targets.add(getWindowTarget(op, extensionsPath));
                 }
-                if(op.linux64) {
+                if(op.containsArg("linux64")) {
                     targets.add(getLinuxTarget(op, extensionsPath));
                 }
-                if(op.mac64) {
+                if(op.containsArg("mac64")) {
                     targets.add(getMacTarget(op, false, extensionsPath));
                 }
-                if(op.macArm) {
+                if(op.containsArg("macArm")) {
                     targets.add(getMacTarget(op, true, extensionsPath));
                 }
-//                if(op.android) {
+//                if(op.containsArg("android")) {
 //                    targets.add(getAndroidTarget(op, extensionsPath));
 //                }
-//                if(op.iOS) {
+//                if(op.containsArg("iOS")) {
 //                    targets.add(getIOSTarget(op));
 //                }
             }
