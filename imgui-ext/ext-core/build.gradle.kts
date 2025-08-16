@@ -66,8 +66,12 @@ publishing {
                 withXml {
                     val rootNode = asNode()
                     // Find or create the <dependencies> node
-                    val dependenciesNode = rootNode["dependencies"]?.let { it as groovy.util.NodeList }?.get(0) as groovy.util.Node?
-                        ?: rootNode.appendNode("dependencies")
+                    val deps = rootNode["dependencies"]
+                    val dependenciesNode: groovy.util.Node = if (deps is groovy.util.NodeList && !deps.isEmpty()) {
+                        deps[0] as groovy.util.Node
+                    } else {
+                        rootNode.appendNode("dependencies")
+                    }
 
                     // Remove all existing <dependency> children safely
                     val childrenToRemove = dependenciesNode.children().toList()
@@ -75,7 +79,7 @@ publishing {
                         dependenciesNode.remove(child as groovy.util.Node)
                     }
 
-                    // Add only the api configuration dependencies
+                    // Add only the includePom configuration dependencies
                     configurations["includePom"].dependencies.forEach { dep ->
                         val dependencyNode = dependenciesNode.appendNode("dependency")
                         dependencyNode.appendNode("groupId", dep.group)
