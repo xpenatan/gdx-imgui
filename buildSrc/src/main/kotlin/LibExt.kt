@@ -19,7 +19,7 @@ object LibExt {
     const val jParserVersion = "1.0.0-b15"
     const val jUnitVersion = "4.12"
 
-    const val useRepoLibs = false
+    const val useRepoLibs = true
 }
 
 private fun getVersion(): String {
