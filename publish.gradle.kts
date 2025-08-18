@@ -47,7 +47,7 @@ configure(libProjects) {
             if (this is MavenPublication) {
                 pom {
                     name.set(LibExt.libName)
-                    description.set("Java binding for ImGui")
+                    description.set("ImGui Java Bindings")
                     url.set("https://github.com/xpenatan/xImGui")
                     developers {
                         developer {
