@@ -6,12 +6,18 @@ import idl.helper.IDLIntArray;
 
 public class ImGuiIO extends IDLBase {
 
+    public final static ImGuiIO NULL = createInstance();
+
     public static ImGuiIO TMP_EMPTY = new ImGuiIO(false);
 
-    public ImGuiIO(boolean cMemoryOwn) {
+    public static ImGuiIO createInstance() {
+        return new ImGuiIO((byte) 0, (char) 0);
     }
 
-    public ImGuiIO(byte v, char c) {
+    private ImGuiIO(byte v, char c) {
+    }
+
+    public ImGuiIO(boolean cMemoryOwn) {
     }
 
 //    public boolean ContainsConfigFlags(ImGuiConfigFlags flags) {

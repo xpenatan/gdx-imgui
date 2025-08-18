@@ -4,14 +4,20 @@ import idl.IDLBase;
 
 public class ImVec2 extends IDLBase {
 
+    public final static ImVec2 NULL = createInstance();
     public static ImVec2 TMP_1 = new ImVec2();
     public static ImVec2 TMP_2 = new ImVec2();
     public static ImVec2 TMP_3 = new ImVec2();
     public static ImVec2 TMP_4 = new ImVec2();
 
-    public ImVec2() {}
+    public static ImVec2 createInstance() {
+        return new ImVec2((byte) 0, (char) 0);
+    }
 
-    public ImVec2(byte t) {}
+    private ImVec2(byte v, char c) {
+    }
+
+    public ImVec2() {}
 
     public native float get_x();
     public native float get_y();

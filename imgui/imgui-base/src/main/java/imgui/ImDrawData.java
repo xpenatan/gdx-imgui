@@ -5,12 +5,16 @@ import idl.IDLBase;
 /*[-IDL_SKIP]*/
 public final class ImDrawData extends IDLBase {
 
-    private ImDrawList imDrawList = new ImDrawList(false);
+    private ImDrawList imDrawList = ImDrawList.createInstance();
+
+    public static ImDrawData createInstance() {
+        return new ImDrawData((byte) 0, (char) 0);
+    }
 
     public ImDrawData(boolean cMemoryOwn) {
     }
 
-    public ImDrawData(byte b, char c) {
+    private ImDrawData(byte b, char c) {
     }
 
     public int getCmdListsCount() {

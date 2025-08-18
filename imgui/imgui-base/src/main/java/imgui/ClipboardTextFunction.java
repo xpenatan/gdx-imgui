@@ -6,7 +6,7 @@ import idl.helper.IDLString;
 /*[-IDL_SKIP]*/
 public abstract class ClipboardTextFunction extends IDLBase {
 
-    IDLString TMP = new IDLString((byte)0, (char)0);
+    IDLString TMP = IDLString.createInstance();
 
     /*[-JNI;-NATIVE]
         static jclass clipboardFunctionClass = 0;

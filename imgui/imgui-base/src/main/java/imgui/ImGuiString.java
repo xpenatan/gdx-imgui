@@ -4,9 +4,18 @@ import idl.helper.IDLByteArray;
 
 public class ImGuiString extends IDLByteArray {
 
+    public final static ImGuiString NULL = createInstance();
     public static ImGuiString TMP_1 = new ImGuiString();
 
     private static byte[] tempBytes = new byte[1000];
+
+    public static ImGuiString createInstance() {
+        return new ImGuiString((byte) 0, (char) 0);
+    }
+
+    private ImGuiString(byte v, char c) {
+        super(v, c);
+    }
 
     public ImGuiString() {
         this(256);

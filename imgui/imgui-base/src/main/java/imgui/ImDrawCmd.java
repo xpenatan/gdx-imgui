@@ -12,7 +12,11 @@ public class ImDrawCmd extends IDLBase {
         #endif
     */
 
-    public ImDrawCmd(boolean cMemoryOwn) {
+    public static ImDrawCmd createInstance() {
+        return new ImDrawCmd((byte) 0, (char) 0);
+    }
+
+    private ImDrawCmd(byte v, char c) {
     }
 
     public int getTextureId() {

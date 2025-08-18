@@ -4,6 +4,7 @@ import idl.IDLBase;
 
 public class ImVec4 extends IDLBase {
 
+    public final static ImVec4 NULL = createInstance();
     public static ImVec4 TMP_1 = new ImVec4();
     public static ImVec4 TMP_2 = new ImVec4();
     public static ImVec4 TMP_3 = new ImVec4();
@@ -12,10 +13,14 @@ public class ImVec4 extends IDLBase {
     public static ImVec4 TMP_INTERNAL_1 = new ImVec4();
     public static ImVec4 TMP_INTERNAL_2 = new ImVec4();
 
-    public ImVec4() {
+    public static ImVec4 createInstance() {
+        return new ImVec4((byte) 0, (char) 0);
     }
 
-    public ImVec4(boolean cMemoryOwn) {
+    private ImVec4(byte v, char c) {
+    }
+
+    public ImVec4() {
     }
 
     public native float get_x();
