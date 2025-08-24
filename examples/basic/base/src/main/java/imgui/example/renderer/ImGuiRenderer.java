@@ -1,13 +1,11 @@
 package imgui.example.renderer;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.GL20;
-import imgui.ImFont;
 import imgui.ImFontAtlas;
-import imgui.gdx.ImGuiGdxImpl;
-import imgui.gdx.ImGuiGdxInputMultiplexer;
+import imgui.ImGuiImpl;
 import imgui.ImDrawData;
 import imgui.ImGui;
 import imgui.ImGuiConfigFlags;
@@ -15,18 +13,17 @@ import imgui.ImGuiIO;
 
 public abstract class ImGuiRenderer extends ScreenAdapter {
 
-    private ImGuiGdxImpl impl;
+    private ImGuiImpl impl;
 
-    protected ImGuiGdxInputMultiplexer input;
+    protected InputMultiplexer input;
 
     @Override
     public void show() {
         ImGui.CreateContext();
         ImGuiIO io = ImGui.GetIO();
         io.set_ConfigFlags(ImGuiConfigFlags.DockingEnable);
-
-        input = new ImGuiGdxInputMultiplexer();
-        impl = new ImGuiGdxImpl();
+        input = ImGuiShared.instance.createInput();
+        impl = ImGuiShared.instance.createImpl();
 
         Gdx.input.setInputProcessor(input);
 
@@ -40,8 +37,7 @@ public abstract class ImGuiRenderer extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        ImGuiShared.instance.clearScreen(0.3f, 0.3f, 0.3f, 1);
 
         impl.newFrame();
 

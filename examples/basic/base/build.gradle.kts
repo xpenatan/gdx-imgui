@@ -12,10 +12,8 @@ dependencies {
 
     if(LibExt.useRepoLibs) {
         implementation("com.github.xpenatan.xImGui:imgui-core:-SNAPSHOT")
-        implementation("com.github.xpenatan.xImGui:gdx-impl:-SNAPSHOT")
     }
     else {
         implementation(project(":imgui:imgui-core"))
-        implementation(project(":gdx:gdx-impl"))
     }
 }

@@ -14,7 +14,9 @@ java {
 }
 
 dependencies {
+    implementation(project(":examples:basic:base"))
     implementation(project(":examples:basic:core"))
+    implementation(project(":examples:impl:gdx"))
 
     if(LibExt.useRepoLibs) {
         implementation("com.github.xpenatan.xImGui:imgui-teavm:-SNAPSHOT")

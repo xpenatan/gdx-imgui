@@ -2,6 +2,8 @@ package imgui.example.basic;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import imgui.example.renderer.ImGuiShared;
+import imgui.example.renderer.ImGuiSharedGdx;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,6 +12,8 @@ public class Main {
         config.setTitle("ImGui Basic Example");
         config.useVsync(true);
         config.setOpenGLEmulation(Lwjgl3ApplicationConfiguration.GLEmulation.GL30, 3, 2);
+
+        ImGuiShared.instance = new ImGuiSharedGdx();
         new Lwjgl3Application(new ImGuiGame(), config);
     }
 }

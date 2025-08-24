@@ -5,6 +5,8 @@ import com.github.xpenatan.gdx.backends.teavm.TeaApplication;
 import com.github.xpenatan.gdx.backends.teavm.TeaApplicationConfiguration;
 import com.github.xpenatan.gdx.backends.teavm.TeaFiles;
 import imgui.example.basic.ImGuiGame;
+import imgui.example.renderer.ImGuiShared;
+import imgui.example.renderer.ImGuiSharedGdx;
 
 public class Launcher {
 
@@ -14,6 +16,7 @@ public class Launcher {
         config.width = 0;
         config.height = 0;
         config.useGL30 = true;
+        ImGuiShared.instance = new ImGuiSharedGdx();
         new TeaApplication(new ImGuiGame() {
             @Override
             public void create() {

@@ -12,7 +12,9 @@ include(":imgui-ext:ext-desktop")
 include(":imgui-ext:ext-teavm")
 
 // Implementation
+include(":gdx:gdx-shared-impl")
 include(":gdx:gdx-impl")
+include(":gdx:gdx-wgpu-impl")
 //include(":gdx:lwjgl3-impl")
 
 // Extension ImLayout
@@ -36,9 +38,13 @@ include(":extensions:imgui-node-editor:nodeeditor-core")
 include(":extensions:imgui-node-editor:nodeeditor-teavm")
 
 // Examples
+include(":examples:impl:gdx")
+include(":examples:impl:gdx-wgpu")
+
 include(":examples:basic:base")
 include(":examples:basic:core")
 include(":examples:basic:desktop")
+include(":examples:basic:desktop-wgpu")
 include(":examples:basic:teavm")
 include(":examples:basic:android")
 

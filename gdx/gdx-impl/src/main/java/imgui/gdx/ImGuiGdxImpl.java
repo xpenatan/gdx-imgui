@@ -17,6 +17,7 @@ import imgui.ImDrawList;
 import imgui.ImFontAtlas;
 import imgui.ImGui;
 import imgui.ImGuiIO;
+import imgui.ImGuiImpl;
 import imgui.ImVec4;
 import imgui.idl.helper.IDLByteArray;
 import imgui.idl.helper.IDLIntArray;
@@ -27,7 +28,7 @@ import java.nio.IntBuffer;
 /**
  * @author xpenatan
  */
-public class ImGuiGdxImpl {
+public class ImGuiGdxImpl implements ImGuiImpl {
 
     private VertexAttributes vertexAttributes;
 

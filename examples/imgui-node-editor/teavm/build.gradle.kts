@@ -16,7 +16,9 @@ java {
 val mainClassName = "imgui.example.nodeeditor.Build"
 
 dependencies {
+    implementation(project(":examples:basic:base"))
     implementation(project(":examples:imgui-node-editor:core"))
+    implementation(project(":examples:impl:gdx"))
 
     if(LibExt.useRepoLibs) {
         implementation("com.github.xpenatan.xImGui:imgui-ext-teavm:-SNAPSHOT")

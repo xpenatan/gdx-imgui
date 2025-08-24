@@ -1,16 +1,13 @@
 plugins {
-    id("java")
+    id("java-library")
 }
 
 val moduleName = "gdx-impl"
 
 dependencies {
     implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
-
+    api(project(":gdx:gdx-shared-impl"))
     implementation(project(":imgui:imgui-core"))
-
-    // Use JUnit test framework
-    testImplementation("junit:junit:${LibExt.jUnitVersion}")
 }
 
 java {

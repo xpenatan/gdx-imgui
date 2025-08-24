@@ -10,7 +10,9 @@ java {
 }
 
 dependencies {
+    implementation(project(":examples:basic:base"))
     implementation(project(":examples:ImGuiColorTextEdit:core"))
+    implementation(project(":examples:impl:gdx"))
 
     if(LibExt.useRepoLibs) {
         implementation("com.github.xpenatan.xImGui:imgui-ext-desktop:-SNAPSHOT")
