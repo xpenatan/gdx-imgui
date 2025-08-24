@@ -29,7 +29,7 @@ dependencies {
 val mainClassName = "imgui.example.basic.Main"
 val assetsDir = File("../assets");
 
-tasks.register<JavaExec>("basic-run-desktop") {
+tasks.register<JavaExec>("basic-run-wgpu-desktop") {
     group = "example-desktop"
     description = "Run desktop app"
     mainClass.set(mainClassName)

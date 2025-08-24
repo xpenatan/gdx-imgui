@@ -2,6 +2,8 @@ plugins {
     id("java")
 }
 
+val moduleName = "gdx-shared-impl"
+
 dependencies {
     implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
 
@@ -19,4 +21,13 @@ java {
 java {
     withJavadocJar()
     withSourcesJar()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            artifactId = moduleName
+            from(components["java"])
+        }
+    }
 }
