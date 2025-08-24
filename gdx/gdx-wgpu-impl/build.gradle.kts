@@ -5,10 +5,10 @@ plugins {
 val moduleName = "gdx-wgpu-impl"
 
 dependencies {
-    implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
-    api(project(":gdx:gdx-shared-impl"))
     implementation(project(":imgui:imgui-core"))
-    implementation("io.github.monstroussoftware.gdx-webgpu:gdx-webgpu:${LibExt.gdxWebGPUVersion}")
+    api(project(":gdx:gdx-shared-impl"))
+    implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
+    api("io.github.monstroussoftware.gdx-webgpu:gdx-webgpu:${LibExt.gdxWebGPUVersion}")
 }
 
 java {

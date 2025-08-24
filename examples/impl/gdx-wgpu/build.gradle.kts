@@ -1,5 +1,5 @@
 plugins {
-    id("java")
+    id("java-library")
 }
 
 java {
@@ -11,13 +11,11 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx:${LibExt.gdxVersion}")
     implementation(project(":examples:basic:base"))
     if(LibExt.useRepoLibs) {
-        implementation("com.github.xpenatan.xImGui:gdx-wgpu-impl:-SNAPSHOT")
+        api("com.github.xpenatan.xImGui:gdx-wgpu-impl:-SNAPSHOT")
         implementation("com.github.xpenatan.xImGui:imgui-core:-SNAPSHOT")
     }
     else {
-        implementation(project(":gdx:gdx-wgpu-impl"))
+        api(project(":gdx:gdx-wgpu-impl"))
         implementation(project(":imgui:imgui-core"))
     }
-
-    implementation("io.github.monstroussoftware.gdx-webgpu:gdx-webgpu:${LibExt.gdxWebGPUVersion}")
 }
