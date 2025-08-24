@@ -69,4 +69,4 @@ tasks.register("build_all_projects") {
     tasks.findByPath(extSrc)!!.mustRunAfter(imguiSrc, source2, source3, source4)
 }
 
-apply(from = "publish.gradle.kts")
+apply(plugin = "publish")
