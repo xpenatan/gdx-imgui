@@ -21,11 +21,11 @@ java {
     withSourcesJar()
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            artifactId = moduleName
-            from(components["java"])
-        }
-    }
-}
+//publishing {
+//    publications {
+//        create<MavenPublication>("maven") {
+//            artifactId = moduleName
+//            from(components["java"])
+//        }
+//    }
+//}
