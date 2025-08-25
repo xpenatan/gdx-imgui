@@ -1,15 +1,28 @@
 package imgui.gdx;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.github.xpenatan.webgpu.WGPUTextureView;
 import com.monstrous.gdx.webgpu.graphics.WgShaderProgram;
+import com.monstrous.gdx.webgpu.graphics.WgTexture;
 import imgui.ImDrawData;
+import imgui.ImFontAtlas;
+import imgui.ImGui;
+import imgui.ImGuiIO;
 import imgui.ImGuiImpl;
+import imgui.idl.helper.IDLByteArray;
+import imgui.idl.helper.IDLIntArray;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 /**
  * @author xpenatan
  */
 public class ImGuiGdxWGPUImpl implements ImGuiImpl {
 
-    WgShaderProgram imguiShader;
+    private WgShaderProgram imguiShader;
+
+    private int g_FontTexture = 0;
 
     public ImGuiGdxWGPUImpl() {
 
@@ -22,6 +35,17 @@ public class ImGuiGdxWGPUImpl implements ImGuiImpl {
 
     @Override
     public void newFrame() {
+        float deltaTime = Gdx.graphics.getDeltaTime();
+        int width = Gdx.graphics.getWidth();
+        int height = Gdx.graphics.getHeight();
+        int backBufferWidth = Gdx.graphics.getBackBufferWidth();
+        int backBufferHeight = Gdx.graphics.getBackBufferHeight();
+
+        if(g_FontTexture == 0) {
+            prepareFont();
+        }
+
+        ImGui.UpdateDisplayAndInputAndFrame(deltaTime, width, height, backBufferWidth, backBufferHeight);
     }
 
     @Override
@@ -31,6 +55,36 @@ public class ImGuiGdxWGPUImpl implements ImGuiImpl {
     @Override
     public void dispose() {
         imguiShader.dispose();
+    }
+
+    private void prepareFont() {
+        IDLIntArray width = new IDLIntArray(1);
+        IDLIntArray height = new IDLIntArray(1);
+        IDLByteArray bytesArray = new IDLByteArray(1);
+
+        ImGuiIO io = ImGui.GetIO();
+        ImFontAtlas fonts = io.get_Fonts();
+        fonts.GetTexDataAsRGBA32(bytesArray, width, height);
+        int widthValue = width.getValue(0);
+        int heightValue = height.getValue(0);
+
+        int size = bytesArray.getSize();
+        ByteBuffer buffer = ByteBuffer.allocateDirect(size);
+        buffer.order(ByteOrder.BIG_ENDIAN);
+        for(int i = 0; i < size; i++) {
+            buffer.put(i, bytesArray.getValue(i));
+        }
+        buffer.position(0);
+        buffer.limit(size);
+
+        Pixmap pixmap = new Pixmap(widthValue, heightValue, Pixmap.Format.RGBA8888);
+        pixmap.setPixels(buffer);
+        WgTexture texture = new WgTexture(pixmap);
+        pixmap.dispose();
+
+        WGPUTextureView textureView = texture.getTextureView();
+        g_FontTexture = (int)textureView.native_address;
+        io.SetFontTexID(g_FontTexture);
     }
 
     public String shader_wgsl =
