@@ -31,7 +31,6 @@ import imgui.idl.helper.IDLInt;
 public class BasicExample extends ImGuiRenderer {
 
     private OrthographicCamera uiCam;
-    private SpriteBatch batch;
 
     private boolean init = false;
 
@@ -53,7 +52,6 @@ public class BasicExample extends ImGuiRenderer {
 
         uiCam = new OrthographicCamera();
         uiCam.setToOrtho(true);
-        batch = new SpriteBatch();
 
         ImGuiStyle style = ImGui.GetStyle();
 
@@ -67,7 +65,6 @@ public class BasicExample extends ImGuiRenderer {
     @Override
     public void renderImGui() {
         uiCam.update();
-        batch.setProjectionMatrix(uiCam.combined);
 
         boolean showDocking = false;
 
